@@ -237,5 +237,6 @@
   "Event log emptied": "Event-Log erfolgreich zurückgesetzt.",
   "Empty Event Log": "Event-Log zurücksetzen",
   "Emptying Event Log...": "Event-Log wird zurückgesetzt...",
-  "Return to Event Log": "Zurück zum Event-Log"
+  "Return to Event Log": "Zurück zum Event-Log",
+  "Installed": "Installiert"
 }

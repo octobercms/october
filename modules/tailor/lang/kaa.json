@@ -30,7 +30,7 @@
     "Enabled": "Qosılǵan",
     "Schedule publish date": "Járiyalaw waqtın rejelestiriw",
     "Set expiry date": "Set expiry date",
-    "View full slug": "View full slug",
+    "View full slug": "Tolıq slugtı kóriw",
     "Apply this Draft": "Apply this Draft",
     "Remove": "Óshiriw",
     "Drafts are not visible on the website until they are applied.": "Drafts are not visible on the website until they are applied.",
@@ -82,12 +82,12 @@
     "Sorting": "Tártiplestiriw",
     "Sort by Column": "Qatar boyınsha tártiplestiriw",
     "Model column the records should be ordered by": "Model column the records should be ordered by",
-    "Direction": "Direction",
+    "Direction": "Baǵdar",
     "Update :name Entries": "Jazbalardı jańalaw :name",
     "Update :name": "Jańalaw :name",
     ":name Entry": "Jazba :name",
     "All :name Items": "Barlıq jazbalar :name",
-    "Update Existing Records": "Update Existing Records",
+    "Update Existing Records": "Bar jazbalardı jańalaw",
     "Check this box to update records that match the same ID, title or slug.": "Check this box to update records that match the same ID, title or slug.",
     "Copy": "Kóshirip alıw"
 }

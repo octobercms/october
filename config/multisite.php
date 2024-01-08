@@ -25,6 +25,7 @@ return [
     */
 
     'features' => [
+        'cms_maintenance_setting' => false,
         'backend_mail_setting' => false,
     ],
 

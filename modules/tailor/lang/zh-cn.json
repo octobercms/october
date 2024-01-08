@@ -16,7 +16,7 @@
     "Entries have been enabled": "条目已启用",
     "Entries have been deleted": "条目已被删除",
     "Entries have been restored": "条目已恢复",
-    "Entries have been duplicated": "Entries have been duplicated",
+    "Entries have been duplicated": "条目已复制",
     "Manage Blueprints": "管理蓝图",
     "All Entries": "所有项",
     "Published Date": "发布日期",
@@ -87,7 +87,7 @@
     "Update :name": "更新 :name",
     ":name Entry": ":name 条目",
     "All :name Items": "所有 :name 条目",
-    "Update Existing Records": "Update Existing Records",
-    "Check this box to update records that match the same ID, title or slug.": "Check this box to update records that match the same ID, title or slug.",
-    "Copy": "Copy"
+    "Update Existing Records": "更新现有记录",
+    "Check this box to update records that match the same ID, title or slug.": "选中此项以更新匹配相同ID、标题或slug的记录。",
+    "Copy": "复制"
 }

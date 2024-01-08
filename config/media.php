@@ -30,6 +30,18 @@ return [
 
     'auto_rename' => null,
 
+   /*
+    |--------------------------------------------------------------------------
+    | Clean Vector Files
+    |--------------------------------------------------------------------------
+    |
+    | When a vector file (SVG) file is uploaded, automatically process its
+    | contents to remove scripts and other potentially dangerous content.
+    |
+    */
+
+    'clean_vectors' => true,
+
     /*
     |--------------------------------------------------------------------------
     | Ignored Files and Patterns
