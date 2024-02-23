@@ -349,4 +349,35 @@
     'previous' => 'Previous',
     'next' => 'Next',
   ],
+  'dashboard' => [
+    'report_data_source' => [
+      'data_source_name' => 'System Information',
+      'dimension_version_information' => 'Core version information',
+      'dimension_system_issues' => 'System Issues',
+      'issues_popup' => 'System Issues',
+      'configuration_issues' => 'Issues found',
+      'no_issues' => 'No issues',
+      'dimension_event_log' => 'Event Log',
+      'log_disabled' => 'Disabled',
+      'dimension_request_log' => 'Request log',
+      'widgets' => [
+        'version_information' => [
+          'title' => 'System Build',
+          'link' => 'View available updates'
+        ],
+        'system_issues' => [
+          'title' => 'Configuration',
+          'link' => 'View issues'
+        ],
+        'event_log' => [
+          'title' => 'Event Log',
+          'link' => 'View event log'
+        ],
+        'request_log' => [
+          'title' => 'Request Log',
+          'link' => 'Bad requests'
+        ],
+      ]
+    ]
+  ],
 ];

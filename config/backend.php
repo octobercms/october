@@ -73,7 +73,7 @@ return [
     |
     */
 
-    'turbo_router' => true,
+    'turbo_router' => env('BACKEND_TURBO_ROUTER', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -136,16 +136,18 @@ return [
     |
     | Specify the password policy for backend administrators.
     |
+    | allow_reset       - Allow administrators to reset their own passwords via self service
     | min_length        - Password minimum length between 4 - 128 chars
     | require_uppercase - Require at least one uppercase letter (A–Z)
     | require_lowercase - Require at least one lowercase letter (a–z)
     | require_number    - Require at least one number
     | require_nonalpha  - Require at least one non-alphanumeric character
-    | expire_days       - Enable password expiration after number of days
+    | expire_days       - Enable password expiration after number of days, false to disable
     |
     */
 
     'password_policy' => [
+        'allow_reset' => true,
         'min_length' => 4,
         'require_uppercase' => false,
         'require_lowercase' => false,

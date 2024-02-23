@@ -1,7 +1,7 @@
 {
     "Manage Entries": "Управление записями",
     "Create :name Entry": "Создать запись :name",
-    "New :name Entry": "Новая запись \":имя\"",
+    "New :name": "Новая запись \":имя\"",
     "Import Entries": "Импорт записей",
     "Export Entries": "Экспорт записей",
     "First Draft": "Первый черновик",

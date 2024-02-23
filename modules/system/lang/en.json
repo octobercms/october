@@ -227,7 +227,7 @@
   "Latest": "Latest",
   "Log ID": "Log ID",
   "Counter": "Counter",
-  "Referers": "Referers",
+  "Referers": "Referrers",
   "URL": "URL",
   "This log displays a list of potential errors that occur in the application, such as exceptions and debugging information.": "This log displays a list of potential errors that occur in the application, such as exceptions and debugging information.",
   "Event": "Event",
@@ -238,5 +238,6 @@
   "Empty Event Log": "Empty Event Log",
   "Emptying Event Log...": "Emptying Event Log...",
   "Return to Event Log": "Return to Event Log",
-  "Installed": "Installed"
+  "Installed": "Installed",
+  "Primary Site": "Primary Site"
 }

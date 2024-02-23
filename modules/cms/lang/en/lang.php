@@ -20,6 +20,27 @@
       'manage_themes' => 'Manage Themes',
       'customize_theme' => 'Customize Theme',
     ],
+    'status_data_source' => [
+      'name' => 'Website Status',
+      'dimension_cms_information' => 'Website status information',
+      'status_maintenance' => 'Maintenance',
+      'status_online' => 'Online',
+      'widgets' => [
+        'status' => [
+          'title' => 'Website Status',
+          'link' => 'Manage status'
+        ]
+      ]
+    ],
+    'report_data_source' => [
+      'name' => 'Traffic Information',
+      'metric_pageviews' => 'Pageviews',
+      'metric_unique_visitors' => 'Unique Visitors',
+      'dimension_city' => 'City',
+      'dimension_country' => 'Country',
+      'dimension_page_path' => 'Page Path',
+      'dimension_referral_domain' => 'Referral Domain'
+    ]
   ],
   'theme' => [
     'active' => [
@@ -247,6 +268,23 @@
     'manage_partials' => 'Create, modify and delete CMS partials',
     'manage_themes' => 'Activate, deactivate and configure CMS themes',
     'manage_theme_options' => 'Configure customization options for the active theme',
+    'manage_internal_traffic_statistics' => 'Purge the Internal Traffic Statistics data'
+  ],
+  'internal_traffic_statistics' => [
+    'label' => 'Internal Traffic Statistics',
+    'permission_description' => 'Purge the Internal Traffic Statistics data',
+    'permission_label' => 'Manage Internal Traffic Statistics settings',
+    'hint' => 'The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.',
+    'disabled' => 'Internal Traffic Statistics is disabled. To enable it, edit configuration in config/cms.php.',
+    'enabled' => 'Internal Traffic Statistics is currently enabled. You can adjust the retention period and time zone, or disable this feature, by editing the settings in config/cms.php.',
+    'purging' => 'Purging the data...',
+    'purge_button' => 'Purge Data',
+    'purge_data_confirm' => 'Do you really want to purge the Internal Traffic Statistics data?',
+    'retention' => 'Data retention period',
+    'timezone' => 'Time zone',
+    'retention_mon' => ':retention month(s)',
+    'retention_indefinite' => 'Indefinite',
+    'purge_success' => 'Internal Traffic Statistics data purged'
   ],
   'theme_log' => [
     'hint' => 'This log displays any changes made to the theme by administrators in the back-end area.',
@@ -341,6 +379,7 @@
       'md_filter' => 'The `md` filter converts the value from Markdown to HTML format.',
       'raw_filter' => 'The `raw` filter marks the value as being "safe", which means that a variable will not be escaped if `raw` is the last filter applied to it.',
       'content_filter' => 'The `content` filter converts links and snippets found within the string as content.',
+      'link_filter' => 'The `link` filter converts a link found in the supplied string.',
     ],
   ],
 ];
