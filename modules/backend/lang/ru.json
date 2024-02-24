@@ -308,5 +308,9 @@
   "Update your account details such as name, email address and password.": "Обновите данные своего аккаунта, такие как имя, адрес электронной почты и пароль.",
   "Backend Preferences": "Настройки панели управления",
   "Manage your account preferences such as desired language.": "Управление языком и внешним видом панели управления.",
-  "security login": "Безопасный вход"
+  "security login": "Безопасный вход",
+  "List Setup": "Настройка списка",
+  "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Используйте флажки для выбора колонок, которые вы хотите видеть в списке. Вы можете изменить положение столбцов, перетаскивая их вверх или вниз.",
+  "Records Per Page": "Записей на странице",
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Выберите количество записей на странице для отображения. Обратите внимание, что большое количество записей на одной странице может привести к снижению производительности."
 }

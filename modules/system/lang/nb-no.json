@@ -32,7 +32,7 @@
   "Installing theme: :name": "Laster ned tema: :name",
   "Please specify a Plugin name to install.": "Vennligst oppgi pluginens navn.",
   "Update process complete": "Oppdatering har fullført.",
-  "Plugin installed successfully": "Plugin har blitt installert.",
+  "Package installed successfully": "Plugin har blitt installert.",
   "View the Dashboard": "Se dashboard",
   "Log File": "Loggfil",
   "Sendmail": "Sendmail",
@@ -113,5 +113,15 @@
   "Event log emptied": "Hendelsesloggen er tømt.",
   "Empty Event Log": "Tøm hendelseslogg",
   "Emptying Event Log...": "Tømmer hendelseslogg...",
-  "Return to Event Log": "Tilbake til hendelseslogg"
+  "Return to Event Log": "Tilbake til hendelseslogg",
+  "Are you sure you want to reset the selected plugins? This will reset each plugin's data, restoring it to the initial install state.": "Er du sikker?",
+  "Plugin has been removed from the file system.": "Plugins har blitt fjernet fra systemet.",
+  "search plugins to install...": "søk etter plugins å installere...",
+  "search themes to install...": "søk etter temaer å installere...",
+  "Install Theme": "Installér tema",
+  "Theme Name": "Navn på tema",
+  "Install Plugin": "Installér",
+  "Plugin Name": "Navn på plugin",
+  "Name the plugin by its unique code. For example, RainLab.Blog": "Navngi pluginen ved et unikt navn. For eksempel, RainLab.Blog",
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "Navngi temaet ved et unikt navn. For eksempel, RainLab.Vanilla"
 }

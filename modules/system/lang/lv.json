@@ -89,7 +89,7 @@
   "Removing plugin: :name": "Notiek spraudņa noņemšana: :name",
   "Please specify a Plugin name to install.": "Lūdzu norādiet Spraudņa nosaukumu, kuru instalēt.",
   "Update process complete": "Atjaunināšanas process noritēja veiksmīgi.",
-  "Plugin installed successfully": "Spraudnis tika veiksmīgi instalēts.",
+  "Package installed successfully": "Spraudnis tika veiksmīgi instalēts.",
   "Check Dependencies": "Pārbaudiet atkarības",
   "Install Dependencies": "Instalējiet atkarības",
   "There are missing dependencies needed for the system to run correctly.": "Trūkst atkarību, kas nepieciešamas, lai sistēma darbotos pareizi.",
@@ -181,5 +181,15 @@
   "Event log emptied": "Notikumu žurnāls veiksmīgi notīrīts.",
   "Empty Event Log": "Iztukšot notikumu žurnālu",
   "Emptying Event Log...": "Iztukšojam notikumu žurnālu...",
-  "Return to Event Log": "Atgriezties notikumu žurnālā"
+  "Return to Event Log": "Atgriezties notikumu žurnālā",
+  "Are you sure you want to reset the selected plugins? This will reset each plugin's data, restoring it to the initial install state.": "Vai esat pārliecināts?",
+  "Plugin has been removed from the file system.": "Spraudņi tika noņemti no failu sistēmas.",
+  "search plugins to install...": "meklēt spraudņus, lai instalētu...",
+  "search themes to install...": "meklēt tēmas, kuras instalēt...",
+  "Install Theme": "Instalēt Tēmu",
+  "Theme Name": "Tēmas Nosaukums",
+  "Install Plugin": "Instalēt Spraudni",
+  "Plugin Name": "Spraudņa nosaukums",
+  "Name the plugin by its unique code. For example, RainLab.Blog": "Norādiet spraudņa unikālo kodu. Piemēram, RainLab.Blog",
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "Norādiet tēmas unikālo kodu. Piemēram, RainLab.Vanilla"
 }

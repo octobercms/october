@@ -308,5 +308,9 @@
   "Update your account details such as name, email address and password.": "A felhasználói adatok módosítása.",
   "Backend Preferences": "Beállításaim",
   "Manage your account preferences such as desired language.": "A működésének testreszabása.",
-  "security login": "biztonságos bejelentkezés"
+  "security login": "biztonságos bejelentkezés",
+  "List Setup": "Lista testreszabása",
+  "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "A jelölőnégyzetek használatával válassza ki azokat az oszlopokat, melyeket látni szeretne a listában. Az oszlopok pozícióját felfelé vagy lefelé húzással módosíthatja.",
+  "Records Per Page": "Listázás",
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Adja meg az elemek laponként megjelenítendő számát. Minél nagyobbat választ, annál több időbe kerül a lista frissítése. Az ajánlott érték 20 és 40 közötti."
 }

@@ -38,14 +38,10 @@
   'theme' => [
     'label' => 'Tema',
     'unnamed' => 'Namnlöst tema',
-    'name' => [
-      'label' => 'Temanamn',
-      'help' => 'Namnge temat med en unik kod. Till exempel, RainLab.Vanilla',
-    ],
+    'name' => [],
   ],
   'themes' => [
     'install' => 'Installerar teman',
-    'search' => 'sök efter teman att installera...',
     'installed' => 'Installerade teman',
     'no_themes' => 'Det finns inga teman installerade från marknadsplatsen.',
     'recommended' => 'Rekommenderat',
@@ -54,17 +50,13 @@
   'plugin' => [
     'label' => 'Tillägg',
     'unnamed' => 'Namnlöst tillägg',
-    'name' => [
-      'label' => 'Tilläggsnamn',
-      'help' => 'Namnge tillägget efter dess unika kod. Exempelvis RainLab.Blog',
-    ],
+    'name' => [],
   ],
   'plugins' => [
     'enable_or_disable' => 'Aktivera eller inaktivera',
     'enable_or_disable_title' => 'Aktivera eller inaktivera tillägg',
     'install' => 'Installera tillägg',
     'install_products' => 'Installera produkter',
-    'search' => 'sök efter tillägg att installera...',
     'installed' => 'Installerade tillägg',
     'no_plugins' => 'Det finns inga tillägg installerade från marknadsplatsen.',
     'recommended' => 'Rekommenderat',
@@ -77,12 +69,10 @@
     'selected_amount' => 'Markerade tillägg: :amount',
     'remove_confirm' => 'Är du säker?',
     'remove_success' => 'Tilläggen raderades.',
-    'refresh_confirm' => 'Är du säker?',
     'refresh_success' => 'Tilläggen uppdaterades.',
     'disable_confirm' => 'Är du säker?',
     'disable_success' => 'Tilläggen avaktiverades.',
     'enable_success' => 'Aktiverade tilläggen.',
-    'unknown_plugin' => 'Tillägget har raderats.',
   ],
   'project' => [
     'attach' => 'Länka projekt',
@@ -108,10 +98,7 @@
     'saving' => 'Sparar mall...',
     'sending' => 'Skickar testmeddelande...',
   ],
-  'install' => [
-    'plugin_label' => 'Installera tillägg',
-    'theme_label' => 'Installera tema',
-  ],
+  'install' => [],
   'updates' => [
     'plugin_author' => 'Skapare',
     'plugin_not_found' => 'Plugin not found',

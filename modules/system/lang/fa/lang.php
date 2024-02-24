@@ -82,14 +82,10 @@
   'theme' => [
     'label' => 'قالب',
     'unnamed' => 'قالب بدون نام',
-    'name' => [
-      'label' => 'نام قالب',
-      'help' => 'یک اسم یکتا برای نام قالب برای مثال Rainlab.Vanilla',
-    ],
+    'name' => [],
   ],
   'themes' => [
     'install' => 'نصب قالب جدید',
-    'search' => 'جستجوی قالب برای نصب',
     'installed' => 'قالب های نصب شده',
     'no_themes' => 'هیچ قالبی یافت نشد',
     'recommended' => 'پیشنهادی',
@@ -98,10 +94,7 @@
   'plugin' => [
     'label' => 'افزونه',
     'unnamed' => 'افزونه بدون نام',
-    'name' => [
-      'label' => 'نام افزونه',
-      'help' => 'یک اسم یکتا برای نام افزونه برای مثال: RainLab.Blog',
-    ],
+    'name' => [],
     'by_author' => 'توسط :name',
   ],
   'plugins' => [
@@ -109,7 +102,6 @@
     'enable_or_disable_title' => 'فعال یا غیر فعال کردن افزونه ها',
     'install' => 'نصب افزونه جدید',
     'install_products' => 'نصب محصولات',
-    'search' => 'جستجوی افزونه جهت نصب',
     'installed' => 'افزونه های نصب شده',
     'no_plugins' => 'هیچ افزونه ای نصب نشده است.',
     'recommended' => 'پیشنهادی',
@@ -122,12 +114,10 @@
     'selected_amount' => 'افزونه های انتخاب شده: :amount',
     'remove_confirm' => 'آیا از حذف این افزونه اطمینان دارید؟',
     'remove_success' => 'افزونه ها با موفقیت از سیستم حذف شدند.',
-    'refresh_confirm' => 'آیا اطمینان دارید؟',
     'refresh_success' => 'افزونه ها با موفقیت بارگذاری مجدد شدند.',
     'disable_confirm' => 'آیا اطمینان دارید؟',
     'disable_success' => 'افزونه ها با موفقیت غیر فعال شدند.',
     'enable_success' => 'افرونه ها با موفقیت فعال شدند.',
-    'unknown_plugin' => 'افرونه ها با موفقیت پاک شدند.',
   ],
   'project' => [
     'attach' => 'افرودن به پروژه',
@@ -184,10 +174,7 @@
     ],
     'fields' => [],
   ],
-  'install' => [
-    'plugin_label' => 'نصب افزونه',
-    'theme_label' => 'نصب قالب',
-  ],
+  'install' => [],
   'updates' => [
     'plugin_author' => 'تولید کننده',
     'plugin_not_found' => 'افزونه یافت شد',

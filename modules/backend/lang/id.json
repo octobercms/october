@@ -293,5 +293,9 @@
   "Update your account details such as name, email address and password.": "Kelola rincian akun Anda seperti nama, alamat surel dan sandi lewat.",
   "Backend Preferences": "Penyesuaian Back-end",
   "Manage your account preferences such as desired language.": "Kelola penyesuaian akun Anda seperti bahasa yang diinginkan.",
-  "security login": "Kata kunci"
+  "security login": "Kata kunci",
+  "List Setup": "Pengaturan Tabel",
+  "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Gunakan checkbox untuk memilih kolom yang ingin ditampilkan pada tabel. Anda dapat mengubah posisi kolom dengan cara menarik ke atas ke bawah.",
+  "Records Per Page": "Data per halaman",
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Pilih jumlah data per halaman untuk ditampilkan. Mohon diingat, jumlah data yang banyak dalam satu halaman dapat menurunkan performa."
 }

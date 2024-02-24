@@ -76,14 +76,10 @@
   'theme' => [
     'label' => 'Dizainas',
     'unnamed' => 'Neužvardintas dizainas',
-    'name' => [
-      'label' => 'Dizaino pavadinimas',
-      'help' => 'Užvardinkite dizainą unikaliu kodu. Pavyzdžiui, RainLab.Vanilla',
-    ],
+    'name' => [],
   ],
   'themes' => [
     'install' => 'Įdiegti dizainus',
-    'search' => 'ieškoti dizainų instaliacijai...',
     'installed' => 'Įdiegti dizainai',
     'no_themes' => 'Kolkas įdiegtų dizainų iš viešosios saugyklos nėra.',
     'recommended' => 'Rekomenduojama',
@@ -92,17 +88,13 @@
   'plugin' => [
     'label' => 'Įskiepiai',
     'unnamed' => 'Neužvardintas įskiepis',
-    'name' => [
-      'label' => 'Įskiepio pavadinimas',
-      'help' => 'Užvardinkite įskiepį unikaliu kodu. Pavyzdžiui, RainLab.Blog',
-    ],
+    'name' => [],
   ],
   'plugins' => [
     'enable_or_disable' => 'Įjungti ar išjungti',
     'enable_or_disable_title' => 'Įjungti ar Išjungti įskiepius',
     'install' => 'Įdiegti įskiepius',
     'install_products' => 'Įdiegti produktus',
-    'search' => 'ieškoti įskiepių instaliavimui...',
     'installed' => 'Įdiegti įskiepiai',
     'no_plugins' => 'Kolkas įdiegtų šablonų iš viešosios saugyklos nėra.',
     'recommended' => 'Rekomenduojama',
@@ -115,12 +107,10 @@
     'selected_amount' => 'Pasirinktą įskiepių: :amount',
     'remove_confirm' => 'Ar tikrai norite pašalinti šį įskiepį?',
     'remove_success' => 'Šie įskiepiai buvo sėkmingai pašalinti.',
-    'refresh_confirm' => 'Ar tikrai?',
     'refresh_success' => 'Sėkmingai perkrovėme šiuos įskiepius sistemoje.',
     'disable_confirm' => 'Ar tikrai?',
     'disable_success' => 'Sėkmingai išjungėme šiuos įskiepius.',
     'enable_success' => 'Sėkmingai ijungėme šiuos įskiepius.',
-    'unknown_plugin' => 'Įskiepis buvo pašalintas iš failų sistemos.',
   ],
   'project' => [
     'attach' => 'Prijungti Projektą',
@@ -153,10 +143,7 @@
     'sending' => 'Siunčiamas bandomasis laiškas...',
     'return' => 'Grįžti į šablonų sąrašą',
   ],
-  'install' => [
-    'plugin_label' => 'Įdiegti įskiepį',
-    'theme_label' => 'Įdiegti dizainą',
-  ],
+  'install' => [],
   'updates' => [
     'plugin_author' => 'Autorius',
     'plugin_not_found' => 'Įskiepis nerastas',

@@ -34,7 +34,7 @@
   "Installing theme: :name": "Đang tải theme: :name",
   "Please specify a Plugin name to install.": "Điền vào tên Plugin để cài đặt.",
   "Update process complete": "Cập nhật hoàn tất",
-  "Plugin installed successfully": "Plugin đã được cài thành công",
+  "Package installed successfully": "Plugin đã được cài thành công",
   "View the Dashboard": "Xem bảng điều khiển",
   "Log File": "Log File",
   "Sendmail": "Gửi mail",
@@ -154,5 +154,15 @@
   "Event log emptied": "Đã xóa các bản ghi sự kiện",
   "Empty Event Log": "Xóa hết các bản ghi",
   "Emptying Event Log...": "Đang xóa các bản ghi...",
-  "Return to Event Log": "Quay lại trang các bản ghi sự kiện"
+  "Return to Event Log": "Quay lại trang các bản ghi sự kiện",
+  "Are you sure you want to reset the selected plugins? This will reset each plugin's data, restoring it to the initial install state.": "Xác nhận?",
+  "Plugin has been removed from the file system.": "Đã xóa các file của plugin ra khỏi hệ thống.",
+  "search plugins to install...": "Tìm kiếm plugin để cài đặt...",
+  "search themes to install...": "Tìm kiếm theme để cài đặt...",
+  "Install Theme": "Cài đặt Theme",
+  "Theme Name": "Tên theme",
+  "Install Plugin": "Cài đặt Plugin",
+  "Plugin Name": "Tên plugin",
+  "Name the plugin by its unique code. For example, RainLab.Blog": "Tên của plugin không được trùng lặp. For example, RainLab.Blog",
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "Tên của theme không được trùng lặp. Ví dụ RainLab.Vanilla"
 }

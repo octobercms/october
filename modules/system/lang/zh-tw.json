@@ -84,7 +84,7 @@
   "Installing theme: :name": "下載主題: :name",
   "Please specify a Plugin name to install.": "請輸入要安裝的外掛名稱。",
   "Update process complete": "更新完成.",
-  "Plugin installed successfully": "外掛安裝成功。",
+  "Package installed successfully": "外掛安裝成功。",
   "View the Dashboard": "查看儀表板",
   "Log File": "日誌檔案",
   "Sendmail": "Sendmail",
@@ -144,5 +144,15 @@
   "Event log emptied": "成功清空時間日誌.",
   "Empty Event Log": "清空事件日誌",
   "Emptying Event Log...": "清空事件日誌...",
-  "Return to Event Log": "返回時間日誌"
+  "Return to Event Log": "返回時間日誌",
+  "Are you sure you want to reset the selected plugins? This will reset each plugin's data, restoring it to the initial install state.": "您確定嗎?",
+  "Plugin has been removed from the file system.": "外掛從檔案系統中移除了.",
+  "search plugins to install...": "搜尋外掛...",
+  "search themes to install...": "搜尋主題...",
+  "Install Theme": "安裝主題",
+  "Theme Name": "主題名稱",
+  "Install Plugin": "安裝外掛",
+  "Plugin Name": "外掛名稱",
+  "Name the plugin by its unique code. For example, RainLab.Blog": "外掛的唯一名稱，例如：RainLab.Blog",
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "主題的唯一名稱，例如：RainLab.Vanilla"
 }

@@ -1,0 +1,52 @@
+uuid: 85e471d2-09b9-4f3d-a63b-1ae9d92d2879
+handle: Site\Menus
+type: entry
+name: Menu
+drafts: false
+pagefinder: false
+
+customMessages:
+    buttonCreate: New Menu
+
+navigation:
+    label: Menus
+    icon: icon-sitemap
+    order: 300
+
+fields:
+    slug:
+        label: Code
+        column:
+            label: Code
+            invisible: false
+        validation:
+            - required
+    items:
+        label: Menu Item
+        type: nesteditems
+        span: adaptive
+        maxDepth: 0
+        customMessages:
+            buttonCreate: Add Item
+            titleCreateForm: Create Item
+            titleUpdateForm: Edit Item
+        form:
+            fields:
+                title:
+                    label: Title
+                    tab: Reference
+                    default: New Menu Item
+                    span: full
+                    type: text
+                    validation:
+                        - required
+
+                reference:
+                    label: Reference
+                    type: pagefinder
+                    tab: Reference
+            tabs:
+                fields:
+                    _menu_item:
+                        type: mixin
+                        source: Fields\MenuItem

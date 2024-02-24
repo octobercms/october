@@ -30,7 +30,7 @@ groups:
 
             _blog_post_content:
                 type: mixin
-                source: Blog\PostContent
+                source: Fields\BlogContent
 
     markdown_post:
         name: Markdown Post
@@ -43,4 +43,4 @@ groups:
 
             _blog_post_content:
                 type: mixin
-                source: Blog\PostContent
+                source: Fields\BlogContent

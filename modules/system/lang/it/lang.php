@@ -38,14 +38,10 @@
   'theme' => [
     'label' => 'Tema',
     'unnamed' => 'Tema senza nome',
-    'name' => [
-      'label' => 'Nome tema',
-      'help' => 'Cerca il tema tramite il suo codice univoco. Ad esempio, RainLab.Vanilla',
-    ],
+    'name' => [],
   ],
   'themes' => [
     'install' => 'Installa temi',
-    'search' => 'cerca temi da installare...',
     'installed' => 'Temi installati',
     'no_themes' => 'Non ci sono temi installati dal marketplace.',
     'recommended' => 'Raccomandati',
@@ -54,17 +50,13 @@
   'plugin' => [
     'label' => 'Plugin',
     'unnamed' => 'Plugin senza nome',
-    'name' => [
-      'label' => 'Nome del plugin',
-      'help' => 'Cerca il plugin tramite il suo codice univoco. Ad esempio, RainLab.Blog',
-    ],
+    'name' => [],
   ],
   'plugins' => [
     'enable_or_disable' => 'Abilita o disabilita',
     'enable_or_disable_title' => 'Abilita o disabilita plugin',
     'install' => 'Installa plugin',
     'install_products' => 'Installa prodotti',
-    'search' => 'cerca plugin da installare...',
     'installed' => 'Plugin installati',
     'no_plugins' => 'Non ci sono temi installati dal marketplace.',
     'recommended' => 'Raccomandati',
@@ -77,12 +69,10 @@
     'selected_amount' => 'Plugin selezionati: :amount',
     'remove_confirm' => 'Sei sicuro di voler rimuovere questo plugin?',
     'remove_success' => 'Rimozione dei plugin dal sistema eseguita con successo.',
-    'refresh_confirm' => 'Sei sicuro?',
     'refresh_success' => 'Reinstallazione dei plugin nel sistema eseguita con successo.',
     'disable_confirm' => 'Sei sicuro?',
     'disable_success' => 'Disabilitazione dei plugin eseguita con successo.',
     'enable_success' => 'Abilitazione dei plugin eseguita con successo.',
-    'unknown_plugin' => 'Il plugin è stato rimosso dal file system.',
   ],
   'project' => [
     'attach' => 'Collega progetto',
@@ -115,10 +105,7 @@
     'sending' => 'Invio del messaggio di prova...',
     'return' => 'Ritorna all\'elenco dei modelli',
   ],
-  'install' => [
-    'plugin_label' => 'Installa plugin',
-    'theme_label' => 'Installa tema',
-  ],
+  'install' => [],
   'updates' => [
     'plugin_author' => 'Autore',
     'plugin_not_found' => 'Plugin not found',

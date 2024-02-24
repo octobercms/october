@@ -89,7 +89,7 @@
   "Removing plugin: :name": "Se elimină pluginul: :name",
   "Please specify a Plugin name to install.": "Va rugam sa specificati un nume de Plugin pentru instalare.",
   "Update process complete": "Procesul de actualizare a fost finalizat cu succes.",
-  "Plugin installed successfully": "Acest plugin a fost instalat cu succes.",
+  "Package installed successfully": "Acest plugin a fost instalat cu succes.",
   "Check Dependencies": "Verificați dependențe",
   "Install Dependencies": "Instalați dependențe",
   "There are missing dependencies needed for the system to run correctly.": "Lipsesc dependențe necesare pentru ca sistemul să funcționeze corect.",
@@ -238,5 +238,9 @@
   "Empty Event Log": "Golire jurnal de evenimente",
   "Emptying Event Log...": "Se goleste jurnalul de evenimente...",
   "Return to Event Log": "Intoarcere la jurnalul de evenimente",
-  "Installed": "Installed"
+  "Installed": "Installed",
+  "Plugin has been removed from the file system.": "Plugin-ul a fost inlaturat din sistemul de fisiere.",
+  "Install Plugin": "Instalare Plugin",
+  "Plugin Name": "Nume Plugin",
+  "Name the plugin by its unique code. For example, RainLab.Blog": "Denumiti plugin-ul dupa codul sau unic. De exemplu, RainLab.Blog"
 }

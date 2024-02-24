@@ -89,7 +89,7 @@
   "Removing plugin: :name": "Выдаленне плагіна: :name",
   "Please specify a Plugin name to install.": "Калі ласка, укажыце назву плагіна, каб усталяваць",
   "Update process complete": "Працэс абнаўлення скончаны",
-  "Plugin installed successfully": "Плагін быў паспяхова ўсталяваны",
+  "Package installed successfully": "Плагін быў паспяхова ўсталяваны",
   "Check Dependencies": "Праверце залежнасці",
   "Install Dependencies": "Усталяваць залежнасці",
   "There are missing dependencies needed for the system to run correctly.": "Адсутнічаюць залежнасці, неабходныя для правільнай працы сістэмы.",
@@ -186,5 +186,15 @@
   "Event log emptied": "Спіс падзей паспяхова ачышчаны",
   "Empty Event Log": "Ачысціць спіс падзей",
   "Emptying Event Log...": "Ачыстка спісу падзей...",
-  "Return to Event Log": "Вярнуцца да спісу падзей"
+  "Return to Event Log": "Вярнуцца да спісу падзей",
+  "Are you sure you want to reset the selected plugins? This will reset each plugin's data, restoring it to the initial install state.": "Вы ўпэўнены?",
+  "Plugin has been removed from the file system.": "Плагін быў выдалены з файлавай сістэмы",
+  "search plugins to install...": "пошук плагінаў, каб усталяваць...",
+  "search themes to install...": "пошук тэм, каб усталяваць...",
+  "Install Theme": "Усталяваць тэму",
+  "Theme Name": "Імя тэма",
+  "Install Plugin": "Усталяваць плагін",
+  "Plugin Name": "Назва плагіну",
+  "Name the plugin by its unique code. For example, RainLab.Blog": "Назавіце плагін па яго ўнікальнаму коду. Напрыклад, RainLab.Blog",
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "Назавіце тэму па яе ўнікальнаму коду. Напрыклад, RainLab.Vanilla"
 }

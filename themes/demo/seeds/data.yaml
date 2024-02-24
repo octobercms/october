@@ -29,7 +29,7 @@
 -
     name: About Page Data
     class: Tailor\Models\EntryRecordImport
-    file: seeds/data/pages/aboutpage.json
+    file: seeds/data/pages/about.json
     attributes:
         file_format: json
         blueprint_uuid: a63fabaf-7c0b-4c74-b36f-7abf1a3ad1c1

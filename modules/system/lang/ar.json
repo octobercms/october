@@ -89,7 +89,7 @@
   "Removing plugin: :name": "إزالة البرنامج المساعد:: name",
   "Please specify a Plugin name to install.": "الرجاء تحديد اسم البرنامج المساعد لتثبيته.",
   "Update process complete": "اكتملت عملية التحديث",
-  "Plugin installed successfully": "تم تثبيت البرنامج المساعد بنجاح",
+  "Package installed successfully": "تم تثبيت البرنامج المساعد بنجاح",
   "Check Dependencies": "تحقق من التبعيات",
   "Install Dependencies": "تثبيت التبعيات",
   "There are missing dependencies needed for the system to run correctly.": "هناك تبعيات مفقودة مطلوبة حتى يعمل النظام بشكل صحيح.",

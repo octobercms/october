@@ -39,14 +39,10 @@
   'theme' => [
     'label' => 'Tema',
     'unnamed' => 'Tema sin nombre',
-    'name' => [
-      'label' => 'Nombre Tema',
-      'help' => 'Nombre del tema por su código único. Por ejemplo, RainLab.Vanilla',
-    ],
+    'name' => [],
   ],
   'themes' => [
     'install' => 'Instalar temas',
-    'search' => 'buscar temas para instalar...',
     'installed' => 'Temas Instalados',
     'no_themes' => 'No hay temas instalados desde el mercado.',
     'recommended' => 'Recomendado',
@@ -55,17 +51,13 @@
   'plugin' => [
     'label' => 'Plugin',
     'unnamed' => 'Plugin sin nombre',
-    'name' => [
-      'label' => 'Nombre del Plugin',
-      'help' => 'Nombra el plugin por su código único. por ejemplo, RainLab.Blog',
-    ],
+    'name' => [],
   ],
   'plugins' => [
     'enable_or_disable' => 'Activar o desactivar',
     'enable_or_disable_title' => 'Activar o Desactivar Plugins',
     'install' => 'Instalar plugins',
     'install_products' => 'Instalar productos',
-    'search' => 'buscar plugins para instalar...',
     'installed' => 'Plugins Instalados',
     'no_plugins' => 'No hay plugins instalados desde el mercado.',
     'recommended' => 'Recomendado',
@@ -78,12 +70,10 @@
     'selected_amount' => 'Plugins seleccionado: :amount',
     'remove_confirm' => '¿Está seguro que quiere remover este plugin?',
     'remove_success' => 'Eliminado con éxito los plugins del sistema.',
-    'refresh_confirm' => '¿Está seguro?',
     'refresh_success' => 'Refrescado con éxito los plugins en el sistema.',
     'disable_confirm' => '¿Está seguro?',
     'disable_success' => 'Plugins deshabilitados con éxito.',
     'enable_success' => 'Plugins activados con éxito.',
-    'unknown_plugin' => 'El Plugin ha sido elimina del sistema de archivos.',
   ],
   'project' => [
     'attach' => 'Adjuntar Proyecto',
@@ -140,10 +130,7 @@
     ],
     'fields' => [],
   ],
-  'install' => [
-    'plugin_label' => 'Instalar Plugin',
-    'theme_label' => 'Instalar Theme',
-  ],
+  'install' => [],
   'updates' => [
     'plugin_author' => 'Autor',
     'plugin_not_found' => 'Plugin not found',

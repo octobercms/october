@@ -1,0 +1,47 @@
+##
+description = "External layout"
+==
+<!DOCTYPE html>
+<html>
+    <head>
+        {% partial 'site/head/head-meta' %}
+        <title>October CMS - {{ this.page.meta_title ?: placeholder('pageTitle') }}</title>
+        <meta name="description" content="{{ this.page.meta_description }}">
+        <meta name="title" content="{{ this.page.meta_title }}">
+        {% partial 'site/head/head-links' %}
+        {% partial 'site/head/head-scripts' %}
+        {% partial 'site/head/analytics-code' %}
+    </head>
+    <body class="{{ 'page-'~this.page.id }}">
+
+        <!-- Header -->
+        <header id="layout-header">
+            <nav id="layout-nav" class="navbar navbar-expand-lg navbar-dark">
+                <div class="navbar-container container">
+                    <a class="navbar-brand" href="{{ 'index'|page }}">
+                        <img src="{{ 'assets/images/logo.svg'|theme }}" alt="October CMS Demo" width="230" />
+                    </a>
+                </div>
+            </nav>
+        </header>
+
+        {% partial 'site/flash-messages' %}
+
+        <!-- Content -->
+        <section id="layout-content">
+            {% page %}
+        </section>
+
+        <!-- Footer -->
+        <footer id="layout-footer">
+            <div class="element-footer">
+                <div class="container">
+                </div>
+            </div>
+
+            {% partial 'site/modals/alert-dialog' %}
+            {% partial 'site/modals/password-dialog' %}
+            {% partial 'site/modals/ajax-modal' %}
+        </footer>
+    </body>
+</html>

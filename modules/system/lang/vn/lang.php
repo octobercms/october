@@ -83,14 +83,10 @@
   'theme' => [
     'label' => 'Theme',
     'unnamed' => 'Theme chưa được đặt tên',
-    'name' => [
-      'label' => 'Tên theme',
-      'help' => 'Tên của theme không được trùng lặp. Ví dụ RainLab.Vanilla',
-    ],
+    'name' => [],
   ],
   'themes' => [
     'install' => 'Cài đặt themes',
-    'search' => 'Tìm kiếm theme để cài đặt...',
     'installed' => 'Các theme đã cài đặt',
     'no_themes' => 'Không có theme nào được cài đặt từ chợ theme.',
     'recommended' => 'Được khuyến khích cài đặt',
@@ -99,10 +95,7 @@
   'plugin' => [
     'label' => 'Plugin',
     'unnamed' => 'Plugin chưa được đặt tên',
-    'name' => [
-      'label' => 'Tên plugin',
-      'help' => 'Tên của plugin không được trùng lặp. For example, RainLab.Blog',
-    ],
+    'name' => [],
     'by_author' => 'Tạo bởi :name',
   ],
   'plugins' => [
@@ -110,7 +103,6 @@
     'enable_or_disable_title' => 'Bật hoặc tắt plugin',
     'install' => 'Cài đặt plugin',
     'install_products' => 'Các sản phẩm để cài đặt',
-    'search' => 'Tìm kiếm plugin để cài đặt...',
     'installed' => 'Các plugin đã cài đặt',
     'no_plugins' => 'Không có plugin nào được cài đặt từ chợ plugin',
     'recommended' => 'Được khuyến khích cài đặt',
@@ -123,12 +115,10 @@
     'selected_amount' => 'Số plugin đã được chọn: :amount',
     'remove_confirm' => 'Xác nhận xóa plugin này?',
     'remove_success' => 'Đã xóa các plugin ra khỏi hệ thống.',
-    'refresh_confirm' => 'Xác nhận?',
     'refresh_success' => 'Đã làm mới các plugin.',
     'disable_confirm' => 'Xác nhận tắt?',
     'disable_success' => 'Đã tắt các plugin.',
     'enable_success' => 'Đã bật các plugin.',
-    'unknown_plugin' => 'Đã xóa các file của plugin ra khỏi hệ thống.',
   ],
   'project' => [
     'attach' => 'Chèn Dự án',
@@ -185,10 +175,7 @@
     ],
     'fields' => [],
   ],
-  'install' => [
-    'plugin_label' => 'Cài đặt Plugin',
-    'theme_label' => 'Cài đặt Theme',
-  ],
+  'install' => [],
   'updates' => [
     'plugin_author' => 'Tác giả',
     'plugin_not_found' => 'Không tìm thấy Plugin',

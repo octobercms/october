@@ -32,10 +32,7 @@
   ],
   'plugin' => [
     'unnamed' => 'Plugin fara nume',
-    'name' => [
-      'label' => 'Nume Plugin',
-      'help' => 'Denumiti plugin-ul dupa codul sau unic. De exemplu, RainLab.Blog',
-    ],
+    'name' => [],
   ],
   'plugins' => [
     'enable_or_disable' => 'Activare sau dezactivare',
@@ -49,7 +46,6 @@
     'refresh_success' => 'Plugin-urile respective au fost actualizate cu succes.',
     'disable_success' => 'Plugin-urile respective au fost dezactivate cu succes.',
     'enable_success' => 'Plugin-urile respective au fost activate cu succes.',
-    'unknown_plugin' => 'Plugin-ul a fost inlaturat din sistemul de fisiere.',
   ],
   'project' => [
     'attach' => 'Atasare Proiect',
@@ -72,9 +68,7 @@
     'test_send' => 'Trimitere mesaj de test',
     'return' => 'Intoarcere la lista de sabloane',
   ],
-  'install' => [
-    'plugin_label' => 'Instalare Plugin',
-  ],
+  'install' => [],
   'updates' => [
     'plugin_author' => 'Autor',
     'plugin_not_found' => 'Plugin not found',

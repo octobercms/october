@@ -7,8 +7,11 @@ return [
     | Default HTML Editor Settings
     |--------------------------------------------------------------------------
     |
-    | The default editor settings. These values are all optional
-    | and remember to set the enabled value to true.
+    | The default editor settings. These values are all optional and remember to
+    | set the enabled value to true. The `editor_options` provides defaults
+    | for the `editorOptions` property.
+    |
+    | See https://docs.octobercms.com/3.x/element/form/widget-richeditor.html
     |
     */
 
@@ -52,6 +55,7 @@ return [
             'oc-img-rounded' => 'Rounded',
             'oc-img-bordered' => 'Bordered',
         ],
+        'editor_options' => [],
     ],
 
 ];

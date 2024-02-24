@@ -308,5 +308,9 @@
   "Update your account details such as name, email address and password.": "Actualizati datele contului, precum nume, adresa de email si parola.",
   "Backend Preferences": "Preferinte administrare",
   "Manage your account preferences such as desired language.": "Gestionati preferinte limba si setari aspect panou de administrare.",
-  "security login": "securitate login"
+  "security login": "securitate login",
+  "List Setup": "Setare lista",
+  "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Folositi bife pentru a selecta coloanele pe care doriti sa le vedeti in lista. Puteti modifica pozitia coloanelor glisandu-le in sus sau in jos.",
+  "Records Per Page": "Inregistari pe pagina",
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Selectati numarul de inregistari care sa fie afisat pe pagina. Sa tineti cont de faptul ca un numar mare de inregistari pe o singura pagina poate sa reduca performanta."
 }

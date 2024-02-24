@@ -11,4 +11,4 @@ navigation:
 fields:
     block_builder:
         type: mixin
-        source: Page\Blocks
+        source: Fields\Blocks

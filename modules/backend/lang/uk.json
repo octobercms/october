@@ -308,5 +308,9 @@
   "Update your account details such as name, email address and password.": "Оновіть свої деталі облікового запису, такі як ім'я, електронна адреса та пароль.",
   "Backend Preferences": "Налаштування back-end-у",
   "Manage your account preferences such as desired language.": "Керуйте своїми налаштуваннями облікового запису, як то бажана мова.",
-  "security login": "безпека ім'я користувача"
+  "security login": "безпека ім'я користувача",
+  "List Setup": "Створення списку",
+  "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Використовуйте позначки для вибору колонок, які Ви хочете бачити в списку. Ви моєете змінювати позиції колонок перетягуючи їх вниз-вгору.",
+  "Records Per Page": "Записів на сторінку",
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Оберіть число записів на сторінку для показу. Будь ласка, зауважте, що велике число записів на одну сторінку може зменшити швидкодію."
 }

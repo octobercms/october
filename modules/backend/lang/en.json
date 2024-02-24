@@ -308,5 +308,10 @@
   "Update your account details such as name, email address and password.": "Update your account details such as name, email address and password.",
   "Backend Preferences": "Backend Preferences",
   "Manage your account preferences such as desired language.": "Manage your account preferences such as desired language.",
-  "security login": "security login"
+  "security login": "security login",
+  "List Setup": "List Setup",
+  "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.",
+  "Records Per Page": "Records Per Page",
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.",
+  "Reset to Default": "Reset to Default"
 }

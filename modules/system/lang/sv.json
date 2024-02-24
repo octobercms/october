@@ -89,7 +89,7 @@
   "Removing plugin: :name": "Tar bort plugin: :name",
   "Please specify a Plugin name to install.": "Välj ett tilläggsnamn att installera",
   "Update process complete": "Uppdateringen är slutförd.",
-  "Plugin installed successfully": "Tillägget har installerats",
+  "Package installed successfully": "Tillägget har installerats",
   "Check Dependencies": "Kontrollera beroenden",
   "Install Dependencies": "Installera beroenden",
   "There are missing dependencies needed for the system to run correctly.": "Det saknas beroenden som behövs för att systemet ska fungera korrekt.",
@@ -184,5 +184,15 @@
   "Event log emptied": "Lyckades tömma händelseloggen.",
   "Empty Event Log": "Töm händelseloggen",
   "Emptying Event Log...": "Tömmer händelselogg...",
-  "Return to Event Log": "Återvänd till händelseloggen"
+  "Return to Event Log": "Återvänd till händelseloggen",
+  "Are you sure you want to reset the selected plugins? This will reset each plugin's data, restoring it to the initial install state.": "Är du säker?",
+  "Plugin has been removed from the file system.": "Tillägget har raderats.",
+  "search plugins to install...": "sök efter tillägg att installera...",
+  "search themes to install...": "sök efter teman att installera...",
+  "Install Theme": "Installera tema",
+  "Theme Name": "Temanamn",
+  "Install Plugin": "Installera tillägg",
+  "Plugin Name": "Tilläggsnamn",
+  "Name the plugin by its unique code. For example, RainLab.Blog": "Namnge tillägget efter dess unika kod. Exempelvis RainLab.Blog",
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "Namnge temat med en unik kod. Till exempel, RainLab.Vanilla"
 }

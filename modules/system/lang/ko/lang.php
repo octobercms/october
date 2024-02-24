@@ -38,14 +38,10 @@
   'theme' => [
     'label' => '테마',
     'unnamed' => '이름없는 테마',
-    'name' => [
-      'label' => '테마명',
-      'help' => '중복없는 테마명을 사용해주세요. (예:RainLab.Vanilla)',
-    ],
+    'name' => [],
   ],
   'themes' => [
     'install' => '테마 설치',
-    'search' => '설치할 테마 찾는중...',
     'installed' => '설치된 테마',
     'no_themes' => '마켓에서 설치된 테마가 없습니다.',
     'recommended' => '추천',
@@ -54,10 +50,7 @@
   'plugin' => [
     'label' => '플러그인',
     'unnamed' => '이름없는 플러그인',
-    'name' => [
-      'label' => '플러그인명',
-      'help' => '중복없는 플러그인명을 사용해주세요. (예:RainLab.Blog)',
-    ],
+    'name' => [],
     'by_author' => 'By :name',
   ],
   'plugins' => [
@@ -65,7 +58,6 @@
     'enable_or_disable_title' => '플러그인 활성화/비활성화',
     'install' => '플러그인 설치',
     'install_products' => '제품 설치',
-    'search' => '설치할 플러그인 찾는중...',
     'installed' => '설치된 플러그인',
     'no_plugins' => '마켓에서 설치된 플러그인이 없습니다.',
     'recommended' => '추천',
@@ -78,12 +70,10 @@
     'selected_amount' => '플러그인을 :amount개 선택',
     'remove_confirm' => '이 플러그인을 삭제하시겠습니까?',
     'remove_success' => '시스템에서 플러그인을 삭제했습니다.',
-    'refresh_confirm' => '갱신하시겠습니까?',
     'refresh_success' => '시스템에 설치된 플러그인을 변경했습니다.',
     'disable_confirm' => '비활성화하시겠습니까?',
     'disable_success' => '플러그인을 비활성화 했습니다.',
     'enable_success' => '플러그인을 활성화했습니다.',
-    'unknown_plugin' => '시스템에서 불명확한 플러그인을 삭제했습니다.',
   ],
   'project' => [
     'attach' => '프로젝트 연결',
@@ -116,10 +106,7 @@
     'sending' => '테스트 메시지 전송중...',
     'return' => '템플릿 목록으로 돌아가기',
   ],
-  'install' => [
-    'plugin_label' => '플러그인 설치',
-    'theme_label' => '테마 설치',
-  ],
+  'install' => [],
   'updates' => [
     'plugin_author' => '작성자',
     'plugin_not_found' => '플러그인을 찾을 수 없습니다',

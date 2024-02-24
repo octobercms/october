@@ -158,5 +158,9 @@
   "Update your account details such as name, email address and password.": "Cập nhật thông tin tài khoản của bạn ví dụ như tên, email hoặc mật khẩu.",
   "Backend Preferences": "Tùy chỉnh cá nhân",
   "Manage your account preferences such as desired language.": "Cá nhân hóa trang quản trị với tài khoản của bạn, ví dụ chọn ngôn ngữ.",
-  "security login": "bảo mật đăng nhập"
+  "security login": "bảo mật đăng nhập",
+  "List Setup": "Cài đặt trang danh sách",
+  "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Chọn các cột bạn muốn hiển thị ở trang danh sách các bản ghi. Bạn có thể thay đổi vị trí của chúng bằng các kéo lên hoặc xuống.",
+  "Records Per Page": "Số bản ghi trên một trang",
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Điền vào số bản ghi bạn muốn hiển thị trên một trang. Chú ý quá nhiều bản ghi trên một trang sẽ khiến trang tải chậm"
 }
