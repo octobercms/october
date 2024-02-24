@@ -14,7 +14,7 @@ class UpdateManager
     /**
      * @var string WANT_VERSION is the default composer version string to use.
      */
-    const WANT_VERSION = '^3.5';
+    const WANT_VERSION = '^3.6';
 
     /**
      * Requests details about a project based on its identifier.
