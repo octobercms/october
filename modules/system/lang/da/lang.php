@@ -38,14 +38,10 @@
   'theme' => [
     'label' => 'Tema',
     'unnamed' => 'Unavngivet tema',
-    'name' => [
-      'label' => 'Temanavn',
-      'help' => 'Navngiv temaet med en unik kode. Feks., RainLab.Vanilla',
-    ],
+    'name' => [],
   ],
   'themes' => [
     'install' => 'Installer temaer',
-    'search' => 'Søg efter temaer',
     'installed' => 'Installerede temaer',
     'no_themes' => 'Der er ikke installeret nogle temaer fra markedspladsen.',
     'recommended' => 'Anbefalede',
@@ -54,17 +50,13 @@
   'plugin' => [
     'label' => 'Plugin',
     'unnamed' => 'Unavngivet plugin',
-    'name' => [
-      'label' => 'Pluginnavn',
-      'help' => 'Navngiv pluginet med en unik kode. Feks., RainLab.Blog',
-    ],
+    'name' => [],
   ],
   'plugins' => [
     'enable_or_disable' => 'Aktiver eller deaktiver',
     'enable_or_disable_title' => 'Aktiver eller deaktiver plugins',
     'install' => 'Installer plugins',
     'install_products' => 'Install produkter',
-    'search' => 'Søg efter plugins...',
     'installed' => 'Installerede plugins',
     'no_plugins' => 'Der er ikke installeret nogle plugins fra markedspladsen.',
     'recommended' => 'Anbefalede',
@@ -77,12 +69,10 @@
     'selected_amount' => 'Antal plugins valgt: :amount',
     'remove_confirm' => 'Er du sikker på at du vil fjerne dette plugin?',
     'remove_success' => 'Disse plugins blev fjernet fra systemet.',
-    'refresh_confirm' => 'Er du sikker?',
     'refresh_success' => 'Disse plugins blev opdateret i systemet.',
     'disable_confirm' => 'Er du sikker?',
     'disable_success' => 'Disse plugins blev deaktiveret.',
     'enable_success' => 'Disse plugins blev aktiveret.',
-    'unknown_plugin' => 'Pluginet er blevet fjernet fra filsystemet.',
   ],
   'project' => [
     'attach' => 'Tilknyt Projekt',
@@ -115,10 +105,7 @@
     'sending' => 'Sender test besked...',
     'return' => 'Tilbage til skabelonoversigt',
   ],
-  'install' => [
-    'plugin_label' => 'Installer Plugin',
-    'theme_label' => 'Installer Tema',
-  ],
+  'install' => [],
   'updates' => [
     'plugin_author' => 'Ejer',
     'plugin_not_found' => 'Plugin not found',

@@ -296,5 +296,9 @@
   "Update your account details such as name, email address and password.": "Opdater dine kontodetaljer som eksempelvis navn, email-adresse og adgangskode.",
   "Backend Preferences": "Backend indstillinger",
   "Manage your account preferences such as desired language.": "Administrer dine backend indstillinger som eksempelvis dit ønskede sprog.",
-  "security login": "Sikkerhedslogin"
+  "security login": "Sikkerhedslogin",
+  "List Setup": "Listeopsætning",
+  "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Brug afkrydsningsfelterne til at vælge de kolonner du vil se i listen. Du kan lndre position for kolonnerne ved at trække dem op og ned.",
+  "Records Per Page": "Records pr. side",
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Vælg det antal records der skal vises pr. side. Vær opmærksom på at et stort antal records på en enkelt side, kan gøre siden langsom."
 }

@@ -89,7 +89,7 @@
   "Removing plugin: :name": "Plagin óshirilmekte: :name",
   "Please specify a Plugin name to install.": "Ótinish, ornatıw ushın plagin atamasın kórsetiń.",
   "Update process complete": "Jańalaw procesi tabıslı juwmaqlandı",
-  "Plugin installed successfully": "Plagin tabıslı júklendi",
+  "Package installed successfully": "Plagin tabıslı júklendi",
   "Check Dependencies": "Check Dependencies",
   "Install Dependencies": "Install Dependencies",
   "There are missing dependencies needed for the system to run correctly.": "There are missing dependencies needed for the system to run correctly.",

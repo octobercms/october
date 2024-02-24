@@ -1,5 +1,5 @@
 uuid: 936f26c0-b816-4c78-afaa-0b6977e80213
-handle: Menu\Item
+handle: Fields\MenuItem
 type: mixin
 name: Menu Item
 

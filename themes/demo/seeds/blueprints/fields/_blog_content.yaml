@@ -1,5 +1,5 @@
 uuid: 4d7fd1e4-85f2-48f5-947e-92819fc8664b
-handle: Blog\PostContent
+handle: Fields\BlogContent
 type: mixin
 name: Blog Post Content
 

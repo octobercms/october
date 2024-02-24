@@ -89,7 +89,7 @@
   "Removing plugin: :name": "플러그인 제거: :name",
   "Please specify a Plugin name to install.": "설치할 플러그인명을 설정해주세요.",
   "Update process complete": "업데이트 했습니다.",
-  "Plugin installed successfully": "플러그인을 설치했습니다.",
+  "Package installed successfully": "플러그인을 설치했습니다.",
   "Check Dependencies": "종속성 확인",
   "Install Dependencies": "종속성 설치",
   "There are missing dependencies needed for the system to run correctly.": "시스템이 올바르게 실행되는 데 필요한 누락된 종속성이 있습니다.",
@@ -194,5 +194,15 @@
   "Event log emptied": "이벤트로그를 비웠습니다.",
   "Empty Event Log": "이벤트로그 비우기",
   "Emptying Event Log...": "이벤트로그를 비우는 중입니다...",
-  "Return to Event Log": "이벤트로그로 돌아가기"
+  "Return to Event Log": "이벤트로그로 돌아가기",
+  "Are you sure you want to reset the selected plugins? This will reset each plugin's data, restoring it to the initial install state.": "갱신하시겠습니까?",
+  "Plugin has been removed from the file system.": "시스템에서 불명확한 플러그인을 삭제했습니다.",
+  "search plugins to install...": "설치할 플러그인 찾는중...",
+  "search themes to install...": "설치할 테마 찾는중...",
+  "Install Theme": "테마 설치",
+  "Theme Name": "테마명",
+  "Install Plugin": "플러그인 설치",
+  "Plugin Name": "플러그인명",
+  "Name the plugin by its unique code. For example, RainLab.Blog": "중복없는 플러그인명을 사용해주세요. (예:RainLab.Blog)",
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "중복없는 테마명을 사용해주세요. (예:RainLab.Vanilla)"
 }

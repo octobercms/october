@@ -89,7 +89,7 @@
   "Removing plugin: :name": "Removing plugin: :name",
   "Please specify a Plugin name to install.": "Будь ласка, вкажіть назву плагіна для установки.",
   "Update process complete": "Процес оновлення успішно завершений.",
-  "Plugin installed successfully": "Плагін був успішно встановлений.",
+  "Package installed successfully": "Плагін був успішно встановлений.",
   "Check Dependencies": "Check Dependencies",
   "Install Dependencies": "Install Dependencies",
   "There are missing dependencies needed for the system to run correctly.": "There are missing dependencies needed for the system to run correctly.",
@@ -238,5 +238,15 @@
   "Empty Event Log": "Очистити журнал подій",
   "Emptying Event Log...": "Очищення журналу подій...",
   "Return to Event Log": "Повернутися до журналу подій",
-  "Installed": "Installed"
+  "Installed": "Installed",
+  "Are you sure you want to reset the selected plugins? This will reset each plugin's data, restoring it to the initial install state.": "Ви впевнені?",
+  "Plugin has been removed from the file system.": "Плагін був видалений з файлової системи.",
+  "search plugins to install...": "Пошук плагінів для установки...",
+  "search themes to install...": "Пошук тем для установки...",
+  "Install Theme": "Встановити тему",
+  "Theme Name": "Назва теми",
+  "Install Plugin": "Встановити плагін",
+  "Plugin Name": "Назва плагіну",
+  "Name the plugin by its unique code. For example, RainLab.Blog": "Введіть назву плагіна зі своїм унікальним кодом. Наприклад, RainLab.Blog",
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "Назва теми по її унікальним кодом. Наприклад, RainLab.Vanilla"
 }

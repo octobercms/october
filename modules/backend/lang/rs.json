@@ -167,5 +167,9 @@
   "Update your account details such as name, email address and password.": "Ažuriraj detalje svog naloga kao što su ime, prezime, email adresa i lozinka.",
   "Backend Preferences": "Postavke pozadinskog sistema",
   "Manage your account preferences such as desired language.": "Upravljaj postavkama tvog naloga.",
-  "security login": "bezbednosno logovanje"
+  "security login": "bezbednosno logovanje",
+  "List Setup": "Podešavanje liste",
+  "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Koristi polja za potvrdu za biranje kolona koje želiš da vidiš u listi. Možeš menjati položaj kolona prevlačenjem na gore ili dole.",
+  "Records Per Page": "Zapisa po strani",
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Izaberi broj zapisa za prikazivanje po strani. Imaj samo na umu da veliki broj zapisa po strani može smanjiti performanse."
 }

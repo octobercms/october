@@ -89,7 +89,7 @@
   "Removing plugin: :name": "Rimozione del plug-in: :name",
   "Please specify a Plugin name to install.": "Specifica il nome del plugin da installare.",
   "Update process complete": "L'aggiornamento è stato eseguito con successo.",
-  "Plugin installed successfully": "Il plugin è stato installato con successo.",
+  "Package installed successfully": "Il plugin è stato installato con successo.",
   "Check Dependencies": "Controlla le dipendenze",
   "Install Dependencies": "Installa dipendenze",
   "There are missing dependencies needed for the system to run correctly.": "Mancano dipendenze necessarie per il corretto funzionamento del sistema.",
@@ -186,5 +186,15 @@
   "Event log emptied": "Il registro eventi è stato svuotato con successo.",
   "Empty Event Log": "Svuota il registro eventi",
   "Emptying Event Log...": "Svuotamento del registro eventi in corso...",
-  "Return to Event Log": "Ritorna al registro eventi"
+  "Return to Event Log": "Ritorna al registro eventi",
+  "Are you sure you want to reset the selected plugins? This will reset each plugin's data, restoring it to the initial install state.": "Sei sicuro?",
+  "Plugin has been removed from the file system.": "Il plugin è stato rimosso dal file system.",
+  "search plugins to install...": "cerca plugin da installare...",
+  "search themes to install...": "cerca temi da installare...",
+  "Install Theme": "Installa tema",
+  "Theme Name": "Nome tema",
+  "Install Plugin": "Installa plugin",
+  "Plugin Name": "Nome del plugin",
+  "Name the plugin by its unique code. For example, RainLab.Blog": "Cerca il plugin tramite il suo codice univoco. Ad esempio, RainLab.Blog",
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "Cerca il tema tramite il suo codice univoco. Ad esempio, RainLab.Vanilla"
 }

@@ -32,10 +32,7 @@
   ],
   'plugin' => [
     'unnamed' => 'Plugin Tidak Bernama',
-    'name' => [
-      'label' => 'Nama Plugin',
-      'help' => 'Gunakan nama plugin dengan kode uniknya. Contoh, RainLab.Blog',
-    ],
+    'name' => [],
   ],
   'plugins' => [
     'enable_or_disable' => 'Aktif atau Deaktif',
@@ -47,12 +44,10 @@
     'selected_amount' => 'Plugin terpilih: :amount',
     'remove_confirm' => 'Anda yakin akan melepaskannya?',
     'remove_success' => 'Berhasil melepaskan plugin tersebut dari sistem.',
-    'refresh_confirm' => 'Anda yakin akan memuat ulang?',
     'refresh_success' => 'Berhasil memuat ulang plugin dalam sistem.',
     'disable_confirm' => 'Anda yakin akan menonaktifkannya?',
     'disable_success' => 'Berhasil menonaktifkan plugin tersebut.',
     'enable_success' => 'Berhasil mengaktifkan plugin tersebut.',
-    'unknown_plugin' => 'Plugin telah dilepas dari sistem berkas.',
   ],
   'project' => [
     'attach' => 'Kaitkan Proyek',
@@ -75,9 +70,7 @@
     'test_send' => 'Kirim pesan ujicoba',
     'return' => 'Kembali ke daftar templat',
   ],
-  'install' => [
-    'plugin_label' => 'Pasang Plugin',
-  ],
+  'install' => [],
   'updates' => [
     'plugin_author' => 'Pemilik',
     'plugin_not_found' => 'Plugin tidak ditemukan',

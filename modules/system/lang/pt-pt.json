@@ -89,7 +89,7 @@
   "Removing plugin: :name": "Removing plugin: :name",
   "Please specify a Plugin name to install.": "Por favor, especifique um nome da extensão para instalar.",
   "Update process complete": "O processo de actualização foi realizado com sucesso.",
-  "Plugin installed successfully": "A extensão foi instalada com sucesso.",
+  "Package installed successfully": "A extensão foi instalada com sucesso.",
   "Check Dependencies": "Check Dependencies",
   "Install Dependencies": "Install Dependencies",
   "There are missing dependencies needed for the system to run correctly.": "There are missing dependencies needed for the system to run correctly.",
@@ -238,5 +238,15 @@
   "Empty Event Log": "Esvaziar registo de eventos",
   "Emptying Event Log...": "Esvaziando registo de eventos...",
   "Return to Event Log": "Regressar ao registo de eventos",
-  "Installed": "Installed"
+  "Installed": "Installed",
+  "Are you sure you want to reset the selected plugins? This will reset each plugin's data, restoring it to the initial install state.": "Tem a certeza?",
+  "Plugin has been removed from the file system.": "Extensão removida do sistema de ficheiros.",
+  "search plugins to install...": "Procurar extensão para instalar...",
+  "search themes to install...": "Procurar temas para instalar...",
+  "Install Theme": "Instalar tema",
+  "Theme Name": "Nome do Tema",
+  "Install Plugin": "Instalar extensão",
+  "Plugin Name": "Nome da extensão",
+  "Name the plugin by its unique code. For example, RainLab.Blog": "Nomeie a extensão pelo seu código exclusivo. Por exemplo, RainLab.Blog",
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "O nome do tema deve ser único. Por exemplo, RainLab.Vanilla"
 }

@@ -38,14 +38,10 @@
   'theme' => [
     'label' => 'Tema',
     'unnamed' => 'Tema uten navn',
-    'name' => [
-      'label' => 'Navn på tema',
-      'help' => 'Navngi temaet ved et unikt navn. For eksempel, RainLab.Vanilla',
-    ],
+    'name' => [],
   ],
   'themes' => [
     'install' => 'Installer tema',
-    'search' => 'søk etter temaer å installere...',
     'installed' => 'Installerte temaer',
     'no_themes' => 'Det er ingen installerte temaer fra markedsplassen.',
     'recommended' => 'Anbefalt',
@@ -54,17 +50,13 @@
   'plugin' => [
     'label' => 'Plugin',
     'unnamed' => 'Plugin uten navn',
-    'name' => [
-      'label' => 'Navn på plugin',
-      'help' => 'Navngi pluginen ved et unikt navn. For eksempel, RainLab.Blog',
-    ],
+    'name' => [],
   ],
   'plugins' => [
     'enable_or_disable' => 'Aktivere eller deaktivere',
     'enable_or_disable_title' => 'Aktivere eller deaktivere plugins',
     'install' => 'Installer plugins',
     'install_products' => 'Installer produkter',
-    'search' => 'søk etter plugins å installere...',
     'installed' => 'Installerte plugins',
     'no_plugins' => 'Det er ingen installerte plugins fra markedsplassen.',
     'recommended' => 'Anbefalt',
@@ -77,12 +69,10 @@
     'selected_amount' => 'Valgte plugins: :amount',
     'remove_confirm' => 'Er du sikker?',
     'remove_success' => 'Plugins har blitt fjernet fra systemet.',
-    'refresh_confirm' => 'Er du sikker?',
     'refresh_success' => 'Plugins har blitt oppdatert i systemet.',
     'disable_confirm' => 'Er du sikker?',
     'disable_success' => 'Plugins har blitt deaktivert.',
     'enable_success' => 'Plugins har blitt aktivert.',
-    'unknown_plugin' => 'Plugins har blitt fjernet fra systemet.',
   ],
   'project' => [
     'attach' => 'Tilkoble prosjekt',
@@ -115,10 +105,7 @@
     'sending' => 'Sender testmelding...',
     'return' => 'Tilbake til mallisten',
   ],
-  'install' => [
-    'plugin_label' => 'Installér',
-    'theme_label' => 'Installér tema',
-  ],
+  'install' => [],
   'updates' => [
     'plugin_author' => 'Utgiver',
     'plugin_not_found' => 'Plugin not found',

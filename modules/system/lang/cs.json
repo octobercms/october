@@ -89,7 +89,7 @@
   "Removing plugin: :name": "Odebírání pluginu: :name",
   "Please specify a Plugin name to install.": "Zadejte prosím jméno pluginu které chcete instalovat.",
   "Update process complete": "Aktualizace systému proběhla úspěšně.",
-  "Plugin installed successfully": "Plugin byl úspěšně nainstalován.",
+  "Package installed successfully": "Plugin byl úspěšně nainstalován.",
   "Check Dependencies": "Zkontrolujte závislosti",
   "Install Dependencies": "Nainstalujte závislosti",
   "There are missing dependencies needed for the system to run correctly.": "Chybí závislosti potřebné pro správné fungování systému.",
@@ -238,5 +238,15 @@
   "Empty Event Log": "Smazat protokol událostí",
   "Emptying Event Log...": "Mazání protokolu událostí...",
   "Return to Event Log": "Zpět na protokol událostí",
-  "Installed": "Instalováno"
+  "Installed": "Instalováno",
+  "Are you sure you want to reset the selected plugins? This will reset each plugin's data, restoring it to the initial install state.": "Jste si jistí?",
+  "Plugin has been removed from the file system.": "Plugin odstraněn ze systému.",
+  "search plugins to install...": "vyhledejte pluginy k instalaci...",
+  "search themes to install...": "Vyhledat téma k instalaci...",
+  "Install Theme": "Instalace téma",
+  "Theme Name": "Název téma",
+  "Install Plugin": "Instalace pluginu",
+  "Plugin Name": "Název pluginu",
+  "Name the plugin by its unique code. For example, RainLab.Blog": "Pojmenujte plugin unikátním kódem, například RainLab.Blog",
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "Název téma podle jeho unikátního názvu, například RainLab.Vanilla"
 }

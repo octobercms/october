@@ -89,7 +89,7 @@
   "Removing plugin: :name": "Entferne Plugin: :name",
   "Please specify a Plugin name to install.": "Bitte geben Sie den Namen des zu installierenden Plugin an.",
   "Update process complete": "Aktualisierungsvorgang erfolgreich.",
-  "Plugin installed successfully": "Das Plugin wurde erfolgreich installiert.",
+  "Package installed successfully": "Das Plugin wurde erfolgreich installiert.",
   "Check Dependencies": "Abhängigkeiten prüfen",
   "Install Dependencies": "Abhängigkeiten installieren",
   "There are missing dependencies needed for the system to run correctly.": "Es fehlen Abhängigkeiten für den korrekten Betrieb des Systems.",
@@ -238,5 +238,8 @@
   "Empty Event Log": "Event-Log zurücksetzen",
   "Emptying Event Log...": "Event-Log wird zurückgesetzt...",
   "Return to Event Log": "Zurück zum Event-Log",
-  "Installed": "Installiert"
+  "Installed": "Installiert",
+  "Install Plugin": "Plugin installieren",
+  "Plugin Name": "Plugin-Name",
+  "Name the plugin by its unique code. For example, RainLab.Blog": "Benennen Sie das Plugin eindeutig, zum Beispiel RainLab.Blog"
 }

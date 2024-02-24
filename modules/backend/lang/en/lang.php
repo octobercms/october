@@ -113,7 +113,7 @@
     'apply_changes' => 'Apply changes',
     'section_show_interval' => 'Show Date Interval',
     'dimension_date' => 'Date',
-    'widget_chart_type' => "Chart type",
+    'widget_chart_type' => 'Chart type',
     'widget_chart_type_bar' => 'Bar',
     'widget_chart_type_stacked_bar' => 'Stacked Bar',
     'widget_chart_type_line' => 'Line',
@@ -167,7 +167,7 @@
       'violet' => 'Violet',
       'pink' => 'Pink',
       'rose' => 'Rose',
-      'slate' => 'Slate'
+      'slate' => 'Slate',
     ],
     'color_required' => 'Select the metric color',
     'prop_color' => 'Color',
@@ -193,8 +193,8 @@
     'filter_operation_includes' => 'Includes',
     'filter_operation_one_of' => 'One of',
     'prop_operation' => 'Operation',
-    'prop_value'=>'Value',
-    'prop_values'=>'Values',
+    'prop_value' => 'Value',
+    'prop_values' => 'Values',
     'prop_values_one_per_line' => 'One value per line',
     'prop_filter_attribute' => 'Attribute',
     'filter_select_attribute' => 'Select an attribute',
@@ -354,10 +354,6 @@
     'refresh' => 'Refresh',
     'updating' => 'Updating...',
     'loading' => 'Loading...',
-    'setup_title' => 'List Setup',
-    'setup_help' => 'Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.',
-    'records_per_page' => 'Records Per Page',
-    'records_per_page_help' => 'Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.',
     'check' => 'Check',
     'create_button' => 'New :name',
     'delete_selected' => 'Delete selected',
@@ -583,7 +579,7 @@
   'permissions' => [
     'manage_media' => 'Upload and manage media contents - images, videos, sounds, documents',
     'create_edit_dashboards' => 'Create and manage dashboards. Note that users granted this permission can access data from any dashboards and report widgets available in the system.',
-    'access_dashboard' => 'Dashboards a user can access are determined by individual dashboard access settings.'
+    'access_dashboard' => 'Dashboards a user can access are determined by individual dashboard access settings.',
   ],
   'mediafinder' => [
     'label' => 'Media Finder',

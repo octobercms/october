@@ -296,5 +296,9 @@
   "Update your account details such as name, email address and password.": "به روز رسانی اطلاعات حساب کار بری شما مانند نام و کلمه عبور و ... .",
   "Backend Preferences": "تنظیمات مدیریت",
   "Manage your account preferences such as desired language.": "تنظیمات مربوط به زبان مربوط به قسمت مدیریت.",
-  "security login": "ورود امن"
+  "security login": "ورود امن",
+  "List Setup": "راه اندازی لیست",
+  "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "ستون هایی را که میخواهید مشاهده نمایید را انتخاب نمایید. میتوانید محل قرار گیری ستونها را با جابجا نمودن آنها به .",
+  "Records Per Page": "مورد در هر صفحه",
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "تعداد موارد نمایش داده شده در هر صفحه را انتخاب نمایید. لطفا توجه نمایید نمایش تعداد زیادی از موارد در هر صفحه از کارایی سیستم میکاهد."
 }

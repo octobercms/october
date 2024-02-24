@@ -89,7 +89,7 @@
   "Removing plugin: :name": "プラグインを削除しています: :name",
   "Please specify a Plugin name to install.": "インストールするプラグインの名前を指定してください。",
   "Update process complete": "アップデートしました。",
-  "Plugin installed successfully": "プラグインをインストールしました。",
+  "Package installed successfully": "プラグインをインストールしました。",
   "Check Dependencies": "依存関係を確認する",
   "Install Dependencies": "依存関係のインストール",
   "There are missing dependencies needed for the system to run correctly.": "システムが正しく動作するために必要な依存関係が欠落しています。",
@@ -178,5 +178,10 @@
   "Event log emptied": "イベントログを空にしました。",
   "Empty Event Log": "イベントログを空にする",
   "Emptying Event Log...": "イベントログを空にしています...",
-  "Return to Event Log": "イベントログに戻る"
+  "Return to Event Log": "イベントログに戻る",
+  "Are you sure you want to reset the selected plugins? This will reset each plugin's data, restoring it to the initial install state.": "更新していいですか？",
+  "Plugin has been removed from the file system.": "システムから見知らぬプラグインを削除しました。",
+  "Install Plugin": "プラグインインストール",
+  "Plugin Name": "プラグイン名",
+  "Name the plugin by its unique code. For example, RainLab.Blog": "重複しないプラグイン名を付けてください。（例：RainLab.Blog）"
 }

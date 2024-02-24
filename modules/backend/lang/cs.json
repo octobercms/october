@@ -308,5 +308,9 @@
   "Update your account details such as name, email address and password.": "Nastavte si svoje jméno, e-mailovou adresu a heslo.",
   "Backend Preferences": "Nastavení administrace",
   "Manage your account preferences such as desired language.": "Spravujte nastavení svého uživatelského účtu, jako je například jazyk apod.",
-  "security login": "bezpečnost login"
+  "security login": "bezpečnost login",
+  "List Setup": "Nastavení výpisu",
+  "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Pomocí checkboxů si vyberte, které sloupce chcete ve výpisu vidět. Pozici změníte chytnutím a posunem nahorů, nebo dolů.",
+  "Records Per Page": "Záznamů na stránku",
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Vyberte kolik chcete vidět záznamů na jedné stránce. Vysoký počet záznamů může negativně ovlivnit rychlost stránek."
 }

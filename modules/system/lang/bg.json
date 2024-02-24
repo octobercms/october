@@ -89,7 +89,7 @@
   "Removing plugin: :name": "Премахване на плъгина: :име",
   "Please specify a Plugin name to install.": "Моля, укажете име на Добавката за инсталиране.",
   "Update process complete": "Процесът на актуализация е извършена успешно.",
-  "Plugin installed successfully": "Добавката е инсталирана успешно.",
+  "Package installed successfully": "Добавката е инсталирана успешно.",
   "Check Dependencies": "Проверете зависимостите",
   "Install Dependencies": "Инсталиране на зависимости",
   "There are missing dependencies needed for the system to run correctly.": "Липсват зависимости, необходими за правилното функциониране на системата.",
@@ -184,5 +184,15 @@
   "Event log emptied": "Успешно изчистване дневника (регистъра) на събитията.",
   "Empty Event Log": "Изтрии събитията в регистъра",
   "Emptying Event Log...": "Изтриване на събитията в регистъра...",
-  "Return to Event Log": "Назад към регистъра на събитията"
+  "Return to Event Log": "Назад към регистъра на събитията",
+  "Are you sure you want to reset the selected plugins? This will reset each plugin's data, restoring it to the initial install state.": "Сигурни ли сте че искате да ги презаредите?",
+  "Plugin has been removed from the file system.": "Добавката е премахната от системата.",
+  "search plugins to install...": "потърси добавка за инсталиране...",
+  "search themes to install...": "потърси тема за инсталиране...",
+  "Install Theme": "Инсталиране на Тема",
+  "Theme Name": "Име на тема",
+  "Install Plugin": "Инсталиране на Добавка",
+  "Plugin Name": "Име на добавка",
+  "Name the plugin by its unique code. For example, RainLab.Blog": "Именувайте добавката с уникално име. Например: RainLab.Blog",
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "Именувайте темата с уникално име. Например: RainLab.Vanilla"
 }

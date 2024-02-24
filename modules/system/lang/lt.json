@@ -89,7 +89,7 @@
   "Removing plugin: :name": "Pašalinamas papildinys: :name",
   "Please specify a Plugin name to install.": "Nurodykite instaliuojamo Įskiepio pavadinimą.",
   "Update process complete": "Atnaujinimo procesas baigtas",
-  "Plugin installed successfully": "Įskiepis įdiegtas sėkmingai",
+  "Package installed successfully": "Įskiepis įdiegtas sėkmingai",
   "Check Dependencies": "Patikrinkite priklausomybes",
   "Install Dependencies": "Įdiekite priklausomybes",
   "There are missing dependencies needed for the system to run correctly.": "Trūksta priklausomybių, reikalingų, kad sistema veiktų tinkamai.",
@@ -186,5 +186,15 @@
   "Event log emptied": "Registras sėkmingai išvalytas.",
   "Empty Event Log": "Išvalyti registrą",
   "Emptying Event Log...": "Išvalome registą...",
-  "Return to Event Log": "Grįžti į registrą"
+  "Return to Event Log": "Grįžti į registrą",
+  "Are you sure you want to reset the selected plugins? This will reset each plugin's data, restoring it to the initial install state.": "Ar tikrai?",
+  "Plugin has been removed from the file system.": "Įskiepis buvo pašalintas iš failų sistemos.",
+  "search plugins to install...": "ieškoti įskiepių instaliavimui...",
+  "search themes to install...": "ieškoti dizainų instaliacijai...",
+  "Install Theme": "Įdiegti dizainą",
+  "Theme Name": "Dizaino pavadinimas",
+  "Install Plugin": "Įdiegti įskiepį",
+  "Plugin Name": "Įskiepio pavadinimas",
+  "Name the plugin by its unique code. For example, RainLab.Blog": "Užvardinkite įskiepį unikaliu kodu. Pavyzdžiui, RainLab.Blog",
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "Užvardinkite dizainą unikaliu kodu. Pavyzdžiui, RainLab.Vanilla"
 }

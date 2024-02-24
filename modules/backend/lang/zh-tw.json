@@ -180,5 +180,9 @@
   "Update your account details such as name, email address and password.": "更新您的帳號細節, 例如名字, 郵件地址和密碼",
   "Backend Preferences": "管理介面設定",
   "Manage your account preferences such as desired language.": "管理您的管理介面設定, 例如希望使用的語言。",
-  "security login": "安全登入"
+  "security login": "安全登入",
+  "List Setup": "建立列表",
+  "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "使用多選框選擇您想在列表中看到的欄. 您可以通過拖拽調整欄的位置",
+  "Records Per Page": "每頁的記錄",
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "選擇每頁想顯示的記錄數量. 請注意一頁中太多記錄可能會降低性能"
 }

@@ -293,5 +293,9 @@
   "Update your account details such as name, email address and password.": "名前、電子メールアドレス、パスワードなどのあなたのアカウント詳細をアップデートしてください。",
   "Backend Preferences": "バックエンド",
   "Manage your account preferences such as desired language.": "言語の設定などを行います。",
-  "security login": "セキュリティ ログイン"
+  "security login": "セキュリティ ログイン",
+  "List Setup": "リストのセットアップ",
+  "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "リストの表示したいカラムをチェックボックスで選択してください。カラムの位置は上下にドラッグして変更できます。",
+  "Records Per Page": "ページ中のレコード数",
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "ページあたりの表示レコード数を選択してください。1ページにたくさん表示するとパフォーマンスに影響があるので留意してください。"
 }

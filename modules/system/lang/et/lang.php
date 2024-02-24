@@ -77,14 +77,10 @@
   'theme' => [
     'label' => 'Teema',
     'unnamed' => 'Nimeta teema',
-    'name' => [
-      'label' => 'Teema nimi',
-      'help' => 'Anna teemale nimi selle unikaalse koodi järgi, nt RainLab.Vanilla',
-    ],
+    'name' => [],
   ],
   'themes' => [
     'install' => 'Paigalda teemad',
-    'search' => 'otsi paigaldamiseks teemasid...',
     'installed' => 'Paigaldatud teemad',
     'no_themes' => 'Ühtegi ostetud teemat pole paigaldatud.',
     'recommended' => 'Soovitatud',
@@ -93,10 +89,7 @@
   'plugin' => [
     'label' => 'Plugin',
     'unnamed' => 'Nimeta plugin',
-    'name' => [
-      'label' => 'Plugina nimi',
-      'help' => 'Anna pluginale nimi selle unikaalse koodi järgi. Nt RainLab.Blog',
-    ],
+    'name' => [],
     'by_author' => 'Autor: :name',
   ],
   'plugins' => [
@@ -104,7 +97,6 @@
     'enable_or_disable_title' => 'Luba või keela pluginaid',
     'install' => 'Paigalda pluginaid',
     'install_products' => 'Paigalda tooteid',
-    'search' => 'otsi pluginaid paigaldamiseks...',
     'installed' => 'Paigaldatud pluginad',
     'no_plugins' => 'Ühtegi ostetud pluginat pole paigaldatud.',
     'recommended' => 'Soovitatud',
@@ -117,12 +109,10 @@
     'selected_amount' => 'Valitud pluginaid: :amount',
     'remove_confirm' => 'Oled sa kindel, et soovid selle plugina eemaldada?',
     'remove_success' => 'Valitud pluginad on süsteemist eemaldatud.',
-    'refresh_confirm' => 'Oled sa kindel?',
     'refresh_success' => 'Valitud plugin on edukalt värskendatud.',
     'disable_confirm' => 'Oled sa kindel?',
     'disable_success' => 'Valitud plugin on nüüd keelatud.',
     'enable_success' => 'Valitud pluginad on nüüd lubatud.',
-    'unknown_plugin' => 'Plugin on edukalt eemaldatud.',
   ],
   'project' => [
     'attach' => 'Seosta projekt',
@@ -155,10 +145,7 @@
     'sending' => 'Saadan testkirja...',
     'return' => 'Tagasi mallide nimekirja',
   ],
-  'install' => [
-    'plugin_label' => 'Paigalda plugin',
-    'theme_label' => 'Paigalda teema',
-  ],
+  'install' => [],
   'updates' => [
     'plugin_author' => 'Autor',
     'plugin_not_found' => 'Pluginat ei leitud',

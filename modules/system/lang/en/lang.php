@@ -123,14 +123,10 @@
   'theme' => [
     'label' => 'Theme',
     'unnamed' => 'Unnamed theme',
-    'name' => [
-      'label' => 'Theme Name',
-      'help' => 'Name the theme by its unique code. For example, RainLab.Vanilla',
-    ],
+    'name' => [],
   ],
   'themes' => [
     'install' => 'Install Themes',
-    'search' => 'search themes to install...',
     'installed' => 'Installed themes',
     'no_themes' => 'There are no themes installed from the marketplace.',
     'recommended' => 'Recommended',
@@ -139,45 +135,30 @@
   'plugin' => [
     'label' => 'Plugin',
     'unnamed' => 'Unnamed plugin',
-    'name' => [
-      'label' => 'Plugin Name',
-      'help' => 'Name the plugin by its unique code. For example, RainLab.Blog',
-    ],
+    'name' => [],
     'by_author' => 'By :name',
   ],
   'plugins' => [
     'install' => 'Install Plugins',
     'install_products' => 'Install Products',
-    'search' => 'search plugins to install...',
     'installed' => 'Installed Plugins',
     'no_plugins' => 'There are no plugins installed from the marketplace.',
     'recommended' => 'Recommended',
     'plugin_label' => 'Plugin',
-    'unknown_plugin' => 'Plugin has been removed from the file system.',
-    'disabled_by_config' => 'Plugin has been disabled by configuration.',
-    'disabled_by_system' => 'Plugin has missing dependencies or disabled by system.',
-    'select_label' => 'Select Action...',
     'bulk_actions_label' => 'Bulk actions',
     'check_yes' => 'Yes',
     'check_no' => 'No',
     'unfrozen' => 'Updates Enabled',
     'freeze' => 'disable updates for',
     'unfreeze' => 'enable updates for',
-    'enable' => 'enable',
-    'disable' => 'disable',
     'refresh' => 'reset',
     'remove' => 'Remove',
     'freeze_label' => 'Disable Updates',
     'unfreeze_label' => 'Enable Updates',
-    'enable_label' => 'Enable Plugins',
-    'disable_label' => 'Disable Plugins',
-    'refresh_label' => 'Reset Plugin Data',
-    'action_confirm' => 'Are you sure you want to :action these plugins?',
     'freeze_success' => 'Successfully disabled updates for the selected plugins.',
     'unfreeze_success' => 'Successfully enabled updates for the selected plugins.',
     'enable_success' => 'Successfully enabled the selected plugins.',
     'disable_success' => 'Successfully disabled the selected plugins.',
-    'refresh_confirm' => 'Are you sure you want to reset the selected plugins? This will reset each plugin\'s data, restoring it to the initial install state.',
     'refresh_success' => 'Successfully reset the selected plugins.',
     'remove_confirm' => 'Are you sure you want to remove the selected plugins? This will remove all associated data as well.',
     'remove_success' => 'Successfully removed the selected plugins.',
@@ -234,10 +215,7 @@
     ],
     'fields' => [],
   ],
-  'install' => [
-    'plugin_label' => 'Install Plugin',
-    'theme_label' => 'Install Theme',
-  ],
+  'install' => [],
   'updates' => [
     'plugin_author' => 'Author',
     'plugin_not_found' => 'Plugin not found',
@@ -363,21 +341,21 @@
       'widgets' => [
         'version_information' => [
           'title' => 'System Build',
-          'link' => 'View available updates'
+          'link' => 'View available updates',
         ],
         'system_issues' => [
           'title' => 'Configuration',
-          'link' => 'View issues'
+          'link' => 'View issues',
         ],
         'event_log' => [
           'title' => 'Event Log',
-          'link' => 'View event log'
+          'link' => 'View event log',
         ],
         'request_log' => [
           'title' => 'Request Log',
-          'link' => 'Bad requests'
+          'link' => 'Bad requests',
         ],
-      ]
-    ]
+      ],
+    ],
   ],
 ];

@@ -32,10 +32,7 @@
   ],
   'plugin' => [
     'unnamed' => 'Plugin sin nombre',
-    'name' => [
-      'label' => 'Nombre del plugin',
-      'help' => 'Buscar el plugin por su nombre de codigo unico. Por ejemplo: RainLab.Blog',
-    ],
+    'name' => [],
   ],
   'plugins' => [
     'enable_or_disable' => 'Activar o desactivar',
@@ -47,12 +44,10 @@
     'selected_amount' => 'Plugins seleccionados: :amount',
     'remove_confirm' => '¿Está usted seguro?',
     'remove_success' => 'Se eliminaron exitosamente los plugins del sistema.',
-    'refresh_confirm' => '¿Está usted seguro?',
     'refresh_success' => 'Se actualizaron exitosamente los plugins del sistema.',
     'disable_confirm' => '¿Está usted seguro?',
     'disable_success' => 'Se desactivaron exitosamente los plugins.',
     'enable_success' => 'Se activaron exitosamente los plugins.',
-    'unknown_plugin' => 'Se eliminó el plugin del sistema de archivos.',
   ],
   'project' => [
     'attach' => 'Adjuntar Proyecto',
@@ -75,9 +70,7 @@
     'test_send' => 'Enviar mensaje de prueba',
     'return' => 'Volver a la lista de plantilla',
   ],
-  'install' => [
-    'plugin_label' => 'Instalar Plugin',
-  ],
+  'install' => [],
   'updates' => [
     'plugin_author' => 'Autor',
     'plugin_not_found' => 'Plugin not found',

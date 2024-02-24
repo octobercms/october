@@ -61,5 +61,9 @@
   "Update your account details such as name, email address and password.": "Actualizar información de su cuenta, como nombre, dirección de correo electrónico y contraseña.",
   "Backend Preferences": "Preferencias de backend",
   "Manage your account preferences such as desired language.": "Gestionar preferencias de idioma y la apariencia del backend.",
-  "security login": "Inicio seguro"
+  "security login": "Inicio seguro",
+  "List Setup": "Configuración de la lista",
+  "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Utilice las casillas de verificación para seleccionar las columnas que desea ver en la lista. Puede cambiar la posición de las columnas arrastrándolas hacia arriba o hacia abajo.",
+  "Records Per Page": "Registros por página",
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Seleccione el número de registros por página para mostrar. Tenga en cuenta que un alto número de registros en una sola página puede reducir el rendimiento."
 }

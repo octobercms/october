@@ -296,5 +296,9 @@
   "Update your account details such as name, email address and password.": "이름, 이메일주소, 비밀번호 등의 계정 세부정보를 변경해주세요.",
   "Backend Preferences": "백엔드 환경설정",
   "Manage your account preferences such as desired language.": "당신 계정의 사용언어 등의 환경설정",
-  "security login": "보안 로그인"
+  "security login": "보안 로그인",
+  "List Setup": "목록 설정",
+  "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "목록에 표시하길 원하는 열에 체크하세요. 위아래로 드래그해서 위치를 변경할 수 있습니다.",
+  "Records Per Page": "페이지당 목록갯수",
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "페이지당 표시할 목록 갯수를 선택하세요. 많이 설정할수록 페이지 표시속도가 느려질 수 있습니다."
 }

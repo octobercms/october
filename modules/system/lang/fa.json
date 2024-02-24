@@ -89,7 +89,7 @@
   "Removing plugin: :name": "حذف افزونه: :name",
   "Please specify a Plugin name to install.": "لطفا نام افزونه را جهت نصب وارد نمایید.",
   "Update process complete": "بروز رسانی با موفقیت انجام شد.",
-  "Plugin installed successfully": "افزونه با موفقیت نصب شد.",
+  "Package installed successfully": "افزونه با موفقیت نصب شد.",
   "Check Dependencies": "وابستگی ها را بررسی کنید",
   "Install Dependencies": "Dependencies را نصب کنید",
   "There are missing dependencies needed for the system to run correctly.": "وابستگی های گم شده ای برای اجرای صحیح سیستم مورد نیاز است.",
@@ -225,5 +225,15 @@
   "Event log emptied": "گزارشها با موفقیت پاک شدند.",
   "Empty Event Log": "پاک سازی گزارش رویداد ها",
   "Emptying Event Log...": "درحال پاکسازی گزارشها...",
-  "Return to Event Log": "بازگشت به گزارش رویداد ها"
+  "Return to Event Log": "بازگشت به گزارش رویداد ها",
+  "Are you sure you want to reset the selected plugins? This will reset each plugin's data, restoring it to the initial install state.": "آیا اطمینان دارید؟",
+  "Plugin has been removed from the file system.": "افرونه ها با موفقیت پاک شدند.",
+  "search plugins to install...": "جستجوی افزونه جهت نصب",
+  "search themes to install...": "جستجوی قالب برای نصب",
+  "Install Theme": "نصب قالب",
+  "Theme Name": "نام قالب",
+  "Install Plugin": "نصب افزونه",
+  "Plugin Name": "نام افزونه",
+  "Name the plugin by its unique code. For example, RainLab.Blog": "یک اسم یکتا برای نام افزونه برای مثال: RainLab.Blog",
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "یک اسم یکتا برای نام قالب برای مثال Rainlab.Vanilla"
 }

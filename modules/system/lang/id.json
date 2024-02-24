@@ -89,7 +89,7 @@
   "Removing plugin: :name": "Menghapus plugin: :nama",
   "Please specify a Plugin name to install.": "Silakan tentukan nama Plugin yang akan dipasang.",
   "Update process complete": "Proses pembaruan telah selesai.",
-  "Plugin installed successfully": "Plugin berhasil diinstal.",
+  "Package installed successfully": "Plugin berhasil diinstal.",
   "Check Dependencies": "Periksa Ketergantungan",
   "Install Dependencies": "Instal Dependensi",
   "There are missing dependencies needed for the system to run correctly.": "Ada dependensi yang hilang yang diperlukan agar sistem dapat berjalan dengan benar.",
@@ -178,5 +178,10 @@
   "Event log emptied": "Berhasil mengosongkan catatan peristiwa.",
   "Empty Event Log": "Kosongkan catatan peristiwa",
   "Emptying Event Log...": "Mengosongkan catatan peristiwa...",
-  "Return to Event Log": "Kembali ke catatan peristiwa"
+  "Return to Event Log": "Kembali ke catatan peristiwa",
+  "Are you sure you want to reset the selected plugins? This will reset each plugin's data, restoring it to the initial install state.": "Anda yakin akan memuat ulang?",
+  "Plugin has been removed from the file system.": "Plugin telah dilepas dari sistem berkas.",
+  "Install Plugin": "Pasang Plugin",
+  "Plugin Name": "Nama Plugin",
+  "Name the plugin by its unique code. For example, RainLab.Blog": "Gunakan nama plugin dengan kode uniknya. Contoh, RainLab.Blog"
 }

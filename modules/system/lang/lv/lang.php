@@ -38,14 +38,10 @@
   'theme' => [
     'label' => 'Tēma',
     'unnamed' => 'Nenosaukta tēma',
-    'name' => [
-      'label' => 'Tēmas Nosaukums',
-      'help' => 'Norādiet tēmas unikālo kodu. Piemēram, RainLab.Vanilla',
-    ],
+    'name' => [],
   ],
   'themes' => [
     'install' => 'Instalēt tēmas',
-    'search' => 'meklēt tēmas, kuras instalēt...',
     'installed' => 'Instalētās tēmas',
     'no_themes' => 'Nav tēmas, kuras būtu instalētas no tirgus plača.',
     'recommended' => 'Ieteiktās',
@@ -54,17 +50,13 @@
   'plugin' => [
     'label' => 'Spraudnis',
     'unnamed' => 'Nenosaukts spraudnis',
-    'name' => [
-      'label' => 'Spraudņa nosaukums',
-      'help' => 'Norādiet spraudņa unikālo kodu. Piemēram, RainLab.Blog',
-    ],
+    'name' => [],
   ],
   'plugins' => [
     'enable_or_disable' => 'Iespējot vai atspējot',
     'enable_or_disable_title' => 'Iespējot vai Atspējot Spraudņus',
     'install' => 'Instalēt spraudņus',
     'install_products' => 'Instalēt produktus',
-    'search' => 'meklēt spraudņus, lai instalētu...',
     'installed' => 'Instalētie spraudņi',
     'no_plugins' => 'Nav spraudņi, kuri būtu instalēti no tirgus plača.',
     'recommended' => 'Rekomendētie',
@@ -77,12 +69,10 @@
     'selected_amount' => 'Izvēlēti spraudņi: :amount',
     'remove_confirm' => 'Vai esat pārliecināts, ka vēlaties noņemt šo sparudni?',
     'remove_success' => 'Šie spraudņi tika veiksmīgi noņemti no sistēmas.',
-    'refresh_confirm' => 'Vai esat pārliecināts?',
     'refresh_success' => 'Šie sparudņi tika veiksmīgi atsvaidzināti sistēmā.',
     'disable_confirm' => 'Vai esat pārliecināts?',
     'disable_success' => 'Šie spraudņi tika veiksmīgi atspējoti.',
     'enable_success' => 'Šie spraudņi tika veiksmīgi iespējoti.',
-    'unknown_plugin' => 'Spraudņi tika noņemti no failu sistēmas.',
   ],
   'project' => [
     'attach' => 'Pievienot projektu',
@@ -105,10 +95,7 @@
     'test_send' => 'Sūtīt testa vēstuli',
     'return' => 'Atgriezties veidņu sarakstā',
   ],
-  'install' => [
-    'plugin_label' => 'Instalēt Spraudni',
-    'theme_label' => 'Instalēt Tēmu',
-  ],
+  'install' => [],
   'updates' => [
     'plugin_author' => 'Autors',
     'plugin_not_found' => 'Plugin not found',

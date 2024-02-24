@@ -89,7 +89,7 @@
   "Removing plugin: :name": "Κατάργηση προσθήκης: :name",
   "Please specify a Plugin name to install.": "Παρακαλούμε προσδιορίστε το όνομα του Πρόσθετου για την εγκατάσταση",
   "Update process complete": "Η διαδικασία ενημέρωσης ολοκληρώθηκε",
-  "Plugin installed successfully": "Το πρόσθετο εγκαταστάθηκε επιτυχώς",
+  "Package installed successfully": "Το πρόσθετο εγκαταστάθηκε επιτυχώς",
   "Check Dependencies": "Ελέγξτε τις εξαρτήσεις",
   "Install Dependencies": "Εγκατάσταση Εξαρτήσεων",
   "There are missing dependencies needed for the system to run correctly.": "Λείπουν εξαρτήσεις που απαιτούνται για τη σωστή λειτουργία του συστήματος.",
@@ -186,5 +186,15 @@
   "Event log emptied": "Επιτυχές άδειασμα του αρχείου καταγραφής συμβάντων.",
   "Empty Event Log": "Άδειασμα καταγραφής συμβάντων",
   "Emptying Event Log...": "Αδειάζει το αρχείο καταγραφής συμβάντων...",
-  "Return to Event Log": "Επιστροφή στην καταγραφή συμβάντων"
+  "Return to Event Log": "Επιστροφή στην καταγραφή συμβάντων",
+  "Are you sure you want to reset the selected plugins? This will reset each plugin's data, restoring it to the initial install state.": "Είστε σίγουροι;",
+  "Plugin has been removed from the file system.": "Το πρόσθετο έχει αφαιρεθεί από το σύστημα.",
+  "search plugins to install...": "αναζήτηση πρόσθετων για εγκατάσταση...",
+  "search themes to install...": "αναζήτηστε θέματα για να τα εγκαταστήσετε...",
+  "Install Theme": "Εγκατάσταση Θέματος",
+  "Theme Name": "Όνομα Θέματος",
+  "Install Plugin": "Εγκατάσταση Πρόσθετου",
+  "Plugin Name": "Όνομα Πρόσθετου",
+  "Name the plugin by its unique code. For example, RainLab.Blog": "Ονομάστε το πρόσθετο με τον μοναδικό κωδικό του. Για παράδειγμα RainLab.Blog",
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "Ονομάστε το θέμα με τον μοναδικό κωδικό του. Για παράδειγμα, RainLab.Vanilla"
 }

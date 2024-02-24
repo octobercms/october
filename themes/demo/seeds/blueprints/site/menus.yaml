@@ -49,4 +49,4 @@ fields:
                 fields:
                     _menu_item:
                         type: mixin
-                        source: Menu\Item
+                        source: Fields\MenuItem

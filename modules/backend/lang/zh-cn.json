@@ -308,5 +308,9 @@
   "Update your account details such as name, email address and password.": "更新你的账户细节, 如姓名、邮件地址和密码.",
   "Backend Preferences": "偏好设置",
   "Manage your account preferences such as desired language.": "管理你的后台偏好设置，如使用语言。",
-  "security login": "安全登录"
+  "security login": "安全登录",
+  "List Setup": "列表设置",
+  "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "使用复选框选择您想在列表中看到的列。您可以通过向上或向下拖动来更改列的位置。",
+  "Records Per Page": "每页记录数",
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "选择每页显示的记录数。请注意，单个页面上的大量记录会降低性能。"
 }
