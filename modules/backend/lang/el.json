@@ -300,5 +300,6 @@
   "List Setup": "Ρύθμιση λίστας",
   "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Χρησιμοποιήστε το πλαίσιο ελέγχου για να επιλέξετε τις στήλες που θέλετε να δείτε στην λίστα. Μπορείτε να αλλάξετε την θέση των στηλών με το σύρσιμο πάνω και κάτω.",
   "Records Per Page": "Εγγραφές ανά σελίδα",
-  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Επιλέξτε τον αριθμό των εγγραφών ανά σελίδα για εμφάνιση. Παρακαλούμε σημειώστε ότι ένας υψηλός αριθμός εγγραφών σε μια και μόνο σελίδα μπορεί να μειώσει την απόδοση."
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Επιλέξτε τον αριθμό των εγγραφών ανά σελίδα για εμφάνιση. Παρακαλούμε σημειώστε ότι ένας υψηλός αριθμός εγγραφών σε μια και μόνο σελίδα μπορεί να μειώσει την απόδοση.",
+  "Add Selected": "Προσθήκη επιλεγμένου"
 }

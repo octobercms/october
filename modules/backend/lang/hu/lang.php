@@ -292,7 +292,6 @@
     'invalid_action_multi' => 'Ez a művelet nem hajtható végre több kapcsolaton.',
     'help' => 'Kattintson egy elemre a hozzáadásához',
     'add' => 'Hozzáadás',
-    'add_selected' => 'Kijelöltek hozzáadása',
     'link_selected' => 'Kijelöltek csatolása',
     'cancel' => 'Mégsem',
     'close' => 'Bezárás',

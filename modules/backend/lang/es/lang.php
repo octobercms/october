@@ -202,7 +202,6 @@
     'invalid_action_multi' => 'Esta acción no se puede realizar en una relación múltiple.',
     'help' => 'Haga clic en un elemento para añadir.',
     'add' => 'Agregar',
-    'add_selected' => 'Agregar seleccionado',
     'link_selected' => 'Vinculo selecionado',
     'cancel' => 'Cancelar',
     'close' => 'Cerrar',

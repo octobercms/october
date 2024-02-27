@@ -237,7 +237,6 @@
   'pagelist' => [],
   'relation' => [
     'add' => 'เพิ่ม',
-    'add_selected' => 'เพิ่มรายการที่เลือก',
     'link_selected' => 'ลิงก์รายการที่เลือก',
     'cancel' => 'ยกเลิก',
     'close' => 'ปิด',

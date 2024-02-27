@@ -264,7 +264,6 @@
     'invalid_action_multi' => 'Ova radnja se ne može izvršiti na više veza.',
     'help' => 'Klikni na element za dodavanje',
     'add' => 'Dodaj',
-    'add_selected' => 'Dodaj izabrane',
     'link_selected' => 'Zakači izabrane',
     'cancel' => 'Otkaži',
     'close' => 'Zatvori',

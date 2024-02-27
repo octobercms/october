@@ -311,7 +311,6 @@
     'invalid_action_multi' => 'Tätä toimintoa ei voida suorittaa monisuuntaisessa suhteessa.',
     'help' => 'Valitse kohde lisättäväksi',
     'add' => 'Lisää',
-    'add_selected' => 'Lisää valitut',
     'link_selected' => 'Linkitä valittu',
     'cancel' => 'Peruuta',
     'close' => 'Sulje',

@@ -237,7 +237,6 @@
     'invalid_action_multi' => 'Aquesta acció no pot ser realitzada en una relació múltiple.',
     'help' => 'Clica en un element per afegir-lo',
     'add' => 'Afegir',
-    'add_selected' => 'Afegir seleccionats',
     'link_selected' => 'Vincular seleccionats',
     'cancel' => 'Cancel·lar',
     'close' => 'Tancar',

@@ -210,7 +210,6 @@
     'invalid_action_multi' => 'Denne relasjonen kan ikke brukes på fler-relasjoner.',
     'help' => 'Klikk på et element for å legge til',
     'add' => 'Legg til',
-    'add_selected' => 'Legg til valgte',
     'link_selected' => 'Link valgte',
     'cancel' => 'Avbryt',
     'close' => 'Lukk',

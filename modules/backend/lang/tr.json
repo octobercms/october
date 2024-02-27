@@ -300,5 +300,6 @@
   "List Setup": "Liste Ayarları",
   "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Listede görmek istediğiniz sütunları seçmek için onay kutularını kullanın. Sütunları yukarı veya aşağı sürükleyerek konumlarını değiştirebilirsiniz.",
   "Records Per Page": "Sayfa başına kayıt sayısı",
-  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Sayfa başına görüntülenecek kayıt sayısını seçin. Tek sayfada yüksek miktarda kayıt görüntülemek sistem performansını azaltabilir."
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Sayfa başına görüntülenecek kayıt sayısını seçin. Tek sayfada yüksek miktarda kayıt görüntülemek sistem performansını azaltabilir.",
+  "Add Selected": "Seçilenleri ekle"
 }

@@ -312,5 +312,6 @@
   "List Setup": "Nastavitve seznama",
   "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Izberite stolpce, ki jih želite prikazati na seznamu. Položaj stolpcev lahko spremenite tako, da jih povlečete gor ali dol.",
   "Records Per Page": "Število zapisov na strani",
-  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Izberite koliko zapisov želite prikazati na eni strani. Upoštevajte, da lahko večje število zapisov na eni strani zmanjša hitrost delovanja."
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Izberite koliko zapisov želite prikazati na eni strani. Upoštevajte, da lahko večje število zapisov na eni strani zmanjša hitrost delovanja.",
+  "Add Selected": "Dodaj izbrano"
 }

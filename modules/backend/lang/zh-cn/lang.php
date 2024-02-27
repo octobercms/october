@@ -294,7 +294,6 @@
     'invalid_action_multi' => '此操作无法在多重关系上执行.',
     'help' => '点击增加',
     'add' => '增加',
-    'add_selected' => '增加选中',
     'link_selected' => '关联选中',
     'cancel' => '取消',
     'close' => '关闭',

@@ -297,5 +297,6 @@
   "List Setup": "กำหนดค่ารายการ",
   "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "เลือก checkbox เพื่อเลือกคอลัมน์ที่คุณต้องการแสดงผลในตาราง คุณสามารถย้ายตำแหน่งของคอลัมน์โดยลากคอลัมน์ขึ้นหรือลง",
   "Records Per Page": "ข้อมูลต่อหน้า",
-  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "เลือกจำนวนข้อมูลต่อหน้าในการแสดงผล การเลือกจำนวนต่อหน้ามากๆทำให้ประสิทธิภาพลดลงได้"
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "เลือกจำนวนข้อมูลต่อหน้าในการแสดงผล การเลือกจำนวนต่อหน้ามากๆทำให้ประสิทธิภาพลดลงได้",
+  "Add Selected": "เพิ่มรายการที่เลือก"
 }

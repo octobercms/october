@@ -178,7 +178,6 @@
     'invalid_action_multi' => 'Šī darbība nevar tikt veikta ar daudzmoduļu relāciju.',
     'help' => 'Spiediet uz vienuma, lai pievienotu',
     'add' => 'Pievienot',
-    'add_selected' => 'Pievienot izvēlētos',
     'link_selected' => 'Saite izvēlēta',
     'cancel' => 'Atcelt',
     'close' => 'Aizvērt',

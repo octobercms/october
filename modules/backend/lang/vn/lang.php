@@ -234,7 +234,6 @@
     'invalid_action_multi' => 'Hành động này không thể thực hiện trên một multiple relationship.',
     'help' => 'Bấm vào 1 item để thêm mới',
     'add' => 'Thêm mới',
-    'add_selected' => 'Thêm các mục đã chọn',
     'link_selected' => 'Link đã chọn',
     'cancel' => 'Cancel',
     'close' => 'Đóng lại',

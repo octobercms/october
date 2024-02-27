@@ -312,5 +312,6 @@
   "List Setup": "Nimekirja seadistus",
   "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Vali veerud, mida soovid näha nimekirjas. Veergude järjestust saad muuta lohistades neid üles-alla.",
   "Records Per Page": "Kirjeid lehel",
-  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Vali kirjete arv, mida soovid ühel lehel kuvada. NB! mida rohkem kirjeid lehel kuvatakse, seda kauem võtab aega lehe laadimine."
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Vali kirjete arv, mida soovid ühel lehel kuvada. NB! mida rohkem kirjeid lehel kuvatakse, seda kauem võtab aega lehe laadimine.",
+  "Add Selected": "Lisa valitud"
 }

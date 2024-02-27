@@ -202,7 +202,6 @@
     'invalid_action_multi' => 'L\'azione non può essere eseguita su una relazione multipla.',
     'help' => 'Fai clic su un elemento per aggiungere',
     'add' => 'Aggiungi',
-    'add_selected' => 'Aggiungi selezionati',
     'link_selected' => 'Collega selezionati',
     'cancel' => 'Annulla',
     'close' => 'Chiudi',

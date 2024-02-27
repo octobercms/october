@@ -313,5 +313,6 @@
   "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.",
   "Records Per Page": "Records Per Page",
   "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.",
-  "Reset to Default": "Reset to Default"
+  "Reset to Default": "Reset to Default",
+  "Add Selected": "Add Selected"
 }

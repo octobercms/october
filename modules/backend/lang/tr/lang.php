@@ -243,7 +243,6 @@
     'invalid_action_multi' => 'Bu işlem çoklu ilişkilendirme için kullanılamaz.',
     'help' => 'Eklemek için bir öğeye tıklayın',
     'add' => 'Ekle',
-    'add_selected' => 'Seçilenleri ekle',
     'link_selected' => 'Seçileni bağla',
     'cancel' => 'İptal',
     'close' => 'Kapat',

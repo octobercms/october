@@ -312,5 +312,6 @@
   "List Setup": "Nastavení výpisu",
   "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Pomocí checkboxů si vyberte, které sloupce chcete ve výpisu vidět. Pozici změníte chytnutím a posunem nahorů, nebo dolů.",
   "Records Per Page": "Záznamů na stránku",
-  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Vyberte kolik chcete vidět záznamů na jedné stránce. Vysoký počet záznamů může negativně ovlivnit rychlost stránek."
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Vyberte kolik chcete vidět záznamů na jedné stránce. Vysoký počet záznamů může negativně ovlivnit rychlost stránek.",
+  "Add Selected": "Přidat vybrané"
 }

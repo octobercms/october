@@ -217,7 +217,6 @@
     'invalid_action_multi' => '이 동작은 복수 릴레이션에서는 실행하실 수 없습니다.',
     'help' => '항목을 클릭하시면 추가합니다.',
     'add' => '추가',
-    'add_selected' => '추가가 선택되어 있습니다',
     'link_selected' => '링크가 선택되어 있습니다',
     'cancel' => '취소',
     'close' => '닫기',

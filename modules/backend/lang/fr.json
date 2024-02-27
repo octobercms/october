@@ -310,7 +310,9 @@
   "Manage your account preferences such as desired language.": "Gérer les préférences de votre compte telles que la langue utilisée.",
   "security login": "security login sécurité authentification identification",
   "List Setup": "Configuration de la liste",
-  "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Cocher les colonnes qui doivent être affichées dans la liste. Il est possible de modifier l’ordre des colonnes en les glissant vers le haut ou le bas.",
-  "Records Per Page": "Nombre d’enregistrements par page",
-  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Choisir le nombre d’enregistrements à afficher. Note : un nombre d’enregistrements trop élevé sur une seule page peut réduire les performances."
+  "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Utilisez les cases à cocher pour sélectionner les colonnes que vous souhaitez voir dans la liste. Vous pouvez changer la position des colonnes en les faisant glisser vers le haut ou vers le bas.",
+  "Records Per Page": "Enregistrements par page",
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Sélectionnez le nombre d'enregistrements par page à afficher. Veuillez noter qu'un nombre élevé d'enregistrements sur une seule page peut réduire les performances.",
+  "Reset to Default": "Réinitialiser aux valeurs par défaut",
+  "Add Selected": "Add Selected"
 }

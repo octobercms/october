@@ -300,5 +300,6 @@
   "List Setup": "List inställningar",
   "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Använd kryssrutorna för att välja kolumner du vill se i listan. Du kan ändra positionen på kolumnerna genom att dra dem upp eller ner.",
   "Records Per Page": "Poster per sida",
-  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Välj antalet poster som ska visas per sida. Observera att högt antal poster per sida kan påverka prestandan."
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Välj antalet poster som ska visas per sida. Observera att högt antal poster per sida kan påverka prestandan.",
+  "Add Selected": "Lägg till vald"
 }

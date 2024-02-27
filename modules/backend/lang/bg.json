@@ -300,5 +300,6 @@
   "List Setup": "Настройка на списък",
   "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Използвайте тикчетата, за да изберете колони, които искате да видите в списъка. Можете да промените позицията на колони, като ги плъзнете нагоре или надолу.",
   "Records Per Page": "Записи на страница",
-  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Изберете брой на записи за показване на страница. Моля, имайте предвид, че голям брой записи на една страница може да забави работата на страницата."
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Изберете брой на записи за показване на страница. Моля, имайте предвид, че голям брой записи на една страница може да забави работата на страницата.",
+  "Add Selected": "Добави избрани"
 }

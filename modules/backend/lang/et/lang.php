@@ -218,7 +218,6 @@
     'invalid_action_multi' => 'Mitu-mitmele seosega ei saa seda tegevust sooritada.',
     'help' => 'Lisamiseks kliki kirjel',
     'add' => 'Lisa',
-    'add_selected' => 'Lisa valitud',
     'link_selected' => 'Lisa valitud',
     'cancel' => 'Loobu',
     'close' => 'Sulge',

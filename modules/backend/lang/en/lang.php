@@ -468,7 +468,6 @@
     'invalid_action_multi' => 'This action cannot be performed on a multiple relationship.',
     'help' => 'Click on an item to add',
     'add' => 'Add',
-    'add_selected' => 'Add Selected',
     'link_selected' => 'Link Selected',
     'cancel' => 'Cancel',
     'close' => 'Close',

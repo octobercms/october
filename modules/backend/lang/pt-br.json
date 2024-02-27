@@ -312,5 +312,6 @@
   "List Setup": "Configuração da Lista",
   "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Selecione as colunas que deseja ver na lista. Você pode alterar as posições das colunas arrastando-as para cima ou para baixo.",
   "Records Per Page": "Registros por página",
-  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Selecione o número de registros a serem exibidos por página. Note que um número grande pode prejudicar a performance."
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Selecione o número de registros a serem exibidos por página. Note que um número grande pode prejudicar a performance.",
+  "Add Selected": "Adicionar seleção"
 }

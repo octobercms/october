@@ -206,7 +206,6 @@
     'invalid_action_multi' => 'Denne handling kan ikke udføres på et "flere" relationship.',
     'help' => 'Tryk på en ting for at tilføje',
     'add' => 'Tilføj',
-    'add_selected' => 'Tilføj valgte',
     'link_selected' => 'Link valgte',
     'cancel' => 'Fortryd',
     'close' => 'Luk',

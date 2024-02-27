@@ -216,7 +216,6 @@
     'invalid_action_multi' => 'Šis veiksmas negalimas daugialypiui subendrinimui.',
     'help' => 'Spauskite elementą pridėjimui',
     'add' => 'Pridėti',
-    'add_selected' => 'Pridėti pasirinktus',
     'link_selected' => 'Pasirinkta nuoroda',
     'cancel' => 'Atšaukti',
     'close' => 'Uždaryti',

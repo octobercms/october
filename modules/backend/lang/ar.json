@@ -280,5 +280,6 @@
   ":name Deleted": "تم حذف :name بنجاح",
   "Form record with an ID of :id could not be found.": "السجل رقم :id غير موجود.",
   "My Account": "حسابي",
-  "Backend Preferences": "تفضيلات لوحة الإدارة"
+  "Backend Preferences": "تفضيلات لوحة الإدارة",
+  "Add Selected": "إضافة المحدد"
 }

@@ -309,8 +309,10 @@
   "Backend Preferences": "Backend-Einstellungen",
   "Manage your account preferences such as desired language.": "Verwalten der Spracheinstellungen und der Backend-Darstellung.",
   "security login": "Sicheres Anmelden",
-  "List Setup": "Listen Setup",
-  "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Benutzen Sie Checkboxen, um Spalten auszuwählen, welche Sie in den Listen sehen möchten. Sie können die Position der Spalten ändern, indem Sie diese hinauf oder hinunter ziehen.",
-  "Records Per Page": "Aufzeichnungen pro Seite",
-  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Wählen Sie, wieviele Aufzeichnungen pro Seite dargestellt werden sollen. Bitte beachten Sie, dass eine hohe Anzahl pro Seite die Performance negativ beeinflussen kann."
+  "List Setup": "Listen-Setup",
+  "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Wähle mit den Checkboxen die sichtbaren Spalten für die Liste aus. Du kannst die Spalten mit der Maus in die gewünschte Reihenfolge sortieren.",
+  "Records Per Page": "Einträge pro Seite",
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Wähle aus, wie viele Einträge pro Seite angezeigt werden sollen. Bitte beachte, dass eine hohe Anzahl die Ladezeit der Liste negativ beeinflussen kann.",
+  "Reset to Default": "Standard wiederherstellen",
+  "Add Selected": "Add Selected"
 }

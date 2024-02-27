@@ -294,7 +294,6 @@
     'invalid_action_multi' => 'Deze actie kan niet worden uitgevoerd op meerdere (multiple) relatie.',
     'help' => 'Klik op een item om toe te voegen',
     'add' => 'Toevoegen',
-    'add_selected' => 'Selectie toevoegen',
     'link_selected' => 'Koppel geselecteerde',
     'cancel' => 'Annuleer',
     'close' => 'Sluiten',

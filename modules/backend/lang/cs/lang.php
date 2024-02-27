@@ -233,7 +233,6 @@
     'invalid_action_multi' => 'Tato akce nemůže být provedena na vícenásobné relaci (multiple relationship).',
     'help' => 'Pro přidání klikněte na položku',
     'add' => 'Přidat',
-    'add_selected' => 'Přidat vybrané',
     'link_selected' => 'Vytvořit vazbu na vybrané',
     'cancel' => 'Zrušit',
     'close' => 'Zavřít',

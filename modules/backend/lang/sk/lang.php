@@ -246,7 +246,6 @@
     'invalid_action_multi' => 'Táto akcia nemôže byť vykonaná na viacnásobnej relácií.',
     'help' => 'Pre pridanie kliknite na položku',
     'add' => 'Pridať',
-    'add_selected' => 'Pridať vybrané',
     'link_selected' => 'Vytvoriť väzbu na vybrané',
     'cancel' => 'Zrušiť',
     'close' => 'Zatvoriť',

@@ -300,5 +300,6 @@
   "List Setup": "Configuració de llista",
   "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Marca les caselles per seleccionar les columnes que vols veure a la llista. Pots canviar la posiciói de les columnes arrossegant-les amunt o avall.",
   "Records Per Page": "Registres per pàgina",
-  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Selecciona el número de registres per pàgina per mostrar. Si us plau tinguis en compte que un gran número de registres en una sola pàgina pot reduir el rendiment."
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Selecciona el número de registres per pàgina per mostrar. Si us plau tinguis en compte que un gran número de registres en una sola pàgina pot reduir el rendiment.",
+  "Add Selected": "Afegir seleccionats"
 }

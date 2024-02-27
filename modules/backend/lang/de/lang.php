@@ -251,7 +251,6 @@
     'invalid_action_multi' => 'Dieser Vorgang kann nicht auf eine Mehrwege-Verbindung (multiple) angewendet werden.',
     'help' => 'Zum Hinzufügen auf ein Item klicken',
     'add' => 'Hinzufügen',
-    'add_selected' => 'Auswahl hinzufügen',
     'link_selected' => 'Auswahl verlinken',
     'cancel' => 'Abbrechen',
     'close' => 'Schließen',

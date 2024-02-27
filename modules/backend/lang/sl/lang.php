@@ -265,7 +265,6 @@
     'invalid_action_multi' => 'Tega dejanja ni mogoče izvesti na relaciji mnogo proti mnogo.',
     'help' => 'Kliknite na element, ki ga želite dodati.',
     'add' => 'Dodaj',
-    'add_selected' => 'Dodaj izbrano',
     'link_selected' => 'Povezava je izbrana',
     'cancel' => 'Prekliči',
     'close' => 'Zapri',

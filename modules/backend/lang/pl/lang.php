@@ -261,7 +261,6 @@
     'invalid_action_multi' => 'Ta akcja nie może zostać wykonana na wielokrotnej zależności.',
     'help' => 'Kliknij element, aby dodać.',
     'add' => 'Dodaj',
-    'add_selected' => 'Dodaj zaznaczony',
     'link_selected' => 'Dołącz zaznaczone',
     'cancel' => 'Anuluj',
     'close' => 'Zamknij',
