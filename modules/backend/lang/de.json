@@ -314,5 +314,5 @@
   "Records Per Page": "Einträge pro Seite",
   "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Wähle aus, wie viele Einträge pro Seite angezeigt werden sollen. Bitte beachte, dass eine hohe Anzahl die Ladezeit der Liste negativ beeinflussen kann.",
   "Reset to Default": "Standard wiederherstellen",
-  "Add Selected": "Add Selected"
+  "Add Selected": "Ausgewählte hinzufügen"
 }

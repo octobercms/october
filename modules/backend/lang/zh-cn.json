@@ -314,5 +314,5 @@
   "Records Per Page": "每页记录数",
   "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "选择每个页面要显示的记录数量。请注意单个页面上的记录数量太多可能会降低性能。",
   "Reset to Default": "重置默认",
-  "Add Selected": "Add Selected"
+  "Add Selected": "添加选中项"
 }
