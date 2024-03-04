@@ -314,5 +314,12 @@
   "Records Per Page": "Records Per Page",
   "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.",
   "Reset to Default": "Reset to Default",
-  "Add Selected": "Add Selected"
+  "Add Selected": "Add Selected",
+  "Create & Close": "Create & Close",
+  "Creating :name...": "Creating :name...",
+  "Save & Close": "Save & Close",
+  "Saving :name...": "Saving :name...",
+  "Delete this record?": "Delete this record?",
+  "Deleting :name...": "Deleting :name...",
+  "Loading...": "Loading..."
 }
