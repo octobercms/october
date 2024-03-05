@@ -9,9 +9,7 @@
   'file' => [
     'create_fail' => 'No es pot crear l\'arxiu: :name',
   ],
-  'combiner' => [
-    'not_found' => 'L\'arxiu de combinació \':name\' no s\'ha trobat.',
-  ],
+  'combiner' => [],
   'system' => [
     'name' => 'Sistema',
     'menu_label' => 'Sistema',

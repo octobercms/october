@@ -59,9 +59,7 @@
       'label' => 'Geçersiz güvenlik anahtarı',
     ],
   ],
-  'combiner' => [
-    'not_found' => 'Kombine dosyası: \':name\' bulunamadı.',
-  ],
+  'combiner' => [],
   'system' => [
     'name' => 'Sistem',
     'menu_label' => 'Sistem',

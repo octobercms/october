@@ -55,9 +55,7 @@
   'file' => [
     'create_fail' => 'Datoteke :name ni mogoče ustvariti.',
   ],
-  'combiner' => [
-    'not_found' => 'Datoteke za kombiniranje \':name\' ni mogoče najti.',
-  ],
+  'combiner' => [],
   'system' => [
     'name' => 'Sistem',
     'menu_label' => 'Sistem',

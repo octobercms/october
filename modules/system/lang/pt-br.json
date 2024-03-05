@@ -257,5 +257,7 @@
   "Install Plugin": "Instalar plugin",
   "Plugin Name": "Nome do Plugin",
   "Name the plugin by its unique code. For example, RainLab.Blog": "Nomeie o plugin pelo seu código exclusivo. Por exemplo, RainLab.Blog",
-  "Name the theme by its unique code. For example, RainLab.Vanilla": "Nome do tema deve ser único. Por exemplo, RainLab.Vanilla"
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "Nome do tema deve ser único. Por exemplo, RainLab.Vanilla",
+  "The resizer file ':name' is not found.": "O arquivo ':name' a ser redimencionado não foi encontrado.",
+  "The combiner file ':name' is not found.": "O arquivo combinador \":name\" não foi encontrado."
 }

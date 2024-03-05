@@ -93,12 +93,8 @@
   'file' => [
     'create_fail' => 'Невозможно создать файл: :name',
   ],
-  'combiner' => [
-    'not_found' => 'Файл комбайнера \':name\' не найден.',
-  ],
-  'resizer' => [
-    'not_found' => 'Файл ресайзера \':name\' не найден.',
-  ],
+  'combiner' => [],
+  'resizer' => [],
   'system' => [
     'name' => 'Система',
     'menu_label' => 'Система',

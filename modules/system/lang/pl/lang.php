@@ -14,9 +14,7 @@
       'label' => 'Nieprawidłowy żeton bezpieczeństwa',
     ],
   ],
-  'combiner' => [
-    'not_found' => 'Połączony plik \':name\' nie istnieje.',
-  ],
+  'combiner' => [],
   'system' => [
     'name' => 'System',
     'menu_label' => 'System',

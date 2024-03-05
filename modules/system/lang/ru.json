@@ -257,5 +257,7 @@
   "Install Plugin": "Установить плагин",
   "Plugin Name": "Имя плагина",
   "Name the plugin by its unique code. For example, RainLab.Blog": "Введите название плагина со своим уникальным кодом. Например, RainLab.Blog",
-  "Name the theme by its unique code. For example, RainLab.Vanilla": "Название темы по ее уникальному коду. Например, RainLab.Vanilla"
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "Название темы по ее уникальному коду. Например, RainLab.Vanilla",
+  "The resizer file ':name' is not found.": "Файл ресайзера ':name' не найден.",
+  "The combiner file ':name' is not found.": "Файл комбайнера ':name' не найден."
 }

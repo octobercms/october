@@ -248,5 +248,6 @@
   "Install Plugin": "Paigalda plugin",
   "Plugin Name": "Plugina nimi",
   "Name the plugin by its unique code. For example, RainLab.Blog": "Anna pluginale nimi selle unikaalse koodi järgi. Nt RainLab.Blog",
-  "Name the theme by its unique code. For example, RainLab.Vanilla": "Anna teemale nimi selle unikaalse koodi järgi, nt RainLab.Vanilla"
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "Anna teemale nimi selle unikaalse koodi järgi, nt RainLab.Vanilla",
+  "The combiner file ':name' is not found.": "Ühendaja faili ':name' ei leitud."
 }

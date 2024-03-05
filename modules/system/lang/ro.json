@@ -242,5 +242,6 @@
   "Plugin has been removed from the file system.": "Plugin-ul a fost inlaturat din sistemul de fisiere.",
   "Install Plugin": "Instalare Plugin",
   "Plugin Name": "Nume Plugin",
-  "Name the plugin by its unique code. For example, RainLab.Blog": "Denumiti plugin-ul dupa codul sau unic. De exemplu, RainLab.Blog"
+  "Name the plugin by its unique code. For example, RainLab.Blog": "Denumiti plugin-ul dupa codul sau unic. De exemplu, RainLab.Blog",
+  "The combiner file ':name' is not found.": "Fisierul compus ':name' nu a fost gasit."
 }

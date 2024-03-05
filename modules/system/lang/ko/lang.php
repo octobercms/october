@@ -14,9 +14,7 @@
       'label' => '잘못된 보안 토큰',
     ],
   ],
-  'combiner' => [
-    'not_found' => 'combiner파일 \':name\'을 발견할 수 없습니다.',
-  ],
+  'combiner' => [],
   'system' => [
     'name' => '시스템',
     'menu_label' => '시스템',

@@ -55,9 +55,7 @@
   'file' => [
     'create_fail' => 'Nije moguće napraviti fajl: :name',
   ],
-  'combiner' => [
-    'not_found' => 'Kombinovani fajl \':name\' nije pronađen.',
-  ],
+  'combiner' => [],
   'system' => [
     'name' => 'Sistem',
     'menu_label' => 'Sistem',

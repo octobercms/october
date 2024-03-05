@@ -43,10 +43,10 @@
   "File Encoding": "การเข้ารหัสไฟล์",
   "First row contains column titles": "แถวแรกมีชื่อคอลัมน์",
   "Leave this checked if the first row in the CSV is used as the column titles.": "ปล่อยช่องนี้ไว้หากใช้แถวแรกใน CSV เป็นชื่อคอลัมน์",
-  "2. Match the file columns to database fields": "2. จับคู่คอลัมน์ไฟล์กับช่องฐานข้อมูล",
+  "2. Match the File Columns to Database Fields": "2. จับคู่คอลัมน์ไฟล์กับช่องฐานข้อมูล",
   "File columns": "คอลัมน์ไฟล์",
   "Database fields": "ช่องฐานข้อมูล",
-  "3. Set import options": "3. ตั้งค่าตัวเลือกการนำเข้า",
+  "3. Set Import Options": "3. ตั้งค่าตัวเลือกการนำเข้า",
   "Export progress": "ความคืบหน้าการส่งออก",
   "Processing": "กำลังประมวลผล",
   "Import progress": "นำเข้าความคืบหน้า",
@@ -298,5 +298,7 @@
   "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "เลือก checkbox เพื่อเลือกคอลัมน์ที่คุณต้องการแสดงผลในตาราง คุณสามารถย้ายตำแหน่งของคอลัมน์โดยลากคอลัมน์ขึ้นหรือลง",
   "Records Per Page": "ข้อมูลต่อหน้า",
   "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "เลือกจำนวนข้อมูลต่อหน้าในการแสดงผล การเลือกจำนวนต่อหน้ามากๆทำให้ประสิทธิภาพลดลงได้",
-  "Add Selected": "เพิ่มรายการที่เลือก"
+  "Add Selected": "เพิ่มรายการที่เลือก",
+  "Created": "สร้างแล้ว",
+  "Updated": "อัพเดทแล้ว"
 }

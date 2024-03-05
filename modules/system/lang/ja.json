@@ -183,5 +183,6 @@
   "Plugin has been removed from the file system.": "システムから見知らぬプラグインを削除しました。",
   "Install Plugin": "プラグインインストール",
   "Plugin Name": "プラグイン名",
-  "Name the plugin by its unique code. For example, RainLab.Blog": "重複しないプラグイン名を付けてください。（例：RainLab.Blog）"
+  "Name the plugin by its unique code. For example, RainLab.Blog": "重複しないプラグイン名を付けてください。（例：RainLab.Blog）",
+  "The combiner file ':name' is not found.": "コンバイナファイル':name'が見つかりません。"
 }

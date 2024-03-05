@@ -14,9 +14,7 @@
       'label' => 'Ogiltig säkerhetstoken',
     ],
   ],
-  'combiner' => [
-    'not_found' => 'Kombinationsfilen \':name\' kunde ej hittas',
-  ],
+  'combiner' => [],
   'system' => [
     'name' => 'System',
     'menu_label' => 'System',

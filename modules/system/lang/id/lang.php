@@ -9,9 +9,7 @@
   'file' => [
     'create_fail' => 'Tidak dapat membuat berkas: :name',
   ],
-  'combiner' => [
-    'not_found' => 'Berkas penggabung \':name\' tidak ditemukan.',
-  ],
+  'combiner' => [],
   'system' => [
     'name' => 'Sistem',
     'menu_label' => 'Sistem',

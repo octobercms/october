@@ -257,5 +257,7 @@
   "Install Plugin": "Asenna liitännäinen",
   "Plugin Name": "Lisäosan nimi",
   "Name the plugin by its unique code. For example, RainLab.Blog": "Anna lisäosalle uniikkikoodi. Esimerkiksi: RainLab.Blog",
-  "Name the theme by its unique code. For example, RainLab.Vanilla": "Nimeä teema uniikilla tunnuksella. Esimerkiksi RainLab.Vanilla"
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "Nimeä teema uniikilla tunnuksella. Esimerkiksi RainLab.Vanilla",
+  "The resizer file ':name' is not found.": "Uutta kokoa tiedostosta ':name' ei löydy.",
+  "The combiner file ':name' is not found.": "Yhdistelmätiedostoa ':name' ei löydy."
 }

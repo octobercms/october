@@ -257,5 +257,7 @@
   "Install Plugin": "Installeer plugin",
   "Plugin Name": "Plugin naam",
   "Name the plugin by its unique code. For example, RainLab.Blog": "Gebruik bij het invoeren van de naam de unieke code van de plugin. Bijvoorbeeld: RainLab.Blog",
-  "Name the theme by its unique code. For example, RainLab.Vanilla": "Gebruik bij het invoeren van de naam de unieke code van het thema. Bijvoorbeeld: RainLab.Vanilla"
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "Gebruik bij het invoeren van de naam de unieke code van het thema. Bijvoorbeeld: RainLab.Vanilla",
+  "The resizer file ':name' is not found.": "Het 'resizer' bestand ':name' is niet gevonden.",
+  "The combiner file ':name' is not found.": "Het 'combiner' bestand ':name' is niet gevonden."
 }

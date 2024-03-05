@@ -9,9 +9,7 @@
   'file' => [
     'create_fail' => 'Не може да създаде файл: :name',
   ],
-  'combiner' => [
-    'not_found' => 'Комбинираният файл \':name\' не е намерен.',
-  ],
+  'combiner' => [],
   'page' => [
     'invalid_token' => [
       'label' => 'Невалиден код за сигурност (token)',

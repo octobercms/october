@@ -9,9 +9,7 @@
   'file' => [
     'create_fail' => 'Немагчыма стварыць файл: ":name"',
   ],
-  'combiner' => [
-    'not_found' => 'Аб\'яднальны файл ":name" не знойдзены',
-  ],
+  'combiner' => [],
   'page' => [
     'invalid_token' => [
       'label' => 'Няправільны токен бяспекі',

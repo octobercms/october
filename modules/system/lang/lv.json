@@ -191,5 +191,6 @@
   "Install Plugin": "Instalēt Spraudni",
   "Plugin Name": "Spraudņa nosaukums",
   "Name the plugin by its unique code. For example, RainLab.Blog": "Norādiet spraudņa unikālo kodu. Piemēram, RainLab.Blog",
-  "Name the theme by its unique code. For example, RainLab.Vanilla": "Norādiet tēmas unikālo kodu. Piemēram, RainLab.Vanilla"
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "Norādiet tēmas unikālo kodu. Piemēram, RainLab.Vanilla",
+  "The combiner file ':name' is not found.": "Kombināciju fails ':name' netika atrasts."
 }

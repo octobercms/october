@@ -196,5 +196,6 @@
   "Install Plugin": "Усталяваць плагін",
   "Plugin Name": "Назва плагіну",
   "Name the plugin by its unique code. For example, RainLab.Blog": "Назавіце плагін па яго ўнікальнаму коду. Напрыклад, RainLab.Blog",
-  "Name the theme by its unique code. For example, RainLab.Vanilla": "Назавіце тэму па яе ўнікальнаму коду. Напрыклад, RainLab.Vanilla"
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "Назавіце тэму па яе ўнікальнаму коду. Напрыклад, RainLab.Vanilla",
+  "The combiner file ':name' is not found.": "Аб'яднальны файл \":name\" не знойдзены"
 }

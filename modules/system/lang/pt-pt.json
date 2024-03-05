@@ -248,5 +248,6 @@
   "Install Plugin": "Instalar extensão",
   "Plugin Name": "Nome da extensão",
   "Name the plugin by its unique code. For example, RainLab.Blog": "Nomeie a extensão pelo seu código exclusivo. Por exemplo, RainLab.Blog",
-  "Name the theme by its unique code. For example, RainLab.Vanilla": "O nome do tema deve ser único. Por exemplo, RainLab.Vanilla"
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "O nome do tema deve ser único. Por exemplo, RainLab.Vanilla",
+  "The combiner file ':name' is not found.": "O ficheiro combinador \":name\" não foi encontrado."
 }

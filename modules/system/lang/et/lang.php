@@ -53,9 +53,7 @@
       'label' => 'Vigane turvamärk',
     ],
   ],
-  'combiner' => [
-    'not_found' => 'Ühendaja faili \':name\' ei leitud.',
-  ],
+  'combiner' => [],
   'system' => [
     'name' => 'Süsteem',
     'menu_label' => 'Süsteem',

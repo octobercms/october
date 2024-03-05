@@ -93,12 +93,8 @@
   'file' => [
     'create_fail' => '不能创建文件: :name',
   ],
-  'combiner' => [
-    'not_found' => '组合文件 \':name\' 没找到.',
-  ],
-  'resizer' => [
-    'not_found' => '未找到调整器文件 \':name\'。',
-  ],
+  'combiner' => [],
+  'resizer' => [],
   'system' => [
     'name' => '系统',
     'menu_label' => '系统',

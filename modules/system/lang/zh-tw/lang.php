@@ -9,9 +9,7 @@
   'file' => [
     'create_fail' => '不能建立檔案: :name',
   ],
-  'combiner' => [
-    'not_found' => '混合檔案 \':name\' 沒找到.',
-  ],
+  'combiner' => [],
   'system' => [
     'name' => '系統',
     'menu_label' => '系統',

@@ -57,9 +57,7 @@
       'label' => 'Security token không hợp lệ',
     ],
   ],
-  'combiner' => [
-    'not_found' => 'Không tìm thấy combiner file \':name\'.',
-  ],
+  'combiner' => [],
   'system' => [
     'name' => 'Hệ thống',
     'menu_label' => 'Hệ thống',

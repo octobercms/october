@@ -255,5 +255,6 @@
   "Install Plugin": "Namesti vtičnik",
   "Plugin Name": "Ime vtičnika",
   "Name the plugin by its unique code. For example, RainLab.Blog": "Poimenujte vtičnik po njegovi unikatni kodi, npr.: RainLab.Blog",
-  "Name the theme by its unique code. For example, RainLab.Vanilla": "Poimenujte temo po njeni unikatni kodi, npr.: RainLab.Vanilla"
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "Poimenujte temo po njeni unikatni kodi, npr.: RainLab.Vanilla",
+  "The combiner file ':name' is not found.": "Datoteke za kombiniranje ':name' ni mogoče najti."
 }

@@ -248,5 +248,6 @@
   "Install Plugin": "Instalar Plugin",
   "Plugin Name": "Nombre del Plugin",
   "Name the plugin by its unique code. For example, RainLab.Blog": "Nombra el plugin por su código único. por ejemplo, RainLab.Blog",
-  "Name the theme by its unique code. For example, RainLab.Vanilla": "Nombre del tema por su código único. Por ejemplo, RainLab.Vanilla"
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "Nombre del tema por su código único. Por ejemplo, RainLab.Vanilla",
+  "The combiner file ':name' is not found.": "El archivo combinador ':name' no se encuentra."
 }

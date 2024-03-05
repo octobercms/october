@@ -194,5 +194,6 @@
   "Install Plugin": "Инсталиране на Добавка",
   "Plugin Name": "Име на добавка",
   "Name the plugin by its unique code. For example, RainLab.Blog": "Именувайте добавката с уникално име. Например: RainLab.Blog",
-  "Name the theme by its unique code. For example, RainLab.Vanilla": "Именувайте темата с уникално име. Например: RainLab.Vanilla"
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "Именувайте темата с уникално име. Например: RainLab.Vanilla",
+  "The combiner file ':name' is not found.": "Комбинираният файл ':name' не е намерен."
 }

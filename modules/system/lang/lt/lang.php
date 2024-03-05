@@ -52,9 +52,7 @@
       'label' => 'Netinkama saugos žyma',
     ],
   ],
-  'combiner' => [
-    'not_found' => 'Bendrintojo failas \':name\' nerastas.',
-  ],
+  'combiner' => [],
   'system' => [
     'name' => 'Sistema',
     'menu_label' => 'Sistema',

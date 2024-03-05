@@ -255,5 +255,6 @@
   "Install Plugin": "Inštalovať plugin",
   "Plugin Name": "Názov pluginu",
   "Name the plugin by its unique code. For example, RainLab.Blog": "Názov pluginu podľa jeho unikátneho kódu. Napríklad, RainLab.Blog",
-  "Name the theme by its unique code. For example, RainLab.Vanilla": "Názov témy podľa jej unikátneho kódu. Napríklad, RainLab.Vanilla"
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "Názov témy podľa jej unikátneho kódu. Napríklad, RainLab.Vanilla",
+  "The combiner file ':name' is not found.": "Zlučujúci súbor ':name' nebol nájdený."
 }

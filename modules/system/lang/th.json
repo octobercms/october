@@ -245,5 +245,6 @@
   "Install Plugin": "ติดตั้งปลั๊กอิน",
   "Plugin Name": "ชื่อปลั๊กอิน",
   "Name the plugin by its unique code. For example, RainLab.Blog": "ตั้งชื่อปลั๊กอินตามรหัสที่ไม่ซ้ำใคร เช่น RainLab.Blog",
-  "Name the theme by its unique code. For example, RainLab.Vanilla": "ตั้งชื่อธีมตามรหัสที่ไม่ซ้ำใคร เช่น RainLab.Vanilla"
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "ตั้งชื่อธีมตามรหัสที่ไม่ซ้ำใคร เช่น RainLab.Vanilla",
+  "The combiner file ':name' is not found.": "หาไฟล์ combiner ':name' ไม่พบ"
 }

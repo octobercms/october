@@ -123,5 +123,6 @@
   "Install Plugin": "Installér",
   "Plugin Name": "Navn på plugin",
   "Name the plugin by its unique code. For example, RainLab.Blog": "Navngi pluginen ved et unikt navn. For eksempel, RainLab.Blog",
-  "Name the theme by its unique code. For example, RainLab.Vanilla": "Navngi temaet ved et unikt navn. For eksempel, RainLab.Vanilla"
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "Navngi temaet ved et unikt navn. For eksempel, RainLab.Vanilla",
+  "The combiner file ':name' is not found.": "Kombinasjonsfilen ':name' ble ikke funnet."
 }

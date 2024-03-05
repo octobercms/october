@@ -43,10 +43,10 @@
   "File Encoding": "ترميز الملف",
   "First row contains column titles": "الصف الأول يحتوي على عناوين الأعمدة",
   "Leave this checked if the first row in the CSV is used as the column titles.": "اترك هذا محددًا إذا تم استخدام الصف الأول في ملف CSV كعناوين أعمدة.",
-  "2. Match the file columns to database fields": "2. طابق أعمدة الملف بحقول قاعدة البيانات",
+  "2. Match the File Columns to Database Fields": "2. طابق أعمدة الملف بحقول قاعدة البيانات",
   "File columns": "أعمدة الملف",
   "Database fields": "حقول قاعدة البيانات",
-  "3. Set import options": "3. تعيين خيارات الاستيراد",
+  "3. Set Import Options": "3. تعيين خيارات الاستيراد",
   "Export progress": "تقدم عملية التصدير",
   "Processing": "معالجة",
   "Import progress": "تقدم الاستيراد",
@@ -281,5 +281,11 @@
   "Form record with an ID of :id could not be found.": "السجل رقم :id غير موجود.",
   "My Account": "حسابي",
   "Backend Preferences": "تفضيلات لوحة الإدارة",
-  "Add Selected": "إضافة المحدد"
+  "Add Selected": "إضافة المحدد",
+  "Created": "تمت الإضافة",
+  "Updated": "تم التعديل",
+  "Skipped": "تم تجاهله",
+  "Warnings": "تحذيرات",
+  "Errors": "أخطاء",
+  "File not found": "الملف غير موجود"
 }

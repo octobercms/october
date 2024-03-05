@@ -14,9 +14,7 @@
       'label' => 'Ugyldig sikkerhedstoken',
     ],
   ],
-  'combiner' => [
-    'not_found' => 'Kombineringsfilen \':name\', kunne ikke findes.',
-  ],
+  'combiner' => [],
   'system' => [
     'name' => 'System',
     'menu_label' => 'System',

@@ -235,5 +235,6 @@
   "Install Plugin": "نصب افزونه",
   "Plugin Name": "نام افزونه",
   "Name the plugin by its unique code. For example, RainLab.Blog": "یک اسم یکتا برای نام افزونه برای مثال: RainLab.Blog",
-  "Name the theme by its unique code. For example, RainLab.Vanilla": "یک اسم یکتا برای نام قالب برای مثال Rainlab.Vanilla"
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "یک اسم یکتا برای نام قالب برای مثال Rainlab.Vanilla",
+  "The combiner file ':name' is not found.": "فایل ترکیب کننده ':name' یافت نشد."
 }

@@ -93,12 +93,8 @@
   'file' => [
     'create_fail' => 'Bestand aanmaken mislukt: :name',
   ],
-  'combiner' => [
-    'not_found' => 'Het \'combiner\' bestand \':name\' is niet gevonden.',
-  ],
-  'resizer' => [
-    'not_found' => 'Het \'resizer\' bestand \':name\' is niet gevonden.',
-  ],
+  'combiner' => [],
+  'resizer' => [],
   'system' => [
     'name' => 'Systeem',
     'menu_label' => 'Systeem',
