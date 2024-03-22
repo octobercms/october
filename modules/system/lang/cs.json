@@ -113,7 +113,7 @@
   "SMTP": "SMTP",
   "Mailgun": "Mailgun",
   "SES": "SES",
-  "Postmark": "Poštovní razítko",
+  "Postmark": "Postmark",
   "No encryption": "Bez šifrování",
   "TLS": "TLS",
   "Mail Configuration": "Nastavení e-mailů",
@@ -140,7 +140,7 @@
   "Enter your SES API secret key": "Zadejte váš SES API tajný klíč (secret key)",
   "SES Region": "SES oblast (region)",
   "Enter your SES region (e.g. us-east-1)": "Zadejte region SES (např. us-east-1)",
-  "Postmark Token": "Token poštovního razítka",
+  "Postmark Token": "Postmark Token",
   "Enter your Postmark API secret key": "Zadejte tajný klíč Postmark API",
   "Define administrator roles": "Definujte administrátorské role",
   "Restrict access to this site to only administrator with the following roles.": "Omezit přístup k tomuto webu pouze na správce s následujícími rolemi.",
@@ -272,6 +272,5 @@
   "Seed Theme Data": "Vložit data šablony",
   "Import the blueprints files, language files and database contents for this theme, if applicable. You can skip this and do it later via the Frontend Theme settings.": "Importovat vzory (blueprints), jazykové soubory a databázový obsah tohoto motivu, pokud je to možné. Můžete to přeskočit a provést to později v nastavení vzhledu stránek.",
   "Change Status": "Změnit stav",
-  "Site Definitions": "Definice webu",
-  "The combiner file ':name' is not found.": "Slučující soubor ':name' nebyl nalezen."
+  "Site Definitions": "Definice webu"
 }

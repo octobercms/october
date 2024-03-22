@@ -272,6 +272,5 @@
   "Seed Theme Data": "Theme-Daten seeden",
   "Import the blueprints files, language files and database contents for this theme, if applicable. You can skip this and do it later via the Frontend Theme settings.": "Importiere die Blueprint- und Sprachdateien sowie Datenbankinhalte für dieses Theme, sofern vorhanden. Du kannst diesen Schritt überspringen und ihn später in den Frontend-Theme-Einstellungen manuell auslösen.",
   "Change Status": "Status ändern",
-  "Site Definitions": "Site-Definitionen",
-  "The combiner file ':name' is not found.": "Die combiner Datei ':name' wurde nicht gefunden."
+  "Site Definitions": "Site-Definitionen"
 }

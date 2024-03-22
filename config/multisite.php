@@ -26,12 +26,19 @@ return [
     |  - backend_mail_setting - Mail Settings are unique for each site
     |  - system_asset_combiner - Asset combiner cache keys are unique to the site
     |
+    | There are also some known vendor implementations.
+    |
+    |  - rainlab_googleanalytics_setting - Google Analytics for each site
+    |
     */
 
     'features' => [
         'cms_maintenance_setting' => false,
         'backend_mail_setting' => false,
         'system_asset_combiner' => false,
+
+        // Vendor
+        'rainlab_googleanalytics_setting' => false,
     ],
 
 ];

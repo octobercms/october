@@ -272,7 +272,5 @@
   "Seed Theme Data": "迁移 (播种) 主题数据",
   "Import the blueprints files, language files and database contents for this theme, if applicable. You can skip this and do it later via the Frontend Theme settings.": "导入该主题的蓝图文件、语言文件和数据库内容（如果适用）。您可以跳过此步骤，稍后在前端主题设置中执行此操作。",
   "Change Status": "更改状态",
-  "Site Definitions": "站点设置",
-  "The resizer file ':name' is not found.": "未找到调整器文件 ':name'。",
-  "The combiner file ':name' is not found.": "组合文件 ':name' 没找到."
+  "Site Definitions": "站点设置"
 }

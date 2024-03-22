@@ -272,7 +272,5 @@
   "Seed Theme Data": "Seed Theme Data",
   "Import the blueprints files, language files and database contents for this theme, if applicable. You can skip this and do it later via the Frontend Theme settings.": "Import the blueprints files, language files and database contents for this theme, if applicable. You can skip this and do it later via the Frontend Theme settings.",
   "Change Status": "Change Status",
-  "Site Definitions": "Site Definitions",
-  "The resizer file ':name' is not found.": "Le fichier de taille modifiée ':name' est introuvable.",
-  "The combiner file ':name' is not found.": "Le fichier combiné ':name' est introuvable."
+  "Site Definitions": "Site Definitions"
 }
