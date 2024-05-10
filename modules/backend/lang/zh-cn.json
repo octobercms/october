@@ -294,7 +294,7 @@
   ":name Removed": ":name 已删除",
   ":name Unlinked": ":name 已取消关联",
   "Form record with an ID of :id could not be found.": "无法找到 ID 为 :id 的表单记录。",
-  "Remove Selected": "删除所选",
+  "Remove Selected": "移除所选",
   "Unlink Selected": "取消选择",
   "Preview the Website": "预览网站",
   "Manage back-end administrator users, groups and permissions.": "管理后台管理员用户, 组和权限.",
