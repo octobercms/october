@@ -57,7 +57,7 @@
   "Handle": "扱う",
   "Collection": "コレクション",
   "Displays a collection of entries.": "エントリのコレクションを表示します。",
-  "Global": "グローバル",
+  "Global_": "グローバル",
   "Makes globals available to the page.": "ページでグローバルを使用できるようにします。",
   "Section": "セクション",
   "Defines a website section with a supporting entry.": "サポート エントリを含む Web サイト セクションを定義します。",

@@ -55,7 +55,7 @@
   "Handle": "處理",
   "Collection": "收藏",
   "Displays a collection of entries.": "顯示條目的集合。",
-  "Global": "全球的",
+  "Global_": "全球的",
   "Makes globals available to the page.": "使全局變量可用於頁面。",
   "Section": "部分",
   "Defines a website section with a supporting entry.": "使用支持條目定義網站部分。",

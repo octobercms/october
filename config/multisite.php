@@ -29,6 +29,7 @@ return [
     | There are also some known vendor implementations.
     |
     |  - rainlab_googleanalytics_setting - Google Analytics for each site
+    |  - responsiv_campaign_message - Mailing list campaigns for each site
     |
     */
 
@@ -39,6 +40,7 @@ return [
 
         // Vendor
         'rainlab_googleanalytics_setting' => false,
+        'responsiv_campaign_message' => false,
     ],
 
 ];

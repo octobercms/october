@@ -57,7 +57,7 @@
   "Handle": "핸들",
   "Collection": "수집",
   "Displays a collection of entries.": "항목 모음을 표시합니다.",
-  "Global": "글로벌",
+  "Global_": "글로벌",
   "Makes globals available to the page.": "페이지에서 전역을 사용할 수 있도록 합니다.",
   "Section": "부분",
   "Defines a website section with a supporting entry.": "지원 항목이 있는 웹사이트 섹션을 정의합니다.",

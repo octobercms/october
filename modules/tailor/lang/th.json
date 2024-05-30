@@ -57,7 +57,7 @@
   "Handle": "รับมือ",
   "Collection": "ของสะสม",
   "Displays a collection of entries.": "แสดงรายการต่างๆ",
-  "Global": "ทั่วโลก",
+  "Global_": "ทั่วโลก",
   "Makes globals available to the page.": "ทำให้ globals พร้อมใช้งานบนเพจ",
   "Section": "ส่วน",
   "Defines a website section with a supporting entry.": "กำหนดส่วนเว็บไซต์ที่มีรายการสนับสนุน",

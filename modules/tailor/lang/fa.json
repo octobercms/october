@@ -57,7 +57,7 @@
   "Handle": "رسیدگی",
   "Collection": "مجموعه",
   "Displays a collection of entries.": "مجموعه ای از ورودی ها را نمایش می دهد.",
-  "Global": "جهانی",
+  "Global_": "جهانی",
   "Makes globals available to the page.": "جهانی ها را در دسترس صفحه قرار می دهد.",
   "Section": "بخش",
   "Defines a website section with a supporting entry.": "یک بخش وب سایت را با یک ورودی پشتیبانی تعریف می کند.",

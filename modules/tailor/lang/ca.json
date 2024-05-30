@@ -57,7 +57,7 @@
   "Handle": "Gestionar",
   "Collection": "Col · lecció",
   "Displays a collection of entries.": "Mostra una col·lecció d'entrades.",
-  "Global": "Global",
+  "Global_": "Global",
   "Makes globals available to the page.": "Fa que els globals estiguin disponibles a la pàgina.",
   "Section": "Secció",
   "Defines a website section with a supporting entry.": "Defineix una secció de lloc web amb una entrada de suport.",

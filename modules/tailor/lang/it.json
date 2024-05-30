@@ -57,7 +57,7 @@
   "Handle": "Maneggiare",
   "Collection": "Collezione",
   "Displays a collection of entries.": "Visualizza una raccolta di voci.",
-  "Global": "Globale",
+  "Global_": "Globale",
   "Makes globals available to the page.": "Rende disponibili i globali alla pagina.",
   "Section": "Sezione",
   "Defines a website section with a supporting entry.": "Definisce una sezione del sito Web con una voce di supporto.",

@@ -57,7 +57,7 @@
     "Handle": "Handle",
     "Collection": "Collection",
     "Displays a collection of entries.": "Displays a collection of entries.",
-    "Global": "Global",
+    "Global_": "Global",
     "Makes globals available to the page.": "Makes globals available to the page.",
     "Section": "Section",
     "Defines a website section with a supporting entry.": "Defines a website section with a supporting entry.",
