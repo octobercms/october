@@ -63,7 +63,7 @@
   "Defines a website section with a supporting entry.": "지원 항목이 있는 웹사이트 섹션을 정의합니다.",
   "URL code (slug) used to find the primary record.": "기본 레코드를 찾는 데 사용되는 URL 코드(슬러그)입니다.",
   "Default View": "기본 보기",
-  "Used as default entry point when previewing the record.": "레코드를 미리 볼 때 기본 진입점으로 사용됩니다.",
+  "Use this page as a default entry point when previewing the record.": "레코드를 미리 볼 때 기본 진입점으로 사용됩니다.",
   "Full Slug": "풀 슬러그",
   "Use the full slug when looking up the record.": "레코드를 조회할 때 전체 슬러그를 사용하십시오.",
   "Are you sure?": "확실합니까?",

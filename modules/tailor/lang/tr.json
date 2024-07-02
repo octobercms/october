@@ -63,7 +63,7 @@
   "Defines a website section with a supporting entry.": "Destekleyici bir giriş içeren bir web sitesi bölümü tanımlar.",
   "URL code (slug) used to find the primary record.": "Birincil kaydı bulmak için kullanılan bilgi parçasını belirtin.",
   "Default View": "Varsayılan görünüm",
-  "Used as default entry point when previewing the record.": "Kaydı önizlerken varsayılan giriş noktası olarak kullanılır.",
+  "Use this page as a default entry point when previewing the record.": "Kaydı önizlerken varsayılan giriş noktası olarak kullanılır.",
   "Full Slug": "Tam Slug",
   "Use the full slug when looking up the record.": "Kaydı ararken tam bilgi kullanın.",
   "Are you sure?": "Emin misin?",

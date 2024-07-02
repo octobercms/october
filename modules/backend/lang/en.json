@@ -346,5 +346,11 @@
   "Show Ignored Columns": "Show Ignored Columns",
   "Auto Match Columns": "Auto Match Columns",
   "File not found": "File not found",
-  "There was no data supplied to export": "There was no data supplied to export"
+  "There was no data supplied to export": "There was no data supplied to export",
+  "Created At": "Created At",
+  "Updated At": "Updated At",
+  "Deleted At": "Deleted At",
+  "Created By": "Created By",
+  "Updated By": "Updated By",
+  "Deleted By": "Deleted By"
 }

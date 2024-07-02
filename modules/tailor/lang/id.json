@@ -63,7 +63,7 @@
   "Defines a website section with a supporting entry.": "Mendefinisikan bagian situs web dengan entri pendukung.",
   "URL code (slug) used to find the primary record.": "Tentukan slug yang digunakan untuk menemukan record utama.",
   "Default View": "Tampilan Default",
-  "Used as default entry point when previewing the record.": "Digunakan sebagai titik masuk default saat melihat pratinjau rekaman.",
+  "Use this page as a default entry point when previewing the record.": "Digunakan sebagai titik masuk default saat melihat pratinjau rekaman.",
   "Full Slug": "Siput Penuh",
   "Use the full slug when looking up the record.": "Gunakan siput penuh saat mencari catatan.",
   "Are you sure?": "Apa kamu yakin?",

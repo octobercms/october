@@ -63,7 +63,7 @@
   "Defines a website section with a supporting entry.": "يحدد قسم موقع الويب بإدخال داعم.",
   "URL code (slug) used to find the primary record.": "حدد الارتفاع التقريبي المستخدم للعثور على السجل الأساسي.",
   "Default View": "طريقة العرض الافتراضية",
-  "Used as default entry point when previewing the record.": "تستخدم كنقطة إدخال افتراضية عند معاينة السجل.",
+  "Use this page as a default entry point when previewing the record.": "تستخدم كنقطة إدخال افتراضية عند معاينة السجل.",
   "Full Slug": "سبيكة كاملة",
   "Use the full slug when looking up the record.": "استخدم الرابط الكامل عند البحث عن السجل.",
   "Are you sure?": "هل أنت متأكد؟",

@@ -63,7 +63,7 @@
     "Defines a website section with a supporting entry.": "Määrittää verkkosivuston osion tuetulla merkinnällä.",
     "URL code (slug) used to find the primary record.": "Määritä polkutunnus, jota käytetään ensisijaisen tietueen löytämiseen.",
     "Default View": "Oletusnäkymä",
-    "Used as default entry point when previewing the record.": "Käytetään oletusmerkintänä tietueen esikatselussa.",
+    "Use this page as a default entry point when previewing the record.": "Käytetään oletusmerkintänä tietueen esikatselussa.",
     "Full Slug": "Koko polku",
     "Use the full slug when looking up the record.": "Käytä koko polkua, kun etsit tietuetta.",
     "Are you sure?": "Oletko varma?",

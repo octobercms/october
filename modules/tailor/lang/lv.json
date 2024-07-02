@@ -63,7 +63,7 @@
   "Defines a website section with a supporting entry.": "Definē vietnes sadaļu ar atbalsta ierakstu.",
   "URL code (slug) used to find the primary record.": "Norādiet, kas izmantots, lai atrastu primāro ierakstu.",
   "Default View": "Noklusējuma skats",
-  "Used as default entry point when previewing the record.": "Tiek izmantots kā noklusējuma ieejas punkts, priekšskatot ierakstu.",
+  "Use this page as a default entry point when previewing the record.": "Tiek izmantots kā noklusējuma ieejas punkts, priekšskatot ierakstu.",
   "Full Slug": "Pilnīga plēksne",
   "Use the full slug when looking up the record.": "Meklējot ierakstu, izmantojiet pilnu lodziņu.",
   "Are you sure?": "Vai tu esi pārliecināts?",

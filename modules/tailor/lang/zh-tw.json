@@ -61,7 +61,7 @@
   "Defines a website section with a supporting entry.": "使用支持條目定義網站部分。",
   "URL code (slug) used to find the primary record.": "指定用於查找主記錄的 slug。",
   "Default View": "默認視圖",
-  "Used as default entry point when previewing the record.": "預覽記錄時用作默認入口點。",
+  "Use this page as a default entry point when previewing the record.": "預覽記錄時用作默認入口點。",
   "Full Slug": "全蛞蝓",
   "Use the full slug when looking up the record.": "查找記錄時使用完整的 slug。"
 }
