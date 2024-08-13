@@ -2,7 +2,7 @@
   'auth' => [],
   'field' => [
     'invalid_type' => 'El tipo de campo utilizado es inválido :type.',
-    'options_method_not_exists' => 'El modelo clase: model debe definir un método: method() opciones recurrentes para el ":field" desde campo.',
+    'options_method_not_exists' => 'El modelo clase :model debe definir un método :method() opciones recurrentes para el campo ":field".',
   ],
   'widget' => [
     'not_registered' => 'La clase del modulo \':name\' no ha sido registrada',
