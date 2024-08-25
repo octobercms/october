@@ -63,7 +63,7 @@
     "Defines a website section with a supporting entry.": "Meghatároz egy webhelyrészt támogató bejegyzéssel.",
     "URL code (slug) used to find the primary record.": "Adja meg az elsődleges rekord megtalálásához használt csigát.",
     "Default View": "Alapértelmezett nézet",
-    "Use this page as a default entry point when previewing the record.": "Alapértelmezett belépési pontként használatos a rekord előnézetekor.",
+    "Used as default entry point when previewing the record.": "Alapértelmezett belépési pontként használatos a rekord előnézetekor.",
     "Full Slug": "Teljes slug",
     "Use the full slug when looking up the record.": "Használja a teljes csigát, amikor megkeresi a rekordot.",
     "Are you sure?": "Biztos benne?",

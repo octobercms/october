@@ -63,7 +63,7 @@
     "Defines a website section with a supporting entry.": "Определя раздел на уебсайт с поддържащ запис.",
     "URL code (slug) used to find the primary record.": "Посочете охлюва, използван за намиране на първичния запис.",
     "Default View": "Изглед по подразбиране",
-    "Use this page as a default entry point when previewing the record.": "Използва се като входна точка по подразбиране при предварителен преглед на записа.",
+    "Used as default entry point when previewing the record.": "Използва се като входна точка по подразбиране при предварителен преглед на записа.",
     "Full Slug": "Пълен плужек",
     "Use the full slug when looking up the record.": "Използвайте пълния охлюв, когато търсите записа.",
     "Are you sure?": "Сигурен ли си?",

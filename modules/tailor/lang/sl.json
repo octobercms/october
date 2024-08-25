@@ -63,7 +63,7 @@
     "Defines a website section with a supporting entry.": "Določa razdelek spletnega mesta s podpornim vnosom.",
     "URL code (slug) used to find the primary record.": "Določite polž, uporabljen za iskanje primarnega zapisa.",
     "Default View": "Privzeti pogled",
-    "Use this page as a default entry point when previewing the record.": "Uporablja se kot privzeta vstopna točka pri predogledu zapisa.",
+    "Used as default entry point when previewing the record.": "Uporablja se kot privzeta vstopna točka pri predogledu zapisa.",
     "Full Slug": "Poln polž",
     "Use the full slug when looking up the record.": "Pri iskanju zapisa uporabite polno črko.",
     "Are you sure?": "Are you sure?",

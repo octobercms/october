@@ -63,7 +63,7 @@
     "Defines a website section with a supporting entry.": "Määrab veebisaidi jaotise koos toetava kirjega.",
     "URL code (slug) used to find the primary record.": "Määrake esmase kirje leidmiseks kasutatud nälkjas.",
     "Default View": "Vaikevaade",
-    "Use this page as a default entry point when previewing the record.": "Kasutatakse kirje eelvaate kuvamisel vaikimisi sisenemispunktina.",
+    "Used as default entry point when previewing the record.": "Kasutatakse kirje eelvaate kuvamisel vaikimisi sisenemispunktina.",
     "Full Slug": "Täielik nälkjas",
     "Use the full slug when looking up the record.": "Kasutage kirje otsimisel täielikku nälkja.",
     "Are you sure?": "Oled sa kindel?",

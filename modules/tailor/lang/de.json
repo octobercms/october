@@ -63,7 +63,7 @@
     "Defines a website section with a supporting entry.": "Definiert eine Website-Sektion mit einem unterstützenden Eintrag.",
     "URL code (slug) used to find the primary record.": "Slug, um einen Datensatz zu suchen.",
     "Default View": "Standardansicht",
-    "Use this page as a default entry point when previewing the record.": "Wird als Standardeinstiegspunkt bei der Vorschau des Datensatzes verwendet.",
+    "Used as default entry point when previewing the record.": "Wird als Standardeinstiegspunkt bei der Vorschau des Datensatzes verwendet.",
     "Full Slug": "Vollständiger Slug",
     "Use the full slug when looking up the record.": "Vollständigen Slug verwenden, um einen Datensatz zu suchen.",
     "Are you sure?": "Sind Sie sicher?",

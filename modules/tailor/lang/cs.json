@@ -63,7 +63,7 @@
     "Defines a website section with a supporting entry.": "Definuje sekci webu s podpůrným záznamem.",
     "URL code (slug) used to find the primary record.": "Zadejte slimák použitý k nalezení primárního záznamu.",
     "Default View": "Výchozí zobrazení",
-    "Use this page as a default entry point when previewing the record.": "Používá se jako výchozí vstupní bod při prohlížení náhledu záznamu.",
+    "Used as default entry point when previewing the record.": "Používá se jako výchozí vstupní bod při prohlížení náhledu záznamu.",
     "Full Slug": "Úplná URL adresa",
     "Use the full slug when looking up the record.": "Při vyhledávání záznamu použijte plného slimáka.",
     "Are you sure?": "Jsi si jistá?",

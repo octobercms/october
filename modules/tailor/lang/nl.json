@@ -63,7 +63,7 @@
     "Defines a website section with a supporting entry.": "Definieert een website sectie met een ondersteunend item.",
     "URL code (slug) used to find the primary record.": "Geef de slug op van het primaire record.",
     "Default View": "Standaardweergave",
-    "Use this page as a default entry point when previewing the record.": "Wordt gebruikt als standaard ingangspunt bij de voorbeeldweergave van een record.",
+    "Used as default entry point when previewing the record.": "Wordt gebruikt als standaard ingangspunt bij de voorbeeldweergave van een record.",
     "Full Slug": "Volledige slug",
     "Use the full slug when looking up the record.": "Gebruik de volledige slug bij het opzoeken van het record.",
     "Are you sure?": "Weet je het zeker?",

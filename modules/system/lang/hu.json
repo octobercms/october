@@ -66,7 +66,7 @@
   "Specify domain names and patterns that must be used to serve this site.": "Adja meg azokat a domain neveket és mintákat, amelyeket a webhely kiszolgálásához használni kell.",
   "Display a style for this site": "Szín megjelenítése ehhez az oldalhoz",
   "To help identify this site, display a color in the admin panel.": "A webhely azonosításának megkönnyítése érdekében jelenítsen meg egy színt az adminisztrációs panelen.",
-  "Save": "Megment",
+  "Save": "Mentés",
   "Save and Close": "Mentés és bezárás",
   "Use Default": "Az alapértelmezett",
   "Use Custom": "Használja az Egyéni lehetőséget",

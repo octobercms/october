@@ -63,7 +63,7 @@
     "Defines a website section with a supporting entry.": "Definește o secțiune de site web cu o intrare de sprijin.",
     "URL code (slug) used to find the primary record.": "Specificați slug-ul utilizat pentru a găsi înregistrarea primară.",
     "Default View": "Vedere standard",
-    "Use this page as a default entry point when previewing the record.": "Folosit ca punct de intrare implicit la previzualizarea înregistrării.",
+    "Used as default entry point when previewing the record.": "Folosit ca punct de intrare implicit la previzualizarea înregistrării.",
     "Full Slug": "Slug plin",
     "Use the full slug when looking up the record.": "Folosiți slug-ul complet când căutați înregistrarea.",
     "Are you sure?": "Esti sigur?",

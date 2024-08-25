@@ -63,7 +63,7 @@
     "Defines a website section with a supporting entry.": "Определяет раздел веб-сайта со вспомогательной записью.",
     "URL code (slug) used to find the primary record.": "Укажите (слаг), используемый для поиска основной записи.",
     "Default View": "Вид по умолчанию",
-    "Use this page as a default entry point when previewing the record.": "Используется как точка входа по умолчанию при предварительном просмотре записи.",
+    "Used as default entry point when previewing the record.": "Используется как точка входа по умолчанию при предварительном просмотре записи.",
     "Full Slug": "Полный слаг",
     "Use the full slug when looking up the record.": "Используйте полный слаг при поиске записи.",
     "Are you sure?": "Вы уверены?",
