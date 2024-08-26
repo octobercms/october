@@ -168,7 +168,7 @@
     'important_action_required' => 'Wymagane działanie',
     'important_view_guide' => 'Zobacz instrukcje aktualizacji',
     'important_alert_text' => 'Niektóre aktualizacje wymagają twojej uwagi.',
-    'details_title' => 'Szeczóły wtyczki',
+    'details_title' => 'Szczegóły wtyczki',
     'details_view_homepage' => 'Zobacz stronę domową',
     'details_current_version' => 'Aktualna wersja',
     'details_author' => 'Autor',
