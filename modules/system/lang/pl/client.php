@@ -15,7 +15,7 @@ return [
     'markdowneditor' => [
         'formatting' => 'Formaty',
         'quote' => 'Cytat',
-        'code' => 'Widok kod',
+        'code' => 'Widok kodu',
         'header1' => 'Nagłówek 1',
         'header2' => 'Nagłówek 2',
         'header3' => 'Nagłówek 3',
