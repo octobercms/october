@@ -30,6 +30,8 @@
         "emmet-monaco-es": "^5.3",
         "jquery": "^3.6.0",
         "js-cookie": "^3.0.1",
+        "moment": "^2.30.1",
+        "moment-timezone": "^0.5.46",
         "monaco-editor": "^0.46.0",
         "monaco-yaml": "^5.1.1",
         "popper.js": "^1.16.1",
