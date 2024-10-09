@@ -43,10 +43,10 @@
   "File Encoding": "Pengkodean File",
   "First row contains column titles": "Baris pertama berisi judul kolom",
   "Leave this checked if the first row in the CSV is used as the column titles.": "Biarkan ini dicentang jika baris pertama dalam CSV digunakan sebagai judul kolom.",
-  "2. Match the file columns to database fields": "2. Cocokkan kolom file dengan bidang database",
+  "2. Match the File Columns to Database Fields": "2. Cocokkan kolom file dengan bidang database",
   "File columns": "Kolom file",
   "Database fields": "Bidang isian database",
-  "3. Set import options": "3. Atur opsi impor",
+  "3. Set Import Options": "3. Atur opsi impor",
   "Export progress": "Progres ekspor",
   "Processing": "Sedang mengolah",
   "Import progress": "Progres impor",
@@ -297,5 +297,6 @@
   "List Setup": "Pengaturan Tabel",
   "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Gunakan checkbox untuk memilih kolom yang ingin ditampilkan pada tabel. Anda dapat mengubah posisi kolom dengan cara menarik ke atas ke bawah.",
   "Records Per Page": "Data per halaman",
-  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Pilih jumlah data per halaman untuk ditampilkan. Mohon diingat, jumlah data yang banyak dalam satu halaman dapat menurunkan performa."
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Pilih jumlah data per halaman untuk ditampilkan. Mohon diingat, jumlah data yang banyak dalam satu halaman dapat menurunkan performa.",
+  "Add Selected": "Tambah terpilih"
 }

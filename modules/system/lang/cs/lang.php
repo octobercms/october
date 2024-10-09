@@ -14,9 +14,7 @@
       'label' => 'Neplatný bezpečnostní token',
     ],
   ],
-  'combiner' => [
-    'not_found' => 'Slučující soubor \':name\' nebyl nalezen.',
-  ],
+  'combiner' => [],
   'system' => [
     'name' => 'Systém',
     'menu_label' => 'Systém',

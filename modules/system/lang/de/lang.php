@@ -14,9 +14,7 @@
       'label' => 'Ungültiges Sicherheitstoken',
     ],
   ],
-  'combiner' => [
-    'not_found' => 'Die combiner Datei \':name\' wurde nicht gefunden.',
-  ],
+  'combiner' => [],
   'system' => [
     'name' => 'System',
     'menu_label' => 'System',

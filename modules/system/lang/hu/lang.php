@@ -44,12 +44,8 @@
   'file' => [
     'create_fail' => 'Nem hozható létre a fájl: :name',
   ],
-  'combiner' => [
-    'not_found' => 'A(z) \':name\' egyesítő fájl nem található.',
-  ],
-  'resizer' => [
-    'not_found' => 'Az átméretezett fájl \':name\' nem található.',
-  ],
+  'combiner' => [],
+  'resizer' => [],
   'system' => [
     'name' => 'Rendszer',
     'menu_label' => 'Rendszer',

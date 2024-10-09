@@ -183,5 +183,6 @@
   "Plugin has been removed from the file system.": "Plugin telah dilepas dari sistem berkas.",
   "Install Plugin": "Pasang Plugin",
   "Plugin Name": "Nama Plugin",
-  "Name the plugin by its unique code. For example, RainLab.Blog": "Gunakan nama plugin dengan kode uniknya. Contoh, RainLab.Blog"
+  "Name the plugin by its unique code. For example, RainLab.Blog": "Gunakan nama plugin dengan kode uniknya. Contoh, RainLab.Blog",
+  "The combiner file ':name' is not found.": "Berkas penggabung ':name' tidak ditemukan."
 }

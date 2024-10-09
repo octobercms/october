@@ -43,10 +43,10 @@
   "File Encoding": "ファイルエンコーディング",
   "First row contains column titles": "最初の行には列のタイトルが含まれています",
   "Leave this checked if the first row in the CSV is used as the column titles.": "CSVの最初の行が列のタイトルとして使用されている場合は、これをオンのままにします。",
-  "2. Match the file columns to database fields": "2.ファイル列をデータベースフィールドに一致させます",
+  "2. Match the File Columns to Database Fields": "2.ファイル列をデータベースフィールドに一致させます",
   "File columns": "ファイル列",
   "Database fields": "データベースフィールド",
-  "3. Set import options": "3.インポートオプションを設定します",
+  "3. Set Import Options": "3.インポートオプションを設定します",
   "Export progress": "エクスポートの進捗状況",
   "Processing": "処理",
   "Import progress": "インポートの進行状況",
@@ -297,5 +297,6 @@
   "List Setup": "リストのセットアップ",
   "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "リストの表示したいカラムをチェックボックスで選択してください。カラムの位置は上下にドラッグして変更できます。",
   "Records Per Page": "ページ中のレコード数",
-  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "ページあたりの表示レコード数を選択してください。1ページにたくさん表示するとパフォーマンスに影響があるので留意してください。"
+  "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "ページあたりの表示レコード数を選択してください。1ページにたくさん表示するとパフォーマンスに影響があるので留意してください。",
+  "Add Selected": "追加は選択されています"
 }

@@ -9,9 +9,7 @@
   'file' => [
     'create_fail' => 'ไม่สามารถสร้างไฟล์: :name',
   ],
-  'combiner' => [
-    'not_found' => 'หาไฟล์ combiner \':name\' ไม่พบ',
-  ],
+  'combiner' => [],
   'system' => [
     'name' => 'ระบบ',
     'menu_label' => 'ระบบ',

@@ -164,7 +164,6 @@
     'invalid_action_multi' => 'Denna åtgärd kan inte appliceras på flera relationer',
     'help' => 'Klicka på en post för att lägga till',
     'add' => 'Lägg till',
-    'add_selected' => 'Lägg till vald',
     'link_selected' => 'Länka vald',
     'cancel' => 'Avbryt',
     'close' => 'Stäng',

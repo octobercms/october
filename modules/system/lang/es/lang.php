@@ -14,9 +14,7 @@
       'label' => 'Token de seguridad invalido',
     ],
   ],
-  'combiner' => [
-    'not_found' => 'El archivo combinador \':name\' no se encuentra.',
-  ],
+  'combiner' => [],
   'system' => [
     'name' => 'Sistema',
     'menu_label' => 'Sistema',

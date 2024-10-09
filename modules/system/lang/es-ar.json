@@ -86,5 +86,6 @@
   "Plugin has been removed from the file system.": "Se eliminó el plugin del sistema de archivos.",
   "Install Plugin": "Instalar Plugin",
   "Plugin Name": "Nombre del plugin",
-  "Name the plugin by its unique code. For example, RainLab.Blog": "Buscar el plugin por su nombre de codigo unico. Por ejemplo: RainLab.Blog"
+  "Name the plugin by its unique code. For example, RainLab.Blog": "Buscar el plugin por su nombre de codigo unico. Por ejemplo: RainLab.Blog",
+  "The combiner file ':name' is not found.": "El archivo combinado ':name' no se encuentra."
 }

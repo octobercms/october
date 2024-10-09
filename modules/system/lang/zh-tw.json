@@ -154,5 +154,6 @@
   "Install Plugin": "安裝外掛",
   "Plugin Name": "外掛名稱",
   "Name the plugin by its unique code. For example, RainLab.Blog": "外掛的唯一名稱，例如：RainLab.Blog",
-  "Name the theme by its unique code. For example, RainLab.Vanilla": "主題的唯一名稱，例如：RainLab.Vanilla"
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "主題的唯一名稱，例如：RainLab.Vanilla",
+  "The combiner file ':name' is not found.": "混合檔案 ':name' 沒找到."
 }

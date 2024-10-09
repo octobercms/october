@@ -158,7 +158,6 @@
     'invalid_action_multi' => 'Aksi ini tidak dapat dilakukan di dalam relasi jamak.',
     'help' => 'Klik pada item untuk menambah',
     'add' => 'Tambah',
-    'add_selected' => 'Tambah terpilih',
     'link_selected' => 'Tautan terpilih',
     'cancel' => 'Batal',
     'close' => 'Tutup',

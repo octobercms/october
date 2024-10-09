@@ -19,6 +19,12 @@ fields:
         type: mediafinder
         mode: image
 
+    email:
+        label: Email
+        type: email
+        column:
+            searchable: true
+
     role:
         label: Role
         type: text

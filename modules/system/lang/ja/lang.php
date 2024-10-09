@@ -9,9 +9,7 @@
   'file' => [
     'create_fail' => 'ファイル\':name\'を作成できません。',
   ],
-  'combiner' => [
-    'not_found' => 'コンバイナファイル\':name\'が見つかりません。',
-  ],
+  'combiner' => [],
   'system' => [
     'name' => 'システム',
     'menu_label' => 'システム',

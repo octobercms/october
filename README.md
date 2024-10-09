@@ -65,7 +65,7 @@ For announcements and updates:
 
 To chat or hang out:
 
-* [Join us on Slack](https://octobercms.slack.com)
+* [Join us on Slack](https://join.slack.com/t/octobercms/shared_invite/zt-2f19m689c-VCrBPc2P1dmqAJ_86Y8e_Q)
 * [Join us on Discord](https://discord.gg/gEKgwSZ)
 * [Join us on Telegram](https://t.me/octoberchat)
 

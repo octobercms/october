@@ -9,6 +9,6 @@ navigation:
     order: 200
 
 fields:
-    block_builder:
+    _block_builder:
         type: mixin
         source: Fields\Blocks

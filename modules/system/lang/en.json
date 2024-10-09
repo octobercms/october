@@ -67,6 +67,9 @@
   "Display a style for this site": "Display a style for this site",
   "To help identify this site, display a color in the admin panel.": "To help identify this site, display a color in the admin panel.",
   "Save": "Save",
+  "Back": "Back",
+  "Edit": "Edit",
+  "Refresh": "Refresh",
   "Save and Close": "Save and Close",
   "Use Default": "Use Default",
   "Use Custom": "Use Custom",
@@ -272,5 +275,7 @@
   "Seed Theme Data": "Seed Theme Data",
   "Import the blueprints files, language files and database contents for this theme, if applicable. You can skip this and do it later via the Frontend Theme settings.": "Import the blueprints files, language files and database contents for this theme, if applicable. You can skip this and do it later via the Frontend Theme settings.",
   "Change Status": "Change Status",
-  "Site Definitions": "Site Definitions"
+  "Site Definitions": "Site Definitions",
+  "The resizer file ':name' is not found.": "The resizer file ':name' is not found.",
+  "The combiner file ':name' is not found.": "The combiner file ':name' is not found."
 }

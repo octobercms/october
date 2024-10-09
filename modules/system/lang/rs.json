@@ -181,5 +181,6 @@
   "Install Plugin": "Instaliraj priključak",
   "Plugin Name": "Naziv priključka",
   "Name the plugin by its unique code. For example, RainLab.Blog": "Imenuj priključak po njegovom jedinstvenom kodu. Na primer, RainLab.Blog",
-  "Name the theme by its unique code. For example, RainLab.Vanilla": "Imenuj temu po njenom jedinstvenom kodu. Na primer, RainLab.Vanilla"
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "Imenuj temu po njenom jedinstvenom kodu. Na primer, RainLab.Vanilla",
+  "The combiner file ':name' is not found.": "Kombinovani fajl ':name' nije pronađen."
 }

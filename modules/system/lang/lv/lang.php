@@ -14,9 +14,7 @@
       'label' => 'Nederīga drošības atslēga',
     ],
   ],
-  'combiner' => [
-    'not_found' => 'Kombināciju fails \':name\' netika atrasts.',
-  ],
+  'combiner' => [],
   'system' => [
     'name' => 'Sistēma',
     'menu_label' => 'Sistēma',

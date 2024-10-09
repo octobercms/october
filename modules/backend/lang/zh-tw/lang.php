@@ -161,7 +161,6 @@
     'invalid_action_multi' => '這個操作不能在多重關聯上執行.',
     'help' => '點選增加',
     'add' => '增加',
-    'add_selected' => '增加選取的',
     'link_selected' => '關聯選取',
     'cancel' => '取消',
     'close' => '關閉',

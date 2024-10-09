@@ -1,6 +1,6 @@
 {% macro render_toc(articles, activeSlug) %}
     {% for article in articles %}
-        {% set hasChildren = article.children %}
+        {% set hasChildren = article.children is not empty %}
         {% set isActive = article.fullslug == activeSlug %}
         <li class="{{ hasChildren ? 'collapsible' }} {{ isActive ? 'active' }}">
             <a href="#tocItem{{ article.id }}" class="collapse-caret {{ not isActive ? 'collapsed' }}" data-bs-toggle="collapse"></a>

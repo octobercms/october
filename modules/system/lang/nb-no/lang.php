@@ -14,9 +14,7 @@
       'label' => 'Ugyldig sikkerhets-token',
     ],
   ],
-  'combiner' => [
-    'not_found' => 'Kombinasjonsfilen \':name\' ble ikke funnet.',
-  ],
+  'combiner' => [],
   'system' => [
     'name' => 'System',
     'menu_label' => 'System',

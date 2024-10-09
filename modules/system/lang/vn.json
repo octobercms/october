@@ -164,5 +164,6 @@
   "Install Plugin": "Cài đặt Plugin",
   "Plugin Name": "Tên plugin",
   "Name the plugin by its unique code. For example, RainLab.Blog": "Tên của plugin không được trùng lặp. For example, RainLab.Blog",
-  "Name the theme by its unique code. For example, RainLab.Vanilla": "Tên của theme không được trùng lặp. Ví dụ RainLab.Vanilla"
+  "Name the theme by its unique code. For example, RainLab.Vanilla": "Tên của theme không được trùng lặp. Ví dụ RainLab.Vanilla",
+  "The combiner file ':name' is not found.": "Không tìm thấy combiner file ':name'."
 }

@@ -48,12 +48,8 @@
   'file' => [
     'create_fail' => 'Impossible de créer le fichier : :name',
   ],
-  'combiner' => [
-    'not_found' => 'Le fichier combiné \':name\' est introuvable.',
-  ],
-  'resizer' => [
-    'not_found' => 'Le fichier de taille modifiée \':name\' est introuvable.',
-  ],
+  'combiner' => [],
+  'resizer' => [],
   'system' => [
     'name' => 'Système',
     'menu_label' => 'Système',

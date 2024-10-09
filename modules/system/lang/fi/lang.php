@@ -106,12 +106,8 @@
       'available_at' => 'Yritä uudelleen after:',
     ],
   ],
-  'combiner' => [
-    'not_found' => 'Yhdistelmätiedostoa \':name\' ei löydy.',
-  ],
-  'resizer' => [
-    'not_found' => 'Uutta kokoa tiedostosta \':name\' ei löydy.',
-  ],
+  'combiner' => [],
+  'resizer' => [],
   'system' => [
     'name' => 'Järjestelmä',
     'menu_label' => 'Järjestelmä',

@@ -36,7 +36,7 @@ vars[activeNavLink] = 'wiki'
             {% endif %}
         </div>
 
-        {{ article.content|raw }}
+        {{ article.content|content }}
 
         <div class="wiki-article-gallery mb-3">
             {% partial 'controls/gallery-slider' gallery=article.gallery %}

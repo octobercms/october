@@ -92,12 +92,8 @@
   'file' => [
     'create_fail' => 'Não é possível criar o arquivo: :name',
   ],
-  'combiner' => [
-    'not_found' => 'O arquivo combinador ":name" não foi encontrado.',
-  ],
-  'resizer' => [
-    'not_found' => 'O arquivo \':name\' a ser redimencionado não foi encontrado.',
-  ],
+  'combiner' => [],
+  'resizer' => [],
   'system' => [
     'name' => 'Sistema',
     'menu_label' => 'Sistema',

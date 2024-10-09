@@ -14,9 +14,7 @@
       'label' => 'Token di protezione non valido',
     ],
   ],
-  'combiner' => [
-    'not_found' => 'Il file combinatore \':name\' non è stato trovato.',
-  ],
+  'combiner' => [],
   'system' => [
     'name' => 'Sistema',
     'menu_label' => 'Sistema',

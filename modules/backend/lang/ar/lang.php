@@ -92,7 +92,6 @@
   'relation' => [
     'help' => 'اضغط على عنصر لإضافته',
     'add' => 'إضافة',
-    'add_selected' => 'إضافة المحدد',
     'link_selected' => 'ربط المحدد',
     'cancel' => 'إلغاء الأمر',
     'close' => 'إغلاق',
@@ -115,14 +114,7 @@
     'date_all' => 'كل الفترات',
     'number_all' => 'كل الأرقام',
   ],
-  'import_export' => [
-    'created' => 'تمت الإضافة',
-    'updated' => 'تم التعديل',
-    'skipped' => 'تم تجاهله',
-    'warnings' => 'تحذيرات',
-    'errors' => 'أخطاء',
-    'file_not_found_error' => 'الملف غير موجود',
-  ],
+  'import_export' => [],
   'media' => [
     'menu_label' => 'الوسائط',
     'delete_confirm' => 'هل أنت متأكد من حذف العناصر المحددة؟',
