@@ -13,40 +13,85 @@ navigation:
     icon: icon-sitemap
     order: 300
 
-fields:
-    slug:
-        label: Code
-        column:
-            label: Code
-            invisible: false
-        validation:
-            - required
-    items:
-        label: Menu Item
-        type: nesteditems
-        span: adaptive
-        maxDepth: 0
-        customMessages:
-            buttonCreate: Add Item
-            titleCreateForm: Create Item
-            titleUpdateForm: Edit Item
-        form:
-            fields:
-                title:
-                    label: Title
-                    tab: Reference
-                    default: New Menu Item
-                    span: full
-                    type: text
-                    validation:
-                        - required
+groups:
+    regular_menu:
+        name: Regular Menu
+        fields:
+            slug:
+                label: Code
+                column:
+                    label: Code
+                    invisible: false
+                validation:
+                    - required
+            items:
+                label: Menu Item
+                type: nesteditems
+                span: adaptive
+                maxDepth: 0
+                customMessages:
+                    buttonCreate: Add Item
+                    titleCreateForm: Create Item
+                    titleUpdateForm: Edit Item
+                form:
+                    fields:
+                        title:
+                            label: Title
+                            tab: Reference
+                            default: New Menu Item
+                            span: full
+                            type: text
+                            autoFocus: true
+                            validation:
+                                - required
 
-                reference:
-                    label: Reference
-                    type: pagefinder
-                    tab: Reference
-            tabs:
-                fields:
-                    _menu_item:
-                        type: mixin
-                        source: Fields\MenuItem
+                        reference:
+                            label: Reference
+                            type: pagefinder
+                            tab: Reference
+                    tabs:
+                        fields:
+                            _menu_item:
+                                type: mixin
+                                source: Site\Menus\MenuItem
+
+    sitemap_menu:
+        name: Sitemap Menu
+        fields:
+            slug:
+                label: Code
+                column:
+                    label: Code
+                    invisible: false
+                validation:
+                    - required
+            sitemap_items:
+                label: Menu Item
+                type: nesteditems
+                span: adaptive
+                maxDepth: 1
+                customMessages:
+                    buttonCreate: Add Item
+                    titleCreateForm: Create Item
+                    titleUpdateForm: Edit Item
+                form:
+                    fields:
+                        title:
+                            label: Title
+                            tab: Reference
+                            default: New Menu Item
+                            span: full
+                            type: text
+                            autoFocus: true
+                            validation:
+                                - required
+
+                        reference:
+                            label: Reference
+                            type: pagefinder
+                            tab: Reference
+                    tabs:
+                        fields:
+                            _menu_item:
+                                type: mixin
+                                source: Site\Menus\SitemapItem

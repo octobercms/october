@@ -10,9 +10,12 @@ handle = "Site\Menus"
 identifier = "slug"
 value = "sitemap"
 ==
+{#- Look for a specific blueprint code/slug -#}
 {% if sitemap is empty %}
     {% do abort(500, "A menu definition with code 'sitemap' was not found. Please create this menu in the Admin Panel using the Content → Menus page.") %}
 {% endif %}
+
+{#- Function to render a sitemap item, including children -#}
 {% macro render_sitemap_item(item, reference, isRoot) %}
     {% import _self as nav %}
     {% set hideRootItem = isRoot and item.replace %}
@@ -46,7 +49,7 @@ value = "sitemap"
     xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
     xsi:schemaLocation="http://www.sitemaps.org/schemas/sitemap/0.9 http://www.sitemaps.org/schemas/sitemap/0.9/sitemap.xsd"
 >
-    {% for item in sitemap.items %}
+    {% for item in sitemap.sitemap_items %}
         {{ nav.render_sitemap_item(
             item,
             link(item.reference, { nesting: item.nesting, sites: true }),

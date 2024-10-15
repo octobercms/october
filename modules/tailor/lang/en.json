@@ -91,5 +91,7 @@
     "Check this box to update records that match the same ID, title or slug.": "Check this box to update records that match the same ID, title or slug.",
     "Copy": "Copy",
     "App": "App",
-    "Blueprints": "Blueprints"
+    "Blueprints": "Blueprints",
+    "App Blueprint": "App Blueprint",
+    "Theme Blueprint": "Theme Blueprint"
 }

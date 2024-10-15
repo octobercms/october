@@ -1,0 +1,89 @@
+uuid: 936f26c0-b816-4c78-afaa-0b6977e80213
+handle: Site\Menus\MenuItem
+type: mixin
+name: Menu Item
+
+fields:
+    is_hidden:
+        label: Hidden
+        comment: Hide this menu item from appearing on the website.
+        type: checkbox
+        tab: Display
+
+    code:
+        label: Code
+        comment: Enter the menu item code if you want to access it with the API.
+        tab: Attributes
+        span: auto
+        type: text
+        preset:
+            field: title
+            type: slug
+
+    css_class:
+        label: CSS Class
+        comment: Enter a CSS class name to give this menu item a custom appearance.
+        tab: Attributes
+        span: auto
+        type: text
+
+    is_external:
+        label: External Link
+        comment: Open links for this menu item in a new window.
+        tab: Attributes
+        type: checkbox
+
+    # priority:
+    #     label: Priority
+    #     commentAbove: The priority of this URL relative to other URLs on your site.
+    #     tab: Sitemap
+    #     type: radio
+    #     column: false
+    #     inlineOptions: true
+    #     options:
+    #         '0.1': '0.1'
+    #         '0.2': '0.2'
+    #         '0.3': '0.3'
+    #         '0.4': '0.4'
+    #         '0.5': '0.5'
+    #         '0.6': '0.6'
+    #         '0.7': '0.7'
+    #         '0.8': '0.8'
+    #         '0.9': '0.9'
+    #         '1.0': '1.0'
+
+    # changefreq:
+    #     commentAbove: How frequently the page is likely to change.
+    #     label: Change Frequency
+    #     tab: Sitemap
+    #     type: radio
+    #     column: false
+    #     inlineOptions: true
+    #     options:
+    #         always: Always
+    #         hourly: Hourly
+    #         daily: Daily
+    #         weekly: Weekly
+    #         monthly: Monthly
+    #         yearly: Yearly
+    #         never: Never
+
+    nesting:
+        label: Include nested items
+        shortLabel: Nesting
+        comment: Nested items could be generated dynamically by supported page references.
+        type: checkbox
+        tab: Reference
+        column: false
+
+    replace:
+        label: Replace this item with its generated children
+        comment: Use this checkbox to push generated menu items to the same level with this item. This item itself will be hidden.
+        type: checkbox
+        tab: Reference
+        column: false
+        scope: false
+        trigger:
+            action: disable|empty
+            field: nesting
+            condition: unchecked
