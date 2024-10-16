@@ -13,17 +13,26 @@ navigation:
     icon: icon-sitemap
     order: 300
 
+columns:
+    title:
+        label: Title
+    entry_type_name:
+        label: Menu Type
+        invisible: false
+    slug:
+        label: Code
+        invisible: false
+
+fields:
+    slug:
+        label: Code
+        validation:
+            - required
+
 groups:
     regular_menu:
         name: Regular Menu
         fields:
-            slug:
-                label: Code
-                column:
-                    label: Code
-                    invisible: false
-                validation:
-                    - required
             items:
                 label: Menu Item
                 type: nesteditems
@@ -58,22 +67,15 @@ groups:
     sitemap_menu:
         name: Sitemap Menu
         fields:
-            slug:
-                label: Code
-                column:
-                    label: Code
-                    invisible: false
-                validation:
-                    - required
             sitemap_items:
                 label: Menu Item
                 type: nesteditems
                 span: adaptive
                 maxDepth: 1
                 customMessages:
-                    buttonCreate: Add Item
-                    titleCreateForm: Create Item
-                    titleUpdateForm: Edit Item
+                    buttonCreate: Add Sitemap Item
+                    titleCreateForm: Create Sitemap Item
+                    titleUpdateForm: Edit Sitemap Item
                 form:
                     fields:
                         title:

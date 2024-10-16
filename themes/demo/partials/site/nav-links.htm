@@ -20,7 +20,7 @@
 </li>
 {% if sitePicker.isEnabled %}
     <li class="nav-item dropdown">
-        <a class="btn btn-outline-light dropdown-toggle" href="{{ ''|page }}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
+        <a class="btn btn-outline-light dropdown-toggle" href="{{ this|page }}" id="navbarDropdown" role="button" data-bs-toggle="dropdown" aria-expanded="false">
             {{ this.site.name|default('Sites') }}
         </a>
         <ul class="dropdown-menu" aria-labelledby="navbarDropdown">

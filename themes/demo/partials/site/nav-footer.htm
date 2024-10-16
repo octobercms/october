@@ -1,0 +1,77 @@
+##
+[section footerNav]
+handle = "Site\Menus"
+identifier = "slug"
+value = "footer-nav"
+==
+<div class="row gx-0">
+    {% for headerItem in footerNav.items.toNested %}
+        <div class="col-md-4 mb-3">
+            <ul class="nav flex-column">
+                <li class="nav-item nav-item-header">
+                    <a class="nav-link">
+                        {{ headerItem.title }}
+                    </a>
+                </li>
+                {% for item in headerItem.children %}
+                    <li class="nav-item">
+                        <a class="nav-link" href="{{ item.reference|link }}">
+                            {{ item.title }}
+                        </a>
+                    </li>
+                {% endfor %}
+            </ul>
+        </div>
+    {% endfor %}
+</div>
+{#
+    <div class="col-md-4 mb-3">
+        <ul class="nav flex-column">
+            <li class="nav-item nav-item-header">
+                <a class="nav-link" href="{{ 'index'|page }}">Company</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ 'blog/index'|page }}">Blog</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ 'wiki/index'|page }}">Wiki</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ 'about'|page }}">About</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ 'contact'|page }}">Contact</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-4 mb-3">
+        <ul class="nav flex-column">
+            <li class="nav-item nav-item-header">
+                <a class="nav-link" href="{{ 'index'|page }}">Technology</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ 'ajax'|page }}">AJAX Demo</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="{{ 'components'|page }}">Components Demo</a>
+            </li>
+        </ul>
+    </div>
+    <div class="col-md-4 mb-3">
+        <ul class="nav flex-column">
+            <li class="nav-item nav-item-header">
+                <a class="nav-link" href="https://octobercms.com" target="_blank">October CMS</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://docs.octobercms.com" target="_blank">Documentation</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://octobercms.com/pricing" target="_blank">Buy a License</a>
+            </li>
+            <li class="nav-item">
+                <a class="nav-link" href="https://www.youtube.com/c/OctoberCMSOfficial" target="_blank">YouTube Channel</a>
+            </li>
+        </ul>
+    </div>
+</div>
+#}
