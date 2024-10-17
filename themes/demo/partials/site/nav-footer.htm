@@ -9,13 +9,13 @@ value = "footer-nav"
         <div class="col-md-4 mb-3">
             <ul class="nav flex-column">
                 <li class="nav-item nav-item-header">
-                    <a class="nav-link">
+                    <a class="nav-link" {% if headerItem.reference %}href="{{ headerItem.reference|link }}"{% endif %}>
                         {{ headerItem.title }}
                     </a>
                 </li>
                 {% for item in headerItem.children %}
                     <li class="nav-item">
-                        <a class="nav-link" href="{{ item.reference|link }}">
+                        <a class="nav-link" {% if item.reference %}href="{{ item.reference|link }}"{% endif %}>
                             {{ item.title }}
                         </a>
                     </li>

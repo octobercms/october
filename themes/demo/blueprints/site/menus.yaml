@@ -34,7 +34,7 @@ groups:
         name: Regular Menu
         fields:
             items:
-                label: Menu Item
+                label: Menu Items
                 type: nesteditems
                 span: adaptive
                 maxDepth: 0
@@ -68,7 +68,7 @@ groups:
         name: Sitemap Menu
         fields:
             sitemap_items:
-                label: Menu Item
+                label: Sitemap Items
                 type: nesteditems
                 span: adaptive
                 maxDepth: 1

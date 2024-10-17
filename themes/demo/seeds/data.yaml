@@ -33,3 +33,10 @@
     attributes:
         file_format: json
         blueprint_uuid: a63fabaf-7c0b-4c74-b36f-7abf1a3ad1c1
+-
+    name: Menu Data
+    class: Tailor\Models\RecordImport
+    file: seeds/data/site/menus.json
+    attributes:
+        file_format: json
+        blueprint_uuid: 85e471d2-09b9-4f3d-a63b-1ae9d92d2879

@@ -1,8 +1,46 @@
 ==
 <?
+// To activate this form:
+//
+// - Create a group in the admin panel
+// - Set the group code field to 'contact-team'
+// - Add the users to notify in this group
+//
 function onSubmitContactForm()
 {
-    $this['formSubmitted'] = true;
+    // Validate the form
+    // @see https://docs.octobercms.com/3.x/cms/features/validation.html
+    //
+    // - Argument 1 is the attributes and their rules
+    // - Argument 2 is custom error messages for each attribute rule (translated)
+    // - Argument 3 is custom names for each attribute (translated)
+    //
+
+    $data = Request::validate([
+        'first_name' => 'required|min:2|max:64',
+        'email' => 'required|email|min:2|max:64',
+        'comments' => 'required|min:5',
+    ], [
+        'comments' => ['required' => __("Please actually write something to us...")]
+    ], [
+        'first_name' => __("name"),
+    ]);
+
+    // Notify the 'contact-team' group with 'backend:contact-form' mail template
+    //
+    $group = \Backend\Models\UserGroup::whereCode('contact-team')->first();
+    if (!$group) {
+        throw new ApplicationException(__("Sorry, this contact form is not enabled: We cannot receive emails at the moment, please try using another method."));
+    }
+
+    Mail::sendTo(
+        $group->users->pluck('full_name', 'email')->all(),
+        'backend:contact-form',
+        $data
+    );
+
+    $this['isSubmit'] = true;
+    $this['emailAddress'] = post('email');
 }
 ?>
 ==
@@ -10,32 +48,37 @@ function onSubmitContactForm()
     <h3 class="mb-4">Drop Us a Line</h3>
     <p class="lead">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
-    {% if formSubmitted %}
-        <div class="alert alert-success" role="alert">
-            Thanks! We've got your message and will be in touch soon.
+    {% if isSubmit %}
+        <div class="alert alert-success text-start" role="alert">
+            <h4 class="alert-heading">Thanks for getting in touch!</h4>
+            <p>Please bear in mind we receive a lot of feedback, it may take several days to process and you may not receive a response.</p>
+            <p class="mb-0">Not to worry though, we have your email <strong>{{ emailAddress }}</strong>, all feedback we receive will be read and action taken if needed.</p>
         </div>
     {% else %}
-        <form data-request="onSubmitContactForm" data-request-update="{ _self: true }">
+        <form
+            data-request="onSubmitContactForm"
+            data-request-update="{ _self: true }"
+            data-request-flash>
             <div class="row">
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="commentNameInput">
+                        <input type="text" name="first_name" class="form-control" id="commentNameInput">
                         <label for="commentNameInput">First Name</label>
                     </div>
                 </div>
                 <div class="col-md-6">
                     <div class="form-floating mb-3">
-                        <input type="text" class="form-control" id="commentLastNameInput">
+                        <input type="text" name="last_name" class="form-control" id="commentLastNameInput">
                         <label for="commentLastNameInput">Last Name</label>
                     </div>
                 </div>
             </div>
             <div class="form-floating mb-3">
-                <input type="email" class="form-control" id="commentEmailInput">
+                <input type="email" name="email" class="form-control" id="commentEmailInput">
                 <label for="commentEmailInput">Email address</label>
             </div>
             <div class="mb-3 form-floating">
-                <textarea style="height:125px" class="form-control" id="commentContentTextarea"></textarea>
+                <textarea name="comments" style="height:125px" class="form-control" id="commentContentTextarea"></textarea>
                 <label for="commentContentTextarea">Comment</label>
             </div>
             <div class="form-buttons d-flex pt-2">
