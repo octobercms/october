@@ -9,13 +9,13 @@ value = "footer-nav"
         <div class="col-md-4 mb-3">
             <ul class="nav flex-column">
                 <li class="nav-item nav-item-header">
-                    <a class="nav-link" {% if headerItem.reference %}href="{{ headerItem.reference|link }}"{% endif %}>
+                    <a class="nav-link" {% if headerItem.reference %}href="{{ headerItem.reference|link }}"{% endif %} {{ item.is_external ? 'target="_blank"' }}>
                         {{ headerItem.title }}
                     </a>
                 </li>
                 {% for item in headerItem.children %}
                     <li class="nav-item">
-                        <a class="nav-link" {% if item.reference %}href="{{ item.reference|link }}"{% endif %}>
+                        <a class="nav-link" {% if item.reference %}href="{{ item.reference|link }}"{% endif %} {{ item.is_external ? 'target="_blank"' }}>
                             {{ item.title }}
                         </a>
                     </li>
@@ -24,7 +24,9 @@ value = "footer-nav"
         </div>
     {% endfor %}
 </div>
-{#
+{# Example Footer Nav Markup
+
+<div class="row gx-0">
     <div class="col-md-4 mb-3">
         <ul class="nav flex-column">
             <li class="nav-item nav-item-header">

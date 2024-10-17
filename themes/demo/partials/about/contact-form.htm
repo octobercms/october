@@ -1,10 +1,11 @@
 ==
 <?
-// To activate this form:
+// How to activate this form:
 //
-// - Create a group in the admin panel
-// - Set the group code field to 'contact-team'
-// - Add the users to notify in this group
+// - 1. Open Admin Panel → Settings → Team → Manage Groups
+// - 2. Create a New Group → Set Code field to "contact-team"
+// - 3. Select Users tab → Click Add Users
+// - 4. Click Save
 //
 function onSubmitContactForm()
 {
@@ -15,7 +16,6 @@ function onSubmitContactForm()
     // - Argument 2 is custom error messages for each attribute rule (translated)
     // - Argument 3 is custom names for each attribute (translated)
     //
-
     $data = Request::validate([
         'first_name' => 'required|min:2|max:64',
         'email' => 'required|email|min:2|max:64',
@@ -28,7 +28,7 @@ function onSubmitContactForm()
 
     // Notify the 'contact-team' group with 'backend:contact-form' mail template
     //
-    $group = \Backend\Models\UserGroup::whereCode('contact-team')->first();
+    $group = \Backend\Models\UserGroup::where('code', 'contact-team')->first();
     if (!$group) {
         throw new ApplicationException(__("Sorry, this contact form is not enabled: We cannot receive emails at the moment, please try using another method."));
     }

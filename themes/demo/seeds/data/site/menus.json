@@ -7,6 +7,7 @@
         "content_group": "regular_menu",
         "items": [
             {
+                "id": 1,
                 "title": "Company",
                 "reference": "",
                 "is_hidden": "0",
@@ -19,6 +20,7 @@
                 "sort_order": 1
             },
             {
+                "id": 2,
                 "title": "Blog",
                 "reference": "october:\/\/cms-page@link\/blog\/index?title=Blog+Homepage+%28blog%2Findex%29",
                 "is_hidden": "0",
@@ -31,6 +33,7 @@
                 "sort_order": 2
             },
             {
+                "id": 3,
                 "title": "Technology",
                 "reference": "",
                 "is_hidden": "0",
@@ -43,6 +46,7 @@
                 "sort_order": 2
             },
             {
+                "id": 4,
                 "title": "Wiki",
                 "reference": "october:\/\/cms-page@link\/wiki\/index?title=Wiki+Docs+Demo+%28wiki%2Findex%29",
                 "is_hidden": "0",
@@ -55,6 +59,7 @@
                 "sort_order": 3
             },
             {
+                "id": 5,
                 "title": "AJAX Demo",
                 "reference": "october:\/\/cms-page@link\/ajax?title=AJAX+Framework+%28ajax%29",
                 "is_hidden": "0",
@@ -63,10 +68,11 @@
                 "is_external": "0",
                 "nesting": "0",
                 "replace": "0",
-                "parent_id": 6,
+                "parent_id": 3,
                 "sort_order": 3
             },
             {
+                "id": 6,
                 "title": "October CMS",
                 "reference": "",
                 "is_hidden": "0",
@@ -79,6 +85,7 @@
                 "sort_order": 3
             },
             {
+                "id": 7,
                 "title": "About",
                 "reference": "october:\/\/cms-page@link\/about?title=About+Page+%28about%29",
                 "is_hidden": "0",
@@ -91,6 +98,7 @@
                 "sort_order": 4
             },
             {
+                "id": 8,
                 "title": "Components Demo",
                 "reference": "october:\/\/cms-page@link\/components?title=Components+Demo+%28components%29",
                 "is_hidden": "0",
@@ -99,22 +107,24 @@
                 "is_external": "0",
                 "nesting": "0",
                 "replace": "0",
-                "parent_id": 6,
+                "parent_id": 3,
                 "sort_order": 4
             },
             {
+                "id": 9,
                 "title": "Documentation",
                 "reference": "https:\/\/docs.octobercms.com\/",
                 "is_hidden": "0",
                 "code": "documentation",
                 "css_class": "",
-                "is_external": "0",
+                "is_external": "1",
                 "nesting": "0",
                 "replace": "0",
-                "parent_id": 9,
+                "parent_id": 6,
                 "sort_order": 4
             },
             {
+                "id": 10,
                 "title": "Contact",
                 "reference": "october:\/\/cms-page@link\/contact?title=Contact+Us+%28contact%29",
                 "is_hidden": "0",
@@ -127,27 +137,29 @@
                 "sort_order": 5
             },
             {
+                "id": 11,
                 "title": "Buy a License",
                 "reference": "https:\/\/octobercms.com\/pricing",
                 "is_hidden": "0",
                 "code": "buy-license",
                 "css_class": "",
-                "is_external": "0",
+                "is_external": "1",
                 "nesting": "0",
                 "replace": "0",
-                "parent_id": 9,
+                "parent_id": 6,
                 "sort_order": 5
             },
             {
+                "id": 12,
                 "title": "YouTube Channel",
                 "reference": "https:\/\/www.youtube.com\/c\/OctoberCMSOfficial",
                 "is_hidden": "0",
                 "code": "youtube-channel",
                 "css_class": "",
-                "is_external": "0",
+                "is_external": "1",
                 "nesting": "0",
                 "replace": "0",
-                "parent_id": 9,
+                "parent_id": 6,
                 "sort_order": 6
             }
         ],
