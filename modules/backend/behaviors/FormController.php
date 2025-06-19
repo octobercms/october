@@ -253,7 +253,7 @@ class FormController extends ControllerBehavior
             throw new ForbiddenException;
         }
 
-        $this->context = strlen($context) ? $context : $this->getConfig('create[context]', FormField::CONTEXT_CREATE);
+        $this->context = $context ?: $this->getConfig('create[context]', FormField::CONTEXT_CREATE);
 
         $model = $this->controller->formCreateModelObject();
         $model = $this->controller->formExtendModel($model) ?: $model;
@@ -294,7 +294,7 @@ class FormController extends ControllerBehavior
      */
     public function create_onCancel($context = null)
     {
-        $this->context = strlen($context) ? $context : $this->getConfig('create[context]', FormField::CONTEXT_CREATE);
+        $this->context = $context ?: $this->getConfig('create[context]', FormField::CONTEXT_CREATE);
 
         $model = $this->controller->formCreateModelObject();
         $model = $this->controller->formExtendModel($model) ?: $model;
@@ -331,7 +331,7 @@ class FormController extends ControllerBehavior
         }
 
         try {
-            $this->context = strlen($context) ? $context : $this->getConfig('update[context]', FormField::CONTEXT_UPDATE);
+            $this->context = $context ?: $this->getConfig('update[context]', FormField::CONTEXT_UPDATE);
             $this->controller->bodyClass ??= $this->getDesignBodyClass();
             $this->controller->pageSize ??= $this->getDesignFormSize();
             $this->controller->pageTitle ??= $this->getLang('update[title]', 'backend::lang.form.update_title');
@@ -371,7 +371,7 @@ class FormController extends ControllerBehavior
             throw new ForbiddenException;
         }
 
-        $this->context = strlen($context) ? $context : $this->getConfig('update[context]', FormField::CONTEXT_UPDATE);
+        $this->context = $context ?: $this->getConfig('update[context]', FormField::CONTEXT_UPDATE);
         $model = $this->controller->formFindModelObject($recordId);
         $this->initForm($model);
 
@@ -476,7 +476,7 @@ class FormController extends ControllerBehavior
         }
 
         try {
-            $this->context = strlen($context) ? $context : $this->getConfig('preview[context]', FormField::CONTEXT_PREVIEW);
+            $this->context = $context ?: $this->getConfig('preview[context]', FormField::CONTEXT_PREVIEW);
             $this->controller->bodyClass ??= $this->getDesignBodyClass();
             $this->controller->pageSize ??= $this->getDesignFormSize();
             $this->controller->pageTitle ??= $this->getLang('preview[title]', 'backend::lang.form.preview_title');
@@ -705,8 +705,8 @@ class FormController extends ControllerBehavior
         $name = $this->getConfig($name, $default);
 
         $vars = $extras + [
-            'name' => Lang::get($this->getConfig('name', 'backend::lang.model.name'))
-        ];
+                'name' => Lang::get($this->getConfig('name', 'backend::lang.model.name'))
+            ];
 
         return Lang::get($name, $vars);
     }
@@ -741,8 +741,8 @@ class FormController extends ControllerBehavior
         }
 
         $vars = $extras + [
-            'name' => Lang::get($this->getConfig('name', 'backend::lang.model.name'))
-        ];
+                'name' => Lang::get($this->getConfig('name', 'backend::lang.model.name'))
+            ];
 
         return Lang::get($foundKey, $vars);
     }
