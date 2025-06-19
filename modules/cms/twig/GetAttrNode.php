@@ -8,13 +8,17 @@ use Twig\Environment;
 use Twig\Extension\SandboxExtension;
 use Twig\Node\Expression\GetAttrExpression;
 use Twig\Extension\CoreExtension;
+use Twig\Node\Expression\SupportDefinedTestInterface;
+use Twig\Node\Expression\SupportDefinedTestTrait;
 
 /**
  * GetAttrNode compiles a custom get attribute node.
  * Carbon copy of the parent class with custom get attribute logic.
  */
-class GetAttrNode extends GetAttrExpression
+class GetAttrNode extends GetAttrExpression implements SupportDefinedTestInterface
 {
+    use SupportDefinedTestTrait;
+
     /**
      * @inheritdoc
      */
@@ -35,7 +39,7 @@ class GetAttrNode extends GetAttrExpression
         if (
             $this->getAttribute('optimizable')
             && (!$env->isStrictVariables() || $this->getAttribute('ignore_strict_check'))
-            && !$this->getAttribute('is_defined_test')
+            && !$this->isDefinedTestEnabled()
             && Template::ARRAY_CALL === $this->getAttribute('type')
         ) {
             $var = '$'.$compiler->getVarName();
@@ -78,7 +82,7 @@ class GetAttrNode extends GetAttrExpression
 
         $compiler->raw(', ')
             ->repr($this->getAttribute('type'))
-            ->raw(', ')->repr($this->getAttribute('is_defined_test'))
+            ->raw(', ')->repr($this->isDefinedTestEnabled())
             ->raw(', ')->repr($this->getAttribute('ignore_strict_check'))
             ->raw(', ')->repr($env->hasExtension(SandboxExtension::class))
             ->raw(', ')->repr($this->getNode('node')->getTemplateLine())

@@ -4,6 +4,7 @@ use Twig\Node\Node;
 use Twig\Environment;
 use Twig\Node\Expression\GetAttrExpression;
 use Twig\NodeVisitor\NodeVisitorInterface;
+use Twig\Node\Expression\SupportDefinedTestInterface;
 
 /**
  * GetAttrAdjuster tweaks the get attribute functionality.
@@ -30,7 +31,6 @@ class GetAttrAdjuster implements NodeVisitorInterface
 
         $attributes = [
             'type' => $node->getAttribute('type'),
-            'is_defined_test' => $node->getAttribute('is_defined_test'),
             'ignore_strict_check' => $node->getAttribute('ignore_strict_check'),
             'optimizable' => $node->getAttribute('optimizable'),
         ];
