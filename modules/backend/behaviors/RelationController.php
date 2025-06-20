@@ -523,17 +523,11 @@ class RelationController extends ControllerBehavior
         $this->prepareVars();
 
         // Determine the partial to use based on the supplied section option
-        $section = $options['section'] ?? null;
-        switch (strtolower($section)) {
-            case 'toolbar':
-                return $this->toolbarWidget ? $this->toolbarWidget->render() : null;
-
-            case 'view':
-                return $this->relationMakePartial('view');
-
-            default:
-                return $this->relationMakePartial('container');
-        }
+        return match (strtolower($options['section'] ?? '')) {
+            'toolbar' => $this->toolbarWidget?->render(),
+            'view' => $this->relationMakePartial('view'),
+            default => $this->relationMakePartial('container'),
+        };
     }
 
     /**
