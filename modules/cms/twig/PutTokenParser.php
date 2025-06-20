@@ -1,5 +1,6 @@
 <?php namespace Cms\Twig;
 
+use Twig\Node\Nodes;
 use Twig\Token as TwigToken;
 use Twig\TokenParser\AbstractTokenParser as TwigTokenParser;
 use Twig\Error\SyntaxError as TwigErrorSyntax;
@@ -18,6 +19,18 @@ use Twig\Error\SyntaxError as TwigErrorSyntax;
  */
 class PutTokenParser extends TwigTokenParser
 {
+    protected function parseMultitargetExpression(): Nodes
+    {
+        $targets = [];
+        while (true) {
+            $targets[] = $this->parser->parseExpression();
+            if (!$this->parser->getStream()->nextIf(TwigToken::PUNCTUATION_TYPE, ',')) {
+                break;
+            }
+        }
+        return new Nodes($targets);
+    }
+
     /**
      * Parses a token and returns a node.
      * @return PutNode
@@ -26,14 +39,14 @@ class PutTokenParser extends TwigTokenParser
     {
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();
-        $names = $this->parser->getExpressionParser()->parseAssignmentExpression();
+        $names = $this->parseAssignmentExpression();
 
         $capture = false;
         $options = [];
 
         if ($stream->nextIf(TwigToken::OPERATOR_TYPE, '=')) {
             // Direct assignment mode
-            $values = $this->parser->getExpressionParser()->parseMultitargetExpression();
+            $values = $this->parseMultitargetExpression();
             $stream->expect(TwigToken::BLOCK_END_TYPE);
 
             if (count($names) !== count($values)) {

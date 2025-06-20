@@ -1,8 +1,9 @@
-<?php namespace System\Twig;
+<?php namespace October\twig;
 
+use System\Twig\MailPartialNode;
+use Twig\Error\SyntaxError as TwigErrorSyntax;
 use Twig\Token as TwigToken;
 use Twig\TokenParser\AbstractTokenParser as TwigTokenParser;
-use Twig\Error\SyntaxError as TwigErrorSyntax;
 
 /**
  * MailPartialTokenParser for the `{% partial %}` Twig tag.
@@ -33,7 +34,7 @@ class MailPartialTokenParser extends TwigTokenParser
         $body = null;
 
         // Parse partial name (first argument)
-        $nodes['name'] = $this->parser->getExpressionParser()->parseExpression();
+        $nodes['name'] = $this->parser->parseExpression();
 
         // Parse optional parameters
         while (!$stream->test(TwigToken::BLOCK_END_TYPE)) {
@@ -47,7 +48,7 @@ class MailPartialTokenParser extends TwigTokenParser
             if ($current->test(TwigToken::NAME_TYPE)) {
                 $paramName = $current->getValue();
                 $stream->expect(TwigToken::OPERATOR_TYPE, '=');
-                $nodes[$paramName] = $this->parser->getExpressionParser()->parseExpression();
+                $nodes[$paramName] = $this->parser->parseExpression();
                 $paramNames[] = $paramName;
             } else {
                 throw new TwigErrorSyntax(
