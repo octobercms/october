@@ -8,7 +8,7 @@
         'value' => $value
     ];
 ?>
-<?php if (str_contains($column->path, '::')): ?>
+<?php if (str_contains($column->path ?? '', '::')): ?>
     <?= View::make($column->path, $vars) ?>
 <?php elseif ($column->path && File::isPathSymbol($column->path)): ?>
     <?= $this->controller->makePartial($column->path, $vars) ?>
