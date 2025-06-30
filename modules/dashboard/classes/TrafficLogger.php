@@ -51,7 +51,7 @@ class TrafficLogger
     {
         $retention = DashboardSetting::instance()->traffic_stats_retention;
 
-        if (strlen($retention) && is_int($retention)) {
+        if ($retention && strlen($retention) && is_int($retention)) {
             return (int) $retention;
         }
 
