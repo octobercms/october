@@ -1550,7 +1550,7 @@ class Lists extends WidgetBase implements ListElement
         $result = str_replace(' <', '<', $result);
 
         // Add natural spacing between HTML nodes
-        $result = str_replace("><", '> <', $value);
+        $result = str_replace("><", '> <', $result);
 
         // Strip HTML
         $result = $original = trim(Html::strip($result));
