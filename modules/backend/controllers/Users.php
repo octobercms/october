@@ -180,7 +180,9 @@ class Users extends SettingsController
         if (
             !$this->user->isSuperUser() &&
             ($role = UserRole::find(post('User[role]'))) &&
-            $role->sort_order <= $this->user->role->sort_order
+            $this->verifyStrictRoles() ?
+                $role->sort_order < $this->user->role->sort_order :
+                $role->sort_order <= $this->user->role->sort_order
         ) {
             throw new ForbiddenException;
         }
@@ -198,6 +200,11 @@ class Users extends SettingsController
         }
     }
 
+    public function verifyStrictRoles(): bool
+    {
+        return Config::get('backend.strict_role_hierarchy', true);
+    }
+
     /**
      * getRoleOptions returns available role options
      */
@@ -208,8 +215,10 @@ class Users extends SettingsController
             return [];
         }
 
+        $comparaison = $this->verifyStrictRoles() ? '>' : '>=';
+
         $result = [];
-        foreach (UserRole::where('sort_order', '>', $user->role->sort_order)->get() as $role) {
+        foreach (UserRole::where('sort_order', $comparaison, $user->role->sort_order)->get() as $role) {
             $result[$role->id] = [$role->name, $role->description];
         }
 
@@ -235,7 +244,8 @@ class Users extends SettingsController
 
             if ($this->user->role && $this->user->role->sort_order) {
                 $q->orWhereHas('role', function($q) {
-                    $q->where('sort_order', '>', $this->user->role->sort_order);
+                    $comparaison = $this->verifyStrictRoles() ? '>' : '>=';
+                    $q->where('sort_order', $comparaison, $this->user->role->sort_order);
                 });
             }
         });

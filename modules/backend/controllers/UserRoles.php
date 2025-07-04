@@ -3,6 +3,7 @@
 use Backend;
 use BackendAuth;
 use Backend\Classes\SettingsController;
+use Config;
 use ForbiddenException;
 
 /**
@@ -89,6 +90,13 @@ class UserRoles extends SettingsController
             return;
         }
 
-        $query->where('sort_order', '>', $userRole->sort_order);
+        $comparaison = $this->verifyStrictRoles() ? '>' : '>=';
+
+        $query->where('sort_order', $comparaison, $userRole->sort_order);
+    }
+
+    public function verifyStrictRoles(): bool
+    {
+        return Config::get('backend.strict_role_hierarchy', true);
     }
 }

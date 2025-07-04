@@ -158,6 +158,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Strict Role hierarchy
+    |--------------------------------------------------------------------------
+    |
+    | Defines if the backend should enforce a strict role hierarchy.
+    |
+    | If set to false, users with the 'admins.manage' permission will be able
+    | to see and manage users with the same role
+    |
+    */
+
+    'strict_role_hierarchy' => true,
+
+    /*
+    |--------------------------------------------------------------------------
     | Default Avatar
     |--------------------------------------------------------------------------
     |
