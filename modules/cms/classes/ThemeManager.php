@@ -39,7 +39,7 @@ class ThemeManager
      */
     public static function instance(): static
     {
-        return App::make('cms.themes');
+        return System::hasModule('Cms') ? App::make('cms.themes') : new static();
     }
 
     /**
