@@ -1,4 +1,6 @@
-<?php namespace Dashboard\Classes;
+<?php
+
+namespace Dashboard\Classes;
 
 use Str;
 use Event;
@@ -37,7 +39,7 @@ class TrafficLogger
         $result = DashboardSetting::instance()->traffic_stats_timezone;
 
         if (!$result) {
-            $result = Config::get('cms.timezone');
+            $result = Config::get('cms.timezone') ?? Config::get('app.timezone');
         }
 
         return (string) $result;
@@ -141,7 +143,7 @@ class TrafficLogger
     {
         $result = Str::random(32);
 
-        Cookie::queue('oc_clid', $result, 60*24*365*5); // 5 years
+        Cookie::queue('oc_clid', $result, 60 * 24 * 365 * 5); // 5 years
 
         return $result;
     }
