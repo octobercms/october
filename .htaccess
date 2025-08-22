@@ -27,6 +27,8 @@
     ##
     ## Uncomment to redirect /index.php/path to /path
     ##
+    # RewriteCond %{THE_REQUEST} ^[A-Z]{3,}\s/index\.php\s
+    # RewriteRule ^index\.php$ / [R=301,L]
     # RewriteRule ^index\.php/(.*)$ /$1 [L,R=301]
 
     ##
