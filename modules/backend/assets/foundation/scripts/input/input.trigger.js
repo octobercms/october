@@ -123,12 +123,12 @@
 
                     // If no specific value is set, treat 'value' as "not empty"
                     if (!self.triggerConditionValue || self.triggerConditionValue.length === 0 || self.triggerConditionValue[0] === '') {
-                        triggered = triggerValue != '';
+                        triggered = triggerValue !== '';
                     } else {
                         // Otherwise, match against the specific value(s)
                         $.each(Array.isArray(triggerValue) ? triggerValue : [triggerValue], function (key, val) {
                             triggered = self.matchWildcardConditions(val, self.triggerConditionValue);
-                            return !triggered; // stop loop if matched
+                            return !triggered;
                         });
                     }
 
