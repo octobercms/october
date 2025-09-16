@@ -255,7 +255,7 @@
   "Data has been removed.": "Данные были удалены.",
   "Plugin has been removed from the file system.": "Плагин был удален из файловой системы.",
   "search plugins to install...": "Поиск плагинов...",
-  "Plugin has been disabled by configuration.": "Плагин был отклчен конфигурацией.",
+  "Plugin has been disabled by configuration.": "Плагин был отключен конфигурацией.",
   "Plugin has missing dependencies or disabled by system.": "Плагин имеет отсуствующие зависимости или отключен системой.",
   "search themes to install...": "поиск шаблонов для установки...",
   "Install Theme": "Установить тему",
