@@ -6,6 +6,7 @@ use Cms\Classes\ComponentManager;
 use Cms\Classes\CmsException;
 use Cms\Classes\ComponentPartial;
 use Cms\Classes\ComponentBase;
+use Throwable;
 
 /**
  * HasComponentHelpers
