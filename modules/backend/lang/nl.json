@@ -325,6 +325,7 @@
   "Deleting :name...": ":name verwijderen...",
   "Loading...": "Laden...",
   "Complete": "Gereed",
+  "Close": "Sluiten",
   "Please specify the modelClass property for :type": "Specifieer de `modelClass` eigenschap voor type :type",
   "Please specify some columns to export.": "Geef enkele kolommen op die je wilt exporteren.",
   "Missing column identifier": "Kolom-ID ontbreekt",
