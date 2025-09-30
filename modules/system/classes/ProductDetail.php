@@ -3,7 +3,6 @@
 use Db;
 use Html;
 use File;
-use Lang;
 use Markdown;
 use Cms\Classes\ThemeManager;
 use System\Models\PluginVersion;

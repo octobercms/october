@@ -337,7 +337,7 @@ class Router
             return null;
         }
 
-        $cached = Cache::memo()->get($cacheKey, false);
+        $cached = Cache::get($cacheKey, false);
         if (!$cached) {
             return null;
         }
@@ -370,7 +370,7 @@ class Router
     protected function getUrlRouteCache($url, &$urlList)
     {
         $key = $this->getUrlRouteCacheKey();
-        $urlList = Cache::memo()->get($key, false);
+        $urlList = Cache::get($key, false);
 
         if (!$urlList) {
             return null;

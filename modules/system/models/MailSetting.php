@@ -45,6 +45,7 @@ class MailSetting extends SettingModel
         'smtp_password',
         'smtp_authorization',
         'smtp_encryption',
+        'smtp_timeout',
         'mailgun_domain',
         'mailgun_secret',
         'ses_key',
@@ -79,6 +80,7 @@ class MailSetting extends SettingModel
         $this->smtp_password = $config->get('mail.mailers.smtp.password');
         $this->smtp_authorization = !!strlen($this->smtp_user);
         $this->smtp_encryption = $config->get('mail.mailers.smtp.encryption');
+        $this->smtp_timeout = $config->get('mail.mailers.smtp.timeout', 30);
         $this->mailgun_domain = $config->get('services.mailgun.domain');
         $this->mailgun_secret = $config->get('services.mailgun.secret');
         $this->ses_key = $config->get('services.ses.key');
@@ -176,6 +178,9 @@ class MailSetting extends SettingModel
                 }
                 else {
                     $config->set('mail.mailers.smtp.encryption', null);
+                }
+                if ($settings->smtp_timeout) {
+                    $config->set('mail.mailers.smtp.timeout', $settings->smtp_timeout);
                 }
                 break;
 

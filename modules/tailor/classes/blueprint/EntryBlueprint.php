@@ -6,6 +6,21 @@ use Tailor\Classes\BlueprintCollection;
 /**
  * EntryBlueprint
  *
+ * @property string handle
+ * @property string type
+ * @property string name
+ * @property array fields
+ * @property array groups
+ * @property array structure
+ * @property bool drafts
+ * @property bool softDeletes
+ * @property mixed multisite
+ * @property string pagefinder
+ * @property string defaultSort
+ * @property array customMessages
+ * @property bool showExport
+ * @property bool showImport
+ *
  * @package october\tailor
  * @author Alexey Bobkov, Samuel Georges
  */

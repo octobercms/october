@@ -6,6 +6,7 @@ use Cache;
 use BackendAuth;
 use SystemException;
 use ApplicationException;
+use Backend\Models\User;
 
 /**
  * Dashboard definition
@@ -154,10 +155,6 @@ class Dashboard extends Model
         $field = strtolower($field);
         if (!strlen($field)) {
             throw new SystemException('Slug must not be empty');
-        }
-
-        if (!$definition) {
-            throw new SystemException('Dashboard definition must not be empty');
         }
 
         $dashboard = self::applyOwner($owner)->where('code', $field)->first();

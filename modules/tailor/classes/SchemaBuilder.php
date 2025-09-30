@@ -212,6 +212,9 @@ class SchemaBuilder
      */
     protected function makeDatabaseBlueprint($fieldset)
     {
+        // Lazy load the grammar
+        Db::connection()->getSchemaBuilder();
+
         $table = new DbBlueprint(Db::connection(), $this->tableName);
 
         foreach ($fieldset->getAllFields() as $name => $fieldObj) {

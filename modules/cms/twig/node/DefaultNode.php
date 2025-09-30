@@ -1,23 +1,23 @@
-<?php namespace Cms\Twig;
+<?php namespace Cms\Twig\Node;
 
 use Twig\Node\Node as TwigNode;
 use Twig\Compiler as TwigCompiler;
 
 /**
- * MetaNode represents a "meta" node
+ * DefaultNode represents a "default" node
  *
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
 #[\Twig\Attribute\YieldReady]
-class MetaNode extends TwigNode
+class DefaultNode extends TwigNode
 {
     /**
      * __construct
      */
-    public function __construct(int $lineno)
+    public function __construct(array $nodes = [], array $attributes = [], int $lineno = 0)
     {
-        parent::__construct([], [], $lineno);
+        parent::__construct($nodes, $attributes, $lineno);
     }
 
     /**
@@ -27,6 +27,6 @@ class MetaNode extends TwigNode
     {
         $compiler
             ->addDebugInfo($this)
-            ->write("yield \$this->env->getExtension(\Cms\Twig\Extension::class)->displayBlock('meta');\n");
+            ->write("yield '<!-- X_OCTOBER_DEFAULT_BLOCK_CONTENT -->';\n");
     }
 }

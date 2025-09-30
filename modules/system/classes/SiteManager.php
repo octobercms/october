@@ -67,11 +67,6 @@ class SiteManager extends Extendable
      */
     public function getSiteFromRequest(string $rootUrl, string $uri)
     {
-        // @deprecated passing a hostname will be removed in v4
-        if (!str_contains($rootUrl, '://')) {
-            $rootUrl = "https://{$rootUrl}";
-        }
-
         $sites = $this->listEnabled();
         $host = parse_url($rootUrl, PHP_URL_HOST);
 

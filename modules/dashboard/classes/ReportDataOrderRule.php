@@ -36,11 +36,11 @@ class ReportDataOrderRule
             throw new SystemException('Invalid data attribute type. Supported types: ' . implode(', ', $knownAttributeTypes));
         }
 
-        if (!strlen($attributeName) && $dataAttributeType !== self::ATTR_TYPE_DIMENSION) {
+        if (!$attributeName && $dataAttributeType !== self::ATTR_TYPE_DIMENSION) {
             throw new SystemException('Attribute name cannot be empty for ' . $dataAttributeType . ' data attribute type.');
         }
 
-        if (strlen($attributeName) && $dataAttributeType === self::ATTR_TYPE_DIMENSION) {
+        if ($attributeName && $dataAttributeType === self::ATTR_TYPE_DIMENSION) {
             throw new SystemException('Attribute name must be empty for ' . self::ATTR_TYPE_DIMENSION . ' data attribute type.');
         }
 

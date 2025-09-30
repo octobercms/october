@@ -1,8 +1,10 @@
-<?php namespace Cms\Twig;
+<?php namespace Cms\Twig\TokenParser;
 
+use Twig\Node\Nodes;
 use Twig\Token as TwigToken;
 use Twig\TokenParser\AbstractTokenParser as TwigTokenParser;
 use Twig\Error\SyntaxError as TwigErrorSyntax;
+use Cms\Twig\Node\PutNode;
 
 /**
  * PutTokenParser for the `{% put %}` Twig tag.
@@ -19,21 +21,21 @@ use Twig\Error\SyntaxError as TwigErrorSyntax;
 class PutTokenParser extends TwigTokenParser
 {
     /**
-     * Parses a token and returns a node.
+     * parse a token and returns a node.
      * @return PutNode
      */
     public function parse(TwigToken $token)
     {
         $lineno = $token->getLine();
         $stream = $this->parser->getStream();
-        $names = $this->parser->getExpressionParser()->parseAssignmentExpression();
+        $names = $this->parseAssignmentExpression();
 
         $capture = false;
         $options = [];
 
         if ($stream->nextIf(TwigToken::OPERATOR_TYPE, '=')) {
             // Direct assignment mode
-            $values = $this->parser->getExpressionParser()->parseMultitargetExpression();
+            $values = $this->parseMultitargetExpression();
             $stream->expect(TwigToken::BLOCK_END_TYPE);
 
             if (count($names) !== count($values)) {
@@ -85,7 +87,7 @@ class PutTokenParser extends TwigTokenParser
     }
 
     /**
-     * Determines if the token marks the end of the put block.
+     * decidePutEnd determines if the token marks the end of the put block.
      */
     public function decidePutEnd(TwigToken $token)
     {
@@ -93,11 +95,28 @@ class PutTokenParser extends TwigTokenParser
     }
 
     /**
-     * Returns the tag name associated with this token parser.
+     * getTag returns the tag name associated with this token parser.
      * @return string
      */
     public function getTag()
     {
         return 'put';
+    }
+
+    /**
+     * parseMultitargetExpression
+     */
+    protected function parseMultitargetExpression(): Nodes
+    {
+        $targets = [];
+
+        while (true) {
+            $targets[] = $this->parser->parseExpression();
+            if (!$this->parser->getStream()->nextIf(TwigToken::PUNCTUATION_TYPE, ',')) {
+                break;
+            }
+        }
+
+        return new Nodes($targets);
     }
 }

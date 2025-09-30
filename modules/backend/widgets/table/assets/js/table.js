@@ -451,25 +451,28 @@
     }
 
     Table.prototype.updateScrollbar = function() {
-        if (!this.options.height)
-            return
+        if (!this.options.height) {
+            return;
+        }
 
-        $(this.dataTableContainer.parentNode).data('oc.scrollbar').update()
+        $(this.dataTableContainer.parentNode).data('oc.scrollbar')?.update();
     }
 
     Table.prototype.scrollCellIntoView = function() {
-        if (!this.options.height || !this.activeCell)
-            return
+        if (!this.options.height || !this.activeCell) {
+            return;
+        }
 
-        $(this.dataTableContainer.parentNode).data('oc.scrollbar').gotoElement(this.activeCell)
+        $(this.dataTableContainer.parentNode).data('oc.scrollbar')?.gotoElement(this.activeCell)
     }
 
     Table.prototype.disposeScrollbar = function() {
-        if (!this.options.height)
-            return
+        if (!this.options.height) {
+            return;
+        }
 
-        $(this.dataTableContainer.parentNode).data('oc.scrollbar').dispose()
-        $(this.dataTableContainer.parentNode).data('oc.scrollbar', null)
+        $(this.dataTableContainer.parentNode).data('oc.scrollbar')?.dispose();
+        $(this.dataTableContainer.parentNode).data('oc.scrollbar', null);
     }
 
     /*

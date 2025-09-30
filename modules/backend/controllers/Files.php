@@ -89,13 +89,13 @@ class Files extends Controller
 
             // Check to see if the URL has already been generated
             $pathKey = 'backend.file:' . $path;
-            $url = Cache::memo()->get($pathKey);
+            $url = Cache::get($pathKey);
 
             // The AWS S3 storage drivers will return a valid temporary URL
             // even if the file does not exist
             if (!$url && $disk->exists($path)) {
                 $expires = now()->addSeconds(Config::get('filesystems.disks.uploads.ttl', 3600));
-                $url = Cache::memo()->remember($pathKey, $expires, function () use ($disk, $path, $expires) {
+                $url = Cache::remember($pathKey, $expires, function () use ($disk, $path, $expires) {
                     return $disk->temporaryUrl($path, $expires);
                 });
             }

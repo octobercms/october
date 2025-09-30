@@ -26,7 +26,7 @@ use ApplicationException;
  * values as either a YAML file, located in the controller view directory,
  * or directly as a PHP array.
  *
- * @see https://docs.octobercms.com/3.x/extend/forms/relation-controller.html Relation Controller Documentation
+ * @see https://docs.octobercms.com/4.x/extend/forms/relation-controller.html Relation Controller Documentation
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
@@ -523,17 +523,12 @@ class RelationController extends ControllerBehavior
         $this->prepareVars();
 
         // Determine the partial to use based on the supplied section option
-        $section = $options['section'] ?? null;
-        switch (strtolower($section)) {
-            case 'toolbar':
-                return $this->toolbarWidget ? $this->toolbarWidget->render() : null;
-
-            case 'view':
-                return $this->relationMakePartial('view');
-
-            default:
-                return $this->relationMakePartial('container');
-        }
+        $section = strtolower($options['section'] ?? '');
+        return match ($section) {
+            'toolbar' => $this->toolbarWidget?->render(),
+            'view' => $this->relationMakePartial('view'),
+            default => $this->relationMakePartial('container'),
+        };
     }
 
     /**

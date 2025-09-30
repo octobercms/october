@@ -190,6 +190,9 @@ class Fieldset extends FieldsetDefinition
     {
         $columnNames = [];
 
+        // Lazy load the grammar
+        Db::connection()->getSchemaBuilder();
+
         $table = new DbBlueprint(Db::connection(), 'temp');
         foreach ($this->getAllFields() as $name => $fieldObj) {
             if (!str_starts_with($name, '_')) {

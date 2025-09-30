@@ -158,6 +158,20 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Peer Management
+    |--------------------------------------------------------------------------
+    |
+    | When enabled, admin users can manage other users at the same role level
+    | in addition to their users below their role (direct reports).
+    |
+    | When disabled, users can only manage their direct reports and not peers.
+    |
+    */
+
+    'user_peer_management' => false,
+
+    /*
+    |--------------------------------------------------------------------------
     | Default Avatar
     |--------------------------------------------------------------------------
     |

@@ -176,8 +176,7 @@ class CodeEditor extends FormWidgetBase
         $this->vars['displayIndentGuides'] = $this->displayIndentGuides;
         $this->vars['showPrintMargin'] = $this->showPrintMargin;
 
-        // Double encode when escaping
-        $this->vars['value'] = htmlentities($this->getLoadValue(), ENT_QUOTES, 'UTF-8', true);
+        $this->vars['value'] = $this->getLoadValue();
         $this->vars['name'] = $this->getFieldName();
     }
 

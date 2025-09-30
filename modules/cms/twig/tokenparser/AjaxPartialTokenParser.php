@@ -1,4 +1,4 @@
-<?php namespace Cms\Twig;
+<?php namespace Cms\Twig\TokenParser;
 
 /**
  * AjaxPartialTokenParser for the `{% ajaxPartial %}` Twig tag.

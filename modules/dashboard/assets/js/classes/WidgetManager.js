@@ -31,7 +31,8 @@ class Dashboard_Classes_WidgetManager
             : Math.min(availableWidth, 4);
 
         const configuration = {
-            type: type
+            type: type,
+            reportName: this.helpers.makeCustomReportName()
         };
 
         if (typeof defaultConfig === 'object') {

@@ -170,7 +170,7 @@ trait HasLegacyDefinitions
     {
         if (!$scope->modelScope && ($scopeName = $scope->scope)) {
             $scope->modelScope = function($query, $scope) use ($scopeName) {
-                return $query->$scopeName($scope->value);
+                return $query->$scopeName($scope->value, $scope->mode ?? null);
             };
         }
     }

@@ -3,6 +3,7 @@
 use Backend;
 use BackendAuth;
 use Backend\Classes\SettingsController;
+use Config;
 use ForbiddenException;
 
 /**
@@ -89,6 +90,18 @@ class UserRoles extends SettingsController
             return;
         }
 
-        $query->where('sort_order', '>', $userRole->sort_order);
+        $query->where(
+            'sort_order',
+            $this->allowPeerManagement() ? '>=' : '>',
+            $userRole->sort_order
+        );
+    }
+
+    /**
+     * allowPeerManagement returns true if users can manage other peers
+     */
+    public function allowPeerManagement(): bool
+    {
+        return Config::get('backend.user_peer_management', false);
     }
 }

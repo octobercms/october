@@ -201,7 +201,9 @@ class EntryRecord extends BlueprintModel
             throw new SystemException("Section handle [{$handle}] not found");
         }
 
-        return static::inSectionUuid($blueprint->uuid);
+        $model = $blueprint->newModelInstance();
+
+        return $model::inSectionUuid($blueprint->uuid);
     }
 
     /**
@@ -226,7 +228,9 @@ class EntryRecord extends BlueprintModel
             throw new SystemException("Section handle [{$handle}] not found");
         }
 
-        self::extendInSectionUuid($blueprint->uuid, $callback);
+        $model = $blueprint->newModelInstance();
+
+        $model::extendInSectionUuid($blueprint->uuid, $callback);
     }
 
     /**
@@ -357,7 +361,7 @@ class EntryRecord extends BlueprintModel
      */
     public function getMorphClass()
     {
-        return parent::getMorphClass() . '@' . $this->getTable();
+        return self::class . '@' . $this->getTable();
     }
 
     /**

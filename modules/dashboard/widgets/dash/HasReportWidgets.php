@@ -34,10 +34,6 @@ trait HasReportWidgets
      */
     protected function makeDashReportWidget(DashReport $report)
     {
-        if ($report->type !== 'widget' && $report->type !== 'static') {
-            return null;
-        }
-
         if (isset($this->reportWidgets[$report->reportName])) {
             return $this->reportWidgets[$report->reportName];
         }
@@ -74,7 +70,6 @@ trait HasReportWidgets
         }
 
         $widgetClass = $this->dashManager->resolveReportWidget($reportType);
-
         if (!class_exists($widgetClass)) {
             return false;
         }

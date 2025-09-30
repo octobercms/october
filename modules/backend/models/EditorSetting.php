@@ -1,6 +1,7 @@
 <?php namespace Backend\Models;
 
 use File;
+use Html;
 use Cache;
 use Config;
 use Less_Parser;
@@ -170,14 +171,12 @@ class EditorSetting extends SettingModel
     }
 
     /**
-     * afterFetch
+     * beforeSave
      */
-    public function afterFetch()
+    public function beforeSave()
     {
-        // @deprecated remove if year >= 2024
-        if (!isset($this->value['html_paragraph_formats'])) {
-            $this->html_paragraph_formats = $this->makeFormatsForTable($this->defaultHtmlParagraphFormats);
-            $this->save();
+        if ($this->isDirty('html_custom_styles')) {
+            $this->html_custom_styles = Html::clean($this->html_custom_styles);
         }
     }
 

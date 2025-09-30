@@ -3,14 +3,14 @@
         "label": "{% page %}",
         "hoverKeyword": "page",
         "documentation": "cms::lang.intellisense.docs.page",
-        "docUrl": "https://docs.octobercms.com/3.x/markup/tag/page.html",
+        "docUrl": "https://docs.octobercms.com/4.x/markup/tag/page.html",
         "insertText": "page"
     },
     {
         "label": "{% partial %}",
         "hoverKeyword": "partial",
         "documentation": "cms::lang.intellisense.docs.partial",
-        "docUrl": "https://docs.octobercms.com/3.x/markup/tag/partial.html",
+        "docUrl": "https://docs.octobercms.com/4.x/markup/tag/partial.html",
         "insertText": "partial \"${1{partial-list}}\"",
         "customData": {
             "isPartialTag": true
@@ -20,7 +20,7 @@
         "label": "{% ajaxPartial %}",
         "hoverKeyword": "ajaxPartial",
         "documentation": "cms::lang.intellisense.docs.ajaxpartial",
-        "docUrl": "https://docs.octobercms.com/3.x/markup/tag/ajax-partial.html",
+        "docUrl": "https://docs.octobercms.com/4.x/markup/tag/ajax-partial.html",
         "insertText": "ajaxPartial \"${1{partial-list}}\"",
         "customData": {
             "isPartialTag": true
@@ -30,7 +30,7 @@
         "label": "{% content %}",
         "hoverKeyword": "content",
         "documentation": "cms::lang.intellisense.docs.partial",
-        "docUrl": "https://docs.octobercms.com/3.x/markup/tag/content.html",
+        "docUrl": "https://docs.octobercms.com/4.x/markup/tag/content.html",
         "insertText": "content \"${1{content-list}}\""
     },
 
@@ -38,70 +38,70 @@
         "label": "{% component %}",
         "hoverKeyword": "component",
         "documentation": "cms::lang.intellisense.docs.component",
-        "docUrl": "https://docs.octobercms.com/3.x/markup/tag/component.html",
+        "docUrl": "https://docs.octobercms.com/4.x/markup/tag/component.html",
         "insertText": "component \"${1:name}\""
     },
     {
         "label": "{% placeholder %}",
         "hoverKeyword": "placeholder",
         "documentation": "cms::lang.intellisense.docs.placeholder",
-        "docUrl": "https://docs.octobercms.com/3.x/markup/tag/placeholder.html",
+        "docUrl": "https://docs.octobercms.com/4.x/markup/tag/placeholder.html",
         "insertText": "placeholder ${1:name}"
     },
     {
         "label": "{% scripts %}",
         "hoverKeyword": "scripts",
         "documentation": "cms::lang.intellisense.docs.scripts",
-        "docUrl": "https://docs.octobercms.com/3.x/markup/tag/placeholder.html",
+        "docUrl": "https://docs.octobercms.com/4.x/markup/tag/placeholder.html",
         "insertText": "scripts$0"
     },
     {
         "label": "{% styles %}",
         "hoverKeyword": "styles",
         "documentation": "cms::lang.intellisense.docs.styles",
-        "docUrl": "https://docs.octobercms.com/3.x/markup/tag/placeholder.html",
+        "docUrl": "https://docs.octobercms.com/4.x/markup/tag/placeholder.html",
         "insertText": "styles$0"
     },
     {
         "label": "{% meta %}",
         "hoverKeyword": "meta",
         "documentation": "cms::lang.intellisense.docs.meta",
-        "docUrl": "https://docs.octobercms.com/3.x/markup/tag/placeholder.html",
+        "docUrl": "https://docs.octobercms.com/4.x/markup/tag/placeholder.html",
         "insertText": "meta$0"
     },
     {
         "label": "{% flash %}",
         "hoverKeyword": ["flash", "endflash"],
         "documentation": "cms::lang.intellisense.docs.flash",
-        "docUrl": "https://docs.octobercms.com/3.x/markup/tag/flash.html",
+        "docUrl": "https://docs.octobercms.com/4.x/markup/tag/flash.html",
         "insertText": "{% flash %}$0{{ message }}{% endflash %}"
     },
     {
         "label": "{% verbatim %}",
         "hoverKeyword": ["verbatim", "endverbatim"],
         "documentation": "cms::lang.intellisense.docs.verbatim",
-        "docUrl": "https://docs.octobercms.com/3.x/markup/tag/verbatim.html",
+        "docUrl": "https://docs.octobercms.com/4.x/markup/tag/verbatim.html",
         "insertText": "{% verbatim %}$0{% endverbatim %}"
     },
     {
         "label": "{% macro %}",
         "hoverKeyword": ["macro", "endmacro"],
         "documentation": "cms::lang.intellisense.docs.macro",
-        "docUrl": "https://docs.octobercms.com/3.x/markup/tag/macro.html",
+        "docUrl": "https://docs.octobercms.com/4.x/markup/tag/macro.html",
         "insertText": "{% macro ${1:name}(${2:argument}) %}$0{% endmacro %}"
     },
     {
         "label": "{% for %}",
         "hoverKeyword": ["for", "endfor"],
         "documentation": "cms::lang.intellisense.docs.for",
-        "docUrl": "https://docs.octobercms.com/3.x/markup/tag/for.html",
+        "docUrl": "https://docs.octobercms.com/4.x/markup/tag/for.html",
         "insertText": "{% for ${1:item} in ${2:collection} %}\n\t$0\n{% endfor %}"
     },
     {
         "label": "{% if %}",
         "hoverKeyword": ["if", "endif", "else", "elseif"],
         "documentation": "cms::lang.intellisense.docs.if",
-        "docUrl": "https://docs.octobercms.com/3.x/markup/tag/if.html",
+        "docUrl": "https://docs.octobercms.com/4.x/markup/tag/if.html",
         "insertText": "{% if ${1:condition} %}\n\t$0\n{% endif %}"
     }
 ]

@@ -287,5 +287,7 @@
   "Request log": "Request log",
   "Bad requests": "Bad requests",
   "Issues found": "Issues found",
-  "No issues": "No issues"
+  "No issues": "No issues",
+  "SMTP Timeout": "SMTP Timeout",
+  "Connection timeout in seconds (default: 30)": "Connection timeout in seconds (default: 30)"
 }

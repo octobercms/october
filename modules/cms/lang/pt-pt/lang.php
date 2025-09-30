@@ -1,7 +1,7 @@
 <?php return [
   'cms_object' => [
     'invalid_file' => 'Nome de ficheiro inválido: ":name". Os nomes de ficheiros podem conter apenas letras, números, sublinhados, traços e pontos. Veja alguns exemplos de nomes de ficheiros correctos: pagina.htm, pagina, subdiretoria/pagina',
-    'invalid_property' => 'A propriedade ":nome" não pode ser definida',
+    'invalid_property' => 'A propriedade ":name" não pode ser definida',
     'file_already_exists' => 'O ficheiro ":name" já existe.',
     'error_saving' => 'Erro ao guardar ficheiro ":name". Verifique as permissões de escrita.',
     'error_creating_directory' => 'Erro ao criar a diretória :name. Verifique as permissões de escrita.',

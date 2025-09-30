@@ -2,6 +2,7 @@
 
 use Url;
 use File;
+use Html;
 use Lang;
 use Cache;
 use Config;
@@ -100,6 +101,16 @@ class BrandSetting extends SettingModel
         $brandCssPath = File::symbolizePath(self::getBaseConfig('stylesheet_path'));
         if ($brandCssPath && File::exists($brandCssPath)) {
             $this->custom_css = File::get($brandCssPath);
+        }
+    }
+
+    /**
+     * beforeSave
+     */
+    public function beforeSave()
+    {
+        if ($this->isDirty('custom_css')) {
+            $this->custom_css = Html::clean($this->custom_css);
         }
     }
 

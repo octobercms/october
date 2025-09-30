@@ -126,7 +126,7 @@ class Settings extends Controller
 
         $model->save(['propagate' => true, 'sessionKey' => $this->formWidget->getSessionKey()]);
 
-        Flash::success(__(':name settings updated', ['name' => e(Lang::get($item->label))]));
+        Flash::success(__(':name settings updated', ['name' => __($item->label)]));
 
         // Handle redirect
         if ($redirectUrl = post('redirect', true)) {

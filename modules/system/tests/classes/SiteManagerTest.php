@@ -130,15 +130,5 @@ class SiteManagerTest extends TestCase
         $site = $manager->getSiteFromRequest('https://eggs.octobercms.tld/', '');
         $this->assertTrue($site->isFallbackMatch);
         $this->assertTrue($site->is_prefixed);
-
-        // @deprecated remove in v4
-        $site = $manager->getSiteFromRequest('bacon.octobercms.tld', '/');
-        $this->assertEquals(1, $site->id);
-
-        $site = $manager->getSiteFromRequest('eggs.octobercms.tld', '/en');
-        $this->assertEquals(2, $site->id);
-
-        $site = $manager->getSiteFromRequest('eggs.octobercms.tld', '/fr');
-        $this->assertEquals(3, $site->id);
     }
 }

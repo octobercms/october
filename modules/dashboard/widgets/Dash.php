@@ -62,6 +62,12 @@ class Dash extends WidgetBase
      */
     public $manageUrl;
 
+    /**
+     * @var bool isCustom is true when the reports configuration has come from
+     * a saved/custom data source.
+     */
+    public $isCustom = false;
+
     //
     // Object Properties
     //
@@ -96,6 +102,7 @@ class Dash extends WidgetBase
             'name',
             'code',
             'reports',
+            'isCustom',
             'manageUrl',
             'canCreateAndEdit',
         ]);
@@ -202,7 +209,12 @@ class Dash extends WidgetBase
             $this->reports = [];
         }
 
-        $this->addReports($this->reports);
+        if ($this->isCustom) {
+            $this->addReportsFromCustomDataSource($this->reports);
+        }
+        else {
+            $this->addReports($this->reports);
+        }
 
         /**
          * @event backend.dash.extendReports
@@ -264,7 +276,7 @@ class Dash extends WidgetBase
         // Apply post processing
         $this->processPermissionCheck($this->allReports);
         $this->processDashWidgetReports($this->allReports);
-        $this->processSavedDashRows($this->allReports);
+        $this->processCustomDataDashRows($this->allReports);
         $this->processReportRows($this->allReports);
 
         $this->reportsDefined = true;
@@ -299,6 +311,20 @@ class Dash extends WidgetBase
         unset($this->allReports[$name]);
 
         return true;
+    }
+
+    /**
+     * addReportsFromCustomDataSource extracts the reports from a custom data source
+     */
+    protected function addReportsFromCustomDataSource(array $reports)
+    {
+        foreach ($reports as $reportRow) {
+            $widgets = $reportRow['widgets'] ?? [];
+            foreach ($widgets as $widget) {
+                $name = $widget['reportName'] ?? 'custom_report_' . str_random();
+                $this->allReports[$name] = $this->makeDashReport((string) $name, $widget);
+            }
+        }
     }
 
     /**
@@ -374,10 +400,17 @@ class Dash extends WidgetBase
      */
     public function onSaveDashboard()
     {
+        $definition = json_decode(post('definition'), true);
+        if (!$definition) {
+            return;
+        }
+
+        $definition = $this->cleanDefinitionForSave($definition);
+
         DashboardModel::updateDashboard(
             $this->controller,
             $this->code,
-            json_decode(post('definition'), true)
+            $definition
         );
     }
 
@@ -472,5 +505,25 @@ class Dash extends WidgetBase
         }
 
         return ReportMetric::findMetricByCodeStrict($dataSource->getAvailableMetrics(), $metricCode, true);
+    }
+
+    /**
+     * cleanDefinitionForSave removes meta data from the definition
+     * since it is not needed for storage
+     */
+    protected function cleanDefinitionForSave($definition)
+    {
+        foreach ($definition as &$row) {
+            unset($row['_unique_key']);
+
+            if (isset($row['widgets']) && is_array($row['widgets'])) {
+                foreach ($row['widgets'] as &$widget) {
+                    unset($widget['_unique_key']);
+                    unset($widget['configuration']['_dash_definition']);
+                }
+            }
+        }
+
+        return $definition;
     }
 }

@@ -188,7 +188,7 @@ class ReportFetchData
     /**
      * getRequestedDateInterval
      */
-    protected function getRequestedDateInterval(string $dashboardDateStart, string $dashboardDateEnd): array
+    protected function getRequestedDateInterval(?string $dashboardDateStart, ?string $dashboardDateEnd): array
     {
         $widgetInterval = isset($this->widgetConfig['date_interval'])
             ? $this->widgetConfig['date_interval']
@@ -241,7 +241,7 @@ class ReportFetchData
      */
     protected function getRequestedCompareInterval(?string $compare): array
     {
-        if (!strlen($compare)) {
+        if (!$compare) {
             return [null, null];
         }
 

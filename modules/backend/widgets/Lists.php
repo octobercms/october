@@ -1544,13 +1544,18 @@ class Lists extends WidgetBase implements ListElement
         $limitChars = isset($config['limitChars']) ? $config['limitChars'] : 40;
         $limitWords = isset($config['limitWords']) ? $config['limitWords'] : null;
 
+        // Handle null values
+        if ($value === null) {
+            return null;
+        }
+
         // Collapse spacing for inline nodes that will get stripped
         // "Welcome <img />, User" should read "Welcome, User"
         $result = $value;
         $result = str_replace(' <', '<', $result);
 
         // Add natural spacing between HTML nodes
-        $result = str_replace("><", '> <', $value);
+        $result = str_replace("><", '> <', $result);
 
         // Strip HTML
         $result = $original = trim(Html::strip($result));

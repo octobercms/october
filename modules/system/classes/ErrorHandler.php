@@ -197,8 +197,7 @@ class ErrorHandler extends ErrorHandlerBase
         }
 
         // Legacy exception logic
-        // @deprecated Change default value to false in v4
-        if (Config::get('cms.exception_policy_v1', true)) {
+        if (Config::get('cms.exception_policy_v1', false)) {
             if (
                 $exception instanceof \Illuminate\Database\QueryException ||
                 $exception instanceof \ErrorException

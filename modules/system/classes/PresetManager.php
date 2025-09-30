@@ -26,9 +26,6 @@ class PresetManager
         $this->registerPreset('flags', [\System\Classes\PresetManager\Locales::class, 'flags']);
         $this->registerPreset('flags@short', [\System\Classes\PresetManager\Locales::class, 'flagsShort']);
         $this->registerPreset('timezones', [\System\Classes\PresetManager\Dates::class, 'timezones']);
-
-        // @deprecated v4
-        $this->registerPreset('phosphorIcons', [\System\Classes\PresetManager\Icons::class, 'iconsPhosphor']);
     }
 
     /**

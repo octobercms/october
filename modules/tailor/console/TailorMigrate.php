@@ -1,7 +1,9 @@
 <?php namespace Tailor\Console;
 
+use Log;
 use Illuminate\Console\Command;
 use Tailor\Classes\BlueprintIndexer;
+use Exception;
 
 /**
  * TailorMigrate migrates tailor specific content.
@@ -26,6 +28,12 @@ class TailorMigrate extends Command
      */
     public function handle()
     {
-        BlueprintIndexer::instance()->setNotesCommand($this)->migrate();
+        try {
+            BlueprintIndexer::instance()->setNotesCommand($this)->migrate();
+        }
+        catch (Exception $ex) {
+            Log::error($ex);
+            throw $ex;
+        }
     }
 }

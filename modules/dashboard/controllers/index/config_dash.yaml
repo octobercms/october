@@ -143,8 +143,14 @@ system:
 #             title: Website
 #             type: Cms\ReportWidgets\ActiveTheme
 
-#         my_custom_widget:
-#             title: My Custom Widget
+#         my_custom_vue_widget:
+#             title: My Custom Vue Widget
 #             row: 3
 #             width: 20
 #             type: October\Test\VueComponents\MyCustomWidget
+
+#         my_custom_widget:
+#             title: My Custom Widget
+#             row: 4
+#             width: 20
+#             type: October\Test\ReportWidgets\ClearCache

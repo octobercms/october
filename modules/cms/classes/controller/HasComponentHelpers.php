@@ -6,6 +6,7 @@ use Cms\Classes\ComponentManager;
 use Cms\Classes\CmsException;
 use Cms\Classes\ComponentPartial;
 use Cms\Classes\ComponentBase;
+use Throwable;
 
 /**
  * HasComponentHelpers
@@ -58,7 +59,21 @@ trait HasComponentHelpers
 
         $this->parseRouteParamsOnComponent($componentObj, $this->router->getParameters());
 
-        $componentObj->init();
+        try {
+            $componentObj->init();
+        }
+        catch (Throwable $e) {
+            unset($this->vars[$alias]);
+
+            if ($addToLayout) {
+                unset($this->layout->components[$alias]);
+            }
+            else {
+                unset($this->page->components[$alias]);
+            }
+
+            throw $e;
+        }
 
         return $componentObj;
     }

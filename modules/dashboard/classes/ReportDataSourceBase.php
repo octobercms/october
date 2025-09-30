@@ -251,15 +251,15 @@ abstract class ReportDataSourceBase
      */
     private function validateDateGroupInterval(?string $groupInterval, ReportDimension $dimension): ?string
     {
-        if (!strlen($groupInterval) && $dimension->isDate()) {
+        if (!$groupInterval && $dimension->isDate()) {
             $groupInterval = self::GROUP_INTERVAL_DAY;
         }
 
-        if (strlen($groupInterval) && !$dimension->isDate()) {
+        if ($groupInterval && !$dimension->isDate()) {
             return null;
         }
 
-        if (strlen($groupInterval) && !in_array($groupInterval, $this->knownGroupIntervals)) {
+        if ($groupInterval && !in_array($groupInterval, $this->knownGroupIntervals)) {
             throw new SystemException("Invalid group interval: {$groupInterval}");
         }
 

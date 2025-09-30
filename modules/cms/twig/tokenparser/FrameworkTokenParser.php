@@ -1,8 +1,9 @@
-<?php namespace Cms\Twig;
+<?php namespace Cms\Twig\TokenParser;
 
 use Twig\Token as TwigToken;
 use Twig\TokenParser\AbstractTokenParser as TwigTokenParser;
 use Twig\Error\SyntaxError as TwigErrorSyntax;
+use Cms\Twig\Node\FrameworkNode;
 
 /**
  * FrameworkTokenParser for the `{% framework %}` Twig tag.

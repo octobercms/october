@@ -330,20 +330,9 @@
 
         // Rude check if this is a mail message
         if (rawSource.includes('Message-ID:') && rawSource.includes('Subject:') && rawSource.includes('From:') && rawSource.includes('To:')) {
-            markup = rawSource
-                // Trim whitespace
-                .replace(/[\t\x20]$/gm, '')
-                // Join line endings
-                .replace(/=(?:\r\n?|\n|$)/g, '')
-                // Decode quoted printable
-                .replace(/=([a-fA-F0-9]{2})/g, function(_, m) {
-                    return String.fromCharCode(parseInt(m, 16));
-                })
-                // Encode HTML body
-                .replace(/(?:^|<\/html>)[^]*?(?:<html|$)/g, function(m) {
-                    return m.replace(/\r\n|\r|\n/g, '<br>').replace(/ {2}/g, '&nbsp;&nbsp;');
-                })
-            ;
+            markup = rawSource.trim().replace(/(?:^|<\/html>)[^]*?(?:<html|$)/g, function(m) {
+                return m.replace(/\r\n|\r|\n/g, '<br>').replace(/ {2}/g, '&nbsp;&nbsp;')
+            });
 
             iframe = $('<iframe id="#beautifier-tab-formatted-iframe" style="width: 100%; height: 500px; padding: 0" frameborder="0"></iframe>');
         }

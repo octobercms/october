@@ -2,7 +2,7 @@
   'cms_object' => [
     'invalid_file' => 'Nome de arquivo inválido: ":name". Os nomes de arquivos podem conter apenas letras, números, sublinhados, traços e pontos. Veja alguns exemplos de nomes de arquivos corretos: pagina.htm, pagina, subdiretorio/pagina',
     'invalid_file_inspector' => 'Nome de arquivo inválido. Os nomes dos arquivos podem conter apenas símbolos alfanuméricos, sublinhados, traços e pontos. Alguns exemplos de nomes de arquivos: pagina.htm, pagina, subdiretorio/pagina',
-    'invalid_property' => 'A propriedade ":nome" não pode ser definida',
+    'invalid_property' => 'A propriedade ":name" não pode ser definida',
     'file_already_exists' => 'Arquivo ":name" já existe.',
     'error_saving' => 'Erro ao salvar arquivo ":name". Verifique as permissões de escrita.',
     'error_creating_directory' => 'Erro ao criar o diretório :name. Verifique as permissões de escrita.',
@@ -346,7 +346,7 @@
       'page_filter' => 'O filtro `page` cria um link para uma página usando um nome de arquivo de página, sem extensão, como parâmetro.',
       'theme_filter' => 'O filtro `theme` retorna um endereço relativo ao caminho do tema ativo do site. ',
       'app_filter' => 'O filtro `app` retorna um endereço relativo ao caminho público do site.',
-      'media_filter' => 'O filtro `media` retorna um endereço relativo ao caminho público da [biblioteca do gerenciador de mídia](https://docs.octobercms.com/3.x/cms/media/introduction.html).',
+      'media_filter' => 'O filtro `media` retorna um endereço relativo ao caminho público da [biblioteca do gerenciador de mídia](https://docs.octobercms.com/4.x/cms/media/introduction.html).',
       'md_filter' => 'O filtro `md` converte o valor do Markdown para o formato HTML.',
       'raw_filter' => 'O filtro `raw` marca o valor como "seguro", o que significa que uma variável não será escapada se `raw` for o último filtro aplicado a ela.',
     ],

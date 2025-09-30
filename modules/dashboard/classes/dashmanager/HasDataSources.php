@@ -80,7 +80,7 @@ trait HasDataSources
 
             foreach ($dimensions as $dimension) {
                 $type = $dimension->getDimensionType();
-                if (!strlen($type)) {
+                if (!$type) {
                     continue;
                 }
 

@@ -1,4 +1,4 @@
-<?php namespace Cms\Twig;
+<?php namespace Cms\Twig\Node;
 
 use Twig\Node\Node as TwigNode;
 use Twig\Compiler as TwigCompiler;
@@ -58,7 +58,7 @@ class PartialNode extends TwigNode
         if ($options['isAjax']) {
             $compiler
                 ->write("yield '<div data-ajax-partial=\"'.")
-                ->subcompile($this->getNode('name'))
+                ->subcompile($this->getNode('_partial_name'))
                 ->write(".'\">';\n");
         }
 
@@ -70,7 +70,7 @@ class PartialNode extends TwigNode
             // Render Partial
             $compiler
                 ->write("yield \$this->env->getExtension(\Cms\Twig\Extension::class)->partialFunction(")
-                ->subcompile($this->getNode('name'));
+                ->subcompile($this->getNode('_partial_name'));
 
             if ($options['hasOnly']) {
                 $compiler->write(", array_merge(['__cms_partial_params' => \$cmsPartialParams], \$cmsPartialParams)");

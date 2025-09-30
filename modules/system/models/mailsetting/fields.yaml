@@ -57,6 +57,18 @@ tabs:
                 field: send_mode
                 condition: value[smtp]
 
+        smtp_timeout:
+            label: SMTP Timeout
+            type: number
+            comment: "Connection timeout in seconds (default: 30)"
+            tab: General
+            span: auto
+            default: 30
+            trigger:
+                action: show
+                field: send_mode
+                condition: value[smtp]
+
         smtp_authorization:
             type: checkbox
             label: SMTP Authorization Required

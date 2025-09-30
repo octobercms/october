@@ -106,9 +106,9 @@ class EntriesField extends FallbackField
             $this->defineFormFieldAsRelationController($field);
         }
 
-        // @deprecated this should be default
+        // @deprecated useKey with relation should support primary keys
         if ($field->type === 'taglist') {
-            $field->customTags(false);
+            $field->useKey(false);
         }
     }
 

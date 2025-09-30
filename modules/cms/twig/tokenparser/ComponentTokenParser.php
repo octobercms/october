@@ -1,26 +1,24 @@
-<?php namespace Cms\Twig;
+<?php namespace Cms\Twig\TokenParser;
 
+use Twig\Node\Node as TwigNode;
 use Twig\Token as TwigToken;
 use Twig\TokenParser\AbstractTokenParser as TwigTokenParser;
 use Twig\Error\SyntaxError as TwigErrorSyntax;
+use Cms\Twig\Node\ComponentNode;
 
 /**
- * ContentTokenParser for the `{% content %}` Twig tag.
+ * ComponentTokenParser for the `{% component %}` Twig tag.
  *
- * Examples:
- *
- *     {% content "intro.htm" %}
- *     {% content "intro.md" name='John' %}
- *     {% content "intro/txt" name='John', year=2013 %}
+ *     {% component "pluginComponent" %}
  *
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
-class ContentTokenParser extends TwigTokenParser
+class ComponentTokenParser extends TwigTokenParser
 {
     /**
      * Parses a token and returns a node.
-     * @return ContentNode
+     * @return TwigNode A TwigNode instance
      */
     public function parse(TwigToken $token)
     {
@@ -30,22 +28,22 @@ class ContentTokenParser extends TwigTokenParser
         $nodes = [];
         $paramNames = [];
 
-        // Parse content name (first argument)
-        $nodes['name'] = $this->parser->getExpressionParser()->parseExpression();
+        // Parse component name
+        $nodes['name'] = $this->parser->parseExpression();
 
-        // Parse optional parameters
+        // Parse parameters
         while (!$stream->test(TwigToken::BLOCK_END_TYPE)) {
             $current = $stream->next();
 
             if ($current->test(TwigToken::NAME_TYPE)) {
                 $paramName = $current->getValue();
                 $stream->expect(TwigToken::OPERATOR_TYPE, '=');
-                $nodes[$paramName] = $this->parser->getExpressionParser()->parseExpression();
+                $nodes[$paramName] = $this->parser->parseExpression();
                 $paramNames[] = $paramName;
             }
             else {
                 throw new TwigErrorSyntax(
-                    sprintf('Invalid syntax in the content tag. Line %s', $lineno),
+                    sprintf('Invalid syntax in the component tag. Line %s', $lineno),
                     $stream->getCurrent()->getLine(),
                     $stream->getSourceContext()
                 );
@@ -54,16 +52,16 @@ class ContentTokenParser extends TwigTokenParser
 
         $stream->expect(TwigToken::BLOCK_END_TYPE);
 
-        // Pass individual nodes instead of wrapping in a 'nodes' array
-        return new ContentNode($nodes, $paramNames, $lineno, $this->getTag());
+        // Pass nodes directly without wrapping inside 'nodes'
+        return new ComponentNode($nodes, $paramNames, $lineno, $this->getTag());
     }
 
     /**
-     * Returns the tag name associated with this token parser.
-     * @return string
+     * getTag name associated with this token parser.
+     * @return string The tag name
      */
     public function getTag()
     {
-        return 'content';
+        return 'component';
     }
 }

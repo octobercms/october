@@ -2,7 +2,7 @@
     <?php
         $item = $itemInfo->mainMenuItem;
         $isActive = BackendMenu::isMainMenuItemActive($item);
-        $isDashboard = $item->owner === 'October.Backend' && $item->code === 'dashboard';
+        $isDashboard = $item->owner === 'October.Dashboard' && $item->code === 'dashboard';
         if ($isDashboard && ($customDashIcon = Backend\Models\BrandSetting::getNavDashboardIcon())) {
             $item->iconSvg = $customDashIcon;
         }

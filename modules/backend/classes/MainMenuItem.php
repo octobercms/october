@@ -37,8 +37,6 @@ class MainMenuItem extends ItemDefinition
 
     /**
      * addPermission
-     * @deprecated recommend not using this method until v4 when signature is fixed
-     * should be a non-associative array
      * @param string $permission
      * @param array $definition
      */

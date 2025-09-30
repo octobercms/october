@@ -1,4 +1,6 @@
-<?php namespace Dashboard\Classes;
+<?php
+
+namespace Dashboard\Classes;
 
 use Str;
 use Event;
@@ -37,7 +39,7 @@ class TrafficLogger
         $result = DashboardSetting::instance()->traffic_stats_timezone;
 
         if (!$result) {
-            $result = Config::get('cms.timezone');
+            $result = Config::get('cms.timezone') ?? Config::get('app.timezone');
         }
 
         return (string) $result;
@@ -51,7 +53,7 @@ class TrafficLogger
     {
         $retention = DashboardSetting::instance()->traffic_stats_retention;
 
-        if (strlen($retention) && is_int($retention)) {
+        if ($retention && strlen($retention) && is_int($retention)) {
             return (int) $retention;
         }
 
@@ -105,13 +107,10 @@ class TrafficLogger
 
         $pageview->client_id = $clientId;
         $pageview->first_time_visit = $firstTimeVisit;
-        $pageview->user_agent = Str::substr(Request::header('User-Agent'), 0, 255);
-        $pageview->ip = Str::substr(Request::ip(), 0, 255);
-        $pageview->page_path = Str::substr(Request::path(), 0, 255);
-        $pageview->referral_domain = Str::substr(parse_url(
-            $referrer,
-            PHP_URL_HOST
-        ), 0, 255);
+        $pageview->user_agent = Str::substr((string) Request::header('User-Agent'), 0, 255);
+        $pageview->ip = Str::substr((string) Request::ip(), 0, 255);
+        $pageview->page_path = Str::substr((string) Request::path(), 0, 255);
+        $pageview->referral_domain = Str::substr((string) parse_url($referrer ?: '', PHP_URL_HOST), 0, 255);
         $pageview->ev_timestamp = gmdate('Y-m-d H:i:s', time());
         $pageview->save();
 
@@ -130,11 +129,18 @@ class TrafficLogger
     }
 
     /**
-     * getClientId retrieves the client ID from the cookie.
+     * getClientId retrieves the client ID from the cookie. The client ID must have
+     * a maximum length of 64, as enforced by the database.
      */
     protected static function getClientId()
     {
-        return Cookie::get('oc_clid');
+        $value = Cookie::get('oc_clid');
+
+        if (is_string($value)) {
+            return substr($value, 0, 64);
+        }
+
+        return null;
     }
 
     /**
@@ -144,7 +150,7 @@ class TrafficLogger
     {
         $result = Str::random(32);
 
-        Cookie::queue('oc_clid', $result, 60*24*365*5); // 5 years
+        Cookie::queue('oc_clid', $result, 60 * 24 * 365 * 5); // 5 years
 
         return $result;
     }

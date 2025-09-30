@@ -84,7 +84,9 @@ trait HasAjaxRequests
      */
     protected function getAjaxHandlerPartialList(): array
     {
-        if ($partialList = trim(Request::header('X_OCTOBER_REQUEST_PARTIALS'))) {
+        $partialList = Request::header('X_OCTOBER_REQUEST_PARTIALS');
+
+        if ($partialList && ($partialList = trim($partialList))) {
             $partials = explode('&', $partialList);
 
             foreach ($partials as $partial) {

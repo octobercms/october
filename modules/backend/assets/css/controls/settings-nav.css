@@ -295,3 +295,7 @@ body.drag-noselect {
         }
     }
 }
+
+html body.main-menu-left .control-settings-nav {
+    height: 100vh;
+}

@@ -1,7 +1,7 @@
 {
   "Manage Entries": "Gestisci voci",
   "Create :name Entry": "Crea :name voce",
-  "New :name": "Nuovo :nome voce",
+  "New :name": "Nuovo :name voce",
   "Import Entries": "Importa voci",
   "Export Entries": "Esporta voci",
   "First Draft": "Prima bozza",
@@ -85,7 +85,7 @@
   "Direction": "Direzione",
   "Update :name Entries": "Aggiorna: nomina le voci",
   "Update :name": "Aggiorna: nome",
-  ":name Entry": ":nome Voce",
+  ":name Entry": ":name Voce",
   "All :name Items": "Tutte le voci :name",
   "Update Existing Records": "Aggiorna record esistenti",
   "Check this box to update records that match the same ID, title or slug.": "Seleziona questa casella per aggiornare i record che corrispondono allo stesso ID, titolo o slug.",

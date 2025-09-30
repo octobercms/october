@@ -231,6 +231,11 @@ class ThemeSeed extends Model
 
         $importModel = new $className;
         $importModel->forceFill($attributes);
+
+        if (method_exists($importModel, 'setSourcePrefix')) {
+            $importModel->setSourcePrefix($this->themePath);
+        }
+
         $importModel->importFile($importFile, ['matches' => $matches, 'sessionKey' => str_random(40)]);
 
         $stats = $importModel->getResultStats();

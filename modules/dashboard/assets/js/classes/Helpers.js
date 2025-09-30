@@ -37,6 +37,10 @@ class Dashboard_Classes_Helpers
         return uniqueKey;
     }
 
+    makeCustomReportName() {
+        return 'custom_report_' + Math.random().toString(36).slice(2, 16);
+    }
+
     setUniqueKeysForDashboard(rows) {
         rows.forEach(row => {
             row._unique_key = this.makeUniqueKey(rows);

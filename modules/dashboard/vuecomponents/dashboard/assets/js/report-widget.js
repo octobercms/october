@@ -105,19 +105,20 @@ Vue.component('dashboard-component-dashboard-report-widget', {
 
             this.loadingPromises.push(loadingPromise);
 
-            const that = this;
-            loadingPromise.then((data) => {
-                that.applyData(data);
-                if (widgetConfiguration.auto_update) {
-                    this.startAutoUpdate();
-                }
-            }).finally(function () {
-                this.autoUpdating = false;
-                that.loading = that.hasActiveLoadingPromise();
-            }).catch(function (err) {
-                console.error(err)
-                that.error = true;
-            });
+            loadingPromise
+                .then((data) => {
+                    this.applyData(data);
+                    if (widgetConfiguration.auto_update) {
+                        this.startAutoUpdate();
+                    }
+                }).finally(() => {
+                    this.autoUpdating = false;
+                    this.loading = this.hasActiveLoadingPromise();
+                    this.showInspectorWhenLoaded();
+                }).catch((err) => {
+                    console.error(err)
+                    this.error = true;
+                });
         },
         applyData: function (data) {
             const state = this.store.state;
@@ -149,6 +150,18 @@ Vue.component('dashboard-component-dashboard-report-widget', {
                 command: 'delete',
                 label: oc.lang.get('dashboard.delete')
             });
+        },
+        showInspectorWhenLoaded() {
+            if (this.systemFlags && this.systemFlags.needsConfiguration) {
+                this.store.unsetSystemDataFlag(this.widget, 'needsConfiguration');
+                const widgetImplementation = this.$refs.widgetImplementation;
+
+                if (widgetImplementation) {
+                    widgetImplementation.makeDefaultConfigAndData();
+
+                    this.showInspector();
+                }
+            }
         },
         showInspector: function () {
             const dataHolder = this.widget.configuration;
@@ -344,17 +357,6 @@ Vue.component('dashboard-component-dashboard-report-widget', {
         }
     },
     mounted: function mounted() {
-        if (this.systemFlags && this.systemFlags.needsConfiguration) {
-            this.store.unsetSystemDataFlag(this.widget, 'needsConfiguration');
-            const widgetImplementation = this.$refs.widgetImplementation;
-
-            if (widgetImplementation) {
-                widgetImplementation.makeDefaultConfigAndData();
-
-                this.showInspector();
-            }
-        }
-
         // Widgets are dragged together with their data.
         // No need to reload the widget if its data is
         // already loaded.
@@ -362,6 +364,7 @@ Vue.component('dashboard-component-dashboard-report-widget', {
             this.load();
         }
         else {
+            this.showInspectorWhenLoaded();
             this.loading = false;
         }
     },

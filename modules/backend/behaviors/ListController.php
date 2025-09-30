@@ -24,7 +24,7 @@ use ForbiddenException;
  * values as either a YAML file, located in the controller view directory,
  * or directly as a PHP array.
  *
- * @see https://docs.octobercms.com/3.x/extend/lists/list-controller.html List Controller Documentation
+ * @see https://docs.octobercms.com/4.x/extend/lists/list-controller.html List Controller Documentation
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
@@ -565,7 +565,7 @@ class ListController extends ControllerBehavior
     /**
      * extendListColumns is a static helper for extending list columns.
      * @deprecated for best performance, use Event class directly, see docs
-     * @link https://docs.octobercms.com/3.x/extend/lists/list-controller.html#extending-column-definitions
+     * @link https://docs.octobercms.com/4.x/extend/lists/list-controller.html#extending-column-definitions
      */
     public static function extendListColumns($callback)
     {
@@ -581,7 +581,7 @@ class ListController extends ControllerBehavior
     /**
      * extendListFilterScopes is a static helper for extending filter scopes.
      * @deprecated for best performance, use Event class directly, see docs
-     * @link https://docs.octobercms.com/3.x/extend/lists/list-controller.html#extending-filter-scopes
+     * @link https://docs.octobercms.com/4.x/extend/lists/list-controller.html#extending-filter-scopes
      */
     public static function extendListFilterScopes($callback)
     {

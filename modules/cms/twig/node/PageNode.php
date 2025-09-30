@@ -1,23 +1,23 @@
-<?php namespace Cms\Twig;
+<?php namespace Cms\Twig\Node;
 
 use Twig\Node\Node as TwigNode;
 use Twig\Compiler as TwigCompiler;
 
 /**
- * DefaultNode represents a "default" node
+ * PageNode represents a "page" node
  *
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
 #[\Twig\Attribute\YieldReady]
-class DefaultNode extends TwigNode
+class PageNode extends TwigNode
 {
     /**
      * __construct
      */
-    public function __construct(array $nodes = [], array $attributes = [], int $lineno = 0)
+    public function __construct(int $lineno)
     {
-        parent::__construct($nodes, $attributes, $lineno);
+        parent::__construct([], [], $lineno);
     }
 
     /**
@@ -27,6 +27,6 @@ class DefaultNode extends TwigNode
     {
         $compiler
             ->addDebugInfo($this)
-            ->write("yield '<!-- X_OCTOBER_DEFAULT_BLOCK_CONTENT -->';\n");
+            ->write("yield \$this->env->getExtension(\Cms\Twig\Extension::class)->pageFunction(\$context);\n");
     }
 }

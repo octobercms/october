@@ -10,8 +10,8 @@ use Schema;
 use System;
 use Manifest;
 use October\Rain\Composer\ComposerManager;
-use RecursiveIteratorIterator;
-use RecursiveDirectoryIterator;
+use DirectoryIterator;
+use UnexpectedValueException;
 use SystemException;
 use Throwable;
 
@@ -442,7 +442,7 @@ class PluginManager
     public function getPluginNamespace($id): ?string
     {
         if ($classObj = $this->findByIdentifier($id)) {
-            return dirname(get_class($classObj));
+            return implode('\\', explode('\\', get_class($classObj), -1));
         }
 
         return null;
@@ -502,25 +502,55 @@ class PluginManager
         $plugins = [];
 
         $dirPath = plugins_path();
-        if (!is_dir($dirPath)) {
+        if (!is_dir($dirPath) || !is_readable($dirPath)) {
             return $plugins;
         }
 
-        $it = new RecursiveIteratorIterator(
-            new RecursiveDirectoryIterator($dirPath, RecursiveDirectoryIterator::FOLLOW_SYMLINKS)
-        );
-        $it->setMaxDepth(2);
-        $it->rewind();
+        // Iterate vendors directly to avoid recursion exceptions on unreadable children
+        try {
+            $vendorIterator = new DirectoryIterator($dirPath);
+        }
+        catch (UnexpectedValueException $e) {
+            return $plugins;
+        }
 
-        while ($it->valid()) {
-            if (($it->getDepth() > 1) && $it->isFile() && (strtolower($it->getFilename()) === "plugin.php")) {
-                $filePath = dirname($it->getPathname());
-                $pluginName = basename($filePath);
-                $vendorName = basename(dirname($filePath));
-                $plugins[$vendorName][$pluginName] = "$vendorName/$pluginName";
+        foreach ($vendorIterator as $vendor) {
+            if ($vendor->isDot()) {
+                continue;
             }
 
-            $it->next();
+            if (!$vendor->isDir() || !is_readable($vendor->getPathname())) {
+                continue;
+            }
+
+            $vendorName = $vendor->getFilename();
+            $vendorPath = $vendor->getPathname();
+
+            // Iterate plugins under this vendor, skip unreadable vendor directories
+            try {
+                $pluginIterator = new DirectoryIterator($vendorPath);
+            }
+            catch (UnexpectedValueException $e) {
+                continue;
+            }
+
+            foreach ($pluginIterator as $plugin) {
+                if ($plugin->isDot()) {
+                    continue;
+                }
+
+                if (!$plugin->isDir() || !is_readable($plugin->getPathname())) {
+                    continue;
+                }
+
+                $pluginName = $plugin->getFilename();
+                $pluginPath = $plugin->getPathname();
+
+                // Only include valid plugin directories that contain Plugin.php
+                if (is_file($pluginPath . DIRECTORY_SEPARATOR . 'Plugin.php')) {
+                    $plugins[$vendorName][$pluginName] = $vendorName . '/' . $pluginName;
+                }
+            }
         }
 
         return $plugins;

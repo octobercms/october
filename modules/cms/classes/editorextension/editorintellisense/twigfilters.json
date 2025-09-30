@@ -331,7 +331,7 @@
         "label": "page",
         "hoverKeyword": "page",
         "documentation": "cms::lang.intellisense.docs.page_filter",
-        "docUrl": "https://docs.octobercms.com/3.x/markup/filter/page.html",
+        "docUrl": "https://docs.octobercms.com/4.x/markup/filter/page.html",
         "insertText": "page",
         "isNativeTwigFilter": false
     },
@@ -339,7 +339,7 @@
         "label": "theme",
         "hoverKeyword": "theme",
         "documentation": "cms::lang.intellisense.docs.theme_filter",
-        "docUrl": "https://docs.octobercms.com/3.x/markup/filter/theme.html",
+        "docUrl": "https://docs.octobercms.com/4.x/markup/filter/theme.html",
         "insertText": "theme",
         "isNativeTwigFilter": false
     },
@@ -347,7 +347,7 @@
         "label": "app",
         "hoverKeyword": "app",
         "documentation": "cms::lang.intellisense.docs.app_filter",
-        "docUrl": "https://docs.octobercms.com/3.x/markup/filter/app.html",
+        "docUrl": "https://docs.octobercms.com/4.x/markup/filter/app.html",
         "insertText": "app",
         "isNativeTwigFilter": false
     },
@@ -355,7 +355,7 @@
         "label": "media",
         "hoverKeyword": "media",
         "documentation": "cms::lang.intellisense.docs.media_filter",
-        "docUrl": "https://docs.octobercms.com/3.x/markup/filter/media.html",
+        "docUrl": "https://docs.octobercms.com/4.x/markup/filter/media.html",
         "insertText": "media",
         "isNativeTwigFilter": false
     },
@@ -363,7 +363,7 @@
         "label": "md",
         "hoverKeyword": "md",
         "documentation": "cms::lang.intellisense.docs.md_filter",
-        "docUrl": "https://docs.octobercms.com/3.x/markup/filter/md.html",
+        "docUrl": "https://docs.octobercms.com/4.x/markup/filter/md.html",
         "insertText": "md",
         "isNativeTwigFilter": false
     },
@@ -371,7 +371,7 @@
         "label": "raw",
         "hoverKeyword": "raw",
         "documentation": "cms::lang.intellisense.docs.raw_filter",
-        "docUrl": "https://docs.octobercms.com/3.x/markup/filter/raw.html",
+        "docUrl": "https://docs.octobercms.com/4.x/markup/filter/raw.html",
         "insertText": "raw",
         "isNativeTwigFilter": false
     },
@@ -379,7 +379,7 @@
         "label": "content",
         "hoverKeyword": "content",
         "documentation": "cms::lang.intellisense.docs.content_filter",
-        "docUrl": "https://docs.octobercms.com/3.x/markup/tag/content.html",
+        "docUrl": "https://docs.octobercms.com/4.x/markup/tag/content.html",
         "insertText": "content",
         "isNativeTwigFilter": false
     },
@@ -387,7 +387,7 @@
         "label": "link",
         "hoverKeyword": "link",
         "documentation": "cms::lang.intellisense.docs.link_filter",
-        "docUrl": "https://docs.octobercms.com/3.x/markup/filter/link.html",
+        "docUrl": "https://docs.octobercms.com/4.x/markup/filter/link.html",
         "insertText": "link",
         "isNativeTwigFilter": false
     }

@@ -1,29 +1,31 @@
-<?php namespace Cms\Twig;
+<?php namespace Cms\Twig\TokenParser;
 
 use Twig\Token as TwigToken;
 use Twig\TokenParser\AbstractTokenParser as TwigTokenParser;
+use Cms\Twig\Node\PageNode;
 
 /**
- * MetaTokenParser for the `{% meta %}` Twig tag.
+ * PageTokenParser for the `{% page %}` Twig tag.
  *
  * Example usage:
- *     {% meta %}
+ *
+ *     {% page %}
  *
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
-class MetaTokenParser extends TwigTokenParser
+class PageTokenParser extends TwigTokenParser
 {
     /**
      * Parses a token and returns a node.
-     * @return MetaNode
+     * @return PageNode
      */
     public function parse(TwigToken $token)
     {
         $stream = $this->parser->getStream();
         $stream->expect(TwigToken::BLOCK_END_TYPE);
 
-        return new MetaNode($token->getLine(), $this->getTag());
+        return new PageNode($token->getLine(), $this->getTag());
     }
 
     /**
@@ -32,6 +34,6 @@ class MetaTokenParser extends TwigTokenParser
      */
     public function getTag()
     {
-        return 'meta';
+        return 'page';
     }
 }

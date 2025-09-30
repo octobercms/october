@@ -1,7 +1,8 @@
-<?php namespace Cms\Twig;
+<?php namespace Cms\Twig\TokenParser;
 
 use Twig\Token as TwigToken;
 use Twig\TokenParser\AbstractTokenParser as TwigTokenParser;
+use Cms\Twig\Node\StylesNode;
 
 /**
  * StylesTokenParser for the `{% styles %}` Twig tag.

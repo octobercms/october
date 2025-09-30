@@ -1,8 +1,9 @@
-<?php namespace Cms\Twig;
+<?php namespace Cms\Twig\TokenParser;
 
 use Twig\Token as TwigToken;
 use Twig\TokenParser\AbstractTokenParser as TwigTokenParser;
 use Twig\Error\SyntaxError as TwigErrorSyntax;
+use Cms\Twig\Node\PartialNode;
 
 /**
  * PartialTokenParser for the `{% partial %}` Twig tag.
@@ -34,8 +35,8 @@ class PartialTokenParser extends TwigTokenParser
 
         $isAjax = $this->getTag() === 'ajaxPartial';
 
-        // Parse partial name (first argument)
-        $nodes['name'] = $this->parser->getExpressionParser()->parseExpression();
+        // Parse partial name (first argument) - use unique key
+        $nodes['_partial_name'] = $this->parser->parseExpression();
 
         // Parse optional parameters
         while (!$stream->test(TwigToken::BLOCK_END_TYPE)) {
@@ -66,7 +67,7 @@ class PartialTokenParser extends TwigTokenParser
             if ($current->test(TwigToken::NAME_TYPE)) {
                 $paramName = $current->getValue();
                 $stream->expect(TwigToken::OPERATOR_TYPE, '=');
-                $nodes[$paramName] = $this->parser->getExpressionParser()->parseExpression();
+                $nodes[$paramName] = $this->parser->parseExpression();
                 $paramNames[] = $paramName;
             }
             else {

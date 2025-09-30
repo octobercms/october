@@ -1,16 +1,16 @@
-<?php namespace Cms\Twig;
+<?php namespace Cms\Twig\Node;
 
 use Twig\Node\Node as TwigNode;
 use Twig\Compiler as TwigCompiler;
 
 /**
- * PageNode represents a "page" node
+ * MetaNode represents a "meta" node
  *
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
 #[\Twig\Attribute\YieldReady]
-class PageNode extends TwigNode
+class MetaNode extends TwigNode
 {
     /**
      * __construct
@@ -27,6 +27,6 @@ class PageNode extends TwigNode
     {
         $compiler
             ->addDebugInfo($this)
-            ->write("yield \$this->env->getExtension(\Cms\Twig\Extension::class)->pageFunction(\$context);\n");
+            ->write("yield \$this->env->getExtension(\Cms\Twig\Extension::class)->displayBlock('meta');\n");
     }
 }

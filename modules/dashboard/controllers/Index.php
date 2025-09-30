@@ -64,7 +64,7 @@ class Index extends WildcardController
         }
 
         // Reverse the BackendController::parseAction
-        $otherCode = kebab_case(camel_case($code));
+        $otherCode = kebab_case(camel_case((string) $code));
 
         $this->bodyClass = 'compact-container sidenav-responsive';
         $this->pageTitle = 'backend::lang.dashboard.menu_label';
@@ -131,6 +131,11 @@ class Index extends WildcardController
         // Transfer dynamic config
         foreach ($allDashboards as $code => $dashboard) {
             $config->$code['name'] = $dashboard->name;
+
+            if ($dashboard->definition) {
+                $config->$code['reports'] = $dashboard->definition;
+                $config->$code['isCustom'] = true;
+            }
         }
 
         return $config;

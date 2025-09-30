@@ -424,8 +424,7 @@ class MediaManager extends WidgetBase
                 throw new ApplicationException(Lang::get('backend::lang.media.type_blocked'));
             }
 
-            // @deprecated media.clean_vectors set default to true in v4
-            if (Config::get('media.clean_vectors', false) && $this->isVector($newName)) {
+            if (Config::get('media.clean_vectors', true) && $this->isVector($newName)) {
                 throw new ApplicationException(Lang::get('backend::lang.media.type_blocked'));
             }
 
@@ -1602,8 +1601,7 @@ class MediaManager extends WidgetBase
             // Check and clean vector files
             // @todo use streaming like file objects
             $contents = File::get($realPath);
-            // @deprecated media.clean_vectors set default to true in v4
-            if ($extension === 'svg' && Config::get('media.clean_vectors', false)) {
+            if ($extension === 'svg' && Config::get('media.clean_vectors', true)) {
                 // @todo File::cleanVector() helper might be helpful here to clean temporary file in place
                 $contents = \Html::cleanVector($contents);
             }

@@ -178,4 +178,18 @@ return [
 
     'restrict_base_dir' => env('RESTRICT_BASE_DIR', true),
 
+    /*
+    |--------------------------------------------------------------------------
+    | Log Deprecation Warnings
+    |--------------------------------------------------------------------------
+    |
+    | This logs deprecation warnings from PHP code, either by the language or
+    | from developer code, in the event log. This should be set to true in
+    | development environments to ensure code is maintained and breaking
+    | changes are fixed before they happen.
+    |
+    */
+
+    'log_deprecations' => env('LOG_DEPRECATIONS', false),
+
 ];

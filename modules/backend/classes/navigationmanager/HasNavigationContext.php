@@ -106,7 +106,7 @@ trait HasNavigationContext
      */
     public function isDashboardItemActive()
     {
-        return $this->contextOwner === 'October.Backend' && $this->contextMainMenuItemCode === 'dashboard';
+        return $this->contextOwner === 'October.Dashboard' && $this->contextMainMenuItemCode === 'dashboard';
     }
 
     /**
