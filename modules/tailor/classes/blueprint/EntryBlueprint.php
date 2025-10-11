@@ -204,7 +204,7 @@ class EntryBlueprint extends Blueprint
         $options = [];
 
         foreach ($this->groups as $handle => $entry) {
-            $options[$handle] = $entry['name'] ?? $handle;
+            $options[$handle] = trans($entry['name'] ?? $handle);
         }
 
         return $options;
