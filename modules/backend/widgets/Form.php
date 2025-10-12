@@ -1065,7 +1065,7 @@ class Form extends WidgetBase implements FormElement
      */
     protected function showFieldLabels(FormField $field): bool
     {
-        if (in_array($field->type, ['checkbox', 'switch', 'section', 'hint', 'rule'])) {
+        if (in_array($field->type, ['checkbox', 'switch', 'section', 'hint', 'ruler'])) {
             return false;
         }
 
