@@ -5,7 +5,7 @@
     </label>
 <?php endif ?>
 <div class="field-horizontalrule">
-    <hr>
+    <hr />
 </div>
 <?php if ($field->comment): ?>
     <p class="form-text">
