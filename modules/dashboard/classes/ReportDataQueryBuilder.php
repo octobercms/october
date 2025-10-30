@@ -599,8 +599,8 @@ class ReportDataQueryBuilder
 
         if ($this->dateColumnName && $this->startDate !== null) {
             $query->whereBetween($this->dateColumnName, [
-                $this->startDate->toDateString(),
-                $this->endDate->toDateString()
+                $this->startDate->startOfDay()->toDateTimeString(),
+                $this->endDate->endOfDay()->toDateTimeString()
             ]);
         }
 
