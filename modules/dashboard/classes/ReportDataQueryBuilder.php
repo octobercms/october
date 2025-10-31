@@ -620,7 +620,7 @@ class ReportDataQueryBuilder
 
         switch ($this->groupInterval) {
             case ReportDataSourceBase::GROUP_INTERVAL_DAY:
-                return $dimensionColumnName;
+                return "DATE(`$dimensionColumnName`)";
                 break;
             case ReportDataSourceBase::GROUP_INTERVAL_WEEK:
                 $field = $this->dimension->getWeekGroupingField();
