@@ -310,12 +310,12 @@ class Repeater extends FormWidgetBase
 
     /**
      * makeItemFormWidget creates a form widget based on a field index and optional group code
-     * @param int $index
+     * @param int|string $index
      * @param string $groupCode
-     * @param int $fromIndex
+     * @param int|string $fromIndex
      * @return \Backend\Widgets\Form
      */
-    protected function makeItemFormWidget($index = 0, $groupCode = null, $fromIndex = null)
+    protected function makeItemFormWidget(int|string $index = 0, $groupCode = null, int|string $fromIndex = null)
     {
         $configDefinition = $this->useGroups
             ? $this->getGroupFormFieldConfig($groupCode)
@@ -381,7 +381,7 @@ class Repeater extends FormWidgetBase
     /**
      * getValueFromIndex returns the data at a given index
      */
-    protected function getValueFromIndex($index)
+    protected function getValueFromIndex(int|string $index)
     {
         $data = $this->getLoadValue();
 
@@ -587,9 +587,9 @@ class Repeater extends FormWidgetBase
 
     /**
      * getGroupCodeFromIndex returns a field group code from its index
-     * @param $index int
+     * @param int|string $index
      */
-    public function getGroupCodeFromIndex($index): string
+    public function getGroupCodeFromIndex(int|string $index): string
     {
         return (string) array_get($this->indexMeta, $index.'.groupCode');
     }

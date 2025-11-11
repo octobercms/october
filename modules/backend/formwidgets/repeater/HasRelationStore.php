@@ -25,7 +25,7 @@ trait HasRelationStore
     /**
      * getModelFromIndex returns the model at a given index
      */
-    protected function getModelFromIndex(int $index)
+    protected function getModelFromIndex(int|string $index)
     {
         return $this->getLoadValueFromRelation()[$index] ?? $this->getRelationModel();
     }
@@ -103,7 +103,7 @@ trait HasRelationStore
     /**
      * duplicateRelationAtIndex
      */
-    protected function duplicateRelationAtIndex(int $fromIndex, ?string $groupCode = null)
+    protected function duplicateRelationAtIndex(int|string $fromIndex, ?string $groupCode = null)
     {
         $model = $this->getModelFromIndex($fromIndex)->replicateWithRelations();
 
@@ -123,7 +123,7 @@ trait HasRelationStore
     /**
      * deleteRelationAtIndex
      */
-    protected function deleteRelationAtIndex(int $index)
+    protected function deleteRelationAtIndex(int|string $index)
     {
         $model = $this->getModelFromIndex($index);
         if (!$model->exists) {
