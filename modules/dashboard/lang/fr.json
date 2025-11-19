@@ -16,5 +16,7 @@
   "Exclude IP Addresses": "Exclure les adresses IP",
   "Requests from these addresses will be ignored in statistics.": "Les requêtes provenant de ces adresses seront ignorées dans les statistiques.",
   "Exclude Paths": "Exclure les chemins",
-  "Enter one path or pattern per row to ignore matching URLs.": "Saisissez un chemin ou un modèle par ligne pour ignorer les URL correspondantes."
+  "Enter one path or pattern per row to ignore matching URLs.": "Saisissez un chemin ou un modèle par ligne pour ignorer les URL correspondantes.",
+  "Access the Dashboard": "Accéder au tableau de bord",
+  "Manage Dashboards": "Gérer les tableaux de bord"
 }

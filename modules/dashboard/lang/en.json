@@ -16,5 +16,7 @@
   "Exclude IP Addresses": "Exclude IP Addresses",
   "Requests from these addresses will be ignored in statistics.": "Requests from these addresses will be ignored in statistics.",
   "Exclude Paths": "Exclude Paths",
-  "Enter one path or pattern per row to ignore matching URLs.": "Enter one path or pattern per row to ignore matching URLs."
+  "Enter one path or pattern per row to ignore matching URLs.": "Enter one path or pattern per row to ignore matching URLs.",
+  "Access the Dashboard": "Access the Dashboard",
+  "Manage Dashboards": "Manage Dashboards"
 }
