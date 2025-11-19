@@ -89,5 +89,11 @@
     "All :name Items": "Toutes les entrées :name",
     "Update Existing Records": "Mettre à jour les enregistrements existants",
     "Check this box to update records that match the same ID, title or slug.": "Cochez cette case pour mettre à jour les enregistrements qui correspondent au même ID, titre ou slug.",
-    "Copy": "Copier"
+    "Copy": "Copier",
+    "App": "Application",
+    "Blueprints": "Plans",
+    "App Blueprint": "Plan de l’application",
+    "Theme Blueprint": "Plan du thème",
+    "Reset Structure": "Réinitialiser la structure",
+    "Structure has been reset": "La structure a été réinitialisée"
 }
