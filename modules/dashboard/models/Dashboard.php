@@ -184,6 +184,7 @@ class Dashboard extends Model
             $dashboard->code = $field;
             $dashboard->name = $definition['name'] ?? 'Unknown';
             $dashboard->icon = $definition['icon'] ?? 'icon-globe';
+            $dashboard->is_interval_hidden = !($definition['showInterval'] ?? 1) ? 1 : 0;
             $dashboard->forceSave();
         }
     }
