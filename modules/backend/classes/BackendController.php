@@ -82,15 +82,24 @@ class BackendController extends ControllerBase
         $controller = $params[1] ?? 'index';
         $isApp = strtolower($module) === 'app';
 
-        self::$action = $action = isset($params[2]) ? $this->parseAction($params[2]) : 'index';
-        self::$params = $controllerParams = array_slice($params, 3);
         $controllerClass = "{$module}\\Controllers\\{$controller}";
         $controllerBase = $isApp ? base_path() : base_path('modules');
-        if ($controllerObj = $this->findController(
-            $controllerClass,
-            $action,
-            $controllerBase
-        )) {
+
+        // Try finding the controller first with the original action
+        $originalAction = $params[2] ?? 'index';
+        $controllerObj = $this->findController($controllerClass, $originalAction, $controllerBase);
+
+        // Use the original action for WildcardController, otherwise transform the action
+        $action = $originalAction;
+        if (!($controllerObj instanceof WildcardController)) {
+            $action = $this->parseAction($originalAction);
+            $controllerObj = $this->findController($controllerClass, $action, $controllerBase);
+        }
+
+        self::$action = $action;
+        self::$params = $controllerParams = array_slice($params, 3);
+
+        if ($controllerObj) {
             if (!$isApp && !System::hasModule(ucfirst($module))) {
                 return Response::make(View::make('backend::404'), 404);
             }
