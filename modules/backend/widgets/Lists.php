@@ -1750,12 +1750,15 @@ class Lists extends WidgetBase implements ListElement
      * evalLinkageTypeValue
      */
     protected function evalLinkageTypeValue($record, $column, $value)
-    {
-        if (!$value && $column->linkUrl) {
+    { 
+        if($column->linkUrl){
             $linkUrl = RouterHelper::replaceParameters($record, $column->linkUrl);
             if (!starts_with($linkUrl, ['//', 'http://', 'https://'])) {
                 $linkUrl = Backend::url($linkUrl);
             }
+        }
+
+        if (!$value && $column->linkUrl) {
             $value = $linkUrl;
         }
 
@@ -1763,12 +1766,11 @@ class Lists extends WidgetBase implements ListElement
             $linkUrl = $value[0];
             $linkText = $value[1];
         }
-        else {
-            $linkText = $linkUrl = $value;
-        }
 
         if ($column->linkText) {
             $linkText = $column->linkText;
+        } else {
+            $linkText = $value;
         }
 
         if (str_starts_with($linkUrl, 'october://')) {
