@@ -1,7 +1,7 @@
 <?php namespace Tailor\Models;
 
-use October\Rain\Argon\Argon;
 use October\Contracts\Element\FormElement;
+use October\Rain\Support\Date;
 use Tailor\Classes\Scopes\GlobalRecordScope;
 use Tailor\Classes\BlueprintModel;
 use Tailor\Classes\BlueprintIndexer;
@@ -187,7 +187,7 @@ class GlobalRecord extends BlueprintModel
             return parent::fromDateTime($value);
         }
         catch (Exception $ex) {
-            return Argon::parse($value);
+            return Date::parse($value);
         }
     }
 }
