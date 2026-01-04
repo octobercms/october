@@ -159,6 +159,9 @@ trait ScopeProcessor
             elseif ($scope->type === 'clear') {
                 $this->refitLegacyClearScope($scope);
             }
+            elseif ($scope->type === 'group') {
+                $this->refitLegacyGroupScope($scope);
+            }
             else {
                 $this->refitLegacyDefaultScope($scope);
             }

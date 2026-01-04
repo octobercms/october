@@ -46,8 +46,9 @@ class FileUploadField extends FallbackField
     public function defineListColumn(ListElement $list, $context = null)
     {
         $list->defineColumn($this->fieldName, $this->label)
-            ->displayAs('image')
+            ->displayAs($this->mode === 'file' ? 'file' : 'image')
             ->shortLabel($this->shortLabel)
+            ->clickable($this->mode !== 'file')
             ->useConfig($this->column ?: [])
         ;
     }

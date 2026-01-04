@@ -1,0 +1,20 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "内部トラフィック統計機能は、ページビュー、IP アドレス、その他の基本的な匿名ユーザー データをデータベースに記録します。",
+  "Internal Traffic Statistics": "内部トラフィック統計",
+  "Purge the Internal Traffic Statistics data": "内部トラフィック統計データを消去する",
+  "Manage Traffic Settings and Data": "トラフィック設定とデータの管理",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "内部トラフィック統計は、ページビュー、IPアドレス、その他の基本的な匿名ユーザーデータをデータベースに記録し、ダッシュボードにレポートを提供します。この機能が無効になっている場合、データはデータベースに書き込まれません。",
+  "Traffic Statistics": "交通統計",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "ページビューを記録するタイムゾーン。タイムゾーンを変更しても既存のデータは更新されません。既存のデータを消去せずにタイムゾーンを変更すると、以前に記録された日付のレポートに誤った時刻が表示される可能性があります。",
+  "Retention Period (Months)": "保存期間（月）",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "トラフィック統計データをデータベースに保存する期間を指定します。設定期間が経過すると、対応するデータはデータベースから自動的に削除されます。レコードを無期限に保持するには、0または空の値を設定します。",
+  "Data Filters": "データフィルター",
+  "Exclude Bots": "ボットを除外",
+  "Automatically ignores known bots using the detection library.": "検出ライブラリを使用して既知のボットを自動的に無視します。",
+  "Exclude Administrator Roles": "管理者ロールを除外する",
+  "Ignores traffic from selected roles.": "選択したロールからのトラフィックを無視します。",
+  "Exclude IP Addresses": "IPアドレスを除外する",
+  "Requests from these addresses will be ignored in statistics.": "これらのアドレスからのリクエストは統計では無視されます。",
+  "Exclude Paths": "除外パス",
+  "Enter one path or pattern per row to ignore matching URLs.": "一致する URL を無視するには、行ごとに 1 つのパスまたはパターンを入力します。"
+}

@@ -243,17 +243,32 @@ class Updates extends Controller
             $manager->storeProjectDetails($result);
 
             // Add gateway as a composer repo
-            $composer = ComposerManager::instance();
-            $composerUrl = $manager->getComposerUrl();
-            if (!$composer->hasRepository($composerUrl)) {
-                $composer->addOctoberRepository($composerUrl);
-            }
+            $this->ensureComposerRegistered();
 
             Flash::success(__("Thanks for being a customer of October CMS!"));
             return Backend::redirect('system/updates');
         }
         catch (Exception $ex) {
             throw new ValidationException(['project_id' => $ex->getMessage()]);
+        }
+    }
+
+    /**
+     * Make sure composer is ready to receive updates
+     */
+    protected function ensureComposerRegistered()
+    {
+        $manager = UpdateManager::instance();
+        $composer = ComposerManager::instance();
+
+        $composerUrl = $manager->getComposerUrl();
+
+        if (!$composer->hasRepository($composerUrl)) {
+            $composer->addOctoberRepository($composerUrl);
+        }
+
+        if (!$composer->getPackageVersions(['october/system'])) {
+            $composer->addPackages(['october/all' => "^".\System\Facades\System::VERSION]);
         }
     }
 }

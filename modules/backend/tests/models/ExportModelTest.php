@@ -42,8 +42,8 @@ class ExportModelTest extends TestCase
 
         $this->assertTrue($response->headers->has('Content-Type'), "Response is missing the Content-Type header!");
         $this->assertTrue(
-            $response->headers->contains('Content-Type', 'text/csv; charset=UTF-8'),
-            "Content-Type should be either text/csv. Found: " . $response->headers->get('Content-Type')
+            $response->headers->contains('Content-Type', 'text/csv; charset=utf-8'),
+            "Content-Type should be either text/csv; charset=utf-8. Found: " . $response->headers->get('Content-Type')
         );
 
         ob_start();

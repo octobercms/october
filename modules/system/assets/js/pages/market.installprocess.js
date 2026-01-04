@@ -145,13 +145,13 @@
             var result = data;
 
             $loaderEl.hide();
-            $el.empty();
             $el.show();
 
-            if (!Array.isArray(result.products)) {
+            if (!Array.isArray(result.products) || !result.products.length) {
                 return;
             }
 
+            $el.empty();
             self.renderBrowse(el, result.products);
         });
     }

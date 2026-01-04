@@ -33,7 +33,7 @@ class MailPartialTokenParser extends TwigTokenParser
         $body = null;
 
         // Parse partial name (first argument)
-        $nodes['name'] = $this->parser->parseExpression();
+        $nodes['__partial_name'] = $this->parser->parseExpression();
 
         // Parse optional parameters
         while (!$stream->test(TwigToken::BLOCK_END_TYPE)) {

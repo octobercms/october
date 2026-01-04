@@ -1065,7 +1065,7 @@ class Form extends WidgetBase implements FormElement
      */
     protected function showFieldLabels(FormField $field): bool
     {
-        if (in_array($field->type, ['checkbox', 'switch', 'section', 'hint'])) {
+        if (in_array($field->type, ['checkbox', 'switch', 'section', 'hint', 'ruler'])) {
             return false;
         }
 
@@ -1074,6 +1074,16 @@ class Form extends WidgetBase implements FormElement
         }
 
         return true;
+    }
+
+    /**
+     * getFieldTooltipValue looks up the field tooltip value
+     * @param \Backend\Classes\FormField $field
+     * @return string
+     */
+    public function getFieldTooltipValue($field)
+    {
+        return Lang::get($field->tooltip['title'] ?? $field->tooltip);
     }
 
     /**

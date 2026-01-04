@@ -300,12 +300,36 @@
                         color: #b7c0c2;
                     }
 
+                    .list-description {
+                        position: absolute;
+                        right: 12px;
+                        top: 50%;
+                        transform: translateY(-50%);
+                        font-size: 16px;
+                        color: @primary-color;
+                        cursor: help;
+                        opacity: 0.7;
+                        transition: opacity 0.15s ease;
+
+                        &:hover {
+                            opacity: 1;
+                        }
+                    }
+
                     &:hover {
                         .a-hover();
+
+                        .list-description {
+                            color: @filelist-hero-hover-text;
+                        }
                     }
 
                     &:active {
                         .a-active();
+
+                        .list-description {
+                            color: @filelist-hero-active-text;
+                        }
                     }
                 }
 
@@ -318,6 +342,10 @@
                     .list-icon {
                         top: 10px;
                     }
+                }
+
+                &.has-description > a {
+                    padding-right: 40px;
                 }
 
                 &.active {

@@ -1,0 +1,20 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "A belső forgalmi statisztikák funkció naplózza az oldalmegtekintéseket, az IP-címeket és más alapvető névtelen felhasználói adatokat az adatbázisba.",
+  "Internal Traffic Statistics": "Belső forgalmi statisztikák",
+  "Purge the Internal Traffic Statistics data": "A belső forgalmi statisztikai adatok törlése",
+  "Manage Traffic Settings and Data": "Forgalmi beállítások és adatok kezelése",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "A belső forgalmi statisztikák naplózzák az oldalmegtekintéseket, az IP-címeket és más alapvető névtelen felhasználói adatokat az adatbázisba, és jelentéseket biztosítanak az irányítópult számára. Ha a funkció le van tiltva, az adatok nem kerülnek be az adatbázisba.",
+  "Traffic Statistics": "Forgalmi statisztikák",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "Időzóna az oldalmegtekintések naplózásához. Az időzóna módosítása nem frissíti a meglévő adatokat. Ha az időzónát a meglévő adatok törlése nélkül módosítja, a jelentések potenciálisan helytelen időpontokat jeleníthetnek meg a korábban naplózott napokra vonatkozóan.",
+  "Retention Period (Months)": "Megőrzési időszak (hónap)",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "Meghatározza azt az időtartamot, ameddig a forgalmi statisztikai adatokat tárolni kell az adatbázisban. Amikor a beállított időszak lejár, a megfelelő adatok automatikusan törlődnek az adatbázisból. Állítsa 0-ra vagy üresen a rekordok örök megőrzéséhez.",
+  "Data Filters": "Adatszűrők",
+  "Exclude Bots": "Botok kizárása",
+  "Automatically ignores known bots using the detection library.": "Automatikusan figyelmen kívül hagyja az ismert botokat az észlelési könyvtár használatával.",
+  "Exclude Administrator Roles": "Adminisztrátori szerepkörök kizárása",
+  "Ignores traffic from selected roles.": "Figyelmen kívül hagyja a kiválasztott szerepkörökből érkező forgalmat.",
+  "Exclude IP Addresses": "IP-címek kizárása",
+  "Requests from these addresses will be ignored in statistics.": "Az ezekről a címekről érkező kéréseket a statisztikák figyelmen kívül hagyják.",
+  "Exclude Paths": "Útvonalak kizárása",
+  "Enter one path or pattern per row to ignore matching URLs.": "Soronként egy elérési utat vagy mintát adjon meg az egyező URL-ek figyelmen kívül hagyásához."
+}

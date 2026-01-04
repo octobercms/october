@@ -1,0 +1,20 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "Funkcia štatistiky internej návštevnosti zaznamenáva zobrazenia stránok, IP adresy a ďalšie základné anonymné údaje o používateľoch do databázy.",
+  "Internal Traffic Statistics": "Štatistiky internej návštevnosti",
+  "Purge the Internal Traffic Statistics data": "Vymažte údaje zo štatistík internej návštevnosti",
+  "Manage Traffic Settings and Data": "Správa nastavení a údajov o premávke",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "Štatistika internej návštevnosti zaznamenáva zobrazenia stránok, IP adresy a ďalšie základné anonymné údaje o používateľoch do databázy a poskytuje prehľady pre dashboard. Keď je táto funkcia vypnutá, údaje sa do databázy nezapisujú.",
+  "Traffic Statistics": "Štatistiky návštevnosti",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "Časové pásmo na zaznamenávanie zobrazení stránok. Zmena časového pásma neaktualizuje existujúce údaje. Ak zmeníte časové pásmo bez vymazania existujúcich údajov, prehľady môžu potenciálne zobrazovať nesprávne časy pre predtým zaznamenané dni.",
+  "Retention Period (Months)": "Doba uchovávania (mesiace)",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "Určuje dobu, počas ktorej sa majú štatistické údaje o návštevnosti ukladať do databázy. Po uplynutí nastaveného obdobia sa príslušné údaje z databázy automaticky vymažú. Nastavte na 0 alebo prázdne, ak chcete záznamy uchovávať navždy.",
+  "Data Filters": "Filtre údajov",
+  "Exclude Bots": "Vylúčiť botov",
+  "Automatically ignores known bots using the detection library.": "Automaticky ignoruje známe boty pomocou detekčnej knižnice.",
+  "Exclude Administrator Roles": "Vylúčiť role správcu",
+  "Ignores traffic from selected roles.": "Ignoruje návštevnosť z vybraných rolí.",
+  "Exclude IP Addresses": "Vylúčiť IP adresy",
+  "Requests from these addresses will be ignored in statistics.": "Žiadosti z týchto adries budú v štatistikách ignorované.",
+  "Exclude Paths": "Vylúčiť cesty",
+  "Enter one path or pattern per row to ignore matching URLs.": "Zadajte jednu cestu alebo vzor do každého riadka, aby sa ignorovali zhodné adresy URL."
+}

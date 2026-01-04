@@ -537,7 +537,7 @@
     MarkdownEditor.prototype.launchMediaManager = function(onSuccess) {
         var self = this
 
-        new $.oc.mediaManager.popup({
+        new oc.mediaManager.popup({
             alias: 'ocmediamanager',
             cropAndInsertButton: true,
             onInsert: function(items) {

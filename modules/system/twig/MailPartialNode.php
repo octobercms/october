@@ -53,7 +53,7 @@ class MailPartialNode extends TwigNode
         // Render the mail partial
         $compiler
             ->write("yield \System\Classes\MailManager::instance()->renderPartial(")
-            ->subcompile($this->getNode('name'))
+            ->subcompile($this->getNode('__partial_name'))
             ->write(", array_merge(\$context, ['__system_partial_params' => \$systemPartialParams], \$systemPartialParams));\n");
     }
 }

@@ -1,0 +1,20 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "Dahili Trafik İstatistikleri özelliği, sayfa görüntülemelerini, IP adreslerini ve diğer temel anonim kullanıcı verilerini veritabanına kaydeder.",
+  "Internal Traffic Statistics": "Dahili Trafik İstatistikleri",
+  "Purge the Internal Traffic Statistics data": "Dahili Trafik İstatistikleri verilerini temizleyin",
+  "Manage Traffic Settings and Data": "Trafik Ayarlarını ve Verilerini Yönetin",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "Dahili Trafik İstatistikleri, sayfa görüntülemelerini, IP adreslerini ve diğer temel anonim kullanıcı verilerini veritabanına kaydeder ve pano için raporlar sağlar. Bu özellik devre dışı bırakıldığında, veriler veritabanına yazılmaz.",
+  "Traffic Statistics": "Trafik İstatistikleri",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "Sayfa görüntülemelerini kaydetmek için saat dilimi. Saat dilimini değiştirmek mevcut verileri güncellemez. Mevcut verileri silmeden saat dilimini değiştirirseniz, raporlar daha önce kaydedilen günler için hatalı saatler gösterebilir.",
+  "Retention Period (Months)": "Saklama Süresi (Ay)",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "Trafik istatistikleri verilerinin veritabanında saklanacağı süreyi belirler. Belirlenen süre dolduğunda, ilgili veriler veritabanından otomatik olarak silinir. Kayıtları sonsuza kadar saklamak için 0 veya boş olarak ayarlayın.",
+  "Data Filters": "Veri Filtreleri",
+  "Exclude Bots": "Botları Hariç Tut",
+  "Automatically ignores known bots using the detection library.": "Algılama kütüphanesini kullanarak bilinen botları otomatik olarak yok sayar.",
+  "Exclude Administrator Roles": "Yönetici Rollerini Hariç Tut",
+  "Ignores traffic from selected roles.": "Seçili rollerden gelen trafiği yok sayar.",
+  "Exclude IP Addresses": "IP Adreslerini Hariç Tut",
+  "Requests from these addresses will be ignored in statistics.": "Bu adreslerden gelen istekler istatistiklerde dikkate alınmayacaktır.",
+  "Exclude Paths": "Yolları Hariç Tut",
+  "Enter one path or pattern per row to ignore matching URLs.": "Eşleşen URL'leri yoksaymak için satır başına bir yol veya desen girin."
+}

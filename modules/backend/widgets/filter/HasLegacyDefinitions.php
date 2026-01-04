@@ -164,13 +164,25 @@ trait HasLegacyDefinitions
     }
 
     /**
+     * refitLegacyGroupScope
+     */
+    protected function refitLegacyGroupScope($scope)
+    {
+        if (!$scope->modelScope && ($scopeName = $scope->scope)) {
+            $scope->modelScope = function($query, $scope) use ($scopeName) {
+                return $query->$scopeName($scope->value, $scope->mode ?? null);
+            };
+        }
+    }
+
+    /**
      * refitLegacyDefaultScope
      */
     protected function refitLegacyDefaultScope($scope)
     {
         if (!$scope->modelScope && ($scopeName = $scope->scope)) {
             $scope->modelScope = function($query, $scope) use ($scopeName) {
-                return $query->$scopeName($scope->value, $scope->mode ?? null);
+                return $query->$scopeName($scope->value);
             };
         }
     }

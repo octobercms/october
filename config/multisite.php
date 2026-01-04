@@ -37,6 +37,7 @@ return [
         'cms_maintenance_setting' => false,
         'backend_mail_setting' => false,
         'system_asset_combiner' => false,
+        'dashboard_traffic_statistics' => false,
 
         // Vendor
         'rainlab_googleanalytics_setting' => false,

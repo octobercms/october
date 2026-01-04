@@ -1,0 +1,20 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "Функция внутренней статистики трафика регистрирует просмотры страниц, IP-адреса и другие основные данные анонимных пользователей в базе данных.",
+  "Internal Traffic Statistics": "Статистика внутреннего трафика",
+  "Purge the Internal Traffic Statistics data": "Очистить данные статистики внутреннего трафика",
+  "Manage Traffic Settings and Data": "Управление настройками и данными трафика",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "Функция внутренней статистики трафика регистрирует просмотры страниц, IP-адреса и другие основные данные об анонимных пользователях в базе данных и предоставляет отчёты для панели управления. Если эта функция отключена, данные не записываются в базу данных.",
+  "Traffic Statistics": "Статистика трафика",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "Часовой пояс для регистрации просмотров страниц. Изменение часового пояса не обновит существующие данные. Если изменить часовой пояс, не удалив существующие данные, в отчётах может отображаться неверное время для ранее зарегистрированных дней.",
+  "Retention Period (Months)": "Срок хранения (месяцы)",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "Определяет продолжительность хранения данных статистики трафика в базе данных. По истечении заданного срока соответствующие данные автоматически удаляются из базы данных. Установите значение 0 или пустое значение, чтобы сохранить записи навсегда.",
+  "Data Filters": "Фильтры данных",
+  "Exclude Bots": "Исключить ботов",
+  "Automatically ignores known bots using the detection library.": "Автоматически игнорирует известных ботов с помощью библиотеки обнаружения.",
+  "Exclude Administrator Roles": "Исключить роли администратора",
+  "Ignores traffic from selected roles.": "Игнорирует трафик с выбранных ролей.",
+  "Exclude IP Addresses": "Исключить IP-адреса",
+  "Requests from these addresses will be ignored in statistics.": "Запросы с этих адресов будут игнорироваться в статистике.",
+  "Exclude Paths": "Исключить пути",
+  "Enter one path or pattern per row to ignore matching URLs.": "Введите один путь или шаблон в каждой строке, чтобы игнорировать соответствующие URL-адреса."
+}

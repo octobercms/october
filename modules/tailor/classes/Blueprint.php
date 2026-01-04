@@ -64,7 +64,7 @@ class Blueprint extends Extendable
     public $exists = false;
 
     /**
-     * @var static defaultDatasource is used by unit tests.
+     * @var string defaultDatasource is used by unit tests.
      */
     protected static $defaultDatasource;
 
@@ -343,6 +343,7 @@ class Blueprint extends Extendable
         }
 
         // Slugify handle for URLs
+        // @deprecated this should be kebab_case in v4.1
         $this->attributes['handleSlug'] = snake_case(str_replace('\\', ' ', $this->handle));
 
         // Theme for filtering

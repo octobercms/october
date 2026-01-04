@@ -1,6 +1,6 @@
 .flex-layout-column {
-    .flex-display();
-    .flex-direction-column();
+    display: flex;
+    flex-direction: column;
 
     &.absolute {
         position: absolute !important;
@@ -16,17 +16,17 @@
 }
 
 .flex-layout-row {
-    .flex-display();
-    .flex-direction-row();
+    display: flex;
+    flex-direction: row;
 }
 
 .flex-layout-column, .flex-layout-row {
     &.justify-center {
-        .justify-content(center);
+        justify-content: center;
     }
     &.align-center {
-        .align-items(center);
-        .align-content(center);
+        align-items: center;
+        align-content: center;
     }
 
     &.full-height {
@@ -45,10 +45,10 @@
 
 .flex-layout-item {
     margin: 0;
-    &.fix { .flex-fix(); }
-    &.stretch { .flex-stretch(); }
-    &.stretch-constrain { .flex-stretch-constrain(); }
-    &.center { .align-self(center); }
+    &.fix { flex: 0 0 auto; }
+    &.stretch { flex: 1 1 auto; }
+    &.stretch-constrain { flex: 1; }
+    &.center { align-self: center; }
 
     &.relative { position: relative; }
 

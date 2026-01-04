@@ -1,4 +1,4 @@
-<script type="text/template" data-control="new-folder-template">
+<script type="text/template" data-media-new-folder-template>
     <?= Form::open() ?>
         <div class="modal-header">
             <h4 class="modal-title"><?= e(trans('backend::lang.media.new_folder_title')) ?></h4>
@@ -23,7 +23,7 @@
             </button>
             <button
                 type="button"
-                class="btn btn-default"
+                class="btn btn-secondary"
                 data-dismiss="popup">
                 <?= e(trans('backend::lang.form.cancel')) ?>
             </button>

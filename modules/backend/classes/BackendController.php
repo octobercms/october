@@ -81,11 +81,13 @@ class BackendController extends ControllerBase
         $module = $params[0] ?? 'backend';
         $controller = $params[1] ?? 'index';
         $isApp = strtolower($module) === 'app';
-
-        self::$action = $action = isset($params[2]) ? $this->parseAction($params[2]) : 'index';
-        self::$params = $controllerParams = array_slice($params, 3);
         $controllerClass = "{$module}\\Controllers\\{$controller}";
         $controllerBase = $isApp ? base_path() : base_path('modules');
+
+        // Store the current context
+        self::$action = $action = isset($params[2]) ? $this->parseAction($controllerClass, $params[2]) : 'index';
+        self::$params = $controllerParams = array_slice($params, 3);
+
         if ($controllerObj = $this->findController(
             $controllerClass,
             $action,
@@ -104,10 +106,12 @@ class BackendController extends ControllerBase
         if ($namespace && str_contains($namespace, '.')) {
             [$author, $plugin] = explode('.', strtolower($namespace));
             $controller = $params[1] ?? 'index';
-
-            self::$action = $action = isset($params[2]) ? $this->parseAction($params[2]) : 'index';
-            self::$params = $controllerParams = array_slice($params, 3);
             $controllerClass = "{$author}\\{$plugin}\Controllers\\{$controller}";
+
+            // Store the current context
+            self::$action = $action = isset($params[2]) ? $this->parseAction($controllerClass, $params[2]) : 'index';
+            self::$params = $controllerParams = array_slice($params, 3);
+
             if ($controllerObj = $this->findController(
                 $controllerClass,
                 $action,
@@ -121,10 +125,12 @@ class BackendController extends ControllerBase
         if (count($params) >= 2) {
             [$author, $plugin] = $params;
             $controller = $params[2] ?? 'index';
-
-            self::$action = $action = isset($params[3]) ? $this->parseAction($params[3]) : 'index';
-            self::$params = $controllerParams = array_slice($params, 4);
             $controllerClass = "{$author}\\{$plugin}\Controllers\\{$controller}";
+
+            // Store the current context
+            self::$action = $action = isset($params[3]) ? $this->parseAction($controllerClass, $params[3]) : 'index';
+            self::$params = $controllerParams = array_slice($params, 4);
+
             if ($controllerObj = $this->findController(
                 $controllerClass,
                 $action,
@@ -198,12 +204,16 @@ class BackendController extends ControllerBase
     /**
      * parseAction processes the action name, since dashes are not supported in PHP methods
      */
-    protected function parseAction(string $actionName): string
+    protected function parseAction(string $controllerClass, string $actionName): string
     {
-        if (strpos($actionName, '-') !== false) {
-            return snake_case(camel_case($actionName));
+        if (strpos($actionName, '-') === false) {
+            return $actionName;
         }
 
-        return $actionName;
+        if (is_a($controllerClass, \Backend\Classes\WildcardController::class, true)) {
+            return $actionName;
+        }
+
+        return snake_case(camel_case($actionName));
     }
 }

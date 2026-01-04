@@ -30,7 +30,7 @@
                             <label
                                 class="form-check-label"
                                 for="<?= $this->getId('setupCheckbox-'.$column->columnName) ?>">
-                                    <?= e(__($column->label)) ?>
+                                    <?= __($column->label) ?>
                             </label>
                         </div>
                     </li>

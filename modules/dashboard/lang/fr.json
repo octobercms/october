@@ -1,0 +1,22 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "La fonctionnalité Statistiques de trafic interne enregistre les pages vues, les adresses IP et autres données utilisateur anonymes de base dans la base de données.",
+  "Internal Traffic Statistics": "Statistiques de trafic interne",
+  "Purge the Internal Traffic Statistics data": "Purger les données des Statistiques de trafic interne",
+  "Manage Traffic Settings and Data": "Gérer les paramètres de trafic et les données",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "Les statistiques de trafic interne enregistrent les pages vues, les adresses IP et d'autres données utilisateur anonymes de base dans la base de données et génèrent des rapports pour le tableau de bord. Lorsque cette fonctionnalité est désactivée, les données ne sont pas enregistrées dans la base de données.",
+  "Traffic Statistics": "Statistiques de trafic",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "Fuseau horaire utilisé pour l'enregistrement des pages vues. Modifier le fuseau horaire ne mettra pas à jour les données existantes. Si vous modifiez le fuseau horaire sans effacer les données existantes, les rapports risquent d'afficher des heures incorrectes pour les jours précédemment enregistrés.",
+  "Retention Period (Months)": "Période de rétention (mois)",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "Détermine la durée de conservation des données statistiques de trafic dans la base de données. À l'expiration de cette période, les données correspondantes sont automatiquement supprimées. Indiquez 0 ou laissez ce champ vide pour conserver les enregistrements indéfiniment.",
+  "Data Filters": "Filtres de données",
+  "Exclude Bots": "Exclure les bots",
+  "Automatically ignores known bots using the detection library.": "Ignore automatiquement les bots connus grâce à la bibliothèque de détection.",
+  "Exclude Administrator Roles": "Exclure les rôles d'administrateur",
+  "Ignores traffic from selected roles.": "Ignore le trafic provenant des rôles sélectionnés.",
+  "Exclude IP Addresses": "Exclure les adresses IP",
+  "Requests from these addresses will be ignored in statistics.": "Les requêtes provenant de ces adresses seront ignorées dans les statistiques.",
+  "Exclude Paths": "Exclure les chemins",
+  "Enter one path or pattern per row to ignore matching URLs.": "Saisissez un chemin ou un modèle par ligne pour ignorer les URL correspondantes.",
+  "Access the Dashboard": "Accéder au tableau de bord",
+  "Manage Dashboards": "Gérer les tableaux de bord"
+}

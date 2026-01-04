@@ -3,7 +3,7 @@
 # ===================================
 
 fields:
-    message:
+    message_formatted:
         type: partial
         path: field_message
         containerAttributes:

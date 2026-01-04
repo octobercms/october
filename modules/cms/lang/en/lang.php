@@ -247,7 +247,6 @@
     'manage_partials' => 'Create, modify and delete CMS partials',
     'manage_themes' => 'Activate, deactivate and configure CMS themes',
     'manage_theme_options' => 'Configure customization options for the active theme',
-    'manage_internal_traffic_statistics' => 'Purge the Internal Traffic Statistics data',
   ],
   'theme_log' => [
     'hint' => 'This log displays any changes made to the theme by administrators in the back-end area.',

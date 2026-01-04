@@ -1,0 +1,20 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "Vidinio srauto statistikos funkcija registruoja puslapių peržiūras, IP adresus ir kitus pagrindinius anoniminius naudotojų duomenis duomenų bazėje.",
+  "Internal Traffic Statistics": "Vidinio srauto statistika",
+  "Purge the Internal Traffic Statistics data": "Išvalyti vidinius srauto statistikos duomenis",
+  "Manage Traffic Settings and Data": "Eismo nustatymų ir duomenų tvarkymas",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "Vidinio srauto statistikos funkcija registruoja peržiūrėtų puslapių skaičių, IP adresus ir kitus pagrindinius anoniminius naudotojų duomenis duomenų bazėje ir teikia ataskaitas ataskaitų suvestinei. Kai ši funkcija išjungta, duomenys į duomenų bazę neįrašomi.",
+  "Traffic Statistics": "Eismo statistika",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "Laiko juosta, kurioje registruojamos peržiūrų puslapiai. Pakeitus laiko juostą, esami duomenys nebus atnaujinti. Jei pakeisite laiko juostą neištrindami esamų duomenų, ataskaitose gali būti rodomas neteisingas anksčiau registruotų dienų laikas.",
+  "Retention Period (Months)": "Saugojimo laikotarpis (mėnesiais)",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "Nustato, kiek laiko srauto statistikos duomenys turėtų būti saugomi duomenų bazėje. Pasibaigus nustatytam laikotarpiui, atitinkami duomenys automatiškai ištrinami iš duomenų bazės. Nustatykite reikšmę 0 arba tuščią, kad įrašai būtų saugomi visam laikui.",
+  "Data Filters": "Duomenų filtrai",
+  "Exclude Bots": "Išskirti robotus",
+  "Automatically ignores known bots using the detection library.": "Automatiškai ignoruoja žinomus robotus naudodamas aptikimo biblioteką.",
+  "Exclude Administrator Roles": "Išskirti administratoriaus vaidmenis",
+  "Ignores traffic from selected roles.": "Ignoruoja srautą iš pasirinktų vaidmenų.",
+  "Exclude IP Addresses": "Neįtraukti IP adresų",
+  "Requests from these addresses will be ignored in statistics.": "Užklausos iš šių adresų statistikoje bus ignoruojamos.",
+  "Exclude Paths": "Išskirti kelius",
+  "Enter one path or pattern per row to ignore matching URLs.": "Įveskite po vieną kelią arba šabloną kiekvienoje eilutėje, kad nepaisytumėte sutampančių URL."
+}

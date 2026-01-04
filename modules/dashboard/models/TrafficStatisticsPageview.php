@@ -1,5 +1,6 @@
 <?php namespace Dashboard\Models;
 
+use Site;
 use Model;
 use Dashboard\Classes\TrafficLogger;
 
@@ -44,13 +45,21 @@ class TrafficStatisticsPageview extends Model
      */
     public static function purgeOldRecords()
     {
-        $months = TrafficLogger::getRetentionMonths();
+        $months = TrafficLogger::instance()->getRetentionMonths();
         if (!$months) {
             return;
         }
 
-        $obj = new static;
-        $obj->where('ev_datetime', '<', now()->subMonths($months)->toDateTimeString())->delete();
+        $query = (new static)->where('ev_datetime', '<', now()->subMonths($months)->toDateTimeString());
+
+        if (Site::hasFeature('dashboard_traffic_statistics')) {
+            $siteId = Site::getEditSite()?->id;
+            if ($siteId) {
+                $query->where('site_id', $siteId);
+            }
+        }
+
+        $query->delete();
     }
 
     /**

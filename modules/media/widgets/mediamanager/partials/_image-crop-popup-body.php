@@ -19,7 +19,7 @@
                     <button
                         type="button"
                         data-dismiss="popup"
-                        class="btn btn-default no-margin-right">
+                        class="btn btn-secondary no-margin-right">
                         <?= e(trans('backend::lang.form.cancel')) ?>
                     </button>
                 </div>
@@ -30,14 +30,14 @@
     <input type="hidden" name="cropSessionKey" value="<?= e($cropSessionKey) ?>">
     <input type="hidden" name="path" value="<?= e($path) ?>">
 
-    <input type="hidden" data-control="dimension-width" value="<?= $dimensions[0] ?>">
-    <input type="hidden" data-control="dimension-height" value="<?= $dimensions[1] ?>">
+    <input type="hidden" data-media-dimension-width value="<?= $dimensions[0] ?>">
+    <input type="hidden" data-media-dimension-height value="<?= $dimensions[1] ?>">
 
-    <input type="hidden" data-control="original-width" value="<?= $dimensions[0] ?>">
-    <input type="hidden" data-control="original-height" value="<?= $dimensions[1] ?>">
+    <input type="hidden" data-media-original-width value="<?= $dimensions[0] ?>">
+    <input type="hidden" data-media-original-height value="<?= $dimensions[1] ?>">
 
-    <input type="hidden" data-control="original-ratio" value="<?= $originalRatio ?>">
-    <input type="hidden" data-control="original-url" value="<?= e($imageUrl) ?>">
+    <input type="hidden" data-media-original-ratio value="<?= $originalRatio ?>">
+    <input type="hidden" data-media-original-url value="<?= e($imageUrl) ?>">
 
     <?= $this->makePartial('resize-image-form') ?>
 <?= Form::close() ?>

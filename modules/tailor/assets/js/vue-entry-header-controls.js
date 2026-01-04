@@ -55,7 +55,6 @@ oc.registerControl('vue-entry-header-controls', class extends oc.VueControlBase 
 
         try {
             await oc.request(targetElement, 'onChangeEntryType', {
-                async: true,
                 data: {
                     EntryRecord: {
                         content_group: entryType

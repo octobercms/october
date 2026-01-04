@@ -26,6 +26,11 @@ trait VueMaker
     protected $vueComponents = [];
 
     /**
+     * @var array vueComponentClasses tracks registered class names for O(1) lookup
+     */
+    protected $vueComponentClasses = [];
+
+    /**
      * registerVueComponent to be loaded when the action view renders.
      * @param string $className
      */
@@ -37,6 +42,7 @@ trait VueMaker
 
         $component = $this->makeVueComponent($className);
         $this->vueComponents[] = $component;
+        $this->vueComponentClasses[$className] = true;
 
         $requiredComponents = $component->getDependencies();
         if (!is_array($requiredComponents)) {
@@ -98,12 +104,6 @@ trait VueMaker
      */
     protected function isVueComponentRegistered($className)
     {
-        foreach ($this->vueComponents as $component) {
-            if ($className == get_class($component)) {
-                return true;
-            }
-        }
-
-        return false;
+        return isset($this->vueComponentClasses[$className]);
     }
 }

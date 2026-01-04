@@ -1,0 +1,20 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "Fitur Statistik Lalu Lintas Internal mencatat tampilan halaman, alamat IP, dan data pengguna anonim dasar lainnya ke dalam basis data.",
+  "Internal Traffic Statistics": "Statistik Lalu Lintas Internal",
+  "Purge the Internal Traffic Statistics data": "Hapus data Statistik Lalu Lintas Internal",
+  "Manage Traffic Settings and Data": "Kelola Pengaturan dan Data Lalu Lintas",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "Statistik Lalu Lintas Internal mencatat tampilan halaman, alamat IP, dan data pengguna anonim dasar lainnya ke dalam basis data dan menyediakan laporan untuk dasbor. Ketika fitur ini dinonaktifkan, data tidak akan ditulis ke dalam basis data.",
+  "Traffic Statistics": "Statistik Lalu Lintas",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "Zona waktu untuk mencatat kunjungan halaman. Mengubah zona waktu tidak akan memperbarui data yang ada. Jika Anda mengubah zona waktu tanpa menghapus data yang ada, laporan berpotensi menampilkan waktu yang salah untuk hari yang dicatat sebelumnya.",
+  "Retention Period (Months)": "Periode Retensi (Bulan)",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "Menentukan durasi penyimpanan data statistik lalu lintas dalam basis data. Setelah periode yang ditentukan berakhir, data terkait akan otomatis dihapus dari basis data. Atur ke 0 atau kosong untuk menyimpan data selamanya.",
+  "Data Filters": "Filter Data",
+  "Exclude Bots": "Kecualikan Bot",
+  "Automatically ignores known bots using the detection library.": "Secara otomatis mengabaikan bot yang diketahui menggunakan pustaka deteksi.",
+  "Exclude Administrator Roles": "Kecualikan Peran Administrator",
+  "Ignores traffic from selected roles.": "Mengabaikan lalu lintas dari peran yang dipilih.",
+  "Exclude IP Addresses": "Kecualikan Alamat IP",
+  "Requests from these addresses will be ignored in statistics.": "Permintaan dari alamat ini akan diabaikan dalam statistik.",
+  "Exclude Paths": "Kecualikan Jalur",
+  "Enter one path or pattern per row to ignore matching URLs.": "Masukkan satu jalur atau pola per baris untuk mengabaikan URL yang cocok."
+}

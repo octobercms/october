@@ -1,0 +1,20 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "Η λειτουργία Στατιστικών Εσωτερικής Επισκεψιμότητας καταγράφει προβολές σελίδων, διευθύνσεις IP και άλλα βασικά δεδομένα ανώνυμων χρηστών στη βάση δεδομένων.",
+  "Internal Traffic Statistics": "Στατιστικά εσωτερικής επισκεψιμότητας",
+  "Purge the Internal Traffic Statistics data": "Εκκαθάριση των δεδομένων Εσωτερικών Στατιστικών Επισκεψιμότητας",
+  "Manage Traffic Settings and Data": "Διαχείριση ρυθμίσεων και δεδομένων κυκλοφορίας",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "Τα εσωτερικά στατιστικά στοιχεία επισκεψιμότητας καταγράφουν προβολές σελίδων, διευθύνσεις IP και άλλα βασικά δεδομένα ανώνυμων χρηστών στη βάση δεδομένων και παρέχουν αναφορές για τον πίνακα ελέγχου. Όταν η λειτουργία είναι απενεργοποιημένη, τα δεδομένα δεν εγγράφονται στη βάση δεδομένων.",
+  "Traffic Statistics": "Στατιστικά στοιχεία επισκεψιμότητας",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "Ζώνη ώρας για την καταγραφή προβολών σελίδας. Η αλλαγή της ζώνης ώρας δεν θα ενημερώσει τα υπάρχοντα δεδομένα. Εάν αλλάξετε τη ζώνη ώρας χωρίς να διαγράψετε τα υπάρχοντα δεδομένα, οι αναφορές ενδέχεται να εμφανίζουν λανθασμένες ώρες για ημέρες που έχουν καταγραφεί προηγουμένως.",
+  "Retention Period (Months)": "Περίοδος Διατήρησης (Μήνες)",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "Καθορίζει τη διάρκεια αποθήκευσης των δεδομένων στατιστικών επισκεψιμότητας στη βάση δεδομένων. Όταν λήξει η καθορισμένη περίοδος, τα αντίστοιχα δεδομένα διαγράφονται αυτόματα από τη βάση δεδομένων. Ορίστε την τιμή σε 0 ή κενή για να διατηρήσετε τις εγγραφές για πάντα.",
+  "Data Filters": "Φίλτρα δεδομένων",
+  "Exclude Bots": "Εξαίρεση Bots",
+  "Automatically ignores known bots using the detection library.": "Αγνοεί αυτόματα γνωστά bots χρησιμοποιώντας τη βιβλιοθήκη ανίχνευσης.",
+  "Exclude Administrator Roles": "Εξαίρεση ρόλων διαχειριστή",
+  "Ignores traffic from selected roles.": "Αγνοεί την επισκεψιμότητα από επιλεγμένους ρόλους.",
+  "Exclude IP Addresses": "Εξαίρεση διευθύνσεων IP",
+  "Requests from these addresses will be ignored in statistics.": "Τα αιτήματα από αυτές τις διευθύνσεις θα αγνοηθούν στα στατιστικά στοιχεία.",
+  "Exclude Paths": "Εξαίρεση διαδρομών",
+  "Enter one path or pattern per row to ignore matching URLs.": "Εισαγάγετε μία διαδρομή ή μοτίβο ανά γραμμή για να αγνοήσετε τις αντίστοιχες διευθύνσεις URL."
+}

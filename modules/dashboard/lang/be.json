@@ -1,0 +1,20 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "Функцыя статыстыкі ўнутранага трафіку запісвае ў базу дадзеных прагляды старонак, IP-адрасы і іншыя асноўныя ананімныя дадзеныя карыстальнікаў.",
+  "Internal Traffic Statistics": "Статыстыка ўнутранага трафіку",
+  "Purge the Internal Traffic Statistics data": "Ачысціць дадзеныя статыстыкі ўнутранага трафіку",
+  "Manage Traffic Settings and Data": "Кіраванне наладамі і дадзенымі аб трафіку",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "Статыстыка ўнутранага трафіку запісвае прагляды старонак, IP-адрасы і іншыя асноўныя ананімныя дадзеныя карыстальнікаў у базу дадзеных і стварае справаздачы для панэлі кіравання. Калі функцыя адключана, дадзеныя не запісваюцца ў базу дадзеных.",
+  "Traffic Statistics": "Статыстыка трафіку",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "Гадзінны пояс для рэгістрацыі праглядаў старонак. Змена гадзіннага пояса не абновіць існуючыя даныя. Калі вы зменіце гадзінны пояс, не выдаляючы існуючыя даныя, у справаздачах можа адлюстроўвацца няправільны час для раней зарэгістраваных дзён.",
+  "Retention Period (Months)": "Тэрмін захоўвання (месяцы)",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "Вызначае працягласць захоўвання дадзеных статыстыкі трафіку ў базе дадзеных. Пасля заканчэння ўстаноўленага перыяду адпаведныя дадзеныя аўтаматычна выдаляюцца з базы дадзеных. Усталюйце значэнне 0 або пустое, каб запісы захоўваліся вечна.",
+  "Data Filters": "Фільтры дадзеных",
+  "Exclude Bots": "Выключыць ботаў",
+  "Automatically ignores known bots using the detection library.": "Аўтаматычна ігнаруе вядомых ботаў з дапамогай бібліятэкі выяўлення.",
+  "Exclude Administrator Roles": "Выключыць ролі адміністратара",
+  "Ignores traffic from selected roles.": "Ігнаруе трафік ад выбраных роляў.",
+  "Exclude IP Addresses": "Выключыць IP-адрасы",
+  "Requests from these addresses will be ignored in statistics.": "Запыты з гэтых адрасоў будуць ігнаравацца ў статыстыцы.",
+  "Exclude Paths": "Выключыць шляхі",
+  "Enter one path or pattern per row to ignore matching URLs.": "Увядзіце адзін шлях або шаблон у кожны радок, каб ігнараваць супадаючыя URL-адрасы."
+}

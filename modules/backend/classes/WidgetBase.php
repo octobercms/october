@@ -2,6 +2,7 @@
 
 use October\Rain\Html\Helper as HtmlHelper;
 use October\Rain\Extension\Extendable;
+use Larajax\Contracts\ViewComponentInterface;
 use stdClass;
 
 /**
@@ -10,7 +11,7 @@ use stdClass;
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
-abstract class WidgetBase extends Extendable
+abstract class WidgetBase extends Extendable implements ViewComponentInterface
 {
     use \System\Traits\ViewMaker;
     use \System\Traits\AssetMaker;
@@ -19,21 +20,7 @@ abstract class WidgetBase extends Extendable
     use \Backend\Traits\ErrorMaker;
     use \Backend\Traits\WidgetMaker;
     use \Backend\Traits\SessionMaker;
-
-    /**
-     * @var object config supplied.
-     */
-    public $config;
-
-    /**
-     * @var \Backend\Classes\Controller controller for the backend.
-     */
-    protected $controller;
-
-    /**
-     * @var string alias defined for this widget.
-     */
-    public $alias;
+    use \Larajax\Traits\ViewComponent;
 
     /**
      * @var string defaultAlias to identify this widget.
@@ -45,7 +32,7 @@ abstract class WidgetBase extends Extendable
      * @param \Backend\Classes\Controller $controller
      * @param array $configuration Proactive configuration definition.
      */
-    public function __construct($controller, $configuration = [])
+    public function __construct($controller, $config = [])
     {
         $this->controller = $controller;
         $this->viewPath = $this->configPath = $this->guessViewPath('/partials');
@@ -54,7 +41,7 @@ abstract class WidgetBase extends Extendable
         // Apply configuration values to a new config object, if a parent
         // constructor hasn't done it already.
         if ($this->config === null) {
-            $this->config = $this->makeConfig($configuration);
+            $this->config = $this->makeConfig($config);
         }
 
         // If no alias is set by the configuration.
@@ -96,19 +83,6 @@ abstract class WidgetBase extends Extendable
      */
     protected function loadAssets()
     {
-    }
-
-    /**
-     * bindToController binds a widget to the controller for safe use.
-     * @return void
-     */
-    public function bindToController()
-    {
-        if ($this->controller->widget === null) {
-            $this->controller->widget = new stdClass;
-        }
-
-        $this->controller->widget->{$this->alias} = $this;
     }
 
     /**

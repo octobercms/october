@@ -1,0 +1,20 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "La funzione Statistiche sul traffico interno registra nel database le visualizzazioni di pagina, gli indirizzi IP e altri dati anonimi di base degli utenti.",
+  "Internal Traffic Statistics": "Statistiche sul traffico interno",
+  "Purge the Internal Traffic Statistics data": "Elimina i dati delle statistiche sul traffico interno",
+  "Manage Traffic Settings and Data": "Gestisci le impostazioni e i dati del traffico",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "Le statistiche sul traffico interno registrano le visualizzazioni di pagina, gli indirizzi IP e altri dati anonimi di base degli utenti nel database e forniscono report per la dashboard. Quando la funzionalità è disattivata, i dati non vengono scritti nel database.",
+  "Traffic Statistics": "Statistiche sul traffico",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "Fuso orario per registrare le visualizzazioni di pagina. La modifica del fuso orario non aggiornerà i dati esistenti. Se modifichi il fuso orario senza cancellare i dati esistenti, i report potrebbero visualizzare orari errati per i giorni registrati in precedenza.",
+  "Retention Period (Months)": "Periodo di conservazione (mesi)",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "Determina la durata di conservazione dei dati statistici sul traffico nel database. Allo scadere del periodo impostato, i dati corrispondenti vengono automaticamente eliminati dal database. Impostare su 0 o vuoto per conservare i record per sempre.",
+  "Data Filters": "Filtri dati",
+  "Exclude Bots": "Escludi bot",
+  "Automatically ignores known bots using the detection library.": "Ignora automaticamente i bot noti utilizzando la libreria di rilevamento.",
+  "Exclude Administrator Roles": "Escludi ruoli di amministratore",
+  "Ignores traffic from selected roles.": "Ignora il traffico proveniente dai ruoli selezionati.",
+  "Exclude IP Addresses": "Escludi indirizzi IP",
+  "Requests from these addresses will be ignored in statistics.": "Le richieste provenienti da questi indirizzi verranno ignorate nelle statistiche.",
+  "Exclude Paths": "Escludi percorsi",
+  "Enter one path or pattern per row to ignore matching URLs.": "Inserisci un percorso o un modello per riga per ignorare gli URL corrispondenti."
+}

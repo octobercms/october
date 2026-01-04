@@ -1,9 +1,9 @@
 <?php
-    $model = $relationManageFormWidget->getModel();
+    $formModel = $relationManageFormWidget->getModel();
     if (!$relationManageId) {
-        $model->setDefaultContentGroup($model->exists ? post('EntryRecord[content_group]') : null);
+        $formModel->setDefaultContentGroup($formModel->exists ? post('EntryRecord[content_group]') : null);
     }
-    $initialState = $this->makeInitialState($model);
+    $initialState = $this->makeInitialState($formModel);
     $langState = $this->makeLangState();
 ?>
 <div
@@ -29,7 +29,7 @@
                     <h4 class="modal-title"><?= e($relationManageTitle) ?></h4>
                 </div>
                 <div class="me-3">
-                    <?= $this->makePartial('edit_header_controls', ['initialState' => $initialState]) ?>
+                    <?= $this->makePartial('edit_header_controls', ['initialState' => $initialState, 'formModel' => $formModel]) ?>
                 </div>
                 <button type="button" class="btn-close" data-dismiss="popup"></button>
             </div>
@@ -83,7 +83,7 @@
                     <h4 class="modal-title"><?= e($relationManageTitle) ?></h4>
                 </div>
                 <div class="me-3">
-                    <?= $this->makePartial('edit_header_controls', ['initialState' => $initialState]) ?>
+                    <?= $this->makePartial('edit_header_controls', ['initialState' => $initialState, 'formModel' => $formModel]) ?>
                 </div>
                 <button type="button" class="btn-close" data-dismiss="popup"></button>
             </div>

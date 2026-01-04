@@ -67,32 +67,12 @@ $.oc.escapeHtmlString = function(string) {
 }
 
 // Touch Detection
+// Returns true only for pure touch devices (no mouse), false for hybrid devices like touch laptops
 //
 $.oc.isTouchEnabled = function() {
-    return document.documentElement.classList &&
-        document.documentElement.classList.contains('user-touch');
+    return window.matchMedia('(pointer: coarse)').matches &&
+        !window.matchMedia('(pointer: fine)').matches;
 }
-
-;(function() {
-    // Look if user is touching, not if device is capable
-    window.addEventListener('touchstart', function onFirstTouch() {
-        document.documentElement.classList.add('user-touch');
-        Cookies.set('oc-user-touch', 1, { expires: 365, path: '/' });
-    }, { once: true });
-
-    // Cookie is found on a non-touch device (cookie was from debugging)
-    if ($.oc.isTouchEnabled() && !isTouchEnabledBrowser()) {
-        document.documentElement.classList.remove('user-touch');
-        Cookies.remove('oc-user-touch', { path: '/' });
-    }
-
-    // Private
-    function isTouchEnabledBrowser() {
-        return ('ontouchstart' in window) ||
-            (navigator.maxTouchPoints > 0) ||
-            (navigator.msMaxTouchPoints > 0);
-    }
-})();
 
 // Color Modes
 //

@@ -370,9 +370,7 @@ trait HasManageMode
             $this->viewModel = $this->relationModel;
         }
 
-        foreach ($deletedModels as $model) {
-            $this->controller->relationAfterUpdate($this->field, $model);
-        }
+        $this->controller->relationAfterDelete($this->field, $deletedModels);
 
         $this->showFlashMessage('flashDelete');
 
@@ -400,9 +398,14 @@ trait HasManageMode
                 $foreignKeyName = $this->relationModel->getKeyName();
 
                 $models = $this->relationModel->whereIn($foreignKeyName, $checkedIds)->get();
+
+                $this->controller->relationBeforeAdd($this->field, $models);
+
                 foreach ($models as $model) {
                     $this->relationObject->add($model, $sessionKey);
                 }
+
+                $this->controller->relationAfterAdd($this->field, $models);
             }
 
             $this->showFlashMessage('flashAdd');
@@ -452,9 +455,13 @@ trait HasManageMode
                     $models = $relatedModel->whereIn($foreignKeyName, $checkedIds)->get();
                 }
 
+                $this->controller->relationBeforeRemove($this->field, $models);
+
                 foreach ($models as $model) {
                     $this->relationObject->remove($model, $sessionKey);
                 }
+
+                $this->controller->relationAfterRemove($this->field, $models);
             }
 
             $this->showFlashMessage('flashRemove');

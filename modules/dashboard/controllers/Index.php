@@ -63,9 +63,6 @@ class Index extends WildcardController
             return $redirect;
         }
 
-        // Reverse the BackendController::parseAction
-        $otherCode = kebab_case(camel_case((string) $code));
-
         $this->bodyClass = 'compact-container sidenav-responsive';
         $this->pageTitle = 'backend::lang.dashboard.menu_label';
 
@@ -74,7 +71,7 @@ class Index extends WildcardController
         $dashboards = $this->listAllDashboards();
         $this->vars['dashboards'] = $dashboards;
         $this->vars['dashboard'] = $code
-            ? $dashboards->whereIn('code', [$code, $otherCode])->first()
+            ? $dashboards->where('code', $code)->first()
             : $dashboards->first();
 
         $this->initDash();
@@ -123,18 +120,18 @@ class Index extends WildcardController
 
         // Post processing
         foreach ($config as &$definition) {
-            $definition['manageUrl'] = BackendAuth::userHasAccess('dashboard.manage')
-                ? Backend::url('dashboard/dashboards')
-                : null;
+            $definition['manageUrl'] = BackendAuth::userHasAccess('dashboard.manage') ? Backend::url('dashboard/dashboards') : null;
         }
 
         // Transfer dynamic config
         foreach ($allDashboards as $code => $dashboard) {
             $config->$code['name'] = $dashboard->name;
+            $config->$code['showInterval'] = !$dashboard->is_interval_hidden;
 
-            if ($dashboard->definition) {
-                $config->$code['reports'] = $dashboard->definition;
-                $config->$code['isCustom'] = true;
+            // If its global and I have customized it...
+            if ($dashboard->is_global) {
+                $config->$code['canMakeDefault'] = true;
+                $config->$code['canResetLayout'] = true;
             }
         }
 

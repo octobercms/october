@@ -120,13 +120,22 @@ trait NestedTreeModel
             $query->where('nest_depth', '<', $maxDepth - 1);
         }
 
-        $result = $query->listsNested('title', 'id');
+        $collection = $query->get()->toNested();
 
-        foreach ($result as &$value) {
-            $value = "&nbsp;&nbsp;&nbsp;" . $value;
-        }
+        $buildOptions = function($items) use (&$buildOptions) {
+            $result = [];
+            foreach ($items as $item) {
+                $option = ['label' => $item->title];
+                $children = $item->getChildren();
+                if ($children->count() > 0) {
+                    $option['children'] = $buildOptions($children);
+                }
+                $result[$item->id] = $option;
+            }
+            return $result;
+        };
 
-        $result = ['' => __('Top level')] + $result;
+        $result = ['' => __("Top Level")] + $buildOptions($collection);
 
         return $result;
     }

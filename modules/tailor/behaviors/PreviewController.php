@@ -1,5 +1,8 @@
 <?php namespace Tailor\Behaviors;
 
+use Cms;
+use Url;
+use Site;
 use Event;
 use Cache;
 use System;
@@ -79,6 +82,11 @@ class PreviewController extends ControllerBehavior
 
         // Get the URL from the CMS controller
         $controller = new Controller(Theme::getEditTheme());
+
+        // Force the custom app URL from the site
+        if (($site = Site::getSiteFromContext()) && $site->is_custom_url) {
+            Url::forceRootUrl($site->app_url);
+        }
 
         $url = $controller->pageUrl($pageName, $model->makePageUrlParams());
 

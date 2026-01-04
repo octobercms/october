@@ -30,13 +30,22 @@ class GetAttrAdjuster implements NodeVisitorInterface
             $nodes['arguments'] = $node->getNode('arguments');
         }
 
+        $isDefinedTest = $node->isDefinedTestEnabled();
+
         $attributes = [
             'type' => $node->getAttribute('type'),
+            'is_defined_test' => $isDefinedTest,
             'ignore_strict_check' => $node->getAttribute('ignore_strict_check'),
             'optimizable' => $node->getAttribute('optimizable'),
         ];
 
-        return new GetAttrNode($nodes, $attributes, $node->getTemplateLine(), $node->getNodeTag());
+        $getAttrNode = new GetAttrNode($nodes, $attributes, $node->getTemplateLine(), $node->getNodeTag());
+
+        if ($isDefinedTest) {
+            $getAttrNode->enableDefinedTest();
+        }
+
+        return $getAttrNode;
     }
 
     /**

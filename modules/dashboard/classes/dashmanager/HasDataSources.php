@@ -86,7 +86,7 @@ trait HasDataSources
 
                 $defaultConfig = $dimension->getDefaultWidgetConfig();
                 $defaultConfig['dimension'] = $dimension->getCode();
-                $defaultConfig['data_source'] = $className;
+                $defaultConfig['dataSource'] = $className;
 
                 $dataSourceName = Lang::get($displayName);
                 $menuItemData = [

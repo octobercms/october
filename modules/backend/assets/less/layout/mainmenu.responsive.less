@@ -21,8 +21,8 @@
         border-left: 1px solid rgba(255,255,255,0.1);
         // margin-right: -100%;
 
-        .flex-display();
-        .flex-direction-column();
+        display: flex;
+        flex-direction: column;
 
         &.mainmenu-pane {
             box-shadow: -10px 0 10px rgba(0,0,0,0.2);
@@ -30,7 +30,7 @@
 
         .menu-header {
             padding: 25px;
-            .flex-fix();
+            flex: 0 0 auto;
 
             .mainmenu-item {
                 .mainmenu-item-container {
@@ -144,7 +144,7 @@
         }
 
         .scrollable-panel-container {
-            .flex-stretch();
+            flex: 1 1 auto;
         }
 
         .mainmenu-item {
@@ -293,7 +293,7 @@ body.responsive-menu-displayed {
     }
 }
 
-html.mobile {
+@media (pointer: coarse) {
     #layout-mainmenu-responsive-container {
         nav.responsive-menu-pane {
             .mainmenu-items {

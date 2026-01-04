@@ -1,6 +1,6 @@
 /*
  * Backend Snackbar system
- * 
+ *
  * JavaScript API:
  * $.oc.snackbar.show('Message', {timeout: 5000, action: {label: 'Retry', callback: onRetry}});
  *
@@ -200,5 +200,8 @@
         };
     };
 
-    $.oc.snackbar = new Snackbar();
+    oc.snackbar = new Snackbar();
+
+    // @deprecated
+    $.oc.snackbar = oc.snackbar;
 })(window.jQuery);

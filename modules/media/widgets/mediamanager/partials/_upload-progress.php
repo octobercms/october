@@ -1,4 +1,4 @@
-<div class="layout-row min-size oc-hide" data-control="upload-ui">
+<div class="layout-row min-size oc-hide" data-media-upload-ui>
     <div class="layout">
         <div class="upload-progress">
             <h5
@@ -10,7 +10,7 @@
 
             <div class="progress-controls">
                 <div class="progress mb-4" style="height: 10px">
-                    <div class="progress-bar" role="progressbar" style="width: 0;" data-control="upload-progress-bar">
+                    <div class="progress-bar" role="progressbar" style="width: 0;" data-media-upload-progress-bar>
                     </div>
                 </div>
 

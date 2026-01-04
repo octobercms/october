@@ -1,0 +1,22 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.",
+  "Internal Traffic Statistics": "Internal Traffic Statistics",
+  "Purge the Internal Traffic Statistics data": "Purge the Internal Traffic Statistics data",
+  "Manage Traffic Settings and Data": "Manage Traffic Settings and Data",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.",
+  "Traffic Statistics": "Traffic Statistics",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.",
+  "Retention Period (Months)": "Retention Period (Months)",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.",
+  "Data Filters": "Data Filters",
+  "Exclude Bots": "Exclude Bots",
+  "Automatically ignores known bots using the detection library.": "Automatically ignores known bots using the detection library.",
+  "Exclude Administrator Roles": "Exclude Administrator Roles",
+  "Ignores traffic from selected roles.": "Ignores traffic from selected roles.",
+  "Exclude IP Addresses": "Exclude IP Addresses",
+  "Requests from these addresses will be ignored in statistics.": "Requests from these addresses will be ignored in statistics.",
+  "Exclude Paths": "Exclude Paths",
+  "Enter one path or pattern per row to ignore matching URLs.": "Enter one path or pattern per row to ignore matching URLs.",
+  "Access the Dashboard": "Access the Dashboard",
+  "Manage Dashboards": "Manage Dashboards"
+}

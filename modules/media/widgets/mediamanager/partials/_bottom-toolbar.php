@@ -22,7 +22,7 @@
             <button
                 type="button"
                 data-dismiss="popup"
-                class="btn btn-default no-margin-right">
+                class="btn btn-secondary no-margin-right">
                 <?= e(trans('backend::lang.form.cancel')) ?>
             </button>
         </div>

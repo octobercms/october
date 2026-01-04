@@ -88,6 +88,7 @@ Vue.component('dashboard-component-dashboard-widget-chart', {
                             fill: true,
                             pointRadius: 2,
                             borderWidth: 2,
+                            spanGaps: false,
                         },
                         bar: {
                             borderRadius: 5,
@@ -124,19 +125,28 @@ Vue.component('dashboard-component-dashboard-widget-chart', {
                                     };
                                 },
                                 label: (context) => {
+                                    // Never display a label for null values.
+                                    if (!context.parsed.y) {
+                                        return null
+                                    }
+
                                     let label = context.dataset.label || '';
                                     if (label) {
                                         label += ': ';
                                     }
-                                    if (context.parsed.y !== null) {
-                                        const valueAxis = indexAxis === 'x' ? 'y' : 'x';
 
-                                        label += dataHelper.formatValue(
-                                            context.parsed[valueAxis],
-                                            context.dataset.formatting,
-                                            this.store.state.locale
-                                        )
-                                    }
+                                    const valueAxis = indexAxis === 'x' ? 'y' : 'x';
+                                    const formattedValue = context.dataset.formattedData
+                                        ? context.dataset.formattedData[context.dataIndex]
+                                        : null;
+
+                                    label += dataHelper.formatDisplayValue(
+                                        context.parsed[valueAxis],
+                                        formattedValue,
+                                        context.dataset.formatting,
+                                        this.store.state.locale
+                                    )
+                                    
                                     return label;
                                 }
                             }
@@ -282,7 +292,7 @@ Vue.component('dashboard-component-dashboard-widget-chart', {
                 this.chart.data,
                 this.loadedValue,
                 this.getRequestMetrics(),
-                true, // Null as zero
+                false, // Keep null values to create gaps in the chart
                 oc.lang.get('dashboard.value_not_set')
             );
             this.chart.update();

@@ -21,7 +21,7 @@
                         <span v-text="metricsData[metricData.metric].label"></span>
                     </div>
                     <div class="total-container">
-                        <div class="dashboard-total-value" v-text="getMetricTotal(metricData.metric)"></div>
+                        <div class="dashboard-total-value" v-text="getMetricTotalFormatted(metricData.metric)"></div>
                         <dashboard-component-dashboard-report-diff
                             :prevValue="getMetricTotalClean(metricData.metric, true)"
                             :currentValue="getMetricTotalClean(metricData.metric)"

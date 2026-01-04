@@ -1,0 +1,20 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "تسجل ميزة إحصائيات حركة المرور الداخلية عدد مرات مشاهدة الصفحة وعناوين IP وبيانات المستخدم الأساسية المجهولة الأخرى في قاعدة البيانات.",
+  "Internal Traffic Statistics": "إحصائيات حركة المرور الداخلية",
+  "Purge the Internal Traffic Statistics data": "مسح بيانات إحصائيات حركة المرور الداخلية",
+  "Manage Traffic Settings and Data": "إدارة إعدادات حركة المرور والبيانات",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "تُسجِّل إحصاءات حركة المرور الداخلية عدد مرات مشاهدة الصفحات وعناوين IP وبيانات المستخدمين المجهولين الأساسية الأخرى في قاعدة البيانات، وتُقدِّم تقارير للوحة المعلومات. عند تعطيل هذه الميزة، لا تُسجَّل البيانات في قاعدة البيانات.",
+  "Traffic Statistics": "إحصائيات المرور",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "المنطقة الزمنية لتسجيل مشاهدات الصفحات. تغيير المنطقة الزمنية لن يُحدِّث البيانات الحالية. إذا غيَّرتَ المنطقة الزمنية دون حذف البيانات الحالية، فقد تعرض التقارير أوقاتًا غير صحيحة للأيام المسجلة سابقًا.",
+  "Retention Period (Months)": "فترة الاحتفاظ (أشهر)",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "يُحدد مدة تخزين بيانات إحصاءات حركة المرور في قاعدة البيانات. عند انتهاء هذه المدة، تُحذف البيانات المقابلة تلقائيًا من قاعدة البيانات. اضبط القيمة على 0 أو اتركها فارغة للاحتفاظ بالسجلات للأبد.",
+  "Data Filters": "مرشحات البيانات",
+  "Exclude Bots": "استبعاد الروبوتات",
+  "Automatically ignores known bots using the detection library.": "يتجاهل تلقائيًا الروبوتات المعروفة باستخدام مكتبة الكشف.",
+  "Exclude Administrator Roles": "استبعاد أدوار المسؤول",
+  "Ignores traffic from selected roles.": "يتجاهل حركة المرور من الأدوار المحددة.",
+  "Exclude IP Addresses": "استبعاد عناوين IP",
+  "Requests from these addresses will be ignored in statistics.": "سيتم تجاهل الطلبات من هذه العناوين في الإحصائيات.",
+  "Exclude Paths": "استبعاد المسارات",
+  "Enter one path or pattern per row to ignore matching URLs.": "أدخل مسارًا أو نمطًا واحدًا لكل صف لتجاهل عناوين URL المطابقة."
+}

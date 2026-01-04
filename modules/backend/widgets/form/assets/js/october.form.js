@@ -194,8 +194,11 @@
                 }).done(() => {
                     this.toggleEmptyTabs();
 
-                    $.each(toRefresh.fields, function(key, field) {
-                        $('[data-field-name="' + field + '"]').trigger('change');
+                    // Refresh field element cache and trigger change only on fields in this form
+                    this.fieldElementCache = null;
+                    var updatedFieldElements = this.getFieldElements();
+                    $.each(toRefresh.fields, (key, field) => {
+                        updatedFieldElements.filter('[data-field-name="' + field + '"]').trigger('change');
                     });
                 });
             }, this.dependantUpdateInterval);

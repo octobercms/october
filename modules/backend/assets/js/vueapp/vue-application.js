@@ -128,7 +128,6 @@ class VueApp extends oc.ControlBase
         this.state.processing = true;
 
         return oc.request(targetElement, ajaxHandler, {
-                async: true,
                 ...requestConfig
             })
             .finally(() => {

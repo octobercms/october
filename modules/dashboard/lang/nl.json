@@ -1,0 +1,20 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "Met de functie Interne verkeersstatistieken worden paginaweergaven, IP-adressen en andere anonieme gebruikersgegevens vastgelegd in de database.",
+  "Internal Traffic Statistics": "Interne verkeersstatistieken",
+  "Purge the Internal Traffic Statistics data": "De interne verkeersstatistiekgegevens opschonen",
+  "Manage Traffic Settings and Data": "Beheer verkeersinstellingen en gegevens",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "Interne verkeersstatistieken registreren paginaweergaven, IP-adressen en andere anonieme gebruikersgegevens in de database en leveren rapporten voor het dashboard. Wanneer de functie is uitgeschakeld, worden de gegevens niet naar de database geschreven.",
+  "Traffic Statistics": "Verkeersstatistieken",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "Tijdzone waarin paginaweergaven worden geregistreerd. Het wijzigen van de tijdzone werkt de bestaande gegevens niet bij. Als u de tijdzone wijzigt zonder de bestaande gegevens te wissen, kunnen rapporten mogelijk onjuiste tijden weergeven voor eerder geregistreerde dagen.",
+  "Retention Period (Months)": "Bewaartermijn (maanden)",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "Bepaalt hoe lang verkeersstatistieken in de database moeten worden opgeslagen. Wanneer de ingestelde periode verstrijkt, worden de bijbehorende gegevens automatisch uit de database verwijderd. Stel in op 0 of leeg om records permanent te bewaren.",
+  "Data Filters": "Gegevensfilters",
+  "Exclude Bots": "Bots uitsluiten",
+  "Automatically ignores known bots using the detection library.": "Negeert automatisch bekende bots met behulp van de detectiebibliotheek.",
+  "Exclude Administrator Roles": "Beheerdersrollen uitsluiten",
+  "Ignores traffic from selected roles.": "Negeert verkeer van geselecteerde rollen.",
+  "Exclude IP Addresses": "IP-adressen uitsluiten",
+  "Requests from these addresses will be ignored in statistics.": "Verzoeken van deze adressen worden in de statistieken genegeerd.",
+  "Exclude Paths": "Paden uitsluiten",
+  "Enter one path or pattern per row to ignore matching URLs.": "Voer één pad of patroon per rij in om overeenkomende URL's te negeren."
+}

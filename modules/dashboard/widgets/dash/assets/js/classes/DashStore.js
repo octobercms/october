@@ -22,10 +22,13 @@ class Dashboard_Widgets_Dash_Classes_DashStore
                 dateEnd: null,
                 interval: 'day'
             },
+            showInterval: true,
             intervalName: null,
             compareMode: 'none',
             editMode: false,
             canCreateAndEdit: false,
+            canMakeDefault: false,
+            canResetLayout: false,
             defaultWidgetConfigs: {},
             customWidgetGroups: {},
             dashboardListScrollX: null,
@@ -45,7 +48,10 @@ class Dashboard_Widgets_Dash_Classes_DashStore
         this.state.alias = initialState.alias;
         this.state.locale = initialState.locale;
         this.state.colors = initialState.colors;
+        this.state.showInterval = initialState.showInterval;
         this.state.canCreateAndEdit = initialState.canCreateAndEdit;
+        this.state.canMakeDefault = initialState.canMakeDefault;
+        this.state.canResetLayout = initialState.canResetLayout;
         this.state.defaultWidgetConfigs = initialState.defaultWidgetConfigs;
         this.state.customWidgetGroups = initialState.customWidgetGroups;
         this.setDashboard(initialState.dashboard);
@@ -195,6 +201,49 @@ class Dashboard_Widgets_Dash_Classes_DashStore
     startEditing() {
         this.dashboardBackup = $.oc.vueUtils.getCleanObject(this.getCurrentDashboard());
         this.state.editMode = true;
+    }
+
+    async resetLayout() {
+        try {
+            await oc.confirmPromise(oc.lang.get('dashboard.reset_layout_confirm'));
+        }
+        catch (error) {
+            return;
+        }
+
+        // Request initial state again from server
+        const currentDashboard = this.getCurrentDashboard();
+        const response = await oc.ajax(this.getEventHandler('onResetDashboard'), {
+            progressBar: true,
+            data: {
+                _dash_definition: currentDashboard.code
+            }
+        });
+
+        this.setInitialState(response.initialState);
+
+        oc.snackbar.show(oc.lang.get('dashboard.reset_layout_successfully'));
+    }
+
+    async makeDefault() {
+        try {
+            await oc.confirmPromise(oc.lang.get('dashboard.make_default_confirm'));
+        }
+        catch (error) {
+            return;
+        }
+
+        // Submit this to server
+        const currentDashboard = this.getCurrentDashboard();
+        await oc.ajax(this.getEventHandler('onCommitDashboard'), {
+            progressBar: true,
+            data: {
+                _dash_definition: currentDashboard.code,
+                definition: JSON.stringify(currentDashboard.rows)
+            }
+        });
+
+        oc.snackbar.show(oc.lang.get('dashboard.make_default_successfully'));
     }
 
     cancelEditing() {

@@ -99,16 +99,6 @@ class CombineAssets
         // AJAX Framework
         $this->registerAlias('framework', '~/modules/system/assets/js/framework.min.js');
 
-        // AJAX Framework (Only Extras)
-        $this->registerAlias('framework.extras', '~/modules/system/assets/js/framework-extras.min.js');
-        $this->registerAlias('framework.extras.js', '~/modules/system/assets/js/framework-extras.min.js');
-        $this->registerAlias('framework.extras', '~/modules/system/assets/css/framework-extras.css');
-        $this->registerAlias('framework.extras.css', '~/modules/system/assets/css/framework-extras.css');
-
-        // AJAX Framework (Only Turbo)
-        $this->registerAlias('framework.turbo', '~/modules/system/assets/js/framework-turbo.min.js');
-        $this->registerAlias('framework.turbo.js', '~/modules/system/assets/js/framework-turbo.min.js');
-
         // AJAX Framework (Complete Bundle)
         $this->registerAlias('framework.bundle', '~/modules/system/assets/js/framework-bundle.min.js');
         $this->registerAlias('framework.bundle.js', '~/modules/system/assets/js/framework-bundle.min.js');

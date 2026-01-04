@@ -13,11 +13,6 @@ use Dashboard\Models\DashboardSetting;
 /**
  * DashboardSettings controller
  *
- * @todo these items need to be retrofitted
- * - internal_traffic_statistics_enabled / cms.internal_traffic_statistics.enabled
- * - internal_traffic_statistics_timezone / cms.internal_traffic_statistics.timezone
- * - internal_traffic_statistics_retention / cms.internal_traffic_statistics.retention
- *
  * @package october\dashboard
  * @author Alexey Bobkov, Samuel Georges
  */
@@ -38,7 +33,7 @@ class DashboardSettings extends SettingsController
     /**
      * @var array requiredPermissions required to view this page.
      */
-    public $requiredPermissions = ['cms.internal_traffic_statistics'];
+    public $requiredPermissions = ['dashboard.internal_traffic_statistics'];
 
     /**
      * @var string settingsItemCode determines the settings code
@@ -50,7 +45,7 @@ class DashboardSettings extends SettingsController
      */
     public function index()
     {
-        $this->pageTitle = 'dashboard::lang.internal_traffic_statistics.label';
+        $this->pageTitle = "Internal Traffic Statistics";
         $this->pageSize = Backend::sizeToPixels('large') ?: null;
 
         $this->vars['recordsTotal'] = Str::shortNumber(TrafficStatisticsPageview::count());

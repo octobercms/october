@@ -2,14 +2,16 @@
 
 namespace Dashboard\Classes;
 
+use App;
 use Str;
+use Site;
 use Event;
 use Config;
 use Cookie;
 use Request;
+use BackendAuth;
 use Dashboard\Models\DashboardSetting;
 use Dashboard\Models\TrafficStatisticsPageview;
-use SystemException;
 use Carbon\Carbon;
 
 /**
@@ -21,12 +23,33 @@ use Carbon\Carbon;
 class TrafficLogger
 {
     /**
+     * @var \Dashboard\Models\DashboardSetting settingModel
+     */
+    protected $settingModel;
+
+    /**
+     * __construct this class
+     */
+    public function __construct()
+    {
+        $this->settingModel = DashboardSetting::instance();
+    }
+
+    /**
+     * instance creates a new instance of this singleton
+     */
+    public static function instance(): static
+    {
+        return App::make('dashboard.traffic.logger');
+    }
+
+    /**
      * isEnabled checks if the Internal Traffic Statistics feature is enabled.
      * Returns true if the feature is enabled, and false otherwise.
      */
-    public static function isEnabled(): bool
+    public function isEnabled(): bool
     {
-        return (bool) DashboardSetting::instance()->traffic_stats_enabled;
+        return (bool) $this->settingModel->traffic_stats_enabled;
     }
 
     /**
@@ -34,9 +57,9 @@ class TrafficLogger
      * If no specific timezone is set for the feature, it defaults to the general CMS timezone.
      * Returns the timezone identifier string.
      */
-    public static function getTimezone(): string
+    public function getTimezone(): string
     {
-        $result = DashboardSetting::instance()->traffic_stats_timezone;
+        $result = $this->settingModel->traffic_stats_timezone;
 
         if (!$result) {
             $result = Config::get('cms.timezone') ?? Config::get('app.timezone');
@@ -49,9 +72,9 @@ class TrafficLogger
      * getRetentionMonths returns data retention, in months.
      * Returns the number of months or null for indefinite retention.
      */
-    public static function getRetentionMonths(): ?int
+    public function getRetentionMonths(): ?int
     {
-        $retention = DashboardSetting::instance()->traffic_stats_retention;
+        $retention = $this->settingModel->traffic_stats_retention;
 
         if ($retention && strlen($retention) && is_int($retention)) {
             return (int) $retention;
@@ -66,7 +89,7 @@ class TrafficLogger
      * to keep the statistics up-to-date. Creates a client
      * ID cookie if it doesn't exist.
      */
-    public static function logPageview()
+    public function logPageview()
     {
         if (!self::isEnabled()) {
             return;
@@ -80,22 +103,30 @@ class TrafficLogger
             return;
         }
 
+        if ($this->settingModel->filter_exclude_bots && Request::isCrawler()) {
+            return;
+        }
+
+        if ($this->isAdminRoleExcluded()) {
+            return;
+        }
+
         $referrer = Request::header('X-PJAX-REFERRER');
         if (!$referrer) {
             $referrer = Request::header('Referer');
         }
 
-        $clientId = self::getClientId();
+        $clientId = $this->getClientId();
         $firstTimeVisit = false;
         if (!$clientId) {
-            $clientId = self::generateClientId();
+            $clientId = $this->generateClientId();
             $firstTimeVisit = true;
         }
 
-        $evDateTime = self::makeEventDateTime();
+        $evDateTime = $this->makeEventDateTime();
 
         $pageview = new TrafficStatisticsPageview;
-        $pageview->user_authenticated = self::isUserAuthenticated();
+        $pageview->user_authenticated = $this->isUserAuthenticated();
         $pageview->ev_datetime = $evDateTime->toDateTimeString();
         $pageview->ev_date = $evDateTime->toDateString();
 
@@ -112,6 +143,11 @@ class TrafficLogger
         $pageview->page_path = Str::substr((string) Request::path(), 0, 255);
         $pageview->referral_domain = Str::substr((string) parse_url($referrer ?: '', PHP_URL_HOST), 0, 255);
         $pageview->ev_timestamp = gmdate('Y-m-d H:i:s', time());
+
+        if (Site::hasFeature('dashboard_traffic_statistics')) {
+            $pageview->site_id = Site::getActiveSite()?->id;
+        }
+
         $pageview->save();
 
         if (rand(1, 100) === 1) {
@@ -123,16 +159,16 @@ class TrafficLogger
      * makeEventDateTime returns the current event date and time in the configured timezone.
      * Returns the event date and time string.
      */
-    protected static function makeEventDateTime(): Carbon
+    protected function makeEventDateTime(): Carbon
     {
-        return Carbon::now(self::getTimezone());
+        return Carbon::now($this->getTimezone());
     }
 
     /**
      * getClientId retrieves the client ID from the cookie. The client ID must have
      * a maximum length of 64, as enforced by the database.
      */
-    protected static function getClientId()
+    protected function getClientId()
     {
         $value = Cookie::get('oc_clid');
 
@@ -146,7 +182,7 @@ class TrafficLogger
     /**
      * generateClientId generates a random client ID string.
      */
-    protected static function generateClientId(): string
+    protected function generateClientId(): string
     {
         $result = Str::random(32);
 
@@ -159,7 +195,7 @@ class TrafficLogger
      * isUserAuthenticated checks if the user is currently authenticated. Returns
      * true if the user is authenticated, and false otherwise.
      */
-    protected static function isUserAuthenticated(): bool
+    protected function isUserAuthenticated(): bool
     {
         /**
          * @event cms.internalTrafficStatistics.isUserAuthenticated
@@ -175,6 +211,33 @@ class TrafficLogger
         $result = Event::fire('cms.internalTrafficStatistics.isUserAuthenticated', [], true);
         if ($result === true) {
             return $result;
+        }
+
+        return false;
+    }
+
+    /**
+     * isAdminRoleExcluded determines if an administrator role is excluded
+     */
+    protected function isAdminRoleExcluded(): bool
+    {
+        if (!$this->settingModel->filter_exclude_roles) {
+            return false;
+        }
+
+        $user = BackendAuth::getUser();
+        if (!$user) {
+            return false;
+        }
+
+        foreach ((array) $this->settingModel->filter_exclude_roles as $roleId) {
+            if ($roleId === '*') {
+                return true;
+            }
+
+            if ((int) $user->role_id === (int) $roleId) {
+                return true;
+            }
         }
 
         return false;

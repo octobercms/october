@@ -35,8 +35,8 @@ nav.layout-sidenav {
                 margin: 0;
                 transition: padding 0.1s;
 
-                .flex-display();
-                .flex-direction-row();
+                display: flex;
+                flex-direction: row;
 
                 &:hover {
                     background: transparent;
@@ -286,9 +286,7 @@ body:not(.drag) {
     }
 }
 
-body.sidenav-responsive,
-html.user-touch {
-    // Touch devices use responsive secondary nav
+body.sidenav-responsive {
     .hide-sidenav();
 }
 

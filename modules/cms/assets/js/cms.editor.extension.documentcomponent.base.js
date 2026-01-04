@@ -165,7 +165,7 @@ oc.Modules.register('cms.editor.extension.documentcomponent.base', function() {
                     );
                     this.documentCreatedOrLoaded();
                     this.documentLoaded(result);
-                    $.oc.snackbar.show(this.trans('cms::lang.template.reset_from_template_success'));
+                    oc.snackbar.show(this.trans('cms::lang.template.reset_from_template_success'));
                 }
                 catch (error) {
                     let errorText = error.responseText;

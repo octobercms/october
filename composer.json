@@ -40,6 +40,9 @@
         "preferred-install": "dist",
         "allow-plugins": {
             "composer/installers": true
+        },
+        "audit": {
+            "block-insecure": false
         }
     },
     "autoload": {

@@ -367,7 +367,7 @@
   "Icon": "Pictogram",
   "Please select an icon": "Selecteer een pictogram",
   "Global Access": "Globale toegang",
-  "Dashboards with Global Access enabled can be viewed by any user, but this doesn't grant editing permissions.": "Dashboards met globale toegang kunnen door elke gebruiker worden bekeken, maar dit geeft geen bewerkingsrechten.",
+  "Dashboards with Global Access enabled can be viewed by other users.": "Dashboards met globale toegang kunnen door elke gebruiker worden bekeken, maar dit geeft geen bewerkingsrechten.",
   "Select Dashboard": "Selecteer dashboard",
   "Value": "Waarde",
   "Difference with the previous period": "Verschil met de vorige periode",
@@ -390,7 +390,7 @@
   "Apply Changes": "Wijzigingen toepassen",
   "Error loading the widget data. See the browser error console for details.": "Fout bij het laden van de widgetgegevens. Zie de foutconsole van de browser voor details.",
   "Configure the widget": "Configureer de widget",
-  "to manage its settings.": "om de instellingen te beheren.",  
+  "to manage its settings.": "om de instellingen te beheren.",
   "Includes": "Bevat",
   "Excludes": "Bevat niet"
 }

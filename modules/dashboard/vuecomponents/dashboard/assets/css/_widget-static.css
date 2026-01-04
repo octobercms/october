@@ -3,6 +3,14 @@
         padding: var(--oc-widget-body-padding) var(--oc-widget-body-padding) 11px;
     }
 
+    h3.widget-title {
+        margin-bottom: 15px;
+    }
+
+    .table-container {
+        margin-top: 0;
+    }
+
     &.loading {
         .static-body {
             > span {

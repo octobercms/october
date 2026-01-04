@@ -88,7 +88,7 @@ oc.Modules.register('backend.component.inspector.control.mediafinder', function 
                     Vue.set(this.layoutUpdateData, 'modalTemporaryHidden', true);
                 }
 
-                new $.oc.mediaManager.popup({
+                new oc.mediaManager.popup({
                     alias: 'ocmediamanager',
                     cropAndInsertButton: true,
                     onClose: function () {

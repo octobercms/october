@@ -6,7 +6,7 @@ use Request;
 use Response;
 use Cms\Classes\CmsException;
 use Cms\Classes\PartialWatcher;
-use Cms\Classes\AjaxResponse;
+use Cms\Classes\AjaxApiResponse;
 use Cms\Classes\Partial;
 use October\Rain\Exception\AjaxException;
 use October\Rain\Exception\ApplicationException;
@@ -23,17 +23,28 @@ use Exception;
 trait HasAjaxRequests
 {
     /**
+     * @var \Larajax\Classes\AjaxRequest ajaxRequest
+     */
+    protected $ajaxRequest;
+
+    /**
+     * getAjaxRequest
+     */
+    public function getAjaxRequest()
+    {
+        return $this->ajaxRequest ??= ajax()->request();
+    }
+
+    /**
      * getAjaxHandler returns the AJAX handler for the current request, if available.
      * @return string
      */
     public function getAjaxHandler()
     {
-        if (!Request::ajax() || Request::method() !== 'POST') {
-            return null;
-        }
+        $request = $this->getAjaxRequest();
 
-        if ($handler = Request::header('X_OCTOBER_REQUEST_HANDLER')) {
-            return trim($handler);
+        if ($request->hasAjaxHandler()) {
+            return $request->qualifiedHandler;
         }
 
         return null;
@@ -44,12 +55,10 @@ trait HasAjaxRequests
      */
     protected function getAjaxPartialName()
     {
-        if (!Request::ajax() || Request::method() !== 'POST') {
-            return null;
-        }
+        $request = $this->getAjaxRequest();
 
-        if ($ajaxPartial = Request::header('X_OCTOBER_REQUEST_PARTIAL')) {
-            return $ajaxPartial;
+        if ($request->hasAjaxHandler()) {
+            return $request->partial;
         }
 
         return null;
@@ -84,10 +93,10 @@ trait HasAjaxRequests
      */
     protected function getAjaxHandlerPartialList(): array
     {
-        $partialList = Request::header('X_OCTOBER_REQUEST_PARTIALS');
+        $request = $this->getAjaxRequest();
 
-        if ($partialList && ($partialList = trim($partialList))) {
-            $partials = explode('&', $partialList);
+        if ($request->hasAjaxHandler()) {
+            $partials = $request->partialList;
 
             foreach ($partials as $partial) {
                 if (!Partial::validateRequestName($partial)) {
@@ -107,41 +116,43 @@ trait HasAjaxRequests
      */
     protected function execAjaxHandlers()
     {
-        if ($handler = $this->getAjaxHandler()) {
-            try {
-                // Validate the handler name
-                if (!preg_match('/^(?:\w+\:{2})?on[A-Z]{1}[\w+]*$/', $handler)) {
-                    throw new CmsException(Lang::get('cms::lang.ajax_handler.invalid_name', ['name'=>e($handler)]));
+        $handler = $this->getAjaxHandler();
+        if (!$handler) {
+            return null;
+        }
+
+        try {
+            // Validate the handler name
+            if (!preg_match('/^(?:\w+\:{2})?on[A-Z]{1}[\w+]*$/', $handler)) {
+                throw new CmsException(Lang::get('cms::lang.ajax_handler.invalid_name', ['name'=>e($handler)]));
+            }
+
+            // Validates the handler partial list
+            $partialList = $this->getAjaxHandlerPartialList();
+            $responseContents = [];
+
+            // Execute the handler
+            $result = null;
+            if ($this->partialWatcher) {
+                if ($exception = $this->partialWatcher->getHandlerException()) {
+                    throw $exception;
                 }
 
-                // Validates the handler partial list
-                $partialList = $this->getAjaxHandlerPartialList();
-                $responseContents = [];
+                $result = $this->partialWatcher->getHandlerResponse();
+            }
 
-                // Execute the handler
-                $result = null;
-                if ($this->partialWatcher) {
-                    if ($exception = $this->partialWatcher->getHandlerException()) {
-                        throw $exception;
-                    }
+            if (!$result) {
+                $result = $this->runAjaxHandler($handler);
+            }
 
-                    $result = $this->partialWatcher->getHandlerResponse();
-                }
-                if (!$result) {
-                    $result = $this->runAjaxHandler($handler);
-                }
-                if (!$result) {
-                    throw new CmsException(Lang::get('cms::lang.ajax_handler.not_found', ['name'=>e($handler)]));
-                }
+            if (!$result) {
+                throw new CmsException(Lang::get('cms::lang.ajax_handler.not_found', ['name'=>e($handler)]));
+            }
 
-                // If the handler returned a redirect, process the URL and dispose of it so
-                // framework.js knows to redirect the browser and not the request!
-                if ($result instanceof RedirectResponse) {
-                    $responseContents['X_OCTOBER_REDIRECT'] = $result->getTargetUrl();
-                    return Response::make($responseContents, $this->statusCode);
-                }
+            $response = $result && $result !== true ? ajax()::wrap($result) : ajax();
 
-                // Render partials and return the response as array that will be converted to JSON automatically.
+            // Include partials
+            if ($partialList = $this->ajaxRequest->partialList) {
                 foreach ($partialList as $partial) {
                     $partialContents = null;
                     if ($this->partialWatcher) {
@@ -150,55 +161,31 @@ trait HasAjaxRequests
                     if (!$partialContents) {
                         $partialContents = $this->renderPartial($partial);
                     }
-                    $responseContents[$partial] = $partialContents;
+                    $response->partial($partial, $partialContents);
                 }
-
-                // Look for any flash messages
-                if (Request::header('X_OCTOBER_REQUEST_FLASH') && Flash::check()) {
-                    $responseContents['X_OCTOBER_FLASH_MESSAGES'] = Flash::all();
-                }
-
-                // Look for browser events
-                if ($browserEvents = $this->getBrowserEvents()) {
-                    $responseContents['X_OCTOBER_DISPATCHES'] = $browserEvents;
-                }
-
-                // If the handler returned an array, we should add it to output for rendering.
-                // If it is a string, add it to the array with the key "result".
-                // If an object, pass it to Laravel as a response object.
-                if (is_array($result)) {
-                    $responseContents = array_merge($responseContents, $result);
-                }
-                elseif (is_string($result)) {
-                    $responseContents['result'] = $result;
-                }
-                elseif (is_object($result)) {
-                    return $result;
-                }
-
-                return Response::make($responseContents, $this->statusCode);
             }
-            catch (ValidationException $ex) {
-                // Handle validation errors
-                $responseContents['X_OCTOBER_ERROR_FIELDS'] = $ex->getFields();
-                $responseContents['X_OCTOBER_ERROR_MESSAGE'] = $ex->getMessage();
-                if ($browserEvents = $this->getBrowserEvents()) {
-                    $responseContents['X_OCTOBER_DISPATCHES'] = $browserEvents;
-                }
-                throw new AjaxException($responseContents);
-            }
-            catch (AjaxException $ex) {
-                if ($browserEvents = $this->getBrowserEvents()) {
-                    $ex->addContent('X_OCTOBER_DISPATCHES', $browserEvents);
-                }
-                throw $ex;
-            }
-            catch (Exception $ex) {
-                throw $ex;
+        }
+        catch (ValidationException $ex) {
+            $response = ajax()->error($ex->getMessage())->invalidFields($ex->errors());
+        }
+        catch (Exception $ex) {
+            $response = ajax()->exception($ex);
+        }
+
+        if ($this->hasAssetsDefined()) {
+            foreach ($this->getAssetPathsWithAttributes() as $type => $paths) {
+                $response->asset($type, $paths);
             }
         }
 
-        return null;
+        // Look for any flash messages
+        if ($this->ajaxRequest->wantsFlash && Flash::check()) {
+            foreach (Flash::all() as $level => $text) {
+                $response->flash($level, $text);
+            }
+        }
+
+        return $response;
     }
 
     /**
@@ -206,7 +193,7 @@ trait HasAjaxRequests
      */
     public function runAjaxHandlerAsResponse($handler)
     {
-        $response = new AjaxResponse;
+        $response = new AjaxApiResponse;
 
         try {
             $result = $this->runAjaxHandler($handler);

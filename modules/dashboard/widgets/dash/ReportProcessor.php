@@ -9,6 +9,28 @@ use Dashboard\Models\Dashboard as DashboardModel;
 trait ReportProcessor
 {
     /**
+     * processOverrideFromDatabase
+     */
+    protected function processOverrideFromDatabase()
+    {
+        // @todo check if dash can be customized, if this is actually
+        // enabled and allowed i.e not a static dash
+
+        $this->isCustom = false;
+        $this->allRows = null;
+
+        $savedDash = (new DashboardModel)->fetchDashboard(
+            $this->controller,
+            $this->code
+        );
+
+        if ($savedDash && $savedDash->definition) {
+            $this->reports = $this->allRows = $savedDash->definition;
+            $this->isCustom = true;
+        }
+    }
+
+    /**
      * processPermissionCheck check if user has permissions to show the report
      * and removes it if permission is denied
      */
@@ -119,31 +141,6 @@ trait ReportProcessor
         }
 
         $this->allRows = array_values($rows);
-    }
-
-    /**
-     * processCustomDataDashRows
-     */
-    protected function processCustomDataDashRows(array $reports)
-    {
-        // @todo check if dash can be customized, if this is actually
-        // enabled and allowed i.e not a static dash
-
-        // Supplied report data is flagged as custom
-        if ($this->isCustom) {
-            $this->allRows = $this->reports;
-        }
-        // Lookup a saved dash from the generic model store
-        else {
-            $savedDash = DashboardModel::fetchDashboard(
-                $this->controller,
-                $this->code
-            );
-
-            if ($savedDash && $savedDash->definition) {
-                $this->allRows = $savedDash->definition;
-            }
-        }
     }
 
     /**

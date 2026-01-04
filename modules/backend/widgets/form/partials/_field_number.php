@@ -1,6 +1,6 @@
 <!-- Number -->
 <?php if ($this->previewMode): ?>
-    <span class="form-control"><?= $field->value ? e($field->value) : '&nbsp;' ?></span>
+    <span class="form-control"><?= ($field->value || (string) $field->value === '0') ? e($field->value) : '&nbsp;' ?></span>
 <?php else: ?>
     <input
         type="number"

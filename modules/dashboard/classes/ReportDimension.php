@@ -386,9 +386,17 @@ class ReportDimension
      * Returns a query column name corresponding to this dimension.
      * @return string
      */
-    public function getDataSetColumName(): string
+    public function getDataSetColumnName(): string
     {
         return 'oc_dimension';
+    }
+
+    /**
+     * @deprecated Use getDataSetColumnName() instead
+     */
+    public function getDataSetColumName(): string
+    {
+        return $this->getDataSetColumnName();
     }
 
     /**

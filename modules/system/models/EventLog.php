@@ -97,4 +97,18 @@ class EventLog extends Model
 
         return Str::limit($matches[1] ?? '', 500);
     }
+
+    /**
+     * getMessageFormattedAttribute returns the full message formatted with context data (details)
+     */
+    public function getMessageFormattedAttribute()
+    {
+        $formatted = $this->message;
+
+        if (is_array($this->details)) {
+            $formatted .= " " . json_encode($this->details, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION | JSON_INVALID_UTF8_SUBSTITUTE | JSON_PARTIAL_OUTPUT_ON_ERROR);
+        }
+
+        return $formatted;
+    }
 }

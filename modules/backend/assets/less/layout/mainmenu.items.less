@@ -24,9 +24,9 @@ ul.mainmenu-items {
         // height: define in subclass;
         // padding: define in subclass;
 
-        .flex-display();
-        .flex-direction-row();
-        .align-items(baseline);
+        display: flex;
+        flex-direction: row;
+        align-items: baseline;
         text-decoration: none!important;
         outline: none;
         color: @mainnav-color;
@@ -41,7 +41,7 @@ ul.mainmenu-items {
         font-size: @font-size-base;
         white-space: nowrap;
         text-overflow: ellipsis;
-        .flex-stretch();
+        flex: 1 1 auto;
     }
 
     .nav-icon {
@@ -82,7 +82,7 @@ ul.mainmenu-items {
     }
 
     span.counter {
-        .flex-fix();
+        flex: 0 0 auto;
         position: relative;
         top: 1px;
         padding: 2px 2px;
@@ -153,7 +153,7 @@ body:not(.drag) {
     }
 }
 
-html.mobile {
+@media (pointer: coarse) {
     .mainmenu-item {
         .nav-label {
             font-size: @font-size-base + 2;

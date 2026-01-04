@@ -33,14 +33,19 @@ addEventListener('ajax:setup', function(event) {
     }
 
     var paramToObj = function(name, value) {
-        if (value === undefined) value = ''
-        if (typeof value == 'object') return value
+        if (value === undefined) {
+            value = '';
+        }
+
+        if (typeof value == 'object') {
+            return value;
+        }
 
         try {
-            return oc.parseJSON("{" + value + "}")
+            return oc.parseJSON("{" + value + "}");
         }
         catch (e) {
-            throw new Error('Error parsing the '+name+' attribute value. '+e)
+            throw new Error('Error parsing the '+name+' attribute value. '+e);
         }
     }
 

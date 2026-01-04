@@ -63,6 +63,21 @@ class Dash extends WidgetBase
     public $manageUrl;
 
     /**
+     * @var bool showInterval toggles the interval selector for date ranges
+     */
+    public $showInterval = true;
+
+    /**
+     * @var bool canMakeDefault
+     */
+    public $canMakeDefault;
+
+    /**
+     * @var bool canResetLayout
+     */
+    public $canResetLayout;
+
+    /**
      * @var bool isCustom is true when the reports configuration has come from
      * a saved/custom data source.
      */
@@ -89,9 +104,9 @@ class Dash extends WidgetBase
     protected $allReports = [];
 
     /**
-     * @var array allRows used in this dash.
+     * @var ?array allRows used in this dash.
      */
-    protected $allRows;
+    protected $allRows = null;
 
     /**
      * @inheritDoc
@@ -104,7 +119,10 @@ class Dash extends WidgetBase
             'reports',
             'isCustom',
             'manageUrl',
+            'showInterval',
             'canCreateAndEdit',
+            'canMakeDefault',
+            'canResetLayout',
         ]);
 
         $this->controller->registerVueComponent(\Backend\VueComponents\Inspector::class);
@@ -209,6 +227,8 @@ class Dash extends WidgetBase
             $this->reports = [];
         }
 
+        $this->processOverrideFromDatabase();
+
         if ($this->isCustom) {
             $this->addReportsFromCustomDataSource($this->reports);
         }
@@ -276,7 +296,6 @@ class Dash extends WidgetBase
         // Apply post processing
         $this->processPermissionCheck($this->allReports);
         $this->processDashWidgetReports($this->allReports);
-        $this->processCustomDataDashRows($this->allReports);
         $this->processReportRows($this->allReports);
 
         $this->reportsDefined = true;
@@ -389,7 +408,10 @@ class Dash extends WidgetBase
                 'rows' => $this->allRows,
             ],
             'manageUrl' => $this->manageUrl,
+            'showInterval' => $this->showInterval,
             'canCreateAndEdit' => $this->canCreateAndEdit,
+            'canMakeDefault' => $this->canMakeDefault,
+            'canResetLayout' => $this->canResetLayout,
             'defaultWidgetConfigs' => $defaultWidgetConfigs,
             'customWidgetGroups' => $widgetManager->listAllReportWidgetGroups(),
         ];
@@ -407,7 +429,47 @@ class Dash extends WidgetBase
 
         $definition = $this->cleanDefinitionForSave($definition);
 
-        DashboardModel::updateDashboard(
+        (new DashboardModel)->updateDashboardPreference(
+            $this->controller,
+            $this->code,
+            $definition
+        );
+    }
+
+    /**
+     * onResetDashboard handler
+     */
+    public function onResetDashboard()
+    {
+        (new DashboardModel)->resetDashboardPreference(
+            $this->controller,
+            $this->code,
+        );
+
+        // Reset state
+        $this->reports = $this->getConfig('reports', $this->reports);
+        $this->allReports = [];
+        $this->reportsDefined = false;
+        $this->defineDashReports();
+
+        return [
+            'initialState' => $this->loadInitialState()
+        ];
+    }
+
+    /**
+     * onCommitDashboard handler
+     */
+    public function onCommitDashboard()
+    {
+        $definition = json_decode(post('definition'), true);
+        if (!$definition) {
+            return;
+        }
+
+        $definition = $this->cleanDefinitionForSave($definition);
+
+        (new DashboardModel)->updateDashboard(
             $this->controller,
             $this->code,
             $definition

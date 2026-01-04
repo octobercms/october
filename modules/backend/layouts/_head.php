@@ -31,9 +31,9 @@
 
     $scripts = [
         Url::asset('modules/system/assets/js/vendor/jquery.min.js'),
+        Url::asset('modules/system/assets/js/framework-bundle.min.js'),
         Url::asset('modules/system/assets/js/vue.bundle-min.js'),
         Url::asset('modules/system/assets/js/toolbox.bundle-min.js'),
-        Url::asset('modules/system/assets/js/framework-bundle.min.js'),
         Backend::skinAsset('assets/vendor/bootstrap/bootstrap.min.js'),
         Backend::skinAsset('assets/js/vendor-min.js'),
         Backend::skinAsset('assets/js/october-min.js'),
@@ -41,11 +41,11 @@
     ];
 ?>
 <?php foreach ($styles as $style): ?>
-    <link href="<?= $style . '?v' . $coreBuild ?>" rel="stylesheet" importance="high" />
+    <link href="<?= $style . '?v' . $coreBuild ?>" rel="stylesheet" fetchpriority="high">
 <?php endforeach ?>
 
 <?php foreach ($scripts as $script): ?>
-    <script src="<?= $script . '?v' . $coreBuild ?>" importance="high"></script>
+    <script src="<?= $script . '?v' . $coreBuild ?>" fetchpriority="high"></script>
 <?php endforeach ?>
 
 <?php if (!Config::get('backend.enable_service_workers', false)): ?>

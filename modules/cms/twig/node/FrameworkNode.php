@@ -38,16 +38,9 @@ class FrameworkNode extends TwigNode
         $jsScript = 'framework';
 
         // Options
-        if ($includeExtras && $includeTurbo) {
+        if ($includeExtras || $includeTurbo) {
             $jsScript = 'framework-bundle';
             $cssFile = 'framework-extras';
-        }
-        elseif ($includeExtras) {
-            $jsScript = 'framework-extras';
-            $cssFile = 'framework-extras';
-        }
-        elseif ($includeTurbo) {
-            $jsScript = 'framework-turbo';
         }
 
         $compiler->write("yield '<script src=\"' . Request::getBasePath() . '/modules/system/assets/js/".$jsScript."'.(\$_minify ? '.min' : '').'.js\"></script>' . PHP_EOL;\n");

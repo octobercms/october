@@ -100,6 +100,12 @@ class ResizeImages
             $this->putCache($cacheKey, $imageItem->getCacheInfo());
         }
 
+        // Force immediate processing if requested
+        if ($imageItem->options['force'] ?? false) {
+            $this->processImage($cacheKey);
+            return $this->getPublicPath($imageItem);
+        }
+
         $outputFilename = $imageItem->getCacheVersion();
 
         return $this->getResizedUrl($outputFilename);
@@ -113,6 +119,23 @@ class ResizeImages
         $cacheInfo = $this->getCache($cacheKey);
         if (!$cacheInfo || !isset($cacheInfo['path'])) {
             throw new ApplicationException(__("The resizer file ':name' is not found.", ['name' => e($cacheKey)]));
+        }
+
+        $this->processImage($cacheKey);
+
+        $imageItem = (new ResizeImageItem)->fromCacheInfo($cacheKey, $cacheInfo);
+
+        return Redirect::to($this->getPublicPath($imageItem));
+    }
+
+    /**
+     * processImage performs the resize and stores it on disk
+     */
+    protected function processImage($cacheKey): void
+    {
+        $cacheInfo = $this->getCache($cacheKey);
+        if (!$cacheInfo || !isset($cacheInfo['path'])) {
+            return;
         }
 
         $imageItem = (new ResizeImageItem)->fromCacheInfo($cacheKey, $cacheInfo);
@@ -148,8 +171,6 @@ class ResizeImages
         if ($success && !$this->isLocalStorage()) {
             Cache::forever($this->getExistsCacheKey($filePath), true);
         }
-
-        return Redirect::to($this->getPublicPath($imageItem));
     }
 
     /**

@@ -175,10 +175,7 @@ Vue.component('dashboard-component-dashboard-widget-table', {
         },
 
         getRecordValue: function (metricCode, record) {
-            return this.formatMetricValue(
-                metricCode,
-                this.getRecordValueClean(metricCode, record)
-            );
+            return this.formatRecordMetricValue(metricCode, record);
         },
 
         getRecordCssClass(paginating, record) {

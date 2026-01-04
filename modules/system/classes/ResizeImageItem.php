@@ -200,6 +200,7 @@ class ResizeImageItem extends ElementBase
             'filename' => 'img',
             'group' => null,
             'extension' => 'auto',
+            'force' => false,
         ];
 
         if (!is_array($options)) {

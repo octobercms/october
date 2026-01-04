@@ -6,73 +6,58 @@
  * - data-option="value" - an option with a value
  *
  * JavaScript API:
- * $('a#someElement').mediaFinder({ option: 'value' })
- *
- * Dependencies:
- * - Some other plugin (filename.js)
+ * oc.fetchControl(element, 'mediafinder')
  */
+'use strict';
 
-+function ($) { "use strict";
-    var Base = $.oc.foundation.base,
-        BaseProto = Base.prototype,
-        instanceCounter = 0;
+oc.registerControl('mediafinder', class extends oc.ControlBase {
+    static instanceCounter = 0;
 
-    var MediaFinder = function (element, options) {
-        instanceCounter++;
-        this.$el = $(element);
-        this.options = options || {};
-        this.instanceNumber = instanceCounter;
+    init() {
+        this.constructor.instanceCounter++;
+        this.$el = $(this.element);
+        this.instanceNumber = this.constructor.instanceCounter;
 
-        $.oc.foundation.controlUtils.markDisposable(element);
-
-        Base.call(this);
-        this.init();
-    }
-
-    MediaFinder.prototype = Object.create(BaseProto);
-    MediaFinder.prototype.constructor = MediaFinder;
-
-    MediaFinder.prototype.init = function() {
-        if (this.options.isMulti === null) {
-            this.options.isMulti = this.$el.hasClass('is-multi');
+        if (this.config.isMulti === undefined) {
+            this.config.isMulti = this.$el.hasClass('is-multi');
         }
 
-        if (this.options.isPreview === null) {
-            this.options.isPreview = this.$el.hasClass('is-preview');
+        if (this.config.isPreview === undefined) {
+            this.config.isPreview = this.$el.hasClass('is-preview');
         }
 
-        if (this.options.isImage === null) {
-            this.options.isImage = this.$el.hasClass('is-image');
+        if (this.config.isImage === undefined) {
+            this.config.isImage = this.$el.hasClass('is-image');
         }
 
-        if (this.options.isFolder === null) {
-            this.options.isFolder = this.$el.hasClass('is-folder');
+        if (this.config.isFolder === undefined) {
+            this.config.isFolder = this.$el.hasClass('is-folder');
         }
 
-        if (this.options.isSortable === null) {
-            this.options.isSortable = this.$el.hasClass('is-sortable');
+        if (this.config.isSortable === undefined) {
+            this.config.isSortable = this.$el.hasClass('is-sortable');
         }
 
-        this.previewTemplate = $(this.options.template).html();
+        this.previewTemplate = $(this.config.template).html();
         this.$filesContainer = $('.mediafinder-files-container:first', this.$el);
         this.$dataLocker = $('[data-data-locker]', this.$el);
+    }
+
+    connect() {
         this.loadExistingFiles();
 
-        this.$el.one('dispose-control', this.proxy(this.dispose));
-
         // Stop here for preview mode
-        if (this.options.isPreview) {
+        if (this.config.isPreview) {
             return;
         }
 
-        this.$el.on('click', '.toolbar-find-button', this.proxy(this.onClickFindButton));
-        this.$el.on('click', '.find-remove-button', this.proxy(this.onClickRemoveButton));
-        this.$el.on('click', '.toolbar-delete-selected', this.proxy(this.onDeleteSelectedClick));
+        this.listen('click', '.toolbar-find-button', this.onClickFindButton);
+        this.listen('click', '.find-remove-button', this.onClickRemoveButton);
+        this.listen('click', '.toolbar-delete-selected', this.onDeleteSelectedClick);
+        this.listen('click', 'input[data-record-selector]', this.onClickCheckbox);
+        this.listen('change', 'input[data-record-selector]', this.onSelectionChanged);
 
-        this.$el.on('click', 'input[data-record-selector]', this.proxy(this.onClickCheckbox));
-        this.$el.on('change', 'input[data-record-selector]', this.proxy(this.onSelectionChanged));
-
-        if (this.options.isSortable) {
+        if (this.config.isSortable) {
             this.bindSortable();
         }
 
@@ -84,16 +69,7 @@
         }, 0);
     }
 
-    MediaFinder.prototype.dispose = function() {
-        this.$el.off('click', '.toolbar-find-button', this.proxy(this.onClickFindButton));
-        this.$el.off('click', '.find-remove-button', this.proxy(this.onClickRemoveButton));
-        this.$el.off('click', '.toolbar-delete-selected', this.proxy(this.onDeleteSelectedClick));
-
-        this.$el.off('click', 'input[data-record-selector]', this.proxy(this.onClickCheckbox));
-        this.$el.off('change', 'input[data-record-selector]', this.proxy(this.onSelectionChanged));
-
-        this.$el.off('dispose-control', this.proxy(this.dispose));
-        this.$el.removeData('oc.mediaFinder');
+    disconnect() {
         this.unmountExternalToolbarEventBusEvents();
 
         this.sortable = null;
@@ -102,26 +78,20 @@
         this.$el = null;
         this.toolbarExtensionPoint = null;
         this.externalToolbarEventBusObj = null;
-
-        // In some cases options could contain callbacks,
-        // so it's better to clean them up too.
-        this.options = null;
-
-        BaseProto.dispose.call(this);
     }
 
     //
     // External toolbar
     //
 
-    MediaFinder.prototype.initToolbarExtensionPoint = function () {
-        if (!this.options.externalToolbarAppState) {
+    initToolbarExtensionPoint() {
+        if (!this.config.externalToolbarAppState) {
             return;
         }
 
         const point = $.oc.vueUtils.getToolbarExtensionPoint(
-            this.options.externalToolbarAppState,
-            this.$el.get(0)
+            this.config.externalToolbarAppState,
+            this.element
         );
 
         if (point) {
@@ -130,7 +100,7 @@
         }
     }
 
-    MediaFinder.prototype.mountExternalToolbarEventBusEvents = function() {
+    mountExternalToolbarEventBusEvents() {
         if (!this.externalToolbarEventBusObj) {
             return;
         }
@@ -139,7 +109,7 @@
         this.externalToolbarEventBusObj.$on('extendapptoolbar', this.proxy(this.extendExternalToolbar));
     }
 
-    MediaFinder.prototype.unmountExternalToolbarEventBusEvents = function() {
+    unmountExternalToolbarEventBusEvents() {
         if (!this.externalToolbarEventBusObj) {
             return;
         }
@@ -148,7 +118,7 @@
         this.externalToolbarEventBusObj.$off('extendapptoolbar', this.proxy(this.extendExternalToolbar));
     }
 
-    MediaFinder.prototype.onToolbarExternalCommand = function (ev) {
+    onToolbarExternalCommand(ev) {
         var cmdPrefix = 'mediafinder-toolbar-' + this.instanceNumber + '-';
 
         if (ev.command.substring(0, cmdPrefix.length) != cmdPrefix) {
@@ -162,7 +132,7 @@
         $button.get(0).click(ev.ev);
     }
 
-    MediaFinder.prototype.extendExternalToolbar = function () {
+    extendExternalToolbar() {
         if (!this.$el.is(":visible") || !this.toolbarExtensionPoint) {
             return;
         }
@@ -196,7 +166,7 @@
     // Selection
     //
 
-    MediaFinder.prototype.onDeleteSelectedClick = function (ev) {
+    onDeleteSelectedClick(ev) {
         var $currentObjects = $('.item-object:has(input[data-record-selector]:checked)', this.$filesContainer);
 
         $currentObjects.remove();
@@ -211,7 +181,7 @@
         ev.preventDefault();
     }
 
-    MediaFinder.prototype.onSelectionChanged = function (ev) {
+    onSelectionChanged(ev) {
         var $object = $(ev.target).closest('.item-object');
 
         $object.toggleClass('selected', ev.target.checked);
@@ -220,11 +190,11 @@
         this.extendExternalToolbar();
     }
 
-    MediaFinder.prototype.onClickCheckbox = function(ev) {
+    onClickCheckbox(ev) {
         oc.checkboxRangeRegisterClick(ev, '.item-object', 'input[data-record-selector]');
     }
 
-    MediaFinder.prototype.updateDeleteSelectedState = function () {
+    updateDeleteSelectedState() {
         var enabled = false,
             selectedCount = this.$el.find('input[data-record-selector]:checked').length;
 
@@ -249,7 +219,7 @@
     // Loading
     //
 
-    MediaFinder.prototype.loadExistingFiles = function(value) {
+    loadExistingFiles() {
         var self = this;
 
         $('.server-file', this.$filesContainer).each(function () {
@@ -257,7 +227,7 @@
         });
     }
 
-    MediaFinder.prototype.makeFilePreview = function(item) {
+    makeFilePreview(item) {
         var $preview = $(this.previewTemplate);
 
         $preview.attr('data-path', item.path);
@@ -282,7 +252,7 @@
         return $preview;
     }
 
-    MediaFinder.prototype.makeFolderPath = function(item) {
+    makeFolderPath(item) {
         var path = item.path;
         if (path.endsWith(item.title)) {
             path = path.slice(0, item.title.length * -1);
@@ -295,7 +265,7 @@
         return path;
     }
 
-    MediaFinder.prototype.getValue = function() {
+    getValue() {
         var result = [];
 
         $('> .item-object', this.$filesContainer).each(function() {
@@ -305,7 +275,7 @@
         return result.length ? result : '';
     }
 
-    MediaFinder.prototype.setValue = function() {
+    setValue() {
         var self = this,
             currentValue = this.getValue();
 
@@ -324,13 +294,13 @@
 
         // Set value and trigger change event, so that wrapping implementations
         // like mlmediafinder can listen for changes.
-        this.$dataLocker.trigger('change');
+        this.$dataLocker.find('input:first').trigger('change');
     }
 
-    MediaFinder.prototype.addValueToLocker = function(val) {
-        var inputName = val && this.options.isMulti
-            ? this.options.inputName + '[]'
-            : this.options.inputName;
+    addValueToLocker(val) {
+        var inputName = val && this.config.isMulti
+            ? this.config.inputName + '[]'
+            : this.config.inputName;
 
         $('<input type="hidden" />')
             .attr('name', inputName)
@@ -338,12 +308,11 @@
             .appendTo(this.$dataLocker);
     }
 
-    MediaFinder.prototype.addItems = function(items) {
-        if (!this.options.isMulti) {
+    addItems(items) {
+        if (!this.config.isMulti) {
             this.$filesContainer.empty();
         }
 
-        // var path, publicUrl;
         for (var i=0, len=items.length; i<len; i++) {
             this.$filesContainer.append(this.makeFilePreview(items[i]));
         }
@@ -351,7 +320,7 @@
         this.extendExternalToolbar();
     }
 
-    MediaFinder.prototype.onClickRemoveButton = function(ev) {
+    onClickRemoveButton(ev) {
         this.$filesContainer.empty();
         this.setValue();
         this.evalIsPopulated();
@@ -362,10 +331,10 @@
         ev.stopPropagation();
     }
 
-    MediaFinder.prototype.onClickFindButton = function() {
+    onClickFindButton() {
         var self = this;
 
-        new $.oc.mediaManager.popup({
+        new oc.mediaManager.popup({
             alias: 'ocmediamanager',
             mediaFolder: this.getCurrentFolderContext(),
             cropAndInsertButton: true,
@@ -376,7 +345,7 @@
                 }
 
                 // Single mode
-                if (!self.options.isMulti && items.length > 1) {
+                if (!self.config.isMulti && items.length > 1) {
                     alert('Please select a single item.');
                     return;
                 }
@@ -388,12 +357,12 @@
 
                 var isHalted = false;
                 items.forEach(function(item) {
-                    if (!isHalted && self.options.isFolder && item.itemType !== 'folder') {
+                    if (!isHalted && self.config.isFolder && item.itemType !== 'folder') {
                         alert('Please select a folder only.');
                         isHalted = true;
                     }
 
-                    if (!isHalted && !self.options.isFolder && item.itemType === 'folder') {
+                    if (!isHalted && !self.config.isFolder && item.itemType === 'folder') {
                         alert('Cannot select a folder. Please select an item instead.');
                         isHalted = true;
                     }
@@ -413,28 +382,28 @@
         });
     }
 
-    MediaFinder.prototype.evalIsPopulated = function() {
+    evalIsPopulated() {
         var isPopulated = !!$('>.item-object', this.$filesContainer).length;
         this.$el.toggleClass('is-populated', isPopulated);
         this.extendExternalToolbar();
     }
 
-    MediaFinder.prototype.evalIsMaxReached = function() {
+    evalIsMaxReached() {
         var isMaxReached = false;
 
-        if (this.options.maxItems !== null) {
-            isMaxReached = $('>.item-object', this.$filesContainer).length >= this.options.maxItems;
+        if (this.config.maxItems !== null) {
+            isMaxReached = $('>.item-object', this.$filesContainer).length >= this.config.maxItems;
         }
 
         this.$el.toggleClass('is-max-reached', isMaxReached);
         this.extendExternalToolbar();
     }
 
-    MediaFinder.prototype.maxSelectionAllowed = function(count) {
-        if (this.options.maxItems !== null) {
+    maxSelectionAllowed(count) {
+        if (this.config.maxItems !== null) {
             var totalCount = $('>.item-object', this.$filesContainer).length + count;
 
-            if (totalCount > this.options.maxItems) {
+            if (totalCount > this.config.maxItems) {
                 return false;
             }
         }
@@ -442,9 +411,9 @@
         return true;
     }
 
-    MediaFinder.prototype.getCurrentFolderContext = function() {
+    getCurrentFolderContext() {
         // Cannot determine context from multiple items
-        if (!this.options.isMulti) {
+        if (!this.config.isMulti) {
             return $('>.item-object:first', this.$filesContainer).data('folder');
         }
     }
@@ -453,9 +422,8 @@
     // Sorting
     //
 
-    MediaFinder.prototype.bindSortable = function() {
+    bindSortable() {
         this.sortable = Sortable.create(this.$filesContainer.get(0), {
-            // forceFallback: true,
             animation: 150,
             draggable: 'div.item-object',
             handle: '.drag-handle',
@@ -468,47 +436,7 @@
         });
     }
 
-    MediaFinder.prototype.onSortAttachments = function() {
+    onSortAttachments() {
         this.setValue();
     }
-
-    MediaFinder.DEFAULTS = {
-        isMulti: null,
-        isPreview: null,
-        isImage: null,
-        isSortable: null,
-        isFolder: null,
-        maxItems: null,
-        template: null,
-        inputName: null
-    }
-
-    // PLUGIN DEFINITION
-    // ============================
-
-    var old = $.fn.mediaFinder;
-
-    $.fn.mediaFinder = function(option) {
-        var args = arguments;
-
-        return this.each(function() {
-            var $this   = $(this);
-            var data    = $this.data('oc.mediaFinder');
-            var options = $.extend({}, MediaFinder.DEFAULTS, $this.data(), typeof option == 'object' && option);
-            if (!data) $this.data('oc.mediaFinder', (data = new MediaFinder(this, options)));
-            if (typeof option == 'string') data[option].apply(data, args);
-        });
-    }
-
-    $.fn.mediaFinder.Constructor = MediaFinder
-
-    $.fn.mediaFinder.noConflict = function() {
-        $.fn.mediaFinder = old;
-        return this;
-    }
-
-    $(document).render(function() {
-        $('[data-control="mediafinder"]').mediaFinder();
-    });
-
-}(window.jQuery);
+});

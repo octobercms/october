@@ -1,0 +1,20 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "Funkcja statystyk ruchu wewnętrznego rejestruje w bazie danych liczbę wyświetleń stron, adresy IP i inne podstawowe anonimowe dane użytkownika.",
+  "Internal Traffic Statistics": "Statystyki ruchu wewnętrznego",
+  "Purge the Internal Traffic Statistics data": "Wyczyść dane statystyk ruchu wewnętrznego",
+  "Manage Traffic Settings and Data": "Zarządzaj ustawieniami ruchu i danymi",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "Statystyki ruchu wewnętrznego rejestrują liczbę odsłon, adresy IP i inne podstawowe anonimowe dane użytkowników w bazie danych i generują raporty dla pulpitu nawigacyjnego. Po wyłączeniu tej funkcji dane nie są zapisywane w bazie danych.",
+  "Traffic Statistics": "Statystyki ruchu",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "Strefa czasowa do rejestrowania wyświetleń stron. Zmiana strefy czasowej nie spowoduje aktualizacji istniejących danych. Jeśli zmienisz strefę czasową bez usunięcia istniejących danych, raporty mogą potencjalnie wyświetlać nieprawidłowe godziny dla wcześniej zarejestrowanych dni.",
+  "Retention Period (Months)": "Okres przechowywania (miesiące)",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "Określa okres przechowywania danych statystycznych dotyczących ruchu w bazie danych. Po upływie ustawionego okresu odpowiednie dane są automatycznie usuwane z bazy danych. Ustaw wartość 0 lub pustą, aby zachować rekordy na zawsze.",
+  "Data Filters": "Filtry danych",
+  "Exclude Bots": "Wyklucz boty",
+  "Automatically ignores known bots using the detection library.": "Automatycznie ignoruje znane boty korzystając z biblioteki wykrywania.",
+  "Exclude Administrator Roles": "Wyklucz role administratora",
+  "Ignores traffic from selected roles.": "Ignoruje ruch z wybranych ról.",
+  "Exclude IP Addresses": "Wyklucz adresy IP",
+  "Requests from these addresses will be ignored in statistics.": "Żądania z tych adresów będą ignorowane w statystykach.",
+  "Exclude Paths": "Wyklucz ścieżki",
+  "Enter one path or pattern per row to ignore matching URLs.": "Aby zignorować pasujące adresy URL, wprowadź jedną ścieżkę lub wzorzec w każdym wierszu."
+}

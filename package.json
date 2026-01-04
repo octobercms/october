@@ -3,7 +3,7 @@
     "homepage": "https://octobercms.com/",
     "description": "October CMS is a self-hosted CMS platform based on the Laravel PHP Framework.",
     "scripts": {
-        "dev": "npm run watch",
+        "dev": "npm run development",
         "development": "mix",
         "watch": "mix watch",
         "watch-poll": "mix watch -- --watch-options-poll=1000",

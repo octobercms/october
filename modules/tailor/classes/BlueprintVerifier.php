@@ -1,6 +1,7 @@
 <?php namespace Tailor\Classes;
 
 use App;
+use File;
 use Yaml;
 use Tailor\Classes\Blueprint\EntryBlueprint;
 use Symfony\Component\Yaml\Exception\ParseException;
@@ -8,17 +9,21 @@ use Symfony\Component\Yaml\Exception\ParseException;
 /**
  * BlueprintVerifier super class responsible for validating blueprints
  *
- * @todo List
- * - Duplicate field names (including mixins)
- * - Duplicate handles
- * - Duplicate UUIDs
- * - Missing source references
- *
  * @package october\tailor
  * @author Alexey Bobkov, Samuel Georges
  */
 class BlueprintVerifier
 {
+    /**
+     * @var array registeredBlueprints tracks blueprints that have been validated
+     */
+    protected $registeredBlueprints = [];
+
+    /**
+     * @var array|null knownSources stores known blueprint handles and UUIDs for source validation
+     */
+    protected $knownSources;
+
     /**
      * @var array reservedFieldNames are field names that cannot be used as field names.
      * @see Tailor\Classes\SchemaBuilder
@@ -68,7 +73,49 @@ class BlueprintVerifier
     {
         $this->validateYamlSyntax($blueprint);
         $this->validateSupportedTypes($blueprint);
+        $this->validateUniqueBlueprint($blueprint);
         $this->validateFieldset($blueprint);
+    }
+
+    /**
+     * clearCache resets all validation caches
+     */
+    public function clearCache(): void
+    {
+        $this->registeredBlueprints = [];
+        $this->knownSources = null;
+    }
+
+    /**
+     * sourceExists checks if a source exists as any blueprint (by handle or UUID)
+     */
+    protected function sourceExists(string $source): bool
+    {
+        $this->loadKnownSources();
+
+        return isset($this->knownSources[$source]);
+    }
+
+    /**
+     * loadKnownSources lazy-loads all blueprint handles and UUIDs for source validation
+     */
+    protected function loadKnownSources(): void
+    {
+        if ($this->knownSources !== null) {
+            return;
+        }
+
+        $this->knownSources = [];
+
+        foreach (Blueprint::listInProject() as $blueprint) {
+            if ($handle = $blueprint->handle) {
+                $this->knownSources[$handle] = true;
+            }
+
+            if ($uuid = $blueprint->uuid) {
+                $this->knownSources[$uuid] = true;
+            }
+        }
     }
 
     /**
@@ -102,6 +149,46 @@ class BlueprintVerifier
     }
 
     /**
+     * validateUniqueBlueprint checks for duplicate handles and UUIDs across blueprints
+     */
+    protected function validateUniqueBlueprint(Blueprint $blueprint)
+    {
+        $filePath = $blueprint->getFilePath();
+
+        // Check handle uniqueness (all blueprints share the same namespace)
+        if ($handle = $blueprint->handle) {
+            $this->validateUniqueProperty($blueprint, 'handle', $handle, $filePath);
+        }
+
+        // Check UUID uniqueness
+        if ($uuid = $blueprint->uuid) {
+            $this->validateUniqueProperty($blueprint, 'uuid', $uuid, $filePath);
+        }
+    }
+
+    /**
+     * validateUniqueProperty checks a property value is unique across blueprints
+     */
+    protected function validateUniqueProperty(Blueprint $blueprint, string $property, string $key, string $filePath)
+    {
+        $cacheKey = $property . ':' . $key;
+
+        if (isset($this->registeredBlueprints[$cacheKey])) {
+            $existingPath = File::nicePath($this->registeredBlueprints[$cacheKey]);
+            $value = $blueprint->$property;
+            $lineNo = $this->findLineFromKeyValPair($blueprint->content, $property, $value);
+
+            throw new BlueprintException(
+                $blueprint,
+                "Duplicate {$property} '{$value}'. Already defined in: {$existingPath}",
+                $lineNo
+            );
+        }
+
+        $this->registeredBlueprints[$cacheKey] = $filePath;
+    }
+
+    /**
      * validateFieldset
      */
     protected function validateFieldset(Blueprint $blueprint)
@@ -113,6 +200,9 @@ class BlueprintVerifier
                 $fields += $group['fields'] ?? [];
             }
         }
+
+        // Validate source references from raw config (before fieldset expansion)
+        $this->validateSourceReferences($blueprint, $fields);
 
         $fieldset = FieldManager::instance()->makeFieldset(['fields' => $fields]);
         $fieldset->validate();
@@ -127,6 +217,38 @@ class BlueprintVerifier
             if (in_array($fieldName, $this->reservedFieldNames)) {
                 $lineNo = $this->findLineFromKeyValPair($blueprint->content, $fieldName, '');
                 throw new BlueprintException($blueprint, "Field name is reserved: {$fieldName}.", $lineNo);
+            }
+        }
+    }
+
+    /**
+     * validateSourceReferences validates source references in raw field config recursively
+     */
+    protected function validateSourceReferences(Blueprint $blueprint, array $fields)
+    {
+        foreach ($fields as $fieldName => $fieldConfig) {
+            if (!is_array($fieldConfig)) {
+                continue;
+            }
+
+            // Check source at this level
+            $source = $fieldConfig['source'] ?? null;
+            if ($source && !$this->sourceExists($source)) {
+                $lineNo = $this->findLineFromKeyValPair($blueprint->content, 'source', $source);
+                throw new BlueprintException(
+                    $blueprint,
+                    "Invalid source reference '{$source}'. No blueprint found with this handle or UUID.",
+                    $lineNo
+                );
+            }
+
+            // Recursively check nested fields in various structures
+            $nestedFields = $fieldConfig['form']['fields']
+                ?? $fieldConfig['fields']
+                ?? null;
+
+            if (is_array($nestedFields)) {
+                $this->validateSourceReferences($blueprint, $nestedFields);
             }
         }
     }

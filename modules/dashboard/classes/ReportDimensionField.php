@@ -79,9 +79,17 @@ class ReportDimensionField
      * Returns a query column name corresponding to this dimension field.
      * @return string
      */
-    public function getDataSetColumName(): string
+    public function getDataSetColumnName(): string
     {
         return $this->getCode();
+    }
+
+    /**
+     * @deprecated Use getDataSetColumnName() instead
+     */
+    public function getDataSetColumName(): string
+    {
+        return $this->getDataSetColumnName();
     }
 
     /**

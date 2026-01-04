@@ -17,7 +17,7 @@
     <select
         name="sorting"
         class="form-control custom-select select-no-search"
-        data-control="sorting"
+        data-media-sorting
         data-sort="by">
         <?php foreach ($sortModes as $code=>$title): ?>
             <option
@@ -34,7 +34,7 @@
     <select
         name="sorting"
         class="form-control custom-select select-no-search"
-        data-control="sorting"
+        data-media-sorting
         data-sort="direction">
         <?php foreach ($sortDirections as $code=>$title): ?>
             <option

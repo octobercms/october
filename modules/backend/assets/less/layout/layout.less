@@ -14,10 +14,10 @@
 // Common layout elements
 // --------------------------------------------------
 
-html:not(.mobile) body.drag * {
-    cursor: grab !important;
-    cursor: -webkit-grab !important;
-    cursor: -moz-grab !important;
+@media (pointer: fine) {
+    body.drag * {
+        cursor: grab !important;
+    }
 }
 
 // Used by sortable plugin

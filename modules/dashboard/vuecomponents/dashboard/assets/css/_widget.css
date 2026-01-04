@@ -354,3 +354,7 @@
         }
     }
 }
+
+[data-bs-theme=dark] .oc-dashboard .dashboard-report-widget .report-widget {
+    background: var(--oc-toolbar-bg);
+}

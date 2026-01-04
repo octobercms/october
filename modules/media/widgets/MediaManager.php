@@ -825,6 +825,27 @@ class MediaManager extends WidgetBase
         return $this->getCropEditImageUrlAndSize($path, $cropSessionKey, $params);
     }
 
+    /**
+     * onCheckFilesExist checks which files already exist in the target folder
+     * @return array
+     */
+    public function onCheckFilesExist()
+    {
+        $fileNames = post('file_names', []);
+        $path = post('path', '/');
+        $path = MediaLibrary::validatePath($path);
+
+        $existingFiles = [];
+        foreach ($fileNames as $fileName) {
+            $filePath = rtrim($path, '/') . '/' . $fileName;
+            if (MediaLibrary::instance()->has($filePath)) {
+                $existingFiles[] = $fileName;
+            }
+        }
+
+        return ['existing' => $existingFiles];
+    }
+
     //
     // Methods for internal use
     //
@@ -1185,7 +1206,7 @@ class MediaManager extends WidgetBase
     protected function getThumbnailParams($viewMode = null)
     {
         $result = [
-            'mode' => 'crop'
+            'mode' => 'cover'
         ];
 
         if ($viewMode) {
@@ -1432,7 +1453,7 @@ class MediaManager extends WidgetBase
 
         Resizer::open($tempFilePath)
             ->resize($targetWidth, $targetHeight, [
-                'mode'   => $thumbnailParams['mode'],
+                'mode' => $thumbnailParams['mode'],
                 'offset' => [0, 0]
             ])
             ->save($fullThumbnailPath)
@@ -1593,8 +1614,10 @@ class MediaManager extends WidgetBase
                 ? $uploadedFile->getPath() . DIRECTORY_SEPARATOR . $uploadedFile->getFileName()
                 : $uploadedFile->getRealPath();
 
-            // Cannot overwrite files
-            if (!$this->checkHasPermission('mediaDelete') && MediaLibrary::instance()->has($filePath)) {
+            // Cannot overwrite files without permission or confirmation
+            $forceOverwrite = (bool) post('force_overwrite', false);
+            $canOverwrite = $this->checkHasPermission('mediaDelete');
+            if (MediaLibrary::instance()->has($filePath) && (!$canOverwrite || !$forceOverwrite)) {
                 throw new ApplicationException(__('A media file already exists at this location, please upload using a different filename.'));
             }
 
@@ -1885,14 +1908,13 @@ class MediaManager extends WidgetBase
         }
         else {
             Resizer::open($imagePath)
-                ->crop(
-                    $selectionData['x'],
-                    $selectionData['y'],
-                    $selectionData['w'],
-                    $selectionData['h'],
-                    $selectionData['w'],
-                    $selectionData['h']
-                )
+                ->resize($selectionData['w'], $selectionData['h'], [
+                    'mode' => 'crop',
+                    'offset' => [
+                        $selectionData['x'],
+                        $selectionData['y']
+                    ]
+                ])
                 ->save($targetTmpPath)
             ;
         }

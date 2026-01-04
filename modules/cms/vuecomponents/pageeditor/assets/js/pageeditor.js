@@ -1,3 +1,4 @@
+
 Vue.component('cms-editor-component-page-editor', {
     extends: oc.Modules.import('cms.editor.extension.documentcomponent.base'),
     data: function() {

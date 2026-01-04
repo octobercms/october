@@ -16,7 +16,7 @@ class Dashboard_Classes_DataSource
         return this.queue.add(() => {
             return oc.ajax(this.delegate.getEventHandler('onGetWidgetData'), {
                 progressBar: false,
-                async: true,
+                handleErrorMessage: function(message) {},
                 data: {
                     _dash_definition: this.delegate.getCurrentDashboard().code,
                     widget_config: widgetConfig,
@@ -37,7 +37,6 @@ class Dashboard_Classes_DataSource
         return this.queue.add(() => {
             return oc.ajax(this.delegate.getEventHandler('onGetWidgetCustomData'), {
                 progressBar: false,
-                async: true,
                 data: {
                     _dash_definition: this.delegate.getCurrentDashboard().code,
                     widget_config: widgetConfig,
@@ -56,7 +55,6 @@ class Dashboard_Classes_DataSource
         return this.queue.add(() => {
             return oc.ajax(this.delegate.getEventHandler('onGetWidgetStaticContent'), {
                 progressBar: false,
-                async: true,
                 data: {
                     _dash_definition: this.delegate.getCurrentDashboard().code,
                     widget_config: widgetConfig,
@@ -75,7 +73,6 @@ class Dashboard_Classes_DataSource
         return this.queue.add(() => {
             return oc.ajax(this.delegate.getEventHandler('onRunDataSourceHandler'), {
                 progressBar: true,
-                async: true,
                 data: Object.assign({}, {
                     _dash_definition: this.delegate.getCurrentDashboard().code,
                     handler: handlerName,
@@ -89,7 +86,6 @@ class Dashboard_Classes_DataSource
         return this.queue.add(() => {
             return oc.ajax(this.delegate.getEventHandler('onRunCustomWidgetHandler'), {
                 progressBar: true,
-                async: true,
                 data: {
                     _dash_definition: this.delegate.getCurrentDashboard().code,
                     handler: handlerName,

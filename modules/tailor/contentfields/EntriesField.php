@@ -190,18 +190,20 @@ class EntriesField extends FallbackField
     protected function defineModelRelationship($model)
     {
         $relatedMultisite = $this->getSourceBlueprint()->useMultisite();
+        $relatedModel = $this->getSourceBlueprint()->newModelInstance();
+
         $isSingular = $this->maxItems === 1;
         $isNested = $model instanceof RepeaterItem;
 
         if ($isSingular) {
             $model->belongsTo[$this->fieldName] = [
-                EntryRecord::class,
+                $relatedModel::class,
                 'key' => $this->getSingularKeyName()
             ];
         }
         elseif ($isNested) {
             $model->belongsToMany[$this->fieldName] = [
-                EntryRecord::class,
+                $relatedModel::class,
                 'table' => 'tailor_content_joins',
                 'relationClass' => CustomNestedJoinRelation::class,
                 'relatedKey' => $relatedMultisite ? 'site_root_id' : 'id'
@@ -209,7 +211,7 @@ class EntriesField extends FallbackField
         }
         else {
             $model->morphedByMany[$this->fieldName] = [
-                EntryRecord::class,
+                $relatedModel::class,
                 'table' => $model->getBlueprintDefinition()->getJoinTableName(),
                 'name' => $this->fieldName,
                 'relationClass' => CustomMultiJoinRelation::class,
@@ -232,6 +234,7 @@ class EntriesField extends FallbackField
 
         $parentMultisite = $model->getBlueprintDefinition()->useMultisite();
         $relatedMultisite = $this->getSourceBlueprint()->useMultisite();
+        $relatedModel = $this->getSourceBlueprint()->newModelInstance();
 
         $isSingular = $this->maxItems === 1;
         $otherIsSingular = $otherField->maxItems === 1;
@@ -239,7 +242,7 @@ class EntriesField extends FallbackField
 
         if ($isSingular) {
             $model->hasOne[$this->fieldName] = [
-                EntryRecord::class,
+                $relatedModel::class,
                 'key' => $otherField->getSingularKeyName(),
                 'otherKey' => $otherIsPropagatable ? 'site_root_id' : 'id',
                 'replicate' => false
@@ -247,7 +250,7 @@ class EntriesField extends FallbackField
         }
         elseif ($otherIsSingular) {
             $model->hasMany[$this->fieldName] = [
-                EntryRecord::class,
+                $relatedModel::class,
                 'key' => $otherField->getSingularKeyName(),
                 'otherKey' => $otherIsPropagatable ? 'site_root_id' : 'id',
                 'replicate' => false
@@ -255,7 +258,7 @@ class EntriesField extends FallbackField
         }
         else {
             $model->morphToMany[$this->fieldName] = [
-                EntryRecord::class,
+                $relatedModel::class,
                 'table' => $this->getSourceBlueprint()->getJoinTableName(),
                 'name' => $this->inverse,
                 'relationClass' => CustomMultiJoinRelation::class,

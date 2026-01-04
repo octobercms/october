@@ -3,6 +3,7 @@
 use BackendMenu;
 use Backend\Classes\Controller;
 use Dashboard\Models\Dashboard;
+use ForbiddenException;
 
 /**
  * Dashboards controller for the dashboard
@@ -65,7 +66,7 @@ class Dashboards extends Controller
      */
     public function formBeforeSave($model)
     {
-        $model->is_custom = 1;
+        $model->is_custom = true;
         $model->owner_type = \Dashboard\Controllers\Index::class;
 
         if ($model->owner_field) {
@@ -74,14 +75,37 @@ class Dashboards extends Controller
     }
 
     /**
+     * onResetDefault
+     */
+    public function onResetDefault()
+    {
+        if (!$this->formCheckPermission('modelDelete')) {
+            throw new ForbiddenException;
+        }
+
+        if ($model = $this->formFindModelObject(post('form_record_id'))) {
+            $model->is_custom = false;
+            $model->definition = null;
+            $model->save();
+        }
+
+        return $this->listRefresh();
+    }
+
+    /**
      * formExtendFields
      */
-    public function formExtendFields($host, $fields)
+    public function formExtendFields($form)
     {
-        $model = $host->getModel();
+        $model = $form->getModel();
 
-        if ($model->owner_field && $fields->code) {
-            $fields->code->disabled = true;
+        if ($model->is_system) {
+            $form->getField('code')->disabled();
+            $form->getField('is_global')->disabled();
+            $form->getField('is_interval_hidden')->disabled();
+        }
+        else {
+            $form->getField('_system_definition_hint')->hidden();
         }
     }
 
@@ -90,7 +114,7 @@ class Dashboards extends Controller
      */
     public function listExtendQuery($query)
     {
-        $query->applyOwner(Index::class);
+        $query->applyOwner(Index::class)->applyCreatedUserOrSystem();
     }
 
     /**
@@ -98,6 +122,6 @@ class Dashboards extends Controller
      */
     public function formExtendQuery($query)
     {
-        $query->applyOwner(Index::class);
+        $query->applyOwner(Index::class)->applyCreatedUserOrSystem();
     }
 }

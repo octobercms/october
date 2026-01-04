@@ -456,7 +456,7 @@ class Extension extends TwigExtension
     /**
      * setCache
      */
-    public function setCache(string $key, $ttl = null, callable $closure): string
+    public function setCache(string $key, $ttl, $callable): string
     {
         $repo = Cache::store(config('cache.twig', config('cache.default')));
 
@@ -465,7 +465,7 @@ class Extension extends TwigExtension
         $cacheKey = "cms_twig_{$themeCode}_cache_{$key}";
 
         if ($ttl === null) {
-            $value = $repo->rememberForever($cacheKey, $closure);
+            $value = $repo->rememberForever($cacheKey, $callable);
         }
         else {
             if ($ttl instanceof \DateTimeInterface) {
@@ -477,7 +477,7 @@ class Extension extends TwigExtension
             else {
                 $expiresAt = now()->addMinutes((int) $ttl);
             }
-            $value = $repo->remember($cacheKey, $expiresAt, $closure);
+            $value = $repo->remember($cacheKey, $expiresAt, $callable);
         }
 
         return is_string($value) ? $value : (string) $value;

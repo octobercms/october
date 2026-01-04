@@ -19,6 +19,7 @@
             </a>
 
             <button
+                type="button"
                 class="backend-toolbar-button control-button find-remove-button populated-only"
             >
                 <i class="icon-common-file-remove"></i>

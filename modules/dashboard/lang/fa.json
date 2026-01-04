@@ -1,0 +1,20 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "ویژگی آمار ترافیک داخلی، تعداد بازدید صفحات، آدرس‌های IP و سایر داده‌های اولیه کاربر ناشناس را در پایگاه داده ثبت می‌کند.",
+  "Internal Traffic Statistics": "آمار ترافیک داخلی",
+  "Purge the Internal Traffic Statistics data": "داده‌های آمار ترافیک داخلی را پاک کنید",
+  "Manage Traffic Settings and Data": "مدیریت تنظیمات ترافیک و داده‌ها",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "آمار ترافیک داخلی، تعداد بازدید صفحات، آدرس‌های IP و سایر داده‌های اولیه کاربر ناشناس را در پایگاه داده ثبت می‌کند و گزارش‌هایی را برای داشبورد ارائه می‌دهد. وقتی این ویژگی غیرفعال است، داده‌ها در پایگاه داده نوشته نمی‌شوند.",
+  "Traffic Statistics": "آمار ترافیک",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "منطقه زمانی برای ثبت بازدیدهای صفحه. تغییر منطقه زمانی، داده‌های موجود را به‌روزرسانی نمی‌کند. اگر منطقه زمانی را بدون پاک کردن داده‌های موجود تغییر دهید، گزارش‌ها می‌توانند زمان‌های نادرستی را برای روزهای ثبت‌شده قبلی نمایش دهند.",
+  "Retention Period (Months)": "دوره نگهداری (ماه)",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "مدت زمانی که داده‌های آمار ترافیک باید در پایگاه داده ذخیره شوند را تعیین می‌کند. هنگامی که مدت زمان تعیین شده منقضی شود، داده‌های مربوطه به طور خودکار از پایگاه داده پاک می‌شوند. برای حفظ دائمی رکوردها، روی ۰ یا خالی تنظیم کنید.",
+  "Data Filters": "فیلترهای داده",
+  "Exclude Bots": "ربات‌ها را مستثنی کنید",
+  "Automatically ignores known bots using the detection library.": "با استفاده از کتابخانه تشخیص، ربات‌های شناخته شده را به طور خودکار نادیده می‌گیرد.",
+  "Exclude Administrator Roles": "حذف نقش‌های مدیر",
+  "Ignores traffic from selected roles.": "ترافیک ناشی از نقش‌های انتخاب‌شده را نادیده می‌گیرد.",
+  "Exclude IP Addresses": "آدرس‌های IP را حذف کنید",
+  "Requests from these addresses will be ignored in statistics.": "درخواست‌های این آدرس‌ها در آمار نادیده گرفته می‌شوند.",
+  "Exclude Paths": "مسیرها را حذف کنید",
+  "Enter one path or pattern per row to ignore matching URLs.": "برای نادیده گرفتن URL های منطبق، در هر سطر یک مسیر یا الگو وارد کنید."
+}

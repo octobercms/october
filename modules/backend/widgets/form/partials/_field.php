@@ -9,6 +9,9 @@
         <?php if ($field->label): ?>
             <label for="<?= $field->getId() ?>" class="form-label">
                 <?= e(__($field->label)) ?>
+                <?php if ($field->tooltip): ?>
+                    <?= $this->makePartial('tooltip', ['field' => $field]) ?>
+                <?php endif ?>
             </label>
         <?php endif ?>
 

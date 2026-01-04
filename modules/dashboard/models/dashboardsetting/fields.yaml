@@ -6,7 +6,7 @@ tabs:
     fields:
 
         _traffic_stats_hint:
-            comment: dashboard::lang.internal_traffic_statistics.hint
+            comment: The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.
             type: hint
             tab: Traffic Statistics
 
@@ -29,3 +29,39 @@ tabs:
             tab: Traffic Statistics
             type: number
             span: auto
+
+        filter_exclude_bots:
+            label: Exclude Bots
+            tab: Data Filters
+            comment: Automatically ignores known bots using the detection library.
+            type: switch
+
+        filter_exclude_roles:
+            label: Exclude Administrator Roles
+            commentAbove: Ignores traffic from selected roles.
+            tab: Data Filters
+            type: taglist
+            options: true
+            useKey: true
+
+        # filter_exclude_ips:
+        #     label: Exclude IP Addresses
+        #     commentAbove: Requests from these addresses will be ignored in statistics.
+        #     tooltip: "Supports IPv4, IPv6, and CIDR notation (e.g. `192.168.0.0/24`)."
+        #     tab: Data Filters
+        #     span: auto
+        #     type: datatable
+        #     columns:
+        #         ip_address:
+        #             title: IP / CIDR
+
+        # filter_exclude_paths:
+        #     label: Exclude Paths
+        #     commentAbove: Enter one path or pattern per row to ignore matching URLs.
+        #     tooltip: "Supports wildcards (`*`) and regular expressions (`^/admin.*`). For example: `/admin*`, `/backend*`."
+        #     tab: Data Filters
+        #     span: auto
+        #     type: datatable
+        #     columns:
+        #         ip_address:
+        #             title: URI

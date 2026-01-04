@@ -60,11 +60,47 @@ trait HasOverrides
     }
 
     /**
-     * relationAfterDelete called after the form model is deleted
+     * relationAfterDelete called after the related models are deleted
      * @param string $field
-     * @param \Model $model
+     * @param iterable $models
      */
-    public function relationAfterDelete($field, $model)
+    public function relationAfterDelete($field, $models)
+    {
+    }
+
+    /**
+     * relationBeforeAdd is called before the adding related models
+     * @param string $field
+     * @param iterable $models
+     */
+    public function relationBeforeAdd($field, $models)
+    {
+    }
+
+    /**
+     * relationAfterAdd is called after the adding related models
+     * @param string $field
+     * @param iterable $models
+     */
+    public function relationAfterAdd($field, $models)
+    {
+    }
+
+    /**
+     * relationBeforeRemove is called before the removing related models
+     * @param string $field
+     * @param iterable $models
+     */
+    public function relationBeforeRemove($field, $models)
+    {
+    }
+
+    /**
+     * relationAfterRemove is called after the removing related models
+     * @param string $field
+     * @param iterable $models
+     */
+    public function relationAfterRemove($field, $models)
     {
     }
 
@@ -90,7 +126,7 @@ trait HasOverrides
     /**
      * relationExtendManageFormQuery extends the query used for finding the form model. Extra conditions
      * can be applied to the query, for example, $query->withTrashed();
-     * @param October\Rain\Database\Builder $query
+     * @param \October\Rain\Database\Builder $query
      * @return void
      */
     public function relationExtendManageFormQuery($field, $query)

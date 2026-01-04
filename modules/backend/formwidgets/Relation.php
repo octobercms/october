@@ -95,7 +95,7 @@ class Relation extends FormWidgetBase
             'emptyOption',
             'defaultSort',
             'excludeFrom',
-            'scope',
+            'modelScope',
             'conditions',
         ]);
 

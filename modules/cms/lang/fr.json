@@ -137,5 +137,17 @@
   "Define a Snippet Partial": "Définir un partial de snippet",
   "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Clé de l’option : :key de la liste déroulante invalide. Les clés d'options ne peuvent contenir que des chiffres, des lettres et les symboles _ et -",
   "The description is displayed in the snippet list in the editor when a snippet is added.": "La description est affichée dans la liste des Snippets de l'éditeur quand un Snippet est ajouté.",
-  "Details": "Détails"
+  "Details": "Détails",
+  "City": "Ville",
+  "Country": "Pays",
+  "Page Path": "Chemin de la page",
+  "Referral Domain": "Domaine référent",
+  "Pageviews": "Pages vues",
+  "Unique Visitors": "Visiteurs uniques",
+  "Traffic Information": "Informations de trafic",
+  "Website Status": "Statut du site Web",
+  "Website status information": "Informations sur le statut du site Web",
+  "Manage status": "Gérer le statut",
+  "Maintenance": "Maintenance",
+  "Online": "En ligne"
 }

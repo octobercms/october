@@ -25,7 +25,7 @@ class EntryRecordScope implements ScopeInterface
      */
     public function extend(BuilderBase $builder)
     {
-        $removeOnMethods = ['orderBy', 'groupBy'];
+        $removeOnMethods = ['reorder', 'orderBy', 'groupBy'];
 
         foreach ($removeOnMethods as $method) {
             $builder->macro($method, function ($builder, ...$args) use ($method) {

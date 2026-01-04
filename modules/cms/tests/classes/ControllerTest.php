@@ -21,6 +21,14 @@ class ControllerTest extends TestCase
         include_once base_path() . '/modules/system/tests/fixtures/plugins/october/tester/classes/Users.php';
     }
 
+    /**
+     * normalizeLineEndings for cross-platform test compatibility
+     */
+    protected function normalizeLineEndings($string)
+    {
+        return str_replace("\r\n", "\n", $string);
+    }
+
     public function testThemeUrl()
     {
         $theme = Theme::load('test');
@@ -165,78 +173,89 @@ class ControllerTest extends TestCase
 
     protected function configAjaxRequestMock($handler, $partials = false)
     {
-        $requestMock = $this
-            ->getMockBuilder('Illuminate\Http\Request')
-            ->disableOriginalConstructor()
-            ->onlyMethods(['ajax', 'method', 'header'])
+        // Create a partial mock that initializes properly for PHP 8.5+ typed properties
+        $requestMock = $this->getMockBuilder(\Illuminate\Http\Request::class)
+            ->setConstructorArgs([[], [], [], [], [], ['REQUEST_METHOD' => 'POST']])
+            ->onlyMethods(['ajax', 'header'])
             ->getMock();
-
-        $map = [
-            ['X_OCTOBER_REQUEST_HANDLER', null, $handler],
-            ['X_OCTOBER_REQUEST_PARTIALS', null, $partials],
-        ];
 
         $requestMock->expects($this->any())
             ->method('ajax')
-            ->will($this->returnValue(true));
-
-        $requestMock->expects($this->any())
-            ->method('method')
-            ->will($this->returnValue('POST'));
+            ->willReturn(true);
 
         $requestMock->expects($this->any())
             ->method('header')
-            ->will($this->returnValueMap($map));
+            ->willReturnCallback(function ($key, $default = null) use ($handler, $partials) {
+                return match ($key) {
+                    'X-AJAX-HANDLER' => $handler,
+                    'X-AJAX-PARTIALS' => $partials ?: '',
+                    'X-AJAX-FLASH' => null,
+                    'X-AJAX-PARTIAL' => null,
+                    default => $default,
+                };
+            });
 
         return $requestMock;
     }
 
     public function testAjaxHandlerNotFound()
     {
-        $this->expectException(\Cms\Classes\CmsException::class);
-        $this->expectExceptionMessage("AJAX handler 'onNoHandler' was not found.");
-
         Request::swap($this->configAjaxRequestMock('onNoHandler', ''));
 
         $theme = Theme::load('test');
         $controller = new Controller($theme);
-        $controller->run('/ajax-test');
+        $response = $controller->run('/ajax-test');
+
+        $this->assertInstanceOf(\Larajax\Classes\AjaxResponse::class, $response);
+        $httpResponse = $response->toResponse(request());
+        $content = $httpResponse->getOriginalContent();
+        $this->assertArrayHasKey('__ajax', $content);
+        $this->assertFalse($content['__ajax']['ok']);
+        $this->assertStringContainsString('onNoHandler', $content['__ajax']['message']);
     }
 
     public function testAjaxInvalidHandlerName()
     {
-        $this->expectException(\Cms\Classes\CmsException::class);
-        $this->expectExceptionMessage('Invalid AJAX handler name: delete.');
-
         Request::swap($this->configAjaxRequestMock('delete'));
 
         $theme = Theme::load('test');
         $controller = new Controller($theme);
-        $controller->run('/ajax-test');
+        $response = $controller->run('/ajax-test');
+
+        // Invalid handler name is not an AJAX request, returns normal page
+        $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
     }
 
     public function testAjaxInvalidPartial()
     {
-        $this->expectException(\Cms\Classes\CmsException::class);
-        $this->expectExceptionMessage('Invalid partial name: p:artial.');
-
         Request::swap($this->configAjaxRequestMock('onTest', 'p:artial'));
 
         $theme = Theme::load('test');
         $controller = new Controller($theme);
-        $controller->run('/ajax-test');
+        $response = $controller->run('/ajax-test');
+
+        $this->assertInstanceOf(\Larajax\Classes\AjaxResponse::class, $response);
+        $httpResponse = $response->toResponse(request());
+        $content = $httpResponse->getOriginalContent();
+        $this->assertArrayHasKey('__ajax', $content);
+        $this->assertFalse($content['__ajax']['ok']);
+        $this->assertStringContainsString('p:artial', $content['__ajax']['message']);
     }
 
     public function testAjaxPartialNotFound()
     {
-        $this->expectException(\Cms\Classes\CmsException::class);
-        $this->expectExceptionMessage("The partial 'partial' is not found.");
-
         Request::swap($this->configAjaxRequestMock('onTest', 'partial'));
 
         $theme = Theme::load('test');
         $controller = new Controller($theme);
-        $controller->run('/ajax-test');
+        $response = $controller->run('/ajax-test');
+
+        $this->assertInstanceOf(\Larajax\Classes\AjaxResponse::class, $response);
+        $httpResponse = $response->toResponse(request());
+        $content = $httpResponse->getOriginalContent();
+        $this->assertArrayHasKey('__ajax', $content);
+        $this->assertFalse($content['__ajax']['ok']);
+        $this->assertStringContainsString('partial', $content['__ajax']['message']);
     }
 
     public function testPageAjax()
@@ -246,14 +265,21 @@ class ControllerTest extends TestCase
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/ajax-test');
-        $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
+        $this->assertInstanceOf(\Larajax\Classes\AjaxResponse::class, $response);
 
-        $content = $response->getOriginalContent();
+        $httpResponse = $response->toResponse(request());
+        $content = $httpResponse->getOriginalContent();
         $this->assertIsArray($content);
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertCount(1, $content);
-        $this->assertArrayHasKey('ajax-result', $content);
-        $this->assertEquals('page', $content['ajax-result']);
+        $this->assertEquals(200, $httpResponse->getStatusCode());
+        $this->assertArrayHasKey('__ajax', $content);
+        $this->assertTrue($content['__ajax']['ok']);
+
+        // Check partials in ops array
+        $partials = array_filter($content['__ajax']['ops'], fn($op) => $op['op'] === 'partial');
+        $partial = array_values($partials)[0] ?? null;
+        $this->assertNotNull($partial);
+        $this->assertEquals('ajax-result', $partial['name']);
+        $this->assertEquals('page', $partial['html']);
     }
 
     public function testLayoutAjax()
@@ -263,14 +289,21 @@ class ControllerTest extends TestCase
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/ajax-test');
-        $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
+        $this->assertInstanceOf(\Larajax\Classes\AjaxResponse::class, $response);
 
-        $content = $response->getOriginalContent();
+        $httpResponse = $response->toResponse(request());
+        $content = $httpResponse->getOriginalContent();
         $this->assertIsArray($content);
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertCount(1, $content);
-        $this->assertArrayHasKey('ajax-result', $content);
-        $this->assertEquals('layout-test', $content['ajax-result']);
+        $this->assertEquals(200, $httpResponse->getStatusCode());
+        $this->assertArrayHasKey('__ajax', $content);
+        $this->assertTrue($content['__ajax']['ok']);
+
+        // Check partials in ops array
+        $partials = array_filter($content['__ajax']['ops'], fn($op) => $op['op'] === 'partial');
+        $partial = array_values($partials)[0] ?? null;
+        $this->assertNotNull($partial);
+        $this->assertEquals('ajax-result', $partial['name']);
+        $this->assertEquals('layout-test', $partial['html']);
     }
 
     public function testAjaxMultiplePartials()
@@ -280,16 +313,22 @@ class ControllerTest extends TestCase
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/ajax-test');
-        $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
+        $this->assertInstanceOf(\Larajax\Classes\AjaxResponse::class, $response);
 
-        $content = $response->getOriginalContent();
+        $httpResponse = $response->toResponse(request());
+        $content = $httpResponse->getOriginalContent();
         $this->assertIsArray($content);
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertCount(2, $content);
-        $this->assertArrayHasKey('ajax-result', $content);
-        $this->assertArrayHasKey('ajax-second-result', $content);
-        $this->assertEquals('page', $content['ajax-result']);
-        $this->assertEquals('second', $content['ajax-second-result']);
+        $this->assertEquals(200, $httpResponse->getStatusCode());
+        $this->assertArrayHasKey('__ajax', $content);
+        $this->assertTrue($content['__ajax']['ok']);
+
+        // Check partials in ops array
+        $partials = array_filter($content['__ajax']['ops'], fn($op) => $op['op'] === 'partial');
+        $partialsByName = array_column($partials, 'html', 'name');
+        $this->assertArrayHasKey('ajax-result', $partialsByName);
+        $this->assertArrayHasKey('ajax-second-result', $partialsByName);
+        $this->assertEquals('page', $partialsByName['ajax-result']);
+        $this->assertEquals('second', $partialsByName['ajax-second-result']);
     }
 
     public function testBasicComponents()
@@ -312,7 +351,7 @@ class ControllerTest extends TestCase
 </div>
 ESC;
 
-        $this->assertEquals($content, $response);
+        $this->assertEquals($this->normalizeLineEndings($content), $this->normalizeLineEndings($response));
         $this->assertEquals(69, $component->property('posts-per-page'));
         $this->assertEquals('Blog Archive Dummy Component', $details['name']);
         $this->assertEquals('Displays an archive of blog posts.', $details['description']);
@@ -342,7 +381,7 @@ ESC;
 </div>
 ESC;
 
-        $this->assertEquals($content, $response);
+        $this->assertEquals($this->normalizeLineEndings($content), $this->normalizeLineEndings($response));
         $this->assertEquals(6, $component->property('posts-per-page'));
         $this->assertEquals(9, $component2->property('posts-per-page'));
     }
@@ -354,14 +393,21 @@ ESC;
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/with-component');
-        $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
+        $this->assertInstanceOf(\Larajax\Classes\AjaxResponse::class, $response);
 
-        $content = $response->getOriginalContent();
+        $httpResponse = $response->toResponse(request());
+        $content = $httpResponse->getOriginalContent();
         $this->assertIsArray($content);
-        $this->assertEquals(200, $response->getStatusCode());
-        $this->assertCount(1, $content);
-        $this->assertArrayHasKey('ajax-result', $content);
-        $this->assertEquals('page', $content['ajax-result']);
+        $this->assertEquals(200, $httpResponse->getStatusCode());
+        $this->assertArrayHasKey('__ajax', $content);
+        $this->assertTrue($content['__ajax']['ok']);
+
+        // Check partials in ops array
+        $partials = array_filter($content['__ajax']['ops'], fn($op) => $op['op'] === 'partial');
+        $partial = array_values($partials)[0] ?? null;
+        $this->assertNotNull($partial);
+        $this->assertEquals('ajax-result', $partial['name']);
+        $this->assertEquals('page', $partial['html']);
     }
 
     public function testComponentAjaxDependencyInjection()
@@ -371,9 +417,10 @@ ESC;
         $theme = Theme::load('test');
         $controller = new Controller($theme);
         $response = $controller->run('/with-component');
-        $content = $response->getOriginalContent();
 
-        $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
+        $this->assertInstanceOf(\Larajax\Classes\AjaxResponse::class, $response);
+        $httpResponse = $response->toResponse(request());
+        $content = $httpResponse->getOriginalContent();
         $this->assertArrayHasKey('result', $content);
         $this->assertEquals('POST', $content['result']);
     }
@@ -478,7 +525,7 @@ ESC;
 <p>Insert post here</p>
 ESC;
 
-        $this->assertEquals($content, $response);
+        $this->assertEquals($this->normalizeLineEndings($content), $this->normalizeLineEndings($response));
     }
 
     public function testComponentWithOnRender()
@@ -492,6 +539,6 @@ Pass
 Custom output: Would you look over Picasso's shoulder
 Custom output: And tell him about his brush strokes?
 ESC;
-        $this->assertEquals($content, $response);
+        $this->assertEquals($this->normalizeLineEndings($content), $this->normalizeLineEndings($response));
     }
 }

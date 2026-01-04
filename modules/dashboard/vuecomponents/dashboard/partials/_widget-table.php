@@ -42,7 +42,7 @@
                         <template v-if="metricData.displayTotals">
                             <span v-if="explicitLoading && !paginating" class="data-skeleton force metric dashboard-widget-loading-pulse" :style="{width: makeRandomWidth()}"></span>
                             <div class="total-container" v-else>
-                                <span v-text="getMetricTotal(metricData.metric)"></span>
+                                <span v-text="getMetricTotalFormatted(metricData.metric)"></span>
                                 <dashboard-component-dashboard-report-diff
                                     :prevValue="getMetricTotalClean(metricData.metric, true)"
                                     :currentValue="getMetricTotalClean(metricData.metric)"

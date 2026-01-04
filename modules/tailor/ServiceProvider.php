@@ -74,10 +74,21 @@ class ServiceProvider extends ModuleServiceProvider
         return [
             // Editor
             'editor.tailor_blueprints' => [
-                'label' => 'Manage Blueprints',
-                'tab' => 'Editor',
+                'label' => "Manage Blueprints",
+                'tab' => "Editor",
                 'roles' => UserRole::CODE_DEVELOPER,
                 'order' => 100
+            ],
+            // Tailor
+            'tailor.entry' => [
+                'label' => "Manage Entries",
+                'tab' => "Tailor",
+                'order' => 900
+            ],
+            'tailor.global' => [
+                'label' => "Manage Globals",
+                'tab' => "Tailor",
+                'order' => 910
             ]
         ] + BlueprintIndexer::instance()->getPermissionDefinitions();
     }

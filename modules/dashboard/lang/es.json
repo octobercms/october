@@ -1,0 +1,20 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "La función de estadísticas de tráfico interno registra las páginas vistas, las direcciones IP y otros datos básicos de usuario anónimos en la base de datos.",
+  "Internal Traffic Statistics": "Estadísticas de tráfico interno",
+  "Purge the Internal Traffic Statistics data": "Eliminar los datos de estadísticas de tráfico interno",
+  "Manage Traffic Settings and Data": "Gestionar la configuración de tráfico y los datos",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "Las estadísticas de tráfico interno registran las páginas vistas, las direcciones IP y otros datos básicos de usuario anónimos en la base de datos y generan informes para el panel de control. Cuando esta función está desactivada, los datos no se escriben en la base de datos.",
+  "Traffic Statistics": "Estadísticas de tráfico",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "Zona horaria para registrar las visitas a la página. Cambiar la zona horaria no actualizará los datos existentes. Si cambia la zona horaria sin borrar los datos existentes, los informes podrían mostrar horas incorrectas para los días registrados anteriormente.",
+  "Retention Period (Months)": "Periodo de retención (meses)",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "Determina la duración durante la cual se almacenarán los datos estadísticos de tráfico en la base de datos. Cuando finaliza el período establecido, los datos correspondientes se eliminan automáticamente de la base de datos. Si se establece en 0 o se deja vacío, los registros se conservarán indefinidamente.",
+  "Data Filters": "Filtros de datos",
+  "Exclude Bots": "Excluir bots",
+  "Automatically ignores known bots using the detection library.": "Ignora automáticamente los bots conocidos utilizando la biblioteca de detección.",
+  "Exclude Administrator Roles": "Excluir roles de administrador",
+  "Ignores traffic from selected roles.": "Ignora el tráfico procedente de los roles seleccionados.",
+  "Exclude IP Addresses": "Excluir direcciones IP",
+  "Requests from these addresses will be ignored in statistics.": "Las solicitudes procedentes de estas direcciones se ignorarán en las estadísticas.",
+  "Exclude Paths": "Excluir rutas",
+  "Enter one path or pattern per row to ignore matching URLs.": "Introduzca una ruta o patrón por fila para ignorar las URL coincidentes."
+}

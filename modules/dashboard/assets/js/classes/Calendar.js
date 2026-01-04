@@ -13,7 +13,6 @@ class Dashboard_Classes_Calendar
         $(this.element).daterangepicker({
             startDate: start,
             endDate: end,
-            maxDate: moment(),
             opens: 'left',
             alwaysShowCalendars: true,
             ranges: {

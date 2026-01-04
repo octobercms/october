@@ -532,6 +532,7 @@
     'uploading_complete' => 'Upload Complete',
     'uploading_error' => 'Upload Failed',
     'type_blocked' => 'The file type used is blocked for security reasons.',
+    'overwrite_confirm' => 'Some files already exist. Do you want to replace them?',
     'order_by' => 'Order by',
     'direction' => 'Direction',
     'direction_asc' => 'Ascending',

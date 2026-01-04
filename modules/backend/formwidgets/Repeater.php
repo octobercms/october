@@ -310,9 +310,9 @@ class Repeater extends FormWidgetBase
 
     /**
      * makeItemFormWidget creates a form widget based on a field index and optional group code
-     * @param int $index
+     * @param int|string $index
      * @param string $groupCode
-     * @param int $fromIndex
+     * @param int|string $fromIndex
      * @return \Backend\Widgets\Form
      */
     protected function makeItemFormWidget($index = 0, $groupCode = null, $fromIndex = null)
@@ -380,6 +380,7 @@ class Repeater extends FormWidgetBase
 
     /**
      * getValueFromIndex returns the data at a given index
+     * @param int|string $index
      */
     protected function getValueFromIndex($index)
     {
@@ -412,10 +413,12 @@ class Repeater extends FormWidgetBase
         $this->prepareParentModelData();
 
         $groupCode = post('_repeater_group');
-        $index = $this->getNextIndex();
 
         if ($this->useRelation) {
-            $this->createRelationAtIndex($index, $groupCode);
+            $index = $this->createRelationAtIndex($groupCode)->getKey();
+        }
+        else {
+            $index = $this->getNextIndex();
         }
 
         $this->prepareVars();
@@ -436,14 +439,16 @@ class Repeater extends FormWidgetBase
     {
         $fromIndex = post('_repeater_index');
         $groupCode = post('_repeater_group');
-        $toIndex = $this->getNextIndex();
 
         if ($this->useRelation) {
             // Relation must be saved to replicate
             $this->processSaveForRelation([$fromIndex => $this->getValueFromIndex($fromIndex)]);
 
             // Duplicate the model with replication
-            $this->duplicateRelationAtIndex($fromIndex, $toIndex, $groupCode);
+            $toIndex = $this->duplicateRelationAtIndex($fromIndex, $groupCode)->getKey();
+        }
+        else {
+            $toIndex = $this->getNextIndex();
         }
 
         $this->prepareVars();
@@ -498,7 +503,7 @@ class Repeater extends FormWidgetBase
      */
     protected function getNextIndex(): int
     {
-        $data = $this->getLoadValue();
+        $data = $this->getLoadedValueFromPost();
 
         if (is_array($data) && count($data)) {
             return max(array_keys($data)) + 1;
@@ -583,7 +588,7 @@ class Repeater extends FormWidgetBase
 
     /**
      * getGroupCodeFromIndex returns a field group code from its index
-     * @param $index int
+     * @param int|string $index
      */
     public function getGroupCodeFromIndex($index): string
     {
@@ -592,8 +597,10 @@ class Repeater extends FormWidgetBase
 
     /**
      * getGroupItemConfig returns the group config from its unique code
+     * @param string $groupCode
+     * @param ?string $name
      */
-    public function getGroupItemConfig(string $groupCode, ?string $name = null, $default = null)
+    public function getGroupItemConfig($groupCode, $name = null, $default = null)
     {
         return array_get($this->groupDefinitions, $groupCode.'.'.$name, $default);
     }

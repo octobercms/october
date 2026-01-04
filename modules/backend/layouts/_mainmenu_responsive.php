@@ -10,7 +10,7 @@
                     <span class="nav-icon">
                        <div class="mainmenu-account-avatar">
                             <img
-                                src="<?= $this->user->getAvatarThumb(80, ['mode' => 'crop', 'extension' => 'png']) ?>"
+                                src="<?= $this->user->getAvatarThumb(80, ['mode' => 'cover', 'extension' => 'png']) ?>"
                                 loading="lazy"
                                 width="80"
                                 height="80"

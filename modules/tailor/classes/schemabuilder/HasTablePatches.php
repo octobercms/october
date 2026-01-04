@@ -4,6 +4,7 @@ use Site;
 use Schema;
 use Tailor\Classes\Blueprint\EntryBlueprint;
 use Tailor\Classes\Blueprint\StructureBlueprint;
+use Tailor\Models\StructureRecord;
 use Tailor\Models\EntryRecord;
 use Exception;
 
@@ -134,7 +135,7 @@ trait HasTablePatches
         }
 
         // Reset the nested tree nesting columns
-        EntryRecord::inSectionUuid($this->blueprint->uuid)->resetTreeNesting();
+        StructureRecord::inSectionUuid($this->blueprint->uuid)->resetTreeNesting();
     }
 
     /**

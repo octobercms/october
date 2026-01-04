@@ -18,6 +18,9 @@
 
     <label class="form-check-label" for="<?= $field->getId() ?>">
         <?= e(__($field->label)) ?>
+        <?php if ($field->tooltip): ?>
+            <?= $this->makePartial('tooltip', ['field' => $field]) ?>
+        <?php endif ?>
     </label>
     <?php if ($field->comment): ?>
         <p class="form-text"><?= $field->commentHtml ? trans($field->comment) : e(__($field->comment)) ?></p>

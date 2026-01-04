@@ -30,11 +30,11 @@
             ];
         ?>
         <?php foreach ($styles as $style): ?>
-            <link href="<?= $style . '?v=' . $coreBuild ?>" rel="stylesheet" importance="high" />
+            <link href="<?= $style . '?v=' . $coreBuild ?>" rel="stylesheet" fetchpriority="high">
         <?php endforeach ?>
 
         <?php foreach ($scripts as $script): ?>
-            <script src="<?= $script . '?v=' . $coreBuild ?>" importance="high"></script>
+            <script src="<?= $script . '?v=' . $coreBuild ?>" fetchpriority="high"></script>
         <?php endforeach ?>
 
         <?php if (!Config::get('backend.enable_service_workers', false)): ?>

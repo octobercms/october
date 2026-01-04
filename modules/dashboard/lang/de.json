@@ -1,0 +1,20 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "Die Funktion „Interne Verkehrsstatistik“ protokolliert Seitenaufrufe, IP-Adressen und andere grundlegende anonyme Benutzerdaten in der Datenbank.",
+  "Internal Traffic Statistics": "Interne Verkehrsstatistiken",
+  "Purge the Internal Traffic Statistics data": "Löschen Sie die internen Verkehrsstatistikdaten.",
+  "Manage Traffic Settings and Data": "Verkehrseinstellungen und Daten verwalten",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "Die Funktion „Interne Verkehrsstatistik“ protokolliert Seitenaufrufe, IP-Adressen und andere grundlegende anonyme Nutzerdaten in der Datenbank und erstellt Berichte für das Dashboard. Wenn diese Funktion deaktiviert ist, werden keine Daten in die Datenbank geschrieben.",
+  "Traffic Statistics": "Verkehrsstatistik",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "Zeitzone für die Protokollierung von Seitenaufrufen. Durch Ändern der Zeitzone werden die vorhandenen Daten nicht aktualisiert. Wenn Sie die Zeitzone ändern, ohne die vorhandenen Daten zu löschen, können Berichte unter Umständen falsche Zeiten für zuvor protokollierte Tage anzeigen.",
+  "Retention Period (Months)": "Aufbewahrungsfrist (Monate)",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "Legt die Speicherdauer der Verkehrsstatistikdaten in der Datenbank fest. Nach Ablauf der festgelegten Frist werden die entsprechenden Daten automatisch aus der Datenbank gelöscht. Bei Angabe von 0 oder einem leeren Feld werden die Datensätze unbegrenzt gespeichert.",
+  "Data Filters": "Datenfilter",
+  "Exclude Bots": "Bots ausschließen",
+  "Automatically ignores known bots using the detection library.": "Ignoriert automatisch bekannte Bots mithilfe der Erkennungsbibliothek.",
+  "Exclude Administrator Roles": "Administratorrollen ausschließen",
+  "Ignores traffic from selected roles.": "Ignoriert den Datenverkehr von ausgewählten Rollen.",
+  "Exclude IP Addresses": "IP-Adressen ausschließen",
+  "Requests from these addresses will be ignored in statistics.": "Anfragen von diesen Adressen werden in der Statistik nicht berücksichtigt.",
+  "Exclude Paths": "Pfade ausschließen",
+  "Enter one path or pattern per row to ignore matching URLs.": "Geben Sie pro Zeile einen Pfad oder ein Muster ein, um übereinstimmende URLs zu ignorieren."
+}

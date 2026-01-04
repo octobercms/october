@@ -1,0 +1,20 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "ฟีเจอร์สถิติการเข้าชมภายในจะบันทึกการดูเพจ ที่อยู่ IP และข้อมูลผู้ใช้ที่ไม่ระบุตัวตนพื้นฐานอื่นๆ ลงในฐานข้อมูล",
+  "Internal Traffic Statistics": "สถิติการเข้าชมภายใน",
+  "Purge the Internal Traffic Statistics data": "ล้างข้อมูลสถิติการเข้าชมภายใน",
+  "Manage Traffic Settings and Data": "จัดการการตั้งค่าข้อมูลการจราจร",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "สถิติการเข้าชมภายในจะบันทึกจำนวนการดูเพจ ที่อยู่ IP และข้อมูลผู้ใช้ที่ไม่ระบุตัวตนพื้นฐานอื่นๆ ลงในฐานข้อมูล และจัดทำรายงานสำหรับแดชบอร์ด เมื่อปิดใช้งานฟีเจอร์นี้ ข้อมูลจะไม่ถูกเขียนลงในฐานข้อมูล",
+  "Traffic Statistics": "สถิติการเข้าชม",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "เขตเวลาสำหรับบันทึกจำนวนการดูหน้าเว็บ การเปลี่ยนเขตเวลาจะไม่อัปเดตข้อมูลที่มีอยู่ หากคุณเปลี่ยนเขตเวลาโดยไม่ลบข้อมูลที่มีอยู่ รายงานอาจแสดงเวลาที่ไม่ถูกต้องสำหรับวันที่บันทึกไว้ก่อนหน้านี้",
+  "Retention Period (Months)": "ระยะเวลาเก็บรักษา (เดือน)",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "กำหนดระยะเวลาในการจัดเก็บข้อมูลสถิติการเข้าชมในฐานข้อมูล เมื่อระยะเวลาที่กำหนดหมดลง ข้อมูลที่เกี่ยวข้องจะถูกลบออกจากฐานข้อมูลโดยอัตโนมัติ ตั้งค่าเป็น 0 หรือเว้นว่างไว้เพื่อเก็บรักษาข้อมูลไว้ตลอดไป",
+  "Data Filters": "ตัวกรองข้อมูล",
+  "Exclude Bots": "ไม่รวมบอท",
+  "Automatically ignores known bots using the detection library.": "ละเว้นบอทที่รู้จักโดยอัตโนมัติโดยใช้ไลบรารีการตรวจจับ",
+  "Exclude Administrator Roles": "ไม่รวมบทบาทผู้ดูแลระบบ",
+  "Ignores traffic from selected roles.": "ละเว้นการรับส่งข้อมูลจากบทบาทที่เลือก",
+  "Exclude IP Addresses": "ไม่รวมที่อยู่ IP",
+  "Requests from these addresses will be ignored in statistics.": "คำขอจากที่อยู่เหล่านี้จะถูกละเว้นในสถิติ",
+  "Exclude Paths": "ไม่รวมเส้นทาง",
+  "Enter one path or pattern per row to ignore matching URLs.": "ป้อนเส้นทางหรือรูปแบบหนึ่งต่อแถวเพื่อละเว้น URL ที่ตรงกัน"
+}

@@ -43,6 +43,7 @@ class ServiceProvider extends ModuleServiceProvider
     {
         $this->app->singleton('dashboard.dashboards', \Dashboard\Classes\DashManager::class);
         $this->app->singleton('dashboard.demos.traffic', \Dashboard\Classes\CmsDemoTrafficDataGenerator::class);
+        $this->app->singleton('dashboard.traffic.logger', \Dashboard\Classes\TrafficLogger::class);
     }
 
     /**
@@ -81,8 +82,8 @@ class ServiceProvider extends ModuleServiceProvider
                 'tab' => 'Dashboard',
                 'order' => 600
             ],
-            'cms.internal_traffic_statistics' => [
-                'label' => 'cms::lang.permissions.manage_internal_traffic_statistics',
+            'dashboard.internal_traffic_statistics' => [
+                'label' => "Manage Traffic Settings and Data",
                 'tab' => 'Internal Traffic Statistics',
                 'order' => 1000
             ]
@@ -96,12 +97,12 @@ class ServiceProvider extends ModuleServiceProvider
     {
         return [
             'dash_settings' => [
-                'label' => 'dashboard::lang.internal_traffic_statistics.label',
-                'description' => 'dashboard::lang.internal_traffic_statistics.permission_description',
+                'label' => "Internal Traffic Statistics",
+                'description' => "Manage the Internal Traffic Statistics data",
                 'category' => SettingsManager::CATEGORY_CMS,
                 'icon' => 'icon-line-chart',
                 'url' => Backend::url('dashboard/dashboardsettings'),
-                'permissions' => ['cms.internal_traffic_statistics'],
+                'permissions' => ['dashboard.internal_traffic_statistics'],
                 'order' => 1000
             ],
         ];

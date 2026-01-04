@@ -1,21 +1,33 @@
 fields:
+    _system_definition_hint:
+        type: hint
+        comment: This is a system generated dashboard and cannot be deleted.
+
     name:
         label: Dashboard Name
         type: text
         span: auto
 
-    code:
-        label: Code
-        type: text
-        span: auto
-        preset: name
-
     icon:
-        label: icon
+        label: Icon
         type: dropdown
         optionsPreset: icons@phosphor
+        span: auto
 
     is_global:
         label: Global Access
-        comment: Dashboards with Global Access enabled can be viewed by any user, but this doesn't grant editing permissions.
+        comment: Dashboards with Global Access enabled can be viewed by other users.
         type: checkbox
+        span: left
+
+    is_interval_hidden:
+        label: Hide Interval
+        comment: Check this if the dashboard does not use the date range picker.
+        type: checkbox
+        span: right
+
+    code:
+        label: API Code
+        commentAbove: A unique code to refer to this dashboard using external systems.
+        type: text
+        preset: name

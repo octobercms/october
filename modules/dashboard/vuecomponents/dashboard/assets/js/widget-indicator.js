@@ -41,7 +41,7 @@ Vue.component('dashboard-component-dashboard-widget-indicator', {
                 return result;
             }
 
-            return this.getMetricTotal(this.valueMetric);
+            return this.getMetricTotalFormatted(this.valueMetric);
         },
 
         prevPeriodDiff: function () {

@@ -109,14 +109,14 @@ Vue.component('tailor-editor-component-blueprint-editor', {
         },
 
         applyBlueprint: async function applyBlueprint() {
-            const messageId = $.oc.snackbar.show(this.trans('tailor::lang.blueprint.migrating'), {
+            const messageId = oc.snackbar.show(this.trans('tailor::lang.blueprint.migrating'), {
                 timeout: 8000
             });
 
             try {
                 await this.saveDocumentAndHandleValidation(true);
             } catch(error) {
-                $.oc.snackbar.hide(messageId);
+                oc.snackbar.hide(messageId);
                 return;
             }
 
@@ -131,12 +131,12 @@ Vue.component('tailor-editor-component-blueprint-editor', {
                 });
 
                 this.processing = false;
-                $.oc.snackbar.show(this.trans('tailor::lang.blueprint.migrated'), { replace: messageId });
+                oc.snackbar.show(this.trans('tailor::lang.blueprint.migrated'), { replace: messageId });
 
                 $.oc.mainMenu.reload(data.mainMenu, data.mainMenuLeft, data.sidenavResponsive);
             } catch (error) {
                 this.processing = false;
-                $.oc.snackbar.hide(messageId);
+                oc.snackbar.hide(messageId);
                 oc.vueComponentHelpers.modalUtils.showAlert(
                     $.oc.editor.getLangStr('editor::lang.common.error'),
                     error.responseText

@@ -383,7 +383,9 @@ Vue.component('dashboard-component-dashboard-report-widget', {
         },
 
         rangeInterval: function () {
-            this.load();
+            if (!this.loading) {
+                this.load();
+            }
         },
 
         rangeGroupInterval: function () {

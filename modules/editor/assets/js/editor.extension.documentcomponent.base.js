@@ -290,7 +290,7 @@ oc.Modules.register('editor.extension.documentcomponent.base', function() {
                         }
 
                         if (!noSavedMessage) {
-                            $.oc.snackbar.show(this.getDocumentSavedMessage(data));
+                            oc.snackbar.show(this.getDocumentSavedMessage(data));
                         }
 
                         this.documentSaved(data, prevDocumentData);
@@ -322,7 +322,7 @@ oc.Modules.register('editor.extension.documentcomponent.base', function() {
                 //
                 this.processing = true;
                 const data = await this.requestDocumentFromServer();
-                $.oc.snackbar.show(this.documentReloadedMessage);
+                oc.snackbar.show(this.documentReloadedMessage);
 
                 // The order of these hooks are important
                 //
@@ -403,7 +403,7 @@ oc.Modules.register('editor.extension.documentcomponent.base', function() {
                     this.processing = false;
                     this.closeDocumentTab(true);
                     this.store.deleteNavigatorNode(this.documentUri);
-                    $.oc.snackbar.show(this.documentDeletedMessage);
+                    oc.snackbar.show(this.documentDeletedMessage);
 
                     return data;
                 } catch (error) {

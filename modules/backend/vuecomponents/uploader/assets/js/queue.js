@@ -28,7 +28,7 @@ oc.Modules.register('backend.vuecomponents.uploader.queue', function() {
             }
 
             if (handler !== 'mediamanager') {
-                xhr.setRequestHeader('X-OCTOBER-REQUEST-HANDLER', handler);
+                xhr.setRequestHeader('X-AJAX-HANDLER', handler);
                 xhr.setRequestHeader('X-Requested-With', 'XMLHttpRequest');
             }
 

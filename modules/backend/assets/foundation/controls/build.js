@@ -5,7 +5,6 @@ module.exports = [
     "autocomplete/autocomplete.js",
     "balloon-selector/balloon-selector.js",
     "callout/callout.js",
-    "contextmenu/contextmenu.js",
     "datepicker/datepicker.js",
     "dropdown/dropdown.js",
     "popover/popover.js",

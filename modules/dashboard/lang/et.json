@@ -1,0 +1,20 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "Sisemise liikluse statistika funktsioon logib andmebaasi lehevaatamisi, IP-aadresse ja muid anonüümseid kasutajaandmeid.",
+  "Internal Traffic Statistics": "Sisemine liiklusstatistika",
+  "Purge the Internal Traffic Statistics data": "Sisemise liiklusstatistika andmete kustutamine",
+  "Manage Traffic Settings and Data": "Liikluse seadete ja andmete haldamine",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "Sisemine liiklusstatistika logib lehevaatamisi, IP-aadresse ja muid anonüümseid kasutajaandmeid andmebaasi ning pakub armatuurlauale aruandeid. Kui funktsioon on keelatud, siis andmeid andmebaasi ei kirjutata.",
+  "Traffic Statistics": "Liiklusstatistika",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "Lehevaatamiste logimise ajavöönd. Ajavööndi muutmine ei värskenda olemasolevaid andmeid. Kui muudate ajavööndit olemasolevaid andmeid kustutamata, võivad aruanded kuvada eelnevalt logitud päevade valesid kellaaegu.",
+  "Retention Period (Months)": "Säilitusperiood (kuudes)",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "Määrab liiklusstatistika andmete andmebaasis säilitamise aja. Kui määratud periood möödub, kustutatakse vastavad andmed andmebaasist automaatselt. Kirjete igaveseks säilitamiseks määrake väärtuseks 0 või tühjendage väli.",
+  "Data Filters": "Andmefiltrid",
+  "Exclude Bots": "Välista robotid",
+  "Automatically ignores known bots using the detection library.": "Ignoreerib automaatselt teadaolevaid roboteid, kasutades tuvastusteegi.",
+  "Exclude Administrator Roles": "Administraatori rollide välistamine",
+  "Ignores traffic from selected roles.": "Ignoreerib valitud rollide liiklust.",
+  "Exclude IP Addresses": "IP-aadresside välistamine",
+  "Requests from these addresses will be ignored in statistics.": "Nendelt aadressidelt saabunud päringuid statistikas ignoreeritakse.",
+  "Exclude Paths": "Välista teed",
+  "Enter one path or pattern per row to ignore matching URLs.": "Sisestage iga rea kohta üks tee või muster, et ignoreerida vastavaid URL-e."
+}

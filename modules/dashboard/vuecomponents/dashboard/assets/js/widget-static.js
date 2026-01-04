@@ -23,7 +23,18 @@ Vue.component('dashboard-component-dashboard-widget-static', {
         },
 
         makeDefaultConfigAndData: function () {
-            Vue.set(this.widget.configuration, 'title', 'My Custom Widget');
+            let defaultTitle = 'My Custom Widget';
+
+            if (this.loadedValue && this.loadedValue.properties) {
+                const titleProp = this.loadedValue.properties.find((p) => p.property === 'title');
+
+                // Apply the default title from loaded properties if it exists
+                if (titleProp && titleProp.default) {
+                    defaultTitle = titleProp.default;
+                }
+            }
+
+            Vue.set(this.widget.configuration, 'title', defaultTitle);
         },
 
         getSettingsConfiguration: function () {

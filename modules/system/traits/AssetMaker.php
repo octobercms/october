@@ -320,6 +320,43 @@ trait AssetMaker
     }
 
     /**
+     * getAssetPathsWithAttributes returns an array of all registered asset paths
+     * with their attributes, suitable for use with ajax()->asset().
+     *
+     * Returns format: ['js' => [path => attributes, ...], 'css' => [...], ...]
+     *
+     * @return array
+     */
+    public function getAssetPathsWithAttributes()
+    {
+        $this->removeDuplicateAssets();
+
+        // Internal attributes to be excluded from output
+        $reserved = ['build'];
+
+        $assets = [];
+
+        foreach ($this->assets as $type => $collection) {
+            $assets[$type] = [];
+            foreach ($collection as $asset) {
+                $path = $this->getAssetEntryBuildPath($asset);
+                $attributes = array_except(array_get($asset, 'attributes', []), $reserved);
+                $assets[$type][$path] = $attributes;
+            }
+        }
+
+        foreach (['js', 'css'] as $bundleType) {
+            foreach ($this->combineBundledAssets($bundleType) as $asset) {
+                $path = $this->getAssetEntryBuildPath($asset);
+                $attributes = array_except(array_get($asset, 'attributes', []), $reserved);
+                $assets[$bundleType][$path] = $attributes;
+            }
+        }
+
+        return $assets;
+    }
+
+    /**
      * getAssetPath locates a file based on it's definition. If the file starts with
      * a forward slash, it will be returned in context of the application public path,
      * otherwise it will be returned in context of the asset path.

@@ -367,13 +367,12 @@ oc.registerControl('vue-entry-document', class extends oc.VueControlBase {
         try {
             if (this.previewTracker.isPreviewAvailable()) {
                 await oc.request(targetElement, 'onPreview', {
-                    async: true,
                     data: { preview_token: this.previewTracker.getToken() }
                 });
                 this.previewTracker.refreshPreview(true);
             }
             else {
-                const data = await oc.request(targetElement, 'onPreview', { async: true });
+                const data = await oc.request(targetElement, 'onPreview');
                 this.previewTracker.openPreview(data.token, data.url);
             }
         }

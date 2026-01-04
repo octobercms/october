@@ -3,6 +3,7 @@
 use Response;
 use Symfony\Component\HttpFoundation\ResponseHeaderBag;
 use Symfony\Component\HttpFoundation\Response as BaseResponse;
+use Larajax\Classes\AjaxResponse;
 
 /**
  * ResponseMaker stores attributes the can be used to prepare a response from the server.
@@ -114,7 +115,20 @@ trait ResponseMaker
     {
         $this->responseBrowserEvents[] = [
             'event' => $event,
-            'data' => $data
+            'data' => $data,
+            'async' => false
+        ];
+    }
+
+    /**
+     * dispatchBrowserEvent queues a browser event
+     */
+    public function dispatchBrowserEventAsync(string $event, ?array $data = null)
+    {
+        $this->responseBrowserEvents[] = [
+            'event' => $event,
+            'data' => $data,
+            'async' => true
         ];
     }
 
@@ -141,12 +155,26 @@ trait ResponseMaker
             $contents = Response::make($contents, $this->getStatusCode(), ['Content-Type' => 'text/html']);
         }
 
-        if (
-            ($responseHeaders = $this->getResponseHeaders()) &&
-            $contents instanceof BaseResponse &&
-            method_exists($contents, 'withHeaders')
-        ) {
-            $contents = $contents->{'withHeaders'}($responseHeaders);
+        if ($responseHeaders = $this->getResponseHeaders()) {
+            if ($contents instanceof BaseResponse && method_exists($contents, 'withHeaders')) {
+                $contents = $contents->{'withHeaders'}($responseHeaders);
+            }
+            elseif ($contents instanceof AjaxResponse) {
+                $contents->headers($responseHeaders->all());
+            }
+        }
+
+        if ($responseEvents = $this->getBrowserEvents()) {
+            if ($contents instanceof AjaxResponse) {
+                foreach ($responseEvents as $event) {
+                    if ($event['async'] ?? false) {
+                        $contents->browserEvent($event['event'], $event['data']);
+                    }
+                    else {
+                        $contents->browserEventAsync($event['event'], $event['data']);
+                    }
+                }
+            }
         }
 
         return $contents;

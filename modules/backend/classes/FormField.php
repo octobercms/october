@@ -30,8 +30,8 @@ use Exception;
  * @method FormField trigger(array $trigger) Other field names this field can be triggered by, see the Trigger API documentation.
  * @method FormField preset(array $preset) Other field names text is converted in to a URL, slug or file name value in this field.
  * @method FormField permissions(array $permissions) permissions needed to view this field
- * @method FormField commentTooltip(string $commentTooltip) commentTooltip allows a more verbose comment behind a tooltip, must be used in combination with a comment
  * @method FormField valueTrans(bool $valueTrans) valueTrans determines if display values (model attributes) should be translated
+ * @method FormField tooltip(array|string $tooltip) tooltip to display next to the field label, as an array supports: title, placement, icon, isHtml
  *
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges

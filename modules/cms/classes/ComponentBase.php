@@ -5,6 +5,7 @@ use Lang;
 use Config;
 use October\Rain\Extension\Extendable;
 use October\Contracts\Twig\CallsAnyMethod;
+use Larajax\Contracts\ViewComponentInterface;
 use BadMethodCallException;
 
 /**
@@ -15,22 +16,18 @@ use BadMethodCallException;
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
  */
-abstract class ComponentBase extends Extendable implements CallsAnyMethod
+abstract class ComponentBase extends Extendable implements ViewComponentInterface, CallsAnyMethod
 {
     use \System\Traits\AssetMaker;
     use \System\Traits\EventEmitter;
     use \System\Traits\DependencyMaker;
     use \System\Traits\PropertyContainer;
+    use \Larajax\Traits\ViewComponent;
 
     /**
      * @var string id is a unique identifier for this component.
      */
     public $id;
-
-    /**
-     * @var string alias used for this component.
-     */
-    public $alias;
 
     /**
      * @var string name as a class name or class alias used in the component declaration in a template.
@@ -64,11 +61,6 @@ abstract class ComponentBase extends Extendable implements CallsAnyMethod
      * @var string dirName specifies the component directory name.
      */
     protected $dirName;
-
-    /**
-     * @var \Cms\Classes\Controller controller object.
-     */
-    protected $controller;
 
     /**
      * @var \Cms\Classes\PageCode page object object.
@@ -170,8 +162,11 @@ abstract class ComponentBase extends Extendable implements CallsAnyMethod
      */
     public function renderPartial(...$args)
     {
-        return $this->controller->inComponentContext($this, function() use ($args) {
-            return $this->controller->renderPartial(...$args);
+        /** @var \Cms\Classes\Controller $controller */
+        $controller = $this->controller;
+
+        return $controller->inComponentContext($this, function() use ($controller, $args) {
+            return $controller->renderPartial(...$args);
         });
     }
 

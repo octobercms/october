@@ -1,0 +1,20 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "Sisäisen liikenteen tilastot -ominaisuus kirjaa sivulataukset, IP-osoitteet ja muut anonyymit käyttäjätiedot tietokantaan.",
+  "Internal Traffic Statistics": "Sisäiset liikennetilastot",
+  "Purge the Internal Traffic Statistics data": "Tyhjennä sisäiset liikennetilastot",
+  "Manage Traffic Settings and Data": "Liikenneasetusten ja -tietojen hallinta",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "Sisäiset liikennetilastot kirjaavat sivulataukset, IP-osoitteet ja muut anonyymit käyttäjätiedot tietokantaan ja tarjoavat raportteja kojelautaan. Kun ominaisuus on poistettu käytöstä, tietoja ei kirjoiteta tietokantaan.",
+  "Traffic Statistics": "Liikennetilastot",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "Aikavyöhyke sivulatausten kirjaamiseen. Aikavyöhykkeen muuttaminen ei päivitä olemassa olevia tietoja. Jos muutat aikavyöhykettä poistamatta olemassa olevia tietoja, raportit saattavat näyttää virheellisiä aiempiin kirjattuihin päiviin liittyviä aikoja.",
+  "Retention Period (Months)": "Säilytysaika (kuukausia)",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "Määrittää, kuinka kauan liikennetilastotietoja säilytetään tietokannassa. Kun asetettu ajanjakso umpeutuu, vastaavat tiedot poistetaan tietokannasta automaattisesti. Aseta arvoksi 0 tai tyhjäksi, jos haluat säilyttää tiedot ikuisesti.",
+  "Data Filters": "Tietosuodattimet",
+  "Exclude Bots": "Sulje pois botit",
+  "Automatically ignores known bots using the detection library.": "Ohittaa automaattisesti tunnetut botit tunnistuskirjaston avulla.",
+  "Exclude Administrator Roles": "Jätä pois järjestelmänvalvojan roolit",
+  "Ignores traffic from selected roles.": "Ohittaa valituista rooleista tulevan liikenteen.",
+  "Exclude IP Addresses": "Sulje pois IP-osoitteet",
+  "Requests from these addresses will be ignored in statistics.": "Näistä osoitteista tulevia pyyntöjä ei huomioida tilastoissa.",
+  "Exclude Paths": "Poissuljetut reitit",
+  "Enter one path or pattern per row to ignore matching URLs.": "Syötä yksi polku tai malli riviä kohden ohittaaksesi vastaavat URL-osoitteet."
+}

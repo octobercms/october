@@ -27,7 +27,7 @@
                         data-keywords="<?= e(__($item->keywords ?? '')) ?>"
                         <?= Html::attributes($item->attributes) ?>
                     >
-                        <a href="<?= $item->url ?>" ontouchstart="">
+                        <a href="<?= $item->url ?>" title="<?= e(__($item->description ?? '')) ?>" ontouchstart="">
                             <span class="header"><?= e(__($item->label ?? '')) ?></span>
                         </a>
                     </li>

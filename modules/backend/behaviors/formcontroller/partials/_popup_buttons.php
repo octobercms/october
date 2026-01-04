@@ -19,7 +19,7 @@
                 ->loadingPopup() ?>
 
             <?php if ($this->formCheckPermission('modelDelete')): ?>
-                <?= Ui::ajaxButton(__("Save & Close"), 'onPopupDelete')
+                <?= Ui::ajaxButton(__("Delete"), 'onPopupDelete')
                     ->formDeleteButton()
                     ->confirmMessage(__("Delete this record?"))
                     ->loadingPopup() ?>

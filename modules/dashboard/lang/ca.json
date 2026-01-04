@@ -1,0 +1,20 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "La funció d'estadístiques de trànsit intern registra les visites a la pàgina, les adreces IP i altres dades bàsiques d'usuaris anònims a la base de dades.",
+  "Internal Traffic Statistics": "Estadístiques de trànsit intern",
+  "Purge the Internal Traffic Statistics data": "Purgar les dades d'estadístiques de trànsit intern",
+  "Manage Traffic Settings and Data": "Gestiona la configuració i les dades del trànsit",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "Les estadístiques de trànsit intern registren les visites a la pàgina, les adreces IP i altres dades bàsiques d'usuaris anònims a la base de dades i proporcionen informes per al tauler de control. Quan la funció està desactivada, les dades no s'escriuen a la base de dades.",
+  "Traffic Statistics": "Estadístiques de trànsit",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "Fus horari per registrar les visualitzacions de pàgina. Canviar el fus horari no actualitzarà les dades existents. Si canvieu el fus horari sense esborrar les dades existents, els informes poden mostrar hores incorrectes dels dies registrats anteriorment.",
+  "Retention Period (Months)": "Període de retenció (mesos)",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "Determina la durada durant la qual les dades d'estadístiques de trànsit s'han d'emmagatzemar a la base de dades. Quan caduca el període establert, les dades corresponents es purguen automàticament de la base de dades. Establiu-ho a 0 o en blanc per conservar els registres per sempre.",
+  "Data Filters": "Filtres de dades",
+  "Exclude Bots": "Exclou els bots",
+  "Automatically ignores known bots using the detection library.": "Ignora automàticament els bots coneguts mitjançant la biblioteca de detecció.",
+  "Exclude Administrator Roles": "Exclou els rols d'administrador",
+  "Ignores traffic from selected roles.": "Ignora el trànsit dels rols seleccionats.",
+  "Exclude IP Addresses": "Exclou les adreces IP",
+  "Requests from these addresses will be ignored in statistics.": "Les sol·licituds d'aquestes adreces s'ignoraran a les estadístiques.",
+  "Exclude Paths": "Exclou camins",
+  "Enter one path or pattern per row to ignore matching URLs.": "Introduïu una ruta o patró per fila per ignorar les URL coincidents."
+}

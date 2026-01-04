@@ -15,7 +15,7 @@
             </div>
         </div>
         <dashboard-component-dashboard-interval-selector
-            v-if="!store.state.editMode"
+            v-if="!store.state.editMode && store.state.showInterval"
             :store="store"
         ></dashboard-component-dashboard-interval-selector>
     </div>

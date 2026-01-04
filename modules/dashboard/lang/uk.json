@@ -1,0 +1,20 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "Функція статистики внутрішнього трафіку реєструє перегляди сторінок, IP-адреси та інші основні анонімні дані користувачів у базі даних.",
+  "Internal Traffic Statistics": "Статистика внутрішнього трафіку",
+  "Purge the Internal Traffic Statistics data": "Очистити дані внутрішньої статистики трафіку",
+  "Manage Traffic Settings and Data": "Керування налаштуваннями та даними трафіку",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "Статистика внутрішнього трафіку реєструє перегляди сторінок, IP-адреси та інші основні анонімні дані користувачів у базі даних і надає звіти для панелі інструментів. Коли цю функцію вимкнено, дані не записуються в базу даних.",
+  "Traffic Statistics": "Статистика трафіку",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "Часовий пояс для реєстрації переглядів сторінок. Зміна часового поясу не оновить існуючі дані. Якщо змінити часовий пояс, не видаляючи існуючі дані, у звітах може відображатися неправильний час для раніше зареєстрованих днів.",
+  "Retention Period (Months)": "Період зберігання (місяці)",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "Визначає тривалість зберігання даних статистики трафіку в базі даних. Після закінчення встановленого періоду відповідні дані автоматично видаляються з бази даних. Встановіть значення 0 або зробіть порожнім, щоб записи зберігалися назавжди.",
+  "Data Filters": "Фільтри даних",
+  "Exclude Bots": "Виключити ботів",
+  "Automatically ignores known bots using the detection library.": "Автоматично ігнорує відомих ботів за допомогою бібліотеки виявлення.",
+  "Exclude Administrator Roles": "Виключити ролі адміністратора",
+  "Ignores traffic from selected roles.": "Ігнорує трафік від вибраних ролей.",
+  "Exclude IP Addresses": "Виключити IP-адреси",
+  "Requests from these addresses will be ignored in statistics.": "Запити з цих адрес будуть ігноруватися в статистиці.",
+  "Exclude Paths": "Виключити шляхи",
+  "Enter one path or pattern per row to ignore matching URLs.": "Введіть один шлях або шаблон у кожному рядку, щоб ігнорувати відповідні URL-адреси."
+}

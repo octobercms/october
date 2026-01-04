@@ -128,15 +128,15 @@
     }
 
     &.flex {
-        .flex-display();
-        .flex-direction-row();
+        display: flex;
+        flex-direction: row;
 
         .toolbar-item {
             display: block;
-            .flex-stretch();
+            flex: 1 1 auto;
 
             &.fix-width {
-                .flex-fix();
+                flex: 0 0 auto;
             }
         }
     }
@@ -163,10 +163,9 @@
     margin: -.3rem;
 }
 
-html.mobile {
+@media (pointer: coarse) {
     [data-control~=toolbar].is-native-drag {
         overflow: auto;
-        -webkit-overflow-scrolling: touch;
     }
 }
 
@@ -274,7 +273,6 @@ html.mobile {
             height: @toolbar-editor-btn-size;
             width: @toolbar-editor-btn-size;
             line-height: @toolbar-editor-btn-size;
-            zoom: 1;
             color: @color-toolbar-editor-btn;
             background: transparent;
             user-select: none;

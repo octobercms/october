@@ -35,6 +35,11 @@ class ThemeManager
     protected $installedThemeDirs;
 
     /**
+     * @var array bootedThemes is for storing themes that have been booted
+     */
+    protected $bootedThemes = [];
+
+    /**
      * instance creates a new instance of this singleton
      */
     public static function instance(): static
@@ -48,43 +53,40 @@ class ThemeManager
     }
 
     /**
-     * bootAllFrontend
+     * bootAll will boot language messages for the active theme as `theme.acme::lang.*`
+     * if it is in the backend
      */
-    public function bootAllFrontend()
+    public function bootAll()
     {
         $theme = $this->getActiveTheme();
-        $langPath = $theme->getPath() . '/lang';
-        if (is_dir($langPath)) {
-            Lang::addJsonPath($langPath);
-        }
+        $this->bootTheme($theme, App::runningInBackend());
 
         if ($parent = $theme->getParentTheme()) {
-            $langPath = $parent->getPath() . '/lang';
-            if (is_dir($langPath)) {
-                Lang::addJsonPath($langPath);
-            }
+            $this->bootTheme($parent, App::runningInBackend());
         }
     }
 
     /**
-     * bootAllBackend will boot language messages for the active theme as `theme.acme::lang.*`
+     * bootTheme boots a theme if it hasn't been booted already
      */
-    public function bootAllBackend()
+    protected function bootTheme(CmsTheme $theme, bool $isBackend = false): void
     {
-        $theme = $this->getActiveTheme();
+        $themeId = $theme->getId();
+
+        if (in_array($themeId, $this->bootedThemes)) {
+            return;
+        }
+
         $langPath = $theme->getPath() . '/lang';
         if (is_dir($langPath)) {
             Lang::addJsonPath($langPath);
-            Lang::addNamespace("theme.{$theme->getId()}", $langPath);
-        }
 
-        if ($parent = $theme->getParentTheme()) {
-            $langPath = $parent->getPath() . '/lang';
-            if (is_dir($langPath)) {
-                Lang::addJsonPath($langPath);
-                Lang::addNamespace("theme.{$parent->getId()}", $langPath);
+            if ($isBackend) {
+                Lang::addNamespace("theme.{$themeId}", $langPath);
             }
         }
+
+        $this->bootedThemes[] = $themeId;
     }
 
     /**
@@ -278,7 +280,7 @@ class ThemeManager
     {
         $versionHistory = $this->getVersionHistory($dirName);
 
-        $latestVersion = array_key_last($versionHistory);
+        $latestVersion = array_key_first($versionHistory);
 
         if ($latestVersion === null) {
             return '0.0.0';

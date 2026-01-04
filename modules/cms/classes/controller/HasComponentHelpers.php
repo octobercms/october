@@ -6,6 +6,7 @@ use Cms\Classes\ComponentManager;
 use Cms\Classes\CmsException;
 use Cms\Classes\ComponentPartial;
 use Cms\Classes\ComponentBase;
+use Larajax\Contracts\ViewComponentInterface;
 use Throwable;
 
 /**
@@ -16,6 +17,22 @@ use Throwable;
  */
 trait HasComponentHelpers
 {
+    /**
+     * addComponentInstance
+     */
+    public function addComponentInstance(string $alias, ViewComponentInterface $instance)
+    {
+        $this->page->components[$alias] = $instance;
+    }
+
+    /**
+     * getComponentInstance returns an instance of a component based on its alias
+     */
+    public function getComponentInstance(string $alias): ViewComponentInterface
+    {
+        return $this->findComponentByName($alias);
+    }
+
     /**
      * addComponent class or short name to the page or layout object, assigning
      * it an alias with configuration as properties.

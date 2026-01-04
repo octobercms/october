@@ -35,8 +35,8 @@ class PartialTokenParser extends TwigTokenParser
 
         $isAjax = $this->getTag() === 'ajaxPartial';
 
-        // Parse partial name (first argument) - use unique key
-        $nodes['_partial_name'] = $this->parser->parseExpression();
+        // Parse partial name (first argument)
+        $nodes['__partial_name'] = $this->parser->parseExpression();
 
         // Parse optional parameters
         while (!$stream->test(TwigToken::BLOCK_END_TYPE)) {

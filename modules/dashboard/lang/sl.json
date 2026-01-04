@@ -1,0 +1,20 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "Funkcija statistike notranjega prometa beleži oglede strani, naslove IP in druge osnovne anonimne uporabniške podatke v bazo podatkov.",
+  "Internal Traffic Statistics": "Statistika notranjega prometa",
+  "Purge the Internal Traffic Statistics data": "Izbrišite podatke statistike notranjega prometa",
+  "Manage Traffic Settings and Data": "Upravljanje nastavitev in podatkov o prometu",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "Statistika notranjega prometa beleži oglede strani, naslove IP in druge osnovne anonimne uporabniške podatke v zbirko podatkov ter zagotavlja poročila za nadzorno ploščo. Ko je funkcija onemogočena, se podatki ne zapisujejo v zbirko podatkov.",
+  "Traffic Statistics": "Statistika prometa",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "Časovni pas za beleženje ogledov strani. Sprememba časovnega pasu ne bo posodobila obstoječih podatkov. Če spremenite časovni pas, ne da bi izbrisali obstoječe podatke, lahko poročila prikazujejo napačne čase za prej zabeležene dni.",
+  "Retention Period (Months)": "Obdobje hrambe (meseci)",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "Določa trajanje shranjevanja statističnih podatkov o prometu v zbirki podatkov. Ko nastavljeno obdobje poteče, se ustrezni podatki samodejno izbrišejo iz zbirke podatkov. Nastavite na 0 ali prazno, da zapise ohranite za vedno.",
+  "Data Filters": "Filtri podatkov",
+  "Exclude Bots": "Izključi bote",
+  "Automatically ignores known bots using the detection library.": "Samodejno ignorira znane bote z uporabo knjižnice za zaznavanje.",
+  "Exclude Administrator Roles": "Izključi skrbniške vloge",
+  "Ignores traffic from selected roles.": "Ignorira promet iz izbranih vlog.",
+  "Exclude IP Addresses": "Izključi naslove IP",
+  "Requests from these addresses will be ignored in statistics.": "Zahteve s teh naslovov bodo v statistiki prezrte.",
+  "Exclude Paths": "Izključi poti",
+  "Enter one path or pattern per row to ignore matching URLs.": "V vsako vrstico vnesite eno pot ali vzorec, da prezrete ujemajoče se URL-je."
+}

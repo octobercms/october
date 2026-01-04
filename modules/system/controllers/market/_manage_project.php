@@ -15,14 +15,16 @@
                 data-handler="onBrowseProject"
                 data-view="project/product"
                 style="display: none">
-                    <tr>
-                        <td>
-                            <p>
+                <tr>
+                    <td>
+                        <div class="alert alert-info mb-0">
+                            <p class="p-3 mb-0 text-center">
                                 <?= __("Project has no plugins or themes. Visit the :link to add some.", ['link' => '<a href="https://octobercms.com/plugins" target="_blank">'.__("October CMS Marketplace").'</a>']) ?>
                             </p>
-                        </td>
-                    </tr>
-                </tbody>
+                        </div>
+                    </td>
+                </tr>
+            </tbody>
         </table>
     </div>
 </div>

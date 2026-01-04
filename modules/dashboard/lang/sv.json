@@ -1,0 +1,20 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "Funktionen Intern trafikstatistik loggar sidvisningar, IP-adresser och annan grundläggande anonym användardata i databasen.",
+  "Internal Traffic Statistics": "Intern trafikstatistik",
+  "Purge the Internal Traffic Statistics data": "Rensa den interna trafikstatistikdatan",
+  "Manage Traffic Settings and Data": "Hantera trafikinställningar och data",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "Intern trafikstatistik loggar sidvisningar, IP-adresser och annan grundläggande anonym användardata i databasen och tillhandahåller rapporter för instrumentpanelen. När funktionen är inaktiverad skrivs inte informationen till databasen.",
+  "Traffic Statistics": "Trafikstatistik",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "Tidszon för att logga sidvisningar. Att ändra tidszonen uppdaterar inte befintlig data. Om du ändrar tidszonen utan att radera befintlig data kan rapporter potentiellt visa felaktiga tider för tidigare loggade dagar.",
+  "Retention Period (Months)": "Lagringsperiod (månader)",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "Bestämmer hur länge trafikstatistikdata ska lagras i databasen. När den angivna perioden löper ut rensas motsvarande data automatiskt från databasen. Ställ in på 0 eller tomt för att behålla poster för alltid.",
+  "Data Filters": "Datafilter",
+  "Exclude Bots": "Uteslut botar",
+  "Automatically ignores known bots using the detection library.": "Ignorerar automatiskt kända botar med hjälp av detekteringsbiblioteket.",
+  "Exclude Administrator Roles": "Exkludera administratörsroller",
+  "Ignores traffic from selected roles.": "Ignorerar trafik från valda roller.",
+  "Exclude IP Addresses": "Exkludera IP-adresser",
+  "Requests from these addresses will be ignored in statistics.": "Förfrågningar från dessa adresser kommer att ignoreras i statistiken.",
+  "Exclude Paths": "Uteslut sökvägar",
+  "Enter one path or pattern per row to ignore matching URLs.": "Ange en sökväg eller ett mönster per rad för att ignorera matchande webbadresser."
+}

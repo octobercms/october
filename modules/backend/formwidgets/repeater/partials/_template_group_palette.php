@@ -12,7 +12,7 @@
                 <div class="control-filelist filelist-hero" data-control="filelist">
                     <ul>
                         <?php foreach ($groupDefinitions as $item): ?>
-                            <li class="<?= $item['description'] ? '' : 'no-description' ?>">
+                            <li class="<?= $item['description'] ? 'has-description' : 'no-description' ?>">
                                 <a
                                     href="javascript:;"
                                     data-repeater-add
@@ -20,7 +20,9 @@
                                     data-request-data="_repeater_group: '<?= $item['code'] ?>'">
                                     <i class="list-icon <?= $item['icon'] ?>"></i>
                                     <span class="title"><?= e(__($item['name'])) ?></span>
-                                    <span class="description"><?= e(__($item['description'])) ?></span>
+                                    <?php if ($item['description']): ?>
+                                        <i class="list-description icon-info-circle" title="<?= e(__($item['description'])) ?>" data-bs-toggle="tooltip"></i>
+                                    <?php endif ?>
                                     <span class="borders"></span>
                                 </a>
                             </li>

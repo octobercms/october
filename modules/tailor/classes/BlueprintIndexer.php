@@ -94,6 +94,9 @@ class BlueprintIndexer
 
         $allBlueprints = Blueprint::listInProject();
 
+        // Clear validation cache before validating all blueprints
+        BlueprintVerifier::instance()->clearCache();
+
         // Validate blueprints
         foreach ($allBlueprints as $blueprint) {
             $blueprint->validate();

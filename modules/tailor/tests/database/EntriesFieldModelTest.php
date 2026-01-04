@@ -92,6 +92,7 @@ where
   and "xc_unittestcategoryb022a74bc"."draft_mode" = 1
   and "xc_unittestcategoryb022a74bc"."is_version" = ''
   and "xc_unittestcategoryb022a74bc"."deleted_at" is null
+  order by "nest_left" asc
 SQL;
 
         $this->assertEquals(
@@ -119,6 +120,7 @@ where
   and "xc_unittestpostedcd102ec"."draft_mode" = 1
   and "xc_unittestpostedcd102ec"."is_version" = ''
   and "xc_unittestpostedcd102ec"."deleted_at" is null
+  order by "published_at_date" desc
 SQL;
 
         $this->assertEquals(
@@ -260,9 +262,9 @@ SQL;
     protected function cleanSqlSample($sql)
     {
         $sql = trim($sql);
+        $sql = str_replace("\r\n", ' ', $sql);
         $sql = str_replace("\n", ' ', $sql);
-        $sql = str_replace('  ', ' ', $sql);
-        $sql = str_replace('  ', ' ', $sql);
+        $sql = preg_replace('/\s+/', ' ', $sql);
         return $sql;
     }
 

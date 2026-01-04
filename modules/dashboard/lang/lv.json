@@ -1,0 +1,20 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "Iekšējās datplūsmas statistikas funkcija datubāzē reģistrē lapu skatījumus, IP adreses un citus anonīmus lietotāju pamatdatus.",
+  "Internal Traffic Statistics": "Iekšējās datplūsmas statistika",
+  "Purge the Internal Traffic Statistics data": "Notīrīt iekšējās datplūsmas statistikas datus",
+  "Manage Traffic Settings and Data": "Pārvaldīt satiksmes iestatījumus un datus",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "Iekšējās datplūsmas statistika reģistrē lapu skatījumus, IP adreses un citus anonīmus lietotāju pamatdatus datubāzē un sniedz pārskatus informācijas panelim. Ja šī funkcija ir atspējota, dati datubāzē netiek ierakstīti.",
+  "Traffic Statistics": "Satiksmes statistika",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "Laika josla, kurā reģistrēt lapu skatījumus. Laika joslas maiņa neatjauninās esošos datus. Ja maināt laika joslu, neizdzēšot esošos datus, pārskatos var tikt parādīts nepareizs laiks iepriekš reģistrētajām dienām.",
+  "Retention Period (Months)": "Saglabāšanas periods (mēneši)",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "Nosaka laiku, cik ilgi datplūsmas statistikas dati jāglabā datubāzē. Kad iestatītais periods beidzas, atbilstošie dati tiek automātiski dzēsti no datubāzes. Iestatiet vērtību 0 vai tukšu lauku, lai ierakstus saglabātu mūžīgi.",
+  "Data Filters": "Datu filtri",
+  "Exclude Bots": "Izslēgt robotprogrammatūras",
+  "Automatically ignores known bots using the detection library.": "Automātiski ignorē zināmos robotus, izmantojot noteikšanas bibliotēku.",
+  "Exclude Administrator Roles": "Izslēgt administratora lomas",
+  "Ignores traffic from selected roles.": "Ignorē datplūsmu no atlasītajām lomām.",
+  "Exclude IP Addresses": "Izslēgt IP adreses",
+  "Requests from these addresses will be ignored in statistics.": "Pieprasījumi no šīm adresēm statistikā tiks ignorēti.",
+  "Exclude Paths": "Izslēgt ceļus",
+  "Enter one path or pattern per row to ignore matching URLs.": "Ievadiet vienu ceļu vai rakstu katrā rindā, lai ignorētu atbilstošos URL."
+}

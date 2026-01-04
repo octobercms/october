@@ -22,6 +22,7 @@
             </a>
 
             <button
+                type="button"
                 class="backend-toolbar-button control-button toolbar-delete-selected populated-only"
                 disabled
             >

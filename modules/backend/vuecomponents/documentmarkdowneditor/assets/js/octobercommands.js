@@ -96,7 +96,7 @@ oc.Modules.register('backend.vuecomponents.documentmarkdowneditor.octobercommand
         browseImage(editor) {
             const that = this;
 
-            new $.oc.mediaManager.popup({
+            new oc.mediaManager.popup({
                 alias: 'ocmediamanager',
                 cropAndInsertButton: true,
                 onInsert: function(items) {
@@ -184,7 +184,7 @@ oc.Modules.register('backend.vuecomponents.documentmarkdowneditor.octobercommand
         browseFile(editor) {
             const that = this;
 
-            new $.oc.mediaManager.popup({
+            new oc.mediaManager.popup({
                 alias: 'ocmediamanager',
                 cropAndInsertButton: false,
                 onInsert: function(items) {

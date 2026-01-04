@@ -1,15 +1,14 @@
 /*
  * Media manager image editor popup
  */
-+function ($) { "use strict";
+class MediaManagerImageCropPopup
+{
+    static DEFAULTS = {
+        alias: undefined,
+        onDone: undefined
+    };
 
-    if ($.oc.mediaManager === undefined)
-        $.oc.mediaManager = {}
-
-    var Base = $.oc.foundation.base,
-        BaseProto = Base.prototype
-
-    var MediaManagerImageCropPopup = function(path, options) {
+    constructor(path, options) {
         this.$popupRootElement = null;
         this.$popupElement = null;
         this.selectionSizeLabel = null;
@@ -23,19 +22,14 @@
 
         this.jCrop = null;
 
-        this.options = $.extend({}, MediaManagerImageCropPopup.DEFAULTS, options);
+        this.options = { ...MediaManagerImageCropPopup.DEFAULTS, ...options };
         this.path = path;
-
-        Base.call(this)
 
         this.init();
         this.show();
     }
 
-    MediaManagerImageCropPopup.prototype = Object.create(BaseProto);
-    MediaManagerImageCropPopup.prototype.constructor = MediaManagerImageCropPopup;
-
-    MediaManagerImageCropPopup.prototype.dispose = function() {
+    dispose() {
         this.unregisterHandlers();
         this.removeAttachedControls();
 
@@ -46,81 +40,76 @@
         this.imageArea = null;
         this.hRulerHolder = null;
         this.vRulerHolder = null;
-
-        BaseProto.dispose.call(this);
     }
 
-    MediaManagerImageCropPopup.prototype.init = function() {
-        if (this.options.alias === undefined)
-            throw new Error('Media Manager image crop popup option "alias" is not set.')
-
-        this.$popupRootElement = $('<div/>')
-        this.registerHandlers()
-    }
-
-    MediaManagerImageCropPopup.prototype.show = function() {
-        var data = {
-            path: this.path
+    init() {
+        if (this.options.alias === undefined) {
+            throw new Error('Media Manager image crop popup option "alias" is not set.');
         }
+
+        this.$popupRootElement = $('<div/>');
+        this.registerHandlers();
+    }
+
+    show() {
+        const data = {
+            path: this.path
+        };
 
         this.$popupRootElement.popup({
             extraData: data,
             size: 'adaptive',
             adaptiveHeight: true,
             handler: this.options.alias + '::onLoadImageCropPopup'
-        })
+        });
     }
 
-    MediaManagerImageCropPopup.prototype.registerHandlers = function() {
-        this.$popupRootElement.one('hide.oc.popup', this.proxy(this.onPopupHidden))
-        this.$popupRootElement.one('shown.oc.popup', this.proxy(this.onPopupShown))
+    registerHandlers() {
+        this.$popupRootElement.one('hide.oc.popup', this.onPopupHidden);
+        this.$popupRootElement.one('shown.oc.popup', this.onPopupShown);
     }
 
-    MediaManagerImageCropPopup.prototype.unregisterHandlers = function() {
-        this.$popupElement.off('change', '[data-control="selection-mode"]', this.proxy(this.onSelectionModeChanged))
-        this.$popupElement.off('click', '[data-command]', this.proxy(this.onCommandClick))
-        this.$popupElement.off('shown.oc.popup', 'button[data-command=resize]', this.proxy(this.onResizePopupShown))
-        this.$popupElement.off('hidden.oc.popup', 'button[data-command=resize]', this.proxy(this.onResizePopupHidden))
+    unregisterHandlers() {
+        this.$popupElement.off('change', '[data-media-selection-mode]', this.onSelectionModeChanged);
+        this.$popupElement.off('click', '[data-command]', this.onCommandClick);
+        this.$popupElement.off('shown.oc.popup', 'button[data-command=resize]', this.onResizePopupShown);
+        this.$popupElement.off('hidden.oc.popup', 'button[data-command=resize]', this.onResizePopupHidden);
 
         if (this.rulersVisible) {
-            var $cropToolRoot = this.$popupElement.find('[data-control=media-manager-crop-tool]')
-            this.imageArea.removeEventListener('scroll', this.proxy(this.onImageScroll))
+            this.imageArea.removeEventListener('scroll', this.onImageScroll);
         }
 
-        this.getWidthInput().off('change', this.proxy(this.onSizeInputChange))
-        this.getHeightInput().off('change', this.proxy(this.onSizeInputChange))
+        this.getWidthInput().off('change', this.onSizeInputChange);
+        this.getHeightInput().off('change', this.onSizeInputChange);
     }
 
-    MediaManagerImageCropPopup.prototype.removeAttachedControls = function() {
+    removeAttachedControls() {
         if (this.$popupElement) {
             // Note - the controls are destroyed and removed from DOM. If they're just destroyed,
             // the JS plugins could be re-attached to them on window.onresize. -ab
-            this.$popupElement.find('[data-control="selection-mode"]').select2('destroy').remove()
-            this.$popupElement.find('[data-control=toolbar]').toolbar('dispose').remove()
+            this.$popupElement.find('[data-media-selection-mode]').select2('destroy').remove();
+            this.$popupElement.find('[data-control=toolbar]').toolbar('dispose').remove();
 
-            this.jCrop.destroy()
+            this.jCrop.destroy();
         }
 
-        this.jCrop = null
+        this.jCrop = null;
     }
 
-    MediaManagerImageCropPopup.prototype.hide = function() {
-        if (this.$popupElement)
-            this.$popupElement.trigger('close.oc.popup')
-    }
-
-    MediaManagerImageCropPopup.prototype.getSelectionMode = function() {
-        return this.$popupElement.find('[data-control="selection-mode"]').val()
-    }
-
-    MediaManagerImageCropPopup.prototype.initRulers = function() {
-        if (!Modernizr.csstransforms) {
-            return;
+    hide() {
+        if (this.$popupElement) {
+            this.$popupElement.trigger('close.oc.popup');
         }
+    }
 
-        var $cropToolRoot = this.$popupElement.find('[data-control=media-manager-crop-tool]'),
-            width = $cropToolRoot.data('image-width'),
-            height = $cropToolRoot.data('image-height');
+    getSelectionMode() {
+        return this.$popupElement.find('[data-media-selection-mode]').val();
+    }
+
+    initRulers() {
+        const $cropToolRoot = this.$popupElement.find('[data-media-crop-tool]');
+        let width = $cropToolRoot.data('image-width');
+        let height = $cropToolRoot.data('image-height');
 
         if (!width || !height) {
             return;
@@ -135,47 +124,45 @@
         }
 
         $cropToolRoot.find('.ruler-container').removeClass('oc-hide');
-
         $cropToolRoot.addClass('has-rulers');
 
-        var $hRuler = $cropToolRoot.find('[data-control=h-ruler]'),
-            $vRuler = $cropToolRoot.find('[data-control=v-ruler]'),
-            hTicks = width / 40 + 1,
-            vTicks = height / 40 + 1;
+        const $hRuler = $cropToolRoot.find('[data-media-h-ruler]');
+        const $vRuler = $cropToolRoot.find('[data-media-v-ruler]');
+        const hTicks = width / 40 + 1;
+        const vTicks = height / 40 + 1;
 
         this.createRulerTicks($hRuler, hTicks);
         this.createRulerTicks($vRuler, vTicks);
 
         this.rulersVisible = true;
 
-        this.imageArea.addEventListener('scroll', this.proxy(this.onImageScroll));
+        this.imageArea.addEventListener('scroll', this.onImageScroll);
 
         this.hRulerHolder = $cropToolRoot.find('.ruler-container.horizontal .layout-relative').get(0);
         this.vRulerHolder = $cropToolRoot.find('.ruler-container.vertical .layout-relative').get(0);
     }
 
-    MediaManagerImageCropPopup.prototype.createRulerTicks = function($rulerElement, count) {
-        var list = document.createElement('ul')
+    createRulerTicks($rulerElement, count) {
+        const list = document.createElement('ul');
 
-        for (var i=0; i <= count; i++) {
-            var li = document.createElement('li')
-            li.textContent = i*40
-
-            list.appendChild(li)
+        for (let i = 0; i <= count; i++) {
+            const li = document.createElement('li');
+            li.textContent = i * 40;
+            list.appendChild(li);
         }
 
-        $rulerElement.append(list)
+        $rulerElement.append(list);
     }
 
-    MediaManagerImageCropPopup.prototype.initJCrop = function() {
+    initJCrop = () => {
         this.jCrop = $.Jcrop(this.getImageElement().get(0), {
             shade: true,
-            onChange: this.proxy(this.onSelectionChanged)
+            onChange: this.onSelectionChanged
         });
     }
 
-    MediaManagerImageCropPopup.prototype.fixDimensionValue = function(value) {
-        var result = value.replace(/[^0-9]+/, '');
+    fixDimensionValue(value) {
+        let result = value.replace(/[^0-9]+/, '');
 
         if (!result.length) {
             result = 200;
@@ -188,59 +175,59 @@
         return result;
     }
 
-    MediaManagerImageCropPopup.prototype.getWidthInput = function() {
-        return this.$popupElement.find('[data-control="crop-width-input"]');
+    getWidthInput() {
+        return this.$popupElement.find('[data-media-crop-width-input]');
     }
 
-    MediaManagerImageCropPopup.prototype.getHeightInput = function() {
-        return this.$popupElement.find('[data-control="crop-height-input"]');
+    getHeightInput() {
+        return this.$popupElement.find('[data-media-crop-height-input]');
     }
 
-    MediaManagerImageCropPopup.prototype.getImageElement = function() {
+    getImageElement() {
         return $(this.imageArea).find('img');
     }
 
-    MediaManagerImageCropPopup.prototype.applySelectionMode = function() {
+    applySelectionMode() {
         if (!this.jCrop) {
             return;
         }
 
-        var $widthInput = this.getWidthInput(),
-            $heightInput = this.getHeightInput(),
-            width = this.fixDimensionValue($widthInput.val()),
-            height = this.fixDimensionValue($heightInput.val()),
-            mode = this.getSelectionMode();
+        const $widthInput = this.getWidthInput();
+        const $heightInput = this.getHeightInput();
+        const width = this.fixDimensionValue($widthInput.val());
+        const height = this.fixDimensionValue($heightInput.val());
+        const mode = this.getSelectionMode();
 
         switch (mode) {
-            case 'fixed-ratio' :
+            case 'fixed-ratio':
                 this.jCrop.setOptions({
-                    aspectRatio: width/height,
+                    aspectRatio: width / height,
                     minSize: [0, 0],
                     maxSize: [0, 0],
                     allowResize: true
-                })
-            break
-            case 'fixed-size' :
+                });
+                break;
+            case 'fixed-size':
                 this.jCrop.setOptions({
                     aspectRatio: 0,
                     minSize: [width, height],
                     maxSize: [width, height],
                     allowResize: false
-                })
-            break
-            case 'normal' :
+                });
+                break;
+            case 'normal':
                 this.jCrop.setOptions({
                     aspectRatio: 0,
                     minSize: [0, 0],
                     maxSize: [0, 0],
                     allowResize: true
-                })
-            break
+                });
+                break;
         }
     }
 
-    MediaManagerImageCropPopup.prototype.cropAndInsert = function() {
-        var data = {
+    cropAndInsert() {
+        const data = {
             img: this.getImageElement().attr('src'),
             selection: this.jCrop.tellSelect()
         };
@@ -249,114 +236,112 @@
 
         this.$popupElement
             .find('form')
-            .request(this.options.alias+'::onCropImage', {
+            .request(this.options.alias + '::onCropImage', {
                 data: data
             })
-            .always(function() {
-                $.oc.stripeLoadIndicator.hide()
+            .always(() => {
+                $.oc.stripeLoadIndicator.hide();
             })
-            .done(this.proxy(this.onImageCropped));
+            .done(this.onImageCropped);
     }
 
-    MediaManagerImageCropPopup.prototype.onImageCropped = function(response) {
-        this.hide()
+    onImageCropped = (response) => {
+        this.hide();
 
         if (this.options.onDone !== undefined) {
-            this.options.onDone(response)
+            this.options.onDone(response);
         }
     }
 
-    MediaManagerImageCropPopup.prototype.showResizePopup = function() {
+    showResizePopup() {
         this.$popupElement.find('button[data-command=resize]').popup({
-            content: this.$popupElement.find('[data-control="resize-template"]').html(),
+            content: this.$popupElement.find('[data-media-resize-template]').html(),
             zIndex: 1220
-        })
+        });
     }
 
-    MediaManagerImageCropPopup.prototype.onResizePopupShown = function(ev, button, popup) {
-        var $popup = $(popup),
-            $widthControl = $popup.find('input[name=width]'),
-            $heightControl = $popup.find('input[name=height]'),
-            imageWidth = this.fixDimensionValue(this.$popupElement.find('input[data-control=dimension-width]').val()),
-            imageHeight = this.fixDimensionValue(this.$popupElement.find('input[data-control=dimension-height]').val())
+    onResizePopupShown = (ev, button, popup) => {
+        const $popup = $(popup);
+        const $widthControl = $popup.find('input[name=width]');
+        const $heightControl = $popup.find('input[name=height]');
+        const imageWidth = this.fixDimensionValue(this.$popupElement.find('input[data-media-dimension-width]').val());
+        const imageHeight = this.fixDimensionValue(this.$popupElement.find('input[data-media-dimension-height]').val());
 
-        $widthControl.val(imageWidth)
-        $heightControl.val(imageHeight)
+        $widthControl.val(imageWidth);
+        $heightControl.val(imageHeight);
 
-        $widthControl.focus()
+        $widthControl.focus();
 
-        $popup.on('submit.media', 'form', this.proxy(this.onResizeSubmit))
-        $widthControl.on('keyup.media', this.proxy(this.onResizeDimensionKeyUp))
-        $heightControl.on('keyup.media', this.proxy(this.onResizeDimensionKeyUp))
+        $popup.on('submit.media', 'form', this.onResizeSubmit);
+        $widthControl.on('keyup.media', this.onResizeDimensionKeyUp);
+        $heightControl.on('keyup.media', this.onResizeDimensionKeyUp);
 
-        $widthControl.on('change.media', this.proxy(this.onResizeDimensionChanged))
-        $heightControl.on('change.media', this.proxy(this.onResizeDimensionChanged))
+        $widthControl.on('change.media', this.onResizeDimensionChanged);
+        $heightControl.on('change.media', this.onResizeDimensionChanged);
     }
 
-    MediaManagerImageCropPopup.prototype.onResizePopupHidden = function(ev, button, popup) {
-        var $popup = $(popup),
-            $widthControl = $popup.find('input[name=width]'),
-            $heightControl = $popup.find('input[name=height]')
+    onResizePopupHidden = (ev, button, popup) => {
+        const $popup = $(popup);
+        const $widthControl = $popup.find('input[name=width]');
+        const $heightControl = $popup.find('input[name=height]');
 
-        $popup.off('.media', 'form')
-        $widthControl.off('.media')
-        $heightControl.off('.media')
+        $popup.off('.media', 'form');
+        $widthControl.off('.media');
+        $heightControl.off('.media');
     }
 
-    MediaManagerImageCropPopup.prototype.onResizeDimensionKeyUp = function(ev) {
-        var $target = $(ev.target),
-            targetValue = this.fixDimensionValue($target.val()),
-            otherDimensionName = $target.attr('name') == 'width' ? 'height' : 'width',
-            $otherInput = $target.closest('form').find('input[name='+otherDimensionName+']'),
-            ratio = this.$popupElement.find('[data-control=original-ratio]').val(),
-            value = otherDimensionName == 'height' ? targetValue / ratio : targetValue * ratio
+    onResizeDimensionKeyUp = (ev) => {
+        const $target = $(ev.target);
+        const targetValue = this.fixDimensionValue($target.val());
+        const otherDimensionName = $target.attr('name') == 'width' ? 'height' : 'width';
+        const $otherInput = $target.closest('form').find('input[name=' + otherDimensionName + ']');
+        const ratio = this.$popupElement.find('[data-media-original-ratio]').val();
+        const value = otherDimensionName == 'height' ? targetValue / ratio : targetValue * ratio;
 
-        $otherInput.val(Math.round(value))
+        $otherInput.val(Math.round(value));
     }
 
-    MediaManagerImageCropPopup.prototype.onResizeDimensionChanged = function(ev) {
-        var $target = $(ev.target)
-
-        $target.val(this.fixDimensionValue($target.val()))
+    onResizeDimensionChanged = (ev) => {
+        const $target = $(ev.target);
+        $target.val(this.fixDimensionValue($target.val()));
     }
 
-    MediaManagerImageCropPopup.prototype.onResizeSubmit = function(ev) {
-        var data = {
-                cropSessionKey: this.$popupElement.find('input[name=cropSessionKey]').val(),
-                path: this.$popupElement.find('input[name=path]').val()
-            }
+    onResizeSubmit = (ev) => {
+        const data = {
+            cropSessionKey: this.$popupElement.find('input[name=cropSessionKey]').val(),
+            path: this.$popupElement.find('input[name=path]').val()
+        };
 
-        $.oc.stripeLoadIndicator.show()
-        $(ev.target).request(this.options.alias+'::onResizeImage', {
+        $.oc.stripeLoadIndicator.show();
+        $(ev.target).request(this.options.alias + '::onResizeImage', {
             data: data
-        }).always(function() {
-            $.oc.stripeLoadIndicator.hide()
-        }).done(this.proxy(this.imageResized))
+        }).always(() => {
+            $.oc.stripeLoadIndicator.hide();
+        }).done(this.imageResized);
 
-        ev.preventDefault()
-        return false
+        ev.preventDefault();
+        return false;
     }
 
-    MediaManagerImageCropPopup.prototype.imageResized = function(response) {
-        this.$popupElement.find('button[data-command=resize]').popup('hide')
-
-        this.updateImage(response.url, response.dimensions[0], response.dimensions[1])
+    imageResized = (response) => {
+        this.$popupElement.find('button[data-command=resize]').popup('hide');
+        this.updateImage(response.url, response.dimensions[0], response.dimensions[1]);
     }
 
-    MediaManagerImageCropPopup.prototype.updateImage = function(url, width, height) {
+    updateImage(url, width, height) {
         this.jCrop.destroy();
 
         this.$popupElement.find('span[data-label=width]').text(width);
         this.$popupElement.find('span[data-label=height]').text(height);
 
-        this.$popupElement.find('input[data-control=dimension-width]').val(width);
-        this.$popupElement.find('input[data-control=dimension-height]').val(height);
+        this.$popupElement.find('input[data-media-dimension-width]').val(width);
+        this.$popupElement.find('input[data-media-dimension-height]').val(height);
 
-        var $imageArea = $(this.imageArea);
+        const $imageArea = $(this.imageArea);
         $imageArea.find('img').remove();
 
-        var $img = $('<img>').attr('src', url);
-        $img.one('load', this.proxy(this.initJCrop));
+        const $img = $('<img>').attr('src', url);
+        $img.one('load', this.initJCrop);
 
         $imageArea.append($img);
 
@@ -365,15 +350,15 @@
         this.onImageScroll();
     }
 
-    MediaManagerImageCropPopup.prototype.undoResizing = function() {
+    undoResizing() {
         this.updateImage(
-            this.$popupElement.find('input[data-control=original-url]').val(),
-            this.$popupElement.find('input[data-control=original-width]').val(),
-            this.$popupElement.find('input[data-control=original-height]').val()
+            this.$popupElement.find('input[data-media-original-url]').val(),
+            this.$popupElement.find('input[data-media-original-width]').val(),
+            this.$popupElement.find('input[data-media-original-height]').val()
         );
     }
 
-    MediaManagerImageCropPopup.prototype.updateSelectionSizeLabel = function(width, height) {
+    updateSelectionSizeLabel(width, height) {
         if (width == 0 && height == 0) {
             this.selectionSizeLabel.setAttribute('class', 'oc-hide');
             return;
@@ -387,8 +372,8 @@
     // EVENT HANDLERS
     // ============================
 
-    MediaManagerImageCropPopup.prototype.onPopupHidden = function(event, element, popup) {
-        this.$popupElement.find('form').request(this.options.alias+'::onEndCroppingSession');
+    onPopupHidden = (event, element, popup) => {
+        this.$popupElement.find('form').request(this.options.alias + '::onEndCroppingSession');
 
         // Release clickedElement reference inside redactor.js
         // If we don't do it, the image editor popup DOM elements
@@ -398,36 +383,36 @@
         this.dispose();
     }
 
-    MediaManagerImageCropPopup.prototype.onPopupShown = function(event, element, popup) {
-        this.$popupElement = popup
-        this.$popupElement.on('change', '[data-control="selection-mode"]', this.proxy(this.onSelectionModeChanged))
-        this.$popupElement.on('click', '[data-command]', this.proxy(this.onCommandClick))
-        this.$popupElement.on('shown.oc.popup', 'button[data-command=resize]', this.proxy(this.onResizePopupShown))
-        this.$popupElement.on('hidden.oc.popup', 'button[data-command=resize]', this.proxy(this.onResizePopupHidden))
+    onPopupShown = (event, element, popup) => {
+        this.$popupElement = popup;
+        this.$popupElement.on('change', '[data-media-selection-mode]', this.onSelectionModeChanged);
+        this.$popupElement.on('click', '[data-command]', this.onCommandClick);
+        this.$popupElement.on('shown.oc.popup', 'button[data-command=resize]', this.onResizePopupShown);
+        this.$popupElement.on('hidden.oc.popup', 'button[data-command=resize]', this.onResizePopupHidden);
 
-        this.imageArea = popup.find('[data-control=media-manager-crop-tool]').get(0).querySelector('.image_area')
-        this.selectionSizeLabel = popup.find('[data-label="selection-size"]').get(0)
+        this.imageArea = popup.find('[data-media-crop-tool]').get(0).querySelector('.image_area');
+        this.selectionSizeLabel = popup.find('[data-label="selection-size"]').get(0);
 
-        this.getWidthInput().on('change', this.proxy(this.onSizeInputChange));
-        this.getHeightInput().on('change', this.proxy(this.onSizeInputChange));
+        this.getWidthInput().on('change', this.onSizeInputChange);
+        this.getHeightInput().on('change', this.onSizeInputChange);
 
         this.initRulers();
         this.applySelectionMode();
 
         // Handle slow connections
-        var $img = this.getImageElement();
+        const $img = this.getImageElement();
         if ($img.get(0).complete) {
             this.initJCrop();
         }
         else {
-            $img.one('load', this.proxy(this.initJCrop));
+            $img.one('load', this.initJCrop);
         }
     }
 
-    MediaManagerImageCropPopup.prototype.onSelectionModeChanged = function() {
-        var mode = this.getSelectionMode(),
-            $widthInput = this.getWidthInput(),
-            $heightInput = this.getHeightInput();
+    onSelectionModeChanged = () => {
+        const mode = this.getSelectionMode();
+        const $widthInput = this.getWidthInput();
+        const $heightInput = this.getHeightInput();
 
         if (mode === 'normal') {
             $widthInput.attr('disabled', 'disabled');
@@ -444,9 +429,9 @@
         this.applySelectionMode();
     }
 
-    MediaManagerImageCropPopup.prototype.onImageScroll = function() {
-        var scrollTop = this.imageArea.scrollTop,
-            scrollLeft = this.imageArea.scrollLeft;
+    onImageScroll = () => {
+        const scrollTop = this.imageArea.scrollTop;
+        const scrollLeft = this.imageArea.scrollLeft;
 
         if (this.prevScrollTop != scrollTop) {
             this.prevScrollTop = scrollTop;
@@ -459,38 +444,33 @@
         }
     }
 
-    MediaManagerImageCropPopup.prototype.onSizeInputChange = function(ev) {
-        var $target = $(ev.target);
+    onSizeInputChange = (ev) => {
+        const $target = $(ev.target);
 
         $target.val(this.fixDimensionValue($target.val()));
 
         this.applySelectionMode();
     }
 
-    MediaManagerImageCropPopup.prototype.onCommandClick = function(ev) {
-        var command = $(ev.currentTarget).data('command')
+    onCommandClick = (ev) => {
+        const command = $(ev.currentTarget).data('command');
 
         switch (command) {
             case 'insert':
                 this.cropAndInsert();
-            break
+                break;
             case 'resize':
                 this.showResizePopup();
-            break
+                break;
             case 'undo-resizing':
                 this.undoResizing();
-            break
+                break;
         }
     }
 
-    MediaManagerImageCropPopup.prototype.onSelectionChanged = function(c) {
+    onSelectionChanged = (c) => {
         this.updateSelectionSizeLabel(c.w, c.h);
     }
+}
 
-    MediaManagerImageCropPopup.DEFAULTS = {
-        alias: undefined,
-        onDone: undefined
-    }
-
-    $.oc.mediaManager.imageCropPopup = MediaManagerImageCropPopup;
-}(window.jQuery);
+oc.mediaManager.imageCropPopup = MediaManagerImageCropPopup;

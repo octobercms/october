@@ -19,38 +19,60 @@ Vue.component('dashboard-component-dashboard-dashboard-selector', {
     },
     methods: {
         setEditMenuItems: function () {
-            this.editMenuItems = [
+            this.editMenuItems = [];
+
+            this.editMenuItems.push(
                 {
                     type: 'text',
                     command: 'edit',
                     label: oc.lang.get('dashboard.edit_dashboard')
-                },
-                // {
-                //     type: 'text',
-                //     command: 'rename',
-                //     label: oc.lang.get('dashboard.rename_dashboard')
-                // },
-                // {
-                //     type: 'text',
-                //     command: 'delete',
-                //     label: oc.lang.get('dashboard.delete_dashboard')
-                // },
-                // {
-                //     type: 'separator'
-                // },
-                // {
-                //     type: 'text',
-                //     href: this.store.manageUrl,
-                //     target: '_blank',
-                //     label: oc.lang.get('dashboard.manage_dashboards')
-                // }
-                // {
-                //     type: 'text',
-                //     href: '/export/url/here' + this.store.state.dashboardCode,
-                //     target: '_blank',
-                //     label: oc.lang.get('dashboard.export_dashboard')
-                // }
-            ];
+                }
+            );
+
+            if (this.store.state.canMakeDefault || this.store.state.canResetLayout) {
+                this.editMenuItems.push(
+                    {
+                        type: 'separator'
+                    }
+                );
+
+                if (this.store.state.canMakeDefault) {
+                    this.editMenuItems.push(
+                        {
+                            type: 'text',
+                            command: 'make-default',
+                            label: oc.lang.get('dashboard.make_default')
+                        }
+                    );
+                }
+
+                if (this.store.state.canResetLayout) {
+                    this.editMenuItems.push(
+                        {
+                            type: 'text',
+                            command: 'reset-layout',
+                            label: oc.lang.get('dashboard.reset_layout')
+                        }
+                    );
+                }
+            }
+
+            // {
+            //     type: 'text',
+            //     command: 'rename',
+            //     label: oc.lang.get('dashboard.rename_dashboard')
+            // },
+            // {
+            //     type: 'text',
+            //     command: 'delete',
+            //     label: oc.lang.get('dashboard.delete_dashboard')
+            // },
+            // {
+            //     type: 'text',
+            //     href: '/export/url/here' + this.store.state.dashboardCode,
+            //     target: '_blank',
+            //     label: oc.lang.get('dashboard.export_dashboard')
+            // }
 
             if (this.store.manageUrl) {
                 this.editMenuItems.push(
@@ -77,6 +99,17 @@ Vue.component('dashboard-component-dashboard-dashboard-selector', {
             Vue.nextTick(() => {
                 if (command === 'edit') {
                     this.store.startEditing();
+                    return;
+                }
+
+                if (command === 'reset-layout') {
+                    this.store.resetLayout();
+                    return;
+                }
+
+                if (command === 'make-default') {
+                    this.store.makeDefault();
+                    return;
                 }
             })
         },

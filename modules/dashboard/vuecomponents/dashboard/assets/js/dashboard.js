@@ -18,7 +18,6 @@ Vue.component('dashboard-component-dashboard', {
             try {
                 await oc.ajax(this.store.getEventHandler('onSaveDashboard'), {
                     progressBar: true,
-                    async: true,
                     data: {
                         _dash_definition: this.currentDashboard.code,
                         definition: JSON.stringify(this.currentDashboard.rows)
@@ -26,7 +25,7 @@ Vue.component('dashboard-component-dashboard', {
                 });
 
                 this.store.state.editMode = false;
-                $.oc.snackbar.show(oc.lang.get('dashboard.updated_successfully'));
+                oc.snackbar.show(oc.lang.get('dashboard.updated_successfully'));
             }
             catch (err) {
                 oc.alert(err.message);

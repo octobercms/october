@@ -109,6 +109,7 @@ tabs:
             tab: Configuration
             label: Define matching hostnames
             comment: Specify domain names and patterns that must be used to serve this site.
+            tooltip: Wildcards (*) are supported.
             type: checkbox
             span: full
 

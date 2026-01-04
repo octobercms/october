@@ -72,7 +72,7 @@ class MailTemplates extends Controller
      */
     public function formBeforeSave($model)
     {
-        $model->is_custom = 1;
+        $model->is_custom = true;
     }
 
     /**

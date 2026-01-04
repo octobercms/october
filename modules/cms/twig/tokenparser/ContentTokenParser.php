@@ -32,7 +32,7 @@ class ContentTokenParser extends TwigTokenParser
         $paramNames = [];
 
         // Parse content name (first argument)
-        $nodes['name'] = $this->parser->parseExpression();
+        $nodes['__content_name'] = $this->parser->parseExpression();
 
         // Parse optional parameters
         while (!$stream->test(TwigToken::BLOCK_END_TYPE)) {

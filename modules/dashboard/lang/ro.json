@@ -1,0 +1,20 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "Funcția Statistici trafic intern înregistrează în baza de date vizualizările de pagină, adresele IP și alte date anonime de bază ale utilizatorilor.",
+  "Internal Traffic Statistics": "Statistici de trafic intern",
+  "Purge the Internal Traffic Statistics data": "Ștergeți datele din statisticile de trafic intern",
+  "Manage Traffic Settings and Data": "Gestionați setările și datele de trafic",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "Statisticile de trafic intern înregistrează vizualizările de pagină, adresele IP și alte date anonime de bază ale utilizatorilor în baza de date și furnizează rapoarte pentru tabloul de bord. Când funcția este dezactivată, datele nu sunt scrise în baza de date.",
+  "Traffic Statistics": "Statistici de trafic",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "Fus orar pentru înregistrarea vizualizărilor de pagină. Modificarea fusului orar nu va actualiza datele existente. Dacă modificați fusul orar fără a șterge datele existente, rapoartele pot afișa ore incorecte pentru zilele înregistrate anterior.",
+  "Retention Period (Months)": "Perioada de păstrare (luni)",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "Determină durata pentru care datele statistice de trafic ar trebui stocate în baza de date. Când perioada setată expiră, datele corespunzătoare sunt șterse automat din baza de date. Setați la 0 sau goliți câmpul pentru a păstra înregistrările pentru totdeauna.",
+  "Data Filters": "Filtre de date",
+  "Exclude Bots": "Excludeți roboții",
+  "Automatically ignores known bots using the detection library.": "Ignoră automat roboții cunoscuți folosind biblioteca de detectare.",
+  "Exclude Administrator Roles": "Excludeți rolurile de administrator",
+  "Ignores traffic from selected roles.": "Ignoră traficul de la rolurile selectate.",
+  "Exclude IP Addresses": "Excludeți adresele IP",
+  "Requests from these addresses will be ignored in statistics.": "Cererile de la aceste adrese vor fi ignorate în statistici.",
+  "Exclude Paths": "Excludeți căile",
+  "Enter one path or pattern per row to ignore matching URLs.": "Introduceți o cale sau un model pe rând pentru a ignora adresele URL potrivite."
+}

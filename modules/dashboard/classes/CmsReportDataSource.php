@@ -1,6 +1,7 @@
 <?php namespace Dashboard\Classes;
 
 use Db;
+use Site;
 use Dashboard\Classes\ReportDataSourceBase;
 use Dashboard\Classes\ReportDataOrderRule;
 use Dashboard\Classes\ReportDataQueryBuilder;
@@ -89,22 +90,11 @@ class CmsReportDataSource extends ReportDataSourceBase
      */
     protected function fetchData(ReportFetchData $data): ReportFetchDataResult
     {
-        $reportQueryBuilder = new ReportDataQueryBuilder(
+        $reportQueryBuilder = ReportDataQueryBuilder::fromFetchData(
+            $data,
             'dashboard_traffic_stats_pageviews',
-            $data->dimension,
-            $data->metrics,
-            $data->orderRule,
-            $data->dimensionFilters,
-            $data->limit,
-            $data->paginationParams,
-            $data->groupInterval,
-            $data->hideEmptyDimensionValues,
-            $data->dateStart,
-            $data->dateEnd,
-            $data->startTimestamp,
             'ev_date',
-            'ev_timestamp',
-            $data->totalsOnly
+            'ev_timestamp'
         );
 
         $reportQueryBuilder->onConfigureQuery(
@@ -113,6 +103,13 @@ class CmsReportDataSource extends ReportDataSourceBase
                     $query->addSelect([
                         Db::raw('max(dashboard_traffic_stats_pageviews.country) as oc_field_country')
                     ]);
+                }
+
+                if (Site::hasFeature('dashboard_traffic_statistics')) {
+                    $siteId = Site::getEditSite()?->id;
+                    if ($siteId) {
+                        $query->where('dashboard_traffic_stats_pageviews.site_id', $siteId);
+                    }
                 }
             }
         );

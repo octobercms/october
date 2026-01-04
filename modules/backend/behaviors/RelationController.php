@@ -794,6 +794,8 @@ class RelationController extends ControllerBehavior
             case 'hasManyThrough':
                 return [];
         }
+
+        return [];
     }
 
     /**

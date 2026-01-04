@@ -43,6 +43,16 @@ Vue.component('dashboard-component-dashboard-widget-base', {
                 : undefined;
         },
 
+        metricsTotalsFormatted: function () {
+            return this.fullWidgetData ? this.fullWidgetData.current.metric_totals_formatted : undefined;
+        },
+
+        metricsTotalsFormattedPrev: function () {
+            return this.fullWidgetData && this.fullWidgetData.previous
+                ? this.fullWidgetData.previous.metric_totals_formatted
+                : undefined;
+        },
+
         dimensionData: function () {
             return this.fullWidgetData ? this.fullWidgetData.dimension_data : undefined;
         },
@@ -188,6 +198,61 @@ Vue.component('dashboard-component-dashboard-widget-base', {
             }
 
             return this.formatMetricValue(metricCode, total);
+        },
+
+        /**
+         * Gets the formatted total for a metric, preferring server-side formatted values.
+         * Use this for non-graph displays (tables, indicators) where custom formatting may be needed.
+         */
+        getMetricTotalFormatted: function (metricCode, prevPeriod = false) {
+            const total = this.getMetricTotalClean(metricCode, prevPeriod);
+            if (total === null) {
+                return null;
+            }
+
+            const formattedTotals = prevPeriod ? this.metricsTotalsFormattedPrev : this.metricsTotalsFormatted;
+            const formattedValue = formattedTotals ? formattedTotals[metricCode] : undefined;
+
+            return Dashboard_Classes_DataHelper
+                .instance()
+                .formatDisplayValue(
+                    total,
+                    formattedValue,
+                    this.getMetricIntlFormatOptions(metricCode),
+                    this.store.state.locale
+                );
+        },
+
+        /**
+         * Checks if a metric has a server-side display formatter.
+         */
+        metricHasDisplayFormatter: function (metricCode) {
+            if (!this.metricsData) {
+                return false;
+            }
+
+            const metric = this.metricsData[metricCode];
+            return metric ? !!metric.has_display_formatter : false;
+        },
+
+        /**
+         * Formats a record's metric value, preferring server-side formatted values.
+         * Use this for table displays where custom formatting may be needed.
+         */
+        formatRecordMetricValue: function (metricCode, record) {
+            const columnName = 'oc_metric_' + metricCode;
+            const formattedColumnName = columnName + '_formatted';
+            const value = record[columnName];
+            const formattedValue = record[formattedColumnName];
+
+            return Dashboard_Classes_DataHelper
+                .instance()
+                .formatDisplayValue(
+                    value,
+                    formattedValue,
+                    this.getMetricIntlFormatOptions(metricCode),
+                    this.store.state.locale
+                );
         },
 
         getMetricIntlFormatOptions: function (metricCode) {

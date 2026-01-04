@@ -6,6 +6,14 @@ columns:
         label: Code
         sortable: false
 
+    is_global:
+        label: Global
+        type: switch
+
+    created_by_name:
+        label: Created By
+        relationWith: created_user
+
     open_link:
         label: Open Link
         shortLabel: ''

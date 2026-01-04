@@ -1,0 +1,20 @@
+{
+  "The Internal Traffic Statistics feature logs pageviews, IP addresses, and other basic anonymous user data into the database.": "Funktionen Intern trafikstatistik logger sidevisninger, IP-adresser og andre grundlæggende anonyme brugerdata i databasen.",
+  "Internal Traffic Statistics": "Intern trafikstatistik",
+  "Purge the Internal Traffic Statistics data": "Ryd de interne trafikstatistikdata",
+  "Manage Traffic Settings and Data": "Administrer trafikindstillinger og data",
+  "Internal Traffic Statistics logs pageviews, IP addresses, and other basic anonymous user data into the database and provides reports for the dashboard. When the feature is disabled, the data is not written to the database.": "Intern trafikstatistik logger sidevisninger, IP-adresser og andre grundlæggende anonyme brugerdata i databasen og leverer rapporter til dashboardet. Når funktionen er deaktiveret, skrives dataene ikke til databasen.",
+  "Traffic Statistics": "Trafikstatistik",
+  "Timezone to log pageviews in. Changing the timezone won't update the existing data. If you change the timezone without erasing the existing data, reports can potentially display incorrect times for previously logged days.": "Tidszone til at logge sidevisninger i. Ændring af tidszonen opdaterer ikke de eksisterende data. Hvis du ændrer tidszonen uden at slette de eksisterende data, kan rapporter potentielt vise forkerte tidspunkter for tidligere registrerede dage.",
+  "Retention Period (Months)": "Opbevaringsperiode (måneder)",
+  "Determines the duration for which traffic statistics data should be stored in the database. When the set period expires, the corresponding data is automatically purged from the database. Set to 0 or empty to retain records forever.": "Bestemmer, hvor længe trafikstatistikdata skal gemmes i databasen. Når den angivne periode udløber, slettes de tilsvarende data automatisk fra databasen. Indstil til 0 eller tom for at bevare poster for altid.",
+  "Data Filters": "Datafiltre",
+  "Exclude Bots": "Udeluk bots",
+  "Automatically ignores known bots using the detection library.": "Ignorerer automatisk kendte bots ved hjælp af detektionsbiblioteket.",
+  "Exclude Administrator Roles": "Udeluk administratorroller",
+  "Ignores traffic from selected roles.": "Ignorerer trafik fra valgte roller.",
+  "Exclude IP Addresses": "Udeluk IP-adresser",
+  "Requests from these addresses will be ignored in statistics.": "Anmodninger fra disse adresser vil blive ignoreret i statistikken.",
+  "Exclude Paths": "Udeluk stier",
+  "Enter one path or pattern per row to ignore matching URLs.": "Indtast én sti eller et mønster pr. række for at ignorere matchende webadresser."
+}

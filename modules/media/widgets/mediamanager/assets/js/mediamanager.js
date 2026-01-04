@@ -1,26 +1,25 @@
 /*
  * Media manager control class
  *
+ * Data attributes:
+ * - data-control="media-manager" - enables the plugin on an element
+ *
+ * JavaScript API:
+ * oc.fetchControl(element, 'media-manager')
+ *
  * Dependencies:
  * - Scrollpad (october.scrollpad.js)
  */
-+function ($) { "use strict";
+'use strict';
 
-    if ($.oc.mediaManager === undefined)
-        $.oc.mediaManager = {}
+if (oc.mediaManager === undefined) {
+    oc.mediaManager = {};
+}
 
-    var Base = $.oc.foundation.base,
-        BaseProto = Base.prototype
-
-    // MEDIA MANAGER CLASS DEFINITION
-    // ============================
-
-    var MediaManager = function(element, options) {
-        this.$el = $(element)
-        this.$form = this.$el.closest('form')
-
-        this.options = options
-        Base.call(this)
+oc.registerControl('media-manager', class extends oc.ControlBase {
+    init() {
+        this.$el = $(this.element);
+        this.$form = this.$el.closest('form');
 
         // State properties
         this.selectTimer = null;
@@ -38,17 +37,46 @@
         this.dblTouchFlag = null;
         this.itemListPosition = null;
 
-        //
-        // Initialization
-        //
+        // Apply defaults to config
+        this.config = Object.assign({
+            url: window.location,
+            alias: '',
+            uniqueId: null,
+            deleteEmpty: 'Please select files to delete.',
+            deleteConfirm: 'Delete the selected file(s)?',
+            moveEmpty: 'Please select files to move.',
+            selectSingleImage: 'Please select a single image.',
+            selectionNotImage: 'The selected item is not an image.',
+            overwriteConfirm: 'Some files already exist. Do you want to replace them?',
+            bottomToolbar: false,
+            cropAndInsertButton: false,
+            readOnly: false
+        }, this.config);
 
-        this.init();
+        this.itemListElement = this.$el.find('[data-media-item-list]').get(0);
+        if (this.itemListElement) {
+            this.scrollContentElement = this.itemListElement.querySelector('.scroll-wrapper');
+        }
+
+        if (this.config.bottomToolbar) {
+            this.$el.find('[data-media-bottom-toolbar]').removeClass('oc-hide');
+
+            if (this.config.cropAndInsertButton) {
+                this.$el.find('[data-popup-command="crop-and-insert"]').removeClass('oc-hide');
+            }
+        }
     }
 
-    MediaManager.prototype = Object.create(BaseProto)
-    MediaManager.prototype.constructor = MediaManager
+    connect() {
+        this.registerHandlers();
 
-    MediaManager.prototype.dispose = function() {
+        this.updateSidebarPreview();
+        this.generateThumbnails();
+        this.initUploader();
+        this.initScroll();
+    }
+
+    disconnect() {
         this.unregisterHandlers();
         this.clearSelectTimer();
         this.destroyUploader();
@@ -58,7 +86,6 @@
         this.removeAttachedControls();
         this.removeScroll();
 
-        this.$el.removeData('oc.mediaManager');
         this.$el = null;
         this.$form = null;
 
@@ -69,11 +96,9 @@
         this.selectionMarker = null;
         this.thumbnailQueue = [];
         this.navigationAjax = null;
-
-        BaseProto.dispose.call(this);
     }
 
-    MediaManager.prototype.getSelectedItems = function(returnNotProcessed, allowRootItem) {
+    getSelectedItems(returnNotProcessed, allowRootItem) {
         var items = this.$el.get(0).querySelectorAll('[data-type="media-item"].selected'),
             result = [];
 
@@ -116,29 +141,9 @@
     // MEDIA MANAGER INTERNAL METHODS
     // ============================
 
-    MediaManager.prototype.init = function() {
-        this.itemListElement = this.$el.find('[data-control="item-list"]').get(0);
-        this.scrollContentElement = this.itemListElement.querySelector('.scroll-wrapper');
-
-        if (this.options.bottomToolbar) {
-            this.$el.find('[data-control="bottom-toolbar"]').removeClass('oc-hide');
-
-            if (this.options.cropAndInsertButton) {
-                this.$el.find('[data-popup-command="crop-and-insert"]').removeClass('oc-hide');
-            }
-        }
-
-        this.registerHandlers();
-
-        this.updateSidebarPreview();
-        this.generateThumbnails();
-        this.initUploader();
-        this.initScroll();
-    }
-
-    MediaManager.prototype.registerHandlers = function() {
+    registerHandlers() {
         this.$el.on('dblclick', this.proxy(this.onNavigate));
-        this.$el.on('click.tree-path', 'ul.tree-path, [data-control="sidebar-labels"]', this.proxy(this.onNavigate));
+        this.$el.on('click.tree-path', 'ul.tree-path, [data-media-sidebar-labels]', this.proxy(this.onNavigate));
 
         this.$el.on('click.command', '[data-command]', this.proxy(this.onCommandClick));
 
@@ -148,8 +153,8 @@
         this.$el.on('click.item', '[data-type="media-item"]', this.proxy(this.onItemClick));
         this.$el.on('touchend', '[data-type="media-item"]', this.proxy(this.onItemTouch));
 
-        this.$el.on('change', '[data-control~="sorting"]', this.proxy(this.onSortingChanged));
-        this.$el.on('input', '[data-control="search"]', this.proxy(this.onSearchChanged));
+        this.$el.on('change', '[data-media-sorting]', this.proxy(this.onSortingChanged));
+        this.$el.on('input', '[data-media-search]', this.proxy(this.onSearchChanged));
         this.$el.on('mediarefresh', this.proxy(this.refresh));
         this.$el.on('shown.oc.popup', '[data-command="create-folder"]', this.proxy(this.onFolderPopupShown));
         this.$el.on('hidden.oc.popup', '[data-command="create-folder"]', this.proxy(this.onFolderPopupHidden));
@@ -162,7 +167,7 @@
         }
     }
 
-    MediaManager.prototype.unregisterHandlers = function() {
+    unregisterHandlers() {
         this.$el.off('dblclick', this.proxy(this.onNavigate));
         this.$el.off('click.tree-path', this.proxy(this.onNavigate));
         this.$el.off('click.command', this.proxy(this.onCommandClick));
@@ -170,8 +175,8 @@
         this.$el.off('click.item', this.proxy(this.onItemClick));
         this.$el.off('touchend', '[data-type="media-item"]', this.proxy(this.onItemTouch));
 
-        this.$el.off('change', '[data-control~="sorting"]', this.proxy(this.onSortingChanged));
-        this.$el.off('keyup', '[data-control="search"]', this.proxy(this.onSearchChanged));
+        this.$el.off('change', '[data-media-sorting]', this.proxy(this.onSortingChanged));
+        this.$el.off('keyup', '[data-media-search]', this.proxy(this.onSearchChanged));
         this.$el.off('shown.oc.popup', '[data-command="create-folder"]', this.proxy(this.onFolderPopupShown));
         this.$el.off('hidden.oc.popup', '[data-command="create-folder"]', this.proxy(this.onFolderPopupHidden));
         this.$el.off('shown.oc.popup', '[data-command="move"]', this.proxy(this.onMovePopupShown));
@@ -186,7 +191,7 @@
         document.removeEventListener('mouseup', this.proxy(this.onListMouseUp));
     }
 
-    MediaManager.prototype.changeView = function(view) {
+    changeView(view) {
         var data = {
             view: view,
             path: this.$el.find('[data-type="current-folder"]').val()
@@ -195,7 +200,7 @@
         this.execNavigationRequest('onChangeView', data);
     }
 
-    MediaManager.prototype.setFilter = function(filter) {
+    setFilter(filter) {
         var data = {
             filter: filter,
             path: this.$el.find('[data-type="current-folder"]').val()
@@ -204,23 +209,23 @@
         this.execNavigationRequest('onSetFilter', data);
     }
 
-    MediaManager.prototype.isSearchMode = function() {
+    isSearchMode() {
         return this.$el.find('[data-type="search-mode"]').val() == 'true';
     }
 
-    MediaManager.prototype.initScroll = function() {
+    initScroll() {
         this.$el.find('.control-scrollpad').scrollpad();
     }
 
-    MediaManager.prototype.updateScroll = function() {
+    updateScroll() {
         this.$el.find('.control-scrollpad').scrollpad('update');
     }
 
-    MediaManager.prototype.removeScroll = function() {
+    removeScroll() {
         this.$el.find('.control-scrollpad').scrollpad('dispose');
     }
 
-    MediaManager.prototype.scrollToTop = function() {
+    scrollToTop() {
         this.$el.find('.control-scrollpad').scrollpad('scrollToStart');
     }
 
@@ -228,16 +233,16 @@
     // Disposing
     //
 
-    MediaManager.prototype.removeAttachedControls = function() {
+    removeAttachedControls() {
         this.$el.find('[data-control=toolbar]').toolbar('dispose');
-        this.$el.find('[data-control~="sorting"]').select2('destroy');
+        this.$el.find('[data-media-sorting]').select2('destroy');
     }
 
     //
     // Selecting
     //
 
-    MediaManager.prototype.clearSelectTimer = function() {
+    clearSelectTimer() {
         if (this.selectTimer === null) {
             return;
         }
@@ -246,7 +251,7 @@
         this.selectTimer = null;
     }
 
-    MediaManager.prototype.selectItem = function(node, expandSelection) {
+    selectItem(node, expandSelection) {
         if (!expandSelection) {
             var items = this.$el.get(0).querySelectorAll('[data-type="media-item"].selected');
 
@@ -290,12 +295,12 @@
         }
     }
 
-    MediaManager.prototype.toggleMoveAndDelete = function(value) {
+    toggleMoveAndDelete(value) {
         $('[data-command=delete]', this.$el).prop('disabled', value);
         $('[data-command=move]', this.$el).prop('disabled', value);
     }
 
-    MediaManager.prototype.unselectRoot = function() {
+    unselectRoot() {
         var rootItem = this.$el.get(0).querySelector('[data-type="media-item"][data-root].selected');
 
         if (rootItem) {
@@ -303,7 +308,7 @@
         }
     }
 
-    MediaManager.prototype.clearDblTouchTimer = function() {
+    clearDblTouchTimer() {
         if (this.dblTouchTimer === null) {
             return;
         }
@@ -312,18 +317,18 @@
         this.dblTouchTimer = null;
     }
 
-    MediaManager.prototype.clearDblTouchFlag = function() {
+    clearDblTouchFlag() {
         this.dblTouchFlag = false;
     }
 
-    MediaManager.prototype.selectFirstItem = function() {
+    selectFirstItem() {
         var firstItem = this.itemListElement.querySelector('[data-type="media-item"]:first-child');
         if (firstItem) {
             this.selectItem(firstItem);
         }
     }
 
-    MediaManager.prototype.selectRelative = function(next, expandSelection) {
+    selectRelative(next, expandSelection) {
         var currentSelection = this.getSelectedItems(true, true);
         if (currentSelection.length == 0) {
             this.selectFirstItem();
@@ -354,7 +359,7 @@
     // Navigation
     //
 
-    MediaManager.prototype.gotoFolder = function(path, resetSearch) {
+    gotoFolder(path, resetSearch) {
         var data = {
             path: path,
             resetSearch: resetSearch !== undefined ? 1 : 0
@@ -363,7 +368,7 @@
         this.execNavigationRequest('onGoToFolder', data);
     }
 
-    MediaManager.prototype.afterNavigate = function() {
+    afterNavigate() {
         this.scrollToTop();
         this.generateThumbnails();
         this.updateSidebarPreview(true);
@@ -371,7 +376,7 @@
         this.updateScroll();
     }
 
-    MediaManager.prototype.refresh = function() {
+    refresh() {
         var data = {
             path: this.$el.find('[data-type="current-folder"]').val(),
             clearCache: true
@@ -380,7 +385,7 @@
         this.execNavigationRequest('onGoToFolder', data);
     }
 
-    MediaManager.prototype.execNavigationRequest = function(handler, data, element) {
+    execNavigationRequest(handler, data, element) {
         if (element === undefined) {
             element = this.$form;
         }
@@ -394,7 +399,7 @@
         }
 
         $.oc.stripeLoadIndicator.show();
-        this.navigationAjax = element.request(this.options.alias+'::' + handler, {
+        this.navigationAjax = element.request(this.config.alias+'::' + handler, {
                 data: data
             })
             .always(function() {
@@ -404,11 +409,11 @@
             .always(this.proxy(this.releaseNavigationAjax));
     }
 
-    MediaManager.prototype.releaseNavigationAjax = function() {
+    releaseNavigationAjax() {
         this.navigationAjax = null;
     }
 
-    MediaManager.prototype.navigateToItem = function($item) {
+    navigateToItem($item) {
         if (!$item.length || !$item.data('path').length) {
             return;
         }
@@ -432,13 +437,13 @@
     // Sidebar
     //
 
-    MediaManager.prototype.isPreviewSidebarVisible = function() {
-        return !this.$el.find('[data-control="preview-sidebar"]').hasClass('oc-hide');
+    isPreviewSidebarVisible() {
+        return !this.$el.find('[data-media-preview-sidebar]').hasClass('oc-hide');
     }
 
-    MediaManager.prototype.toggleSidebar = function(ev) {
+    toggleSidebar(ev) {
         var isVisible = this.isPreviewSidebarVisible(),
-            $sidebar = this.$el.find('[data-control="preview-sidebar"]'),
+            $sidebar = this.$el.find('[data-media-preview-sidebar]'),
             $button = $(ev.target);
 
         if (!isVisible) {
@@ -451,16 +456,16 @@
             $button.addClass('sidebar-hidden');
         }
 
-        this.$form.request(this.options.alias+'::onSetSidebarVisible', {
+        this.$form.request(this.config.alias+'::onSetSidebarVisible', {
             data: {
                 visible: (isVisible ? 0 : 1)
             }
         })
     }
 
-    MediaManager.prototype.updateSidebarMediaPreview = function(items) {
+    updateSidebarMediaPreview(items) {
         var previewPanel = this.sidebarPreviewElement,
-            previewContainer = previewPanel.querySelector('[data-control="media-preview-container"]'),
+            previewContainer = previewPanel.querySelector('[data-media-preview-container]'),
             template = '';
 
         for (var i = 0, len = previewContainer.children.length; i < len; i++) {
@@ -474,13 +479,13 @@
 
             switch (documentType) {
                 case 'audio' :
-                    template = previewPanel.querySelector('[data-control="audio-template"]').innerHTML;
+                    template = previewPanel.querySelector('[data-media-audio-template]').innerHTML;
                 break;
                 case 'video' :
-                    template = previewPanel.querySelector('[data-control="video-template"]').innerHTML;
+                    template = previewPanel.querySelector('[data-media-video-template]').innerHTML;
                 break;
                 case 'image' :
-                    template = previewPanel.querySelector('[data-control="image-template"]').innerHTML;
+                    template = previewPanel.querySelector('[data-media-image-template]').innerHTML;
                 break;
             }
 
@@ -495,24 +500,24 @@
         }
         // "Go up" is selected
         else if (items.length == 1 && items[0].hasAttribute('data-root')) {
-            template = previewPanel.querySelector('[data-control="go-up"]').innerHTML;
+            template = previewPanel.querySelector('[data-media-go-up]').innerHTML;
             previewContainer.innerHTML = template;
         }
         // No selection
         else if (items.length == 0) {
-            template = previewPanel.querySelector('[data-control="no-selection-template"]').innerHTML;
+            template = previewPanel.querySelector('[data-media-no-selection-template]').innerHTML;
             previewContainer.innerHTML = template;
         }
         // Multiple selection
         else {
-            template = previewPanel.querySelector('[data-control="multi-selection-template"]').innerHTML;
+            template = previewPanel.querySelector('[data-media-multi-selection-template]').innerHTML;
             previewContainer.innerHTML = template;
         }
     }
 
-    MediaManager.prototype.updateSidebarPreview = function(resetSidebar) {
+    updateSidebarPreview(resetSidebar) {
         if (!this.sidebarPreviewElement) {
-            this.sidebarPreviewElement = this.$el.get(0).querySelector('[data-control="preview-sidebar"]');
+            this.sidebarPreviewElement = this.$el.get(0).querySelector('[data-media-preview-sidebar]');
         }
 
         var items = resetSidebar === undefined ? this.$el.get(0).querySelectorAll('[data-type="media-item"].selected') : [],
@@ -520,11 +525,11 @@
 
         // No items are selected
         if (items.length == 0) {
-            this.sidebarPreviewElement.querySelector('[data-control="sidebar-labels"]').setAttribute('class', 'oc-hide');
+            this.sidebarPreviewElement.querySelector('[data-media-sidebar-labels]').setAttribute('class', 'oc-hide');
         }
         // One item is selected - display the details
         else if (items.length == 1 && !items[0].hasAttribute('data-root')) {
-            this.sidebarPreviewElement.querySelector('[data-control="sidebar-labels"]').setAttribute('class', 'panel');
+            this.sidebarPreviewElement.querySelector('[data-media-sidebar-labels]').setAttribute('class', 'panel');
 
             var item = items[0],
                 lastModified = item.getAttribute('data-last-modified');
@@ -535,31 +540,31 @@
             previewPanel.querySelector('[data-label="public-url"]').setAttribute('href', item.getAttribute('data-public-url'));
 
             if (lastModified) {
-                previewPanel.querySelector('[data-control="last-modified"]').setAttribute('class', '');
+                previewPanel.querySelector('[data-media-last-modified]').setAttribute('class', '');
             }
             else {
-                previewPanel.querySelector('[data-control="last-modified"]').setAttribute('class', 'oc-hide');
+                previewPanel.querySelector('[data-media-last-modified]').setAttribute('class', 'oc-hide');
             }
 
             if (this.isSearchMode()) {
-                previewPanel.querySelector('[data-control="item-folder"]').setAttribute('class', '');
+                previewPanel.querySelector('[data-media-item-folder]').setAttribute('class', '');
                 var folderNode = previewPanel.querySelector('[data-label="folder"]');
                 folderNode.textContent = item.getAttribute('data-folder');
                 folderNode.setAttribute('data-path', item.getAttribute('data-folder'));
             }
             else {
-                previewPanel.querySelector('[data-control="item-folder"]').setAttribute('class', 'oc-hide');
+                previewPanel.querySelector('[data-media-item-folder]').setAttribute('class', 'oc-hide');
             }
         }
         // Multiple items are selected or "Go up" is selected
         else {
-            this.sidebarPreviewElement.querySelector('[data-control="sidebar-labels"]').setAttribute('class', 'oc-hide');
+            this.sidebarPreviewElement.querySelector('[data-media-sidebar-labels]').setAttribute('class', 'oc-hide');
         }
 
         this.updateSidebarMediaPreview(items);
     }
 
-    MediaManager.prototype.loadSidebarThumbnail = function() {
+    loadSidebarThumbnail() {
         if (this.sidebarThumbnailAjax) {
             try {
                 this.sidebarThumbnailAjax.abort();
@@ -568,7 +573,7 @@
             this.sidebarThumbnailAjax = null;
         }
 
-        var sidebarThumbnail = this.sidebarPreviewElement.querySelector('[data-control="sidebar-thumbnail"]');
+        var sidebarThumbnail = this.sidebarPreviewElement.querySelector('[data-media-sidebar-thumbnail]');
         if (!sidebarThumbnail) {
             return;
         }
@@ -578,19 +583,19 @@
             lastModified: sidebarThumbnail.getAttribute('data-last-modified')
         }
 
-        this.sidebarThumbnailAjax = this.$form.request(this.options.alias+'::onGetSidebarThumbnail', {
+        this.sidebarThumbnailAjax = this.$form.request(this.config.alias+'::onGetSidebarThumbnail', {
                 data: data
             })
             .done(this.proxy(this.replaceSidebarPlaceholder))
             .always(this.proxy(this.releaseSidebarThumbnailAjax));
     }
 
-    MediaManager.prototype.replaceSidebarPlaceholder = function(response) {
+    replaceSidebarPlaceholder(response) {
         if (!this.sidebarPreviewElement) {
             return;
         }
 
-        var sidebarThumbnail = this.sidebarPreviewElement.querySelector('[data-control="sidebar-thumbnail"]');
+        var sidebarThumbnail = this.sidebarPreviewElement.querySelector('[data-media-sidebar-thumbnail]');
         if (!sidebarThumbnail) {
             return;
         }
@@ -603,7 +608,7 @@
         sidebarThumbnail.removeAttribute('data-loading');
     }
 
-    MediaManager.prototype.releaseSidebarThumbnailAjax = function() {
+    releaseSidebarThumbnailAjax() {
         this.sidebarThumbnailAjax = null;
     }
 
@@ -611,7 +616,7 @@
     // Thumbnails
     //
 
-    MediaManager.prototype.generateThumbnails = function() {
+    generateThumbnails() {
         this.thumbnailQueue = [];
 
         var placeholders = this.itemListElement.querySelectorAll('[data-type="media-item"] div.image-placeholder')
@@ -628,7 +633,7 @@
         this.handleThumbnailQueue();
     }
 
-    MediaManager.prototype.handleThumbnailQueue = function() {
+    handleThumbnailQueue() {
         var maxThumbnailQueueLength = 2,
             maxThumbnailBatchLength = 3;
 
@@ -648,7 +653,7 @@
         }
     }
 
-    MediaManager.prototype.handleThumbnailBatch = function(batch) {
+    handleThumbnailBatch(batch) {
         var data = {
             batch: batch
         };
@@ -660,7 +665,7 @@
             }
         }
 
-        var promise = this.$form.request(this.options.alias+'::onGenerateThumbnails', {
+        var promise = this.$form.request(this.config.alias+'::onGenerateThumbnails', {
             data: data
         });
 
@@ -669,7 +674,7 @@
         return promise;
     }
 
-    MediaManager.prototype.replacePlaceholder = function(response) {
+    replacePlaceholder(response) {
         if (!response.generatedThumbnails) {
             return;
         }
@@ -693,7 +698,7 @@
         }
     }
 
-    MediaManager.prototype.placeholdersUpdated = function() {
+    placeholdersUpdated() {
         this.activeThumbnailQueueLength--;
 
         this.handleThumbnailQueue();
@@ -703,7 +708,7 @@
     // Drag-select
     //
 
-    MediaManager.prototype.getRelativePosition = function(element, pageX, pageY, startPosition) {
+    getRelativePosition(element, pageX, pageY, startPosition) {
         var absolutePosition = startPosition !== undefined
             ? startPosition
             : $.oc.foundation.element.absolutePosition(element, true);
@@ -714,18 +719,18 @@
         };
     }
 
-    MediaManager.prototype.createSelectionMarker = function() {
+    createSelectionMarker() {
         if (this.selectionMarker) {
             return;
         }
 
         this.selectionMarker = document.createElement('div');
-        this.selectionMarker.setAttribute('data-control', 'selection-marker');
+        this.selectionMarker.setAttribute('data-media-selection-marker', '');
 
         this.scrollContentElement.insertBefore(this.selectionMarker, this.scrollContentElement.firstChild);
     }
 
-    MediaManager.prototype.doObjectsCollide = function(aTop, aLeft, aWidth, aHeight, bTop, bLeft, bWidth, bHeight) {
+    doObjectsCollide(aTop, aLeft, aWidth, aHeight, bTop, bLeft, bWidth, bHeight) {
         return !(
             ((aTop + aHeight) < (bTop)) ||
             (aTop > (bTop + bHeight)) ||
@@ -738,23 +743,24 @@
     // Uploading
     //
 
-    MediaManager.prototype.initUploader = function() {
-        if (!this.itemListElement || this.options.readOnly) {
+    initUploader() {
+        if (!this.itemListElement || this.config.readOnly) {
             return;
         }
 
         var uploaderOptions = {
-            clickable: this.$el.find('[data-control="upload"]').get(0),
-            url: this.options.url,
+            clickable: this.$el.find('[data-media-upload]').get(0),
+            url: this.config.url,
             paramName: 'file_data',
             headers: {},
             timeout: 0,
-            createImageThumbnails: false
+            createImageThumbnails: false,
+            autoProcessQueue: false
             // fallback: implement method that would set a flag that the uploader is not supported by the browser
         };
 
-        if (this.options.uniqueId) {
-            uploaderOptions.headers['X-OCTOBER-FILEUPLOAD'] = this.options.uniqueId;
+        if (this.config.uniqueId) {
+            uploaderOptions.headers['X-OCTOBER-FILEUPLOAD'] = this.config.uniqueId;
         }
 
         /*
@@ -774,7 +780,7 @@
         this.dropzone.on('success', this.proxy(this.uploadSuccess));
     }
 
-    MediaManager.prototype.destroyUploader = function() {
+    destroyUploader() {
         if (!this.dropzone) {
             return;
         }
@@ -783,23 +789,88 @@
         this.dropzone = null;
     }
 
-    MediaManager.prototype.uploadFileAdded = function() {
+    uploadFileAdded() {
         this.showUploadUi();
         this.setUploadProgress(0);
 
         this.$el.find('[data-command="cancel-uploading"]').removeClass('oc-hide');
         this.$el.find('[data-command="close-uploader"]').addClass('oc-hide');
+
+        // Batch file additions and check for conflicts after a short delay
+        clearTimeout(this.uploadCheckTimeout);
+        this.uploadCheckTimeout = setTimeout(this.proxy(this.checkFilesBeforeUpload), 100);
     }
 
-    MediaManager.prototype.showUploadUi = function() {
-        this.$el.find('[data-control="upload-ui"]').removeClass('oc-hide');
+    checkFilesBeforeUpload() {
+        var self = this,
+            queuedFiles = this.dropzone.getQueuedFiles(),
+            fileNames = queuedFiles.map(function(f) { return f.name; }),
+            path = this.$el.find('[data-type="current-folder"]').val();
+
+        if (queuedFiles.length === 0) {
+            return;
+        }
+
+        // Check which files already exist
+        this.$el.request('onCheckFilesExist', {
+            data: { file_names: fileNames, path: path },
+            success: function(data) {
+                if (data.existing && data.existing.length > 0) {
+                    self.showOverwriteConfirmation(data.existing, queuedFiles);
+                }
+                else {
+                    // No conflicts, proceed with upload
+                    self.dropzone.processQueue();
+                }
+            },
+            error: function() {
+                // On error, proceed anyway (server will validate)
+                self.dropzone.processQueue();
+            }
+        });
     }
 
-    MediaManager.prototype.hideUploadUi = function() {
-        this.$el.find('[data-control="upload-ui"]').addClass('oc-hide');
+    showOverwriteConfirmation(existingFiles, queuedFiles) {
+        var self = this,
+            message = this.config.overwriteConfirm + ' (' + existingFiles.join(', ') + ')';
+
+        oc.confirm(message, function(confirmed) {
+            if (confirmed) {
+                // Mark for overwrite and process queue
+                self.forceOverwrite = true;
+                self.dropzone.processQueue();
+            }
+            else {
+                // Remove conflicting files from queue, upload the rest
+                var existingSet = {};
+                existingFiles.forEach(function(name) { existingSet[name] = true; });
+
+                queuedFiles.forEach(function(file) {
+                    if (existingSet[file.name]) {
+                        self.dropzone.removeFile(file);
+                    }
+                });
+
+                // Process remaining files if any
+                if (self.dropzone.getQueuedFiles().length > 0) {
+                    self.dropzone.processQueue();
+                }
+                else {
+                    self.hideUploadUi();
+                }
+            }
+        });
     }
 
-    MediaManager.prototype.uploadUpdateTotalProgress = function(uploadProgress, totalBytes, totalBytesSent) {
+    showUploadUi() {
+        this.$el.find('[data-media-upload-ui]').removeClass('oc-hide');
+    }
+
+    hideUploadUi() {
+        this.$el.find('[data-media-upload-ui]').addClass('oc-hide');
+    }
+
+    uploadUpdateTotalProgress(uploadProgress, totalBytes, totalBytesSent) {
         this.setUploadProgress(uploadProgress);
 
         var fileNumberLabel = this.$el.get(0).querySelector('[data-label="file-number-and-progress"]'),
@@ -817,43 +888,50 @@
         fileNumberLabel.innerHTML = messageTemplate.replace(':number', fileNumber).replace(':percents', Math.round(uploadProgress) + '%');
     }
 
-    MediaManager.prototype.setUploadProgress = function(value) {
-        var progressBar = this.$el.get(0).querySelector('[data-control="upload-progress-bar"]');
+    setUploadProgress(value) {
+        var progressBar = this.$el.get(0).querySelector('[data-media-upload-progress-bar]');
 
         progressBar.setAttribute('style', 'width: ' + value + '%');
         progressBar.setAttribute('class', 'progress-bar');
     }
 
-    MediaManager.prototype.uploadQueueComplete = function() {
+    uploadQueueComplete() {
         this.$el.find('[data-command="cancel-uploading"]').addClass('oc-hide');
         this.$el.find('[data-command="close-uploader"]').removeClass('oc-hide');
+
+        // Reset overwrite flag
+        this.forceOverwrite = false;
 
         this.refresh();
     }
 
-    MediaManager.prototype.uploadSending = function(file, xhr, formData) {
+    uploadSending(file, xhr, formData) {
         formData.append('path', this.$el.find('[data-type="current-folder"]').val());
+
+        if (this.forceOverwrite) {
+            formData.append('force_overwrite', '1');
+        }
     }
 
-    MediaManager.prototype.uploadCancelAll = function() {
+    uploadCancelAll() {
         this.dropzone.removeAllFiles(true);
         this.hideUploadUi();
     }
 
-    MediaManager.prototype.updateUploadBar = function(templateName, classNames) {
+    updateUploadBar(templateName, classNames) {
         var fileNumberLabel = this.$el.get(0).querySelector('[data-label="file-number-and-progress"]'),
             successTemplate = fileNumberLabel.getAttribute('data-' + templateName + '-template'),
-            progressBar = this.$el.get(0).querySelector('[data-control="upload-progress-bar"]');
+            progressBar = this.$el.get(0).querySelector('[data-media-upload-progress-bar]');
 
         fileNumberLabel.innerHTML = successTemplate;
         progressBar.setAttribute('class', classNames);
     }
 
-    MediaManager.prototype.uploadSuccess = function() {
+    uploadSuccess() {
         this.updateUploadBar('success', 'progress-bar bg-success');
     }
 
-    MediaManager.prototype.uploadError = function(file, message) {
+    uploadError(file, message) {
         this.updateUploadBar('error', 'progress-bar bg-danger');
 
         if (!message) {
@@ -867,28 +945,28 @@
     // Cropping images
     //
 
-    MediaManager.prototype.cropSelectedImage = function(callback) {
+    cropSelectedImage(callback) {
         var selectedItems = this.getSelectedItems(true);
 
         if (selectedItems.length != 1) {
-            alert(this.options.selectSingleImage);
+            alert(this.config.selectSingleImage);
             return;
         }
 
         if (selectedItems[0].getAttribute('data-document-type') !== 'image') {
-            alert(this.options.selectionNotImage);
+            alert(this.config.selectionNotImage);
             return;
         }
 
         var path = selectedItems[0].getAttribute('data-path');
 
-        new $.oc.mediaManager.imageCropPopup(path, {
-            alias: this.options.alias,
+        new oc.mediaManager.imageCropPopup(path, {
+            alias: this.config.alias,
             onDone: callback
         });
     }
 
-    MediaManager.prototype.onImageCropped = function(result) {
+    onImageCropped(result) {
         this.$el.trigger('popupcommand', ['insert-cropped', result]);
     }
 
@@ -896,7 +974,7 @@
     // Search
     //
 
-    MediaManager.prototype.clearSearchTrackInputTimer = function() {
+    clearSearchTrackInputTimer() {
         if (this.searchTrackInputTimer === null) {
             return;
         }
@@ -905,8 +983,8 @@
         this.searchTrackInputTimer = null;
     }
 
-    MediaManager.prototype.updateSearchResults = function() {
-        var $searchField = this.$el.find('[data-control="search"]'),
+    updateSearchResults() {
+        var $searchField = this.$el.find('[data-media-search]'),
             data = {
                 search: $searchField.val()
             };
@@ -914,11 +992,11 @@
         this.execNavigationRequest('onSearch', data, $searchField);
     }
 
-    MediaManager.prototype.resetSearch = function() {
-        this.$el.find('[data-control="search"]').val('');
+    resetSearch() {
+        this.$el.find('[data-media-search]').val('');
     }
 
-    MediaManager.prototype.onSearchChanged = function(ev) {
+    onSearchChanged(ev) {
         var value = ev.currentTarget.value;
 
         if (this.lastSearchValue !== undefined && this.lastSearchValue == value) {
@@ -936,18 +1014,18 @@
     // File and folder operations
     //
 
-    MediaManager.prototype.deleteItems = function() {
+    deleteItems() {
         var items = this.$el.get(0).querySelectorAll('[data-type="media-item"].selected');
 
         if (!items.length) {
-            oc.alert(this.options.deleteEmpty);
+            oc.alert(this.config.deleteEmpty);
             return;
         }
 
-        oc.confirm(this.options.deleteConfirm, this.proxy(this.deleteConfirmation));
+        oc.confirm(this.config.deleteConfirm, this.proxy(this.deleteConfirmation));
     }
 
-    MediaManager.prototype.deleteConfirmation = function(isConfirm) {
+    deleteConfirmation(isConfirm) {
         if (!isConfirm) {
             return;
         }
@@ -972,7 +1050,7 @@
 
         $.oc.stripeLoadIndicator.show();
         this.$form
-            .request(this.options.alias+'::onDeleteItem', {
+            .request(this.config.alias+'::onDeleteItem', {
                 data: data
             })
             .always(function() {
@@ -981,29 +1059,29 @@
             .done(this.proxy(this.afterNavigate));
     }
 
-    MediaManager.prototype.createFolder = function(ev) {
+    createFolder(ev) {
         $(ev.target).popup({
-            content: this.$el.find('[data-control="new-folder-template"]').html()
+            content: this.$el.find('[data-media-new-folder-template]').html()
         });
     }
 
-    MediaManager.prototype.onFolderPopupShown = function(ev, button, popup) {
+    onFolderPopupShown(ev, button, popup) {
         $(popup).find('input[name=name]').focus();
         $(popup).on('submit.media', 'form', this.proxy(this.onNewFolderSubmit));
     }
 
-    MediaManager.prototype.onFolderPopupHidden = function(ev, button, popup) {
+    onFolderPopupHidden(ev, button, popup) {
         $(popup).off('.media', 'form');
     }
 
-    MediaManager.prototype.onNewFolderSubmit = function(ev) {
+    onNewFolderSubmit(ev) {
         var data = {
             name: $(ev.target).find('input[name=name]').val(),
             path: this.$el.find('[data-type="current-folder"]').val()
         };
 
         $.oc.stripeLoadIndicator.show();
-        this.$form.request(this.options.alias+'::onCreateFolder', {
+        this.$form.request(this.config.alias+'::onCreateFolder', {
             data: data
         }).always(function() {
             $.oc.stripeLoadIndicator.hide()
@@ -1013,16 +1091,16 @@
         return false;
     }
 
-    MediaManager.prototype.folderCreated = function() {
+    folderCreated() {
         this.$el.find('button[data-command="create-folder"]').popup('hide');
         this.afterNavigate();
     }
 
-    MediaManager.prototype.moveItems = function(ev) {
+    moveItems(ev) {
         var items = this.$el.get(0).querySelectorAll('[data-type="media-item"].selected');
 
         if (!items.length) {
-            oc.alert(this.options.moveEmpty);
+            oc.alert(this.config.moveEmpty);
             return;
         }
 
@@ -1041,16 +1119,16 @@
         }
 
         $(ev.target).popup({
-            handler: this.options.alias+'::onLoadMovePopup',
+            handler: this.config.alias+'::onLoadMovePopup',
             extraData: data
         });
     }
 
-    MediaManager.prototype.onMovePopupShown = function(ev, button, popup) {
+    onMovePopupShown(ev, button, popup) {
         $(popup).on('submit.media', 'form', this.proxy(this.onMoveItemsSubmit));
     }
 
-    MediaManager.prototype.onMoveItemsSubmit = function(ev) {
+    onMoveItemsSubmit(ev) {
         var items = this.$el.get(0).querySelectorAll('[data-type="media-item"].selected'),
             data = {
                 dest: $(ev.target).find('select[name=dest]').val(),
@@ -1073,7 +1151,7 @@
         }
 
         $.oc.stripeLoadIndicator.show();
-        this.$form.request(this.options.alias+'::onMoveItems', {
+        this.$form.request(this.config.alias+'::onMoveItems', {
                 data: data
             })
             .always(function() {
@@ -1085,11 +1163,11 @@
         return false;
     }
 
-    MediaManager.prototype.onMovePopupHidden = function(ev, button, popup) {
+    onMovePopupHidden(ev, button, popup) {
         $(popup).off('.media', 'form');
     }
 
-    MediaManager.prototype.itemsMoved = function() {
+    itemsMoved() {
         this.$el.find('button[data-command="move"]').popup('hide');
         this.afterNavigate();
     }
@@ -1097,7 +1175,7 @@
     // EVENT HANDLERS
     // ============================
 
-    MediaManager.prototype.onNavigate = function(ev) {
+    onNavigate(ev) {
         var $item = $(ev.target).closest('[data-type="media-item"]');
 
         this.navigateToItem($item);
@@ -1107,7 +1185,7 @@
         }
     }
 
-    MediaManager.prototype.onCommandClick = function(ev) {
+    onCommandClick(ev) {
         var command = $(ev.currentTarget).data('command');
 
         switch (command) {
@@ -1153,7 +1231,7 @@
         return false;
     }
 
-    MediaManager.prototype.onItemClick = function(ev) {
+    onItemClick(ev) {
         // Don't select items when the rename icon is clicked
         if (ev.target.tagName == 'I' && ev.target.hasAttribute('data-rename-control')) {
             return;
@@ -1162,7 +1240,7 @@
         this.selectItem(ev.currentTarget, ev.shiftKey);
     }
 
-    MediaManager.prototype.onItemTouch = function(ev) {
+    onItemTouch(ev) {
         // The 'click' event is triggered after 'touchend',
         // so we can prevent handling it.
         ev.preventDefault();
@@ -1182,7 +1260,7 @@
         this.dblTouchTimer = setTimeout(this.proxy(this.clearDblTouchFlag), 300);
     }
 
-    MediaManager.prototype.onListMouseDown = function(ev) {
+    onListMouseDown(ev) {
         this.itemListElement.addEventListener('mousemove', this.proxy(this.onListMouseMove));
         document.addEventListener('mouseup', this.proxy(this.onListMouseUp));
 
@@ -1195,7 +1273,7 @@
         this.selectionStarted = false;
     }
 
-    MediaManager.prototype.onListMouseUp = function(ev) {
+    onListMouseUp(ev) {
         this.itemListElement.removeEventListener('mousemove', this.proxy(this.onListMouseMove));
         document.removeEventListener('mouseup', this.proxy(this.onListMouseUp));
         $(document.body).removeClass('no-select');
@@ -1244,7 +1322,7 @@
         this.selectionStarted = false;
     }
 
-    MediaManager.prototype.onListMouseMove = function(ev) {
+    onListMouseMove(ev) {
         var pagePosition = $.oc.foundation.event.pageCoordinates(ev),
             relativePosition = this.getRelativePosition(this.itemListElement, pagePosition.x, pagePosition.y, this.itemListPosition);
 
@@ -1281,7 +1359,7 @@
         }
     }
 
-    MediaManager.prototype.onSortingChanged = function(ev) {
+    onSortingChanged(ev) {
         var $target = $(ev.target),
             data = {
                 path: this.$el.find('[data-type="current-folder"]').val()
@@ -1297,7 +1375,7 @@
         this.execNavigationRequest('onSetSorting', data);
     }
 
-    MediaManager.prototype.onKeyDown = function(ev) {
+    onKeyDown(ev) {
         var eventHandled = false;
 
         switch (ev.key) {
@@ -1325,56 +1403,4 @@
             ev.stopPropagation();
         }
     }
-
-    // MEDIA MANAGER PLUGIN DEFINITION
-    // ============================
-
-    MediaManager.DEFAULTS = {
-        url: window.location,
-        alias: '',
-        uniqueId: null,
-        deleteEmpty: 'Please select files to delete.',
-        deleteConfirm: 'Delete the selected file(s)?',
-        moveEmpty: 'Please select files to move.',
-        selectSingleImage: 'Please select a single image.',
-        selectionNotImage: 'The selected item is not an image.',
-        bottomToolbar: false,
-        cropAndInsertButton: false
-    }
-
-    var old = $.fn.mediaManager
-
-    $.fn.mediaManager = function (option) {
-        var args = Array.prototype.slice.call(arguments, 1),
-            result = undefined
-
-        this.each(function () {
-            var $this   = $(this)
-            var data    = $this.data('oc.mediaManager')
-            var options = $.extend({}, MediaManager.DEFAULTS, $this.data(), typeof option == 'object' && option)
-            if (!data) $this.data('oc.mediaManager', (data = new MediaManager(this, options)))
-            if (typeof option == 'string') result = data[option].apply(data, args)
-            if (typeof result != 'undefined') return false
-        })
-
-        return result ? result : this
-    }
-
-    $.fn.mediaManager.Constructor = MediaManager
-
-    // MEDIA MANAGER NO CONFLICT
-    // =================
-
-    $.fn.mediaManager.noConflict = function () {
-        $.fn.mediaManager = oldthis;
-        return this;
-    }
-
-    // MEDIA MANAGER DATA-API
-    // ===============
-
-    $(document).on('render', function(){
-        $('div[data-control=media-manager]').mediaManager();
-    });
-
-}(window.jQuery);
+});

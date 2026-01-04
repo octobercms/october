@@ -132,6 +132,7 @@ class ServiceProvider extends ModuleServiceProvider
     {
         Event::listen('site.changed', function() {
             Theme::resetCache();
+            ThemeManager::instance()->bootAll();
         });
     }
 
@@ -141,12 +142,7 @@ class ServiceProvider extends ModuleServiceProvider
     protected function registerThemeTranslations()
     {
         $this->callAfterResolving('translator', function() {
-            if ($this->app->runningInBackend()) {
-                ThemeManager::instance()->bootAllBackend();
-            }
-            else {
-                ThemeManager::instance()->bootAllFrontend();
-            }
+            ThemeManager::instance()->bootAll();
         });
     }
 

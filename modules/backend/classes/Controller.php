@@ -20,6 +20,10 @@ use October\Rain\Exception\ApplicationException;
 use October\Rain\Extension\Extendable;
 use Illuminate\Database\Eloquent\MassAssignmentException;
 use Illuminate\Http\RedirectResponse;
+use Larajax\Exceptions\ComponentNotFound;
+use Larajax\Exceptions\HandlerNameInvalid;
+use Larajax\Exceptions\HandlerNotFound;
+use Larajax\Contracts\AjaxControllerInterface;
 use ForbiddenException;
 use Exception;
 
@@ -29,7 +33,7 @@ use Exception;
  * @package october\backend
  * @author Alexey Bobkov, Samuel Georges
  */
-class Controller extends Extendable
+class Controller extends Extendable implements AjaxControllerInterface
 {
     use \System\Traits\ViewMaker;
     use \System\Traits\AssetMaker;
@@ -41,6 +45,7 @@ class Controller extends Extendable
     use \Backend\Traits\VueMaker;
     use \Backend\Traits\ErrorMaker;
     use \Backend\Traits\WidgetMaker;
+    use \Larajax\Traits\AjaxController;
 
     /**
      * @var object user reference to administrator.
@@ -48,7 +53,7 @@ class Controller extends Extendable
     protected $user;
 
     /**
-     * @var object widget is a collection of WidgetBase classes used on this page.
+     * @var \Larajax\Classes\ComponentContainer widget is a collection of WidgetBase classes used on this page.
      */
     public $widget;
 
@@ -127,6 +132,9 @@ class Controller extends Extendable
         if (!is_array($this->implement)) {
             $this->implement = [];
         }
+
+        // Establish component container
+        $this->widget = $this->componentContainer = new \Larajax\Classes\ComponentContainer($this);
 
         // Allow early access to route data.
         $this->action = BackendController::$action;
@@ -261,15 +269,10 @@ class Controller extends Extendable
         BackendPreference::setAppLocale();
         BackendPreference::setAppFallbackLocale();
 
-        // Execute AJAX event
+        // Execute page action or AJAX event
         if ($ajaxResponse = $this->execAjaxHandlers()) {
             $result = $ajaxResponse;
         }
-        // Execute postback handler
-        elseif ($handlerResponse = $this->execPostbackHandler()) {
-            $result = $handlerResponse;
-        }
-        // Execute page action
         else {
             $result = $this->execPageAction($action, $params);
         }
@@ -410,20 +413,59 @@ class Controller extends Extendable
     }
 
     /**
+     * onAjax generic handler
+     */
+    public function onAjax()
+    {
+    }
+
+    /**
      * getAjaxHandler returns the AJAX handler for the current request, if available.
      * @return string
      */
     public function getAjaxHandler()
     {
-        if (!Request::ajax() || Request::method() !== 'POST') {
-            return null;
-        }
+        $request = $this->getAjaxRequest();
 
-        if ($handler = Request::header('X_OCTOBER_REQUEST_HANDLER')) {
-            return trim($handler);
+        if ($request->hasAjaxHandler()) {
+            return $request->qualifiedHandler;
         }
 
         return null;
+    }
+
+    /**
+     * makePartialForAjax proxies to makePartial
+     * @see \Larajax\Traits\AjaxController
+     */
+    protected function makePartialForAjax($partial)
+    {
+        if (!preg_match('/^(?!.*\/\/)[a-z0-9\_][a-z0-9\_\-\/]*$/i', $partial)) {
+            throw new ApplicationException(Lang::get('backend::lang.partial.invalid_name', ['name'=>e($partial)]));
+        }
+
+        return $this->makePartial($partial);
+    }
+
+    /**
+     * makeCallForAjax proxies to makeCallMethod
+     * @see \Larajax\Traits\AjaxController
+     */
+    protected function makeCallForAjax($callable, $parameters)
+    {
+        [$instance, $method] = $callable;
+
+        if ($instance instanceof \Backend\Classes\WidgetBase) {
+            $this->addViewPath($instance->getViewPaths());
+
+            $result = $this->makeCallMethod($instance, $method, $parameters);
+
+            $this->vars = $instance->vars + $this->vars;
+
+            return $result;
+        }
+
+        return $this->makeCallMethod($instance, $method, $parameters);
     }
 
     /**
@@ -432,255 +474,90 @@ class Controller extends Extendable
      */
     protected function execAjaxHandlers()
     {
-        if ($handler = $this->getAjaxHandler()) {
-            try {
-                // Validate the handler partial list
-                if ($partialList = trim((string) Request::header('X_OCTOBER_REQUEST_PARTIALS'))) {
-                    $partialList = explode('&', $partialList);
-
-                    foreach ($partialList as $partial) {
-                        if (!preg_match('/^(?!.*\/\/)[a-z0-9\_][a-z0-9\_\-\/]*$/i', $partial)) {
-                            throw new ApplicationException(Lang::get('backend::lang.partial.invalid_name', ['name'=>e($partial)]));
-                        }
-                    }
-                }
-                else {
-                    $partialList = [];
-                }
-
-                $responseContents = [];
-
-                // Execute the page action so behaviors and widgets are initialized
-                $this->pageAction();
-
-                // Execute the handler
-                if (!$result = $this->runAjaxHandler($handler)) {
-                    throw new ApplicationException(Lang::get('backend::lang.ajax_handler.not_found', ['name'=>e($handler)]));
-                }
-
-                // If the handler returned a redirect, process the URL and dispose of it so
-                // framework.js knows to redirect the browser and not the request!
-                if ($result instanceof RedirectResponse) {
-                    $responseContents['X_OCTOBER_REDIRECT'] = $result->getTargetUrl();
-                    return Response::make($responseContents);
-                }
-
-                // Render partials and return the response as array that will be converted to JSON automatically.
-                foreach ($partialList as $partial) {
-                    $responseContents[$partial] = $this->makePartial($partial);
-                }
-
-                // Look for any flash messages
-                if (Flash::check()) {
-                    $responseContents['#layout-flash-messages'] = $this->makeLayoutPartial('flash_messages');
-                }
-
-                // Look for browser events
-                if ($browserEvents = $this->getBrowserEvents()) {
-                    $responseContents['X_OCTOBER_DISPATCHES'] = $browserEvents;
-                }
-
-                // Detect assets
-                if ($this->hasAssetsDefined()) {
-                    $responseContents['X_OCTOBER_ASSETS'] = $this->getAssetPaths();
-                }
-
-                // If the handler returned an array, we should add it to output for rendering.
-                // If it is a string, add it to the array with the key "result".
-                // If an object, pass it to Laravel as a response object.
-                if (is_array($result)) {
-                    $responseContents = array_merge($responseContents, $result);
-                }
-                elseif (is_string($result)) {
-                    $responseContents['result'] = $result;
-                }
-                elseif (is_object($result)) {
-                    return $result;
-                }
-
-                return Response::make($responseContents);
-            }
-            catch (ValidationException $ex) {
-                // Handle validation error gracefully
-                Flash::error($ex->getMessage());
-                $responseContents = [];
-                $responseContents['#layout-flash-messages'] = $this->makeLayoutPartial('flash_messages');
-                $responseContents['X_OCTOBER_ERROR_FIELDS'] = $ex->getFields();
-                if ($browserEvents = $this->getBrowserEvents()) {
-                    $responseContents['X_OCTOBER_DISPATCHES'] = $browserEvents;
-                }
-                throw new AjaxException($responseContents);
-            }
-            catch (AjaxException $ex) {
-                if ($browserEvents = $this->getBrowserEvents()) {
-                    $ex->addContent('X_OCTOBER_DISPATCHES', $browserEvents);
-                }
-                throw $ex;
-            }
-            catch (MassAssignmentException $ex) {
-                throw new ApplicationException(Lang::get('backend::lang.model.mass_assignment_failed', ['attribute' => $ex->getMessage()]));
-            }
-            catch (Exception $ex) {
-                throw $ex;
-            }
-        }
-
-        return null;
-    }
-
-    /**
-     * execPostbackHandler is used internally to execute a postback version of an
-     * AJAX handler.
-     */
-    protected function execPostbackHandler()
-    {
-        if (Request::method() !== 'POST') {
-            return null;
-        }
-
-        $handler = post('_handler');
+        $handler = $this->getAjaxHandler();
         if (!$handler) {
             return null;
         }
 
         try {
-            $handlerResponse = $this->runAjaxHandler($handler);
-            if ($handlerResponse && $handlerResponse !== true) {
-                return $handlerResponse;
+            try {
+                // Execute the page action so behaviors and widgets are initialized
+                $this->pageAction();
+
+                if ($this->fatalError) {
+                    throw new ApplicationException($this->fatalError);
+                }
+
+                /**
+                 * @event backend.ajax.beforeRunHandler
+                 * Provides an opportunity to modify an AJAX request
+                 *
+                 * The parameter provided is `$handler` (the requested AJAX handler to be run)
+                 *
+                 * Example usage (forwards AJAX handlers to a backend widget):
+                 *
+                 *     Event::listen('backend.ajax.beforeRunHandler', function ((\Backend\Classes\Controller) $controller, (string) $handler) {
+                 *         if (strpos($handler, '::')) {
+                 *             [$componentAlias, $handlerName] = explode('::', $handler);
+                 *             if ($componentAlias === $this->getBackendWidgetAlias()) {
+                 *                 return $this->backendControllerProxy->runAjaxHandler($handler);
+                 *             }
+                 *         }
+                 *     });
+                 *
+                 * Or
+                 *
+                 *     $this->controller->bindEvent('ajax.beforeRunHandler', function ((string) $handler) {
+                 *         if (strpos($handler, '::')) {
+                 *             [$componentAlias, $handlerName] = explode('::', $handler);
+                 *             if ($componentAlias === $this->getBackendWidgetAlias()) {
+                 *                 return $this->backendControllerProxy->runAjaxHandler($handler);
+                 *             }
+                 *         }
+                 *     });
+                 *
+                 */
+                if ($event = $this->fireSystemEvent('backend.ajax.beforeRunHandler', [$handler])) {
+                    $response = ajax()::wrap($event);
+                }
+                else {
+                    $response = $this->callAjaxAction($this->action, $this->params);
+                }
             }
-        }
-        catch (ValidationException $ex) {
-            $errors = $this->vars['errors'] ?? new \Illuminate\Support\ViewErrorBag;
-            $this->vars['errors'] = $errors->put('default', $ex->getErrors());
-            Flash::error($ex->getMessage());
-        }
-        catch (ApplicationException $ex) {
-            Flash::error($ex->getMessage());
-        }
-        catch (Exception $ex) {
-            if (method_exists($ex, 'getSafeMessage')) {
-                Flash::error($ex->{'getSafeMessage'}());
+            catch (ComponentNotFound $ex) {
+                throw new ApplicationException(Lang::get('backend::lang.widget.not_bound', ['name'=>$this->getAjaxRequest()->component]));
             }
-            else {
+            catch (HandlerNameInvalid $ex) {
+                throw new ApplicationException(Lang::get('backend::lang.ajax_handler.invalid_name', ['name'=>$handler]));
+            }
+            catch (HandlerNotFound $ex) {
+                throw new ApplicationException(Lang::get('backend::lang.ajax_handler.not_found', ['name'=>e($handler)]));
+            }
+            catch (MassAssignmentException $ex) {
+                throw new ApplicationException(Lang::get('backend::lang.model.mass_assignment_failed', ['attribute' => $ex->getMessage()]));
+            }
+            catch (ValidationException $ex) {
+                Flash::error($ex->getMessage());
                 throw $ex;
             }
         }
-
-        return null;
-    }
-
-    /**
-     * runAjaxHandler tries to find and run an AJAX handler in the page action.
-     * The method stops as soon as the handler is found. Returns true if the
-     * handler was found. Returns false otherwise.
-     * @return bool
-     */
-    protected function runAjaxHandler($handler)
-    {
-        // Validate the handler name
-        if (!preg_match('/^(?:\w+\:{2})?on[A-Z]{1}[\w+]*$/', $handler)) {
-            throw new ApplicationException(Lang::get('backend::lang.ajax_handler.invalid_name', ['name'=>$handler]));
+        catch (Exception $ex) {
+            $response = ajax()->exception($ex);
         }
 
-        /**
-         * @event backend.ajax.beforeRunHandler
-         * Provides an opportunity to modify an AJAX request
-         *
-         * The parameter provided is `$handler` (the requested AJAX handler to be run)
-         *
-         * Example usage (forwards AJAX handlers to a backend widget):
-         *
-         *     Event::listen('backend.ajax.beforeRunHandler', function ((\Backend\Classes\Controller) $controller, (string) $handler) {
-         *         if (strpos($handler, '::')) {
-         *             [$componentAlias, $handlerName] = explode('::', $handler);
-         *             if ($componentAlias === $this->getBackendWidgetAlias()) {
-         *                 return $this->backendControllerProxy->runAjaxHandler($handler);
-         *             }
-         *         }
-         *     });
-         *
-         * Or
-         *
-         *     $this->controller->bindEvent('ajax.beforeRunHandler', function ((string) $handler) {
-         *         if (strpos($handler, '::')) {
-         *             [$componentAlias, $handlerName] = explode('::', $handler);
-         *             if ($componentAlias === $this->getBackendWidgetAlias()) {
-         *                 return $this->backendControllerProxy->runAjaxHandler($handler);
-         *             }
-         *         }
-         *     });
-         *
-         */
-        if ($event = $this->fireSystemEvent('backend.ajax.beforeRunHandler', [$handler])) {
-            return $event;
-        }
-
-        // Process Widget handler
-        if (strpos($handler, '::')) {
-            [$widgetName, $handlerName] = explode('::', $handler);
-
-            if ($this->fatalError) {
-                throw new SystemException($this->fatalError);
-            }
-
-            if (!isset($this->widget->{$widgetName})) {
-                throw new SystemException(Lang::get('backend::lang.widget.not_bound', ['name'=>$widgetName]));
-            }
-
-            if (($widget = $this->widget->{$widgetName}) && $widget->methodExists($handlerName)) {
-                $result = $this->runAjaxHandlerForWidget($widget, $handlerName);
-                return $result ?: true;
-            }
-        }
-        else {
-            // Process page specific handler (index_onSomething)
-            $pageHandler = $this->action . '_' . $handler;
-
-            if ($this->methodExists($pageHandler)) {
-                $result = $this->makeCallMethod($this, $pageHandler, $this->params);
-                return $result ?: true;
-            }
-
-            // Process page global handler (onSomething)
-            if ($this->methodExists($handler)) {
-                $result = $this->makeCallMethod($this, $handler, $this->params);
-                return $result ?: true;
-            }
-
-            // Cycle each widget to locate a usable handler (widget::onSomething)
-            $this->suppressView = true;
-            $this->execPageAction($this->action, $this->params);
-
-            foreach ((array) $this->widget as $widget) {
-                if ($widget->methodExists($handler)) {
-                    $result = $this->runAjaxHandlerForWidget($widget, $handler);
-                    return $result ?: true;
-                }
+        if ($this->hasAssetsDefined()) {
+            foreach ($this->getAssetPathsWithAttributes() as $type => $paths) {
+                $response->asset($type, $paths);
             }
         }
 
-        // Generic handler that does nothing
-        if ($handler === 'onAjax') {
-            return true;
+        if (Flash::check()) {
+            $response->update([
+                '#layout-flash-messages' => $this->makeLayoutPartial('flash_messages')
+            ]);
         }
 
-        return false;
-    }
-
-    /**
-     * runAjaxHandlerForWidget is specific code for executing an AJAX handler for a widget.
-     * This will append the widget view paths to the controller and merge the vars.
-     * @return mixed
-     */
-    protected function runAjaxHandlerForWidget($widget, $handler)
-    {
-        $this->addViewPath($widget->getViewPaths());
-
-        $result = $this->makeCallMethod($widget, $handler, $this->params);
-
-        $this->vars = $widget->vars + $this->vars;
-
-        return $result;
+        return $response;
     }
 
     //

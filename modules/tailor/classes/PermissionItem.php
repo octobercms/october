@@ -60,7 +60,8 @@ class PermissionItem extends ElementBase
         foreach ($perms as $perm => $label) {
             $result[$perm] = [
                 'label' => $label,
-                'tab' => $this->label
+                'tab' => "Tailor",
+                'order' => 900
             ];
         }
 

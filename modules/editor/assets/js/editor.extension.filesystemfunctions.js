@@ -160,7 +160,7 @@ oc.Modules.register('editor.extension.filesystemfunctions', function () {
             cmd.userData.event.preventDefault();
 
             $.oc.editor.application.setNavigatorReadonly(true);
-            const movingMessageId = $.oc.snackbar.show(this.documentController.trans('editor::lang.filesystem.moving'), {
+            const movingMessageId = oc.snackbar.show(this.documentController.trans('editor::lang.filesystem.moving'), {
                 timeout: 5000
             });
 
@@ -182,13 +182,13 @@ oc.Modules.register('editor.extension.filesystemfunctions', function () {
                 });
 
                 await this.documentController.editorStore.refreshExtensionNavigatorNodes(this.documentController.editorNamespace, this.documentController.documentType);
-                $.oc.snackbar.show(this.documentController.trans('editor::lang.filesystem.moved'), { replace: movingMessageId });
+                oc.snackbar.show(this.documentController.trans('editor::lang.filesystem.moved'), { replace: movingMessageId });
                 $.oc.editor.application.setNavigatorReadonly(false);
             }
             catch (error) {
                 await this.documentController.editorStore.refreshExtensionNavigatorNodes(this.documentController.editorNamespace, this.documentController.documentType);
                 $.oc.editor.application.setNavigatorReadonly(false);
-                $.oc.snackbar.hide(movingMessageId);
+                oc.snackbar.hide(movingMessageId);
                 $.oc.editor.page.showAjaxErrorAlert(error, this.documentController.trans('editor::lang.common.error'));
             }
         }

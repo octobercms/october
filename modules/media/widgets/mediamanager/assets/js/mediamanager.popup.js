@@ -1,62 +1,59 @@
 /*
  * Media manager popup
  */
-+function ($) { "use strict";
+class MediaManagerPopup
+{
+    static DEFAULTS = {
+        alias: undefined,
+        mediaFolder: null,
+        bottomToolbar: true,
+        cropAndInsertButton: false,
+        onInsert: undefined,
+        onClose: undefined
+    };
 
-    if ($.oc.mediaManager === undefined)
-        $.oc.mediaManager = {}
-
-    var Base = $.oc.foundation.base,
-        BaseProto = Base.prototype
-
-    var MediaManagerPopup = function(options) {
+    constructor(options) {
         this.$popupRootElement = null;
+        this.$popupElement = null;
 
-        this.options = $.extend({}, MediaManagerPopup.DEFAULTS, options);
-
-        Base.call(this);
+        this.options = { ...MediaManagerPopup.DEFAULTS, ...options };
 
         this.init();
         this.show();
     }
 
-    MediaManagerPopup.prototype = Object.create(BaseProto)
-    MediaManagerPopup.prototype.constructor = MediaManagerPopup
-
-    MediaManagerPopup.prototype.dispose = function() {
+    dispose() {
         this.unregisterHandlers();
 
         this.$popupRootElement.remove();
         this.$popupRootElement = null;
         this.$popupElement = null;
-
-        BaseProto.dispose.call(this);
     }
 
-    MediaManagerPopup.prototype.init = function() {
+    init() {
         if (this.options.alias === undefined) {
-            throw new Error('Media Manager popup option "alias" is not set.')
+            throw new Error('Media Manager popup option "alias" is not set.');
         }
 
         this.$popupRootElement = $('<div/>');
         this.registerHandlers();
     }
 
-    MediaManagerPopup.prototype.registerHandlers = function() {
-        this.$popupRootElement.one('hide.oc.popup', this.proxy(this.onPopupHidden));
-        this.$popupRootElement.one('shown.oc.popup', this.proxy(this.onPopupShown));
+    registerHandlers() {
+        this.$popupRootElement.one('hide.oc.popup', this.onPopupHidden);
+        this.$popupRootElement.one('shown.oc.popup', this.onPopupShown);
     }
 
-    MediaManagerPopup.prototype.unregisterHandlers = function() {
-        this.$popupElement.off('popupcommand', this.proxy(this.onPopupCommand));
-        this.$popupRootElement.off('popupcommand', this.proxy(this.onPopupCommand));
+    unregisterHandlers() {
+        this.$popupElement.off('popupcommand', this.onPopupCommand);
+        this.$popupRootElement.off('popupcommand', this.onPopupCommand);
     }
 
-    MediaManagerPopup.prototype.show = function() {
-        var data = {
+    show() {
+        const data = {
             bottom_toolbar: this.options.bottomToolbar ? 1 : 0,
             crop_insert_button: this.options.cropAndInsertButton ? 1 : 0
-        }
+        };
 
         if (this.options.mediaFolder) {
             data.media_folder = this.options.mediaFolder;
@@ -70,38 +67,42 @@
         });
     }
 
-    MediaManagerPopup.prototype.hide = function() {
+    hide() {
         if (this.$popupElement) {
             this.$popupElement.trigger('close.oc.popup');
         }
     }
 
-    MediaManagerPopup.prototype.getMediaManagerElement = function() {
-        return this.$popupElement.find('[data-control="media-manager"]');
+    getMediaManagerElement() {
+        return this.$popupElement.find('[data-control="media-manager"]').get(0);
     }
 
-    MediaManagerPopup.prototype.insertMedia = function() {
-        var items = this.getMediaManagerElement().mediaManager('getSelectedItems');
+    getMediaManagerControl() {
+        return oc.fetchControl(this.getMediaManagerElement(), 'media-manager');
+    }
+
+    insertMedia() {
+        const items = this.getMediaManagerControl().getSelectedItems();
 
         if (this.options.onInsert !== undefined) {
             this.options.onInsert.call(this, items);
         }
     }
 
-    MediaManagerPopup.prototype.insertCroppedImage = function(imageItem) {
+    insertCroppedImage(imageItem) {
         if (this.options.onInsert !== undefined) {
-            this.options.onInsert.call(this, [imageItem])
+            this.options.onInsert.call(this, [imageItem]);
         }
     }
 
     // EVENT HANDLERS
     // ============================
 
-    MediaManagerPopup.prototype.onPopupHidden = function(event, element, popup) {
-        var mediaManager = this.getMediaManagerElement();
+    onPopupHidden = (event, element, popup) => {
+        const mediaManagerEl = this.getMediaManagerElement();
 
-        mediaManager.mediaManager('dispose');
-        mediaManager.remove();
+        // Control will auto-dispose when removed from DOM
+        mediaManagerEl.remove();
 
         // Release clickedElement reference inside redactor.js
         // If we don't do it, the Media Manager popup DOM elements
@@ -115,16 +116,16 @@
         }
     }
 
-    MediaManagerPopup.prototype.onPopupShown = function(event, element, popup) {
+    onPopupShown = (event, element, popup) => {
         this.$popupElement = popup;
-        this.$popupElement.on('popupcommand', this.proxy(this.onPopupCommand));
+        this.$popupElement.on('popupcommand', this.onPopupCommand);
 
         // Unfocus other form fields, otherwise all keyboard commands
         // may the Media Manager popup translate to the form widget.
-        this.getMediaManagerElement().mediaManager('selectFirstItem');
+        this.getMediaManagerControl().selectFirstItem();
     }
 
-    MediaManagerPopup.prototype.onPopupCommand = function(ev, command, param) {
+    onPopupCommand = (ev, command, param) => {
         switch (command) {
             case 'insert':
                 this.insertMedia();
@@ -135,17 +136,14 @@
                 break;
         }
 
-        return false
+        return false;
     }
+}
 
-    MediaManagerPopup.DEFAULTS = {
-        alias: undefined,
-        mediaFolder: null,
-        bottomToolbar: true,
-        cropAndInsertButton: false,
-        onInsert: undefined,
-        onClose: undefined
-    }
+oc.mediaManager.popup = MediaManagerPopup;
 
-    $.oc.mediaManager.popup = MediaManagerPopup
-}(window.jQuery);
+// @deprecated
+if ($.oc === undefined) {
+    $.oc = {}
+}
+$.oc.mediaManager = oc.mediaManager;
