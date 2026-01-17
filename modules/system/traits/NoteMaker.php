@@ -35,7 +35,6 @@ trait NoteMaker
     /**
      * setNotesOutput sets an output stream for writing notes.
      * @param  \Illuminate\Console\OutputStyle $output
-     * @return self
      */
     public function setNotesOutput($output)
     {
