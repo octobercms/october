@@ -353,5 +353,7 @@
   "Deleted At": "Deleted At",
   "Created By": "Created By",
   "Updated By": "Updated By",
-  "Deleted By": "Deleted By"
+  "Deleted By": "Deleted By",
+  "Includes": "Includes",
+  "Excludes": "Excludes"
 }

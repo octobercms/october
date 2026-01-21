@@ -20,6 +20,7 @@
         "sass-loader": "^12.1.0"
     },
     "dependencies": {
+        "@phosphor-icons/web": "^2.1.2",
         "@popperjs/core": "^2.11.7",
         "bluebird": "^3.7.2",
         "bootstrap": "^5.3.3",

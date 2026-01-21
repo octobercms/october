@@ -96,4 +96,19 @@ return [
         'name' => env('MAIL_FROM_NAME', 'October CMS'),
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Global "To" Address
+    |--------------------------------------------------------------------------
+    |
+    | When testing your application, you may need all e-mails to be sent to
+    | one developer's address. Here, you may specify a name and address that is
+    | used globally for all e-mails that are sent by your application.
+    |
+    */
+
+    'to' => [
+        'address' => env('MAIL_TO_ADDRESS', null),
+        'name' => env('MAIL_TO_NAME', null),
+    ],
 ];

@@ -346,5 +346,7 @@
   "Show Ignored Columns": "Toon genegeerde kolommen",
   "Auto Match Columns": "Kolommen automatisch koppelen",
   "File not found": "Bestand niet gevonden",
-  "There was no data supplied to export": "Er was geen data beschikbaar om te exporteren"
+  "There was no data supplied to export": "Er was geen data beschikbaar om te exporteren",
+  "Includes": "Bevat",
+  "Excludes": "Bevat niet"
 }
