@@ -150,6 +150,11 @@
 
     .generic-widget-error {
         padding: 15px;
+        color: var(--bs-danger-text-emphasis);
+
+        span {
+            color: var(--bs-danger);
+        }
     }
 
     h3.widget-title {
