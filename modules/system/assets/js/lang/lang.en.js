@@ -48,7 +48,7 @@ window.oc.langMessages['en'] = $.extend(
         "invalid_image_empty_insert": "Please select image(s) to insert.",
         "invalid_video_empty_insert": "Please select a video file to insert.",
         "invalid_audio_empty_insert": "Please select an audio file to insert."
-    }, 
+    },
     "alert": {
         "error": "Error",
         "confirm": "Confirm",
