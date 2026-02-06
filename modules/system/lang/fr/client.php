@@ -49,6 +49,14 @@ return [
         'invalid_video_empty_insert' => "Veuillez sélectionner une vidéo à insérer.",
         'invalid_audio_empty_insert' => "Veuillez sélectionner un document audio à insérer.",
     ],
+    'mediafinder' => [
+        'select_all' => 'Tout sélectionner',
+        'deselect_all' => 'Tout désélectionner',
+        'items_copied_to_clipboard' => ' élément(s) copié(s) dans le presse-papier.',
+        'cannot_paste_items_maximum_limit_exceeded' => 'Impossible de coller les éléments : la limite maximale d\'éléments ({{maxItems}}) sera dépassée.',
+        'no_new_items_to_paste' => 'Aucun nouvel élément à coller.',
+        'items_pasted_successfully' => ' élément(s) collé(s) avec succès.',
+    ],
     'alert' => [
         'error' => 'Erreur',
         'confirm' => 'Confirmer',
