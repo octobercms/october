@@ -8,6 +8,23 @@ description = "Default layout"
         <title>October CMS - {{ this.page.meta_title ?: placeholder('pageTitle') }}</title>
         <meta name="description" content="{{ this.page.meta_description }}">
         <meta name="title" content="{{ this.page.meta_title }}">
+
+        <!-- Open Graph -->
+        <meta property="og:title" content="{{ this.page.meta_title ?: placeholder('pageTitle') }}">
+        <meta property="og:description" content="{{ this.page.meta_description }}">
+        <meta property="og:type" content="{{ this.page.meta_type ?: 'website' }}">
+        {% if this.page.meta_image %}
+            <meta property="og:image" content="{{ this.page.meta_image|media }}">
+        {% endif %}
+        <meta property="og:url" content="{{ this.page.url }}">
+
+        <!-- Twitter Card -->
+        <meta name="twitter:card" content="{{ this.page.meta_image ? 'summary_large_image' : 'summary' }}">
+
+        <!-- Robots -->
+        {% if this.page.meta_robots %}
+            <meta name="robots" content="{{ this.page.meta_robots }}">
+        {% endif %}
         {% partial 'site/head/head-links' %}
         {% partial 'site/head/head-scripts' %}
         {% partial 'site/head/analytics-code' %}

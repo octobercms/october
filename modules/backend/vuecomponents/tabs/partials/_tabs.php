@@ -63,7 +63,6 @@
                             v-bind:tabindex="currentTabKey == tab.key ? 0 : -1"
                             v-if="closeable"
                             role="button"
-                            aria-hidden="true"
                             aria-label="<?= e(trans('backend::lang.tabs.close')) ?>"
                             v-bind:title="closeTooltip ? '' : '<?= e(trans('backend::lang.tabs.close')) ?>'"
                             v-bind:data-tooltip-text="closeTooltip"
@@ -115,11 +114,11 @@
 
     <slot v-if="!tabs.length" name="noTabsView"></slot>
 
-    <backend-component-dropdownmenu
+    <backend-dropdown-menu
         :items="contextMenuItems"
         :menu-id="contextMenuId"
         :labeled-by-id="contextMenuLabeledById"
         ref="contextmenu"
         @command="onMenuItemCommand"
-    ></backend-component-dropdownmenu>
+    ></backend-dropdown-menu>
 </div>

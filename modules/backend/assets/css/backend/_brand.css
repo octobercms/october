@@ -38,6 +38,10 @@
     --oc-secondary-hover-bg: #e0e2e4; /* darken(#eeeff0, 5%); */
     --oc-secondary-active-bg: #d3d6d8; /* darken(#eeeff0, 10%); */
 
+    --oc-color-neutral: #e5a91a;
+    --oc-color-positive: #95b753;
+    --oc-color-negative: #cc3300;
+
     /*
     // Form Variables
     // --------------------------------------------------*/

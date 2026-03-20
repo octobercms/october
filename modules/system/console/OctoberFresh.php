@@ -4,7 +4,6 @@ use File;
 use Artisan;
 use Illuminate\Console\Command;
 use System\Classes\PluginManager;
-use Symfony\Component\Console\Input\InputOption;
 
 /**
  * OctoberFresh is a console command to remove boilerplate.
@@ -19,9 +18,10 @@ class OctoberFresh extends Command
     use \Illuminate\Console\ConfirmableTrait;
 
     /**
-     * @var string name of console command
+     * @var string signature for the console command
      */
-    protected $name = 'october:fresh';
+    protected $signature = 'october:fresh
+        {--f|force : Force the operation to run.}';
 
     /**
      * @var string description of the console command
@@ -50,15 +50,5 @@ class OctoberFresh extends Command
         else {
             $this->error('Demo theme is already removed.');
         }
-    }
-
-    /**
-     * getOptions get the console command options
-     */
-    protected function getOptions()
-    {
-        return [
-            ['force', 'f', InputOption::VALUE_NONE, 'Force the operation to run.'],
-        ];
     }
 }

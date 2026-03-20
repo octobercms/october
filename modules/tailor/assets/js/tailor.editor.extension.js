@@ -1,36 +1,36 @@
-oc.Modules.register('editor.extension.tailor.main', function() {
-    'use strict';
+import { ExtensionBase } from '../../../editor/assets/js/editor.extension.base.js';
+import { DocumentControllerBlueprint } from './tailor.editor.extension.documentcontroller.blueprint.js';
+import { DocumentControllerThemeBlueprint } from './tailor.editor.extension.documentcontroller.theme-blueprint.js';
 
-    const ExtensionBase = oc.Modules.import('editor.extension.base');
-    const DocumentUri = oc.Modules.import('editor.documenturi');
-    const EditorCommand = oc.Modules.import('editor.command');
-
-    class TailorEditorExtension extends ExtensionBase {
-        constructor(namespace) {
-            super(namespace);
-        }
-
-        listDocumentControllerClasses() {
-            return [
-                oc.Modules.import('tailor.editor.extension.documentcontroller.blueprint'),
-                oc.Modules.import('tailor.editor.extension.documentcontroller.theme-blueprint'),
-            ];
-        }
-
-        removeFileExtension(fileName) {
-            return fileName.split('.').slice(0, -1).join('.');
-        }
-
-        onCommand(commandString, payload) {
-            super.onCommand(commandString, payload);
-
-            if (commandString === 'tailor:refresh-navigator') {
-                this.editorStore.refreshExtensionNavigatorNodes(this.editorNamespace).then(() => {});
-
-                return;
-            }
-        }
+class TailorEditorExtension extends ExtensionBase {
+    constructor(namespace) {
+        super(namespace);
     }
 
-    return TailorEditorExtension;
-});
+    listDocumentControllerClasses() {
+        return [
+            DocumentControllerBlueprint,
+            DocumentControllerThemeBlueprint,
+        ];
+    }
+
+    removeFileExtension(fileName) {
+        return fileName.split('.').slice(0, -1).join('.');
+    }
+
+    onCommand(commandString, payload) {
+        super.onCommand(commandString, payload);
+
+        if (commandString === 'tailor:refresh-navigator') {
+            this.editorStore.refreshExtensionNavigatorNodes(this.editorNamespace).then(() => {});
+
+            return;
+        }
+    }
+}
+
+// Register with the editor extension registry
+oc.editorExtensions = oc.editorExtensions || {};
+oc.editorExtensions['tailor'] = TailorEditorExtension;
+
+export { TailorEditorExtension };

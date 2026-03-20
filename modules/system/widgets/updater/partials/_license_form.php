@@ -21,8 +21,17 @@
     </div>
     <div class="modal-footer">
         <div class="px-3 pb-3">
-            <?= Ui::button(System::checkProjectValid(1|16) ? "Renew License" : "Get a License")->linkTo('https://octobercms.com/account/project/dashboard', true)->success()->cssClass('btn-lg me-2') ?>
-            <?= Ui::button("Later")->dismissPopup()->secondary()->cssClass('btn-lg') ?>
+            <?= Ui::button(
+                label: __(System::checkProjectValid(1|16) ? "Renew License" : "Get a License"),
+                href: 'https://octobercms.com/account/project/dashboard',
+                class: 'btn-success btn-lg me-2'
+            ) ?>
+            <?= Ui::button(
+                label: __("Later"),
+                secondary: true,
+                class: 'btn-lg',
+                dataDismiss: 'popup'
+            ) ?>
         </div>
     </div>
 </div>

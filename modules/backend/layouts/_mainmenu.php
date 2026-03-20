@@ -30,6 +30,7 @@
                 </ul>
             </div>
         </div>
+        <?= $this->fireViewEvent('backend.layout.extendMainMenuToolbar') ?>
         <div class="toolbar-item fix-width">
             <ul class="mainmenu-items mainmenu-extras" data-main-menu>
                 <?php /* Extra Taskbar Item Sample

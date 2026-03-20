@@ -35,18 +35,18 @@
 
         </div>
         <div class="modal-footer">
-            <button
-                type="submit"
-                class="btn btn-success">
-                <?= __('Duplicate') ?>
-            </button>
+            <?= Ui::ajaxButton(
+                label: __("Duplicate"),
+                handler: 'onDuplicateTheme',
+                class: 'btn-success',
+                dataPopupLoadIndicator: true
+            ) ?>
 
-            <button
-                type="button"
-                class="btn btn-default"
-                data-dismiss="popup">
-                <?= e(trans('backend::lang.form.cancel')) ?>
-            </button>
+            <?= Ui::button(
+                label: __("Cancel"),
+                secondary: true,
+                dataDismiss: 'popup'
+            ) ?>
         </div>
 
     <?php else: ?>
@@ -55,12 +55,11 @@
             <p class="flash-message static error"><?= e(__($this->fatalError)) ?></p>
         </div>
         <div class="modal-footer">
-            <button
-                type="button"
-                class="btn btn-default"
-                data-dismiss="popup">
-                <?= e(trans('backend::lang.form.close')) ?>
-            </button>
+            <?= Ui::button(
+                label: __("Close"),
+                secondary: true,
+                dataDismiss: 'popup'
+            ) ?>
         </div>
 
     <?php endif ?>

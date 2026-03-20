@@ -22,6 +22,21 @@ class PageLookupItem extends Model
     public $singleMode = false;
 
     /**
+     * @var bool allowCustomUrl controls whether the free-form URL option appears.
+     */
+    public $allowCustomUrl = true;
+
+    /**
+     * @var array|null allowedTypes restricts the type dropdown to these types only.
+     */
+    public $allowedTypes = null;
+
+    /**
+     * @var array|null excludedTypes removes these types from the dropdown.
+     */
+    public $excludedTypes = null;
+
+    /**
      * @var bool nesting determines if auto-generated menu items could have subitems.
      */
     public $nesting = false;
@@ -34,7 +49,13 @@ class PageLookupItem extends Model
     /**
      * @var array pageTypeInfoCache
      */
-    protected $pageTypeInfoCache = [];
+    protected static $pageTypeInfoCache = [];
+
+    /**
+     * SCHEMA_METADATA_KEYS are attribute keys used internally by the schema
+     * and should not be treated as URL parameters.
+     */
+    const SCHEMA_METADATA_KEYS = ['type', 'reference', 'url', 'cms_page', 'title', 'search'];
 
     /**
      * defineFormFields
@@ -65,7 +86,7 @@ class PageLookupItem extends Model
             $fields->url->hidden();
         }
 
-        if (!$this->typeInfoHasAttribute('cmsPages')) {
+        if (!$this->typeInfoHasCmsPages()) {
             $fields->cms_page->hidden();
         }
 
@@ -80,6 +101,14 @@ class PageLookupItem extends Model
     protected function typeInfoHasAttribute($attribute): bool
     {
         return array_key_exists($attribute, $this->getTypeInfo((string) $this->type));
+    }
+
+    /**
+     * typeInfoHasCmsPages checks if type info has non-empty cmsPages
+     */
+    protected function typeInfoHasCmsPages(): bool
+    {
+        return !empty($this->getTypeInfo((string) $this->type)['cmsPages']);
     }
 
     /**
@@ -109,7 +138,7 @@ class PageLookupItem extends Model
          *         return [
          *             'blog-post' => 'Blog Post',
          *             'blog-category' => 'Blog Category',
-         *             'blog-posts' => ['All Blog Posts', true],
+         *             'blog-posts' => ['label' => 'All Blog Posts', 'nesting' => true],
          *         ];
          *     });
          *
@@ -125,14 +154,20 @@ class PageLookupItem extends Model
                 foreach ($typeList as $typeCode => $typeName) {
                     $isNested = false;
 
-                    // If the last item in the array is a boolean, it defines nesting
-                    if (
-                        is_array($typeName) &&
-                        count($typeName) > 1 &&
-                        is_bool($typeName[array_key_last($typeName)])
-                    ) {
-                        $isNested = array_pop($typeName);
-                        $typeName = array_shift($typeName);
+                    if (is_array($typeName)) {
+                        // Named-key format: ['label' => '...', 'nesting' => true]
+                        if (isset($typeName['label'])) {
+                            $isNested = $typeName['nesting'] ?? false;
+                            $typeName = $typeName['label'];
+                        }
+                        // Legacy format: ['Label', true]
+                        elseif (
+                            count($typeName) > 1 &&
+                            is_bool($typeName[array_key_last($typeName)])
+                        ) {
+                            $isNested = array_pop($typeName);
+                            $typeName = array_shift($typeName);
+                        }
                     }
 
                     if (!$typeName) {
@@ -146,6 +181,33 @@ class PageLookupItem extends Model
                     $result[$typeCode] = $typeName;
                 }
             }
+        }
+
+        // Filter out types that require CMS pages but have none available
+        foreach ($result as $typeCode => $typeName) {
+            if ($typeCode === 'url') {
+                continue;
+            }
+
+            $typeInfo = $this->getTypeInfo($typeCode);
+            if (array_key_exists('cmsPages', $typeInfo) && empty($typeInfo['cmsPages'])) {
+                unset($result[$typeCode]);
+            }
+        }
+
+        // Remove URL type if custom URLs are disabled
+        if (!$this->allowCustomUrl) {
+            unset($result['url']);
+        }
+
+        // Apply type whitelist
+        if ($this->allowedTypes !== null) {
+            $result = array_intersect_key($result, array_flip($this->allowedTypes));
+        }
+
+        // Apply type blacklist
+        if ($this->excludedTypes !== null) {
+            $result = array_diff_key($result, array_flip($this->excludedTypes));
         }
 
         return $result;
@@ -228,8 +290,8 @@ class PageLookupItem extends Model
             return [];
         }
 
-        if (array_key_exists($type, $this->pageTypeInfoCache)) {
-            return $this->pageTypeInfoCache[$type];
+        if (array_key_exists($type, static::$pageTypeInfoCache)) {
+            return static::$pageTypeInfoCache[$type];
         }
 
         if ($type === 'url') {
@@ -239,7 +301,7 @@ class PageLookupItem extends Model
             $result = $this->getTypeInfoFromEvent($type);
         }
 
-        return $this->pageTypeInfoCache[$type] = $result;
+        return static::$pageTypeInfoCache[$type] = $result;
     }
 
     /**
@@ -285,7 +347,20 @@ class PageLookupItem extends Model
     }
 
     /**
-     * resolveItem
+     * resolveItem resolves the page link by firing the cms.pageLookup.resolveItem
+     * event. Listeners should return null if they do not handle the given type.
+     *
+     * Expected return array keys:
+     * - url (string) - the resolved URL
+     * - isActive (bool) - whether the item matches the current page
+     * - title (string) - display title override
+     * - mtime (mixed) - last modification time
+     * - code (string) - page code identifier
+     * - viewBag (array) - view bag data
+     * - sites (array) - multi-site URL alternatives
+     * - items (array) - child items for nested types
+     *
+     * Additional keys are stored as item attributes.
      */
     public function resolveItem()
     {
@@ -322,11 +397,16 @@ class PageLookupItem extends Model
             $this->mtime = $itemInfo['mtime'] ?? null;
             $this->sites = $itemInfo['sites'] ?? null;
 
-            $this->attributes = array_merge($this->attributes, $itemInfo);
-
             if (isset($itemInfo['items']) && is_array($itemInfo['items'])) {
                 $this->items = $this->buildChildItems($itemInfo['items']);
             }
+
+            // Merge only extra keys (not handled above) into attributes
+            $knownKeys = ['title', 'url', 'isActive', 'viewBag', 'code', 'mtime', 'sites', 'items'];
+            $this->attributes = array_merge(
+                $this->attributes,
+                array_diff_key($itemInfo, array_flip($knownKeys))
+            );
         }
 
         return $this;
@@ -361,6 +441,77 @@ class PageLookupItem extends Model
     }
 
     /**
+     * getPreviewUrl returns a URL suitable for display in the backend.
+     * Shows stored param values where available, :paramName placeholders otherwise.
+     */
+    public function getPreviewUrl(): string
+    {
+        if ($this->type === 'url') {
+            return $this->url ?? '';
+        }
+
+        $pageCode = $this->cmsPage ?: ($this->type === 'cms-page' ? $this->reference : null);
+        if (!$pageCode) {
+            return '';
+        }
+
+        $theme = App::runningInBackend()
+            ? Theme::getEditTheme()
+            : Theme::getActiveTheme();
+
+        $page = \Cms\Classes\Page::loadCached($theme, $pageCode);
+        if (!$page || !$page->url) {
+            return '';
+        }
+
+        $segments = \October\Rain\Router\Helper::segmentizeUrl($page->url);
+        $params = $this->getSchemaParams();
+
+        $result = [];
+        foreach ($segments as $segment) {
+            if (strpos($segment, ':') !== 0) {
+                $result[] = $segment;
+                continue;
+            }
+
+            $paramName = \October\Rain\Router\Helper::getParameterName($segment);
+
+            if (isset($params[$paramName]) && strlen($params[$paramName])) {
+                $result[] = $params[$paramName];
+            }
+            else {
+                $result[] = ':' . $paramName;
+            }
+        }
+
+        return '/' . implode('/', $result);
+    }
+
+    /**
+     * getSchemaParams returns the URL params stored in the october:// schema,
+     * filtering out known metadata keys.
+     */
+    public function getSchemaParams(): array
+    {
+        return static::extractUrlParams($this->attributes);
+    }
+
+    /**
+     * extractUrlParams returns URL-relevant parameters from an attributes
+     * array, filtering out known schema metadata keys.
+     */
+    public static function extractUrlParams(array $attributes): array
+    {
+        $params = [];
+        foreach ($attributes as $key => $value) {
+            if (!in_array($key, static::SCHEMA_METADATA_KEYS) && is_scalar($value)) {
+                $params[$key] = $value;
+            }
+        }
+        return $params;
+    }
+
+    /**
      * resolveFromSchema
      */
     public static function resolveFromSchema(string $address, array $options = []): ?PageLookupItem
@@ -373,7 +524,19 @@ class PageLookupItem extends Model
         $item->nesting = (bool) array_get($options, 'nesting', false);
         $item->sites = (bool) array_get($options, 'sites', false);
 
-        return $item->resolveItem();
+        // Merge runtime params into attributes
+        if ($runtimeParams = array_get($options, 'params', [])) {
+            $item->attributes = array_merge($item->attributes, $runtimeParams);
+        }
+
+        $item->resolveItem();
+
+        // Append fragment to resolved URL
+        if ($item->fragment && $item->url) {
+            $item->url .= '#' . $item->fragment;
+        }
+
+        return $item;
     }
 
     /**
@@ -394,6 +557,7 @@ class PageLookupItem extends Model
         }
         else {
             $item->reference = $decoded['reference'];
+            $item->fragment = $decoded['fragment'] ?? null;
             $item->attributes = array_merge($decoded['params'], $item->attributes);
         }
 
@@ -417,6 +581,7 @@ class PageLookupItem extends Model
                 'type' => $type,
                 'reference' => ltrim($parts['path'] ?? '', '/'),
                 'params' => $params,
+                'fragment' => $parts['fragment'] ?? null,
             ];
         }
 

@@ -137,5 +137,6 @@
   "Define a Snippet Partial": "Határozd meg egy kódrészlet részelemet",
   "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Érvénytelen formátum: :key. Csak számokat, latin betűket és a következő szimbólumokat tartalmazhatja: _-",
   "The description is displayed in the snippet list in the editor when a snippet is added.": "A leírás a létrehozást követően megjelenik a kódrészlet listában.",
-  "Details": "Részletek"
+  "Details": "Részletek",
+  "Frontend Theme": "Megjelenés"
 }

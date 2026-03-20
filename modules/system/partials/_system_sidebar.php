@@ -22,7 +22,7 @@
             <div class="flex-grow-1">
                 <div class="position-relative h-100">
                     <div class="settings-nav-scroll-canvas">
-                        <div class="control-scrollbar" data-control="scrollbar">
+                        <div class="control-scrollbar" data-control="scrollbar" data-animation="false">
                             <?= $this->makePartial('~/modules/system/partials/_settings_menu.php') ?>
                         </div>
                     </div>

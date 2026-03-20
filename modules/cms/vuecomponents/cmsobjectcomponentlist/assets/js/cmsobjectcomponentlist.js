@@ -1,4 +1,4 @@
-Vue.component('cms-object-component-list', {
+export default {
     props: {
         components: Array
     },
@@ -53,8 +53,7 @@ Vue.component('cms-object-component-list', {
 
         this.expanded = localStorage.getItem(this.storageKey) == '1';
     },
-    beforeDestroy: function beforeDestroy() {
+    beforeUnmount: function beforeUnmount() {
         $(this.$refs.scrollable).dragScroll('dispose');
-    },
-    template: '#cms_vuecomponents_cmsobjectcomponentlist'
-});
+    }
+};

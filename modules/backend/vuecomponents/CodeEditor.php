@@ -13,6 +13,11 @@ use Backend\Models\Preference as BackendPreference;
 class CodeEditor extends VueComponentBase
 {
     /**
+     * @var string componentName is the Vue component tag name.
+     */
+    protected $componentName = 'backend-codeeditor';
+
+    /**
      * loadAssets adds component specific asset files. Use $this->addJs() and $this->addCss()
      * to register new assets to include on the page.
      * The default component script and CSS file are loaded automatically.

@@ -1,7 +1,7 @@
 <?php
     $icon = null;
 
-    if ($record->is_disabled) {
+    if ($record->context_disabled) {
         $icon = 'eye-slash';
     }
     elseif ($record->disabledBySystem) {

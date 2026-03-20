@@ -1,0 +1,149 @@
+/*
+ * Date Picker
+ * --------------------------------------------------
+ */
+
+@import "datepicker.date.css";
+@import "datepicker.time.css";
+
+.pika-single {
+    border: var(--oc-popup-border) !important;
+    background: var(--oc-popup-bg);
+    color: var(--oc-text-color);
+    border-radius: 8px;
+
+    font-size: 12px;
+    margin-top: 5px;
+    z-index: var(--oc-zindex-datepicker);
+    font-family: var(--bs-body-font-family);
+    width: 310px;
+
+    &.is-bound {
+        box-shadow: 0 0 32px rgba(67, 86, 100, 0.2);
+    }
+
+    abbr {
+        border-bottom: none;
+    }
+
+    .pika-button {
+        border-radius: 999px !important;
+        text-align: center;
+        width: 29px;
+        height: 29px;
+        margin: 3px;
+        background: transparent;
+        color: var(--oc-text-color);
+    }
+
+    .is-today .pika-button {
+        background: var(--bs-secondary);
+        color: #fff;
+        font-weight: bold;
+    }
+
+    .is-selected .pika-button {
+        box-shadow: none;
+        background: var(--oc-selection);
+        color: #fff;
+    }
+
+    .pika-button:hover {
+        color: var(--oc-emphasis-color) !important;
+        background: var(--bs-secondary-bg) !important;
+    }
+
+    .pika-label {
+        font-weight: normal;
+    }
+
+    .pika-table th {
+        text-transform: uppercase;
+        font-weight: normal;
+        line-height: 30px;
+        font-size: 11px;
+        color: var(--oc-primary-color);
+    }
+
+    .pika-footer {
+        .pika-label {
+            font-size: 11px;
+        }
+    }
+}
+
+.clockpicker-popover {
+    z-index: var(--oc-zindex-datepicker);
+    box-shadow: 0 0 32px rgba(67, 86, 100, 0.2);
+    border-radius: 8px;
+    border: var(--oc-popup-border) !important;
+    background-color: var(--oc-popup-bg);
+
+    .popover-title {
+        background-color: var(--oc-popup-bg);
+        font-size: 20px;
+        font-weight: normal;
+        border: none;
+    }
+
+    .popover-content {
+        background-color: var(--bs-tertiary-bg);
+    }
+
+    &.top {
+        margin-top: -5px;
+    }
+    &.right {
+        margin-left: 5px;
+    }
+    &.bottom {
+        margin-top: 5px;
+    }
+    &.left {
+        margin-left: -5px;
+    }
+
+    > .arrow {
+        display: none;
+    }
+}
+
+.clockpicker-plate {
+    background-color: var(--oc-popup-bg);
+    border: var(--oc-popup-border);
+}
+
+.clockpicker-tick {
+    color: var(--oc-text-color);
+
+    &.active,
+    &:hover {
+        background-color: var(--bs-secondary-bg);
+        color: var(--oc-emphasis-color);
+    }
+}
+
+.clockpicker-canvas-bg {
+    fill: var(--bs-secondary-bg);
+}
+.clockpicker-canvas-bg-trans {
+    fill: rgba(0, 149, 221, .25);
+}
+
+.clockpicker-hours .clockpicker-tick {
+    font-size: 12px;
+
+    &.tick-inner {
+        font-size: 16px;
+    }
+}
+.clockpicker-minutes .clockpicker-tick {
+    font-size: 16px;
+}
+
+[data-bs-theme="dark"] {
+    .pika-prev,
+    .pika-next {
+        filter: invert(100%);
+    }
+}

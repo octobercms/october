@@ -4,16 +4,16 @@
 >
     <div class="components-scrollable flex-layout-item stretch" ref="scrollable">
         <transition-group name="cms-transition-component-list" class="flex-layout-row" tag="ul">
-            <cmd-object-component-list-component
-                v-for="(component, index) in components"
-                v-if="!component.isHidden"
-                :component="component"
-                @removecomponent="onRemoveComponentClick(index)"
-                @inspectorhiding="onInspectorHiding($event, index)"
-                @inspectorhidden="$emit('inspectorhidden')"
-                @inspectorshowed="$emit('inspectorshowed')"
-                :key="component.alias"
-            ></cmd-object-component-list-component>
+            <template v-for="(component, index) in components" :key="component.alias">
+                <cms-component-cmsobjectcomponentlist-component
+                    v-if="!component.isHidden"
+                    :component="component"
+                    @removecomponent="onRemoveComponentClick(index)"
+                    @inspectorhiding="onInspectorHiding($event, index)"
+                    @inspectorhidden="$emit('inspectorhidden')"
+                    @inspectorshowed="$emit('inspectorshowed')"
+                ></cms-component-cmsobjectcomponentlist-component>
+            </template>
         </transition-group>
     </div>
     <div class="flex-layout-item fix list-control-buttons">

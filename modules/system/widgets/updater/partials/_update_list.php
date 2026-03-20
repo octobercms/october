@@ -138,17 +138,20 @@
                     <?= e(trans('system::lang.updates.important_alert_text')) ?>
                 </p>
             <?php endif ?>
-            <button
-                type="button"
-                id="updateListUpdateButton"
-                class="btn btn-primary"
-                data-dismiss="popup"
-                data-control="popup"
-                data-handler="onApplyUpdates"
-                data-keyboard="false">
-                <?= e(trans('system::lang.updates.update_label')) ?>
-            </button>
-            <?= Ui::button("Cancel")->dismissPopup()->secondary() ?>
+            <?= Ui::button(
+                label: e(trans('system::lang.updates.update_label')),
+                primary: true,
+                id: 'updateListUpdateButton',
+                dataDismiss: 'popup',
+                dataControl: 'popup',
+                dataHandler: 'onApplyUpdates',
+                dataKeyboard: 'false'
+            ) ?>
+            <?= Ui::button(
+                label: __("Cancel"),
+                secondary: true,
+                dataDismiss: 'popup'
+            ) ?>
         </div>
 
     <?php else: ?>
@@ -157,21 +160,19 @@
             <p><?= e(trans('system::lang.updates.none.help')) ?></p>
         </div>
         <div class="modal-footer">
-            <button
-                type="button"
-                class="btn btn-default"
-                data-dismiss="popup">
-                <?= e(trans('backend::lang.form.close')) ?>
-            </button>
-            <button
-                type="button"
-                class="btn btn-primary"
-                data-dismiss="popup"
-                data-control="popup"
-                data-handler="onApplyUpdates"
-                data-keyboard="false">
-                <?= e(trans('system::lang.updates.force_label')) ?>
-            </button>
+            <?= Ui::button(
+                label: e(trans('backend::lang.form.close')),
+                secondary: true,
+                dataDismiss: 'popup'
+            ) ?>
+            <?= Ui::button(
+                label: e(trans('system::lang.updates.force_label')),
+                primary: true,
+                dataDismiss: 'popup',
+                dataControl: 'popup',
+                dataHandler: 'onApplyUpdates',
+                dataKeyboard: 'false'
+            ) ?>
         </div>
 
     <?php endif ?>
@@ -182,7 +183,11 @@
         <p class="flash-message static error"><?= e(__($this->fatalError)) ?></p>
     </div>
     <div class="modal-footer">
-        <?= Ui::button(__("Close"))->dismissPopup()->secondary() ?>
+        <?= Ui::button(
+            label: __("Close"),
+            secondary: true,
+            dataDismiss: 'popup'
+        ) ?>
     </div>
 
 <?php endif ?>

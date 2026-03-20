@@ -56,8 +56,15 @@ trait SectionIndex
         }
 
         // Handle found
+        $themeDatasource = $this->getActiveThemeDatasource();
         foreach ($index as $attributes) {
             if (isset($attributes['handle']) && $attributes['handle'] === $handleOrUuid) {
+                // Skip blueprints from inactive themes
+                $themeCode = $attributes['_theme'] ?? null;
+                if ($themeCode !== null && $themeDatasource && $themeCode !== $themeDatasource) {
+                    continue;
+                }
+
                 return $attributes['uuid'] ?? '';
             }
         }
@@ -84,6 +91,7 @@ trait SectionIndex
      */
     public function findSectionByHandle(string $handle): ?EntryBlueprint
     {
+        $themeDatasource = $this->getActiveThemeDatasource();
         $result = null;
 
         foreach ($this->listSectionsRaw() as $attributes) {
@@ -91,6 +99,12 @@ trait SectionIndex
                 (isset($attributes['handle']) && $attributes['handle'] === $handle) ||
                 (isset($attributes['handleSlug']) && $attributes['handleSlug'] === $handle)
             ) {
+                // Skip blueprints from inactive themes
+                $themeCode = $attributes['_theme'] ?? null;
+                if ($themeCode !== null && $themeDatasource && $themeCode !== $themeDatasource) {
+                    continue;
+                }
+
                 $result = EntryBlueprint::newFromIndexer($attributes);
             }
         }

@@ -17,18 +17,18 @@
             <?= $widget->render() ?>
         </div>
         <div class="modal-footer">
-            <button
-                type="submit"
-                class="btn btn-success">
-                <?= __('Seed Theme') ?>
-            </button>
+            <?= Ui::ajaxButton(
+                label: __("Seed Theme"),
+                handler: 'onSeed',
+                class: 'btn-success',
+                dataPopupLoadIndicator: true
+            ) ?>
 
-            <button
-                type="button"
-                class="btn btn-secondary"
-                data-dismiss="popup">
-                <?= __("Cancel") ?>
-            </button>
+            <?= Ui::button(
+                label: __("Cancel"),
+                secondary: true,
+                dataDismiss: 'popup'
+            ) ?>
         </div>
 
     <?php else: ?>
@@ -37,12 +37,11 @@
             <p class="flash-message static error"><?= e(__($this->fatalError)) ?></p>
         </div>
         <div class="modal-footer">
-            <button
-                type="button"
-                class="btn btn-default"
-                data-dismiss="popup">
-                <?= __("Close") ?>
-            </button>
+            <?= Ui::button(
+                label: __("Close"),
+                secondary: true,
+                dataDismiss: 'popup'
+            ) ?>
         </div>
 
     <?php endif ?>

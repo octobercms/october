@@ -1,7 +1,7 @@
 /*
  * Tailor draft notes management Vue component
  */
-Vue.component('tailor-component-draftnotes', {
+export default {
     props: {
         state: Object
     },
@@ -41,6 +41,5 @@ Vue.component('tailor-component-draftnotes', {
     mounted: function onMounted() {
     },
     watch: {
-    },
-    template: '#tailor_vuecomponents_draftnotes'
-});
+    }
+};

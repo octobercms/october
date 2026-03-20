@@ -1,6 +1,7 @@
 <tr :class="{focused: focused, 'has-errors': hasErrors}">
-    <backend-component-inspector-control-table-cell
+    <backend-inspector-control-table-cell
         v-for="(column, index) in columns"
+        :ref="el => setCellRef(el, index)"
         :key="index"
         :column="column"
         :row="row"
@@ -14,5 +15,5 @@
         @invalid="onInvalid"
         @removerow="$emit('removerow', rowIndex)"
     >
-    </backend-component-inspector-control-table-cell>
+    </backend-inspector-control-table-cell>
 </tr>

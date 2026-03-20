@@ -1,7 +1,9 @@
+'use strict';
+
 /**
- * Dashboard_Classes_Calendar
+ * Calendar class for dashboard date range picker.
  */
-class Dashboard_Classes_Calendar
+export default class Calendar
 {
     constructor(element, locale) {
         this.element = element;
@@ -16,15 +18,15 @@ class Dashboard_Classes_Calendar
             opens: 'left',
             alwaysShowCalendars: true,
             ranges: {
-                [oc.lang.get('dashboard.range_today')]: [moment(), moment()],
-                [oc.lang.get('dashboard.range_this_week')]: [moment().isoWeekday(1), moment()],
-                // [oc.lang.get('dashboard.range_yesterday')]: [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
-                // [oc.lang.get('dashboard.range_last_7_days')]: [moment().subtract(6, 'days'), moment()],
-                // [oc.lang.get('dashboard.range_last_30_days')]: [moment().subtract(29, 'days'), moment()],
-                [oc.lang.get('dashboard.range_this_month')]: [moment().startOf('month'), moment().endOf('month')],
-                // [oc.lang.get('dashboard.range_last_month')]: [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
-                [oc.lang.get('dashboard.range_this_quarter')]: [moment().startOf('quarter'), moment()],
-                [oc.lang.get('dashboard.range_this_year')]: [moment().startOf('year'), moment()],
+                [oc.t("Today")]: [moment(), moment()],
+                [oc.t("This week")]: [moment().isoWeekday(1), moment()],
+                // [oc.t("Yesterday")]: [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+                // [oc.t("Last 7 days")]: [moment().subtract(6, 'days'), moment()],
+                // [oc.t("Last 30 days")]: [moment().subtract(29, 'days'), moment()],
+                [oc.t("This month")]: [moment().startOf('month'), moment().endOf('month')],
+                // [oc.t("Last month")]: [moment().subtract(1, 'month').startOf('month'), moment().subtract(1, 'month').endOf('month')],
+                [oc.t("This quarter")]: [moment().startOf('quarter'), moment()],
+                [oc.t("This year")]: [moment().startOf('year'), moment()],
             }
         })
     }

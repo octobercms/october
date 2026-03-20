@@ -125,7 +125,26 @@
 
 
     ExceptionBeautifier.prototype.formatMessage = function (str) {
-        var self = this;
+        var self = this,
+            jsonMatch,
+            messagePart,
+            detailsPart;
+
+        // Detect JSON details block appended after double newline
+        jsonMatch = str.match(/^([\s\S]*?)(\r?\n\r?\n)([\[{][\s\S]*[\]}]\s*)$/);
+
+        if (jsonMatch) {
+            messagePart = self.formatLineCode(
+                jsonMatch[1]
+                    .replace(/^\s+/, '')
+                    .replace(/\r\n|\r|\n/g, '{x-newline}')
+                    .replace(/\t| {2}/g, '{x-tabulation}')
+            );
+
+            detailsPart = self.formatJsonDetails(jsonMatch[3]);
+
+            return messagePart + detailsPart;
+        }
 
         return self.formatLineCode(
             str
@@ -133,6 +152,82 @@
                 .replace(/\r\n|\r|\n/g, '{x-newline}')
                 .replace(/\t| {2}/g, '{x-tabulation}')
         );
+    }
+
+    ExceptionBeautifier.prototype.formatJsonDetails = function (str) {
+        var decoded;
+
+        try {
+            decoded = JSON.parse(str.replace(/&amp;/g, '&').replace(/&lt;/g, '<').replace(/&gt;/g, '>').replace(/&quot;/g, '"').replace(/&#039;/g, "'"));
+        }
+        catch (e) {
+            return '{x-newline}{x-newline}' + str
+                .replace(/\r\n|\r|\n/g, '{x-newline}')
+                .replace(/\t| {2}/g, '{x-tabulation}');
+        }
+
+        return '{exception-beautifier-details#div}' +
+            this.buildJsonTree(decoded, 0) +
+            '{/exception-beautifier-details#div}';
+    }
+
+    ExceptionBeautifier.prototype.buildJsonTree = function (data, depth) {
+        var self = this,
+            result = '',
+            keys,
+            isArray = Array.isArray(data),
+            indent = new Array(depth + 1).join('{x-tabulation}{x-tabulation}');
+
+        if (data === null) {
+            return '{exception-beautifier-code}null{/exception-beautifier-code}';
+        }
+
+        if (typeof data === 'string') {
+            return '{exception-beautifier-string}&quot;' + data
+                .replace(/&/g, '&amp;')
+                .replace(/</g, '&lt;')
+                .replace(/>/g, '&gt;') + '&quot;{/exception-beautifier-string}';
+        }
+
+        if (typeof data === 'number') {
+            return '{exception-beautifier-number}' + data + '{/exception-beautifier-number}';
+        }
+
+        if (typeof data === 'boolean') {
+            return '{exception-beautifier-code}' + data + '{/exception-beautifier-code}';
+        }
+
+        if (typeof data !== 'object') {
+            return String(data);
+        }
+
+        keys = Object.keys(data);
+        if (keys.length === 0) {
+            return isArray ? '[]' : '{}';
+        }
+
+        result += (isArray ? '[' : '{') + '{x-newline}';
+
+        keys.forEach(function (key, index) {
+            var childIndent = indent + '{x-tabulation}{x-tabulation}';
+            result += childIndent;
+
+            if (!isArray) {
+                result += '{exception-beautifier-code}' + key + '{/exception-beautifier-code}: ';
+            }
+
+            result += self.buildJsonTree(data[key], depth + 1);
+
+            if (index < keys.length - 1) {
+                result += ',';
+            }
+
+            result += '{x-newline}';
+        });
+
+        result += indent + (isArray ? ']' : '}');
+
+        return result;
     }
 
     ExceptionBeautifier.prototype.formatFilePath = function (path, line) {
@@ -334,7 +429,7 @@
                 return m.replace(/\r\n|\r|\n/g, '<br>').replace(/ {2}/g, '&nbsp;&nbsp;')
             });
 
-            iframe = $('<iframe id="#beautifier-tab-formatted-iframe" style="width: 100%; height: 500px; padding: 0" frameborder="0"></iframe>');
+            iframe = $('<iframe id="#beautifier-tab-formatted-iframe" sandbox="" style="width: 100%; height: 500px; padding: 0" frameborder="0"></iframe>');
         }
 
         // Build tab content

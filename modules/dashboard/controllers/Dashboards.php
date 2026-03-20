@@ -124,4 +124,14 @@ class Dashboards extends Controller
     {
         $query->applyOwner(Index::class)->applyCreatedUserOrSystem();
     }
+
+    /**
+     * listExtendRefreshResults refreshes the sidenav on every list update
+     */
+    public function listExtendRefreshResults($host, $result, $definition = null)
+    {
+        $this->vars['dashboards'] = Dashboard::listDashboards(Index::class);
+
+        return ['#dashboardSidenav' => $this->makePartial('~/modules/dashboard/controllers/index/_dash_sidenav.php')];
+    }
 }

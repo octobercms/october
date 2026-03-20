@@ -10,10 +10,10 @@
     <template
         v-if="status == 'uploading'"
     >
-        <backend-component-loading-indicator
+        <backend-loading-indicator
             indicator-style="bar"
             :progress="progress"
-        ></backend-component-loading-indicator>
+        ></backend-loading-indicator>
 
         <button
             @click.prevent="$emit('removeclick')"

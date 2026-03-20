@@ -1,27 +1,20 @@
 /*
  * Vue modal confirmation implementation
  */
-oc.Modules.register('backend.component.modal.confirm', function () {
-    Vue.component('backend-component-modal-confirm', {
-        extends: Vue.options.components['backend-component-modal-alert'],
-        props: {
-            isDanger: {
-                type: Boolean,
-                default: false
-            }
-        },
-        data: function () {
-            return {
-            };
-        },
-        computed: {
-        },
-        methods: {
-            onButtonClick: function onButtonClick() {
-                this.$emit('buttonclick');
-                this.$refs.modal.hide();
-            }
-        },
-        template: '#backend_vuecomponents_modal_confirm'
-    });
-});
+import alert from './alert.js';
+
+export default {
+    extends: alert,
+    props: {
+        isDanger: {
+            type: Boolean,
+            default: false
+        }
+    },
+    methods: {
+        onButtonClick: function onButtonClick() {
+            this.$emit('buttonclick');
+            this.$refs.modal.hide();
+        }
+    }
+};

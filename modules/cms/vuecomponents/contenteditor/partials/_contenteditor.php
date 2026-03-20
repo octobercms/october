@@ -1,4 +1,4 @@
-<backend-component-document
+<backend-document
     :header-collapsed="documentHeaderCollapsed"
     :full-screen="documentFullScreen"
     :loading="initializing"
@@ -8,7 +8,7 @@
     container-css-class="fill-container"
 >
     <template v-slot:header>
-        <backend-component-document-header
+        <backend-document-header
             title-property="fileName"
             ref="documentHeader"
             :data="documentData"
@@ -16,21 +16,21 @@
             :document-icon="directDocumentIcon"
             :show-close-icon="isDirectDocumentMode"
             @documentcloseclick="onDocumentCloseClick"
-        ></backend-component-document-header>
+        ></backend-document-header>
     </template>
 
     <template v-slot:toolbar>
-        <backend-component-document-toolbar
+        <backend-document-toolbar
             :elements="toolbarElements"
             @command="onToolbarCommand"
             :disabled="processing"
-        ></backend-component-document-toolbar>
+        ></backend-document-toolbar>
     </template>
 
     <template v-slot:content>
         <div class="flex-layout-column fill-container">
             <div class="flex-layout-item stretch editor-panel relative">
-                <backend-component-monacoeditor
+                <backend-monacoeditor
                     v-show="!isRicheditorDocument && !isMarkdownDocument"
                     ref="editor"
                     container-css-class="fill-container"
@@ -40,9 +40,9 @@
                     @contextmenu="onEditorContextMenu"
                     @filtersupportedactions="onEditorFilterSupportedActions"
                 >
-                </backend-component-monacoeditor>
+                </backend-monacoeditor>
 
-                <backend-component-richeditor-document-connector
+                <backend-richeditor-document-connector
                     :allow-resizing="true"
                     :toolbar-container="toolbarExtensionPoint"
                     :use-media-manager="editorUserData.useMediaManager"
@@ -50,13 +50,13 @@
                     container-css-class="fill-container"
                     v-if="isRicheditorDocument"
                 >
-                    <backend-component-richeditor
+                    <backend-richeditor
                         v-model="documentData.markup"
                     >
-                    </backend-component-richeditor>
-                </backend-component-richeditor-document-connector>
+                    </backend-richeditor>
+                </backend-richeditor-document-connector>
 
-                <backend-component-documentmarkdowneditor
+                <backend-document-markdowneditor
                     v-if="isMarkdownDocument"
                     v-model="documentData.markup"
                     ref="markdownEditor"
@@ -64,12 +64,12 @@
                     :toolbar-container="toolbarExtensionPoint"
                     :use-media-manager="editorUserData.useMediaManager"
                 >
-                </backend-component-documentmarkdowneditor>
+                </backend-document-markdowneditor>
             </div>
 
-            <editor-conflict-resolver
+            <editor-component-editorconflictresolver
                 ref="conflictResolver"
-            ></editor-conflict-resolver>
+            ></editor-component-editorconflictresolver>
         </div>
     </template>
-</backend-component-document>
+</backend-document>

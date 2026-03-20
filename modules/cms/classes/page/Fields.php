@@ -79,6 +79,33 @@ class Fields
                 'type' => 'text',
                 'size' => 'medium',
                 'tab' =>  "cms::lang.editor.meta"
+            ],
+            'meta_image' => [
+                'type' => 'string',
+                'title' => "cms::lang.editor.meta_image",
+                'description' => "cms::lang.editor.meta_image_comment",
+                'tab' => "cms::lang.editor.meta"
+            ],
+            'meta_type' => [
+                'type' => 'dropdown',
+                'title' => "cms::lang.editor.meta_type",
+                'tab' => "cms::lang.editor.meta",
+                'default' => 'website',
+                'options' => [
+                    'website' => "cms::lang.editor.meta_type_website",
+                    'article' => "cms::lang.editor.meta_type_article",
+                    'product' => "cms::lang.editor.meta_type_product"
+                ]
+            ],
+            'meta_robots' => [
+                'type' => 'dropdown',
+                'title' => "cms::lang.editor.meta_robots",
+                'tab' => "cms::lang.editor.meta",
+                'options' => [
+                    '' => "cms::lang.editor.meta_robots_default",
+                    'noindex,follow' => "cms::lang.editor.meta_robots_noindex_follow",
+                    'noindex,nofollow' => "cms::lang.editor.meta_robots_noindex_nofollow"
+                ]
             ]
         ];
     }

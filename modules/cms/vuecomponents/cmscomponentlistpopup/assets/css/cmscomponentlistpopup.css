@@ -1,1 +1,61 @@
-.cms-component-list-popup-treeview .component-backend-treeview,.cms-component-list-popup-treeview .component-backend-treeview .scrollable-panel-container{background-color:var(--oc-popup-bg)}.cms-component-list-popup-treeview .component-backend-treeview,.cms-component-list-popup-treeview .component-backend-treeview .treeview-search-control{border-bottom-left-radius:8px;border-bottom-right-radius:8px}.cms-component-list-popup-treeview ul ul ul li .item-label-outer-container:hover:before{display:none!important}.cms-component-list-popup-treeview ul ul ul li .item-label-container{background:var(--oc-editor-bg);border-radius:4px;cursor:pointer!important;margin-bottom:5px;padding:0 5px 5px}.cms-component-list-popup-treeview ul ul ul li .item-label-container .node-label+.node-label{font-size:12px;line-height:150%;margin-top:-3px;white-space:normal}.cms-component-list-popup-treeview ul ul ul li .item-label-container:hover{background:var(--bs-primary)}.cms-component-list-popup-treeview ul ul ul li .item-label-container:hover .node-label{color:#fff}.cms-component-list-popup-treeview ul ul ul li:last-child .item-label-container{margin-bottom:0}.cms-component-ghost-image-container{left:0;position:absolute;top:0;z-index:0}.cms-component-ghost-image-container.snapshot{z-index:1}
+.cms-component-list-popup-treeview {
+    .component-backend-treeview {
+        &,
+        .scrollable-panel-container {
+            background-color: var(--oc-popup-bg);
+        }
+
+        &,
+        .treeview-search-control {
+            border-bottom-left-radius: 8px;
+            border-bottom-right-radius: 8px;
+        }
+    }
+
+    ul ul ul {
+        li {
+            .item-label-outer-container:hover:before {
+                display: none !important;
+            }
+
+            .item-label-container {
+                cursor: pointer !important;
+                padding: 0px 5px 5px;
+                background: var(--oc-editor-bg);
+                margin-bottom: 5px;
+                border-radius: 4px;
+
+                .node-label + .node-label {
+                    white-space: normal;
+                    line-height: 150%;
+                    margin-top: -3px;
+                    font-size: 12px;
+                }
+
+                &:hover {
+                    background: var(--bs-primary);
+                    .node-label {
+                        color: white;
+                    }
+                }
+            }
+
+            &:last-child {
+                .item-label-container {
+                    margin-bottom: 0;
+                }
+            }
+        }
+    }
+}
+
+.cms-component-ghost-image-container {
+    top: 0;
+    left: 0;
+    z-index: 0;
+    position: absolute;
+
+    &.snapshot {
+        z-index: 1;
+    }
+}

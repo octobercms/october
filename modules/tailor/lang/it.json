@@ -89,5 +89,12 @@
   "All :name Items": "Tutte le voci :name",
   "Update Existing Records": "Aggiorna record esistenti",
   "Check this box to update records that match the same ID, title or slug.": "Seleziona questa casella per aggiornare i record che corrispondono allo stesso ID, titolo o slug.",
-  "Copy": "copia"
+  "Copy": "copia",
+  "App": "Applicazione",
+  "Blueprints": "Progetti",
+  "App Blueprint": "Progetto dell'app",
+  "Theme Blueprint": "Progetto tematico",
+  "Reset Structure": "Ripristina struttura",
+  "Structure has been reset": "La struttura è stata ripristinata",
+  "Content": "Contenuto"
 }

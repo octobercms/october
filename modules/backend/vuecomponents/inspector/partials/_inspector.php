@@ -1,4 +1,4 @@
-<backend-component-inspector-panel
+<backend-inspector-panel
     ref="panel"
     :controls="dataSchema"
     :obj="liveObject"
@@ -7,4 +7,4 @@
     :layout-update-data="layoutUpdateData"
     :inspector-preferences="inspectorPreferences"
 >
-</backend-component-inspector-panel>
+</backend-inspector-panel>

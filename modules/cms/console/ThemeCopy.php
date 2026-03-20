@@ -3,8 +3,6 @@
 use Cms\Classes\Theme as CmsTheme;
 use Cms\Classes\ThemeManager;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * ThemeCopy will duplicate a specified theme
@@ -19,9 +17,15 @@ class ThemeCopy extends Command
     use \Illuminate\Console\ConfirmableTrait;
 
     /**
-     * @var string name of console command
+     * @var string signature for the console command
      */
-    protected $name = 'theme:copy';
+    protected $signature = 'theme:copy
+        {name : The name of the theme (directory name) to duplicate.}
+        {new-name? : The desired name for the new theme (directory name).}
+        {--f|force : Force the operation to run.}
+        {--c|child : Create a child theme.}
+        {--import-db : Includes the database templates in the copy.}
+        {--purge-db : Deletes all templates from the database.}';
 
     /**
      * @var string description of the console command
@@ -115,30 +119,6 @@ class ThemeCopy extends Command
         $this->info("Deleting database contents from '{$dirName}'");
 
         $this->themeManager->purgeDatabaseTemplates($dirName);
-    }
-
-    /**
-     * getArguments get the console command arguments
-     */
-    protected function getArguments()
-    {
-        return [
-            ['name', InputArgument::REQUIRED, 'The name of the theme (directory name) to duplicate.'],
-            ['new-name', InputArgument::OPTIONAL, 'The desired name for the the new theme (directory name).'],
-        ];
-    }
-
-    /**
-     * getOptions get the console command options
-     */
-    protected function getOptions()
-    {
-        return [
-            ['force', 'f', InputOption::VALUE_NONE, 'Force the operation to run.'],
-            ['child', 'c', InputOption::VALUE_NONE, 'Create a child theme.'],
-            ['import-db', null, InputOption::VALUE_NONE, 'Includes the database templates in the copy.'],
-            ['purge-db', null, InputOption::VALUE_NONE, 'Deletes all templates from the database.'],
-        ];
     }
 
     /**

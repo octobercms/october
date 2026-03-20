@@ -125,6 +125,7 @@ class Extension extends TwigExtension
             new \Cms\Twig\TokenParser\StylesTokenParser,
             new \Cms\Twig\TokenParser\MetaTokenParser,
             new \Cms\Twig\TokenParser\CacheTokenParser,
+            new \Cms\Twig\TokenParser\PropsTokenParser,
         ];
     }
 
@@ -135,7 +136,7 @@ class Extension extends TwigExtension
     public function getNodeVisitors()
     {
         return [
-            new GetAttrAdjuster
+            new \System\Twig\GetAttrAdjuster
         ];
     }
 

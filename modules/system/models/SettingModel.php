@@ -23,6 +23,7 @@ class SettingModel extends ExpandoModel
 {
     use \System\Traits\ConfigMaker;
     use \System\Models\SettingModel\HasMultisite;
+    use \System\Models\SettingModel\HasMultisiteGroup;
 
     /**
      * @var string table associated with the model
@@ -42,7 +43,7 @@ class SettingModel extends ExpandoModel
     /**
      * @var array expandoPassthru attributes that should not be serialized
      */
-    protected $expandoPassthru = ['item', 'site_id', 'site_root_id'];
+    protected $expandoPassthru = ['item', 'site_id', 'site_root_id', 'site_group_id'];
 
     /**
      * @var array fieldConfig
@@ -222,6 +223,12 @@ class SettingModel extends ExpandoModel
             $this->isMultisiteEnabled()
         ) {
             $key .= '-' . ($this->site_id ?: Site::getSiteIdFromContext());
+        }
+        elseif (
+            $this->isClassInstanceOf(\October\Contracts\Database\MultisiteGroupInterface::class) &&
+            $this->isMultisiteGroupEnabled()
+        ) {
+            $key .= '-g' . ($this->site_group_id ?: Site::getSiteGroupIdFromContext());
         }
 
         return $key;

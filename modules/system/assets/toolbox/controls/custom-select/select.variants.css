@@ -1,0 +1,138 @@
+/* Single select */
+
+.select2-container--default .select2-selection--single {
+    height: calc(var(--custom-select-input-height-base) - 1px);
+    line-height: 1.6;
+    padding: var(--custom-select-padding-base-vertical) calc(var(--custom-select-padding-base-horizontal) + var(--custom-select-caret-width-base) * 3) var(--custom-select-padding-base-vertical) var(--custom-select-padding-base-horizontal);
+
+    /* Adjust the single Select2's dropdown arrow button appearance. */
+    .select2-selection__arrow {
+        position: absolute;
+        bottom: 0;
+        right: var(--custom-select-padding-base-horizontal);
+        top: 0;
+        width: var(--custom-select-caret-width-base);
+
+        b {
+            position: absolute;
+            top: 50%;
+            height: 9px;
+            width: 8px;
+            right: 3px;
+            margin-top: -5px;
+            line-height: 9px;
+
+            &:before {
+                font-family: var(--custom-select-icon-font-family);
+                content: var(--custom-select-icon-angle-down);
+                display: inline-block;
+                line-height: inherit;
+            }
+        }
+    }
+
+    .select2-selection__rendered {
+        color: var(--custom-select-input-color);
+        padding: 0;
+    }
+
+    .select2-selection__placeholder {
+        color: var(--custom-select-input-color-placeholder);
+    }
+}
+
+/* Multiple select */
+
+.select2-container--default .select2-selection--multiple {
+    min-height: var(--custom-select-input-height-base);
+    position: relative;
+    cursor: text;
+    padding-bottom: 5px;
+
+    &.select2-selection--clearable {
+        padding-right: 25px;
+    }
+
+    .select2-selection__placeholder {
+        color: var(--custom-select-input-color-placeholder);
+        float: left;
+        margin-top: 5px;
+    }
+
+    /* Make Multi Select2's choices match default button styles. */
+    .select2-selection__choice {
+        color: white;
+        background: var(--custom-select-choice-bg);
+        border: none;
+        border-radius: 6px;
+        box-sizing: border-box;
+
+        display: inline-block;
+        margin: calc(var(--custom-select-padding-base-vertical) - 2px) 0 0 calc(var(--custom-select-padding-base-horizontal) / 2);
+        padding: 1px 6px 2px 6px;
+
+        position: relative;
+        max-width: 100%;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        vertical-align: bottom;
+        white-space: nowrap;
+    }
+
+    .select2-selection__choice__display {
+        cursor: default;
+        padding-left: 2px;
+        padding-right: 5px;
+    }
+
+    /* Minus 2px borders. */
+    .select2-search--inline .select2-search__field {
+        background: transparent;
+        color: var(--custom-select-input-color);
+        padding: 0 var(--custom-select-padding-base-horizontal);
+        height: 28px;
+        line-height: 2.3;
+        margin-top: 0;
+        margin-left: 0;
+        min-width: 5em;
+        white-space: nowrap;
+    }
+
+    .select2-selection__choice__remove {
+        color: white;
+        cursor: pointer;
+        display: inline-block;
+        font-weight: normal;
+        font-size: 13px;
+        margin: 0 6px 0 0;
+
+        &:hover {
+            color: var(--custom-select-brand-danger);
+        }
+    }
+
+    .select2-selection__clear {
+        margin-top: var(--custom-select-padding-base-vertical);
+    }
+}
+
+/* Taglist Preview Mode */
+
+.taglist--preview {
+    overflow: hidden;
+    list-style-type: none;
+    padding-top: 0;
+    padding-left: 0;
+    padding-bottom: 7px;
+    margin: 0;
+
+    .taglist__item {
+        color: white;
+        background: var(--custom-select-choice-bg);
+        border-radius: 6px;
+        cursor: default;
+        float: left;
+        margin: calc(var(--custom-select-padding-base-vertical) - 2px) 0 0 calc(var(--custom-select-padding-base-horizontal) / 2);
+        padding: 1px 9px 2px 9px;
+    }
+}

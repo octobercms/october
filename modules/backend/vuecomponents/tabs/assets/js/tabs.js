@@ -4,8 +4,7 @@
  * @see https://developer.mozilla.org/en-US/docs/Web/Accessibility/ARIA/Roles/Tab_Role
  * @see https://www.w3.org/TR/wai-aria-practices/examples/tabs/tabs-2/tabs.html
  */
-oc.Modules.register('backend.component.tabs', function () {
-    Vue.component('backend-component-tabs', {
+export default {
         props: {
             tabs: Array,
             ariaLabel: {
@@ -99,7 +98,7 @@ oc.Modules.register('backend.component.tabs', function () {
             currentTabKey: function computeCurrentTabKey() {
                 if (this.selectedTabKey === null) {
                     if (this.tabs.length > 0) {
-                        this.selectedTabKey = this.tabs[0].key;
+                        return this.tabs[0].key;
                     }
                 }
 
@@ -108,7 +107,7 @@ oc.Modules.register('backend.component.tabs', function () {
 
             currentFocusTabKey: function computeCurrentFocusTabKey() {
                 if (this.focusedTabKey === null) {
-                    this.focusedTabKey = this.currentTabKey;
+                    return this.currentTabKey;
                 }
 
                 return this.focusedTabKey;
@@ -345,19 +344,21 @@ oc.Modules.register('backend.component.tabs', function () {
 
             onCloseClick: function onCloseClick(tab) {
                 var refName = this.getTabComponentRefName(tab),
-                    componentRefs = this.$refs[refName];
+                    componentRefs = this.$refs[refName],
+                    that = this;
 
                 if (componentRefs.length && typeof componentRefs[0].onParentTabClose == 'function') {
-                    var promise = this.$refs[refName][0].onParentTabClose();
+                    var result = this.$refs[refName][0].onParentTabClose();
 
-                    if (!promise || promise.isFulfilled()) {
+                    // If result is true or falsy, close immediately
+                    // If result is a promise (thenable), wait for it
+                    if (!result || result === true) {
                         this.closeTabConfirmedByHostedComponent(tab);
                         return true;
                     }
 
-                    var that = this;
-
-                    promise.then(function () {
+                    // Result is a promise, wait for confirmation
+                    result.then(function () {
                         that.closeTabConfirmedByHostedComponent(tab);
                     }, $.noop);
 
@@ -374,7 +375,8 @@ oc.Modules.register('backend.component.tabs', function () {
             },
 
             onTabFatalError: function onTabFatalError(tab) {
-                Vue.set(tab, 'fatalError', true);
+                // Vue 3: Direct assignment is reactive
+                tab.fatalError = true;
             },
 
             onTabkeyChanged: function onTabkeyChanged(oldKey, newKey) {
@@ -383,7 +385,7 @@ oc.Modules.register('backend.component.tabs', function () {
                 }
 
                 if (this.focusedTabKey == oldKey) {
-                    this.focusedTabKey == newKey;
+                    this.focusedTabKey = newKey;
                 }
             },
 
@@ -446,7 +448,7 @@ oc.Modules.register('backend.component.tabs', function () {
                 scrollClassContainer: this.$refs.scrollableTabsContainer
             });
         },
-        beforeDestroy: function beforeDestroy() {
+        beforeUnmount: function beforeUnmount() {
             $(this.$refs.scrollable).dragScroll('dispose');
         },
         watch: {
@@ -460,13 +462,22 @@ oc.Modules.register('backend.component.tabs', function () {
             },
 
             selectedTabIndex: function watchSelectedTabIndex(newValue, oldValue) {
+                // Only handle the case where the selected tab was removed
+                // (newValue becomes undefined because selectedTabKey points to a non-existent tab)
                 if (newValue !== undefined) {
                     return;
                 }
 
+                // Prevent re-entry - if we're already adjusting, skip
+                if (this._adjustingTabSelection) {
+                    return;
+                }
+
+                this._adjustingTabSelection = true;
+
                 // Selecting another tab after a tab was deleted.
                 //
-                if (oldValue <= this.tabs.length - 1) {
+                if (oldValue !== undefined && oldValue <= this.tabs.length - 1 && this.tabs[oldValue]) {
                     this.selectedTabKey = this.tabs[oldValue].key;
                     this.focusedTabKey = this.selectedTabKey;
                 }
@@ -478,13 +489,16 @@ oc.Modules.register('backend.component.tabs', function () {
                     this.selectedTabKey = null;
                     this.focusedTabKey = null;
                 }
+
+                var that = this;
+                Vue.nextTick(function() {
+                    that._adjustingTabSelection = false;
+                });
             },
             tabCount: function watchTabCount(value) {
                 if (!value) {
                     this.fullScreen = false;
                 }
             }
-        },
-        template: '#backend_vuecomponents_tabs'
-    });
-});
+        }
+};

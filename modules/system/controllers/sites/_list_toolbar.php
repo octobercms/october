@@ -1,12 +1,14 @@
 <div data-control="toolbar">
-    <a
-        href="<?= Backend::url('system/sites/create') ?>"
-        class="btn btn-primary oc-icon-plus">
-        <?= __("Create Site") ?>
-    </a>
-    <a
-        href="<?= Backend::url('system/sitegroups') ?>"
-        class="btn btn-secondary oc-icon-clone">
-        <?= __("Manage Site Groups") ?>
-    </a>
+    <?= Ui::button(
+        label: __("Create Site"),
+        href: Backend::url('system/sites/create'),
+        icon: 'oc-icon-plus',
+        primary: true
+    ) ?>
+    <?= Ui::button(
+        label: __("Manage Site Groups"),
+        href: Backend::url('system/sitegroups'),
+        icon: 'oc-icon-clone',
+        secondary: true
+    ) ?>
 </div>

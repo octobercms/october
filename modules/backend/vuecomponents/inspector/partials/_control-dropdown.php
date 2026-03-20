@@ -1,9 +1,9 @@
 <div v-bind:tabindex="containerTabIndex" @focus="onContainerFocus">
-    <backend-component-loading-indicator v-if="loadingDynamicOptions"
+    <backend-loading-indicator v-if="loadingDynamicOptions"
         size="tiny"
-    ></backend-component-loading-indicator>
+    ></backend-loading-indicator>
 
-    <backend-component-dropdown
+    <backend-dropdown
         v-if="!loadingDynamicOptions"
         :options="options"
         :id="controlId"
@@ -18,13 +18,15 @@
         select-label=""
         selected-label=""
         deselect-label=""
-        @input="updateValue"
+        @update:model-value="updateValue"
         @open="onFocus"
         @close="onBlur"
-        @hook:mounted="onDropdownMounted"
+        @vue:mounted="onDropdownMounted"
     >
-        <span slot="noResult"><?= e(trans('backend::lang.form.no_options_found')) ?></span>
-        <template v-if="useValuesAsIcons || useValuesAsColors" slot="option" slot-scope="props">
+        <template #noResult>
+            <span><?= e(trans('backend::lang.form.no_options_found')) ?></span>
+        </template>
+        <template v-if="useValuesAsIcons || useValuesAsColors" #option="props">
             <div class="option-with-icon" v-if="useValuesAsIcons">
                 <div class="option-icon" :class="props.option.code"></div>
                 <span>{{ props.option.label }}</span>
@@ -35,5 +37,5 @@
                 <span>{{ props.option.label }}</span>
             </div>
         </template>
-    </backend-component-dropdown>
+    </backend-dropdown>
 </div>

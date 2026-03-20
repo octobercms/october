@@ -19,12 +19,13 @@
         </div>
 
         <div class="form-buttons">
-            <div class="loading-indicator-container">
-                <?= Ui::ajaxButton()
-                    ->label('Restore this Version')
-                    ->ajaxHandler('onRestoreVersion')
-                    ->loadingMessage(trans('backend::lang.form.saving_name', ['name'=>$entityName]))
-                    ->primary() ?>
+            <div data-control="loader-container" class="control-loader-container">
+                <?= Ui::ajaxButton(
+                    label: __("Restore this Version"),
+                    handler: 'onRestoreVersion',
+                    primary: true,
+                    dataRequestMessage: __("Saving :name...", ['name' => $entityName])
+                ) ?>
             </div>
         </div>
 
@@ -44,6 +45,12 @@
 
     <p class="flash-message static error"><?= e(__($this->fatalError)) ?></p>
 
-    <p><?= Ui::button()->label('Return to Entries')->linkTo('tailor/entries') ?></p>
+    <p>
+        <?= Ui::button(
+            label: __("Return to Entries"),
+            href: Backend::url('tailor/entries'),
+            secondary: true
+        ) ?>
+    </p>
 
 <?php endif ?>

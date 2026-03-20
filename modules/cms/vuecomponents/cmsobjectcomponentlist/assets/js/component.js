@@ -1,4 +1,4 @@
-Vue.component('cmd-object-component-list-component', {
+export default {
     props: {
         component: Object
     },
@@ -68,10 +68,9 @@ Vue.component('cmd-object-component-list-component', {
         $(this.$el).on('showed.oc.inspector', this.onInspectorShowed);
         $(this.$el).on('hiding.oc.inspector', this.onInspectorHiding);
     },
-    beforeDestroy: function beforeDestroy() {
+    beforeUnmount: function beforeUnmount() {
         $(this.$el).off('hidden.oc.inspector', this.onInspectorHidden);
         $(this.$el).off('showed.oc.inspector', this.onInspectorShowed);
         $(this.$el).off('hiding.oc.inspector', this.onInspectorHiding);
-    },
-    template: '#cms_vuecomponents_cmsobjectcomponentlist_component'
-});
+    }
+};

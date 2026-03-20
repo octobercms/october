@@ -13,5 +13,8 @@ use Backend\Classes\VueComponentBase;
  */
 class ScrollablePanel extends VueComponentBase
 {
-
+    /**
+     * @var string componentName is the Vue component tag name.
+     */
+    protected $componentName = 'backend-scrollable-panel';
 }

@@ -163,7 +163,7 @@
 
                 normalizedKey = normalizedKey.charAt(0).toLowerCase() + normalizedKey.slice(1);
                 if (normalizedKey == 'data')
-                    value = JSON.parse('['+value+']');
+                    value = Array.isArray(value) ? [value] : JSON.parse('['+value+']');
 
                 processedData[normalizedKey] = value;
             }

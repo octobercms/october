@@ -4,7 +4,6 @@ use Str;
 use BackendAuth;
 use Backend\Models\User;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * OctoberPasswd changes the password of a backend user
@@ -15,9 +14,11 @@ use Symfony\Component\Console\Input\InputArgument;
 class OctoberPasswd extends Command
 {
     /**
-     * @var string name of console command
+     * @var string signature for the console command
      */
-    protected $name = 'october:passwd';
+    protected $signature = 'october:passwd
+        {username? : The username of the backend user.}
+        {password? : The new password.}';
 
     /**
      * @var string description of the console command
@@ -67,17 +68,6 @@ class OctoberPasswd extends Command
         if ($this->displayPassword) {
             $this->line('Password set to <info>' . $password . '</info>.');
         }
-    }
-
-    /**
-     * getArguments get the console command arguments
-     */
-    protected function getArguments()
-    {
-        return [
-            ['username', InputArgument::OPTIONAL, 'The username of the backend user'],
-            ['password', InputArgument::OPTIONAL, 'The new password']
-        ];
     }
 
     /**

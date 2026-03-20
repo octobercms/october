@@ -1,0 +1,100 @@
+html {
+    .ace_editor.ace_autocomplete {
+        background-color: #252526;
+        border: 1px solid #454545;
+        color: white;
+        border-radius: 2px;
+        line-height: 150%;
+
+        .ace_completion-highlight {
+            color: var(--bs-primary);
+            font-weight: bold;
+        }
+
+        .ace_marker-layer {
+            .ace_active-line {
+                background-color: var(--bs-primary);
+                opacity: 0.4;
+            }
+
+            .ace_line-hover {
+                background-color: rgba(255, 255, 255, 0.1);
+                border: none;
+            }
+        }
+
+        .ace_rightAlignedText {
+            display: none;
+            color: rgba(255, 255, 255, 0.7);
+            padding: 1px 4px;
+            margin-top: -1px;
+            border-radius: 2px;
+            z-index: 1;
+        }
+
+        .ace_line {
+            padding-left: 21px;
+
+            &:before {
+                width: 14px;
+                height: 16px;
+                display: block;
+                margin-top: 3px;
+                left: 4px;
+                position: absolute;
+                background-position: -144px -38px;
+            }
+
+            &.october-cms-tag {
+                &:before {
+                    width: 14px;
+                    left: 6px;
+                    background-position: -130px -40px;
+                }
+            }
+
+            &.october-cms-partial {
+                &:before {
+                    width: 11px;
+                    height: 11px;
+                    margin-top: 4px;
+                    background-position: -165px -40px;
+                }
+            }
+
+            &.ace_selected {
+                .ace_rightAlignedText {
+                    display: inline-block;
+                    background-color: #373738;
+                }
+            }
+        }
+    }
+
+    .ace_tooltip.ace_doc-tooltip {
+        background-color: #252526;
+        border: 1px solid #454545;
+        color: white;
+        border-radius: 2px;
+        padding: 7px 10px;
+        line-height: 150%;
+        white-space: normal;
+        max-width: 250px;
+        outline: none;
+        font-size: 13px;
+        margin: 0 10px !important;
+
+        a {
+            color: white;
+            text-decoration: underline;
+        }
+    }
+
+    .ace_marker-layer .ace_link_marker {
+        position: absolute;
+        border-bottom: 1px solid var(--bs-primary);
+        border-radius: 0;
+        cursor: pointer;
+        pointer-events: auto;
+    }
+}

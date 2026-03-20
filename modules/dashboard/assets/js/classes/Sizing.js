@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * Dashboard_Classes_Sizing
+ * Sizing class for dashboard widget column calculations.
  */
-class Dashboard_Classes_Sizing
+export default class Sizing
 {
     constructor() {
         this.totalColumns = 20;

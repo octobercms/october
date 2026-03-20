@@ -89,5 +89,12 @@
   "All :name Items": "الكل: مداخل الاسم",
   "Update Existing Records": "تحديث السجلات الموجودة",
   "Check this box to update records that match the same ID, title or slug.": "حدد هذا المربع لتحديث السجلات التي تتطابق مع نفس المعرف أو العنوان أو الرابط الثابت.",
-  "Copy": "ينسخ"
+  "Copy": "ينسخ",
+  "App": "برنامج",
+  "Blueprints": "المخططات",
+  "App Blueprint": "مخطط التطبيق",
+  "Theme Blueprint": "مخطط تصميم القالب",
+  "Reset Structure": "إعادة ضبط الهيكل",
+  "Structure has been reset": "تمت إعادة ضبط الهيكل",
+  "Content": "محتوى"
 }

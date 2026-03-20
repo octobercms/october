@@ -13,6 +13,7 @@ use October\Rain\Exception\ApplicationException;
 use October\Rain\Exception\ValidationException;
 use Illuminate\Http\RedirectResponse;
 use Exception;
+use Throwable;
 
 /**
  * HasAjaxRequests
@@ -129,7 +130,6 @@ trait HasAjaxRequests
 
             // Validates the handler partial list
             $partialList = $this->getAjaxHandlerPartialList();
-            $responseContents = [];
 
             // Execute the handler
             $result = null;
@@ -165,10 +165,7 @@ trait HasAjaxRequests
                 }
             }
         }
-        catch (ValidationException $ex) {
-            $response = ajax()->error($ex->getMessage())->invalidFields($ex->errors());
-        }
-        catch (Exception $ex) {
+        catch (Throwable $ex) {
             $response = ajax()->exception($ex);
         }
 
@@ -178,8 +175,8 @@ trait HasAjaxRequests
             }
         }
 
-        // Look for any flash messages
-        if ($this->ajaxRequest->wantsFlash && Flash::check()) {
+        // Look for any flash messages, only if response is not redirecting
+        if ($this->ajaxRequest->wantsFlash && !$response->isRedirect() && Flash::check()) {
             foreach (Flash::all() as $level => $text) {
                 $response->flash($level, $text);
             }

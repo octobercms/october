@@ -425,6 +425,10 @@ trait HasViewMode
      */
     protected function evalViewMode()
     {
+        if ($viewMode = $this->getConfig('manage[viewMode]')) {
+            return $viewMode;
+        }
+
         switch ($this->relationType) {
             case 'hasMany':
             case 'morphMany':

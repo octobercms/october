@@ -52,12 +52,10 @@ class SnippetLookup extends WidgetBase
      */
     protected function loadAssets()
     {
-        $this->addCssBundle('css/snippetlookup.css', 'global');
-        $this->addJsBundle('js/snippetlookup.js', 'global');
-        $this->addJsBundle('js/snippetlookup-control.js', 'global');
-        $this->addJsBundle('js/snippet-control.js', 'global');
-        $this->addJsBundle('js/snippet-control.markdown.js', 'global');
-        $this->addJsBundle('js/snippet-control.richeditor.js', 'global');
+        $this->addCss('css/snippetlookup.css');
+        $this->addJs('js/snippetlookup.js', ['type' => 'module']);
+        $this->addJs('js/snippetlookup-control.js', ['type' => 'module']);
+        $this->addJs('js/snippet-control.js', ['type' => 'module']);
     }
 
     /**

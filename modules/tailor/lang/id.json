@@ -89,5 +89,12 @@
   "All :name Items": "Semua : nama Entri",
   "Update Existing Records": "Perbarui Catatan yang Ada",
   "Check this box to update records that match the same ID, title or slug.": "Centang kotak ini untuk memperbarui rekaman yang cocok dengan ID, judul, atau slug yang sama.",
-  "Copy": "Menyalin"
+  "Copy": "Menyalin",
+  "App": "Aplikasi",
+  "Blueprints": "Cetak Biru",
+  "App Blueprint": "Rancangan Aplikasi",
+  "Theme Blueprint": "Rancangan Tema",
+  "Reset Structure": "Atur Ulang Struktur",
+  "Structure has been reset": "Struktur telah diatur ulang",
+  "Content": "Isi"
 }

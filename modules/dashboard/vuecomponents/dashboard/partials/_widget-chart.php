@@ -6,9 +6,9 @@
         <h3 class="widget-title" v-if="widget.configuration.title" v-text="widget.configuration.title"></h3>
 
         <div v-if="showMetricsTotalRow" class="totals">
+            <template v-for="metricData in configuration.metrics" :key="metricData.metric">
             <div
                 class="total-cell"
-                v-for="metricData in configuration.metrics"
                 v-if="metricData.displayTotals"
             >
                 <div v-if="loading" class="skeleton-container">
@@ -32,6 +32,7 @@
                     </div>
                 </div>
             </div>
+            </template>
         </div>
 
         <div class="widget-chart-container" :class="{'error': error}">

@@ -287,7 +287,14 @@ trait FileSystemFunctions
         }
 
         // Accept the uploaded file
-        $uploadedFile->move($destinationFullPath, $uploadedFile->getClientOriginalName());
+        $destinationFileName = $uploadedFile->getClientOriginalName();
+        if (strtolower(File::extension($fileName)) === 'svg') {
+            $contents = \Html::cleanVector(file_get_contents($uploadedFile->getRealPath()));
+            File::put($destinationFullPath.'/'.$destinationFileName, $contents);
+        }
+        else {
+            $uploadedFile->move($destinationFullPath, $destinationFileName);
+        }
     }
 
     /**

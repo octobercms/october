@@ -26,8 +26,4 @@
 
         <?php if (!$legacyMode): ?></div><?php endif ?>
     </div>
-
-    <?php if ($isAjax): ?>
-        <?= $this->controller->outputVueComponentTemplates() ?>
-    <?php endif ?>
 <?php endif ?>

@@ -38,11 +38,11 @@ class Welcome extends ReportWidgetBase
     {
         return [
             'title' => [
-                'title' => 'backend::lang.dashboard.widget_title_label',
-                'default' => 'backend::lang.dashboard.welcome.widget_title_default',
+                'title' => "Widget title",
+                'default' => "Welcome",
                 'type' => 'string',
                 'validationPattern' => '^.+$',
-                'validationMessage' => 'backend::lang.dashboard.widget_title_error',
+                'validationMessage' => "The Widget Title is required.",
             ]
         ];
     }

@@ -127,6 +127,8 @@ trait HasExtensionCrud
      */
     protected function command_onBlueprintCreateDirectory()
     {
+        $this->assertBlueprintPermissions();
+
         $documentData = $this->getRequestDocumentData();
         // $metadata = $this->getRequestMetadata();
 
@@ -141,6 +143,8 @@ trait HasExtensionCrud
      */
     protected function command_onBlueprintRename()
     {
+        $this->assertBlueprintPermissions();
+
         $documentData = $this->getRequestDocumentData();
 
         $newName = trim(ApiHelpers::assertGetKey($documentData, 'name'));
@@ -155,6 +159,8 @@ trait HasExtensionCrud
      */
     protected function command_onBlueprintDelete()
     {
+        $this->assertBlueprintPermissions();
+
         $documentData = $this->getRequestDocumentData();
         $fileList = ApiHelpers::assertGetKey($documentData, 'files');
         ApiHelpers::assertIsArray($fileList);
@@ -167,6 +173,8 @@ trait HasExtensionCrud
      */
     protected function command_onBlueprintMove()
     {
+        $this->assertBlueprintPermissions();
+
         $documentData = $this->getRequestDocumentData();
 
         $selectedList = ApiHelpers::assertGetKey($documentData, 'source');
@@ -179,6 +187,8 @@ trait HasExtensionCrud
      */
     protected function command_onBlueprintUpload()
     {
+        $this->assertBlueprintPermissions();
+
         $this->editorUploadFiles($this->getBlueprintsPath(), ['yaml']);
     }
 
@@ -426,6 +436,21 @@ trait HasExtensionCrud
                 ['doctype' => $documentType]
             ));
         }
+    }
+
+    /**
+     * assertBlueprintPermissions checks permissions for blueprint file operations,
+     * resolving the document type from the request.
+     */
+    private function assertBlueprintPermissions()
+    {
+        $type = post('documentType', post('documentMetadata[documentType]'));
+
+        if (!$type) {
+            $type = EditorExtension::DOCUMENT_TYPE_BLUEPRINT;
+        }
+
+        $this->assertDocumentTypePermissions($type);
     }
 
     /**

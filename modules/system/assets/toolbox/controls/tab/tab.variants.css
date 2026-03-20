@@ -1,0 +1,543 @@
+/*
+ * Master tabs
+ */
+
+.control-tabs.master-tabs {
+    > ul.nav-tabs,
+    > div > ul.nav-tabs,
+    > div > div > ul.nav-tabs {
+        > li {
+            a {
+                font-size: 15px;
+                border-bottom: transparent 4px solid;
+                position: relative;
+                z-index: calc(var(--tab-zindex) + 1);
+                line-height: 100%;
+            }
+
+            &.active {
+                a {
+                    border-bottom: var(--tab-border) 4px solid;
+                }
+            }
+        }
+    }
+}
+
+/*
+ * Primary tabs
+ */
+
+.control-tabs.primary-tabs {
+    margin-bottom: 5px;
+
+    > ul.nav-tabs,
+    > div > ul.nav-tabs,
+    > div > div > ul.nav-tabs {
+        position: relative;
+        margin-left: 0;
+        margin-right: 0;
+
+        &:before {
+            position: absolute;
+            bottom: 0;
+            height: 2px;
+            width: 100%;
+            z-index: calc(var(--tab-zindex) - 1);
+            content: ' ';
+            border-bottom: 2px solid var(--tab-border);
+        }
+
+        > li {
+            padding-right: 0;
+            padding-left: 0;
+            margin-left: 0;
+            margin-right: -10px;
+            background: transparent;
+            border-bottom: 2px solid var(--tab-border);
+
+            &:first-child {
+                padding-left: var(--tab-padding-standard) !important;
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            a {
+                font-size: var(--tab-font-size-base);
+                font-weight: 500;
+                padding-bottom: 3px;
+                margin: 0;
+                position: relative;
+                top: -1px;
+                z-index: calc(var(--tab-zindex) + 1);
+                background: transparent;
+                overflow: visible;
+                border-bottom: 1px solid transparent;
+
+                > span.title {
+                    position: relative;
+                    display: inline-block;
+                    padding: 4px 25px 0px;
+                    box-sizing: border-box;
+                    z-index: var(--tab-zindex);
+
+                    > span {
+                        padding-top: 7px;
+                        margin-top: -4px;
+                        border-top: 2px solid transparent;
+                    }
+
+                    &:before,
+                    &:after {
+                        content: '';
+                        display: none;
+                        border-top: 2px solid var(--tab-border);
+                        position: absolute;
+                        background: transparent;
+                        top: 0;
+                        z-index: -1;
+                        width: 20px;
+                        bottom: -2px;
+                        transform-origin: bottom;
+                    }
+
+                    &:before {
+                        left: 0;
+                        border-left: 2px solid var(--tab-border);
+                        border-radius: 8px 0 0 0;
+                        transform: skewX(-10deg);
+                    }
+
+                    &:after {
+                        right: 0;
+                        border-right: 2px solid var(--tab-border);
+                        border-radius: 0 8px 0 0;
+                        transform: skewX(10deg);
+                    }
+                }
+            }
+
+            &:not(.active) {
+                a:before {
+                    content: '';
+                    left: 12px;
+                    right: 12px;
+                    top: 6px;
+                    bottom: 3px;
+                    border-radius: 4px;
+                    position: absolute;
+                    background: var(--tab-hover-bg);
+                    opacity: 0;
+                    transition: none;
+                }
+
+                &:hover a:before {
+                    transition: opacity 0.1s ease-out, color 0.1s ease-out;
+                    opacity: 1;
+                }
+            }
+
+            &:last-child {
+                background-image: none;
+                margin-right: 0;
+                padding-right: 5px;
+            }
+
+            &:first-child {
+                padding-left: 0;
+            }
+
+            &.active a {
+                z-index: calc(var(--tab-zindex) + 3);
+                top: 2px;
+
+                > span.title {
+                    z-index: calc(var(--tab-zindex) + 2);
+                    border-top-color: #d6d6d6;
+
+                    &:before,
+                    &:after {
+                        display: block;
+                        border-color: var(--tab-border);
+                    }
+
+                    span {
+                        border-top-color: var(--tab-border);
+                    }
+                }
+
+                &:before {
+                    position: absolute;
+                    bottom: -1px;
+                    height: 2.6px;
+                    right: 2px;
+                    left: 2px;
+                    content: ' ';
+                    background-color: var(--tab-body-bg);
+                }
+            }
+        }
+    }
+
+    /* Primary tabs should use inset by default, unless otherwise specified */
+    > ul.nav-tabs,
+    > div > ul.nav-tabs,
+    > div > div > ul.nav-tabs {
+        margin-left: calc(-1 * var(--tab-padding-standard));
+        margin-right: calc(-1 * var(--tab-padding-standard));
+    }
+
+    /* Tab divider to sit inset the standard padding (20px) */
+    &.tabs-no-inset {
+        > ul.nav-tabs,
+        > div > ul.nav-tabs,
+        > div > div > ul.nav-tabs {
+            margin-left: 0;
+            margin-right: 0;
+        }
+    }
+}
+
+/*
+ * Secondary tabs
+ */
+
+.control-tabs.secondary-tabs {
+    > ul.nav-tabs,
+    > div > ul.nav-tabs,
+    > div > div > ul.nav-tabs {
+        > li {
+            padding-right: 10px;
+            margin-right: 10px;
+            border-right: 1px solid var(--tab-border);
+
+            a {
+                font-size: 14px;
+                font-weight: 600;
+                padding-bottom: 0;
+            }
+
+            &:last-child {
+                border-right: none;
+                margin-right: 0;
+                padding-right: 0;
+            }
+        }
+    }
+
+    > div.tab-content {
+        > div.tab-pane {
+            padding-top: 15px;
+        }
+    }
+}
+
+/*
+ * Pill tabs
+ */
+
+.control-tabs.pill-tabs {
+    margin-bottom: 5px;
+
+    > ul.nav-tabs,
+    > div > ul.nav-tabs,
+    > div > div > ul.nav-tabs {
+        position: relative;
+
+        > li {
+            padding: 0;
+            margin: 0;
+            background: transparent;
+            border: 1px solid var(--tab-border);
+
+            + li {
+                margin-left: -1px;
+            }
+
+            a {
+                position: relative;
+                font-size: var(--tab-font-size-base);
+                font-weight: 600;
+                padding-bottom: 0;
+                margin: 0;
+                z-index: calc(var(--tab-zindex) + 1);
+                background: transparent;
+                overflow: visible;
+
+                > span.title {
+                    position: relative;
+                    display: inline-block;
+                    padding: 9px 25px 4px 25px;
+                    box-sizing: border-box;
+                    z-index: var(--tab-zindex);
+
+                    > span {
+                        margin: 0;
+                        padding: 0;
+                        border: none;
+                    }
+                }
+            }
+
+            &:last-child {
+                background-image: none;
+                margin-right: 0;
+                padding-right: 5px;
+                border-top-right-radius: var(--tab-border-radius-large);
+                border-bottom-right-radius: var(--tab-border-radius-large);
+            }
+
+            &:first-child {
+                padding-left: 0;
+                border-top-left-radius: var(--tab-border-radius-large);
+                border-bottom-left-radius: var(--tab-border-radius-large);
+            }
+
+            &.active {
+                border: 1px solid var(--tab-brand-primary);
+
+                a {
+                    z-index: calc(var(--tab-zindex) + 3);
+
+                    > span.title {
+                        z-index: calc(var(--tab-zindex) + 2);
+                        border-top-color: #d6d6d6;
+                    }
+
+                    &:before {
+                        display: none;
+                    }
+                }
+            }
+        }
+    }
+}
+
+.control-tabs.pill-tabs.is-vertical {
+    > ul.nav-tabs,
+    > div > ul.nav-tabs,
+    > div > div > ul.nav-tabs {
+        flex-direction: column;
+
+        > li {
+            margin-left: 0;
+
+            + li:not(:last-child):not(.active) {
+                border-bottom-color: transparent;
+            }
+
+            &:last-child {
+                border-bottom-left-radius: var(--tab-border-radius-large);
+                border-bottom-right-radius: var(--tab-border-radius-large);
+                border-top-right-radius: 0;
+            }
+
+            &:first-child {
+                border-top-left-radius: var(--tab-border-radius-large);
+                border-top-right-radius: var(--tab-border-radius-large);
+                border-bottom-left-radius: 0;
+            }
+        }
+    }
+}
+
+/*
+ * Auxiliary tabs
+ */
+
+.control-tabs.auxiliary-tabs {
+    background: white;
+
+    > ul.nav-tabs,
+    > div > ul.nav-tabs {
+        padding-left: 20px;
+        padding-bottom: 2px;
+        background: white;
+        position: relative;
+
+        &:before {
+            content: ' ';
+            display: block;
+            position: absolute;
+            width: 100%;
+            height: 1px;
+            background: #95a5a6;
+            top: 0;
+            left: 0;
+        }
+
+        > li {
+            margin-right: 2px;
+
+            > a {
+                background: white;
+                color: #bdc3c7;
+                border-left: 1px solid #ecf0f1 !important;
+                border-right: 1px solid #ecf0f1 !important;
+                border-bottom: 1px solid #ecf0f1 !important;
+                padding: 4px 10px;
+                line-height: 100%;
+                border-radius: 0 0 4px 4px;
+
+                > span.title > span {
+                    margin-bottom: 0;
+                    font-size: 13px;
+                    height: auto;
+                }
+            }
+
+            &.active {
+                top: 0;
+
+                &:before {
+                    content: ' ';
+                    display: block;
+                    position: absolute;
+                    width: 100%;
+                    height: 1px;
+                    background: white;
+                    top: -1px;
+                    left: 0;
+                }
+
+                a {
+                    padding-top: 5px;
+                    border-left: 1px solid #95a5a6 !important;
+                    border-right: 1px solid #95a5a6 !important;
+                    border-bottom: 1px solid #95a5a6 !important;
+                    color: #95a5a6;
+                }
+            }
+        }
+    }
+
+    > div.tab-content > .tab-pane {
+        background: white;
+    }
+}
+
+/*
+ * Content tabs
+ */
+
+.control-tabs.content-tabs {
+    > ul.nav-tabs {
+        position: relative;
+
+        &:before {
+            content: ' ';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            width: 100%;
+            height: 1px;
+            border-bottom: 1px solid var(--tab-content-border);
+        }
+
+        li {
+            margin-right: 0;
+            border-top: 1px solid var(--tab-content-border);
+            border-right: 1px solid var(--tab-content-border);
+            border-bottom: 1px solid var(--tab-content-border);
+            background-color: var(--tab-content-bg);
+
+            a {
+                font-size: 1rem;
+                padding: 7px 20px;
+                margin: 0;
+                border: none;
+                background: transparent;
+                font-weight: normal;
+
+                span.title {
+                    span {
+                        border-top: none;
+                        padding-top: 5px;
+                    }
+                }
+            }
+
+            &:first-child {
+                border-left: 1px solid var(--tab-content-border);
+            }
+
+            &:last-child {
+                border-right: 1px solid var(--tab-content-border);
+            }
+
+            &.active {
+                background: var(--tab-content-active-bg);
+                border-bottom-color: transparent;
+
+                a {
+                    font-weight: 600;
+                }
+            }
+        }
+    }
+
+    /* Tab divider to sit inset the standard padding (20px) */
+    &.tabs-inset {
+        > ul.nav-tabs,
+        > div > ul.nav-tabs,
+        > div > div > ul.nav-tabs {
+            margin-left: -20px;
+            margin-right: -20px;
+
+            li:first-child {
+                margin-left: 20px;
+            }
+        }
+    }
+
+    /* Tabs to sit in by the standard offset (20px) */
+    &.tabs-offset {
+        > ul.nav-tabs {
+            li:first-child {
+                margin-left: 20px;
+            }
+        }
+    }
+
+    /* Tabs to sit flush to the element above */
+    &.tabs-flush {
+        > ul.nav-tabs {
+            background-color: var(--tab-content-bg);
+
+            li {
+                border-top: none;
+            }
+
+            li:last-child {
+                border-right: 1px solid transparent;
+            }
+
+            li:first-child {
+                border-left: 1px solid transparent;
+            }
+
+            li.active:last-child {
+                border-right: 1px solid var(--tab-content-border);
+            }
+        }
+    }
+
+    > .tab-content > .tab-pane {
+        padding-top: 0;
+
+        div.list-header,
+        div.padded-container,
+        div.toolbar-widget {
+            background: var(--tab-content-active-bg);
+            padding-top: 20px;
+        }
+
+        /* Pane to sit inset the standard padding (20px) */
+        &.pane-inset {
+            margin-left: -20px;
+            margin-right: -20px;
+        }
+    }
+}

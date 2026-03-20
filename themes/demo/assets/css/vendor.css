@@ -9,3 +9,6 @@
 /* Photoswipe */
 @import "../vendor/photoswipe/photoswipe.css";
 @import "../vendor/photoswipe-dynamic-caption-plugin/photoswipe-dynamic-caption-plugin.css";
+
+/* Code Blocks */
+@import "../vendor/codeblocks/codeblocks.min.css";

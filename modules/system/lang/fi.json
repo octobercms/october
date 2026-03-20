@@ -56,7 +56,7 @@
   "Base URL": "Oletus URL-osoite",
   "Status": "Tilakoodi",
   "Current default value: :value": "Nykyinen oletusarvo: :value",
-  "Locale": "Paikallinen",
+  "Locale": "Kieli",
   "Timezone": "Aikavyöhyke",
   "Custom application URL": "Mukautetun sovelluksen URL-osoite",
   "Override the application URL when this site is active.": "Ohita sovelluksen URL-osoite, kun tämä sivusto on aktiivinen.",
@@ -272,5 +272,9 @@
   "Seed Theme Data": "Tuo myös teeman data",
   "Import the blueprints files, language files and database contents for this theme, if applicable. You can skip this and do it later via the Site Theme settings.": "Tuo tämän teeman Blueprint-mallit, kielitiedostot ja tietokannan sisällöt tarvittaessa. Voit ohittaa tämän ja tehdä sen myöhemmin Frontend-teemaasetusten kautta.",
   "Change Status": "Muuta tila",
-  "Site Definitions": "Sivuston määritykset"
+  "Site Definitions": "Sivuston määritykset",
+  "System Updates": "Päivitykset & Lisäosat",
+  "Find a Setting...": "Etsi asetus...",
+  "Return to System Updates": "Palaa järjestelmäpäivityksiin",
+  "Import the blueprints files, language files and database contents for this theme, if applicable. You can skip this and do it later via the Frontend Theme settings.": "Tuo tämän teeman Blueprint-mallit, kielitiedostot ja tietokannan sisällöt tarvittaessa. Voit ohittaa tämän ja tehdä sen myöhemmin Frontend-teemaasetusten kautta."
 }

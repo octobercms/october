@@ -1,4 +1,4 @@
-<backend-component-modal
+<backend-modal
     ref="modal"
     resizable="horizontal"
     size="small"
@@ -16,10 +16,10 @@
                 tabindex="0"></button>
         </div>
         <div class="modal-body">
-            <backend-component-infotable
+            <backend-info-table
                 :items=items
             >
-            </backend-component-infotable>
+            </backend-info-table>
         </div>
         <div class="modal-footer">
             <button
@@ -30,4 +30,4 @@
             ><?= e(trans('backend::lang.form.close')) ?></button>
         </div>
     </template>
-</backend-component-modal>
+</backend-modal>

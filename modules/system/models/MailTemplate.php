@@ -214,6 +214,6 @@ class MailTemplate extends Model
             return true;
         }
 
-        return self::where('code', $code)->count() > 0;
+        return self::where('code', $code)->exists();
     }
 }

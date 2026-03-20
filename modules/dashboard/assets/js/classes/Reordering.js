@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * Dashboard_Classes_Reordering
+ * Reordering class for dashboard row drag-and-drop reordering.
  */
-class Dashboard_Classes_Reordering
+export default class Reordering
 {
     static instance() {
         return this.$instance || (this.$instance = new this);
@@ -116,10 +116,10 @@ class Dashboard_Classes_Reordering
             return false;
         }
 
-        // Swap rows
+        // Swap rows - Vue 3: Direct array index assignment is reactive
         const temp = rows[rowIndex1];
-        Vue.set(rows, rowIndex1, rows[rowIndex2]);
-        Vue.set(rows, rowIndex2, temp);
+        rows[rowIndex1] = rows[rowIndex2];
+        rows[rowIndex2] = temp;
 
         return true;
     }

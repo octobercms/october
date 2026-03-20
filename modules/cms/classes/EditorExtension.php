@@ -65,30 +65,7 @@ class EditorExtension extends ExtensionBase
     public function listJsFiles()
     {
         return [
-            '/modules/cms/assets/js/cms.editor.extension.js',
-            '/modules/cms/assets/js/cms.editor.extension.documentcomponent.base.js',
-            '/modules/cms/assets/js/cms.editor.extension.documentcontroller.page.js',
-            '/modules/cms/assets/js/cms.editor.extension.documentcontroller.layout.js',
-            '/modules/cms/assets/js/cms.editor.extension.documentcontroller.partial.js',
-            '/modules/cms/assets/js/cms.editor.extension.documentcontroller.content.js',
-            '/modules/cms/assets/js/cms.editor.extension.documentcontroller.asset.js',
-            '/modules/cms/assets/js/cms.editor.intellisense.utils.js',
-            '/modules/cms/assets/js/cms.editor.intellisense.clickhandler.base.js',
-            '/modules/cms/assets/js/cms.editor.intellisense.clickhandler.template.js',
-            '/modules/cms/assets/js/cms.editor.intellisense.clickhandler.cssimports.js',
-            '/modules/cms/assets/js/cms.editor.intellisense.completer.base.js',
-            '/modules/cms/assets/js/cms.editor.intellisense.completer.partials.js',
-            '/modules/cms/assets/js/cms.editor.intellisense.completer.content.js',
-            '/modules/cms/assets/js/cms.editor.intellisense.completer.assets.js',
-            '/modules/cms/assets/js/cms.editor.intellisense.completer.pages.js',
-            '/modules/cms/assets/js/cms.editor.intellisense.completer.twigfilters.js',
-            '/modules/cms/assets/js/cms.editor.intellisense.completer.octobertags.js',
-            '/modules/cms/assets/js/cms.editor.intellisense.hoverprovider.base.js',
-            '/modules/cms/assets/js/cms.editor.intellisense.hoverprovider.octobertags.js',
-            '/modules/cms/assets/js/cms.editor.intellisense.hoverprovider.twigfilters.js',
-            '/modules/cms/assets/js/cms.editor.intellisense.actionhandler.base.js',
-            '/modules/cms/assets/js/cms.editor.intellisense.actionhandler.expandcomponent.js',
-            '/modules/cms/assets/js/cms.editor.intellisense.js'
+            '/modules/cms/assets/js/cms.editor.extension.js'
         ];
     }
 

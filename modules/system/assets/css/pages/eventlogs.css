@@ -114,6 +114,18 @@
     color: var(--bs-info-text);
 }
 
+.plugin-exception-beautifier .beautifier-details {
+    display: block;
+    font-family: monospace;
+    font-size: 13px;
+    line-height: 1.6;
+    background: var(--oc-secondary-bg);
+    border-radius: 4px;
+    padding: 15px 20px;
+    margin-top: 15px;
+    overflow-x: auto;
+}
+
 .plugin-exception-beautifier .beautifier-formatted-content,
 .plugin-exception-beautifier .beautifier-raw-content {
     background: var(--bs-body-bg);

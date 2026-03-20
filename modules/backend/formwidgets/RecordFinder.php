@@ -228,7 +228,7 @@ class RecordFinder extends FormWidgetBase
     protected function loadAssets()
     {
         $this->addCss('css/recordfinder.css');
-        $this->addJs('js/recordfinder.js');
+        $this->addJs('js/recordfinder.js', ['type' => 'module']);
     }
 
     /**
@@ -442,7 +442,7 @@ class RecordFinder extends FormWidgetBase
         $config->showCheckboxes = false;
         $config->defaultSort = $this->defaultSort;
         $config->recordsPerPage = $this->recordsPerPage;
-        $config->recordOnClick = sprintf("$('#%s').recordFinder('updateRecord', this, ':" . $this->getKeyFromAttributeName() . "')", $this->getId());
+        $config->recordOnClick = sprintf("oc.fetchControl(document.getElementById('%s'), 'recordfinder').updateRecord(this, ':" . $this->getKeyFromAttributeName() . "')", $this->getId());
 
         // Structure support
         $structureConfig = $this->makeListStructureConfig($config);

@@ -15,18 +15,18 @@
             class="edit-widget-button"
             role="button"
             tabindex="0"
-            aria-label="Edit Widget"
+            aria-label="<?= __("Edit Widget") ?>"
             @click.stop="onContextMenu($event)"
             @keyup.enter="onContextMenu($event)"
         >
             <img src="<?= Url::asset('/modules/dashboard/assets/images/dashboard/edit-dots.svg') ?>"/>
         </div>
 
-        <backend-component-dropdownmenu
+        <backend-dropdown-menu
             :items="menuItems"
             ref="menu"
             @command="onMenuItemCommand"
-        ></backend-component-dropdownmenu>
+        ></backend-dropdown-menu>
     </div>
 
     <div class="widget-inner-container" @dragstart.stop.prevent="">
@@ -75,22 +75,22 @@
                 @configure="showInspector"
                 @reload="load"
             ></dashboard-component-dashboard-widget-table>
-            <dashboard-component-dashboard-widget-sectiontitle
+            <dashboard-component-dashboard-widget-section-title
                 v-if="widget.configuration.type == 'section-title'"
                 :widget="widget"
                 :store="store"
                 :loading="loading"
                 :error="error"
                 ref="widgetImplementation"
-            ></dashboard-component-dashboard-widget-sectiontitle>
-            <dashboard-component-dashboard-widget-textnotice
+            ></dashboard-component-dashboard-widget-section-title>
+            <dashboard-component-dashboard-widget-text-notice
                 v-if="widget.configuration.type == 'notice'"
                 :widget="widget"
                 :store="store"
                 :loading="loading"
                 :error="error"
                 ref="widgetImplementation"
-            ></dashboard-component-dashboard-widget-textnotice>
+            ></dashboard-component-dashboard-widget-text-notice>
             <template v-if="widget.configuration.type == 'widget'">
                 <component
                     v-if="isComponentRegistered(widget.configuration.componentName)"

@@ -6,15 +6,6 @@
 @color-chart-tooltip-bg:          #000000;
 @color-chart-tooltip-text:        #ffffff;
 
-.control-chart-non-centered() {
-    text-align: left;
-
-    .canvas {
-        margin-right: 20px;
-        display: inline-block;
-    }
-}
-
 //
 // Chart
 // --------------------------------------------------
@@ -35,7 +26,7 @@
             margin-top: -21px;
             font-size: 30px;
             font-weight: 100;
-            color: @color-scoreboard-title;
+            color: var(--bs-heading-color);
             z-index: @zindex-chart - 1;
         }
 
@@ -62,7 +53,7 @@
             white-space: normal;
             display: block;
             text-transform: uppercase;
-            color: @color-scoreboard-title;
+            color: var(--bs-heading-color);
             font-weight: 300;
             font-size: 12px;
             margin-bottom: 10px;
@@ -85,7 +76,7 @@
 
         table {
             font-size: 12px;
-            color: @color-scoreboard-body;
+            color: var(--bs-body-color);
 
             tr {
                 td {
@@ -95,7 +86,7 @@
                     &.value {
                         padding-left: 10px;
                         font-weight: 600;
-                        color: @color-scoreboard-description;
+                        color: var(--bs-secondary-color);
                     }
 
                     i {
@@ -121,7 +112,12 @@
         }
     }
 
-    .control-chart-non-centered();
+    text-align: left;
+
+    .canvas {
+        margin-right: 20px;
+        display: inline-block;
+    }
 
     &.centered {
         text-align: center;
@@ -146,7 +142,12 @@
 }
 
 .report-container .wrapped .control-chart {
-    .control-chart-non-centered();
+    text-align: left;
+
+    .canvas {
+        margin-right: 20px;
+        display: inline-block;
+    }
 }
 
 .tickLabel, .flot-tick-label {
@@ -159,18 +160,6 @@
     }
 }
 
-#flotTip, #chart-tooltip {
-    white-space: nowrap;
-    padding: @tooltip-padding;
-    background: @tooltip-bg;
-    position: absolute;
-    z-index: @zindex-tooltip;
-    color: @tooltip-color;
-    border-radius: @tooltip-border-radius;
-    font-size: @tooltip-font-size;
-    opacity: @tooltip-opacity;
-}
-
 .title-value {
     span.goal-meter-indicator {
         float: left;
@@ -179,7 +168,7 @@
         margin-right: 5px;
         position: relative;
         top: 9px;
-        background: @color-scoreboard-negative;
+        background: var(--oc-color-negative);
 
         > span {
             text-indent: -10000em;
@@ -188,7 +177,7 @@
             width: 10px;
             left: 0;
             bottom: 0;
-            background: @color-scoreboard-positive;
+            background: var(--oc-color-positive);
             height: 0;
             .transition(all 0.2s);
         }
@@ -196,9 +185,9 @@
 
     &.goal-meter-inverse {
         span.goal-meter-indicator {
-            background: @color-scoreboard-positive;
+            background: var(--oc-color-positive);
             > span {
-                background: @color-scoreboard-negative;
+                background: var(--oc-color-negative);
             }
         }
     }

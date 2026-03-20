@@ -70,7 +70,7 @@ class DashboardSettings extends SettingsController
 
         $this->vars['recordsTotal'] = 0;
 
-        Flash::success(Lang::get('dashboard::lang.internal_traffic_statistics.purge_success'));
+        Flash::success(__("Internal Traffic Statistics data purged"));
     }
 
     /**

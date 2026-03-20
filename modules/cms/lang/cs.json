@@ -137,5 +137,6 @@
   "Define a Snippet Partial": "Definujte částečný úryvek",
   "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Neplatný klíč položky seznamu: %s. Klíč položky seznamu může obsahovat pouze písmena, číslice a znaky: _-",
   "The description is displayed in the snippet list in the editor when a snippet is added.": "Popis se po přidání úryvku zobrazí v seznamu úryvků v editoru.",
-  "Details": "Podrobnosti"
+  "Details": "Podrobnosti",
+  "Frontend Theme": "Témata vzhledu"
 }

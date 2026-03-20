@@ -1,1 +1,15 @@
-div.draftnotes{background:var(--oc-callout-warning-bg);border-bottom:1px solid var(--oc-primary-border)}div.draftnotes input[type=text]{-webkit-appearance:none;background:transparent;border:none;display:block;outline:none;padding:10px 20px;width:100%}
+div.draftnotes {
+    border-bottom: 1px solid var(--oc-primary-border);
+    background: var(--oc-callout-warning-bg);
+
+    input[type=text] {
+        padding: 10px 20px;
+        border: none;
+        outline: none;
+        background: transparent;
+        width: 100%;
+        display: block;
+        -webkit-appearance: none;
+        appearance: none;
+    }
+}

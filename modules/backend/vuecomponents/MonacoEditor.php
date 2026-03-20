@@ -18,6 +18,11 @@ use Backend\Models\Preference as BackendPreference;
 class MonacoEditor extends VueComponentBase
 {
     /**
+     * @var string componentName is the Vue component tag name.
+     */
+    protected $componentName = 'backend-monacoeditor';
+
+    /**
      * @var array require other components
      */
     protected $require = [
@@ -41,8 +46,6 @@ class MonacoEditor extends VueComponentBase
         $this->addJs('vendor/monaco-yaml/monaco-yaml.min.js');
         $this->addJs('vendor/emmet-monaco-es/emmet-monaco.min.js');
         $this->addJs('vendor/monaco/vs/loader.js');
-        $this->addJsBundle('js/modelreference.js');
-        $this->addJsBundle('js/modeldefinition.js');
     }
 
     /**

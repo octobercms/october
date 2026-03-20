@@ -12,15 +12,15 @@
         <span v-text="intervalName"></span>
     </button>
 
-    <backend-component-dropdownmenu
+    <backend-dropdown-menu
         :items="intervalMenuItems"
         ref="intervalMenu"
         @command="onIntervalMenuItemCommand"
-    ></backend-component-dropdownmenu>
+    ></backend-dropdown-menu>
 
-    <backend-component-dropdownmenu
+    <backend-dropdown-menu
         :items="compareMenuItems"
         ref="compareMenu"
         @command="onCompareMenuItemCommand"
-    ></backend-component-dropdownmenu>
+    ></backend-dropdown-menu>
 </div>

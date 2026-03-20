@@ -114,15 +114,30 @@ trait OctoberUtilCommands
             // Generate messages
             foreach (System::listModules() as $module) {
                 $module = strtolower($module);
+
+                // Process code-based client translations (client.php)
                 $fallbackPath = base_path("modules/{$module}/lang/en/client.php");
                 $srcPath = base_path("modules/{$module}/lang/{$locale}/client.php");
-                if (!file_exists($fallbackPath)) {
-                    continue;
+                if (file_exists($fallbackPath)) {
+                    $messages = array_replace_recursive($messages, require $fallbackPath);
+                    if (file_exists($srcPath) && $fallbackPath != $srcPath) {
+                        $messages = array_replace_recursive($messages, require $srcPath);
+                    }
                 }
 
-                $messages = array_replace_recursive($messages, require $fallbackPath);
-                if (file_exists($srcPath) && $fallbackPath != $srcPath) {
-                    $messages = array_replace_recursive($messages, require $srcPath);
+                // Process English-based client exports (client-export.php)
+                $exportPath = base_path("modules/{$module}/lang/en/client-export.php");
+                if (file_exists($exportPath)) {
+                    $exportStrings = require $exportPath;
+                    $jsonPath = base_path("modules/{$module}/lang/{$locale}.json");
+                    $jsonTranslations = [];
+                    if (file_exists($jsonPath)) {
+                        $jsonTranslations = json_decode(file_get_contents($jsonPath), true) ?: [];
+                    }
+
+                    foreach ($exportStrings as $englishString) {
+                        $messages[$englishString] = $jsonTranslations[$englishString] ?? $englishString;
+                    }
                 }
             }
 
@@ -158,7 +173,7 @@ trait OctoberUtilCommands
             // Output notes
             $publicDest = File::localToPublic(realpath(dirname($destPath))) . '/' . basename($destPath);
 
-            $this->comment($locale.'/'.basename($srcPath));
+            $this->comment($locale.'/'.basename($destPath));
             $this->comment(sprintf(' -> %s', $publicDest));
         }
     }

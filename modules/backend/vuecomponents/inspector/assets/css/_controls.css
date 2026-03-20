@@ -1,0 +1,94 @@
+@import "_control-dropdown.css";
+@import "_control-text.css";
+@import "_control-checkbox.css";
+@import "_control-table.css";
+@import "_control-autocomplete.css";
+
+.component-backend-inspector-panel .component-backend-inspector-controlhost {
+    .inspector-control {
+        height: var(--inspector-control-height);
+        padding-top: 0;
+        padding-left: var(--inspector-base-control-side-padding);
+        padding-right: 0;
+        padding-bottom: 0;
+        line-height: var(--inspector-control-height);
+        border: none;
+        display: block;
+        -webkit-appearance: none;
+        width: 100%;
+        box-sizing: border-box;
+        outline: none;
+        background-color: transparent;
+        color: var(--bs-body-color);
+
+        &[readonly] {
+            color: var(--oc-form-control-disabled-color) !important;
+        }
+
+        &.clickable {
+            cursor: pointer;
+            user-select: none;
+
+            &[readonly] {
+                cursor: default;
+            }
+        }
+
+        &.act-as-text-input {
+            overflow: hidden;
+            text-overflow: ellipsis;
+            white-space: nowrap;
+        }
+
+        &.placeholder {
+            color: var(--inspector-placeholder-color);
+            background-color: transparent;
+        }
+
+        &::placeholder {
+            color: var(--inspector-placeholder-color) !important;
+        }
+    }
+
+    .inspector-control-clearable {
+        padding-right: 5px;
+
+        button.clear-value {
+            border: none;
+            background: transparent;
+            position: absolute;
+            -webkit-appearance: none;
+            width: 16px;
+            height: 16px;
+            right: 8px;
+            top: 11px;
+            padding: 0;
+            outline: none;
+
+            &:hover, &:focus {
+                &:before {
+                    color: var(--bs-danger);
+                }
+            }
+
+            &:before {
+                font-family: 'octo-icon' !important;
+                speak: none;
+                font-style: normal;
+                font-weight: normal;
+                font-variant: normal;
+                text-transform: none;
+                line-height: 1;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                content: "\e93e";
+                font-size: 13px;
+                display: inline-block;
+                position: absolute;
+                color: #72809d;
+                left: 2px;
+                top: 1px;
+            }
+        }
+    }
+}

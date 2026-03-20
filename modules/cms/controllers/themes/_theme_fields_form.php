@@ -16,18 +16,18 @@
             <?= $widget->render() ?>
         </div>
         <div class="modal-footer">
-            <button
-                type="submit"
-                class="btn btn-primary">
-                <?= __('Save Properties') ?>
-            </button>
+            <?= Ui::ajaxButton(
+                label: __("Save Properties"),
+                handler: 'onSaveFields',
+                primary: true,
+                dataPopupLoadIndicator: true
+            ) ?>
 
-            <button
-                type="button"
-                class="btn btn-default"
-                data-dismiss="popup">
-                <?= e(trans('backend::lang.form.cancel')) ?>
-            </button>
+            <?= Ui::button(
+                label: __("Cancel"),
+                secondary: true,
+                dataDismiss: 'popup'
+            ) ?>
         </div>
 
     <?php else: ?>
@@ -36,12 +36,11 @@
             <p class="flash-message static error"><?= e(__($this->fatalError)) ?></p>
         </div>
         <div class="modal-footer">
-            <button
-                type="button"
-                class="btn btn-default"
-                data-dismiss="popup">
-                <?= e(trans('backend::lang.form.close')) ?>
-            </button>
+            <?= Ui::button(
+                label: __("Close"),
+                secondary: true,
+                dataDismiss: 'popup'
+            ) ?>
         </div>
 
     <?php endif ?>

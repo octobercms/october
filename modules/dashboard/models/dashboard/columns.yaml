@@ -10,6 +10,16 @@ columns:
         label: Global
         type: switch
 
+    is_hidden:
+        label: Hidden
+        type: switch
+
+    roles:
+        label: Roles
+        relation: roles
+        select: name
+        sortable: false
+
     created_by_name:
         label: Created By
         relationWith: created_user

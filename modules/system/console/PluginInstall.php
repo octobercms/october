@@ -5,8 +5,6 @@ use Illuminate\Console\Command;
 use System\Classes\UpdateManager;
 use System\Helpers\Cache as CacheHelper;
 use October\Rain\Composer\ComposerManager;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 use Exception;
 
 /**
@@ -20,9 +18,15 @@ use Exception;
 class PluginInstall extends Command
 {
     /**
-     * @var string name of console command
+     * @var string signature for the console command
      */
-    protected $name = 'plugin:install';
+    protected $signature = 'plugin:install
+        {name : The name of the plugin. Eg: AuthorName.PluginName}
+        {--oc : Package uses the oc- prefix.}
+        {--f|from= : Provide a custom source.}
+        {--w|want= : Provide a custom version.}
+        {--no-migrate : Do not run migration after install.}
+        {--no-update : Do not run composer update after install.}';
 
     /**
      * @var string description of the console command
@@ -131,30 +135,6 @@ class PluginInstall extends Command
     protected function removeRepoFromSource($composerCode)
     {
         ComposerManager::instance()->removeRepository($composerCode);
-    }
-
-    /**
-     * getArguments get the console command arguments
-     */
-    protected function getArguments()
-    {
-        return [
-            ['name', InputArgument::REQUIRED, 'The name of the plugin. Eg: AuthorName.PluginName'],
-        ];
-    }
-
-    /**
-     * getOptions get the console command options
-     */
-    protected function getOptions()
-    {
-        return [
-            ['oc', null, InputOption::VALUE_NONE, 'Package uses the oc- prefix.'],
-            ['from', 'f', InputOption::VALUE_REQUIRED, 'Provide a custom source.'],
-            ['want', 'w', InputOption::VALUE_REQUIRED, 'Provide a custom version.'],
-            ['no-migrate', null, InputOption::VALUE_NONE, 'Do not run migration after install.'],
-            ['no-update', null, InputOption::VALUE_NONE, 'Do not run composer update after install.'],
-        ];
     }
 
     /**

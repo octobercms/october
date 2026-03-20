@@ -10,6 +10,11 @@ use Backend\Classes\VueComponentBase;
  */
 class Tabs extends VueComponentBase
 {
+    /**
+     * @var string componentName is the Vue component tag name.
+     */
+    protected $componentName = 'backend-tabs';
+
     protected $require = [
         \Backend\VueComponents\DropdownMenu::class
     ];

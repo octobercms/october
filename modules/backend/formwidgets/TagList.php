@@ -90,6 +90,11 @@ class TagList extends FormWidgetBase
             'placeholder'
         ]);
 
+        // Keys cannot be used with custom tags
+        if ($this->customTags) {
+            $this->useKey = false;
+        }
+
         $this->processMode();
 
         $this->useOptions = $this->formField->hasOptions();

@@ -1,6 +1,7 @@
 <?php namespace Tailor\Models;
 
 use App;
+use Str;
 use Site;
 use October\Contracts\Element\ListElement;
 use October\Contracts\Element\FormElement;
@@ -165,6 +166,16 @@ class EntryRecord extends BlueprintModel
     public function afterBoot()
     {
         static::addGlobalScope(new EntryRecordScope);
+    }
+
+    /**
+     * beforeValidate
+     */
+    public function beforeValidate()
+    {
+        if (!$this->slug) {
+            $this->slug = 'slug-' . Str::random(32);
+        }
     }
 
     /**

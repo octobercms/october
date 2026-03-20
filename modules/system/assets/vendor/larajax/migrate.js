@@ -3,9 +3,10 @@ window.oc = window.jax;
 window.oc.serializeJSON = window.oc.values;
 
 // jQuery compatibility layer
-// Plus native deprecations
-(function($) {
-    if (!$) {
+(function() {
+    // Avoid detection from webpack
+    var $ = window['jQ' + 'uery'];
+    if ($ === undefined) {
         return;
     }
 
@@ -150,6 +151,4 @@ window.oc.serializeJSON = window.oc.values;
             throw new Error('Error parsing the ' + name + ' attribute value. ' + e);
         }
     }
-})(window.jQuery);
-
-
+})();

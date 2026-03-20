@@ -2,7 +2,6 @@
 
 use October\Rain\Database\Schema\Blueprint;
 use October\Rain\Database\Updates\Migration;
-use System\Models\SiteDefinition;
 
 return new class extends Migration
 {
@@ -33,9 +32,6 @@ return new class extends Migration
             $table->boolean('is_enabled_edit')->default(0);
             $table->timestamps();
         });
-
-        // @deprecated remove if year >= 2024
-        SiteDefinition::syncPrimarySite();
     }
 
     public function down()

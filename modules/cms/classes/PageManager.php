@@ -16,10 +16,11 @@ class PageManager
 {
     /**
      * url is a helper that makes a URL for a page lookup item.
+     * Optional params are merged and used during URL resolution.
      */
-    public static function url($address): string
+    public static function url($address, $params = []): string
     {
-        return (string) (static::resolve($address)->url ?? '');
+        return (string) (static::resolve($address, ['params' => $params])->url ?? '');
     }
 
     /**
@@ -68,7 +69,7 @@ class PageManager
     public static function processLinks($markup): string
     {
         $searches = $replaces = [];
-        if (preg_match_all('/="(october:\/\/.*?[^"])(?:#[^"]+)?"/i', $markup, $matches)) {
+        if (preg_match_all('/="(october:\/\/[^"#]+)(#[^"]+)?"/i', $markup, $matches)) {
             foreach ($matches[0] as $index => $search) {
                 $ocUrl = $matches[1][$index] ?? null;
                 if (!$ocUrl) {
@@ -80,12 +81,14 @@ class PageManager
                     continue;
                 }
 
+                $fragment = $matches[2][$index] ?? '';
+
                 if (in_array($search, $searches)) {
                     continue;
                 }
 
                 $searches[] = $search;
-                $replaces[] = str_replace($ocUrl, $url, $search);
+                $replaces[] = '="' . $url . $fragment . '"';
             }
         }
 

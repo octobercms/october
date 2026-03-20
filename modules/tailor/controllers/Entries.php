@@ -131,9 +131,8 @@ class Entries extends WildcardController
         }
 
         if ($this->actionMethod) {
-            $this->addJs('/modules/tailor/assets/js/vue-entry-header-controls.js');
-            $this->addJs('/modules/tailor/assets/js/vue-entry-document.js');
-            $this->addJs('/modules/tailor/assets/js/preview-tracker.js');
+            $this->addJs('/modules/tailor/assets/js/vue-entry-header-controls.js', ['type' => 'module']);
+            $this->addJs('/modules/tailor/assets/js/vue-entry-document.js', ['type' => 'module']);
 
             $this->registerVueComponent(\Backend\VueComponents\Document::class);
             $this->registerVueComponent(\Backend\VueComponents\DropdownMenuButton::class);
@@ -560,8 +559,12 @@ class Entries extends WildcardController
     {
         $model = $widget->getModel();
 
-        // Entry type switching
-        if ($model instanceof \Tailor\Classes\BlueprintModel && ($entryType = post('EntryRecord[content_group]'))) {
+        // Entry type switching, existing records already have content_group
+        if (
+            !$model->exists &&
+            $model instanceof \Tailor\Classes\BlueprintModel &&
+            ($entryType = post('EntryRecord[content_group]'))
+        ) {
             $model->setBlueprintGroup($entryType);
         }
 

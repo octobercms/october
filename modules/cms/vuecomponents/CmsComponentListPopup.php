@@ -10,4 +10,8 @@ use Backend\Classes\VueComponentBase;
  */
 class CmsComponentListPopup extends VueComponentBase
 {
+    /**
+     * @var string componentName is the Vue component tag name.
+     */
+    protected $componentName = 'cms-component-cmscomponentlistpopup';
 }

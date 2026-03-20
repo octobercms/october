@@ -18,26 +18,24 @@
             </div>
 
             <div class="form-buttons">
-                <div class="loading-indicator-container">
-                    <button
-                        type="submit"
-                        data-request="onSave"
-                        data-request-data="redirect:0"
-                        data-hotkey="ctrl+s, cmd+s"
-                        data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
-                        class="btn btn-primary">
-                        <?= e(trans('backend::lang.form.save')) ?>
-                    </button>
+                <div data-control="loader-container" class="control-loader-container">
+                    <?= Ui::ajaxButton(
+                        label: __("Save"),
+                        handler: 'onSave',
+                        primary: true,
+                        hotkey: ['ctrl+s', 'cmd+s'],
+                        dataRequestData: "redirect: false",
+                        dataRequestMessage: __("Saving :name...", ['name' => $formRecordName])
+                    ) ?>
                     <?php if ($this->user->hasAccess('admins.manage')): ?>
-                        <button
-                            type="button"
-                            data-request="onSave"
-                            data-request-data="close:1"
-                            data-hotkey="ctrl+enter, cmd+enter"
-                            data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
-                            class="btn btn-default">
-                            <?= e(trans('backend::lang.form.save_and_close')) ?>
-                        </button>
+                        <?= Ui::ajaxButton(
+                            label: __("Save & Close"),
+                            handler: 'onSave',
+                            secondary: true,
+                            hotkey: ['ctrl+enter', 'cmd+enter'],
+                            dataRequestData: "close: true",
+                            dataRequestMessage: __("Saving :name...", ['name' => $formRecordName])
+                        ) ?>
                     <?php endif ?>
                 </div>
             </div>
@@ -61,6 +59,12 @@
     </nav>
     <div class="padded-container">
         <p class="flash-message static error"><?= e(__($this->fatalError)) ?></p>
-        <p><a href="<?= Backend::url('backend/users') ?>" class="btn btn-default"><?= e(trans('backend::lang.user.return')) ?></a></p>
+        <p>
+            <?= Ui::button(
+                label: __("Return to Admins List"),
+                href: Backend::url('backend/users'),
+                secondary: true
+            ) ?>
+        </p>
     </div>
 <?php endif ?>

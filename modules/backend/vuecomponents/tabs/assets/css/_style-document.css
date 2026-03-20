@@ -1,0 +1,135 @@
+.component-backend-tabs.style-document {
+    > .tablist-container {
+        .tabs-scrollable {
+            background-color: var(--oc-editor-tab-bg);
+        }
+
+        .tabs-toolbar {
+            line-height: 39px;
+            background-color: var(--oc-editor-tab-bg);
+
+            &:after {
+                content: '';
+                height: 100%;
+                width: 1px;
+                top: 0;
+                background: var(--oc-primary-border);
+                position: absolute;
+                margin-left: -1px;
+            }
+
+            .toolbar-container {
+                margin: 5px 10px 0 10px;
+            }
+        }
+
+        .tablist {
+            &:after {
+                position: absolute;
+                content: '';
+                height: 1px;
+                left: 0;
+                width: 100%;
+                bottom: 0;
+                background-color: var(--oc-primary-border);
+                z-index: 0;
+            }
+
+            &:empty:after {
+                display: none;
+            }
+
+            button {
+                height: 48px;
+                border-left: 1px solid var(--oc-primary-border);
+                max-width: 220px;
+                min-width: 120px;
+
+                &.active {
+                    background-color: var(--oc-editor-tab-active-bg);
+                    color: var(--oc-editor-tab-active-color);
+
+                    &:after {
+                        position: absolute;
+                        content: '';
+                        height: 1px;
+                        left: 0;
+                        width: 100%;
+                        bottom: 0;
+                        z-index: 1;
+                        background-color: var(--oc-editor-tab-active-bg);
+                    }
+                }
+
+                &:first-child {
+                    margin-left: 25px;
+                }
+
+                &:last-child {
+                    border-right: 1px solid var(--oc-primary-border);
+                }
+            }
+        }
+
+        .tablist-scrollable-container {
+            position: relative;
+
+            .tabs-scrollable:after {
+                content: '';
+                position: absolute;
+                display: block;
+                width: 5px;
+                height: 48px;
+                opacity: 0;
+                top: 0;
+                transition: opacity 0.3s;
+                left: 0;
+                background: linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0) 100%);
+            }
+
+            &.scroll-before .tabs-scrollable:after {
+                opacity: 0.15;
+            }
+
+            &:not(.has-fixed-panel) {
+                &:after {
+                    content: '';
+                    position: absolute;
+                    display: block;
+                    width: 5px;
+                    height: 48px;
+                    opacity: 0;
+                    top: 0;
+                    transition: opacity 0.3s;
+                    right: 0;
+                    background: linear-gradient(90deg, rgba(0, 0, 0, 0) 0%, #000 100%);
+                }
+
+                &.scroll-after:after {
+                    opacity: 0.15;
+                }
+            }
+
+            &.has-fixed-panel {
+                .fixed-right {
+                    &:before {
+                        content: '';
+                        position: absolute;
+                        display: block;
+                        width: 5px;
+                        height: 48px;
+                        opacity: 0;
+                        top: 0;
+                        transition: opacity 0.3s;
+                        margin-left: -5px;
+                        background: linear-gradient(-90deg, #000 0%, rgba(0, 0, 0, 0) 100%);
+                    }
+                }
+
+                &.scroll-after .fixed-right:before {
+                    opacity: 0.15;
+                }
+            }
+        }
+    }
+}

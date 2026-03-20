@@ -42,8 +42,8 @@
         v-bind:href="href"
         v-bind:target="target ? target : '_self'"
         v-bind:tabindex="disabled ? -1 : 0"
-        v-bind:disabled="disabled"
-        v-bind:aria-disabled="disabled"
+        v-bind:disabled="disabled || undefined"
+        v-bind:aria-disabled="disabled || undefined"
         v-bind:aria-checked="itemIsChecked ? 'true' : 'false'"
         v-bind:role="itemRole"
         :style="itemStyle"
@@ -59,7 +59,7 @@
         <span v-text="label"></span>
     </a>
 
-    <backend-component-dropdownmenu-sheet
+    <backend-dropdown-menu-sheet
         v-if="hasSubmenu"
         ref="submenu"
         :items="items"
@@ -69,5 +69,5 @@
         @command="$emit('command', $event)"
         @hidden="onSubmenuHidden"
         @closemenu="$emit('closemenu', $event)"
-    ></backend-component-dropdownmenu-sheet>
+    ></backend-dropdown-menu-sheet>
 </li>

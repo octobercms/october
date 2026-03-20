@@ -1,5 +1,5 @@
 <?php
-    $action = $record->is_disabled ? 'enable' : 'disable';
+    $action = $record->context_disabled ? 'enable' : 'disable';
 ?>
 <div class="form-check form-switch nolink">
     <input
@@ -9,8 +9,8 @@
         data-request-update="list_manage_toolbar: '#plugin-toolbar'"
         type="checkbox"
         name="disable_<?= $record->id ?>"
-        value="<?= !$record->is_disabled ?>"
-        <?php if (!$record->is_disabled): ?>checked<?php endif ?>
+        value="<?= !$record->context_disabled ?>"
+        <?php if (!$record->context_disabled): ?>checked<?php endif ?>
         data-stripe-load-indicator
     >
 </div>

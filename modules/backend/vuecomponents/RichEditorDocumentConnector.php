@@ -11,6 +11,14 @@ use Backend\Classes\VueComponentBase;
  */
 class RichEditorDocumentConnector extends VueComponentBase
 {
+    /**
+     * @var string componentName is the Vue component tag name.
+     */
+    protected $componentName = 'backend-richeditor-document-connector';
+
+    /**
+     * @var array require
+     */
     protected $require = [
         \Backend\VueComponents\Document::class,
         \Backend\VueComponents\RichEditor::class,
@@ -28,20 +36,7 @@ class RichEditorDocumentConnector extends VueComponentBase
      */
     protected function loadAssets()
     {
-        $this->addJsBundle('js/formwidget.js');
-    }
-
-    /**
-     * Adds dependency assets required for the component.
-     * This method is called before the component's default resources are loaded.
-     * Use $this->addJs() and $this->addCss() to register new assets to include
-     * on the page.
-     * @return void
-     */
-    protected function loadDependencyAssets()
-    {
-        $this->addJsBundle('js/utils.js');
-        $this->addJsBundle('js/octobercommands.js');
+        $this->addJs('js/formwidget.js', ['type' => 'module']);
     }
 
     /**

@@ -87,13 +87,17 @@ class ResizeImageItem extends ElementBase
     {
         $width = $this->width;
         $height = $this->height;
-
         $options = $this->options;
-        $offsetA = $options['offset'][0];
-        $offsetB = $options['offset'][1];
         $mode = $options['mode'];
 
-        return "{$width}_{$height}_{$offsetA}_{$offsetB}_{$mode}";
+        if (is_array($options['offset'] ?? null)) {
+            $offsetX = $options['offset'][0] ?? ($options['offset']['x'] ?? 0);
+            $offsetY = $options['offset'][1] ?? ($options['offset']['y'] ?? 0);
+            return "{$width}_{$height}_{$offsetX}_{$offsetY}_{$mode}";
+        }
+        else {
+            return "{$width}_{$height}_{$mode}";
+        }
     }
 
     /**
@@ -193,7 +197,7 @@ class ResizeImageItem extends ElementBase
     {
         $defaultOptions = [
             'mode' => 'auto',
-            'offset' => [0, 0],
+            'offset' => null,
             'quality' => 90,
             'sharpen' => 0,
             'interlace' => false,

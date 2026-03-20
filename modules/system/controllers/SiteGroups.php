@@ -58,15 +58,4 @@ class SiteGroups extends Controller
             throw new NotFoundException;
         }
     }
-
-    /**
-     * formExtendFields adds available permission fields to the User form.
-     * Mark default groups as checked for new Users.
-     */
-    public function formExtendFields($form)
-    {
-        if (SiteGroup::isConfigured()) {
-            $form->removeField('_first_group_hint');
-        }
-    }
 }

@@ -1,6 +1,7 @@
 <?php namespace Backend\FormWidgets;
 
 use Input;
+use System;
 use Response;
 use Validator;
 use Backend\Classes\FormField;
@@ -332,6 +333,12 @@ class FileUpload extends FormWidgetBase
 
         if (!is_array($types)) {
             $types = explode(',', $types);
+        }
+
+        if (System::checkSafeMode()) {
+            $types = array_filter($types, function ($value) {
+                return !in_array(strtolower(trim($value, ' .')), ['less', 'sass', 'scss']);
+            });
         }
 
         $types = array_map(function ($value) use ($includeDot) {

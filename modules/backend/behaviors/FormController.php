@@ -44,6 +44,7 @@ class FormController extends ControllerBehavior
 {
     use \Backend\Traits\FormModelSaver;
     use \Backend\Behaviors\FormController\HasMultisite;
+    use \Backend\Behaviors\FormController\HasMultisiteGroup;
     use \Backend\Behaviors\FormController\HasOverrides;
     use \Backend\Behaviors\FormController\HasFormDesigns;
     use \Backend\Behaviors\FormController\HasRenderers;
@@ -846,6 +847,9 @@ class FormController extends ControllerBehavior
         // Remove multisite restriction
         if ($this->controller->formHasMultisite($model)) {
             $query->withSites();
+        }
+        elseif ($this->controller->formHasMultisiteGroup($model)) {
+            $query->withSiteGroups();
         }
 
         $this->controller->formExtendQuery($query);

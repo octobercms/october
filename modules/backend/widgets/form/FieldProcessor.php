@@ -160,6 +160,10 @@ trait FieldProcessor
      */
     protected function processRequiredAttributes(array $fields)
     {
+        if (!$this->model->isClassInstanceOf(\October\Contracts\Database\ValidationInterface::class)) {
+            return;
+        }
+
         if (!$this->model || !method_exists($this->model, 'isAttributeRequired')) {
             return;
         }
@@ -180,23 +184,69 @@ trait FieldProcessor
      */
     protected function processTranslatableAttributes(array $fields)
     {
-        if (!$this->model || !method_exists($this->model, 'isMultisiteSyncEnabled')) {
+        if ($this->useTranslatable === false) {
             return;
         }
 
-        if (!$this->model->isMultisiteSyncEnabled()) {
+        if (!$this->model) {
             return;
         }
 
-        foreach ($fields as $field) {
-            if ($field->translatable !== null) {
-                continue;
+        // Multisite trait: non-propagatable attributes are translatable
+        if (
+            $this->model->isClassInstanceOf(\October\Contracts\Database\MultisiteInterface::class) &&
+            $this->model->isMultisiteSyncEnabled()
+        ) {
+            foreach ($fields as $field) {
+                if ($field->translatable !== null) {
+                    continue;
+                }
+
+                $attrName = HtmlHelper::nameToDot($field->fieldName);
+                if (!$this->model->isAttributePropagatable($attrName)) {
+                    $field->translatable = true;
+                }
             }
+        }
 
-            // Does not propagate therefore translatable
-            $attrName = HtmlHelper::nameToDot($field->fieldName);
-            if (!$this->model->isAttributePropagatable($attrName)) {
-                $field->translatable = true;
+        // Translatable trait: attributes listed in $translatable are translatable
+        if (
+            $this->model->isClassInstanceOf(\October\Contracts\Database\TranslatableInterface::class) &&
+            $this->model->isTranslatableEnabled()
+        ) {
+            $translatableAttrs = $this->model->getTranslatableAttributes();
+
+            foreach ($fields as $field) {
+                if ($field->translatable !== null) {
+                    continue;
+                }
+
+                $attrName = HtmlHelper::nameToDot($field->fieldName);
+                if (in_array($attrName, $translatableAttrs)) {
+                    $field->translatable = true;
+                }
+            }
+        }
+
+        // Currencyable trait: attributes listed in $currencyable.
+        // Only show the globe icon for existing records since overrides
+        // are stored in a sidecar table that requires a saved record.
+        if (
+            $this->model->exists &&
+            $this->model->isClassInstanceOf(\October\Contracts\Database\CurrencyableInterface::class) &&
+            $this->model->isCurrencyableEnabled()
+        ) {
+            $currencyableAttrs = $this->model->getCurrencyableAttributes();
+
+            foreach ($fields as $field) {
+                if ($field->translatable !== null) {
+                    continue;
+                }
+
+                $attrName = HtmlHelper::nameToDot($field->fieldName);
+                if (in_array($attrName, $currencyableAttrs)) {
+                    $field->translatable = 'currency';
+                }
             }
         }
     }

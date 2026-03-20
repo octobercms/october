@@ -14,10 +14,8 @@
                     </label>
                 <?php endif ?>
 
-                <?php if ($field->translatable): ?>
-                    <span class="form-translatable <?= $field->label ? '' : 'no-label' ?>">
-                        <i class="icon-globe" data-bs-toggle="tooltip" data-bs-delay="300" title="<?= e($field->getTranslatableMessage()) ?>"></i>
-                    </span>
+                <?php if ($this->useTranslatable && $field->translatable && !$this->previewMode): ?>
+                    <?= $this->makePartial('translate_button', ['field' => $field]) ?>
                 <?php endif ?>
 
                 <?php if ($fieldComment = $field->commentAbove): ?>

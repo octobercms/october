@@ -91,7 +91,7 @@
         }
 
         getAllPopups() {
-            return Array.from(document.querySelectorAll('.modal[data-popup-stack-id]')).reverse();
+            return Array.from(document.querySelectorAll('.modal.show[data-popup-stack-id]')).reverse();
         }
 
         generateUniqueId() {

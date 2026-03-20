@@ -18,7 +18,7 @@
 
             <div class="form-group">
                 <span class="form-text pull-right">
-                    <a target="_blank" href="http://octobercms.com/help/site/projects#project-id"><?= __('How to find your License Key') ?></a>
+                    <a target="_blank" href="https://octobercms.com/help/site/projects#project-id"><?= __('How to find your License Key') ?></a>
                 </span>
                 <label class="form-label" for="projectId"><?= __('License Key') ?></label>
                 <input
@@ -33,8 +33,19 @@
     </div>
     <div class="modal-footer">
         <div class="px-3 pb-3">
-            <?= Ui::ajaxButton("Attach to Project", 'onAttachProject')->attachPopupLoading()->primary()->cssClass('btn-lg me-2') ?>
-            <?= Ui::button("Cancel")->dismissPopup()->secondary()->cssClass('btn-lg') ?>
+            <?= Ui::ajaxButton(
+                label: __("Attach to Project"),
+                handler: 'onAttachProject',
+                primary: true,
+                class: 'btn-lg me-2',
+                dataPopupLoadIndicator: true
+            ) ?>
+            <?= Ui::button(
+                label: __("Cancel"),
+                secondary: true,
+                class: 'btn-lg',
+                dataDismiss: 'popup'
+            ) ?>
         </div>
     </div>
     <script>

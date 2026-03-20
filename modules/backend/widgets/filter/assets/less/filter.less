@@ -180,19 +180,19 @@
         }
 
         &:after {
-            background-image: url('../../../../../backend/assets/images/loader-transparent.svg');
+            --loader-size: 20px;
+            content: '';
             position: absolute;
-            content: ' ';
-            width: 20px;
-            height: 20px;
             left: 50%;
             top: 50%;
-            margin-top: -10px;
-            margin-left: -10px;
-            display: block;
-            background-size: 20px 20px;
-            background-position: 50% 50%;
-            animation: spin 1s linear infinite;
+            width: var(--loader-size);
+            height: var(--loader-size);
+            margin-top: calc(var(--loader-size) / -2);
+            margin-left: calc(var(--loader-size) / -2);
+            border: 2px solid var(--oc-primary-border);
+            border-top-color: var(--oc-accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
         }
     }
 }

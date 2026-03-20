@@ -62,7 +62,7 @@ trait HasWidgetData
             $result['prev_date_end'] = $fetchData->compareDateEnd->toDateString();
         }
 
-        return $result;
+        return ajax()->force($result);
     }
 
     /**
@@ -89,9 +89,7 @@ trait HasWidgetData
 
         $data = $widget->getData($fetchData);
 
-        return [
-            'data' => $data
-        ];
+        return ajax()->force(['data' => $data]);
     }
 
     /**
@@ -113,10 +111,10 @@ trait HasWidgetData
 
         $properties = $this->getWidgetPropertiesForBrowser($widget);
 
-        return [
+        return ajax()->force([
             'result' => $widget->render(),
             'properties' => $properties
-        ];
+        ]);
     }
 
     /**

@@ -43,10 +43,10 @@
   "File Encoding": "Kódovanie súboru",
   "First row contains column titles": "Prvý riadok obsahuje názvy stĺpcov",
   "Leave this checked if the first row in the CSV is used as the column titles.": "Nechajte zaškrtnuté ak prvý riadok v CSV je použitý pre názvy stĺpcov.",
-  "2. Match the File Columns to Database Fields": "2. Match the File Columns to Database Fields",
+  "2. Match the File Columns to Database Fields": "2. Spárovať stĺpce importu so stĺpcami databázy",
   "File columns": "Sĺpce súboru",
   "Database fields": "Polia v databáze",
-  "3. Set Import Options": "3. Set Import Options",
+  "3. Set Import Options": "3. Nastaviť možnosti importu",
   "Export progress": "Priebeh exportu",
   "Processing": "Spracovávam",
   "Import progress": "Priebeh importu",
@@ -147,7 +147,7 @@
   "Light Mode": "Svetlý režim",
   "Dark Mode": "Tmavý režim",
   "OS Default": "OS Default",
-  "Create a Custom Palette": "Create a Custom Palette",
+  "Create a Custom Palette": "Vytvoriť vlastnú paletu",
   "Custom Palette": "Vlastná paleta",
   "Primary Color": "Primárna farba",
   "Secondary Color": "Sekundárna farba",
@@ -349,5 +349,8 @@
   "There was no data supplied to export": "There was no data supplied to export",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "PHP rozšírenie :name nie je nainštalované. Prosím nainštalujte túto knižnicu a aktivujte rozšírenie.",
   "The plugin :name is a dependency but is not installed. Please install this plugin.": "Plugin :name je vyžadovaný ale nie je nainštalovaný. Prosím nainštaujte tento plugin.",
-  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "Do adresára :name alebo jeho podadresárov sa nedá zapisovať z PHP. Prosím nastavte správne oprávnenia tomuto adresáru."
+  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "Do adresára :name alebo jeho podadresárov sa nedá zapisovať z PHP. Prosím nastavte správne oprávnenia tomuto adresáru.",
+  "Manage Roles": "Spravovať roly",
+  "Manage Groups": "Spravovať skupiny",
+  "Customize Backend": "Nastavenia administrácie"
 }

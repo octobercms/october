@@ -6,7 +6,11 @@ system:
     name: System Dashboard
     icon: ph ph-globe
     # canCreateAndEdit: true
-    # showInterval: true
+    # showInterval: false
+    # defaultStart: month
+    # defaultEnd: today
+    # defaultInterval: day
+    # defaultCompare: none
     reports:
         cms_information:
             row: 2

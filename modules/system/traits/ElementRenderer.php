@@ -1,10 +1,7 @@
 <?php namespace System\Traits;
 
 /**
- * ElementRenderer Trait
- *
- * @package october\system
- * @author Alexey Bobkov, Samuel Georges
+ * @deprecated
  */
 trait ElementRenderer
 {

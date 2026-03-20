@@ -1,3 +1,6 @@
+import { ControlBase, registerControl } from 'larajax';
+import SnippetMarkdownContext from './snippet-control.markdown.js';
+import SnippetRicheditorContext from './snippet-control.richeditor.js';
 
 /*
  * Snippet Control
@@ -7,10 +10,7 @@
  *
  * <figure data-snippet="someSnippetCode" data-snippet-properties="{json}"></figure>
  */
-'use strict';
-
-// Shared logic for the snippet control
-oc.registerControl('snippet', class extends oc.ControlBase
+registerControl('snippet', class extends ControlBase
 {
     static defaultWidgetAlias = 'ocsnippetlookup';
 
@@ -67,14 +67,12 @@ oc.registerControl('snippet', class extends oc.ControlBase
     guessSnippetContext() {
         const markdownEl = this.element.closest('[data-control="markdowneditor"]');
         if (markdownEl) {
-            const contextClass = oc.Modules.import('cms.snippet.markdown');
-            return new contextClass(this, markdownEl, this.element);
+            return new SnippetMarkdownContext(this, markdownEl, this.element);
         }
 
         const richeditorEl = this.element.closest('[data-control="richeditor"]');
         if (richeditorEl) {
-            const contextClass = oc.Modules.import('cms.snippet.richeditor');
-            return new contextClass(this, richeditorEl, this.element);
+            return new SnippetRicheditorContext(this, richeditorEl, this.element);
         }
     }
 

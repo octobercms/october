@@ -1,13 +1,7 @@
-oc.Modules.register('cms.editor.intellisense.hoverprovider.base', function() {
-    'use strict';
+export class HoverProviderBase {
+    intellisense;
 
-    class HoverProviderBase {
-        intellisense;
-
-        constructor(intellisense) {
-            this.intellisense = intellisense;
-        }
+    constructor(intellisense) {
+        this.intellisense = intellisense;
     }
-
-    return HoverProviderBase;
-});
+}

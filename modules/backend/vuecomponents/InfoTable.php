@@ -11,6 +11,11 @@ use Backend\Classes\VueComponentBase;
 class InfoTable extends VueComponentBase
 {
     /**
+     * @var string componentName is the Vue component tag name.
+     */
+    protected $componentName = 'backend-info-table';
+
+    /**
      * registerSubcomponents
      */
     protected function registerSubcomponents()

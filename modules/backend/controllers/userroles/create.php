@@ -14,24 +14,22 @@
         </div>
 
         <div class="form-buttons">
-            <div class="loading-indicator-container">
-                <button
-                    type="submit"
-                    data-request="onSave"
-                    data-hotkey="ctrl+s, cmd+s"
-                    data-load-indicator="<?= e(trans('backend::lang.form.creating')) ?>"
-                    class="btn btn-primary">
-                    <?= e(trans('backend::lang.form.create')) ?>
-                </button>
-                <button
-                    type="button"
-                    data-request="onSave"
-                    data-request-data="close:1"
-                    data-hotkey="ctrl+s, cmd+s"
-                    data-load-indicator="<?= e(trans('backend::lang.form.creating')) ?>"
-                    class="btn btn-default">
-                    <?= e(trans('backend::lang.form.create_and_close')) ?>
-                </button>
+            <div data-control="loader-container" class="control-loader-container">
+                <?= Ui::ajaxButton(
+                    label: __("Create"),
+                    handler: 'onSave',
+                    primary: true,
+                    hotkey: ['ctrl+s', 'cmd+s'],
+                    dataRequestMessage: __("Creating :name...", ['name' => $formRecordName])
+                ) ?>
+                <?= Ui::ajaxButton(
+                    label: __("Create & Close"),
+                    handler: 'onSave',
+                    secondary: true,
+                    hotkey: ['ctrl+enter', 'cmd+enter'],
+                    dataRequestData: "close: true",
+                    dataRequestMessage: __("Creating :name...", ['name' => $formRecordName])
+                ) ?>
             </div>
         </div>
 
@@ -39,5 +37,11 @@
 
 <?php else: ?>
     <p class="flash-message static error"><?= e(__($this->fatalError)) ?></p>
-    <p><a href="<?= Backend::url('backend/userroles') ?>" class="btn btn-default"><?= e(trans('backend::lang.user.role.return')) ?></a></p>
+    <p>
+        <?= Ui::button(
+            label: __("Return to Roles List"),
+            href: Backend::url('backend/userroles'),
+            secondary: true
+        ) ?>
+    </p>
 <?php endif ?>

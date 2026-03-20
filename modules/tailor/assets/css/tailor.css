@@ -1,1 +1,7 @@
-.set-item-parent{min-width:240px}.set-item-parent .form-group{padding-bottom:0}
+.set-item-parent {
+    min-width: 240px;
+
+    .form-group {
+        padding-bottom: 0;
+    }
+}

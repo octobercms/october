@@ -1,7 +1,10 @@
-Vue.component('tailor-editor-component-blueprint-editor', {
-    extends: oc.Modules.import('tailor.editor.extension.documentcomponent.base'),
+import { TailorDocumentComponentBase } from '../../../../assets/js/tailor.editor.extension.documentcomponent.base.js';
+import EditorModelDefinition from '../../../../../backend/vuecomponents/monacoeditor/assets/js/modeldefinition.js';
+import { modalUtils } from '../../../../../backend/vuecomponents/modal/assets/js/classes/index.js';
+
+export default {
+    extends: TailorDocumentComponentBase,
     data: function() {
-        const EditorModelDefinition = oc.Modules.import('backend.vuecomponents.monacoeditor.modeldefinition');
         const defMarkup = new EditorModelDefinition(
             'yaml',
             this.trans('tailor::lang.blueprint.editor_yaml'),
@@ -137,7 +140,7 @@ Vue.component('tailor-editor-component-blueprint-editor', {
             } catch (error) {
                 this.processing = false;
                 oc.snackbar.hide(messageId);
-                oc.vueComponentHelpers.modalUtils.showAlert(
+                modalUtils.showAlert(
                     $.oc.editor.getLangStr('editor::lang.common.error'),
                     error.responseText
                 );
@@ -212,6 +215,5 @@ Vue.component('tailor-editor-component-blueprint-editor', {
                 this.applyBlueprint();
             }
         }
-    },
-    template: '#tailor_vuecomponents_blueprinteditor'
-});
+    }
+};

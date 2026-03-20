@@ -6,8 +6,6 @@ use System;
 use Config;
 use stdClass;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 use Exception;
 
 /**
@@ -22,9 +20,12 @@ use Exception;
 class OctoberMirror extends Command
 {
     /**
-     * @var string name of console command
+     * @var string signature for the console command
      */
-    protected $name = 'october:mirror';
+    protected $signature = 'october:mirror
+        {destination? : The destination path relative to the current directory. Eg: public}
+        {--composer : Command triggered from composer.}
+        {--relative : Create symlinks relative to the public directory.}';
 
     /**
      * @var string description of the console command
@@ -51,6 +52,7 @@ class OctoberMirror extends Command
         'app/assets',
         'app/resources',
         'storage/app/uploads/public',
+        'storage/app/public',
         'storage/app/media',
         'storage/app/resources',
         'storage/temp/public',
@@ -328,27 +330,6 @@ class OctoberMirror extends Command
         }
 
         return (bool) $setting;
-    }
-
-    /**
-     * getArguments get the console command arguments
-     */
-    protected function getArguments()
-    {
-        return [
-            ['destination', InputArgument::OPTIONAL, 'The destination path relative to the current directory. Eg: public'],
-        ];
-    }
-
-    /**
-     * getOptions get the console command options
-     */
-    protected function getOptions()
-    {
-        return [
-            ['composer', null, InputOption::VALUE_NONE, 'Command triggered from composer.'],
-            ['relative', null, InputOption::VALUE_NONE, 'Create symlinks relative to the public directory.'],
-        ];
     }
 
     /**

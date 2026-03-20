@@ -12,9 +12,16 @@ use Backend\Classes\VueComponentBase;
  */
 class Autocomplete extends VueComponentBase
 {
+    /**
+     * @var string componentName is the Vue component tag name.
+     */
+    protected $componentName = 'backend-autocomplete';
+
+    /**
+     * loadDependencyAssets
+     */
     protected function loadDependencyAssets()
     {
-        $this->addJs('vendor/vue-autocomplete/vue-autocomplete.min.js');
         $this->addCss('vendor/vue-autocomplete/vue-autocomplete.min.css');
     }
 }

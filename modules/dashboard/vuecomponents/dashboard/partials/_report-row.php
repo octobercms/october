@@ -11,7 +11,7 @@
             data-edit-row-button
             role="button"
             tabindex="0"
-            aria-label="Edit row"
+            aria-label="<?= __("Edit Row") ?>"
             @mousedown="onRowButtonMouseDown"
             @contextmenu.stop="onContextMenu($event)"
             @click.stop="onContextMenu($event)"
@@ -20,11 +20,11 @@
             <img src="<?= Url::asset('/modules/dashboard/assets/images/dashboard/edit-dots.svg') ?>"/>
         </div>
 
-        <backend-component-dropdownmenu
+        <backend-dropdown-menu
             :items="menuItems"
             ref="menu"
             @command="onMenuItemCommand"
-        ></backend-component-dropdownmenu>
+        ></backend-dropdown-menu>
     </div>
 
     <div class="row-widgets" >
@@ -37,15 +37,14 @@
             <span><?= __("Add Widget") ?></span>
         </div>
 
-        <backend-component-dropdownmenu
+        <backend-dropdown-menu
             :items="addWidgetItems"
             ref="addWidgetMenu"
             @command="onAddWidgetMenuItemCommand"
-        ></backend-component-dropdownmenu>
+        ></backend-dropdown-menu>
 
-        <template v-for="(widget, index) in row.widgets">
+        <template v-for="(widget, index) in row.widgets" :key="widget._unique_key">
             <dashboard-component-dashboard-report-widget
-                :key="widget._unique_key"
                 :widget="widget"
                 :row="row"
                 :rows="rows"

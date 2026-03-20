@@ -174,10 +174,19 @@ class RecordFinderField extends FallbackField
         $isSingular = $this->maxItems === 1;
         $isNested = $model instanceof RepeaterItem;
 
+        // RepeaterItem doesn't have getBlueprintDefinition, and nested relations
+        // don't participate in dual-multisite propagation
+        $parentMultisite = $isNested ? false : $model->getBlueprintDefinition()->useMultisite();
+
+        // Dual-multisite: both parent and related use multisite, so use actual IDs
+        // and let pivot site_id scoping + propagation handle site separation
+        $isDualMultisite = $parentMultisite && $relatedMultisite;
+
         if ($isSingular) {
             $model->belongsTo[$this->fieldName] = [
                 $relatedModel::class,
-                'key' => $this->getSingularKeyName()
+                'key' => $this->getSingularKeyName(),
+                'otherKey' => ($relatedMultisite && !$isDualMultisite) ? 'site_root_id' : 'id'
             ];
         }
         elseif ($isNested) {
@@ -194,7 +203,7 @@ class RecordFinderField extends FallbackField
                 'table' => $model->getBlueprintDefinition()->getJoinTableName(),
                 'name' => $this->fieldName,
                 'relationClass' => CustomMultiJoinRelation::class,
-                'relatedKey' => $relatedMultisite ? 'site_root_id' : 'id'
+                'relatedKey' => ($relatedMultisite && !$isDualMultisite) ? 'site_root_id' : 'id'
             ];
         }
     }
@@ -211,20 +220,30 @@ class RecordFinderField extends FallbackField
             throw new SystemException("Missing relation definition for inverse field '{$this->inverse}' for model class '{$this->modelClass}' for '{$this->fieldName}'.");
         }
 
-        $parentMultisite = $model->getBlueprintDefinition()->useMultisite();
+        $isNested = $model instanceof RepeaterItem;
+
+        // RepeaterItem doesn't have getBlueprintDefinition
+        $parentMultisite = $isNested ? false : $model->getBlueprintDefinition()->useMultisite();
         $relationDefinition = $relatedModel->getRelationDefinition($this->inverse);
         $relatedMultisite = $relatedModel->isClassInstanceOf(\October\Contracts\Database\MultisiteInterface::class) &&
             $relatedModel->isMultisiteEnabled();
+
+        // Dual-multisite: both parent and related use multisite
+        $isDualMultisite = $parentMultisite && $relatedMultisite;
 
         $isSingular = $this->maxItems === 1;
         $otherIsSingular = $relatedModel->isRelationTypeSingular($this->inverse);
         $otherIsPropagatable = $relatedMultisite ? $relatedModel->isAttributePropagatable($this->inverse) : false;
 
+        // In dual-multisite, use 'id' for proper site isolation; otherwise use site_root_id for sharing
+        $useRelatedRootKey = $otherIsPropagatable && !$isDualMultisite;
+        $useParentRootKey = $parentMultisite && !$isDualMultisite;
+
         if ($isSingular) {
             $model->hasOne[$this->fieldName] = [
                 $relatedModel::class,
                 'key' => $relationDefinition['key'] ?? null,
-                'otherKey' => $otherIsPropagatable ? 'site_root_id' : 'id',
+                'otherKey' => $useRelatedRootKey ? 'site_root_id' : 'id',
                 'replicate' => false
             ];
         }
@@ -232,7 +251,7 @@ class RecordFinderField extends FallbackField
             $model->hasMany[$this->fieldName] = [
                 $relatedModel::class,
                 'key' => $relationDefinition['key'] ?? null,
-                'otherKey' => $otherIsPropagatable ? 'site_root_id' : 'id',
+                'otherKey' => $useRelatedRootKey ? 'site_root_id' : 'id',
                 'replicate' => false
             ];
         }
@@ -242,8 +261,8 @@ class RecordFinderField extends FallbackField
                 'table' => $relationDefinition['table'] ?? null,
                 'name' => $this->inverse,
                 'relationClass' => CustomMultiJoinRelation::class,
-                'relatedKey' => $otherIsPropagatable ? 'site_root_id' : 'id',
-                'parentKey' => $parentMultisite ? 'site_root_id' : 'id',
+                'relatedKey' => $useRelatedRootKey ? 'site_root_id' : 'id',
+                'parentKey' => $useParentRootKey ? 'site_root_id' : 'id',
                 'replicate' => false
             ];
         }

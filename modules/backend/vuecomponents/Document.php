@@ -10,6 +10,11 @@ use Backend\Classes\VueComponentBase;
  */
 class Document extends VueComponentBase
 {
+    /**
+     * @var string componentName is the Vue component tag name.
+     */
+    protected $componentName = 'backend-document';
+
     protected $require = [
         \Backend\VueComponents\DropdownMenu::class,
         \Backend\VueComponents\LoadingIndicator::class
@@ -18,7 +23,7 @@ class Document extends VueComponentBase
     protected function registerSubcomponents()
     {
         $this->registerSubcomponent('toolbar');
-        $this->registerSubcomponent('toolbarButton');
+        $this->registerSubcomponent('toolbar-button');
         $this->registerSubcomponent('header');
     }
 }

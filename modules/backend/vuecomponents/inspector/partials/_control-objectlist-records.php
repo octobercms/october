@@ -7,12 +7,12 @@
             <tr v-for="(record, key) in obj">
                 <td class="no-sub-controls" :class="{clickable: !inspectorPreferences.readOnly}" @click.stop="onItemClick(key)">
                     <div class="clickable-data-container">
-                        <backend-component-inspector-control-objectlist-record-title
+                        <backend-inspector-control-objectlist-recordtitle
                             :control="control"
                             :record="record"
                             :parent-obj="parentObj"
                             :obj="obj"
-                        ></backend-component-inspector-control-objectlist-record-title>
+                        ></backend-inspector-control-objectlist-recordtitle>
                         <button v-if="!inspectorPreferences.readOnly" @click.stop.prevent="onRemoveItemClick(key)" class="remove-row-btn"></button>
                     </div>
                 </td>

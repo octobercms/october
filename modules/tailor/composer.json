@@ -13,8 +13,5 @@
             "name": "Samuel Georges",
             "email": "daftspunky@gmail.com"
         }
-    ],
-    "require": {
-        "composer/installers": "~1.0"
-    }
+    ]
 }

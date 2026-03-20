@@ -1,4 +1,4 @@
-<backend-component-popover
+<backend-popover
     ref="popover"
     container-css-class="publishing-controls"
     :always-visible="true"
@@ -48,4 +48,4 @@
             </div>
         </div>
     </div>
-</backend-component-popover>
+</backend-popover>

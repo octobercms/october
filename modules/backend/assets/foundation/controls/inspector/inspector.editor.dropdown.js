@@ -128,7 +128,7 @@
 
         $(select).select2(options)
 
-        if (!Modernizr.touchevents) {
+        if (!('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
             this.indicatorContainer = $('.select2-container', this.containerCell)
             this.indicatorContainer.addClass('loading-indicator-container size-small')
         }
@@ -137,11 +137,13 @@
     DropdownEditor.prototype.createPlaceholder = function(select) {
         var placeholder = this.propertyDefinition.placeholder || this.propertyDefinition.emptyOption
 
-        if (placeholder !== undefined && !Modernizr.touchevents) {
+        var isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+
+        if (placeholder !== undefined && !isTouchDevice) {
             this.createOption(select, null, null)
         }
 
-        if (placeholder !== undefined && Modernizr.touchevents) {
+        if (placeholder !== undefined && isTouchDevice) {
             this.createOption(select, placeholder, null)
         }
     }
@@ -396,7 +398,7 @@
     }
 
     DropdownEditor.prototype.showLoadingIndicator = function() {
-        if (!Modernizr.touchevents) {
+        if (!('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
             this.indicatorContainer.loadIndicator()
         }
     }
@@ -406,7 +408,7 @@
             return
         }
 
-        if (!Modernizr.touchevents) {
+        if (!('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
             this.indicatorContainer.loadIndicator('hide')
             this.indicatorContainer.loadIndicator('destroy')
         }

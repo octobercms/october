@@ -39,7 +39,23 @@ class SiteGroup extends Model
      */
     public static function isConfigured()
     {
-        return static::count() > 0;
+        return static::count() > 1;
+    }
+
+    /**
+     * syncDefaultGroup ensures a default site group exists so site_group_id is never null.
+     * The afterCreate hook will auto-adopt any orphaned sites.
+     */
+    public static function syncDefaultGroup()
+    {
+        if (static::count() > 0) {
+            return;
+        }
+
+        static::create([
+            'name' => 'Default',
+            'code' => 'default',
+        ]);
     }
 
     /**
@@ -53,18 +69,20 @@ class SiteGroup extends Model
     }
 
     /**
+     * afterDelete
+     */
+    public function afterDelete()
+    {
+        PluginSiteGroup::where('site_group_id', $this->id)->delete();
+
+        Site::resetCache();
+    }
+
+    /**
      * afterSave
      */
     public function afterSave()
     {
         Site::resetCache();
-    }
-
-    /**
-     * afterCreate assigns orphaned sites to this group
-     */
-    public function afterCreate()
-    {
-        SiteDefinition::where('group_id', null)->update(['group_id' => $this->id]);
     }
 }

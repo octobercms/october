@@ -87,15 +87,6 @@ class DashController extends ControllerBehavior
     }
 
     /**
-     * beforeDisplay fires before the page is displayed and AJAX is executed.
-     */
-    public function beforeDisplay()
-    {
-        // $this->addJs('js/october.dash.js');
-        // $this->addCss('css/dash.css');
-    }
-
-    /**
      * validateDash validates the supplied field and initializes the dashboard.
      * @param string $definition
      * @return string

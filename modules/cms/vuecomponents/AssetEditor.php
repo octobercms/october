@@ -10,6 +10,11 @@ use Backend\Classes\VueComponentBase;
  */
 class AssetEditor extends VueComponentBase
 {
+    /**
+     * @var string componentName is the Vue component tag name.
+     */
+    protected $componentName = 'cms-editor-component-asset-editor';
+
     protected $require = [
         \Backend\VueComponents\MonacoEditor::class
     ];

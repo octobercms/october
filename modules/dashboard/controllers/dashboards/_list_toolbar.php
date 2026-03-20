@@ -1,24 +1,22 @@
 <div data-control="toolbar loader-container">
-    <button
-        type="button"
-        data-control="popup"
-        data-handler="onLoadPopupForm"
-        class="btn btn-primary">
-        <i class="icon-plus"></i>
-        <?= __("New :name", ['name' => 'Dashboard']) ?>
-    </button>
+    <?= Ui::popupButton(
+        label: __("New :name", ['name' => 'Dashboard']),
+        handler: 'onLoadPopupForm',
+        icon: 'icon-plus',
+        primary: true
+    ) ?>
 
     <div class="toolbar-divider"></div>
 
-    <button
-        class="btn btn-secondary"
-        data-request="onDelete"
-        data-request-message="<?= __("Deleting...") ?>"
-        data-request-confirm="<?= __("Are you sure?") ?>"
-        data-list-checked-trigger
-        data-list-checked-request
-        disabled>
-        <i class="icon-delete"></i>
-        <?= __("Delete") ?>
-    </button>
+    <?= Ui::ajaxButton(
+        label: __("Delete"),
+        handler: 'onDelete',
+        icon: 'icon-delete',
+        secondary: true,
+        dataRequestConfirm: __("Are you sure?"),
+        dataRequestMessage: __("Deleting..."),
+        dataListCheckedTrigger: true,
+        dataListCheckedRequest: true,
+        disabled: true
+    ) ?>
 </div>

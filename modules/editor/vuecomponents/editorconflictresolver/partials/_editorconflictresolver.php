@@ -1,4 +1,4 @@
-<backend-component-modal
+<backend-modal
     ref="modal"
     :store-position="false"
     unique-key="uniqueKey"
@@ -21,4 +21,4 @@
             <button class="btn btn-link text-muted" @click.prevent="$refs.modal.hide()"><?= e(trans('backend::lang.form.cancel')) ?></button>
         </div>
     </template>
-</backend-component-modal>
+</backend-modal>

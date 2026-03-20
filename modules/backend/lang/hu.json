@@ -350,5 +350,8 @@
   "Debug mode is enabled. This is not recommended for production installations.": "A hibakeresési mód engedélyezve van. Ez nem ajánlott éles weboldal esetén.",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "A(z) :name PHP kiterjesztés nincs telepítve. Telepítse ezt a függvénytárat és aktiválja a kiterjesztést.",
   "The plugin :name is a dependency but is not installed. Please install this plugin.": "A(z) :name bővítményre szükség van, de nincs telepítve. Kérjük telepítse ezt a bővítményt.",
-  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "A(z) :name könyvtár vagy alkönyvtárai a PHP számára nem írhatóak. Adjon megfelelő engedélyeket a kiszolgálónak erre a könyvtárra."
+  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "A(z) :name könyvtár vagy alkönyvtárai a PHP számára nem írhatóak. Adjon megfelelő engedélyeket a kiszolgálónak erre a könyvtárra.",
+  "Manage Roles": "Szerepkörök Menedzselése",
+  "Manage Groups": "Csoportok Menedzselése",
+  "Customize Backend": "Admin Felület Testreszabása"
 }

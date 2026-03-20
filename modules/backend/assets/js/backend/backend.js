@@ -77,12 +77,10 @@ $.oc.isTouchEnabled = function() {
 // Color Modes
 //
 $.oc.setColorModeTheme = function(theme) {
-    if (theme === 'auto' && window.matchMedia('(prefers-color-scheme: dark)').matches) {
-        document.documentElement.setAttribute('data-bs-theme', 'dark');
+    if (theme === 'auto') {
+        theme = window.matchMedia('(prefers-color-scheme: dark)').matches ? 'dark' : 'light';
     }
-    else {
-        document.documentElement.setAttribute('data-bs-theme', theme);
-    }
+    document.documentElement.setAttribute('data-bs-theme', theme);
 }
 
 ;(function() {
@@ -123,26 +121,57 @@ oc.registerControl('color-mode-switcher', class extends oc.ControlBase {
 
     onToggleSwitch() {
         var current = this.getCurrentMode(),
-            preferred = current === 'dark' ? 'light' : 'dark';
+            preferred;
+
+        if (current === 'light') {
+            preferred = 'dark';
+        }
+        else if (current === 'dark') {
+            preferred = 'auto';
+        }
+        else {
+            preferred = 'light';
+        }
 
         $.oc.setColorModeTheme(preferred);
 
         Cookies.set('admin_color_mode_user', preferred, { expires: 365, path: '/' });
+
+        if (preferred === 'auto') {
+            document.documentElement.classList.add('color-mode-auto');
+        }
+        else {
+            document.documentElement.classList.remove('color-mode-auto');
+        }
+
         this.updateUi();
     }
 
     updateUi() {
-        if (this.getCurrentMode() === 'dark') {
-            this.$label.innerText = this.element.dataset.langLightMode;
-            this.$icon.setAttribute('class', 'icon-sun');
-        }
-        else {
+        var mode = this.getCurrentMode();
+
+        if (mode === 'light') {
             this.$label.innerText = this.element.dataset.langDarkMode;
             this.$icon.setAttribute('class', 'icon-moon');
+        }
+        else if (mode === 'dark') {
+            this.$label.innerText = this.element.dataset.langAutoMode;
+            this.$icon.setAttribute('class', 'icon-adjust');
+        }
+        else {
+            this.$label.innerText = this.element.dataset.langLightMode;
+            this.$icon.setAttribute('class', 'icon-sun');
         }
     }
 
     getCurrentMode() {
+        var userCookie = Cookies.get('admin_color_mode_user');
+        if (userCookie === 'auto') {
+            return 'auto';
+        }
+        if (document.documentElement.classList.contains('color-mode-auto') && !userCookie) {
+            return 'auto';
+        }
         return document.documentElement.getAttribute('data-bs-theme');
     }
 });

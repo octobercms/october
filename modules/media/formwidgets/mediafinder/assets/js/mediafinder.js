@@ -105,8 +105,8 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
             return;
         }
 
-        this.externalToolbarEventBusObj.$on('toolbarcmd', this.proxy(this.onToolbarExternalCommand));
-        this.externalToolbarEventBusObj.$on('extendapptoolbar', this.proxy(this.extendExternalToolbar));
+        this.externalToolbarEventBusObj.on('toolbarcmd', this.proxy(this.onToolbarExternalCommand));
+        this.externalToolbarEventBusObj.on('extendapptoolbar', this.proxy(this.extendExternalToolbar));
     }
 
     unmountExternalToolbarEventBusEvents() {
@@ -114,8 +114,8 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
             return;
         }
 
-        this.externalToolbarEventBusObj.$off('toolbarcmd', this.proxy(this.onToolbarExternalCommand));
-        this.externalToolbarEventBusObj.$off('extendapptoolbar', this.proxy(this.extendExternalToolbar));
+        this.externalToolbarEventBusObj.off('toolbarcmd', this.proxy(this.onToolbarExternalCommand));
+        this.externalToolbarEventBusObj.off('extendapptoolbar', this.proxy(this.extendExternalToolbar));
     }
 
     onToolbarExternalCommand(ev) {
@@ -133,7 +133,7 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
     }
 
     extendExternalToolbar() {
-        if (!this.$el.is(":visible") || !this.toolbarExtensionPoint) {
+        if (!this.$el || !this.$el.is(":visible") || !this.toolbarExtensionPoint) {
             return;
         }
 
@@ -309,6 +309,10 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
     }
 
     addItems(items) {
+        if (!this.$filesContainer) {
+            return;
+        }
+
         if (!this.config.isMulti) {
             this.$filesContainer.empty();
         }
@@ -321,6 +325,10 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
     }
 
     onClickRemoveButton(ev) {
+        if (!this.$filesContainer) {
+            return;
+        }
+
         this.$filesContainer.empty();
         this.setValue();
         this.evalIsPopulated();

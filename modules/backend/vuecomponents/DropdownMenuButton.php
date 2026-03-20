@@ -10,6 +10,11 @@ use Backend\Classes\VueComponentBase;
  */
 class DropdownMenuButton extends VueComponentBase
 {
+    /**
+     * @var string componentName is the Vue component tag name.
+     */
+    protected $componentName = 'backend-dropdown-menu-button';
+
     protected $require = [
         \Backend\VueComponents\DropdownMenu::class
     ];

@@ -137,5 +137,6 @@
   "Define a Snippet Partial": "Дефиниране на частичен фрагмент",
   "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Невалиден ключ за падаща опция: :ключ. Клавишите с опции могат да съдържат само цифри, латински букви и знаци _ и -",
   "The description is displayed in the snippet list in the editor when a snippet is added.": "Описанието се показва в списъка с фрагменти в редактора, когато се добави фрагмент.",
-  "Details": "Подробности"
+  "Details": "Подробности",
+  "Frontend Theme": "Front-end Тема"
 }

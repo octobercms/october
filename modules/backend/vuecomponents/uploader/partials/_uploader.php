@@ -8,10 +8,10 @@
     <div class="uploader-header">
         <h3 v-text="titleText"></h3>
 
-        <backend-component-loading-indicator
+        <backend-loading-indicator
             indicator-style="bar"
             :progress="totalProgress"
-        ></backend-component-loading-indicator>
+        ></backend-loading-indicator>
 
         <button
             @click.prevent="onHeaderButtonClick"
@@ -24,13 +24,13 @@
     </div>
     <div class="uploader-body-container">
         <div class="uploader-body">
-            <backend-component-scrollable-panel
-                :relative-layout="true" 
+            <backend-scrollable-panel
+                :relative-layout="true"
                 :relative-layout-max-height="200"
             >
                 <div>
                     <ul>
-                        <backend-component-uploader-item
+                        <backend-uploader-item
                             v-for="(file, index) in files"
                             :key="file.key"
                             :fileName="file.name"
@@ -38,10 +38,10 @@
                             :progress="file.progress"
                             :errorMessage="file.errorMessage"
                             @removeclick="onRemoveClick(index)"
-                        ></backend-component-uploader-item>
+                        ></backend-uploader-item>
                     </ul>
                 </div>
-            </backend-component-scrollable-panel>
+            </backend-scrollable-panel>
         </div>
     </div>
 

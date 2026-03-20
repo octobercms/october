@@ -1,6 +1,5 @@
-oc.Modules.register('backend.phosphor-icon-list', function () {
-    return {
-        "ph ph-address-book": "Address Book",
+export default {
+    "ph ph-address-book": "Address Book",
         "ph ph-airplane": "Airplane",
         "ph ph-airplane-in-flight": "Airplane In Flight",
         "ph ph-airplane-landing": "Airplane Landing",
@@ -1258,5 +1257,4 @@ oc.Modules.register('backend.phosphor-icon-list', function () {
         "ph ph-x-square": "X Square",
         "ph ph-yin-yang": "Yin Yang",
         "ph ph-youtube-logo": "YouTube Logo"
-    };
-});
+};

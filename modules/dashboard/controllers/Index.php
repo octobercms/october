@@ -35,9 +35,9 @@ class Index extends WildcardController
     public $requiredPermissions = [];
 
     /**
-     * @var bool turboVisitControl
+     * @var string turboRouter
      */
-    public $turboVisitControl = 'reload';
+    public $turboRouter = 'reload';
 
     /**
      * @var object listAllDashboardsCache
@@ -64,7 +64,7 @@ class Index extends WildcardController
         }
 
         $this->bodyClass = 'compact-container sidenav-responsive';
-        $this->pageTitle = 'backend::lang.dashboard.menu_label';
+        $this->pageTitle = "Dashboard";
 
         $this->syncAllDashboards();
 
@@ -72,7 +72,7 @@ class Index extends WildcardController
         $this->vars['dashboards'] = $dashboards;
         $this->vars['dashboard'] = $code
             ? $dashboards->where('code', $code)->first()
-            : $dashboards->first();
+            : $this->resolveDefaultDashboard($dashboards);
 
         $this->initDash();
     }
@@ -128,14 +128,51 @@ class Index extends WildcardController
             $config->$code['name'] = $dashboard->name;
             $config->$code['showInterval'] = !$dashboard->is_interval_hidden;
 
-            // If its global and I have customized it...
-            if ($dashboard->is_global) {
+            // Allow personalization of global and role-based dashboards
+            if ($dashboard->is_global || $dashboard->roles->isNotEmpty()) {
                 $config->$code['canMakeDefault'] = true;
                 $config->$code['canResetLayout'] = true;
             }
         }
 
         return $config;
+    }
+
+    /**
+     * resolveDefaultDashboard applies 3-tier resolution:
+     * 1. User's personal dashboard
+     * 2. Role-based dashboard
+     * 3. Global/system dashboard (fallback)
+     */
+    protected function resolveDefaultDashboard($dashboards)
+    {
+        $user = BackendAuth::user();
+        $userRoleId = $user?->role_id;
+
+        // Tier 1: User's own personal dashboard
+        $personal = $dashboards->first(function($d) use ($user) {
+            return $d->created_user_id === $user?->id
+                && !$d->is_global
+                && !$d->is_system;
+        });
+
+        if ($personal) {
+            return $personal;
+        }
+
+        // Tier 2: Role-based dashboard
+        if ($userRoleId) {
+            $roleBased = $dashboards->first(function($d) use ($userRoleId) {
+                return $d->roles->contains('id', $userRoleId);
+            });
+
+            if ($roleBased) {
+                return $roleBased;
+            }
+        }
+
+        // Tier 3: First available (global/system)
+        return $dashboards->first();
     }
 
     /**

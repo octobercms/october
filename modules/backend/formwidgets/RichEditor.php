@@ -2,7 +2,6 @@
 
 use App;
 use Config;
-use Request;
 use BackendAuth;
 use Backend\Classes\FormWidgetBase;
 use Backend\Models\EditorSetting;
@@ -147,8 +146,6 @@ class RichEditor extends FormWidgetBase
         $this->vars['inlineStyles'] = EditorSetting::getConfiguredStyles('html_style_inline');
         $this->vars['tableStyles'] = EditorSetting::getConfiguredStyles('html_style_table');
         $this->vars['tableCellStyles'] = EditorSetting::getConfiguredStyles('html_style_table_cell');
-
-        $this->vars['isAjax'] = Request::ajax();
     }
 
     /**
@@ -174,7 +171,7 @@ class RichEditor extends FormWidgetBase
     protected function loadAssets()
     {
         $this->addCss('css/richeditor.css');
-        $this->addJs('js/richeditor.js');
+        $this->addJs('js/richeditor.js', ['type' => 'module']);
         $this->addJs('/modules/backend/formwidgets/codeeditor/assets/js/build-min.js');
     }
 

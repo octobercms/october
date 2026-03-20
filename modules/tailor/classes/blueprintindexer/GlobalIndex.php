@@ -62,6 +62,7 @@ trait GlobalIndex
      */
     public function findGlobalByHandle(string $handle): ?GlobalBlueprint
     {
+        $themeDatasource = $this->getActiveThemeDatasource();
         $result = null;
 
         foreach ($this->listGlobalsRaw() as $attributes) {
@@ -69,6 +70,12 @@ trait GlobalIndex
                 (isset($attributes['handle']) && $attributes['handle'] === $handle) ||
                 (isset($attributes['handleSlug']) && $attributes['handleSlug'] === $handle)
             ) {
+                // Skip blueprints from inactive themes
+                $themeCode = $attributes['_theme'] ?? null;
+                if ($themeCode !== null && $themeDatasource && $themeCode !== $themeDatasource) {
+                    continue;
+                }
+
                 $result = GlobalBlueprint::newFromIndexer($attributes);
             }
         }

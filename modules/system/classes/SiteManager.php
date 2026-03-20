@@ -263,6 +263,11 @@ class SiteManager extends Extendable
      */
     protected function broadcastSiteChange($siteId)
     {
+        // Reload plugin disabled state for the new site context
+        if ($this->hasFeature('system_plugin_sites') || $this->hasFeature('system_plugin_site_groups')) {
+            PluginManager::instance()->reloadDisabledCache();
+        }
+
         /**
          * @event site.changed
          * Fires when the site has been changed.
@@ -314,5 +319,15 @@ class SiteManager extends Extendable
         }
 
         return false;
+    }
+
+    /**
+     * isModelMultisiteGroup returns true if the model implements multisite group scoping
+     */
+    public function isModelMultisiteGroup($model): bool
+    {
+        return $model &&
+            $model->isClassInstanceOf(\October\Contracts\Database\MultisiteGroupInterface::class) &&
+            $model->isMultisiteGroupEnabled();
     }
 }

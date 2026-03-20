@@ -1,5 +1,5 @@
 <div>
-    <backend-component-inspector-group
+    <backend-inspector-group
         :group-name="control.title"
         :obj="editedObject"
         :controls="nestedControlProperties"
@@ -13,5 +13,5 @@
         :loading="loadingDynamicOptions"
         ref="group"
     >
-    </backend-component-inspector-group>
+    </backend-inspector-group>
 </div>

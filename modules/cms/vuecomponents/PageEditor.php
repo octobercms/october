@@ -10,6 +10,11 @@ use Backend\Classes\VueComponentBase;
  */
 class PageEditor extends VueComponentBase
 {
+    /**
+     * @var string componentName is the Vue component tag name.
+     */
+    protected $componentName = 'cms-editor-component-page-editor';
+
     protected $require = [
         \Backend\VueComponents\MonacoEditor::class,
         \Cms\VueComponents\CmsObjectComponentList::class

@@ -7,7 +7,7 @@
                 data-multi-drag-image
                 src="<?= Url::asset('/modules/backend/assets/images/treeview-multi-drag.svg') ?>" />
         </div>
-        <backend-component-scrollable-panel ref="scrollablePanel">
+        <backend-scrollable-panel ref="scrollablePanel">
             <div :class="{'treeview-readonly': readonly}">
                 <ul
                     role="tree"
@@ -19,8 +19,9 @@
                     @dragleave="onDragLeave"
                     @dragend="onDragEnd"
                 >
-                    <backend-component-treeview-section
-                        v-for="section in sections"
+                    <backend-treeview-section
+                        v-for="(section, index) in sections"
+                        :ref="el => { if (el) sectionRefs[index] = el }"
                         :key="section.uniqueKey"
                         :unique-key="section.uniqueKey"
                         :label="section.label"
@@ -47,14 +48,14 @@
 
                         @nodemenutriggerclick="onNodeMenuTriggerClick"
                     >
-                    </backend-component-treeview-section>
+                    </backend-treeview-section>
                 </ul>
 
                 <div class="drag-indicator"></div>
             </div>
-        </backend-component-scrollable-panel>
+        </backend-scrollable-panel>
 
-        <backend-component-dropdownmenu
+        <backend-dropdown-menu
             :items="store.contextMenu.items"
             :menu-id="store.contextMenu.menuId"
             :labeled-by-id="store.contextMenu.labeledById"
@@ -63,16 +64,16 @@
             @shown="onMenuShown"
             @hidden="onMenuHidden"
             @closedwithesc="onMenuClosedWithEsc"
-        ></backend-component-dropdownmenu>
+        ></backend-dropdown-menu>
 
-        <backend-component-treeview-quickaccess
+        <backend-treeview-quickaccess
             :unique-key="uniqueKey"
             ref="quickAccess"
             :sections="sections"
             :default-folder-icon="defaultFolderIcon"
             @nodeselected="onQuickAccessNodeSelected"
             @command="onQuickAccessCommand"
-        ></backend-component-treeview-quickaccess>
+        ></backend-treeview-quickaccess>
     </div>
 
     <div

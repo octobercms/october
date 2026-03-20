@@ -1,7 +1,7 @@
 /*
  * Media manager popup
  */
-class MediaManagerPopup
+export default class MediaManagerPopup
 {
     static DEFAULTS = {
         alias: undefined,

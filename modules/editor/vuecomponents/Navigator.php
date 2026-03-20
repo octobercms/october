@@ -10,4 +10,8 @@ use Backend\Classes\VueComponentBase;
  */
 class Navigator extends VueComponentBase
 {
+    /**
+     * @var string componentName is the Vue component tag name.
+     */
+    protected $componentName = 'editor-component-navigator';
 }

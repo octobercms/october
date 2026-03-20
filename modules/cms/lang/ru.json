@@ -137,5 +137,6 @@
   "Define a Snippet Partial": "Задайте фрагмент сниппета",
   "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Некорректный ключ выпадающего списка: %s. Ключ может содержать только цифры, латинские буквы и символы _ и -",
   "The description is displayed in the snippet list in the editor when a snippet is added.": "Описание отображается в списке фрагментов в редакторе при добавлении фрагмента.",
-  "Details": "Подробности"
+  "Details": "Подробности",
+  "Frontend Theme": "Фронтенд темы"
 }

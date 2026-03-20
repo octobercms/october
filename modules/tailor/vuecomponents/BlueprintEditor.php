@@ -11,6 +11,11 @@ use Backend\Classes\VueComponentBase;
 class BlueprintEditor extends VueComponentBase
 {
     /**
+     * @var string componentName is the Vue component tag name.
+     */
+    protected $componentName = 'tailor-editor-component-blueprint-editor';
+
+    /**
      * @var array require
      */
     protected $require = [

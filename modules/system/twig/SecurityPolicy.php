@@ -23,7 +23,43 @@ final class SecurityPolicy implements SecurityPolicyInterface
      * that are included in the allow-list.
      */
     protected $blockedClassMethods = [
-        \October\Rain\Database\Attach\File::class => ['fromPost', 'fromData', 'fromUrl', 'getDisk'],
+        // Block write operations on database query builders
+        \October\Rain\Database\Attach\File::class => [
+            'fromPost', 'fromData', 'fromUrl', 'getDisk'
+        ],
+        \Illuminate\Database\Query\Builder::class => [
+            'insert', 'insertOrIgnore', 'insertGetId', 'insertUsing', 'insertOrIgnoreUsing',
+            'update', 'updateFrom', 'updateOrInsert', 'upsert',
+            'delete', 'truncate',
+            'increment', 'incrementEach', 'decrement', 'decrementEach',
+            'from', 'fromRaw', 'fromSub',
+            'getConnection', 'toRawSql',
+        ],
+        \Illuminate\Database\Eloquent\Builder::class => [
+            'insert', 'insertOrIgnore', 'insertGetId', 'insertUsing', 'insertOrIgnoreUsing',
+            'update', 'updateOrInsert', 'upsert',
+            'delete', 'truncate', 'forceDelete',
+            'increment', 'incrementEach', 'decrement', 'decrementEach',
+            'create', 'createQuietly', 'forceCreate', 'forceCreateQuietly',
+            'firstOrCreate', 'createOrFirst', 'updateOrCreate', 'incrementOrCreate',
+            'fillAndInsert', 'fillAndInsertOrIgnore', 'fillAndInsertGetId',
+            'touch',
+            'toRawSql',
+        ],
+        \Illuminate\Database\Eloquent\Model::class => [
+            'insert', 'insertOrIgnore', 'insertGetId', 'insertUsing', 'insertOrIgnoreUsing',
+            'update', 'updateOrFail', 'updateQuietly', 'updateOrInsert', 'upsert',
+            'delete', 'deleteQuietly', 'deleteOrFail', 'forceDelete', 'destroy', 'forceDestroy',
+            'truncate',
+            'increment', 'incrementEach', 'decrement', 'decrementEach',
+            'create', 'createQuietly', 'forceCreate', 'forceCreateQuietly',
+            'firstOrCreate', 'createOrFirst', 'updateOrCreate', 'incrementOrCreate',
+            'save', 'saveQuietly', 'saveOrFail',
+            'push', 'pushQuietly',
+            'fill', 'forceFill',
+            'touch',
+            'getConnection', 'toRawSql',
+        ],
     ];
 
     /**
@@ -167,6 +203,7 @@ final class SecurityPolicy implements SecurityPolicyInterface
             $obj instanceof \Illuminate\Database\Eloquent\Model ||
             $obj instanceof \Illuminate\Database\Eloquent\Builder ||
             $obj instanceof \Illuminate\Pagination\AbstractPaginator ||
+            $obj instanceof \Illuminate\View\ComponentAttributeBag ||
             $obj instanceof \SimpleXMLElement
         ) {
             return;

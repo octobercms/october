@@ -19,6 +19,15 @@ trait KeyCodeModel
     protected static $cacheByCode = [];
 
     /**
+     * clearKeyCodeCache clears the static lookup caches
+     */
+    public static function clearKeyCodeCache()
+    {
+        self::$cacheByKey = [];
+        self::$cacheByCode = [];
+    }
+
+    /**
      * findByKey locates a tax class by its key, cached.
      */
     public static function findByKey(?string $key = null): ?self

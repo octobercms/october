@@ -1,42 +1,49 @@
-'use strict';
+import { ControlBase, registerControl } from 'larajax';
+import DashStore from '../classes/dash-store.js';
 
-oc.registerControl('dashwidget', class extends oc.ControlBase
+registerControl('dashwidget', class extends ControlBase
 {
     connect() {
         this.universalDateFormat = 'YYYY-MM-DD';
         this.vueElement = this.element.querySelector('[data-vue-template]');
         this.store = this.createStore();
 
-        this.initVue();
         this.initDefaultQueryParameters();
-
         this.setIntervalRange();
+        this.initVue();
     }
 
     disconnect() {
         this.store = null;
-        if (this.vm) {
-            this.vm.$destroy();
+        if (this.app) {
+            this.app.unmount();
         }
     }
 
     initVue() {
-        this.vm = new Vue({
-            data: {
+        const { app, vm } = oc.mountVueApp(this.vueElement, {
+            data: () => ({
                 store: this.store
-            },
-            el: this.vueElement
+            })
         });
+
+        this.app = app;
+        this.vm = vm;
     }
 
     createStore() {
         const initialState = this.element.querySelector('[data-vue-state=initial]').innerHTML;
-        const store = new Dashboard_Widgets_Dash_Classes_DashStore(this);
+        const store = new DashStore(this);
         store.setInitialState(JSON.parse(initialState));
         return store;
     }
 
     initDefaultQueryParameters() {
+        // Skip interval parameters if interval is hidden
+        if (!this.store.state.showInterval) {
+            return;
+        }
+
         const searchParams = new URLSearchParams(window.location.search);
 
         // Validate and clean parameters
@@ -56,12 +63,12 @@ oc.registerControl('dashwidget', class extends oc.ControlBase
             searchParams.delete('compare');
         }
 
-        // Set defaults
+        // Set defaults from dashboard configuration
         const requiredQueryParams = {
-            start: moment().startOf('month').format(this.universalDateFormat),
-            end: moment().format(this.universalDateFormat),
-            interval: 'day',
-            compare: 'none'
+            start: this.resolveRangeKeyword(this.store.state.defaultStart),
+            end: this.resolveRangeKeyword(this.store.state.defaultEnd),
+            interval: this.store.state.defaultInterval,
+            compare: this.store.state.defaultCompare
         };
 
         let isDirty = false;
@@ -79,15 +86,38 @@ oc.registerControl('dashwidget', class extends oc.ControlBase
     }
 
     setIntervalRange() {
-        const dateStart = moment(this.store.getQueryParam('start'), this.universalDateFormat, true);
-        const dateEnd = moment(this.store.getQueryParam('end'), this.universalDateFormat, true);
+        let dateStart, dateEnd, interval, compareMode;
+
+        if (this.store.state.showInterval) {
+            dateStart = moment(this.store.getQueryParam('start'), this.universalDateFormat, true);
+            dateEnd = moment(this.store.getQueryParam('end'), this.universalDateFormat, true);
+            interval = this.store.getQueryParam('interval');
+            compareMode = this.store.getQueryParam('compare');
+        }
+        else {
+            dateStart = moment(this.resolveRangeKeyword(this.store.state.defaultStart), this.universalDateFormat, true);
+            dateEnd = moment(this.resolveRangeKeyword(this.store.state.defaultEnd), this.universalDateFormat, true);
+            interval = this.store.state.defaultInterval;
+            compareMode = this.store.state.defaultCompare;
+        }
 
         this.store.state.range.dateStart = dateStart.format(this.universalDateFormat);
         this.store.state.range.dateEnd = dateEnd.format(this.universalDateFormat);
-        this.store.state.range.interval = this.store.getQueryParam('interval');
+        this.store.state.range.interval = interval;
         this.store.state.intervalName = this.makeIntervalName(dateStart.toDate(), dateEnd.toDate());
-        this.store.state.compareMode = this.store.getQueryParam('compare');
+        this.store.state.compareMode = compareMode;
         this.store.resetData();
+    }
+
+    resolveRangeKeyword(keyword) {
+        switch (keyword) {
+            case 'today': return moment().format(this.universalDateFormat);
+            case 'week': return moment().startOf('isoWeek').format(this.universalDateFormat);
+            case 'month': return moment().startOf('month').format(this.universalDateFormat);
+            case 'quarter': return moment().startOf('quarter').format(this.universalDateFormat);
+            case 'year': return moment().startOf('year').format(this.universalDateFormat);
+            default: return keyword;
+        }
     }
 
     makeIntervalName(startDate, endDate) {

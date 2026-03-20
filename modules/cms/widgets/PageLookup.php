@@ -69,7 +69,7 @@ class PageLookup extends WidgetBase
      */
     protected function loadAssets()
     {
-        $this->addJsBundle('js/pagelookup.js', 'global');
+        $this->addJs('js/pagelookup.js', ['type' => 'module']);
     }
 
     /**
@@ -92,6 +92,9 @@ class PageLookup extends WidgetBase
         $this->vars['selectWidget'] = $this->getSelectFormWidget();
         $this->vars['includeTitle'] = $this->shouldIncludeTitle();
         $this->vars['singleMode'] = $this->isSingleMode();
+        $this->vars['allowCustomUrl'] = $this->isAllowCustomUrl();
+        $this->vars['allowedTypes'] = $this->getAllowedTypes();
+        $this->vars['excludedTypes'] = $this->getExcludedTypes();
     }
 
     /**
@@ -208,9 +211,16 @@ class PageLookup extends WidgetBase
         $model = new PageLookupItem;
         $model->type = 'url';
         $model->singleMode = $this->isSingleMode();
+        $model->allowCustomUrl = $this->isAllowCustomUrl();
+        $model->allowedTypes = $this->getAllowedTypes();
+        $model->excludedTypes = $this->getExcludedTypes();
 
         if ($value = $this->getLoadValue()) {
             $model = PageLookupItem::fromSchema($value) ?: $model;
+            $model->singleMode = $this->isSingleMode();
+            $model->allowCustomUrl = $this->isAllowCustomUrl();
+            $model->allowedTypes = $this->getAllowedTypes();
+            $model->excludedTypes = $this->getExcludedTypes();
         }
 
         $config = $this->makeConfig();
@@ -262,6 +272,9 @@ class PageLookup extends WidgetBase
         $types = [];
         $item = new PageLookupItem;
         $item->singleMode = $this->isSingleMode();
+        $item->allowCustomUrl = $this->isAllowCustomUrl();
+        $item->allowedTypes = $this->getAllowedTypes();
+        $item->excludedTypes = $this->getExcludedTypes();
         foreach ($item->getTypeOptions() as $type => $typeTitle) {
             $typeInfo = $item->getTypeInfo($type);
             if (empty($typeInfo['references'])) {
@@ -277,7 +290,7 @@ class PageLookup extends WidgetBase
             }
         }
 
-        if (PageLookupItem::isValidUrl($searchTerm)) {
+        if ($this->isAllowCustomUrl() && PageLookupItem::isValidUrl($searchTerm)) {
             $types[] = [
                 'text' => __('URL'),
                 'children' => [[
@@ -322,5 +335,38 @@ class PageLookup extends WidgetBase
     protected function isSingleMode(): bool
     {
         return (bool) post('pagelookup_single');
+    }
+
+    /**
+     * isAllowCustomUrl
+     */
+    protected function isAllowCustomUrl(): bool
+    {
+        $value = post('pagelookup_allow_custom_url');
+        return $value === null ? true : (bool) $value;
+    }
+
+    /**
+     * getAllowedTypes
+     */
+    protected function getAllowedTypes(): ?array
+    {
+        $types = post('pagelookup_allowed_types');
+        if (!$types || $types === 'null') {
+            return null;
+        }
+        return is_array($types) ? $types : json_decode($types, true);
+    }
+
+    /**
+     * getExcludedTypes
+     */
+    protected function getExcludedTypes(): ?array
+    {
+        $types = post('pagelookup_excluded_types');
+        if (!$types || $types === 'null') {
+            return null;
+        }
+        return is_array($types) ? $types : json_decode($types, true);
     }
 }

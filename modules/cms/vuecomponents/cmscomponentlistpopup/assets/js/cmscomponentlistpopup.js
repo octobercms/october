@@ -1,4 +1,4 @@
-Vue.component('cmd-component-list-popup', {
+export default {
     props: {
         components: Array
     },
@@ -26,7 +26,7 @@ Vue.component('cmd-component-list-popup', {
         },
 
         hide: function hide() {
-            if (this.$refs.modal.isVisible) {
+            if (this.$refs.modal && this.$refs.modal.isVisible) {
                 this.$refs.modal.hide();
             }
         },
@@ -56,6 +56,5 @@ Vue.component('cmd-component-list-popup', {
         }
     },
     mounted: function mounted() {},
-    beforeDestroy: function beforeDestroy() {},
-    template: '#cms_vuecomponents_cmscomponentlistpopup'
-});
+    beforeUnmount: function beforeUnmount() {}
+};

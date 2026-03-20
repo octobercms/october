@@ -1,14 +1,11 @@
 <?php namespace Backend\Widgets;
 
 use Site;
-use Event;
-use Block;
-use Cookie;
 use Request;
 use BackendAuth;
 use Cms\Classes\Theme;
 use Backend\Classes\WidgetBase;
-use Backend\Models\UserPreference;
+use System\Classes\PluginManager;
 
 /**
  * SiteSwitcher widget.
@@ -35,18 +32,14 @@ class SiteSwitcher extends WidgetBase
     {
         parent::bindToController();
 
+        // Store preference when user actively switches site
         if ($id = get('_site_id')) {
-            $this->applyEditSiteFromRequest($id);
-        }
-        elseif ($id = Request::header('X_SITE_ID')) {
-            $this->applyEditSiteFromHeader($id);
-        }
-        else {
-            $this->applyEditSiteFromPreference();
-        }
+            if (!Request::ajax()) {
+                Theme::resetEditTheme();
+            }
 
-        // Disable banner for now
-        // $this->applyEditSiteBanner();
+            Site::storeEditSitePreference($id);
+        }
     }
 
     /**
@@ -78,12 +71,33 @@ class SiteSwitcher extends WidgetBase
 
         $useMultisite = Site::hasMultiEditSite();
 
+        $sites = Site::listEditEnabled();
+        $sites = $this->filterSitesByPlugin($sites);
+
         $this->vars['switchHandler'] = $this->switchHandler;
         $this->vars['useMultisite'] = $useMultisite;
         $this->vars['canManageSite'] = BackendAuth::userHasAccess('settings.manage_sites');
         $this->vars['useAnySite'] = Site::hasAnySite();
         $this->vars['editSite'] = Site::getEditSite() ?: Site::getAnySite();
-        $this->vars['sites'] = Site::listEditEnabled();
+        $this->vars['sites'] = $sites;
+    }
+
+    /**
+     * filterSitesByPlugin removes sites where the current controller's
+     * plugin is disabled, returns the collection unchanged for module controllers.
+     */
+    protected function filterSitesByPlugin($sites)
+    {
+        $manager = PluginManager::instance();
+        $pluginCode = $manager->getIdentifier(get_class($this->controller));
+
+        if (!$pluginCode || !$manager->hasPlugin($pluginCode)) {
+            return $sites;
+        }
+
+        return $sites->filter(function($site) use ($manager, $pluginCode) {
+            return !$manager->isDisabledForSiteDefinition($pluginCode, $site);
+        });
     }
 
     /**
@@ -101,117 +115,7 @@ class SiteSwitcher extends WidgetBase
      */
     protected function loadAssets()
     {
-        $this->addCssBundle('css/siteswitcher.css', 'global');
-        $this->addJsBundle('js/siteswitcher.js', 'global');
-    }
-
-    /**
-     * applyEditSiteFromRequest
-     */
-    protected function applyEditSiteFromRequest($id)
-    {
-        if (!Request::ajax()) {
-            Theme::resetEditTheme();
-        }
-
-        $this->storeBackendPreference($id);
-
-        Site::applyEditSiteId($id);
-
-        Site::resetCache();
-    }
-
-    /**
-     * applyEditSiteFromHeader
-     */
-    protected function applyEditSiteFromHeader($id)
-    {
-        Site::applyEditSiteId($id);
-    }
-
-    /**
-     * applyEditSiteFromPreference
-     */
-    protected function applyEditSiteFromPreference()
-    {
-        if ($site = $this->getBackendPreference()) {
-            Site::applyEditSite($site);
-        }
-    }
-
-    /**
-     * applyEditSiteBanner
-     */
-    protected function applyEditSiteBanner()
-    {
-        $site = Site::getEditSite();
-        if (!$site || !$site->is_styled) {
-            return;
-        }
-
-        Block::append('banner-area', $this->makePartial('sitebanner', [
-            'siteName' => $site->name,
-            'foregroundColor' => $site->color_foreground,
-            'backgroundColor' => $site->color_background,
-            'flagIcon' => $site->flag_icon
-        ]));
-    }
-
-    /**
-     * getBackendPreference
-     */
-    public function getBackendPreference()
-    {
-        /**
-         * @event backend.site.getEditSite
-         * Overrides the edit site object.
-         *
-         * If a value is returned from this halting event, it will be used as the edit
-         * site object. Example usage:
-         *
-         *     Event::listen('backend.site.getEditSite', function() {
-         *         return SiteDefinition::find(1);
-         *     });
-         *
-         */
-        $apiResult = Event::fire('backend.site.getEditSite', [], true);
-        if ($apiResult !== null) {
-            return $apiResult;
-        }
-
-        $id = Cookie::get('admin_site');
-
-        if (!$id && BackendAuth::getUser()) {
-            $id = UserPreference::forUser()->get('system::site.edit', null);
-        }
-
-        if (!$id) {
-            return Site::getAnyEditSite();
-        }
-
-        return Site::getSiteFromId($id) ?: Site::getAnyEditSite();
-    }
-
-    /**
-     * storeBackendPreference sets the editing theme
-     */
-    public function storeBackendPreference($id)
-    {
-        UserPreference::forUser()->set('system::site.edit', $id);
-
-        Cookie::queue(Cookie::forever('admin_site', $id));
-
-        /**
-         * @event backend.site.setEditSite
-         * Fires when the edit site has been changed.
-         *
-         * Example usage:
-         *
-         *     Event::listen('backend.site.setEditSite', function($id) {
-         *         \Log::info("Site has been changed to $id");
-         *     });
-         *
-         */
-        Event::fire('backend.site.setEditSite', [$id]);
+        $this->addCss('css/siteswitcher.css');
+        $this->addJs('js/siteswitcher.js', ['type' => 'module']);
     }
 }

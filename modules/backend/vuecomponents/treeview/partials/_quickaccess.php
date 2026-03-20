@@ -1,4 +1,4 @@
-<backend-component-modal
+<backend-modal
     ref="modal"
     :unique-key="modalUniqueKey"
     :close-by-overlay-click="true"
@@ -27,7 +27,7 @@
                         />
                     </div>
                     <div class="quick-access-list flex-layout-item stretch relative">
-                        <backend-component-scrollable-panel ref="scrollablePanel">
+                        <backend-scrollable-panel ref="scrollablePanel">
                             <ul>
                                 <li class="quick-list-header" v-if="nodes.length > 0">
                                     <?= e(trans('backend::lang.treeview.open')) ?>
@@ -88,10 +88,10 @@
                                     <span class="path-item path-leaf path-leaf-command" v-text="commandData.item.label"></span>
                                 </li>
                             </ul>
-                        </backend-component-scrollable-panel>
+                        </backend-scrollable-panel>
                     </div>
                 </div>
             </div>
         </div>
     </template>
-</backend-component-modal>
+</backend-modal>

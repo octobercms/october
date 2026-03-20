@@ -89,5 +89,12 @@
   "All :name Items": "Alle :navn-indgange",
   "Update Existing Records": "Opdater eksisterende poster",
   "Check this box to update records that match the same ID, title or slug.": "Marker dette felt for at opdatere poster, der matcher det samme id, titel eller slug.",
-  "Copy": "Kopi"
+  "Copy": "Kopi",
+  "App": "Appen",
+  "Blueprints": "Tegninger",
+  "App Blueprint": "App-plan",
+  "Theme Blueprint": "Temaplan",
+  "Reset Structure": "Nulstil struktur",
+  "Structure has been reset": "Strukturen er blevet nulstillet",
+  "Content": "Tilfreds"
 }

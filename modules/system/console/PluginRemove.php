@@ -6,8 +6,6 @@ use Illuminate\Console\Command;
 use System\Classes\UpdateManager;
 use System\Classes\PluginManager;
 use System\Helpers\Cache as CacheHelper;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * PluginRemove removes a plugin.
@@ -23,9 +21,12 @@ class PluginRemove extends Command
     use \Illuminate\Console\ConfirmableTrait;
 
     /**
-     * @var string name of console command
+     * @var string signature for the console command
      */
-    protected $name = 'plugin:remove';
+    protected $signature = 'plugin:remove
+        {name : The name of the plugin. Eg: AuthorName.PluginName}
+        {--composer : Command triggered from composer.}
+        {--f|force : Force the operation to run.}';
 
     /**
      * @var string description of the console command
@@ -103,27 +104,6 @@ class PluginRemove extends Command
         UpdateManager::instance()->setNotesCommand($this)->rollbackPlugin($name);
 
         return true;
-    }
-
-    /**
-     * getArguments get the console command arguments
-     */
-    protected function getArguments()
-    {
-        return [
-            ['name', InputArgument::REQUIRED, 'The name of the plugin. Eg: AuthorName.PluginName'],
-        ];
-    }
-
-    /**
-     * getOptions get the console command options
-     */
-    protected function getOptions()
-    {
-        return [
-            ['composer', null, InputOption::VALUE_NONE, 'Command triggered from composer.'],
-            ['force', 'f', InputOption::VALUE_NONE, 'Force the operation to run.'],
-        ];
     }
 
     /**

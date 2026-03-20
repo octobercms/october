@@ -1,0 +1,62 @@
+/*
+ * Tabs control
+ * - The control supports 3 basic CSS classes: master, primary and secondary.
+ * --------------------------------------------------
+ */
+
+@import "./tab.base.css";
+@import "./tab.variants.css";
+
+:root, [data-bs-theme="light"] {
+    --oc-content-tab-content-bg: #e9edf3;
+}
+
+[data-bs-theme="dark"] {
+    --oc-content-tab-content-bg: #181a1e;
+}
+
+.control-tabs {
+    /* Tab-specific variables */
+    --tab-scroll-indicator-color: #72809d;
+    --tab-bg: #ffffff;
+    --tab-color: var(--oc-tab-color);
+    --tab-active-color: var(--oc-tab-active-color);
+    --tab-border: var(--oc-tab-border);
+    --tab-hover-bg: var(--oc-tab-hover-bg);
+
+    /* Nav variables */
+    --tab-nav-link-padding: 10px 15px;
+    --tab-nav-link-hover-bg: #eeeeee;
+    --tab-nav-disabled-link-color: #98A0A0;
+    --tab-nav-tabs-border-color: #ddd;
+    --tab-nav-tabs-link-hover-border-color: #eeeeee;
+    --tab-nav-tabs-active-link-hover-bg: var(--bs-body-bg);
+    --tab-nav-tabs-active-link-hover-color: #555555;
+    --tab-nav-tabs-active-link-hover-border-color: #ddd;
+
+    /* Sizing variables */
+    --tab-padding-standard: 20px;
+    --tab-font-size-base: 14px;
+    --tab-border-radius-large: 6px;
+
+    /* Z-index */
+    --tab-zindex: 10;
+
+    /* Brand colors */
+    --tab-brand-primary: var(--bs-primary);
+    --tab-brand-danger: var(--bs-danger);
+
+    /* Body background */
+    --tab-body-bg: var(--bs-body-bg);
+
+    /* Popup background */
+    --tab-popup-bg: var(--oc-popup-bg);
+
+    /* Content tabs specific */
+    --tab-content-bg: var(--oc-content-tab-content-bg, #e9edf3);
+    --tab-content-active-bg: var(--bs-body-bg);
+    --tab-content-border: var(--bs-border-color);
+
+    /* Icon */
+    --tab-icon-circle: "\f10c";
+}

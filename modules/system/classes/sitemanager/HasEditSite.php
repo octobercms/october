@@ -2,8 +2,10 @@
 
 use Cms;
 use Event;
+use Cookie;
 use Config;
 use BackendAuth;
+use Backend\Models\UserPreference;
 use System\Models\SiteDefinition;
 
 /**
@@ -18,6 +20,42 @@ trait HasEditSite
      * @var mixed editSiteCache
      */
     protected $editSiteCache;
+
+    /**
+     * getEditSiteFromRequest resolves the edit site from the current request
+     * by checking cookie, user preference, and falling back to any edit site.
+     */
+    public function getEditSiteFromRequest()
+    {
+        /**
+         * @event system.site.getEditSite
+         * Overrides the edit site object.
+         *
+         * If a value is returned from this halting event, it will be used as the edit
+         * site object. Example usage:
+         *
+         *     Event::listen('system.site.getEditSite', function() {
+         *         return SiteDefinition::find(1);
+         *     });
+         *
+         */
+        $apiResult = Event::fire('system.site.getEditSite', [], true);
+        if ($apiResult !== null) {
+            return $apiResult;
+        }
+
+        $id = Cookie::get('admin_site');
+
+        if (!$id && BackendAuth::getUser()) {
+            $id = UserPreference::forUser()->get('system::site.edit', null);
+        }
+
+        if (!$id) {
+            return $this->getAnyEditSite();
+        }
+
+        return $this->getSiteFromId($id) ?: $this->getAnyEditSite();
+    }
 
     /**
      * applyEditSiteId
@@ -146,5 +184,31 @@ trait HasEditSite
     public function setEditSite($site)
     {
         $this->setEditSiteId($site->id);
+    }
+
+    /**
+     * storeEditSitePreference persists the edit site selection to user
+     * preference and cookie when the user actively switches sites.
+     */
+    public function storeEditSitePreference($id)
+    {
+        UserPreference::forUser()->set('system::site.edit', $id);
+
+        Cookie::queue(Cookie::forever('admin_site', $id));
+
+        $this->resetCache();
+
+        /**
+         * @event system.site.setEditSite
+         * Fires when the edit site has been changed.
+         *
+         * Example usage:
+         *
+         *     Event::listen('system.site.setEditSite', function($id) {
+         *         \Log::info("Site has been changed to $id");
+         *     });
+         *
+         */
+        Event::fire('system.site.setEditSite', [$id]);
     }
 }

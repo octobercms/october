@@ -4,8 +4,10 @@ use Url;
 use Str;
 use Lang;
 use File;
+use Html;
 use Input;
 use Config;
+use System;
 use Request;
 use Response;
 use Exception;
@@ -95,10 +97,9 @@ class MediaManager extends WidgetBase
      */
     protected function loadAssets()
     {
-        $this->addCssBundle('css/mediamanager.css', 'global');
-        $this->addJsBundle('js/mediamanager.js', 'global');
-        $this->addJsBundle('js/mediamanager.imagecroppopup.js', 'global');
-        $this->addJsBundle('js/mediamanager.popup.js', 'global');
+        $this->addCss('css/mediamanager.css');
+        $this->addJs('js/mediamanager.js', ['type' => 'module']);
+        $this->addJs('js/mediamanager.popup.js', ['type' => 'module']);
     }
 
     /**
@@ -1553,6 +1554,10 @@ class MediaManager extends WidgetBase
             return;
         }
 
+        // Set locale early since this runs in the widget constructor,
+        // before the controller applies the user's locale preference
+        \Backend\Models\Preference::setAppLocale();
+
         if (!$this->checkHasPermission('mediaCreate')) {
             throw new ForbiddenException;
         }
@@ -1614,19 +1619,17 @@ class MediaManager extends WidgetBase
                 ? $uploadedFile->getPath() . DIRECTORY_SEPARATOR . $uploadedFile->getFileName()
                 : $uploadedFile->getRealPath();
 
-            // Cannot overwrite files without permission or confirmation
-            $forceOverwrite = (bool) post('force_overwrite', false);
-            $canOverwrite = $this->checkHasPermission('mediaDelete');
-            if (MediaLibrary::instance()->has($filePath) && (!$canOverwrite || !$forceOverwrite)) {
-                throw new ApplicationException(__('A media file already exists at this location, please upload using a different filename.'));
-            }
-
             // Check and clean vector files
             // @todo use streaming like file objects
             $contents = File::get($realPath);
             if ($extension === 'svg' && Config::get('media.clean_vectors', true)) {
                 // @todo File::cleanVector() helper might be helpful here to clean temporary file in place
-                $contents = \Html::cleanVector($contents);
+                $contents = Html::cleanVector($contents);
+            }
+
+            // Handle duplicate files
+            if ($this->checkDuplicateFile($realPath, $filePath, $quickMode)) {
+                return;
             }
 
             // Write file to disk
@@ -1668,6 +1671,44 @@ class MediaManager extends WidgetBase
     }
 
     /**
+     * checkDuplicateFile checks if a file already exists and handles accordingly.
+     * Returns true if the upload should be halted (response already set).
+     */
+    protected function checkDuplicateFile(string $realPath, string $filePath, bool $quickMode): bool
+    {
+        if (!MediaLibrary::instance()->has($filePath)) {
+            return false;
+        }
+
+        // Specific mode for checking if the upload is happening via an editor
+        if ($quickMode) {
+            // Compare size: same name and size is close enough to consider identical
+            if (filesize($realPath) === MediaLibrary::instance()->size($filePath)) {
+                $this->controller->setResponse(Response::make([
+                    'link' => MediaLibrary::url($filePath),
+                    'result' => 'success'
+                ]));
+                return true;
+            }
+
+            // Different content with same filename: return error as HTTP 200 JSON so Froala's
+            // image.uploaded event can intercept and show a meaningful message to the user
+            $this->controller->setResponse(Response::make([
+                'error' => Lang::get('backend::lang.media.folder_or_file_exist')
+            ]));
+            return true;
+        }
+
+        $forceOverwrite = (bool) post('force_overwrite', false);
+        $canOverwrite = $this->checkHasPermission('mediaDelete');
+        if (!$canOverwrite || !$forceOverwrite) {
+            throw new ApplicationException(__('A media file already exists at this location, please upload using a different filename.'));
+        }
+
+        return false;
+    }
+
+    /**
      * validateFileName validates a proposed media item file name.
      * @param string $name
      * @return bool
@@ -1697,6 +1738,10 @@ class MediaManager extends WidgetBase
         $allowedFileTypes = FileDefinitions::get('default_extensions');
 
         if (!in_array($extension, $allowedFileTypes)) {
+            return false;
+        }
+
+        if (System::checkSafeMode() && in_array($extension, ['less', 'sass', 'scss'])) {
             return false;
         }
 

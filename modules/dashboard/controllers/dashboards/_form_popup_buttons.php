@@ -3,42 +3,60 @@
 ?>
 <div>
     <?php if ($isPreview): ?>
-        <?= Ui::button(__("Close"))->dismissPopup() ?>
+        <?= Ui::button(
+            label: __("Close"),
+            dataDismiss: 'popup'
+        ) ?>
     <?php else: ?>
         <?php if (!$this->formGetModel()->exists): ?>
-            <?= Ui::ajaxButton(__("Create"), 'onPopupSave')
-                ->primary()
-                ->ajaxData(['redirect' => false])
-                ->hotkey('ctrl+s', 'cmd+s')
-                ->loadingPopup() ?>
+            <?= Ui::ajaxButton(
+                label: __("Create"),
+                handler: 'onPopupSave',
+                primary: true,
+                hotkey: ['ctrl+s', 'cmd+s'],
+                dataRequestData: "redirect: false",
+                dataPopupLoadIndicator: true
+            ) ?>
         <?php else: ?>
-            <?= Ui::ajaxButton(__("Save"), 'onPopupSave')
-                ->ajaxData(['redirect' => false])
-                ->primary()
-                ->hotkey('ctrl+s', 'cmd+s')
-                ->loadingPopup() ?>
+            <?= Ui::ajaxButton(
+                label: __("Save"),
+                handler: 'onPopupSave',
+                primary: true,
+                hotkey: ['ctrl+s', 'cmd+s'],
+                dataRequestData: "redirect: false",
+                dataPopupLoadIndicator: true
+            ) ?>
 
             <?php if ($formModel->is_system): ?>
-                <?= Ui::ajaxButton("Reset to Default", 'onResetDefault')
-                    ->textLink()
-                    ->cssClass('pull-right mt-3')
-                    ->confirmMessage(__("Are you sure?"))
-                    ->loadingPopup() ?>
+                <?= Ui::ajaxButton(
+                    label: __("Reset to Default"),
+                    handler: 'onResetDefault',
+                    class: 'btn-link p-0 pull-right mt-3',
+                    dataRequestConfirm: __("Are you sure?"),
+                    dataPopupLoadIndicator: true
+                ) ?>
             <?php else: ?>
-                <?= Ui::ajaxButton(__("Delete"), 'onPopupDelete')
-                    ->formDeleteButton()
-                    ->confirmMessage(__("Delete this record?"))
-                    ->loadingPopup() ?>
+                <?= Ui::ajaxButton(
+                    label: __("Delete"),
+                    handler: 'onPopupDelete',
+                    class: 'btn-danger pull-right',
+                    icon: 'icon-delete',
+                    dataRequestConfirm: __("Delete this record?"),
+                    dataPopupLoadIndicator: true
+                ) ?>
             <?php endif ?>
         <?php endif ?>
 
         <span class="btn-text">
             <span class="button-separator"><?= __("or") ?></span>
-            <?= Ui::ajaxButton(__("Cancel"), 'onPopupCancel')
-                ->textLink()
-                ->redirectBack()
-                ->ajaxData(['close' => true])
-                ->dismissPopup() ?>
+            <?= Ui::ajaxButton(
+                label: __("Cancel"),
+                handler: 'onPopupCancel',
+                class: 'btn-link p-0',
+                dataBrowserRedirectBack: true,
+                dataRequestData: "close: true",
+                dataDismiss: 'popup'
+            ) ?>
         </span>
     <?php endif ?>
 </div>

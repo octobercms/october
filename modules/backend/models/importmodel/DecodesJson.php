@@ -10,9 +10,13 @@ trait DecodesJson
     /**
      * decodeArrayValueForJson
      */
-    protected function decodeArrayValueForJson($value)
+    protected function decodeArrayValueForJson($value, $delimiter = '|')
     {
-        return $value;
+        if (is_array($value)) {
+            return $value;
+        }
+
+        return $this->decodeArrayValueForCsv($value, $delimiter);
     }
 
     /**

@@ -21,16 +21,17 @@ trait HasCoreModifiers
     protected function applyCoreFieldModifiers(FormElement $host)
     {
         $toTransfer = [
-            'scope',
             'column',
-            'default',
-            'label',
             'comment',
             'commentAbove',
             'commentHtml',
+            'default',
+            'dependsOn',
+            'hidden',
+            'label',
             'placeholder',
             'readOnly',
-            'hidden',
+            'scope',
         ];
 
         // To remove from validation rules when hidden

@@ -125,19 +125,19 @@
     }
 
     InspectorManager.prototype.getContainerPreference = function() {
-        if (!Modernizr.localstorage) {
+        try {
+            return localStorage.getItem('oc.inspectorUseContainer') === "true";
+        } catch (e) {
             return false;
         }
-
-        return localStorage.getItem('oc.inspectorUseContainer') === "true";
     }
 
     InspectorManager.prototype.setContainerPreference = function(value) {
-        if (!Modernizr.localstorage) {
-            return;
+        try {
+            localStorage.setItem('oc.inspectorUseContainer', value ? "true" : "false");
+        } catch (e) {
+            // localStorage not available
         }
-
-        return localStorage.setItem('oc.inspectorUseContainer', value ? "true" : "false");
     }
 
     InspectorManager.prototype.applyValuesFromContainer = function($container) {

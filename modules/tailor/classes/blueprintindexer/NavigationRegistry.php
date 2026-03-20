@@ -1,8 +1,6 @@
 <?php namespace Tailor\Classes\BlueprintIndexer;
 
-use System;
 use Backend;
-use Cms\Classes\Theme;
 use Tailor\Classes\NavigationItem;
 use System\Classes\SettingsManager;
 use Tailor\Classes\Blueprint\EntryBlueprint;
@@ -57,16 +55,11 @@ trait NavigationRegistry
     {
         $records = $this->listNavigationRaw();
 
-        if (!System::hasModule('Cms')) {
+        $themeDatasource = $this->getActiveThemeDatasource();
+        if (!$themeDatasource) {
             return $records;
         }
 
-        $theme = Theme::getEditTheme() ?: Theme::getActiveTheme();
-        if (!$theme) {
-            return $records;
-        }
-
-        $themeDatasource = $theme->getDirname();
         foreach ($records as &$collection) {
             foreach ($collection as $key => $attributes) {
                 if ($themeCode = $attributes['_theme'] ?? false) {

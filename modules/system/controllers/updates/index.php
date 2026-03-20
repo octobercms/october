@@ -4,9 +4,9 @@
             <?php if ($projectDetails): ?>
                 <div class="scoreboard-item title-value">
                     <h4><?= e(__('Project')) ?></h4>
-                    <p class="oc-icon-chain"><?= $projectDetails->name ?></p>
+                    <p class="oc-icon-chain"><?= e($projectDetails->name) ?></p>
                     <p class="description">
-                        <?= e(__('Owner')) ?>: <?= $projectDetails->owner ?> (<a
+                        <?= e(__('Owner')) ?>: <?= e($projectDetails->owner) ?> (<a
                             href="javascript:;"
                             data-control="popup"
                             data-handler="onLoadProjectForm">reset</a>)

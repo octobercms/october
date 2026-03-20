@@ -54,10 +54,10 @@
                 <span v-if="explicitLoading" class="dashboard-widget-loading-pulse">&nbsp;</span>
                 <span v-else v-text="widget.configuration.linkText"></span>
             </a>
-            <backend-component-loading-indicator
+            <backend-loading-indicator
                 v-else
                 size="tiny"
-            ></backend-component-loading-indicator>
+            ></backend-loading-indicator>
         </div>
         <div
             class="indicator-link-container disabled"

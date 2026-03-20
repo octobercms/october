@@ -1,3 +1,2 @@
-oc.Modules.register('backend.component.dropdown', function () {
-    Vue.component('backend-component-dropdown', window.VueMultiselect.default);
-});
+import VueMultiselect from '../vendor/vue-multiselect/vue-multiselect.esm.js';
+export default VueMultiselect;

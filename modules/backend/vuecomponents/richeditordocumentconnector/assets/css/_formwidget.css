@@ -1,0 +1,92 @@
+.field-richeditor {
+    &.vue-mode {
+        border: none;
+        box-shadow: none !important;
+        position: relative;
+
+        textarea[data-richeditor-textarea] {
+            display: none;
+        }
+
+        .editor-write {
+            border: 1px solid var(--bs-border-color);
+            position: relative;
+            transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+            border-radius: 4px;
+
+            &.editor-focus {
+                border: 1px solid var(--oc-border-focus);
+            }
+        }
+
+        &.size-adaptive {
+            .editor-write {
+                border: none!important;
+            }
+        }
+
+        &.size-tiny .editor-write {
+            min-height: 95px;
+        }
+
+        &.size-small .editor-write {
+            min-height: 145px;
+        }
+
+        &.size-large .editor-write {
+            min-height: 245px;
+        }
+
+        &.size-huge .editor-write {
+            min-height: 295px;
+        }
+
+        &.size-giant .editor-write {
+            min-height: 395px;
+        }
+
+        &.stretch .editor-write {
+            float: none;
+            height: calc(100%);
+            position: relative;
+            min-height: 0;
+        }
+
+        .height-indicator {
+            display: none;
+        }
+
+        div.no-resizing-ui {
+            .component-backend-richeditor {
+                .fr-box.fr-basic .fr-element.fr-view {
+                    padding: 10px;
+                }
+            }
+        }
+
+        .component-backend-document {
+            .document-content-container {
+                border-bottom-right-radius: 4px !important;
+                border-bottom-left-radius: 4px !important;
+            }
+
+            .document-header-container {
+                display: none !important;
+            }
+        }
+    }
+}
+
+.fancy-layout {
+    .field-richeditor.vue-mode {
+        border-left: none!important;
+
+        .field-richeditor {
+            border-left: none!important;
+        }
+
+        .editor-write {
+            border: none;
+        }
+    }
+}

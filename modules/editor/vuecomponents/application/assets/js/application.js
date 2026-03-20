@@ -1,4 +1,6 @@
-Vue.component('editor-component-application', {
+import dropdownMenuUtils from '../../../../../backend/vuecomponents/dropdownmenu/assets/js/dropdownmenu-utils.js';
+
+export default {
     props: {
         store: Object,
         customLogo: String
@@ -48,9 +50,10 @@ Vue.component('editor-component-application', {
         }
     },
     methods: {
-        ajaxRequest: function ajaxRequest(handler, requestData) {
-            return new Promise(function(resolve, reject, onCancel) {
-                const request = $.request(handler, {
+        ajaxRequest: function ajaxRequest(handler, requestData, options) {
+            options = options || {};
+            return new Promise(function(resolve, reject) {
+                const request = oc.ajax(handler, {
                     data: requestData,
                     success: function(data) {
                         resolve(data);
@@ -61,9 +64,11 @@ Vue.component('editor-component-application', {
                     }
                 });
 
-                onCancel(function() {
-                    request.abort();
-                });
+                if (options.signal) {
+                    options.signal.addEventListener('abort', function() {
+                        request.abort();
+                    });
+                }
             });
         },
 
@@ -208,11 +213,9 @@ Vue.component('editor-component-application', {
             }
         });
 
-        const menuUtils = oc.Modules.import('backend.component.dropdownmenu.utils');
-        const item = menuUtils.findMenuItem(this.tabContextMenuItems, ['reveal-in-sidebar'], 'command');
+        const item = dropdownMenuUtils.findMenuItem(this.tabContextMenuItems, ['reveal-in-sidebar'], 'command');
         if (item) {
             item.label = this.$el.getAttribute('data-lang-reveal-in-sidebar');
         }
-    },
-    template: '#editor_vuecomponents_application'
-});
+    }
+};

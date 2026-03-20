@@ -122,7 +122,7 @@
     }
 
     ExceptionBeautifier.prototype.initCustomSelect = function (select) {
-        if (Modernizr.touchevents) {
+        if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
             return
         }
 

@@ -15,19 +15,18 @@
     z-index: @zindex-loader;
 
     > span {
-        background-image: url('../../images/loader-transparent.svg');
-        background-size: 40px 40px;
-        background-position: 50% 50%;
-        animation: spin 1s linear infinite;
-        background-repeat: no-repeat;
-
+        --loader-size: 40px;
         position: absolute;
-        width: 40px;
-        height: 40px;
+        width: var(--loader-size);
+        height: var(--loader-size);
         top: 50%;
-        margin-top: -20px;
+        margin-top: calc(var(--loader-size) / -2);
         left: 0;
         display: block;
+        border: 3px solid var(--oc-primary-border);
+        border-top-color: var(--oc-accent);
+        border-radius: 50%;
+        animation: spin 0.8s linear infinite;
     }
 
     &.is-transparent {
@@ -64,16 +63,9 @@
 .loading-indicator.is-opaque,
 .loading-indicator-container.is-opaque .loading-indicator {
     > span {
-        background-image: url('../../images/loader.svg');
-    }
-}
-
-[data-bs-theme="dark"] {
-    .loading-indicator.is-opaque,
-    .loading-indicator-container.is-opaque .loading-indicator {
-        > span {
-            background-image: url('../../images/loader-dark.svg');
-        }
+        background-color: var(--bs-body-bg);
+        border-color: var(--oc-primary-border);
+        border-top-color: var(--oc-accent);
     }
 }
 
@@ -88,18 +80,8 @@
     padding: 16px 16px 16px 30px;
     font-size: 11px;
     > span {
-        height: 20px;
-        width: 20px;
-        margin-top: -10px;
-    }
-}
-
-html.cssanimations {
-    .loading-indicator.size-small,
-    .loading-indicator-container.size-small .loading-indicator {
-        > span {
-            background-size: 20px 20px;
-        }
+        --loader-size: 20px;
+        border-width: 2px;
     }
 }
 
@@ -111,8 +93,8 @@ html.cssanimations {
 
     > span {
         left: 50%;
-        margin-left: -20px;
-        margin-top: -20px;
+        margin-left: calc(var(--loader-size) / -2);
+        margin-top: calc(var(--loader-size) / -2);
     }
 
     > div {
@@ -147,21 +129,18 @@ html.cssanimations {
     margin: 0;
 
     > span {
+        --loader-size: 23px;
         padding: 0;
         margin: 0;
         left: auto;
         right: 7px;
         top: 6px;
-        width: 23px;
-        height: 23px;
-        background-size: 23px 23px;
+        border-width: 2px;
     }
 }
 
 .loading-indicator-container.size-form-field .loading-indicator > span {
+    --loader-size: 20px;
     top: 0;
     right: 0;
-    width: 20px;
-    height: 20px;
-    background-size: 20px 20px;
 }

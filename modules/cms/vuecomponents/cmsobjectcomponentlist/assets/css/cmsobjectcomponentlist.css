@@ -1,1 +1,207 @@
-.component-cms-object-component-list{padding:5px}.component-cms-object-component-list .components-scrollable{border-radius:2px;overflow:hidden;width:100%}.component-cms-object-component-list ul{font-size:0;list-style:none;margin:0;padding:0;white-space:nowrap}.component-cms-object-component-list ul li{background-color:var(--bs-secondary);border-radius:20px;color:#fff;margin:0 5px 0 0;padding:4px 26px 5px 10px;position:relative}.component-cms-object-component-list ul li.unknown{background-color:#7f8c8d;cursor:default}.component-cms-object-component-list ul li:not(.unknown):hover{background-color:var(--bs-primary)}.component-cms-object-component-list ul li:last-child{margin-right:0}.component-cms-object-component-list ul li.inspector-enabled{cursor:pointer}.component-cms-object-component-list ul li.popover-highlight{background-color:var(--bs-primary)}.component-cms-object-component-list ul li .component-header{padding-left:20px;position:relative}.component-cms-object-component-list ul li .component-header i{font-size:14px;left:0;position:absolute;top:4px}.component-cms-object-component-list ul li h3,.component-cms-object-component-list ul li p{font-size:14px;margin:0;padding:0}.component-cms-object-component-list ul li h3{color:#fff;font-weight:400;line-height:150%;overflow:hidden;text-overflow:ellipsis}.component-cms-object-component-list ul li h3>span:first-child{display:none}.component-cms-object-component-list ul li h3>span:last-child{display:block}.component-cms-object-component-list ul li p{display:none;font-size:12px;font-weight:100;margin-top:5px;white-space:normal}.component-cms-object-component-list ul li p.component-alias{bottom:7px;font-weight:600;left:9px;overflow:hidden;position:absolute;right:9px;text-overflow:ellipsis;white-space:nowrap}.component-cms-object-component-list ul li p.component-alias:before{margin-right:4px}.component-cms-object-component-list ul li .remove-component{-webkit-appearance:none;background:transparent;border:none;height:15px;outline:none;position:absolute;right:7px;top:9px;width:15px}.component-cms-object-component-list ul li .remove-component:before{background-position:-156px -10px;display:block;height:7px;left:4px;opacity:.5;position:absolute;top:4px;width:7px}.component-cms-object-component-list ul li .remove-component:hover:before{opacity:1}.component-cms-object-component-list .list-control-buttons{font-size:0;padding-left:15px}.component-cms-object-component-list .list-control-buttons .expand-collapse-button{margin:6px 4px 0 0}.component-cms-object-component-list .list-control-buttons .expand-collapse-button:before{height:16px;left:2px;top:2px;width:16px}.component-cms-object-component-list .list-control-buttons .expand-collapse-button:focus{background:transparent!important}.component-cms-object-component-list .list-control-buttons .expand-collapse-button.expand-list:before{background-position:-95px -15px}.component-cms-object-component-list .list-control-buttons .expand-collapse-button.collapse-list:before{background-position:-116px -15px}.component-cms-object-component-list.expanded ul li{border-radius:4px;max-width:340px;min-width:170px;padding:4px 26px 30px 10px}.component-cms-object-component-list.expanded ul li p{display:block;overflow-wrap:anywhere}.component-cms-object-component-list.expanded h3>span:first-child{display:block}.component-cms-object-component-list.expanded h3>span:last-child{display:none}div.cms-transition-component-list-enter-active{transition:opacity .3s}div.cms-transition-component-list-enter{opacity:0}li.cms-transition-component-list-enter-active{transition:transform .3s,opacity .3s}li.cms-transition-component-list-enter{opacity:0;transform:scale(1.1)}body.popover-open .remove-component{pointer-events:none!important}
+.component-cms-object-component-list {
+    padding: 5px;
+
+    .components-scrollable {
+        width: 100%;
+        overflow: hidden;
+        border-radius: 2px;
+    }
+
+    ul {
+        list-style: none;
+        margin: 0;
+        padding: 0;
+        white-space: nowrap;
+        font-size: 0;
+
+        li {
+            margin: 0 5px 0 0;
+            position: relative;
+            background-color: var(--bs-secondary);
+            padding: 4px 26px 5px 10px;
+            border-radius: 20px;
+            color: white;
+
+            &.unknown {
+                background-color: #7f8c8d;
+                cursor: default;
+            }
+
+            &:not(.unknown):hover {
+                background-color: var(--bs-primary);
+            }
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            &.inspector-enabled {
+                cursor: pointer;
+            }
+
+            &.popover-highlight {
+                background-color: var(--bs-primary);
+            }
+
+            .component-header {
+                position: relative;
+                padding-left: 20px;
+
+                i {
+                    font-size: 14px;
+                    position: absolute;
+                    left: 0;
+                    top: 4px;
+                }
+            }
+
+            h3,
+            p {
+                font-size: 14px;
+                padding: 0;
+                margin: 0;
+            }
+
+            h3 {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                line-height: 150%;
+                font-weight: 400;
+                color: white;
+
+                > span:first-child {
+                    display: none;
+                }
+                > span:last-child {
+                    display: block;
+                }
+            }
+
+            p {
+                white-space: normal;
+                margin-top: 5px;
+                font-weight: 100;
+                font-size: 12px;
+                display: none;
+
+                &.component-alias {
+                    position: absolute;
+                    bottom: 7px;
+                    left: 9px;
+                    right: 9px;
+                    text-overflow: ellipsis;
+                    overflow: hidden;
+                    font-weight: 600;
+                    white-space: nowrap;
+
+                    &:before {
+                        margin-right: 4px;
+                    }
+                }
+            }
+
+            .remove-component {
+                border: none;
+                background: transparent;
+                -webkit-appearance: none;
+                position: absolute;
+                outline: none;
+                width: 15px;
+                height: 15px;
+                right: 7px;
+                top: 9px;
+
+                &:before {
+                    position: absolute;
+                    left: 4px;
+                    top: 4px;
+                    width: 7px;
+                    height: 7px;
+                    background-position: -156px -10px;
+                    opacity: 0.5;
+                    display: block;
+                }
+
+                &:hover:before {
+                    opacity: 1;
+                }
+            }
+        }
+    }
+
+    .list-control-buttons {
+        padding-left: 15px;
+        font-size: 0;
+
+        .expand-collapse-button {
+            margin: 6px 4px 0 0;
+
+            &:before {
+                width: 16px;
+                height: 16px;
+                left: 2px;
+                top: 2px;
+            }
+
+            &:focus {
+                background: transparent !important;
+            }
+
+            &.expand-list {
+                &:before {
+                    background-position: -95px -15px;
+                }
+            }
+
+            &.collapse-list {
+                &:before {
+                    background-position: -116px -15px;
+                }
+            }
+        }
+    }
+
+    &.expanded {
+        ul li {
+            min-width: 170px;
+            max-width: 340px;
+            padding: 4px 26px 30px 10px;
+            border-radius: 4px;
+
+            p {
+                display: block;
+                overflow-wrap: anywhere;
+            }
+        }
+
+        h3 {
+            > span:first-child {
+                display: block;
+            }
+            > span:last-child {
+                display: none;
+            }
+        }
+    }
+}
+
+div.cms-transition-component-list-enter-active {
+    transition: opacity 0.3s;
+}
+
+div.cms-transition-component-list-enter {
+    opacity: 0;
+}
+
+li.cms-transition-component-list-enter-active {
+    transition: transform 0.3s, opacity 0.3s;
+}
+
+li.cms-transition-component-list-enter {
+    opacity: 0;
+    transform: scale(1.1);
+}
+
+body.popover-open .remove-component {
+    pointer-events: none !important;
+}

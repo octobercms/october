@@ -1,0 +1,80 @@
+.component-backend-inspector-panel .component-backend-inspector-controlhost {
+    div.autocomplete {
+        input.autocomplete-input {
+            height: var(--inspector-control-height);
+            padding-top: 0;
+            padding-left: var(--inspector-base-control-side-padding);
+            padding-right: 0;
+            padding-bottom: 0;
+            line-height: var(--inspector-control-height);
+            border: none;
+            display: block;
+            -webkit-appearance: none;
+            width: 100%;
+            box-sizing: border-box;
+            outline: none;
+            background-color: transparent;
+            color: var(--bs-body-color);
+            font-size: inherit;
+            background-image: none;
+
+            &[readonly] {
+                color: var(--oc-form-control-disabled-color) !important;
+            }
+
+            &.clickable {
+                cursor: pointer;
+                user-select: none;
+
+                &[readonly] {
+                    cursor: default;
+                }
+            }
+
+            &.act-as-text-input {
+                overflow: hidden;
+                text-overflow: ellipsis;
+                white-space: nowrap;
+            }
+
+            &.placeholder {
+                color: var(--inspector-placeholder-color);
+                background-color: transparent;
+            }
+
+            &::placeholder {
+                color: var(--inspector-placeholder-color) !important;
+            }
+
+            &:focus, &[aria-expanded=true] {
+                box-shadow: none;
+            }
+        }
+
+        ul.autocomplete-result-list {
+            margin-top: 3px;
+            border-radius: 4px;
+            border-color: var(--oc-primary-border);
+            padding: 3px;
+            user-select: none;
+            box-shadow: -2px 2px 5px rgba(67, 86, 100, 0.12);
+
+            li.autocomplete-result {
+                padding: 0 var(--inspector-base-control-side-padding);
+                border-radius: 2px;
+                min-height: 30px;
+                line-height: 30px;
+                background-image: none;
+
+                &[aria-selected=true] {
+                    background: var(--oc-selection) !important;
+                    color: white !important;
+                }
+
+                &:hover {
+                    background: var(--oc-toolbar-hover-bg);
+                }
+            }
+        }
+    }
+}

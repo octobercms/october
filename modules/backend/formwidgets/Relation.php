@@ -15,6 +15,8 @@ use SystemException;
 class Relation extends FormWidgetBase
 {
     use \Backend\Traits\FormModelWidget;
+    use \Backend\Traits\FormModelSaver;
+    use \Backend\FormWidgets\Relation\HasQuickCreate;
 
     //
     // Configurable Properties
@@ -97,6 +99,7 @@ class Relation extends FormWidgetBase
             'excludeFrom',
             'modelScope',
             'conditions',
+            'quickCreate',
         ]);
 
         if (isset($this->config->select)) {
@@ -110,6 +113,8 @@ class Relation extends FormWidgetBase
         $this->useControllerConfig = (array) ($this->config->controller ?? []);
 
         $this->useController = $this->evalUseController($this->config->useController ?? true);
+
+        $this->initQuickCreate();
     }
 
     /**
@@ -119,6 +124,14 @@ class Relation extends FormWidgetBase
     {
         $this->defineRelationControllerConfig();
         parent::bindToController();
+    }
+
+    /**
+     * @inheritDoc
+     */
+    protected function loadAssets()
+    {
+        $this->loadQuickCreateAssets();
     }
 
     /**
@@ -199,6 +212,11 @@ class Relation extends FormWidgetBase
             // reference the pivot table that isn't included in this query
             if (in_array($relationType, ['belongsToMany', 'morphedByMany', 'morphToMany'])) {
                 $query->getQuery()->reorder();
+
+                // Re-apply defaultSort since it references valid columns
+                if ($this->defaultSort) {
+                    $this->applyDefaultSortToQuery($query);
+                }
             }
         }
 
@@ -251,6 +269,11 @@ class Relation extends FormWidgetBase
             $field->options = $result->pluck($nameFrom, $primaryKeyName)->all();
         }
 
+        // Add quick create option to dropdown
+        if ($this->hasQuickCreate()) {
+            $field->options = $this->addQuickCreateOption($field->options);
+        }
+
         return $this->renderFormField = $field;
     }
 
@@ -259,11 +282,15 @@ class Relation extends FormWidgetBase
      */
     protected function makeFieldOptionsForTree($items, $nameFrom, $primaryKeyName)
     {
+        // When conditions or scopes filter the query, parent nodes may be excluded
+        // from results. Preserve these orphaned children instead of discarding them.
+        $removeOrphans = !$this->conditions && !$this->modelScope;
+
         if ($items instanceof \October\Rain\Database\TreeCollection) {
-            $items = $items->toNested();
+            $items = $items->toNested($removeOrphans);
         }
         elseif (!$items instanceof \Illuminate\Database\Eloquent\Collection) {
-            $items = $items->getNested();
+            $items = $items->get()->toNested($removeOrphans);
         }
 
         $options = [];

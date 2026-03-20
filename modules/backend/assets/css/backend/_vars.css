@@ -25,4 +25,54 @@
     --oc-popup-bg:               var(--bs-modal-bg);
     --oc-popup-border:           1px solid rgba(149, 165, 166, 0.2);
     --oc-backdrop-opacity:       var(--bs-backdrop-opacity);
+
+    /*
+    // "Windex" Z-Index Window Manager
+    // --------------------------------------------------
+    //
+    // Z-Index frequencies:
+    //
+    // 0-100      - Primary layer (body / content)
+    // 100-200    - Primary menus / dropdowns
+    //
+    // 300-400    - Secondary layer (full screen)
+    // 400-500    - Secondary menus / dropdowns
+    //
+    // 500-600    - Tertiary layer (popups)
+    // 600-700    - Tertiary menus / dropdowns
+    //
+    // 1000-10000 - Reserved for frequency manager
+    //
+    // 10000+     - Always on top
+    */
+
+    /* Primary */
+    --oc-zindex-filter:            10;
+    --oc-zindex-button:            10;
+    --oc-zindex-form:              10;
+    --oc-zindex-checkbox:          10;
+    --oc-zindex-breadcrumb:        10;
+    --oc-zindex-chart:             10;
+    --oc-zindex-tab:               10;
+    --oc-zindex-loader:            10;
+    --oc-zindex-navbar:            100;
+    --oc-zindex-navbar-fixed:      110;
+
+    /* Secondary */
+    --oc-zindex-fullscreen:        300;
+
+    /* Tertiary */
+    --oc-zindex-modal-background:  500;
+    --oc-zindex-modal:             600;
+    --oc-zindex-popover:           600;
+    --oc-zindex-dropdown:          600;
+
+    /* Always on top */
+    --oc-zindex-inspector:         10000;
+    --oc-zindex-datepicker:        10100;
+    --oc-zindex-flashmessage:      10300;
+    --oc-zindex-select:            10400;
+    --oc-zindex-alert:             10500;
+    --oc-zindex-snackbar:          10600;
+    --oc-zindex-tooltip:           10700;
 }

@@ -105,8 +105,11 @@ class EventLog extends Model
     {
         $formatted = $this->message;
 
-        if (is_array($this->details)) {
-            $formatted .= " " . json_encode($this->details, JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION | JSON_INVALID_UTF8_SUBSTITUTE | JSON_PARTIAL_OUTPUT_ON_ERROR);
+        if (is_array($this->details) && count($this->details) > 0) {
+            $formatted .= "\n\n" . json_encode(
+                $this->details,
+                JSON_PRETTY_PRINT | JSON_UNESCAPED_SLASHES | JSON_UNESCAPED_UNICODE | JSON_PRESERVE_ZERO_FRACTION | JSON_INVALID_UTF8_SUBSTITUTE | JSON_PARTIAL_OUTPUT_ON_ERROR
+            );
         }
 
         return $formatted;

@@ -10,13 +10,13 @@
                 class="backend-icon-background-pseudo"
             ></span>
 
-            <backend-component-loading-indicator v-if="loading"
+            <backend-loading-indicator v-if="loading"
                 size="tiny"
-            ></backend-component-loading-indicator>
+            ></backend-loading-indicator>
         </div>
     </div>
     <transition name="group-fade-in">
-        <backend-component-inspector-controlhost
+        <backend-inspector-controlhost
             v-show="expanded"
             :controls="controls"
             :obj="obj"
@@ -28,6 +28,6 @@
             :inspector-unique-id="inspectorUniqueId"
             @inspectorcommand="$emit('inspectorcommand', $event)"
         >
-        </backend-component-inspector-controlhost>
+        </backend-inspector-controlhost>
     </transition>
 </div>

@@ -64,7 +64,7 @@ return [
     |
     */
 
-    'default_extensions' => ['jpg', 'jpeg', 'bmp', 'png', 'webp', 'gif', 'svg', 'js', 'map', 'ico', 'css', 'less', 'scss', 'ics', 'odt', 'doc', 'docx', 'ppt', 'pptx', 'pdf', 'swf', 'txt', 'ods', 'xls', 'xlsx', 'eot', 'woff', 'woff2', 'ttf', 'flv', 'wmv', 'mp3', 'ogg', 'wav', 'avi', 'mov', 'mp4', 'mpeg', 'webm', 'mkv', 'rar', 'zip'],
+    'default_extensions' => ['jpg', 'jpeg', 'bmp', 'png', 'webp', 'avif', 'gif', 'svg', 'js', 'map', 'ico', 'css', 'less', 'scss', 'ics', 'odt', 'doc', 'docx', 'ppt', 'pptx', 'pdf', 'swf', 'txt', 'ods', 'xls', 'xlsx', 'eot', 'woff', 'woff2', 'ttf', 'flv', 'wmv', 'mp3', 'ogg', 'wav', 'avi', 'mov', 'mp4', 'mpeg', 'webm', 'mkv', 'rar', 'zip'],
 
     /*
     |--------------------------------------------------------------------------
@@ -75,7 +75,7 @@ return [
     |
     */
 
-    'image_extensions' => ['jpg', 'jpeg', 'bmp', 'png', 'webp', 'gif', 'svg'],
+    'image_extensions' => ['jpg', 'jpeg', 'bmp', 'png', 'webp', 'avif', 'gif', 'svg'],
 
     /*
     |--------------------------------------------------------------------------

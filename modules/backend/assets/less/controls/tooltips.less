@@ -46,3 +46,15 @@
         transform: scale(0.95);
     }
 }
+
+#flotTip, #chart-tooltip {
+    white-space: nowrap;
+    padding: @tooltip-padding;
+    background: @tooltip-bg;
+    position: absolute;
+    z-index: @zindex-tooltip;
+    color: @tooltip-color;
+    border-radius: @tooltip-border-radius;
+    font-size: @tooltip-font-size;
+    opacity: @tooltip-opacity;
+}

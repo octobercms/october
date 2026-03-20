@@ -10,6 +10,11 @@ use Backend\Classes\VueComponentBase;
  */
 class Application extends VueComponentBase
 {
+    /**
+     * @var string componentName is the Vue component tag name.
+     */
+    protected $componentName = 'editor-component-application';
+
     protected $require = [
         \Editor\VueComponents\Navigator::class,
         \Editor\VueComponents\DocumentInfoPopup::class,

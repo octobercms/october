@@ -8,6 +8,12 @@
 <?php if ($this->fatalError): ?>
 
     <p class="flash-message static error"><?= e($this->fatalError) ?></p>
-    <p><a href="<?= Backend::url('cms/themes') ?>" class="btn btn-default"><?= __('Return to Themes List') ?></a></p>
+    <p>
+        <?= Ui::button(
+            label: __("Return to Themes List"),
+            href: Backend::url('cms/themes'),
+            secondary: true
+        ) ?>
+    </p>
 
 <?php endif ?>

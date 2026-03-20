@@ -18,7 +18,11 @@
 
             </div>
             <div class="modal-footer">
-                <?= Ui::button("Cancel")->dismissPopup()->secondary() ?>
+                <?= Ui::button(
+                    label: __("Cancel"),
+                    secondary: true,
+                    dataDismiss: 'popup'
+                ) ?>
             </div>
         </div>
 

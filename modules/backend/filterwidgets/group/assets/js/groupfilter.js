@@ -139,7 +139,7 @@
     }
 
     GroupFilter.prototype.focusSearch = function() {
-        if (Modernizr.touchevents) {
+        if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
             return;
         }
 

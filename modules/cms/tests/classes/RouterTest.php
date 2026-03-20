@@ -18,7 +18,6 @@ class RouterTest extends TestCase
     {
         $class = new ReflectionClass('\Cms\Classes\Router');
         $method = $class->getMethod($name);
-        $method->setAccessible(true);
         return $method;
     }
 
@@ -26,7 +25,6 @@ class RouterTest extends TestCase
     {
         $class = new ReflectionClass('\Cms\Classes\Router');
         $property = $class->getProperty($name);
-        $property->setAccessible(true);
         return $property;
     }
 

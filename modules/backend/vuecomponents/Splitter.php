@@ -10,5 +10,8 @@ use Backend\Classes\VueComponentBase;
  */
 class Splitter extends VueComponentBase
 {
-
+    /**
+     * @var string componentName is the Vue component tag name.
+     */
+    protected $componentName = 'backend-splitter';
 }

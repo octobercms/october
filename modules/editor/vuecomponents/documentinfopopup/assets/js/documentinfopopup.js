@@ -1,4 +1,4 @@
-Vue.component('editor-document-info-popup', {
+export default {
     props: {},
     data: function() {
         return {
@@ -13,6 +13,5 @@ Vue.component('editor-document-info-popup', {
             this.title = title;
             this.$refs.modal.show();
         }
-    },
-    template: '#editor_vuecomponents_documentinfopopup'
-});
+    }
+};

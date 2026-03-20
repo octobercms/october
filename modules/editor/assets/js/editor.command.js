@@ -1,62 +1,57 @@
-oc.Modules.register('editor.command', function() {
-    'use strict';
-    /**
-     * Represents Editor client-side commands.
-     * Command syntax: "namespace:command@parameter". The namespace
-     * and parameter parts are optional.
-     */
-    class EditorCommand {
-        namespace;
-        command;
-        parameter;
-        fullCommand;
-        userData;
+/**
+ * Represents Editor client-side commands.
+ * Command syntax: "namespace:command@parameter". The namespace
+ * and parameter parts are optional.
+ */
+export class EditorCommand {
+    namespace;
+    command;
+    parameter;
+    fullCommand;
+    userData;
 
-        constructor(commandString, userData) {
-            if (typeof commandString === 'object' && commandString instanceof EditorCommand) {
-                return commandString;
-            }
-
-            const re = /^(([^:]+):)?([^@]+)(@(.*))?$/; // Can't use named capture groups because of IE11
-            const matchData = commandString.match(re);
-
-            if (!matchData.length) {
-                throw new Error(
-                    `Editor commands must have format "command", "namespace:command" or "namespace:command@parameter". Invalid command string: ${commandString}`
-                );
-            }
-
-            this.fullCommand = commandString;
-            this.namespace = matchData[2] || null;
-            this.parameter = matchData[5] || null;
-            this.command = matchData[3];
-            this.userData = userData === undefined ? {} : userData;
+    constructor(commandString, userData) {
+        if (typeof commandString === 'object' && commandString instanceof EditorCommand) {
+            return commandString;
         }
 
-        get hasParameter() {
-            return this.parameter != null;
+        const re = /^(([^:]+):)?([^@]+)(@(.*))?$/;
+        const matchData = commandString.match(re);
+
+        if (!matchData.length) {
+            throw new Error(
+                `Editor commands must have format "command", "namespace:command" or "namespace:command@parameter". Invalid command string: ${commandString}`
+            );
         }
 
-        get basePart() {
-            if (this.namespace === null) {
-                return this.command;
-            }
-
-            return this.namespace + ':' + this.command;
-        }
-
-        matches(commandObject) {
-            if (commandObject.fullCommand == this.fullCommand) {
-                return true;
-            }
-
-            if (commandObject.hasParameter) {
-                return false;
-            }
-
-            return this.basePart == commandObject.basePart;
-        }
+        this.fullCommand = commandString;
+        this.namespace = matchData[2] || null;
+        this.parameter = matchData[5] || null;
+        this.command = matchData[3];
+        this.userData = userData === undefined ? {} : userData;
     }
 
-    return EditorCommand;
-});
+    get hasParameter() {
+        return this.parameter != null;
+    }
+
+    get basePart() {
+        if (this.namespace === null) {
+            return this.command;
+        }
+
+        return this.namespace + ':' + this.command;
+    }
+
+    matches(commandObject) {
+        if (commandObject.fullCommand == this.fullCommand) {
+            return true;
+        }
+
+        if (commandObject.hasParameter) {
+            return false;
+        }
+
+        return this.basePart == commandObject.basePart;
+    }
+}

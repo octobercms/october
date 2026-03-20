@@ -3,7 +3,7 @@
     $navbarMode = BrandSetting::get('menu_mode', BrandSetting::MENU_INLINE);
 ?>
 <!DOCTYPE html>
-<html lang="<?= App::getLocale() ?>" class="no-js <?= Backend\Models\BrandSetting::get('color_mode') === 'auto' ? 'color-mode-auto' : '' ?>" data-bs-theme="<?= e(Backend\Models\BrandSetting::getColorMode()) ?>">
+<html lang="<?= App::getLocale() ?>" class="no-js <?= Backend\Models\BrandSetting::isColorModeAuto() ? 'color-mode-auto' : '' ?>" data-bs-theme="<?= e(Backend\Models\BrandSetting::getColorMode()) ?>">
     <head>
         <?= $this->makeLayoutPartial('head') ?>
         <?= $this->fireViewEvent('backend.layout.extendHead', ['default']) ?>

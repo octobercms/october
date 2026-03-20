@@ -1,4 +1,7 @@
-Vue.component('dashboard-component-dashboard-widget-base', {
+import DataHelper from '../../../../assets/js/classes/data-helper.js';
+import InspectorConfigurator from '../../../../assets/js/classes/inspector-configurator.js';
+
+export default {
     props: {
         error: Boolean,
         widget: Object,
@@ -182,7 +185,7 @@ Vue.component('dashboard-component-dashboard-widget-base', {
         },
 
         formatMetricValue: function (metricCode, value) {
-            return Dashboard_Classes_DataHelper
+            return DataHelper
                 .instance()
                 .formatValue(
                     value,
@@ -213,7 +216,7 @@ Vue.component('dashboard-component-dashboard-widget-base', {
             const formattedTotals = prevPeriod ? this.metricsTotalsFormattedPrev : this.metricsTotalsFormatted;
             const formattedValue = formattedTotals ? formattedTotals[metricCode] : undefined;
 
-            return Dashboard_Classes_DataHelper
+            return DataHelper
                 .instance()
                 .formatDisplayValue(
                     total,
@@ -245,7 +248,7 @@ Vue.component('dashboard-component-dashboard-widget-base', {
             const value = record[columnName];
             const formattedValue = record[formattedColumnName];
 
-            return Dashboard_Classes_DataHelper
+            return DataHelper
                 .instance()
                 .formatDisplayValue(
                     value,
@@ -291,31 +294,31 @@ Vue.component('dashboard-component-dashboard-widget-base', {
         addTitleConfigurationProp: function (configuration, optional) {
             const prop = {
                 property: 'title',
-                title: oc.lang.get('dashboard.widget_title'),
+                title: oc.t("Title"),
                 type: 'string'
             };
 
             if (!optional) {
                 prop.validation = {
                     required: {
-                        message: oc.lang.get('dashboard.widget_title_required'),
+                        message: oc.t("Please provide the widget title"),
                     }
                 }
             }
             else {
-                prop.placeholder = oc.lang.get('dashboard.widget_title_optional_placeholder')
+                prop.placeholder = oc.t("Leave empty to hide the title")
             }
 
             configuration.push(prop);
         },
 
         addDataSourceProps: function (configuration, tab, allowedDimensionTypes) {
-            const configurator = new Dashboard_Classes_InspectorConfigurator(this.$el, this.trans, this.store);
+            const configurator = new InspectorConfigurator(this.$el, this.trans, this.store);
             configurator.defineDataSource(configuration, tab, allowedDimensionTypes);
         },
 
         addDataSourceConfigurationProps: function(configuration, filter = [], suppress = []) {
-            const configurator = new Dashboard_Classes_InspectorConfigurator(this.$el, this.trans, this.store);
+            const configurator = new InspectorConfigurator(this.$el, this.trans, this.store);
             configurator.defineDataSourceProperties(configuration, filter, suppress);
         },
 
@@ -354,4 +357,4 @@ Vue.component('dashboard-component-dashboard-widget-base', {
             }
         }
     }
-});
+};

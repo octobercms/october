@@ -392,5 +392,8 @@
   "Configure the widget": "Configureer de widget",
   "to manage its settings.": "om de instellingen te beheren.",
   "Includes": "Bevat",
-  "Excludes": "Bevat niet"
+  "Excludes": "Bevat niet",
+  "Manage Roles": "Beheer rollen",
+  "Manage Groups": "Beheer groepen",
+  "Customize Backend": "Aanpassen beheeromgeving"
 }

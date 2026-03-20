@@ -26,7 +26,6 @@ class CodeParserTest extends TestCase
     {
         $class = new ReflectionClass(CodeParser::class);
         $property = $class->getProperty($name);
-        $property->setAccessible(true);
 
         return $property;
     }

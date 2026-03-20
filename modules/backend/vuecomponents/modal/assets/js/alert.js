@@ -1,55 +1,52 @@
 /*
  * Vue modal alert implementation
  */
-oc.Modules.register('backend.component.modal.alert', function () {
-    Vue.component('backend-component-modal-alert', {
-        props: {
-            title: {
-                type: String,
-                required: true
-            },
-            text: {
-                type: String,
-                required: true
-            },
-            buttonText: {
-                type: String,
-                required: false
-            },
-            size: {
-                type: String,
-                default: 'normal',
-                validator: function (value) {
-                    return ['small', 'normal', 'large'].indexOf(value) !== -1;
-                }
-            }
+export default {
+    props: {
+        title: {
+            type: String,
+            required: true
         },
-        data: function () {
-            return {
-                uniqueKey: $.oc.domIdManager.generate('modal-alert'),
-                modalTitleId: $.oc.domIdManager.generate('modal-alert-title'),
-                primaryButtonText: ""
-            };
+        text: {
+            type: String,
+            required: true
         },
-        computed: {
+        buttonText: {
+            type: String,
+            required: false
         },
-        methods: {
-            onHidden: function onHidden() {
-                this.$destroy();
+        size: {
+            type: String,
+            default: 'normal',
+            validator: function (value) {
+                return ['small', 'normal', 'large'].indexOf(value) !== -1;
             }
-        },
-        mounted: function onMounted() {
-            if (this.buttonText) {
-                this.primaryButtonText = this.buttonText;
-            }
-            else {
-                this.primaryButtonText = $(this.$el).attr('data-default-button-text');
-            }
+        }
+    },
+    data: function () {
+        return {
+            uniqueKey: $.oc.domIdManager.generate('modal-alert'),
+            modalTitleId: $.oc.domIdManager.generate('modal-alert-title'),
+            primaryButtonText: ""
+        };
+    },
+    computed: {
+    },
+    methods: {
+        onHidden: function onHidden() {
+            this.$emit('close');
+        }
+    },
+    mounted: function onMounted() {
+        if (this.buttonText) {
+            this.primaryButtonText = this.buttonText;
+        }
+        else {
+            this.primaryButtonText = $(this.$el).attr('data-default-button-text');
+        }
 
-            this.$refs.modal.show();
-        },
-        beforeDestroy: function beforeDestroy() {
-        },
-        template: '#backend_vuecomponents_modal_alert'
-    });
-});
+        this.$refs.modal.show();
+    },
+    beforeUnmount: function beforeUnmount() {
+    }
+};

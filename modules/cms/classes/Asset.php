@@ -3,6 +3,7 @@
 use File;
 use Lang;
 use Config;
+use System;
 use Request;
 use Cms\Helpers\File as FileHelper;
 use October\Rain\Extension\Extendable;
@@ -459,10 +460,14 @@ class Asset extends Extendable
         $defaultTypes =  ['css', 'js', 'less', 'sass', 'scss'];
 
         $configTypes = Config::get('cms.editable_asset_types');
-        if (!$configTypes) {
-            return $defaultTypes;
+        if ($configTypes) {
+            $defaultTypes = $configTypes;
         }
 
-        return $configTypes;
+        if (System::checkSafeMode()) {
+            $defaultTypes = array_diff($defaultTypes, ['less', 'sass', 'scss']);
+        }
+
+        return array_values($defaultTypes);
     }
 }

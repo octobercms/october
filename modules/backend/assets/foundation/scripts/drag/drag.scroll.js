@@ -31,7 +31,6 @@
  * - goToElement - moves the scrollable area to an element
  *
  * Require:
- * - modernizr/modernizr
  * - mousewheel/mousewheel
  */
 +(function($) {
@@ -118,7 +117,7 @@
             });
         }
 
-        if (Modernizr.touchevents) {
+        if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
             $el.on('touchstart.dragScroll', this.options.dragSelector, function (event) {
                 if (self.paused) {
                     return;
@@ -161,7 +160,7 @@
             dragStart = event[eventElementName];
             startOffset = self.options.vertical ? $el.scrollTop() : $el.scrollLeft();
 
-            if (Modernizr.touchevents) {
+            if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
                 $(window).on('touchend.dragScroll', function(event) {
                     stopDrag();
                 });

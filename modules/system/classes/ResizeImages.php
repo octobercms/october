@@ -8,11 +8,13 @@ use Route;
 use Event;
 use Cache;
 use Config;
+use Resizer;
 use Storage;
 use Redirect;
 use Exception;
+use October\Rain\Filesystem\Definitions as FileDefinitions;
 use ApplicationException;
-use Resizer;
+use finfo;
 
 /**
  * ResizeImages is used for resizing image files
@@ -182,12 +184,25 @@ class ResizeImages
         $sourcePath = $isExternal ? $tempSourcePath : $realSourcePath;
 
         if ($isExternal) {
-            try {
-                $contents = file_get_contents($realSourcePath);
-                file_put_contents($tempSourcePath, $contents);
+            // Validate file extension before fetching
+            if (!$this->validateExternalImageUrl($realSourcePath)) {
+                Log::warning("Blocked external image with invalid extension: {$realSourcePath}");
             }
-            catch (Exception $ex) {
-                Log::warning('Unable to fetch external image ' . $realSourcePath . ' ['.$ex->getMessage().']');
+            else {
+                try {
+                    $contents = file_get_contents($realSourcePath);
+
+                    // Validate MIME type of fetched content
+                    if ($this->validateImageContents($contents)) {
+                        file_put_contents($tempSourcePath, $contents);
+                    }
+                    else {
+                        Log::warning("Blocked external URL with non-image content: {$realSourcePath}");
+                    }
+                }
+                catch (Exception $ex) {
+                    Log::warning("Unable to fetch external image {$realSourcePath} [{$ex->getMessage()}]");
+                }
             }
         }
 
@@ -207,6 +222,41 @@ class ResizeImages
         }
 
         return $sourcePath;
+    }
+
+    /**
+     * validateExternalImageUrl checks if an external URL has a valid image extension
+     */
+    protected function validateExternalImageUrl(string $url): bool
+    {
+        $path = parse_url($url, PHP_URL_PATH);
+        if (!$path) {
+            return false;
+        }
+
+        $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
+        if (!$extension) {
+            return false;
+        }
+
+        $allowedExtensions = FileDefinitions::get('image_extensions');
+
+        return in_array($extension, $allowedExtensions);
+    }
+
+    /**
+     * validateImageContents checks if the content is actually an image based on MIME type
+     */
+    protected function validateImageContents(string $contents): bool
+    {
+        if (empty($contents)) {
+            return false;
+        }
+
+        $finfo = new finfo(FILEINFO_MIME_TYPE);
+        $mimeType = $finfo->buffer($contents);
+
+        return str_starts_with($mimeType, 'image/');
     }
 
     /**

@@ -311,6 +311,17 @@ class MediaLibrary
     }
 
     /**
+     * size returns a file size in bytes.
+     * @param string $path Specifies the file path relative the the Library root.
+     * @return int Returns the file size
+     */
+    public function size($path)
+    {
+        $path = self::validatePath($path);
+        return $this->getStorageDisk()->size($path);
+    }
+
+    /**
      * get returns a file contents.
      * @param string $path Specifies the file path relative the the Library root.
      * @return string Returns the file contents

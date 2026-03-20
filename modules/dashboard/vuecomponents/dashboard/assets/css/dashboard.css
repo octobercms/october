@@ -1,13 +1,3 @@
-
-.oc-dashboard {
-    --oc-color-widget-skeleton:      var(--bs-secondary-color);
-    --oc-opacity-widget-skeleton:    0.5;
-    --oc-color-control-border:       #bdc3c7;
-    --oc-dashboard-max-row-widgets:  20;
-    --oc-dashboard-gap-size:         20px;
-    --oc-widget-body-padding:        17px;
-}
-
 @import "_daterangepicker.css";
 @import "_report-container.css";
 @import "_toolbar.css";
@@ -19,6 +9,15 @@
 @import "_widget-notice.css";
 @import "_widget-static.css";
 @import "_widget-sectiontitle.css";
+
+.oc-dashboard {
+    --oc-color-widget-skeleton:      var(--bs-secondary-color);
+    --oc-opacity-widget-skeleton:    0.5;
+    --oc-color-control-border:       #bdc3c7;
+    --oc-dashboard-max-row-widgets:  20;
+    --oc-dashboard-gap-size:         20px;
+    --oc-widget-body-padding:        17px;
+}
 
 body.reportwidget-resize {
     * {

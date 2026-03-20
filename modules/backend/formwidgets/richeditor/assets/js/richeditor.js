@@ -1,3 +1,6 @@
+import { ControlBase, registerControl } from 'larajax';
+import RichEditorFormWidget from '../../../../vuecomponents/richeditordocumentconnector/assets/js/formwidget.js';
+
 /*
  * Rich text editor form field control (WYSIWYG)
  *
@@ -5,120 +8,120 @@
  * - data-control="richeditor" - enables the rich editor plugin
  *
  * JavaScript API:
- * $('textarea').richEditor()
+ * oc.fetchControl(element, 'richeditor')
  *
  * Dependencies:
  * - Froala Editor (froala_editor.js)
  */
-+(function($) {
-    'use strict';
-    var Base = $.oc.foundation.base,
-        BaseProto = Base.prototype;
-
-    // RICHEDITOR CLASS DEFINITION
-    // ============================
-
-    var RichEditor = function(element, options) {
-        this.options = options;
-        this.$el = $(element);
+registerControl('richeditor', class extends ControlBase {
+    init() {
+        this.$el = $(this.element);
         this.$textarea = this.$el.find('textarea[data-richeditor-textarea]:first');
         this.$form = this.$el.closest('form');
         this.editor = null;
+        this.vueWidget = null;
 
-        $.oc.foundation.controlUtils.markDisposable(element);
-
-        Base.call(this);
-
-        this.init();
-    };
-
-    RichEditor.prototype = Object.create(BaseProto);
-    RichEditor.prototype.constructor = RichEditor;
-
-    RichEditor.DEFAULTS = {
-        linksHandler: null,
-        stylesheet: null,
-        fullpage: false,
-        editorLang: 'en',
-        editorOptions: null,
-        useMediaManager: false,
-        toolbarButtons: null,
-        allowEmptyTags: null,
-        allowTags: null,
-        allowAttrs: null,
-        noWrapTags: null,
-        removeTags: null,
-        lineBreakerTags: null,
-        imageStyles: null,
-        linkStyles: null,
-        paragraphStyles: null,
-        inlineStyles: null,
-        paragraphFormat: null,
-        tableStyles: null,
-        tableCellStyles: null,
-        useLineBreaks: null,
-        aceVendorPath: '/',
-        readOnly: false
-    };
-
-    RichEditor.prototype.init = function() {
-        this.$el.one('dispose-control', this.proxy(this.dispose));
+        // Apply defaults to config
+        this.config = Object.assign({
+            linksHandler: null,
+            stylesheet: null,
+            fullpage: false,
+            editorLang: 'en',
+            editorOptions: null,
+            useMediaManager: false,
+            toolbarButtons: null,
+            allowEmptyTags: null,
+            allowTags: null,
+            allowAttrs: null,
+            noWrapTags: null,
+            removeTags: null,
+            lineBreakerTags: null,
+            imageStyles: null,
+            linkStyles: null,
+            paragraphStyles: null,
+            inlineStyles: null,
+            paragraphFormat: null,
+            tableStyles: null,
+            tableCellStyles: null,
+            useLineBreaks: null,
+            aceVendorPath: '/',
+            readOnly: false
+        }, this.config);
 
         // Textarea must have an identifier
         if (!this.$textarea.attr('id')) {
             this.$textarea.attr('id', 'element-' + Math.random().toString(36).substring(7));
         }
 
-        if (this.options.editorOptions.constructor !== {}.constructor) {
-            this.options.editorOptions = {};
+        if (this.config.editorOptions.constructor !== {}.constructor) {
+            this.config.editorOptions = {};
         }
+    }
 
-        if (!this.options.legacyMode) {
+    connect() {
+        if (!this.config.legacyMode) {
             this.initVueConnector();
             return;
         }
 
         // Initialize Froala editor
         this.initFroala();
-    };
+    }
 
-    RichEditor.prototype.initFroala = function() {
+    disconnect() {
+        this.unregisterHandlers();
+
+        if (this.vueWidget) {
+            this.vueWidget.remove();
+            this.vueWidget = null;
+        }
+        else if (this.$textarea) {
+            this.$textarea.froalaEditor('destroy');
+        }
+
+        this.$el = null;
+        this.$textarea = null;
+        this.$form = null;
+        this.editor = null;
+    }
+
+    initFroala() {
         var froalaOptions = {
-            ...this.options.editorOptions,
+            ...this.config.editorOptions,
             editorClass: 'control-richeditor',
-            language: this.options.editorLang,
-            fullPage: this.options.fullpage,
-            aceEditorVendorPath: this.options.aceVendorPath,
+            language: this.config.editorLang,
+            fullPage: this.config.fullpage,
+            aceEditorVendorPath: this.config.aceVendorPath,
             toolbarSticky: false
         };
 
-        if (this.options.useLineBreaks) {
+        if (this.config.useLineBreaks) {
             froalaOptions.enter = $.FroalaEditor.ENTER_BR;
         }
 
-        if (this.options.toolbarButtons) {
-            froalaOptions.toolbarButtons = this.options.toolbarButtons.split(',');
+        if (this.config.toolbarButtons) {
+            froalaOptions.toolbarButtons = this.config.toolbarButtons.split(',');
         }
         else {
             froalaOptions.toolbarButtons = oc.richEditorButtons;
         }
 
-        froalaOptions.imageStyles = this.options.imageStyles
-            ? this.options.imageStyles
+        froalaOptions.imageStyles = this.config.imageStyles
+            ? this.config.imageStyles
             : {
                 'oc-img-rounded': 'Rounded',
                 'oc-img-bordered': 'Bordered'
               };
 
-        froalaOptions.linkStyles = this.options.linkStyles
-            ? this.options.linkStyles
+        froalaOptions.linkStyles = this.config.linkStyles
+            ? this.config.linkStyles
             : {
                 'oc-link-green': 'Green',
                 'oc-link-strong': 'Thick'
               };
 
-        froalaOptions.paragraphFormat = this.options.paragraphFormat
-            ? this.options.paragraphFormat
+        froalaOptions.paragraphFormat = this.config.paragraphFormat
+            ? this.config.paragraphFormat
             : {
                 'N': 'Normal',
                 'H1': 'Heading 1',
@@ -128,8 +131,8 @@
                 'PRE': 'Code'
             }
 
-        froalaOptions.paragraphStyles = this.options.paragraphStyles
-            ? this.options.paragraphStyles
+        froalaOptions.paragraphStyles = this.config.paragraphStyles
+            ? this.config.paragraphStyles
             : {
                 'oc-text-gray': 'Gray',
                 'oc-text-bordered': 'Bordered',
@@ -137,23 +140,23 @@
                 'oc-text-uppercase': 'Uppercase'
               };
 
-        froalaOptions.inlineStyles = this.options.inlineStyles
-            ? this.options.inlineStyles
+        froalaOptions.inlineStyles = this.config.inlineStyles
+            ? this.config.inlineStyles
             : {
                 'oc-class-code': 'Code',
                 'oc-class-highlighted': 'Highlighted',
                 'oc-class-transparency': 'Transparent'
               };
 
-        froalaOptions.tableStyles = this.options.tableStyles
-            ? this.options.tableStyles
+        froalaOptions.tableStyles = this.config.tableStyles
+            ? this.config.tableStyles
             : {
                 'oc-dashed-borders': 'Dashed Borders',
                 'oc-alternate-rows': 'Alternate Rows'
               };
 
-        froalaOptions.tableCellStyles = this.options.tableCellStyles
-            ? this.options.tableCellStyles
+        froalaOptions.tableCellStyles = this.config.tableCellStyles
+            ? this.config.tableCellStyles
             : {
                 'oc-cell-highlighted': 'Highlighted',
                 'oc-cell-thick-border': 'Thick'
@@ -163,28 +166,28 @@
         froalaOptions.toolbarButtonsSM = froalaOptions.toolbarButtons;
         froalaOptions.toolbarButtonsXS = froalaOptions.toolbarButtons;
 
-        if (this.options.allowEmptyTags) {
-            froalaOptions.htmlAllowedEmptyTags = this.options.allowEmptyTags.split(/[\s,]+/);
+        if (this.config.allowEmptyTags) {
+            froalaOptions.htmlAllowedEmptyTags = this.config.allowEmptyTags.split(/[\s,]+/);
         }
 
-        if (this.options.allowTags) {
-            froalaOptions.htmlAllowedTags = this.options.allowTags.split(/[\s,]+/);
+        if (this.config.allowTags) {
+            froalaOptions.htmlAllowedTags = this.config.allowTags.split(/[\s,]+/);
         }
 
-        if (this.options.allowAttrs) {
-            froalaOptions.htmlAllowedAttrs = $.extend($.FroalaEditor.DEFAULTS.htmlAllowedAttrs, this.options.allowAttrs.split(/[\s,]+/));
+        if (this.config.allowAttrs) {
+            froalaOptions.htmlAllowedAttrs = $.extend($.FroalaEditor.DEFAULTS.htmlAllowedAttrs, this.config.allowAttrs.split(/[\s,]+/));
         }
 
-        if (this.options.noWrapTags) {
-            froalaOptions.htmlDoNotWrapTags = this.options.noWrapTags.split(/[\s,]+/);
+        if (this.config.noWrapTags) {
+            froalaOptions.htmlDoNotWrapTags = this.config.noWrapTags.split(/[\s,]+/);
         }
 
-        if (this.options.removeTags) {
-            froalaOptions.htmlRemoveTags = this.options.removeTags.split(/[\s,]+/);
+        if (this.config.removeTags) {
+            froalaOptions.htmlRemoveTags = this.config.removeTags.split(/[\s,]+/);
         }
 
-        froalaOptions.lineBreakerTags = this.options.lineBreakerTags
-            ? this.options.lineBreakerTags.split(/[\s,]+/)
+        froalaOptions.lineBreakerTags = this.config.lineBreakerTags
+            ? this.config.lineBreakerTags.split(/[\s,]+/)
             : ['figure, table, hr, iframe, form, dl'];
 
         froalaOptions.shortcutsEnabled = ['show', 'bold', 'italic', 'underline', 'indent', 'outdent', 'undo', 'redo'];
@@ -202,7 +205,7 @@
 
         froalaOptions.height = this.$el.hasClass('stretch') ? Infinity : $('.height-indicator', this.$el).height();
 
-        if (!this.options.useMediaManager) {
+        if (!this.config.useMediaManager) {
             delete $.FroalaEditor.PLUGINS.mediaManager;
         }
 
@@ -210,56 +213,42 @@
         this.$textarea.on('froalaEditor.contentChanged', this.proxy(this.onChange));
         this.$textarea.on('froalaEditor.html.get', this.proxy(this.onSyncContent));
         this.$textarea.on('froalaEditor.html.set', this.proxy(this.onSetContent));
+        this.$textarea.on('froalaEditor.image.uploaded', this.proxy(this.onImageUploaded));
         this.$form.on('oc.beforeRequest', this.proxy(this.onFormBeforeRequest));
 
         this.$textarea.froalaEditor(froalaOptions);
 
         this.editor = this.$textarea.data('froala.editor');
 
-        if (this.options.readOnly) {
+        if (this.config.readOnly) {
             this.editor.edit.off();
         }
 
         this.$el.on('keydown', '.fr-view figure', this.proxy(this.onFigureKeydown));
-    };
+    }
 
-    RichEditor.prototype.dispose = function() {
-        this.unregisterHandlers();
-
-        if (this.vueWidget) {
-            this.vueWidget.remove();
-            this.vueWidget = null;
-        }
-        else {
-            this.$textarea.froalaEditor('destroy');
+    unregisterHandlers() {
+        if (this.$el) {
+            this.$el.off('keydown', '.fr-view figure', this.proxy(this.onFigureKeydown));
         }
 
-        this.$el.removeData('oc.richEditor');
+        if (this.$textarea) {
+            this.$textarea.off('froalaEditor.initialized', this.proxy(this.build));
+            this.$textarea.off('froalaEditor.contentChanged', this.proxy(this.onChange));
+            this.$textarea.off('froalaEditor.html.get', this.proxy(this.onSyncContent));
+            this.$textarea.off('froalaEditor.html.set', this.proxy(this.onSetContent));
+            this.$textarea.off('froalaEditor.image.uploaded', this.proxy(this.onImageUploaded));
+        }
 
-        this.options = null;
-        this.$el = null;
-        this.$textarea = null;
-        this.$form = null;
-        this.editor = null;
-
-        BaseProto.dispose.call(this);
-    };
-
-    RichEditor.prototype.unregisterHandlers = function() {
-        this.$el.off('keydown', '.fr-view figure', this.proxy(this.onFigureKeydown));
-
-        this.$textarea.off('froalaEditor.initialized', this.proxy(this.build));
-        this.$textarea.off('froalaEditor.contentChanged', this.proxy(this.onChange));
-        this.$textarea.off('froalaEditor.html.get', this.proxy(this.onSyncContent));
-        this.$textarea.off('froalaEditor.html.set', this.proxy(this.onSetContent));
-        this.$form.off('oc.beforeRequest', this.proxy(this.onFormBeforeRequest));
+        if (this.$form) {
+            this.$form.off('oc.beforeRequest', this.proxy(this.onFormBeforeRequest));
+        }
 
         $(window).off('resize', this.proxy(this.updateLayout));
         $(window).off('oc.updateUi', this.proxy(this.updateLayout));
-        this.$el.off('dispose-control', this.proxy(this.dispose));
-    };
+    }
 
-    RichEditor.prototype.build = function(event, editor) {
+    build(event, editor) {
         this.updateLayout();
 
         $(window).on('resize', this.proxy(this.updateLayout));
@@ -269,46 +258,46 @@
         editor.events.on('keydown', this.proxy(this.onKeydown), true);
 
         this.$textarea.trigger('init.oc.richeditor', [this]);
-    };
+    }
 
-    RichEditor.prototype.isCodeViewActive = function() {
+    isCodeViewActive() {
         return this.editor && this.editor.codeView && this.editor.codeView.isActive();
-    };
+    }
 
-    RichEditor.prototype.getElement = function() {
+    getElement() {
         return this.$el;
-    };
+    }
 
-    RichEditor.prototype.getEditor = function() {
-        if (!this.options.legacyMode) {
+    getEditor() {
+        if (!this.config.legacyMode) {
             return this.vueWidget.getEditor();
         }
 
         return this.editor;
-    };
+    }
 
-    RichEditor.prototype.getTextarea = function() {
+    getTextarea() {
         return this.$textarea;
-    };
+    }
 
-    RichEditor.prototype.getContent = function() {
+    getContent() {
         return this.getEditor().html.get();
-    };
+    }
 
-    RichEditor.prototype.setContent = function (html) {
-        if (!this.options.legacyMode) {
+    setContent(html) {
+        if (!this.config.legacyMode) {
             this.vueWidget.setContent(html);
             return;
         }
 
         this.getEditor().html.set(html);
-    };
+    }
 
-    RichEditor.prototype.syncContent = function() {
+    syncContent() {
         this.editor.events.trigger('contentChanged');
-    };
+    }
 
-    RichEditor.prototype.updateLayout = function() {
+    updateLayout() {
         var $editor = $('.fr-wrapper', this.$el),
             $codeEditor = $('.fr-code', this.$el),
             $toolbar = $('.fr-toolbar', this.$el),
@@ -327,40 +316,40 @@
             $editor.css('top', '');
             $codeEditor.css('top', '');
         }
-    };
+    }
 
-    RichEditor.prototype.insertHtml = function(html) {
+    insertHtml(html) {
         this.getEditor().html.insert(html);
         this.getEditor().selection.restore();
-    };
+    }
 
-    RichEditor.prototype.insertElement = function($el) {
+    insertElement($el) {
         this.insertHtml($('<div />').append($el.clone()).remove().html());
-    };
+    }
 
     /*
      * Inserts non-editable block (used for snippets, audio and video)
      */
-    RichEditor.prototype.insertUiBlock = function($node) {
+    insertUiBlock($node) {
         this.$textarea.froalaEditor('figures.insert', $node);
-    };
+    }
 
-    RichEditor.prototype.insertVideo = function(url, title) {
+    insertVideo(url, title) {
         this.$textarea.froalaEditor('figures.insertVideo', url, title);
-    };
+    }
 
-    RichEditor.prototype.insertAudio = function(url, title) {
+    insertAudio(url, title) {
         this.$textarea.froalaEditor('figures.insertAudio', url, title);
-    };
+    }
 
     // EVENT HANDLERS
     // ============================
 
-    RichEditor.prototype.onSetContent = function(ev, editor) {
+    onSetContent(ev, editor) {
         this.$textarea.trigger('setContent.oc.richeditor', [this]);
-    };
+    }
 
-    RichEditor.prototype.onSyncContent = function(ev, editor, html) {
+    onSyncContent(ev, editor, html) {
         // Beautify HTML.
         if (editor.codeBeautifier) {
             html = editor.codeBeautifier.run(html, editor.opts.codeBeautifierOptions);
@@ -373,39 +362,53 @@
         this.$textarea.trigger('syncContent.oc.richeditor', [this, container]);
 
         return container.html;
-    };
+    }
 
-    RichEditor.prototype.onFocus = function() {
+    onFocus() {
         this.$el.addClass('editor-focus');
-    };
+    }
 
-    RichEditor.prototype.onBlur = function() {
+    onBlur() {
         this.$el.removeClass('editor-focus');
-    };
+    }
 
-    RichEditor.prototype.onFigureKeydown = function(ev) {
+    onFigureKeydown(ev) {
         this.$textarea.trigger('figureKeydown.oc.richeditor', [ev, this]);
-    };
+    }
 
-    RichEditor.prototype.onKeydown = function(ev, editor, keyEv) {
+    onKeydown(ev, editor, keyEv) {
         this.$textarea.trigger('keydown.oc.richeditor', [keyEv, this]);
 
         if (ev.isDefaultPrevented()) {
             return false;
         }
-    };
+    }
 
-    RichEditor.prototype.onChange = function(ev) {
+    onChange(ev) {
         this.$form.trigger('change');
-    };
+    }
+
+    onImageUploaded(ev, editor, response) {
+        try {
+            var data = JSON.parse(response);
+            if (data.error) {
+                oc.flashMsg({ text: data.error, class: 'error' });
+                editor.image.hideProgressBar(true);
+                editor.image.remove();
+                editor.edit.on();
+                return false;
+            }
+        }
+        catch (e) {}
+    }
 
     /*
      * Instantly synchronizes HTML content.
      * The onSyncContent() method (above) is involved into this call,
      * so the resulting HTML is (optionally) beautified.
      */
-    RichEditor.prototype.onFormBeforeRequest = function(ev) {
-        if (!this.editor) {
+    onFormBeforeRequest(ev) {
+        if (!this.editor || !this.editor.html) {
             return;
         }
 
@@ -414,84 +417,45 @@
         }
 
         this.$textarea.val(this.editor.html.get());
-    };
+    }
 
     //
     // Vue mode
     //
 
-    RichEditor.prototype.initVueConnector = function() {
-        var Widget = oc.Modules.import('backend.vuecomponents.richeditordocumentconnector.formwidget'),
-            that = this;
-
-        this.vueWidget = new Widget(this.$textarea.get(0), this.options, function() {
-            that.$form.trigger('change');
+    initVueConnector() {
+        this.vueWidget = new RichEditorFormWidget(this.$textarea.get(0), this.config, () => {
+            this.$form.trigger('change');
         });
-    };
-
-    // RICHEDITOR PLUGIN DEFINITION
-    // ============================
-
-    var old = $.fn.richEditor;
-
-    $.fn.richEditor = function(option) {
-        var args = Array.prototype.slice.call(arguments, 1),
-            result;
-        this.each(function() {
-            var $this = $(this);
-            var data = $this.data('oc.richEditor');
-            var options = $.extend({}, RichEditor.DEFAULTS, $this.data(), typeof option == 'object' && option);
-            if (!data) $this.data('oc.richEditor', (data = new RichEditor(this, options)));
-            if (typeof option == 'string') result = data[option].apply(data, args);
-            if (typeof result != 'undefined') return false;
-        });
-
-        return result ? result : this;
-    };
-
-    $.fn.richEditor.Constructor = RichEditor;
-
-    // RICHEDITOR NO CONFLICT
-    // =================
-
-    $.fn.richEditor.noConflict = function() {
-        $.fn.richEditor = old;
-        return this;
-    };
-
-    // RICHEDITOR DATA-API
-    // ===============
-    $(document).render(function() {
-        $('[data-control="richeditor"]:not([data-richeditor-vue])').richEditor();
-    });
-
-    // BUTTON DEFINITIONS
-    // =================
-
-    oc.richEditorRegisterButton = $.FE.RegisterCommand;
-
-    oc.richEditorButtons = [
-        'paragraphFormat',
-        'align',
-        'bold',
-        'italic',
-        'underline',
-        '|',
-        'formatOL',
-        'formatUL',
-        '|',
-        'insertSnippet',
-        'insertTable',
-        'insertPageLink',
-        'insertImage',
-        'insertHR',
-        'html'
-    ];
-
-    if ($.oc === undefined) {
-        $.oc = {};
     }
+});
 
-    $.oc.richEditorButtons = oc.richEditorButtons;
+// BUTTON DEFINITIONS
+// =================
 
-})(window.jQuery);
+oc.richEditorRegisterButton = $.FE.RegisterCommand;
+
+oc.richEditorButtons = [
+    'paragraphFormat',
+    'align',
+    'bold',
+    'italic',
+    'underline',
+    '|',
+    'formatOL',
+    'formatUL',
+    '|',
+    'insertSnippet',
+    'insertTable',
+    'insertPageLink',
+    'insertImage',
+    'insertHR',
+    'html'
+];
+
+// @deprecated backwards compatibility
+if ($.oc === undefined) {
+    $.oc = {};
+}
+
+$.oc.richEditorButtons = oc.richEditorButtons;

@@ -343,8 +343,7 @@ class Blueprint extends Extendable
         }
 
         // Slugify handle for URLs
-        // @deprecated this should be kebab_case in v4.1
-        $this->attributes['handleSlug'] = snake_case(str_replace('\\', ' ', $this->handle));
+        $this->attributes['handleSlug'] = kebab_case(str_replace('\\', ' ', $this->handle));
 
         // Theme for filtering
         if ($this->datasourceTheme) {
@@ -687,7 +686,7 @@ class Blueprint extends Extendable
             return new $modelClass;
         }
 
-        if (!is_a($customModelClass, $modelClass)) {
+        if (!is_a($customModelClass, $modelClass, true)) {
             throw new SystemException("Blueprint Model class [{$customModelClass}] must extend the [{$modelClass}] base class");
         }
 

@@ -83,16 +83,24 @@ trait HasFormDesigns
      */
     protected function beforeDisplayPopup()
     {
-        if (!post('form_popup_flag')) {
+        $updateId = $this->getPopupFormRecordId();
+
+        // Emulate the form action
+        if (post('form_popup_flag')) {
+            if ($updateId) {
+                $this->update($updateId);
+            }
+            else {
+                $this->create();
+            }
             return;
         }
 
-        // Emulate the form action
-        if ($id = $this->getPopupFormRecordId()) {
-            $this->update($id);
-        }
-        else {
-            $this->create();
+        // Initialize the model for relation AJAX requests inside popup forms
+        // this is needed since bindToPopups doesn't propagate far enough, so
+        // this could be removed if that ability was improved to go further.
+        if ($this->controller->isClassExtendedWith(\Backend\Behaviors\RelationController::class)) {
+            $this->controller->initRelation($this->controller->formCreateModelObject());
         }
     }
 

@@ -17,6 +17,7 @@ oc.registerControl('settings-nav', class extends oc.ControlBase {
 
         this.initSearch();
 
+        this.element.style.visibility = 'hidden';
         document.body.classList.add('has-settings-nav');
     }
 
@@ -41,17 +42,20 @@ oc.registerControl('settings-nav', class extends oc.ControlBase {
     //
 
     initScrollbar(event) {
-        var active = this.element.querySelector('li.active').closest('[data-group-code]');
+        var activeItem = this.element.querySelector('li.active'),
+            active = activeItem ? activeItem.closest('[data-group-code]') : null;
 
         if (active) {
-            oc.fetchControl(event.delegateTarget, 'scrollbar')
-                ?.gotoElement(active);
-
             const $group = active.closest('li');
             if ($group) {
                 this.expandGroup($group, 0);
             }
+
+            oc.fetchControl(event.delegateTarget, 'scrollbar')
+                ?.gotoElement(active);
         }
+
+        this.element.style.visibility = 'visible';
     }
 
     // Groups

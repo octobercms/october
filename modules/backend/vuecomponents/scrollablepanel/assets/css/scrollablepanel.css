@@ -1,1 +1,31 @@
-.component-backend-scrollablepanel,.component-backend-scrollablepanel .scrollable-panel-container{height:100%;left:0;position:absolute;top:0;width:100%}.component-backend-scrollablepanel .scrollable-panel-container .scrollable{overflow:hidden}.component-backend-scrollablepanel.scrollablepanel-relative,.component-backend-scrollablepanel.scrollablepanel-relative>.scrollable-panel-container,.component-backend-scrollablepanel.scrollablepanel-relative>.scrollable-panel-container>.scrollable{position:relative}
+.component-backend-scrollablepanel {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+
+    .scrollable-panel-container {
+        position: absolute;
+        left: 0;
+        top: 0;
+        width: 100%;
+        height: 100%;
+
+        .scrollable {
+            overflow: hidden;
+        }
+    }
+
+    &.scrollablepanel-relative {
+        position: relative;
+
+        > .scrollable-panel-container {
+            position: relative;
+
+            > .scrollable {
+                position: relative;
+            }
+        }
+    }
+}

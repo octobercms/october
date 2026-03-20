@@ -3,7 +3,6 @@
 use System as SystemHelper;
 use System\Helpers\Cache as CacheHelper;
 use October\Rain\Composer\ComposerManager;
-use Symfony\Component\Console\Input\InputOption;
 use Illuminate\Console\Command;
 
 /**
@@ -14,10 +13,11 @@ use Illuminate\Console\Command;
  */
 class PluginCheck extends Command
 {
-     /**
-     * @var string name of console command
+    /**
+     * @var string signature for the console command
      */
-    protected $name = 'plugin:check';
+    protected $signature = 'plugin:check
+        {--no-migrate : Do not run migration after install.}';
 
     /**
      * @var string description of the console command
@@ -82,16 +82,6 @@ class PluginCheck extends Command
 
         // Success
         $this->info('All dependencies installed');
-    }
-
-    /**
-     * getOptions get the console command options
-     */
-    protected function getOptions()
-    {
-        return [
-            ['no-migrate', null, InputOption::VALUE_NONE, 'Do not run migration after install.'],
-        ];
     }
 
     /**

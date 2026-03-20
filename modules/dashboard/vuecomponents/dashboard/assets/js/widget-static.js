@@ -1,5 +1,7 @@
-Vue.component('dashboard-component-dashboard-widget-static', {
-    extends: Vue.options.components['dashboard-component-dashboard-widget-base'],
+import WidgetBase from './widget-base.js';
+
+export default {
+    extends: WidgetBase,
     data: function () {
         return {
         }
@@ -23,7 +25,7 @@ Vue.component('dashboard-component-dashboard-widget-static', {
         },
 
         makeDefaultConfigAndData: function () {
-            let defaultTitle = 'My Custom Widget';
+            let defaultTitle = oc.t("My Custom Widget");
 
             if (this.loadedValue && this.loadedValue.properties) {
                 const titleProp = this.loadedValue.properties.find((p) => p.property === 'title');
@@ -34,12 +36,12 @@ Vue.component('dashboard-component-dashboard-widget-static', {
                 }
             }
 
-            Vue.set(this.widget.configuration, 'title', defaultTitle);
+            // Vue 3: Direct assignment is reactive
+            this.widget.configuration.title = defaultTitle;
         },
 
         getSettingsConfiguration: function () {
             return this.loadedValue && this.loadedValue.properties;
         }
-    },
-    template: '#dashboard_vuecomponents_dashboard_widget_static'
-});
+    }
+};

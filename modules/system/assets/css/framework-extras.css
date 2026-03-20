@@ -1,1 +1,4 @@
-[data-request-validate] [data-validate-error]:not(.jax-visible),[data-request-validate] [data-validate-for]:not(.jax-visible){display:none}
+[data-request-validate] [data-validate-for]:not(.jax-visible),
+[data-request-validate] [data-validate-error]:not(.jax-visible) {
+    display: none;
+}

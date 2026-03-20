@@ -61,7 +61,7 @@ class Users extends SettingsController
     {
         parent::__construct();
 
-        if ($this->action == 'myaccount') {
+        if ($this->isMyAccount()) {
             $this->requiredPermissions = null;
         }
     }
@@ -84,7 +84,9 @@ class Users extends SettingsController
     public function formExtendFields($form)
     {
         // Remove permissions on own account
-        if ($form->getContext() === 'myaccount') {
+        if ($this->isMyAccount()) {
+            $form->removeField('role');
+            $form->removeField('permissions');
             return;
         }
 
@@ -155,7 +157,7 @@ class Users extends SettingsController
      */
     public function formExtendModel($model)
     {
-        if (!$this->user->isSuperUser()) {
+        if (!$this->user->isSuperUser() && !$this->isMyAccount()) {
             $model->addValidationRule('role', 'required');
         }
     }
@@ -179,12 +181,16 @@ class Users extends SettingsController
         // Prevent outranked roles from being selected
         if (
             !$this->user->isSuperUser() &&
-            ($role = UserRole::find(post('User[role]'))) &&
-            ($this->allowPeerManagement()
-                ? $role->sort_order <= $this->user->role->sort_order
-                : $role->sort_order < $this->user->role->sort_order)
+            ($role = UserRole::find(post('User[role]')))
         ) {
-            throw new ForbiddenException;
+            if (
+                !$this->user->role ||
+                ($this->allowPeerManagement()
+                    ? $role->sort_order < $this->user->role->sort_order
+                    : $role->sort_order <= $this->user->role->sort_order)
+            ) {
+                throw new ForbiddenException;
+            }
         }
     }
 
@@ -259,7 +265,7 @@ class Users extends SettingsController
     public function update($recordId, $context = null)
     {
         // Users cannot edit themselves, only use My Settings
-        if ($context != 'myaccount' && $recordId == $this->user->id) {
+        if (!$this->isMyAccount() && $recordId == $this->user->id) {
             return Backend::redirect('backend/users/myaccount');
         }
 
@@ -283,8 +289,6 @@ class Users extends SettingsController
      */
     public function myaccount()
     {
-        // SettingsManager::setContext('October.Backend', 'myaccount');
-
         $this->pageTitle = "My Account";
 
         return $this->update($this->user->id, 'myaccount');
@@ -320,5 +324,13 @@ class Users extends SettingsController
     protected function allowPeerManagement(): bool
     {
         return Config::get('backend.user_peer_management', false);
+    }
+
+    /**
+     * isMyAccount returns true if self managing
+     */
+    protected function isMyAccount(): bool
+    {
+        return $this->action == 'myaccount';
     }
 }

@@ -12,10 +12,11 @@ class VueApp extends oc.ControlBase
     init() {
         this.methods = {};
         this.containers = {};
-        this.state = {};
+        this.state = Vue.reactive({});
+        this.vueApps = {};
 
         this.state.processing = false;
-        this.state.eventBus = new Vue();
+        this.state.eventBus = Vue.markRaw(mitt());
 
         this.registerMethod('onCommand', this.onCommand);
     }
@@ -40,7 +41,7 @@ class VueApp extends oc.ControlBase
             }
         }
         else if (this.state[name] === undefined) {
-            Vue.set(this.state, name, value);
+            this.state[name] = value;
         }
     }
 
@@ -61,28 +62,34 @@ class VueApp extends oc.ControlBase
             return;
         }
 
-        const vm = new Vue({
-            data: {
-                state: this.state,
+        const self = this;
+        const { app, vm } = oc.mountVueApp(element, {
+            data() {
+                return {
+                    state: self.state,
+                };
             },
-            methods: this.methods,
-            el: element
+            methods: this.methods
         });
 
         const controlName = this.getContainerNameFromControl(control);
         this.containers[controlName] = vm;
+        this.vueApps[controlName] = app;
 
         if (element.vueContainerInstance) {
             element.vueContainerInstance.vm = vm;
+            element.vueContainerInstance.app = app;
         }
     }
 
-    destroyContainer(control, vm) {
-        if (vm) {
-            vm.$destroy();
+    destroyContainer(control) {
+        const controlName = this.getContainerNameFromControl(control);
+
+        if (this.vueApps[controlName]) {
+            this.vueApps[controlName].unmount();
+            this.vueApps[controlName] = null;
         }
 
-        const controlName = this.getContainerNameFromControl(control);
         this.containers[controlName] = null;
     }
 

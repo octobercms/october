@@ -1,9 +1,9 @@
+import { ControlBase, registerControl } from 'larajax';
+
 /*
  * SnippetLookupWidget
  */
-'use strict';
-
-oc.registerControl('snippetlookup', class extends oc.ControlBase
+registerControl('snippetlookup', class extends ControlBase
 {
     init() {
         this.$popupElement = null;
@@ -37,4 +37,3 @@ oc.registerControl('snippetlookup', class extends oc.ControlBase
         this.insertCallback = insertCallback;
     }
 });
-

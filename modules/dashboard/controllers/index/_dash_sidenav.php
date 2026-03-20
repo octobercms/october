@@ -1,7 +1,7 @@
 <?php
     $dashboard = $dashboard ?? null;
 ?>
-<div class="secondary-nav">
+<div id="dashboardSidenav" class="secondary-nav">
     <div class="control-toolbar responsive-sidebar-toolbar" role="navigation">
         <div data-control="toolbar" data-disposable="">
             <nav class="layout-sidenav sidenav-responsive">

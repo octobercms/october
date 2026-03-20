@@ -1,4 +1,4 @@
-Vue.component('dashboard-component-dashboard-dashboard-selector', {
+export default {
     props: {
         store: Object,
         embeddedInDashboard: Boolean
@@ -25,7 +25,7 @@ Vue.component('dashboard-component-dashboard-dashboard-selector', {
                 {
                     type: 'text',
                     command: 'edit',
-                    label: oc.lang.get('dashboard.edit_dashboard')
+                    label: oc.t("Edit Dashboard")
                 }
             );
 
@@ -41,7 +41,7 @@ Vue.component('dashboard-component-dashboard-dashboard-selector', {
                         {
                             type: 'text',
                             command: 'make-default',
-                            label: oc.lang.get('dashboard.make_default')
+                            label: oc.t("Make Default")
                         }
                     );
                 }
@@ -51,7 +51,7 @@ Vue.component('dashboard-component-dashboard-dashboard-selector', {
                         {
                             type: 'text',
                             command: 'reset-layout',
-                            label: oc.lang.get('dashboard.reset_layout')
+                            label: oc.t("Reset Layout")
                         }
                     );
                 }
@@ -60,18 +60,18 @@ Vue.component('dashboard-component-dashboard-dashboard-selector', {
             // {
             //     type: 'text',
             //     command: 'rename',
-            //     label: oc.lang.get('dashboard.rename_dashboard')
+            //     label: oc.t("Rename Dashboard")
             // },
             // {
             //     type: 'text',
             //     command: 'delete',
-            //     label: oc.lang.get('dashboard.delete_dashboard')
+            //     label: oc.t("Delete Dashboard")
             // },
             // {
             //     type: 'text',
             //     href: '/export/url/here' + this.store.state.dashboardCode,
             //     target: '_blank',
-            //     label: oc.lang.get('dashboard.export_dashboard')
+            //     label: oc.t("Export Dashboard")
             // }
 
             if (this.store.manageUrl) {
@@ -82,7 +82,7 @@ Vue.component('dashboard-component-dashboard-dashboard-selector', {
                     {
                         type: 'text',
                         href: this.store.manageUrl,
-                        label: oc.lang.get('dashboard.manage_dashboards')
+                        label: oc.t("Manage Dashboards")
                     }
                 );
             }
@@ -124,7 +124,6 @@ Vue.component('dashboard-component-dashboard-dashboard-selector', {
     },
     watch: {
     },
-    beforeDestroy: function beforeDestroy() {
-    },
-    template: '#dashboard_vuecomponents_dashboard_dashboard_selector'
-});
+    beforeUnmount: function beforeUnmount() {
+    }
+};

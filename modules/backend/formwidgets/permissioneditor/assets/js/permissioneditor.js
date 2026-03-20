@@ -1,45 +1,51 @@
-+function ($) { "use strict";
+import { ControlBase, registerControl } from 'larajax';
 
-    var Base = $.oc.foundation.base,
-        BaseProto = Base.prototype
-
-    var PermissionEditor = function() {
-        Base.call(this);
-
-        this.init();
+/*
+ * Permission Editor form field control
+ *
+ * Data attributes:
+ * - data-control="permissioneditor" - enables the permission editor plugin
+ *
+ * JavaScript API:
+ * oc.fetchControl(element, 'permissioneditor')
+ */
+registerControl('permissioneditor', class extends ControlBase {
+    init() {
+        this.$el = $(this.element);
     }
 
-    PermissionEditor.prototype = Object.create(BaseProto);
-    PermissionEditor.prototype.constructor = PermissionEditor;
-
-    PermissionEditor.prototype.init = function() {
-        $(document).on('click', '.permissioneditor [data-field-permission-all]', this.proxy(this.onPermissionAllClick));
-        $(document).on('click', '.permissioneditor [data-field-permission-none]', this.proxy(this.onPermissionNoneClick));
-        $(document).on('click', '.permissioneditor [data-field-permission-toggle]', this.proxy(this.onPermissionToggleClick));
-        $(document).on('click', '.permissioneditor li.permission-item label.item-name', this.proxy(this.onPermissionNameClick));
-        $(document).on('click', '.permissioneditor li.mode-checkbox input[type=checkbox]', this.proxy(this.renderViewState));
-        $(document).on('click', '.permissioneditor li.mode-radio input[type=radio]', this.proxy(this.renderViewState));
+    connect() {
+        this.listen('click', '[data-field-permission-all]', this.onPermissionAllClick);
+        this.listen('click', '[data-field-permission-none]', this.onPermissionNoneClick);
+        this.listen('click', '[data-field-permission-toggle]', this.onPermissionToggleClick);
+        this.listen('click', 'li.permission-item label.item-name', this.onPermissionNameClick);
+        this.listen('change', 'li.mode-checkbox input[type=checkbox]', this.renderViewState);
+        this.listen('change', 'li.mode-radio input[type=radio]', this.renderViewState);
 
         this.renderViewState();
+    }
+
+    disconnect() {
+        this.$el = null;
     }
 
     // EVENT HANDLERS
     // ============================
 
-    PermissionEditor.prototype.renderViewState = function() {
+    renderViewState() {
         this.evalDisabledStateForAll();
         this.evalNestingOptions();
         this.evalSelectionStateForAll();
     }
 
-    PermissionEditor.prototype.evalDisabledStateForAll = function() {
+    evalDisabledStateForAll() {
         var self = this;
-        $('.permissioneditor li').each(function() {
+        $('li', this.$el).each(function() {
             self.evalDisabledState($(this));
         });
     }
 
-    PermissionEditor.prototype.evalDisabledState = function($item) {
+    evalDisabledState($item) {
         var isDisabled;
 
         if ($item.hasClass('mode-checkbox')) {
@@ -52,9 +58,9 @@
         $item.toggleClass('disabled', isDisabled);
     }
 
-    PermissionEditor.prototype.evalNestingOptions = function($items) {
+    evalNestingOptions($items) {
         if (!$items) {
-            $items = $('.permissioneditor > ul > li');
+            $items = $('> ul > li', this.$el);
         }
 
         var self = this;
@@ -85,14 +91,14 @@
         });
     }
 
-    PermissionEditor.prototype.evalSelectionStateForAll = function(ev) {
+    evalSelectionStateForAll(ev) {
         var self = this;
-        $('.permissioneditor li.permission-section').each(function() {
+        $('li.permission-section', this.$el).each(function() {
             self.evalSelectionState(this);
         });
     }
 
-    PermissionEditor.prototype.evalSelectionState = function(el) {
+    evalSelectionState(el) {
         var $header = $(el),
             $checkNone = $('[data-field-permission-none]', $header),
             $checkAll = $('[data-field-permission-all]', $header);
@@ -114,7 +120,7 @@
         });
     }
 
-    PermissionEditor.prototype.onPermissionAllClick = function(ev) {
+    onPermissionAllClick(ev) {
         var self = this,
             $header = $(ev.target).closest('li');
 
@@ -129,7 +135,7 @@
         });
     }
 
-    PermissionEditor.prototype.onPermissionNoneClick = function(ev) {
+    onPermissionNoneClick(ev) {
         var self = this,
             $header = $(ev.target).closest('li');
 
@@ -144,7 +150,7 @@
         });
     }
 
-    PermissionEditor.prototype.onPermissionToggleClick = function(ev) {
+    onPermissionToggleClick(ev) {
         var self = this,
             $header = $(ev.target).closest('li'),
             $radios = $header.next().find('> .item-content > .item-value > input[type=radio]'),
@@ -161,7 +167,7 @@
         });
     }
 
-    PermissionEditor.prototype.findNextIndexFromRadio = function($radios) {
+    findNextIndexFromRadio($radios) {
         var nextIndex = 0;
 
         for (var i=2; i>=0; i--) {
@@ -178,7 +184,7 @@
         return nextIndex;
     }
 
-    PermissionEditor.prototype.onPermissionNameClick = function(ev, isChecked) {
+    onPermissionNameClick(ev, isChecked) {
         var $row = $(ev.target).closest('li'),
             $checkbox = $row.find('> .item-content > .item-value > input[type=checkbox]');
 
@@ -207,12 +213,4 @@
             }
         }
     }
-
-    // INITIALIZATION
-    // ============================
-
-    $(document).ready(function(){
-        new PermissionEditor();
-    });
-
-}(window.jQuery);
+});

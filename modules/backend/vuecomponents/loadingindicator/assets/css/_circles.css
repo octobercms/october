@@ -1,0 +1,72 @@
+div.component-backend-loading-indicator {
+    &.style-circles {
+        .spinner {
+            margin: 0 auto;
+            width: 70px;
+            text-align: center;
+
+            > div {
+                width: 18px;
+                height: 18px;
+                background-color: var(--bs-secondary);
+
+                border-radius: 100%;
+                display: inline-block;
+                animation: bouncedelay-component-loadingindicator 1.4s infinite ease-in-out both;
+
+                &.bounce1 {
+                    animation-delay: -0.32s;
+                }
+
+                &.bounce2 {
+                    animation-delay: -0.16s;
+                }
+            }
+        }
+
+        &.size-small {
+            width: 50px;
+
+            .spinner {
+                width: 50px;
+
+                > div {
+                    width: 10px;
+                    height: 10px;
+                    margin-right: 5px;
+
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+
+        &.size-tiny {
+            width: 39px;
+
+            .spinner {
+                width: 39px;
+
+                > div {
+                    width: 7px;
+                    height: 7px;
+                    margin-right: 4px;
+
+                    &:last-child {
+                        margin-right: 0;
+                    }
+                }
+            }
+        }
+    }
+}
+
+@keyframes bouncedelay-component-loadingindicator {
+    0%, 80%, 100% {
+        transform: scale(0);
+    }
+    40% {
+        transform: scale(1.0);
+    }
+}

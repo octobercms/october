@@ -48,9 +48,6 @@ trait AssetMaker
      * to call during an AJAX request to speed things up. This method works
      * by specifically targeting the hasAssetsDefined method.
      *
-     * @todo in terms of speeding up AJAX, assets should be requested instead of sent
-     * by default all the time, widgets can specify if they will need a asset refresh
-     *
      * @return void
      */
     public function flushAssets()

@@ -41,9 +41,9 @@ class Market extends Controller
     protected $updaterWidget;
 
     /**
-     * @var bool turboVisitControl
+     * @var bool turboRouter
      */
-    public $turboVisitControl = 'disable';
+    public $turboRouter = false;
 
     /**
      * __construct

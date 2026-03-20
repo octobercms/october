@@ -342,7 +342,7 @@ class Auth extends Controller
         BackendAuth::login($user);
 
         // Redirect
-        Flash::success(__('Welcome to your Administration Area, :name', ['name' => post('first_name')]));
+        Flash::success(__('Welcome to your Administration Area, :name', ['name' => e(post('first_name'))]));
         return Backend::redirectIntended('backend');
     }
 

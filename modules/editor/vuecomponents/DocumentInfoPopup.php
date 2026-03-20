@@ -10,6 +10,11 @@ use Backend\Classes\VueComponentBase;
  */
 class DocumentInfoPopup extends VueComponentBase
 {
+    /**
+     * @var string componentName is the Vue component tag name.
+     */
+    protected $componentName = 'editor-document-info-popup';
+
     protected $require = [
         \Backend\VueComponents\InfoTable::class,
         \Backend\VueComponents\Modal::class

@@ -1045,8 +1045,8 @@
                 "valueFrom": {
                     "type": "string"
                 },
-                "wrapWords": {
-                    "type": "boolean"
+                "wordWrap": {
+                    "type": ["boolean", "string"]
                 }
             },
             "required": [

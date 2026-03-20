@@ -29,7 +29,7 @@
                 aria-hidden="true"
             ></button>
 
-            <button 
+            <button
                 v-if="hasMenuItems && ! readonly"
                 ref="contextmenuTrigger"
                 class="node-menu-trigger backend-icon-background-pseudo"
@@ -44,39 +44,39 @@
     </div>
 
     <ul role="group" v-show="expanded">
-        <backend-component-treeview-node
-            v-for="(node, index) in filteredNodes"
-            v-if="!searchQuery.length || (!node.systemData || node.systemData.visibleInSearch)"
-            :key="node.uniqueKey"
-            :node-data="node"
-            :is-root="true"
-            :branch-display-mode="node.displayMode"
-            :branch-drag-and-drop-mode="node.dragAndDropMode"
-            :branch-menuitems="node.menuitems"
-            :branch-sort-by="node.sortBy"
-            :parent-key-path="[]"
-            :selected-keys="selectedKeys"
-            :tree-unique-key="treeUniqueKey"
-            :index-in-parent="index"
-            :parent-node-list="nodes"
-            :store="store"
-            :search-query="searchQuery"
-            :branch-group-by="node.groupBy"
-            :branch-group-by-mode="node.groupByMode"
-            :branch-group-by-regex="node.groupByRegex"
-            :branch-multi-select="node.multiSelect"
-            :branch-group-folder-display-path-props="node.groupFolderDisplayPathProps"
-            :grouped-nodes="!node.groupBy ? node.nodes : (!node.systemData ? [] : node.systemData.groupedNodes)"
-            :branch-display-property="node.displayProperty"
-            :readonly="readonly"
-
-            @nodeclick="$emit('nodeclick', $event)"
-            @customdragstart="$emit('customdragstart', $event)"
-            @nonselectablenodeclick="$emit('nonselectablenodeclick', $event)"
-            @nodeselected="$emit('nodeselected', $event)"
-            @nodedrop="$emit('nodedrop', $event)"
-            @externaldrop="$emit('externaldrop', $event)"
-            @nodemenutriggerclick="$emit('nodemenutriggerclick', $event)"
-        ></backend-component-treeview-node>
+        <template v-for="(node, index) in filteredNodes" :key="node.uniqueKey">
+            <backend-treeview-node
+                v-if="!searchQuery.length || (!node.systemData || node.systemData.visibleInSearch)"
+                :ref="el => { if (el) nodeRefs[index] = el }"
+                :node-data="node"
+                :is-root="true"
+                :branch-display-mode="node.displayMode"
+                :branch-drag-and-drop-mode="node.dragAndDropMode"
+                :branch-menuitems="node.menuitems"
+                :branch-sort-by="node.sortBy"
+                :parent-key-path="[]"
+                :selected-keys="selectedKeys"
+                :tree-unique-key="treeUniqueKey"
+                :index-in-parent="index"
+                :parent-node-list="nodes"
+                :store="store"
+                :search-query="searchQuery"
+                :branch-group-by="node.groupBy"
+                :branch-group-by-mode="node.groupByMode"
+                :branch-group-by-regex="node.groupByRegex"
+                :branch-multi-select="node.multiSelect"
+                :branch-group-folder-display-path-props="node.groupFolderDisplayPathProps"
+                :grouped-nodes="!node.groupBy ? node.nodes : (!node.systemData ? [] : node.systemData.groupedNodes)"
+                :branch-display-property="node.displayProperty"
+                :readonly="readonly"
+                @nodeclick="$emit('nodeclick', $event)"
+                @customdragstart="$emit('customdragstart', $event)"
+                @nonselectablenodeclick="$emit('nonselectablenodeclick', $event)"
+                @nodeselected="$emit('nodeselected', $event)"
+                @nodedrop="$emit('nodedrop', $event)"
+                @externaldrop="$emit('externaldrop', $event)"
+                @nodemenutriggerclick="$emit('nodemenutriggerclick', $event)"
+            ></backend-treeview-node>
+        </template>
     </ul>
 </li>

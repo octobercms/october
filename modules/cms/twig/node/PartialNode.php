@@ -1,6 +1,7 @@
 <?php namespace Cms\Twig\Node;
 
 use Twig\Node\Node as TwigNode;
+use Twig\Node\Expression\Filter\RawFilter;
 use Twig\Compiler as TwigCompiler;
 
 /**
@@ -18,7 +19,7 @@ class PartialNode extends TwigNode
     public function __construct(array $nodes, ?TwigNode $body, array $options, int $lineno)
     {
         if ($body) {
-            $nodes['body'] = $body;
+            $nodes['__body'] = $body;
         }
 
         parent::__construct($nodes, ['options' => $options], $lineno);
@@ -37,21 +38,29 @@ class PartialNode extends TwigNode
         $compiler->write("\$cmsPartialParams = [];\n");
 
         // Handle body block
-        if ($this->hasNode('body')) {
+        if ($this->hasNode('__body')) {
             $compiler
                 ->write("\$cmsPartialParams['body'] = implode('', iterator_to_array((function() use (\$context, \$blocks, \$macros) {")
-                ->subcompile($this->getNode('body'))
+                ->subcompile($this->getNode('__body'))
                 ->write(" return; yield ''; })()));\n");
         }
 
-        // Compile parameters
+        // Compile parameters, tracking which ones are marked as raw
+        $rawParams = [];
         foreach ($options['paramNames'] as $paramName) {
             if ($this->hasNode($paramName)) {
+                if ($this->getNode($paramName) instanceof RawFilter) {
+                    $rawParams[] = $paramName;
+                }
                 $compiler
                     ->write("\$cmsPartialParams['" . $paramName . "'] = ")
                     ->subcompile($this->getNode($paramName))
                     ->write(";\n");
             }
+        }
+
+        if ($rawParams) {
+            $compiler->write("\$cmsPartialParams['__cms_partial_raw_params'] = " . var_export($rawParams, true) . ";\n");
         }
 
         // Handle AJAX mode

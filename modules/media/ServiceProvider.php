@@ -23,7 +23,7 @@ class ServiceProvider extends ModuleServiceProvider
         $this->registerSingletons();
 
         // Backend specific
-        if ($this->app->runningInBackend()) {
+        if ($this->app->runningInBackend() || $this->app->runningInOctane()) {
             $this->registerGlobalInstance();
         }
     }

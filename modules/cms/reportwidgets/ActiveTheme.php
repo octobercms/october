@@ -42,11 +42,11 @@ class ActiveTheme extends ReportWidgetBase
     {
         return [
             'title' => [
-                'title' => 'backend::lang.dashboard.widget_title_label',
-                'default' => 'cms::lang.dashboard.active_theme.widget_title_default',
+                'title' => "Widget title",
+                'default' => "Website",
                 'type' => 'string',
                 'validationPattern' => '^.+$',
-                'validationMessage' => 'backend::lang.dashboard.widget_title_error',
+                'validationMessage' => "The Widget Title is required.",
             ]
         ];
     }

@@ -1,0 +1,196 @@
+@import "_control-table-text.css";
+@import "_control-table-dropdown.css";
+
+.component-backend-inspector-panel .component-backend-inspector-controlhost {
+    .component-backend-inspector-table {
+        --table-cell-base-padding-v: 8px;
+        --table-cell-base-padding-h: 10px;
+        --table-first-cell-padding: 20px;
+        --table-last-cell-padding: 23px;
+
+        table {
+            width: 100%;
+            table-layout: fixed;
+            border-top: 1px solid var(--oc-primary-border);
+
+            th, td {
+                border-right: 1px solid var(--oc-primary-border);
+                border-bottom: 1px solid var(--oc-primary-border);
+
+                &:last-child {
+                    border-right: none;
+                }
+            }
+
+            thead {
+                th {
+                    background-color: transparent;
+                    font-weight: 600;
+                    color: #5E6D8C;
+                    min-width: 50px;
+
+                    .header-cell-container {
+                        padding: var(--table-cell-base-padding-v) var(--table-cell-base-padding-h);
+                        position: relative;
+                        text-overflow: ellipsis;
+                        overflow: hidden;
+                        width: 100%;
+                        white-space: nowrap;
+
+                        .cell-resize-handle {
+                            position: absolute;
+                            left: -1px;
+                            top: 1px;
+                            width: 3px;
+                            height: 100%;
+                            cursor: col-resize;
+                        }
+                    }
+
+                    &:first-child .header-cell-container {
+                        padding-left: var(--table-first-cell-padding);
+                    }
+                }
+            }
+
+            tbody {
+                td {
+                    .table-cell-container {
+                        position: relative;
+                        padding-right: var(--table-cell-base-padding-h);
+                    }
+
+                    &:first-child {
+                        padding-left: var(--table-first-cell-padding);
+                    }
+
+                    &:last-child {
+                        .table-cell-container {
+                            padding-right: var(--table-last-cell-padding);
+                        }
+                    }
+
+                    &.no-sub-controls {
+                        padding-top: 7px;
+                        padding-bottom: 8px;
+                    }
+
+                    &.clickable {
+                        cursor: pointer;
+
+                        &:hover {
+                            background: var(--oc-toolbar-hover-bg);
+                        }
+
+                        .clickable-data-container {
+                            position: relative;
+                            display: flex;
+                            justify-content: space-between;
+
+                            .title-container {
+                                display: flex;
+                            }
+
+                            > span {
+                                word-break: break-all;
+                            }
+
+                            .remove-row-btn {
+                                position: relative;
+                                top: 4px;
+                            }
+                        }
+                    }
+
+                    .record-color {
+                        width: 18px;
+                        height: 18px;
+                        position: relative;
+                        top: 2px;
+                        border: 1px solid white;
+                        margin-right: 5px;
+                        flex-shrink: 0;
+                    }
+                }
+
+                tr.focused {
+                    td {
+                        border-bottom: 1px solid var(--bs-primary);
+                    }
+                }
+
+                tr.has-errors {
+                    &, &.focused {
+                        td {
+                            border-bottom: 1px solid var(--bs-danger);
+                        }
+                    }
+                }
+
+                .remove-row-btn {
+                    border: none;
+                    background: transparent;
+                    position: absolute;
+                    -webkit-appearance: none;
+                    width: 16px;
+                    height: 16px;
+                    right: 8px;
+                    top: 11px;
+                    padding: 0;
+                    outline: none;
+
+                    &:hover, &:focus {
+                        &:before {
+                            color: var(--bs-danger);
+                        }
+                    }
+
+                    &:before {
+                        font-family: 'octo-icon' !important;
+                        speak: none;
+                        font-style: normal;
+                        font-weight: normal;
+                        font-variant: normal;
+                        text-transform: none;
+                        line-height: 1;
+                        -webkit-font-smoothing: antialiased;
+                        -moz-osx-font-smoothing: grayscale;
+                        content: "\e93e";
+                        font-size: 13px;
+                        display: inline-block;
+                        position: absolute;
+                        color: #72809d;
+                        left: 2px;
+                        top: 1px;
+                    }
+                }
+            }
+        }
+
+        .table-control-links {
+            padding-top: 10px;
+            padding-bottom: 10px;
+
+            a {
+                color: #72809d;
+                text-decoration: underline;
+
+                &:active, &:focus {
+                    color: var(--oc-link-color);
+                    outline: none;
+                }
+
+                &.disabled {
+                    cursor: default;
+                    color: #d7e1eA !important;
+                }
+            }
+        }
+    }
+
+    .no-property-title > .component-backend-inspector-table {
+        table {
+            border-top: none;
+        }
+    }
+}

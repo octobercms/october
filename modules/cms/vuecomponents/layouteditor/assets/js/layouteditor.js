@@ -1,7 +1,9 @@
-Vue.component('cms-editor-component-layout-editor', {
-    extends: oc.Modules.import('cms.editor.extension.documentcomponent.base'),
+import { CmsDocumentComponentBase } from '../../../../assets/js/cms.editor.extension.documentcomponent.base.js';
+import EditorModelDefinition from '../../../../../backend/vuecomponents/monacoeditor/assets/js/modeldefinition.js';
+
+export default {
+    extends: CmsDocumentComponentBase,
     data: function() {
-        const EditorModelDefinition = oc.Modules.import('backend.vuecomponents.monacoeditor.modeldefinition');
         const defMarkup = new EditorModelDefinition(
             'twig',
             this.trans('cms::lang.page.editor_markup'),
@@ -118,6 +120,5 @@ Vue.component('cms-editor-component-layout-editor', {
             this.defMarkup.setHolderObject(this.documentData);
             this.defCode.setHolderObject(this.documentData);
         }
-    },
-    template: '#cms_vuecomponents_layouteditor'
-});
+    }
+};

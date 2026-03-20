@@ -1,7 +1,7 @@
 /*
  * Media manager image editor popup
  */
-class MediaManagerImageCropPopup
+export default class MediaManagerImageCropPopup
 {
     static DEFAULTS = {
         alias: undefined,
@@ -473,4 +473,3 @@ class MediaManagerImageCropPopup
     }
 }
 
-oc.mediaManager.imageCropPopup = MediaManagerImageCropPopup;

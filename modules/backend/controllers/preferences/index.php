@@ -7,24 +7,33 @@
 
         <div class="form-buttons">
             <div data-control="loader-container">
-                <?= Ui::ajaxButton("Save Changes", 'onSave')
-                    ->primary()
-                    ->ajaxData(['redirect' => false])
-                    ->hotkey('ctrl+s', 'cmd+s')
-                    ->loadingMessage(__("Saving...")) ?>
+                <?= Ui::ajaxButton(
+                    label: __("Save Changes"),
+                    handler: 'onSave',
+                    primary: true,
+                    hotkey: ['ctrl+s', 'cmd+s'],
+                    dataRequestData: "redirect: false",
+                    dataRequestMessage: __("Saving...")
+                ) ?>
 
                 <span class="btn-text">
                     <span class="button-separator"><?= __("or") ?></span>
-                    <?= Ui::button("Cancel", 'system/settings')
-                        ->textLink() ?>
+                    <?= Ui::button(
+                        label: __("Cancel"),
+                        href: Backend::url('system/settings'),
+                        class: 'btn-link p-0'
+                    ) ?>
                 </span>
 
                 <span class="pull-right btn-text">
-                    <?= Ui::ajaxButton("Reset to Default", 'onResetDefault')
-                        ->textLink()
-                        ->ajaxData(['redirect' => false])
-                        ->confirmMessage(__("Are you sure?"))
-                        ->loadingMessage(__("Resetting...")) ?>
+                    <?= Ui::ajaxButton(
+                        label: __("Reset to Default"),
+                        handler: 'onResetDefault',
+                        class: 'btn-link p-0',
+                        dataRequestData: "redirect: false",
+                        dataRequestConfirm: __("Are you sure?"),
+                        dataRequestMessage: __("Resetting...")
+                    ) ?>
                 </span>
             </div>
         </div>
@@ -32,5 +41,11 @@
 
 <?php else: ?>
     <p class="flash-message static error"><?= e(__($this->fatalError)) ?></p>
-    <p><a href="<?= Backend::url('system/settings') ?>" class="btn btn-default"><?= __('Return to System Settings') ?></a></p>
+    <p>
+        <?= Ui::button(
+            label: __("Return to System Settings"),
+            href: Backend::url('system/settings'),
+            secondary: true
+        ) ?>
+    </p>
 <?php endif ?>

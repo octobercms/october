@@ -30,16 +30,13 @@ window.oc.lang = (function(lang, messages) {
         }
     }
 
-    lang.get = function(name, defaultValue) {
+    lang.get = function(name, params) {
         if (!name) {
             return;
         }
 
-        var result = lang.loadedMessages;
-
-        if (!defaultValue) {
-            defaultValue = name;
-        }
+        var result = lang.loadedMessages,
+            defaultValue = (typeof params === "string") ? params : name;
 
         $.each(name.split('.'), function(index, value) {
             if (result[value] === undefined) {
@@ -49,6 +46,12 @@ window.oc.lang = (function(lang, messages) {
 
             result = result[value];
         });
+
+        if (params && typeof params === "object") {
+            Object.keys(params).forEach(function(key) {
+                result = result.replace(new RegExp(":" + key, "g"), params[key]);
+            });
+        }
 
         return result;
     }
@@ -63,6 +66,11 @@ window.oc.lang = (function(lang, messages) {
 
     return lang;
 })(window.oc.lang || {}, window.oc.langMessages);
+
+// Translation helper
+window.oc.t = function(name, params) {
+    return oc.lang.get(name, params);
+};
 
 // Migrate jQuery
 if ($.oc === undefined) {

@@ -1,9 +1,11 @@
-(function () {
+import Sizing from '../../../../assets/js/classes/sizing.js';
+import Dragging from '../../../../assets/js/classes/dragging.js';
+import { host as inspectorHost } from '../../../../../backend/vuecomponents/inspector/assets/js/classes/index.js';
 
-const dashboardSizing = Dashboard_Classes_Sizing.instance();
-const dashboardDragging = Dashboard_Classes_Dragging.instance();
+const dashboardSizing = Sizing.instance();
+const dashboardDragging = Dragging.instance();
 
-Vue.component('dashboard-component-dashboard-report-widget', {
+export default {
     props: {
         widget: Object,
         store: Object,
@@ -31,16 +33,15 @@ Vue.component('dashboard-component-dashboard-report-widget', {
     },
     methods: {
         cancelLoading: function () {
-            this.loadingPromises.forEach(function (promise) {
-                if (promise.isPending()) {
-                    promise.cancel();
-                }
-            })
+            this.loadingPromises.forEach(function (tracker) {
+                tracker.cancelled = true;
+            });
+            this.loadingPromises = [];
         },
         hasActiveLoadingPromise: function () {
-            return this.loadingPromises.filter(function (promise) {
-                return promise.isPending();
-            }).length > 0;
+            return this.loadingPromises.some(function (tracker) {
+                return tracker.pending;
+            });
         },
         load: function (resetCache) {
             const widgetImplementation = this.$refs.widgetImplementation;
@@ -67,7 +68,7 @@ Vue.component('dashboard-component-dashboard-report-widget', {
                 compare = undefined;
             }
 
-            aggregationInterval = widgetImplementation.getRequestInterval(range.interval);
+            const aggregationInterval = widgetImplementation.getRequestInterval(range.interval);
 
             let loadingPromise = null;
             if (widgetConfiguration.type === 'static') {
@@ -103,21 +104,31 @@ Vue.component('dashboard-component-dashboard-report-widget', {
                 );
             }
 
-            this.loadingPromises.push(loadingPromise);
+            const tracker = { pending: true, cancelled: false };
+            this.loadingPromises.push(tracker);
 
             loadingPromise
                 .then((data) => {
-                    this.applyData(data);
-                    if (widgetConfiguration.auto_update) {
-                        this.startAutoUpdate();
+                    if (!tracker.cancelled) {
+                        this.applyData(data);
+                        if (widgetConfiguration.auto_update) {
+                            this.startAutoUpdate();
+                        }
                     }
-                }).finally(() => {
-                    this.autoUpdating = false;
-                    this.loading = this.hasActiveLoadingPromise();
-                    this.showInspectorWhenLoaded();
-                }).catch((err) => {
-                    console.error(err)
-                    this.error = true;
+                })
+                .catch((err) => {
+                    if (!tracker.cancelled) {
+                        console.error(err);
+                        this.error = true;
+                    }
+                })
+                .finally(() => {
+                    tracker.pending = false;
+                    if (!tracker.cancelled) {
+                        this.autoUpdating = false;
+                        this.loading = this.hasActiveLoadingPromise();
+                        this.showInspectorWhenLoaded();
+                    }
                 });
         },
         applyData: function (data) {
@@ -129,10 +140,12 @@ Vue.component('dashboard-component-dashboard-report-widget', {
             }
 
             if (state.widgetData[dashboardKey] === undefined) {
-                Vue.set(state.widgetData, dashboardKey, {});
+                // Vue 3: Direct assignment is reactive
+                state.widgetData[dashboardKey] = {};
             }
 
-            Vue.set(state.widgetData[dashboardKey], this.widget._unique_key, data);
+            // Vue 3: Direct assignment is reactive
+            state.widgetData[dashboardKey][this.widget._unique_key] = data;
         },
         makeMenuItems: function () {
             const widgetImplementation = this.$refs.widgetImplementation;
@@ -141,14 +154,14 @@ Vue.component('dashboard-component-dashboard-report-widget', {
                 this.menuItems.push({
                     type: 'text',
                     command: 'configure',
-                    label: oc.lang.get('dashboard.configure')
+                    label: oc.t("Configure")
                 });
             }
 
             this.menuItems.push({
                 type: 'text',
                 command: 'delete',
-                label: oc.lang.get('dashboard.delete')
+                label: oc.t("Delete")
             });
         },
         showInspectorWhenLoaded() {
@@ -169,15 +182,15 @@ Vue.component('dashboard-component-dashboard-report-widget', {
 
             dataHolder['_dash_definition'] = this.store.getCurrentDashboard().code;
 
-            oc.vueComponentHelpers.inspector.host
+            inspectorHost
                 .showModal(
-                    oc.lang.get('dashboard.configure'),
+                    oc.t("Configure"),
                     dataHolder,
                     widgetImplementation.getSettingsConfiguration(),
                     'widget-configuration',
                     {
                         handlerAlias: this.store.state.alias,
-                        buttonText: oc.lang.get('dashboard.apply'),
+                        buttonText: oc.t("Apply"),
                         resizableWidth: true
                     }
                 )
@@ -327,6 +340,10 @@ Vue.component('dashboard-component-dashboard-report-widget', {
                 'fixed-width-' + this.width
             ];
 
+            if (this.widget.configuration.reportName) {
+                result.push(this.widget.configuration.reportName);
+            }
+
             if (this.store.state.editMode) {
                 result.push('edit-mode');
             }
@@ -368,7 +385,7 @@ Vue.component('dashboard-component-dashboard-report-widget', {
             this.loading = false;
         }
     },
-    beforeDestroy: function beforeDestroy() {
+    beforeUnmount: function beforeUnmount() {
         this.stopAutoUpdate();
     },
     watch: {
@@ -394,8 +411,5 @@ Vue.component('dashboard-component-dashboard-report-widget', {
                 this.load();
             }
         }
-    },
-    template: '#dashboard_vuecomponents_dashboard_report_widget'
-});
-
-})();
+    }
+};

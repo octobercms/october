@@ -17,6 +17,11 @@ use Backend\Classes\VueComponentBase;
  */
 class Uploader extends VueComponentBase
 {
+    /**
+     * @var string componentName is the Vue component tag name.
+     */
+    protected $componentName = 'backend-uploader';
+
     protected $require = [
         \Backend\VueComponents\ScrollablePanel::class,
         \Backend\VueComponents\LoadingIndicator::class
@@ -31,9 +36,7 @@ class Uploader extends VueComponentBase
      */
     protected function loadDependencyAssets()
     {
-        $this->addJsBundle('js/utils.js');
-        $this->addJsBundle('js/queue.js');
-        $this->addJsBundle('js/file.js');
+        $this->addJs('js/utils.js', ['type' => 'module']);
     }
 
     protected function registerSubcomponents()

@@ -348,5 +348,8 @@
   "File not found": "File not found",
   "There was no data supplied to export": "There was no data supplied to export",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "Libraria PHP :name nu este instalata. Va rugam sa instalati aceasta librarie si apoi sa activati extensia.",
-  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "Directorul :name si subdirectoarele sale nu au permisiuni de scriere pentru PHP. Va rugam sa setati permisiunile corespunzatoare pentru acest director."
+  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "Directorul :name si subdirectoarele sale nu au permisiuni de scriere pentru PHP. Va rugam sa setati permisiunile corespunzatoare pentru acest director.",
+  "Manage Roles": "Gestionați rolurile",
+  "Manage Groups": "Grupuri",
+  "Customize Backend": "Personalizează Panou de Administrare"
 }

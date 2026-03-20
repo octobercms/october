@@ -1,0 +1,61 @@
+.component-backend-richeditor-document-connector {
+    .top-ruler {
+        background-color: var(--oc-document-ruler-bg);
+        height: 14px;
+        border-bottom: var(--oc-document-ruler-bg) 1px solid;
+
+        .width-indicator {
+            height: 13px;
+            max-width: 100% !important;
+            background: var(--oc-document-ruler-color);
+            position: relative;
+
+            .width-tick {
+                position: absolute;
+                width: 1px;
+                background: var(--oc-document-ruler-tick);
+
+                &.tick-major {
+                    top: 2px;
+                    height: 9px;
+                }
+
+                &.tick-minor {
+                    top: 5px;
+                    height: 3px;
+                }
+            }
+
+            .width-drag-handle {
+                width: 15px;
+                height: 0;
+                display: block;
+                content: '';
+                border-left: 7.5px solid transparent;
+                border-right: 7.5px solid transparent;
+                border-top: 8px solid #3498DB;
+                border-bottom-width: 0;
+                position: absolute;
+                right: -7px;
+                bottom: 0;
+                opacity: 0.85;
+                cursor: ew-resize;
+            }
+        }
+    }
+
+    &.resizing-ui {
+        .fr-box.fr-basic {
+            background-color: var(--bs-body-bg);
+        }
+
+        .fr-wrapper {
+            background: var(--oc-form-control-bg);
+            color: var(--bs-body-color);
+            box-shadow: 0 0 5px 3px rgba(var(--bs-body-color-rgb), 0.05);
+            display: block;
+            max-width: 100% !important;
+            left: 50% !important;
+        }
+    }
+}

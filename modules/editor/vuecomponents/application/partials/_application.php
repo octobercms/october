@@ -5,7 +5,7 @@
     v-oc-hotkey:[quickViewHotkey]="onShowQuickAccess"
     v-oc-hotkey:[toggleSidebarHotkey]="onToggleSidebar"
 >
-    <backend-component-splitter
+    <backend-splitter
         direction="vertical"
         unique-key="editor-main-view"
         :default-size="400">
@@ -15,7 +15,7 @@
 
         <template v-slot:second>
             <div class="flex-layout-column fill-container">
-                <backend-component-tabs
+                <backend-tabs
                     ref="tabs"
                     :tabs="store.state.editorTabs"
                     :full-height="true"
@@ -42,14 +42,16 @@
                                         </div>
 
                                         <table class="editor-hotkeys" v-if="!isDirectDocumentMode">
-                                            <tr>
-                                                <th><?= e(trans('editor::lang.common.quick_access')) ?></th>
-                                                <td><span class="editor-hotkey" v-text="quickViewHotkey"></span></td>
-                                            </tr>
-                                            <tr>
-                                                <th><?= e(trans('editor::lang.common.toggle_sidebar')) ?></th>
-                                                <td><span class="editor-hotkey" v-text="toggleSidebarHotkey"></span></td>
-                                            </tr>
+                                            <tbody>
+                                                <tr>
+                                                    <th><?= e(trans('editor::lang.common.quick_access')) ?></th>
+                                                    <td><span class="editor-hotkey" v-text="quickViewHotkey"></span></td>
+                                                </tr>
+                                                <tr>
+                                                    <th><?= e(trans('editor::lang.common.toggle_sidebar')) ?></th>
+                                                    <td><span class="editor-hotkey" v-text="toggleSidebarHotkey"></span></td>
+                                                </tr>
+                                            </tbody>
                                         </table>
 
                                         <div v-if="directDocumentNotFound" class="document-not-found-message">
@@ -64,10 +66,10 @@
                             </div>
                         </div>
                     </template>
-                </backend-component-tabs>
+                </backend-tabs>
             </div>
         </template>
-    </backend-component-splitter>
+    </backend-splitter>
 
     <editor-document-info-popup ref="infoPopup"></editor-document-info-popup>
 </div>

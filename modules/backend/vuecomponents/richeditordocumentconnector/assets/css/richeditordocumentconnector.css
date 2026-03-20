@@ -1,1 +1,85 @@
-.component-backend-richeditor-document-connector div.richeditor-container{display:block;position:relative}.component-backend-richeditor-document-connector div.codeeditor-container,.component-backend-richeditor-document-connector.code-editing-mode div.richeditor-container{display:none}.component-backend-richeditor-document-connector.code-editing-mode div.codeeditor-container{display:block}.component-backend-richeditor-document-connector .component-backend-richeditor{height:100%;position:absolute;width:100%}.component-backend-richeditor-document-connector .component-backend-richeditor .fr-box{position:absolute!important}.component-backend-richeditor-document-connector .component-backend-richeditor .fr-toolbar{border:none;height:0;padding:0}.component-backend-richeditor-document-connector .component-backend-richeditor .fr-toolbar>button,.component-backend-richeditor-document-connector .component-backend-richeditor .fr-toolbar>div.fr-btn-wrap,.component-backend-richeditor-document-connector .component-backend-richeditor .fr-toolbar>div.fr-dropdown-menu,.component-backend-richeditor-document-connector .component-backend-richeditor .fr-toolbar>div.fr-separator{display:none}.component-backend-richeditor-document-connector .component-backend-richeditor .fr-popup{top:0!important}.component-backend-richeditor-document-connector iframe.fr-iframe{min-height:100%}.component-backend-richeditor-document-connector .top-ruler{background-color:var(--oc-document-ruler-bg);border-bottom:1px solid var(--oc-document-ruler-bg);height:14px}.component-backend-richeditor-document-connector .top-ruler .width-indicator{background:var(--oc-document-ruler-color);height:13px;max-width:100%!important;position:relative}.component-backend-richeditor-document-connector .top-ruler .width-indicator .width-tick{background:var(--oc-document-ruler-tick);position:absolute;width:1px}.component-backend-richeditor-document-connector .top-ruler .width-indicator .width-tick.tick-major{height:9px;top:2px}.component-backend-richeditor-document-connector .top-ruler .width-indicator .width-tick.tick-minor{height:3px;top:5px}.component-backend-richeditor-document-connector .top-ruler .width-indicator .width-drag-handle{border-bottom-width:0;border-left:7.5px solid transparent;border-right:7.5px solid transparent;border-top:8px solid #3498db;bottom:0;content:"";cursor:ew-resize;display:block;height:0;opacity:.85;position:absolute;right:-7px;width:0;width:15px}.component-backend-richeditor-document-connector.resizing-ui .fr-box.fr-basic{background-color:var(--bs-body-bg)}.component-backend-richeditor-document-connector.resizing-ui .fr-wrapper{background:var(--oc-form-control-bg);box-shadow:0 0 5px 3px rgba(var(--bs-body-color-rgb),.05);color:var(--bs-body-color);display:block;left:50%!important;max-width:100%!important}body .fr-popup{background-color:var(--oc-popup-bg);border:var(--oc-popup-border)!important;border-radius:8px;box-shadow:0 0 32px rgba(67,86,100,.2)!important}body .fr-popup .fr-buttons{border-bottom:none!important}body .fr-popup .fr-buttons:empty{border-bottom:none}body .fr-popup .fr-arrow{display:none}body .fr-popup .fr-action-buttons{height:auto;padding:5px 0}body.richeditor-document-connector-resizing *{cursor:col-resize!important;-webkit-user-select:none;-moz-user-select:none;user-select:none}.field-richeditor.vue-mode{border:none;box-shadow:none!important;position:relative}.field-richeditor.vue-mode textarea[data-richeditor-textarea]{display:none}.field-richeditor.vue-mode .editor-write{border:1px solid var(--bs-border-color);border-radius:4px;position:relative;transition:border-color .15s ease-in-out,box-shadow .15s ease-in-out}.field-richeditor.vue-mode .editor-write.editor-focus{border:1px solid var(--oc-border-focus)}.field-richeditor.vue-mode.size-adaptive .editor-write{border:none!important}.field-richeditor.vue-mode.size-tiny .editor-write{min-height:95px}.field-richeditor.vue-mode.size-small .editor-write{min-height:145px}.field-richeditor.vue-mode.size-large .editor-write{min-height:245px}.field-richeditor.vue-mode.size-huge .editor-write{min-height:295px}.field-richeditor.vue-mode.size-giant .editor-write{min-height:395px}.field-richeditor.vue-mode.stretch .editor-write{float:none;height:100%;min-height:0;position:relative}.field-richeditor.vue-mode .height-indicator{display:none}.field-richeditor.vue-mode div.no-resizing-ui .component-backend-richeditor .fr-box.fr-basic .fr-element.fr-view{padding:10px}.field-richeditor.vue-mode .component-backend-document .document-content-container{border-bottom-left-radius:4px!important;border-bottom-right-radius:4px!important}.field-richeditor.vue-mode .component-backend-document .document-header-container{display:none!important}.fancy-layout .field-richeditor.vue-mode,.fancy-layout .field-richeditor.vue-mode .field-richeditor{border-left:none!important}.fancy-layout .field-richeditor.vue-mode .editor-write{border:none}
+@import "_resizing.css";
+@import "_formwidget.css";
+
+.component-backend-richeditor-document-connector {
+    div.richeditor-container {
+        display: block;
+        position: relative;
+    }
+
+    div.codeeditor-container {
+        display: none;
+    }
+
+    &.code-editing-mode {
+        div.richeditor-container {
+            display: none;
+        }
+
+        div.codeeditor-container {
+            display: block;
+        }
+    }
+
+    .component-backend-richeditor {
+        position: absolute;
+        width: 100%;
+        height: 100%;
+
+        .fr-box {
+            position: absolute !important;
+        }
+
+        .fr-toolbar {
+            height: 0;
+            padding: 0;
+            border: none;
+
+            > button,
+            > div.fr-dropdown-menu,
+            > div.fr-separator,
+            > div.fr-btn-wrap {
+                display: none;
+            }
+        }
+
+        .fr-popup {
+            top: 0 !important;
+        }
+    }
+
+    iframe.fr-iframe {
+        min-height: 100%;
+    }
+}
+
+body .fr-popup {
+    border: var(--oc-popup-border) !important;
+    border-radius: 8px;
+    box-shadow: 0 0 32px rgba(67, 86, 100, 0.2) !important;
+    background-color: var(--oc-popup-bg);
+
+    .fr-buttons {
+        border-bottom: none !important;
+
+        &:empty {
+            border-bottom: none;
+        }
+    }
+
+    .fr-arrow {
+        display: none;
+    }
+
+    .fr-action-buttons {
+        padding: 5px 0;
+        height: auto;
+    }
+}
+
+body.richeditor-document-connector-resizing {
+    * {
+        user-select: none;
+        cursor: col-resize !important;
+    }
+}

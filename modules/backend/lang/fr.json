@@ -317,9 +317,9 @@
   "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Sélectionnez le nombre d'enregistrements par page à afficher. Veuillez noter qu'un nombre élevé d'enregistrements sur une seule page peut réduire les performances.",
   "Reset to Default": "Réinitialiser aux valeurs par défaut",
   "Add Selected": "Ajouter la sélection",
-  "Create & Close": "Créer et fermer",
+  "Create & Close": "Créer & Fermer",
   "Creating :name...": "Créer un(e) :name...",
-  "Save & Close": "Sauvegarder et fermer",
+  "Save & Close": "Sauvegarder & Fermer",
   "Saving :name...": "Enregistrement du thème :name ...",
   "Delete this record?": "Supprimer cet enregistrement ?",
   "Deleting :name...": "Suppression de :name...",
@@ -396,5 +396,8 @@
   "Configure the widget": "Configurer le widget",
   "to manage its settings.": "pour gérer ses paramètres.",
   "Includes": "Inclut",
-  "Excludes": "Exclut"
+  "Excludes": "Exclut",
+  "Manage Roles": "Gérer les rôles",
+  "Manage Groups": "Groupes",
+  "Customize Backend": "Personnaliser l’interface d’administration"
 }

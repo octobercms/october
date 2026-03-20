@@ -9,26 +9,26 @@
             <div class="welcome-message">
                 <?php if ($lastSeen): ?>
                     <p>
-                        <?= e(trans('backend::lang.dashboard.welcome.welcome_back_name', ['app'=>$appName, 'name'=>$user->first_name])) ?>
-                        <?= e(trans('backend::lang.dashboard.welcome.last_sign_in')) ?>
+                        <?= e(__("Welcome back to :app, :name.", ['app'=>$appName, 'name'=>$user->first_name])) ?>
+                        <?= e(__("Your last sign in was")) ?>
                     </p>
                     <p>
                         <strong><?= Backend::dateTime($lastSeen->created_at, ['formatAlias' => 'dateTimeLongMin']) ?></strong>
                     </p>
                     <?php if (BackendAuth::userHasAccess('utilities.logs')): ?>
                         <p>
-                            <a href="<?= Backend::url('backend/accesslogs') ?>"><?= e(trans('backend::lang.dashboard.welcome.view_access_logs')) ?></a>
+                            <a href="<?= Backend::url('backend/accesslogs') ?>"><?= e(__("View Access Logs")) ?></a>
                         </p>
                     <?php endif ?>
                 <?php else: ?>
                     <p>
-                        <?= e(trans('backend::lang.dashboard.welcome.welcome_to_name', ['app'=>$appName, 'name'=>$user->first_name])) ?>
+                        <?= e(__("Welcome to :app, :name.", ['app'=>$appName, 'name'=>$user->first_name])) ?>
                     </p>
                     <p>
-                        <?= e(trans('backend::lang.dashboard.welcome.first_sign_in')) ?>
+                        <?= e(__("This is the first time you have signed in.")) ?>
                     </p>
                     <p>
-                        <?= e(trans('backend::lang.dashboard.welcome.nice_message')) ?>
+                        <?= e(__("Have a great day!")) ?>
                     </p>
                 <?php endif ?>
             </div>

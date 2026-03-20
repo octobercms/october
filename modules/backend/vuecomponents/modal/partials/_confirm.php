@@ -1,7 +1,7 @@
 <div
     data-default-button-text="<?= e(trans('backend::lang.form.ok')) ?>"
 >
-    <backend-component-modal
+    <backend-modal
         ref="modal"
         :aria-labeled-by="modalTitleId"
         :unique-key="uniqueKey"
@@ -40,5 +40,5 @@
                 ><?= e(trans('backend::lang.form.cancel')) ?></button>
             </div>
         </template>
-    </backend-component-modal>
+    </backend-modal>
 </div>

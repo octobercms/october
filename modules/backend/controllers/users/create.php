@@ -16,26 +16,29 @@
             </div>
 
             <div class="form-buttons">
-                <div class="loading-indicator-container">
-                    <button
-                        type="submit"
-                        data-request="onSave"
-                        data-hotkey="ctrl+s, cmd+s"
-                        data-load-indicator="<?= e(trans('backend::lang.form.creating')) ?>"
-                        class="btn btn-primary">
-                        <?= e(trans('backend::lang.form.create')) ?>
-                    </button>
-                    <button
-                        type="button"
-                        data-request="onSave"
-                        data-request-data="close:1"
-                        data-hotkey="ctrl+enter, cmd+enter"
-                        data-load-indicator="<?= e(trans('backend::lang.form.creating')) ?>"
-                        class="btn btn-default">
-                        <?= e(trans('backend::lang.form.create_and_close')) ?>
-                    </button>
+                <div data-control="loader-container" class="control-loader-container">
+                    <?= Ui::ajaxButton(
+                        label: __("Create"),
+                        handler: 'onSave',
+                        primary: true,
+                        hotkey: ['ctrl+s', 'cmd+s'],
+                        dataRequestMessage: __("Creating :name...", ['name' => $formRecordName])
+                    ) ?>
+                    <?= Ui::ajaxButton(
+                        label: __("Create & Close"),
+                        handler: 'onSave',
+                        secondary: true,
+                        hotkey: ['ctrl+enter', 'cmd+enter'],
+                        dataRequestData: "close: true",
+                        dataRequestMessage: __("Creating :name...", ['name' => $formRecordName])
+                    ) ?>
                     <span class="btn-text">
-                        <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('backend/users') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
+                        <span class="button-separator"><?= __("or") ?></span>
+                        <?= Ui::button(
+                            label: __("Cancel"),
+                            href: Backend::url('backend/users'),
+                            class: 'btn-link p-0'
+                        ) ?>
                     </span>
                 </div>
             </div>
@@ -59,6 +62,12 @@
     </nav>
     <div class="padded-container">
         <p class="flash-message static error"><?= e(__($this->fatalError)) ?></p>
-        <p><a href="<?= Backend::url('backend/users') ?>" class="btn btn-default"><?= e(trans('backend::lang.user.return')) ?></a></p>
+        <p>
+            <?= Ui::button(
+                label: __("Return to Admins List"),
+                href: Backend::url('backend/users'),
+                secondary: true
+            ) ?>
+        </p>
     </div>
 <?php endif ?>

@@ -1,1 +1,175 @@
-:root,[data-bs-theme=light]{--oc-formdocument-select-color:#6a6cf7;--oc-formdocument-select-bg:#e8e8ff}[data-bs-theme=dark]{--oc-formdocument-select-color:#e0e0e0;--oc-formdocument-select-bg:#373f47}.record-management-controls{font-size:0}.record-management-controls>div{display:inline-block;margin-right:10px}.record-management-controls>div:last-child,.record-management-controls>div>.record-management-button{margin-right:0}.record-management-controls .record-management-button{-webkit-appearance:none;background:var(--oc-primary-bg);border:none;border-radius:4px;display:inline-block;font-size:14px;height:38px;margin-right:10px;outline:none;padding:0 15px;position:relative;white-space:nowrap}.record-management-controls .record-management-button:last-child{margin-right:0}.record-management-controls .record-management-button[disabled]{cursor:default}.record-management-controls .record-management-button[disabled]:after,.record-management-controls .record-management-button[disabled]>i,.record-management-controls .record-management-button[disabled]>span{opacity:.5}.record-management-controls .record-management-button.has-menu:after{speak:none;-webkit-font-smoothing:antialiased;-moz-osx-font-smoothing:grayscale;content:"\e90a";font-family:octo-icon!important;font-size:16px;font-style:normal;font-variant:normal;font-weight:400;line-height:1;margin-left:3px;margin-right:-4px;position:relative;text-transform:none;vertical-align:middle}.record-management-controls .record-management-button.record-status-button{border:1px solid var(--oc-toolbar-border);overflow:hidden;padding-left:35px}.record-management-controls .record-management-button.record-status-button span{position:relative}.record-management-controls .record-management-button.record-status-button em{color:var(--bs-secondary-color);font-size:12px;font-style:normal}.record-management-controls .record-management-button.record-status-button i{border-radius:100%;display:block;height:10px;left:13px;position:absolute;top:13px;transition:width .3s,height .3s,left .3s,top .3s,background-color .3s;width:10px}.record-management-controls .record-management-button.record-status-button.status-published span,.record-management-controls .record-management-button.record-status-button.status-published:after{color:#fff}.record-management-controls .record-management-button.record-status-button.status-published em{color:hsla(0,0%,100%,.7)}.record-management-controls .record-management-button.record-status-button.status-published:before{background:#fff;border-radius:100%;content:"";display:block;height:10px;left:13px;position:absolute;top:13px;width:10px;z-index:1}.record-management-controls .record-management-button.record-status-button.status-published i{height:500px;left:-250px;top:-250px;width:500px}.record-management-controls .record-management-button.record-status-button.status-draft{padding-left:15px}.record-management-controls .record-management-button.record-status-button.status-draft i{height:500px;left:-250px;top:-250px;width:500px}.record-management-controls .record-management-button.record-status-button.status-draft span,.record-management-controls .record-management-button.record-status-button.status-draft:after{color:#fff}.record-management-controls .record-management-button.record-status-button.status-draft:before{display:none}.record-management-controls .record-management-button.record-status-button.status-draft.status-initial-draft i{background:#46b3a5!important}.record-management-controls .record-management-button.entry-type-selector{background:var(--oc-formdocument-select-bg);color:var(--oc-formdocument-select-color)}.record-management-controls .record-management-button.record-status-button.status-draft,.record-management-controls .record-management-button.record-status-button.status-published{border-color:hsla(0,0%,100%,.01)}[data-bs-theme=dark] .record-management-controls .record-management-button.record-status-button.status-draft,[data-bs-theme=dark] .record-management-controls .record-management-button.record-status-button.status-published{border-color:rgba(0,0,0,.6)}
+:root, [data-bs-theme="light"] {
+    --oc-formdocument-select-color: #6a6cf7;
+    --oc-formdocument-select-bg: #e8e8ff;
+}
+
+[data-bs-theme="dark"] {
+    --oc-formdocument-select-color: #e0e0e0;
+    --oc-formdocument-select-bg: #373f47;
+}
+
+.record-management-controls {
+    font-size: 0;
+
+    > div {
+        display: inline-block;
+        margin-right: 10px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        > .record-management-button {
+            margin-right: 0;
+        }
+    }
+
+    .record-management-button {
+        display: inline-block;
+        border: none;
+        background: var(--oc-primary-bg);
+        outline: none;
+        -webkit-appearance: none;
+        font-size: 14px;
+        height: 38px;
+        margin-right: 10px;
+        border-radius: 4px;
+        padding: 0 15px;
+        position: relative;
+        white-space: nowrap;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        &[disabled] {
+            cursor: default;
+
+            > i,
+            > span,
+            &:after {
+                opacity: 0.5;
+            }
+        }
+
+        &.has-menu {
+            &:after {
+                font-family: 'octo-icon' !important;
+                speak: none;
+                font-style: normal;
+                font-weight: normal;
+                font-variant: normal;
+                text-transform: none;
+                line-height: 1;
+                -webkit-font-smoothing: antialiased;
+                -moz-osx-font-smoothing: grayscale;
+                content: "\e90a";
+                position: relative;
+                font-size: 16px;
+                vertical-align: middle;
+                margin-left: 3px;
+                margin-right: -4px;
+            }
+        }
+
+        &.record-status-button {
+            padding-left: 35px;
+            border: 1px solid var(--oc-toolbar-border);
+            overflow: hidden;
+
+            span {
+                position: relative;
+            }
+
+            em {
+                color: var(--bs-secondary-color);
+                font-size: 12px;
+                font-style: normal;
+            }
+
+            i {
+                display: block;
+                width: 10px;
+                height: 10px;
+                border-radius: 100%;
+                position: absolute;
+                left: 13px;
+                top: 13px;
+
+                transition: 0.3s width, 0.3s height, 0.3s left, 0.3s top, 0.3s background-color;
+            }
+
+            &.status-published {
+                span, &:after {
+                    color: white;
+                }
+
+                em {
+                    color: rgba(255, 255, 255, 0.7);
+                }
+
+                &:before {
+                    content: '';
+                    display: block;
+                    width: 10px;
+                    height: 10px;
+                    border-radius: 100%;
+                    position: absolute;
+                    left: 13px;
+                    top: 13px;
+                    background: white;
+                    z-index: 1;
+                }
+
+                i {
+                    width: 500px;
+                    height: 500px;
+                    left: -250px;
+                    top: -250px;
+                }
+            }
+
+            &.status-draft {
+                padding-left: 15px;
+
+                i {
+                    width: 500px;
+                    height: 500px;
+                    left: -250px;
+                    top: -250px;
+                }
+
+                span, &:after {
+                    color: white;
+                }
+
+                &:before {
+                    display: none;
+                }
+
+                &.status-initial-draft {
+                    i {
+                        background: #46B3A5!important;
+                    }
+                }
+            }
+        }
+
+        &.entry-type-selector {
+            background: var(--oc-formdocument-select-bg);
+            color: var(--oc-formdocument-select-color);
+        }
+    }
+}
+
+.record-management-controls .record-management-button.record-status-button.status-published,
+.record-management-controls .record-management-button.record-status-button.status-draft {
+    border-color: rgba(255, 255, 255, 0.01);
+}
+
+[data-bs-theme="dark"] {
+    .record-management-controls .record-management-button.record-status-button.status-published,
+    .record-management-controls .record-management-button.record-status-button.status-draft {
+        border-color: rgba(0, 0, 0, 0.6);
+    }
+}

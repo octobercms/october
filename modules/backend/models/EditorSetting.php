@@ -4,6 +4,7 @@ use File;
 use Html;
 use Cache;
 use Config;
+use System;
 use Less_Parser;
 use System\Models\SettingModel;
 use Exception;
@@ -177,7 +178,48 @@ class EditorSetting extends SettingModel
     {
         if ($this->isDirty('html_custom_styles')) {
             $this->html_custom_styles = Html::clean($this->html_custom_styles);
+
+            if (System::checkSafeMode()) {
+                $this->html_custom_styles = str_ireplace('@import', 'import', $this->html_custom_styles);
+            }
         }
+
+        $this->cleanMarkupClasses();
+    }
+
+    /**
+     * cleanMarkupClasses removes invalid characters from CSS class names
+     * to prevent XSS via Froala editor dropdown rendering
+     */
+    protected function cleanMarkupClasses()
+    {
+        $styleFields = [
+            'html_style_image',
+            'html_style_link',
+            'html_style_paragraph',
+            'html_style_inline',
+            'html_style_table',
+            'html_style_table_cell',
+        ];
+
+        $value = $this->value;
+
+        foreach ($styleFields as $field) {
+            if (is_array($value[$field] ?? null)) {
+                foreach ($value[$field] as $key => $row) {
+                    if (isset($row['class_name'])) {
+                        // Only allow valid CSS class characters: letters, digits, hyphens, underscores
+                        $value[$field][$key]['class_name'] = preg_replace(
+                            '/[^a-zA-Z0-9_-]/',
+                            '',
+                            $row['class_name']
+                        );
+                    }
+                }
+            }
+        }
+
+        $this->value = $value;
     }
 
     /**
@@ -314,7 +356,7 @@ class EditorSetting extends SettingModel
             Cache::forever($cacheKey, $customCss);
         }
         catch (Exception $ex) {
-            $customCss = '/* ' . $ex->getMessage() . ' */';
+            $customCss = '/* ' . e($ex->getMessage()) . ' */';
         }
 
         return $customCss;

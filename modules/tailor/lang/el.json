@@ -89,5 +89,12 @@
   "All :name Items": "Όλες οι καταχωρήσεις :name",
   "Update Existing Records": "Ενημέρωση υφιστάμενων αρχείων",
   "Check this box to update records that match the same ID, title or slug.": "Επιλέξτε αυτό το πλαίσιο για να ενημερώσετε τις εγγραφές που αντιστοιχούν στο ίδιο αναγνωριστικό, τίτλο ή γυμνοσάλιαγκα.",
-  "Copy": "αντίγραφο"
+  "Copy": "αντίγραφο",
+  "App": "Εφαρμογή",
+  "Blueprints": "Σχέδια",
+  "App Blueprint": "Σχέδιο εφαρμογής",
+  "Theme Blueprint": "Σχέδιο θέματος",
+  "Reset Structure": "Επαναφορά δομής",
+  "Structure has been reset": "Η δομή έχει επαναφερθεί",
+  "Content": "Περιεχόμενο"
 }

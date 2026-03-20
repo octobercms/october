@@ -23,6 +23,11 @@ class SectionComponent extends ComponentModuleBase
     protected $otherSiteCache;
 
     /**
+     * @var array otherSiteByIdentifierCache
+     */
+    protected $otherSiteByIdentifierCache = [];
+
+    /**
      * @var bool multisiteCache
      */
     protected $multisiteCache;
@@ -237,7 +242,7 @@ class SectionComponent extends ComponentModuleBase
             return;
         }
 
-        $otherRecord = $this->findOtherSiteRecords()->where('site_id', $site->id)->first();
+        $otherRecord = $this->findOtherSiteRecord($site, $params);
         if (!$otherRecord) {
             return;
         }
@@ -263,9 +268,49 @@ class SectionComponent extends ComponentModuleBase
     }
 
     /**
-     * findOtherSiteRecords is for multisite
+     * findOtherSiteRecord locates the corresponding record on another site,
+     * checking the params to determine if a non-primary record is referenced
      */
-    protected function findOtherSiteRecords()
+    protected function findOtherSiteRecord($site, $params)
+    {
+        $columnName = $this->getEntryPointIdentifierKey();
+        $paramName = $this->getEntryPointIdentifierParamName();
+        $paramValue = $params[$paramName] ?? ($params[$columnName] ?? null);
+        $identifierValue = $this->getEntryPointIdentifierValue();
+
+        // Params reference a different record than the primary, look it up directly
+        if ($paramValue && $identifierValue !== $paramValue) {
+            return $this->findOtherSiteRecordByIdentifier($columnName, $paramValue)
+                ->where('site_id', $site->id)
+                ->first();
+        }
+
+        return $this->findPrimaryOtherSiteRecords()->where('site_id', $site->id)->first();
+    }
+
+    /**
+     * findOtherSiteRecordByIdentifier finds other site records for a specific
+     * record identified by its column value, with results cached per value
+     */
+    protected function findOtherSiteRecordByIdentifier($columnName, $value)
+    {
+        if (isset($this->otherSiteByIdentifierCache[$value])) {
+            return $this->otherSiteByIdentifierCache[$value];
+        }
+
+        $record = $this->getPrimaryRecordQuery()
+            ->where($columnName, $value)
+            ->first();
+
+        $otherRecords = $record ? $record->newOtherSiteQuery()->get() : collect();
+
+        return $this->otherSiteByIdentifierCache[$value] = $otherRecords;
+    }
+
+    /**
+     * findPrimaryOtherSiteRecords is for multisite
+     */
+    protected function findPrimaryOtherSiteRecords()
     {
         if ($this->otherSiteCache !== null) {
             return $this->otherSiteCache;

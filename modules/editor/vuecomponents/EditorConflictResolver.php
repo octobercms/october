@@ -10,6 +10,11 @@ use Backend\Classes\VueComponentBase;
  */
 class EditorConflictResolver extends VueComponentBase
 {
+    /**
+     * @var string componentName is the Vue component tag name.
+     */
+    protected $componentName = 'editor-component-editorconflictresolver';
+
     protected $require = [
         \Backend\VueComponents\Modal::class
     ];

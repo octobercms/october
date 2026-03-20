@@ -29,7 +29,6 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         $className = get_class($object);
         $class = new ReflectionClass($className);
         $method = $class->getMethod($name);
-        $method->setAccessible(true);
         return $method->invokeArgs($object, $params);
     }
 
@@ -38,7 +37,6 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         $className = get_class($object);
         $class = new ReflectionClass($className);
         $property = $class->getProperty($name);
-        $property->setAccessible(true);
         return $property->getValue($object);
     }
 
@@ -47,7 +45,6 @@ class TestCase extends Illuminate\Foundation\Testing\TestCase
         $className = get_class($object);
         $class = new ReflectionClass($className);
         $property = $class->getProperty($name);
-        $property->setAccessible(true);
         return $property->setValue($object, $value);
     }
 

@@ -5,17 +5,13 @@
 tabs:
     defaultTab: Group
     fields:
-        _first_group_hint:
-            type: hint
-            comment: Since this is the first site group, all existing sites will be added to this group after it is created.
-
         name:
             label: Group Name
-            span: full
+            span: auto
 
         code:
             label: Unique Code
-            span: full
+            span: auto
             preset:
                 field: name
                 type: slug

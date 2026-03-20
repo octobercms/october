@@ -10,4 +10,8 @@ use Backend\Classes\VueComponentBase;
  */
 class Popover extends VueComponentBase
 {
+    /**
+     * @var string componentName is the Vue component tag name.
+     */
+    protected $componentName = 'backend-popover';
 }

@@ -271,4 +271,19 @@ class BlueprintIndexer
     {
         CacheHelper::instance()->clearBlueprintCache();
     }
+
+    /**
+     * getActiveThemeDatasource returns the dirname for the active theme, used
+     * to filter blueprint lookups when multiple themes define the same handle.
+     */
+    protected function getActiveThemeDatasource(): ?string
+    {
+        if (!System::hasModule('Cms')) {
+            return null;
+        }
+
+        $theme = Theme::getEditTheme() ?: Theme::getActiveTheme();
+
+        return $theme ? $theme->getDirname() : null;
+    }
 }

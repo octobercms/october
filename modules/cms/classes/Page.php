@@ -3,6 +3,7 @@
 use Cms;
 use Site;
 use Lang;
+use Cms\Models\PageLookupItem;
 use October\Rain\Router\Helper as RouterHelper;
 use October\Rain\Filesystem\Definitions as FileDefinitions;
 use ApplicationException;
@@ -34,6 +35,9 @@ class Page extends CmsCompoundObject
         'is_hidden',
         'meta_title',
         'meta_description',
+        'meta_image',
+        'meta_type',
+        'meta_robots',
         'markup',
         'settings',
         'code'
@@ -45,6 +49,7 @@ class Page extends CmsCompoundObject
     protected $parsable = [
         'meta_title',
         'meta_description',
+        'meta_image',
     ];
 
     /**
@@ -94,7 +99,7 @@ class Page extends CmsCompoundObject
 
         $layouts = Layout::listInTheme($theme, true);
         $result = [];
-        $result[null] = Lang::get('cms::lang.page.no_layout');
+        $result[''] = Lang::get('cms::lang.page.no_layout');
 
         foreach ($layouts as $layout) {
             $baseName = $layout->getBaseFileName();
@@ -156,8 +161,6 @@ class Page extends CmsCompoundObject
 
             $result = [
                 'references' => $references,
-                'nesting' => false,
-                'dynamicItems' => false
             ];
         }
 
@@ -188,7 +191,10 @@ class Page extends CmsCompoundObject
         }
 
         $page = self::loadCached($theme, $item->reference);
-        $pageUrl = Cms::pageUrl($item->reference, []);
+
+        $params = PageLookupItem::extractUrlParams($item->attributes);
+
+        $pageUrl = Cms::pageUrl($item->reference, $params);
 
         $result = [];
         $result['url'] = $pageUrl;

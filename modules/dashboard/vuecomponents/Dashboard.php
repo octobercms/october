@@ -11,6 +11,11 @@ use Backend\Classes\VueComponentBase;
 class Dashboard extends VueComponentBase
 {
     /**
+     * @var string componentName is the Vue component tag name.
+     */
+    protected $componentName = 'dashboard-component-dashboard';
+
+    /**
      * @var array require other components
      */
     protected $require = [
@@ -28,7 +33,7 @@ class Dashboard extends VueComponentBase
         $this->registerSubcomponent('interval-selector');
         $this->registerSubcomponent('report');
         $this->registerSubcomponent('report-row');
-        $this->registerSubcomponent('period-diff');
+        $this->registerSubcomponent('report-diff');
         $this->registerSubcomponent('report-widget');
 
         $this->registerSubcomponent('widget-static');
@@ -48,20 +53,20 @@ class Dashboard extends VueComponentBase
      */
     protected function loadAssets()
     {
-        $this->addJsBundle('/modules/backend/assets/js/ph-icons-list.js');
-        $this->addJsBundle('/modules/backend/assets/vendor/chartjs/chart.umd.js');
-        $this->addJsBundle('/modules/backend/assets/vendor/chartjs-adapter-moment/chartjs-adapter-moment.min.js');
+        $this->addJs('/modules/backend/assets/js/ph-icons-list.js', ['type' => 'module']);
+        // $this->addJs('/modules/system/assets/vendor/chartjs/chart.umd.js');
+        // $this->addJs('/modules/system/assets/vendor/chartjs/chartjs-adapter-moment.min.js');
 
-        $this->addJsBundle('/modules/dashboard/assets/js/classes/Helpers.js');
-        $this->addJsBundle('/modules/dashboard/assets/js/classes/DataSource.js');
-        $this->addJsBundle('/modules/dashboard/assets/js/classes/Calendar.js');
-        $this->addJsBundle('/modules/dashboard/assets/js/classes/InspectorConfigurator.js');
-        $this->addJsBundle('/modules/dashboard/assets/js/classes/Sizing.js');
-        $this->addJsBundle('/modules/dashboard/assets/js/classes/Dragging.js');
-        $this->addJsBundle('/modules/dashboard/assets/js/classes/Reordering.js');
-        $this->addJsBundle('/modules/dashboard/assets/js/classes/DataHelper.js');
-        $this->addJsBundle('/modules/dashboard/assets/js/classes/WidgetManager.js');
+        // $this->addJs('/modules/dashboard/assets/js/classes/Helpers.js', ['type' => 'module']);
+        // $this->addJs('/modules/dashboard/assets/js/classes/DataSource.js', ['type' => 'module']);
+        // $this->addJs('/modules/dashboard/assets/js/classes/Calendar.js', ['type' => 'module']);
+        // $this->addJs('/modules/dashboard/assets/js/classes/InspectorConfigurator.js', ['type' => 'module']);
+        // $this->addJs('/modules/dashboard/assets/js/classes/Sizing.js', ['type' => 'module']);
+        // $this->addJs('/modules/dashboard/assets/js/classes/Dragging.js', ['type' => 'module']);
+        // $this->addJs('/modules/dashboard/assets/js/classes/Reordering.js', ['type' => 'module']);
+        // $this->addJs('/modules/dashboard/assets/js/classes/DataHelper.js', ['type' => 'module']);
+        // $this->addJs('/modules/dashboard/assets/js/classes/WidgetManager.js', ['type' => 'module']);
 
-        $this->addJsBundle('js/widget-base.js');
+        $this->addJs('js/widget-base.js', ['type' => 'module']);
     }
 }

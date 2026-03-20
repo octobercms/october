@@ -2,14 +2,14 @@
     <div data-vue-template>
         <div class="record-management-controls">
             <?php if ($initialState['showEntryTypeSelector']): ?>
-                <backend-component-dropdownmenubutton
+                <backend-dropdown-menu-button
                     :menuitems="state.entryTypeOptions"
                     preferable-menu-position="bottom-right"
                     css-class="record-management-button has-menu entry-type-selector"
                     :current-label-command="state.initial.contentGroup"
                     :disabled="state.toolbarDisabled"
                     @command="onSetEntryType"
-                ></backend-component-dropdownmenubutton>
+                ></backend-dropdown-menu-button>
             <?php endif ?>
 
             <tailor-component-publishbutton

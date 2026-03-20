@@ -1,4 +1,4 @@
-<backend-component-document
+<backend-document
     :header-collapsed="documentHeaderCollapsed"
     :full-screen="documentFullScreen"
     :loading="initializing"
@@ -8,37 +8,37 @@
     container-css-class="fill-container"
 >
     <template v-slot:header>
-        <backend-component-document-header
+        <backend-document-header
             title-property="fileName"
             ref="documentHeader"
             :data="documentData"
             :disabled="processing"
-        ></backend-component-document-header>
+        ></backend-document-header>
     </template>
-    
+
     <template v-slot:toolbar>
-        <backend-component-document-toolbar
+        <backend-document-toolbar
             :elements="toolbarElements"
             @command="onBlueprintToolbarCommand"
             :disabled="processing"
-        ></backend-component-document-toolbar>
+        ></backend-document-toolbar>
     </template>
 
     <template v-slot:content>
         <div class="flex-layout-column fill-container">
             <div class="flex-layout-item stretch editor-panel relative">
-                <backend-component-monacoeditor
+                <backend-monacoeditor
                     ref="editor"
                     container-css-class="fill-container"
                     :model-definitions="codeEditorModelDefinitions"
                     :glyph-margin="true"
                 >
-                </backend-component-monacoeditor>
+                </backend-monacoeditor>
             </div>
 
-            <editor-conflict-resolver
+            <editor-component-editorconflictresolver
                 ref="conflictResolver"
-            ></editor-conflict-resolver>
+            ></editor-component-editorconflictresolver>
         </div>
     </template>
-</backend-component-document>
+</backend-document>

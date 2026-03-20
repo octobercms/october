@@ -49,13 +49,16 @@
             </div>
         </div>
         <div class="modal-footer">
-            <button
-                type="button"
-                class="btn btn-primary"
-                onclick="$.oc.updater.retryUpdate()">
-                <?= __("Try Again") ?>
-            </button>
-            <?= Ui::button("Cancel")->dismissPopup()->secondary() ?>
+            <?= Ui::button(
+                label: __("Try Again"),
+                primary: true,
+                onclick: '$.oc.updater.retryUpdate()'
+            ) ?>
+            <?= Ui::button(
+                label: __("Cancel"),
+                secondary: true,
+                dataDismiss: 'popup'
+            ) ?>
         </div>
     </script>
 
@@ -71,7 +74,11 @@
         <p class="flash-message static error"><?= e(__($this->fatalError)) ?></p>
     </div>
     <div class="modal-footer">
-        <?= Ui::button("Close")->dismissPopup()->secondary() ?>
+        <?= Ui::button(
+            label: __("Close"),
+            secondary: true,
+            dataDismiss: 'popup'
+        ) ?>
     </div>
 
 <?php endif ?>

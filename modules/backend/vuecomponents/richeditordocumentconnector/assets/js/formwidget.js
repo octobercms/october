@@ -1,71 +1,79 @@
-oc.Modules.register('backend.vuecomponents.richeditordocumentconnector.formwidget', function() {
-    'use strict';
+class FormWidget
+{
+    constructor(element, options, changeCallback) {
+        this.element = element;
+        this.changeCallback = changeCallback;
 
-    class FormWidget {
-        constructor(element, options, changeCallback) {
-            const widgetConnectorClass = Vue.extend(
-                Vue.options.components['backend-component-richeditor-document-connector-formwidgetconnector']
-            );
+        // Create wrapper element for Vue app
+        this.wrapperEl = document.createElement('div');
+        element.parentNode.appendChild(this.wrapperEl);
 
-            this.element = element;
-
-            this.connectorInstance = new widgetConnectorClass({
-                propsData: {
-                    textarea: element,
-                    useMediaManager: options.useMediaManager,
-                    lang: $(element).closest('.field-richeditor').data(),
-                    options: options
+        // Create and mount Vue 3 app after page scripts have loaded
+        const self = this;
+        oc.pageReady().then(() => {
+            this.app = oc.createVueApp({
+                data() {
+                    return {
+                        textarea: element,
+                        useMediaManager: options.useMediaManager,
+                        lang: $(element).closest('.field-richeditor').data(),
+                        options: options
+                    };
+                },
+                template: '<backend-richeditor-document-connector-formwidgetconnector ref="connector" :textarea="textarea" :use-media-manager="useMediaManager" :lang="lang" :options="options" @change="onChange" @focus="onFocus" @blur="onBlur" />',
+                methods: {
+                    onChange() {
+                        if (self.changeCallback) {
+                            self.changeCallback();
+                        }
+                    },
+                    onFocus() {
+                        $(element).closest('.editor-write').addClass('editor-focus');
+                    },
+                    onBlur() {
+                        $(element).closest('.editor-write').removeClass('editor-focus');
+                    }
                 }
             });
 
-            if (changeCallback) {
-                this.connectorInstance.$on('change', function() {
-                    changeCallback();
-                });
-            }
-
+            this.vm = this.app.mount(this.wrapperEl);
             this.element.addEventListener('change', this.onChangeTextarea);
+        });
+    }
 
-            this.connectorInstance.$on('focus', function() {
-                $(element).closest('.editor-write').addClass('editor-focus');
-            });
+    onChangeTextarea = () => {
+        this.setContent(this.element.value);
+    }
 
-            this.connectorInstance.$on('blur', function() {
-                $(element).closest('.editor-write').removeClass('editor-focus');
-            });
+    get connectorInstance() {
+        return this.vm?.$refs?.connector;
+    }
 
-            this.connectorInstance.$mount();
-            element.parentNode.appendChild(this.connectorInstance.$el);
-        }
-
-        onChangeTextarea = () => {
-            this.setContent(this.element.value);
-        }
-
-        getEditor() {
-            if (this.connectorInstance) {
-                return this.connectorInstance.getEditor();
-            }
-        }
-
-        setContent(str) {
-            if (this.connectorInstance) {
-                this.connectorInstance.setContent(str);
-            }
-        }
-
-        remove() {
-            this.element.removeEventListener('change', this.onChangeTextarea);
-
-            if (this.connectorInstance) {
-                this.connectorInstance.$destroy();
-                $(this.connectorInstance.$el).remove();
-            }
-
-            this.connectorInstance = null;
-            this.element = null;
+    getEditor() {
+        if (this.connectorInstance) {
+            return this.connectorInstance.getEditor();
         }
     }
 
-    return FormWidget;
-});
+    setContent(str) {
+        if (this.connectorInstance) {
+            this.connectorInstance.setContent(str);
+        }
+    }
+
+    remove() {
+        this.element.removeEventListener('change', this.onChangeTextarea);
+
+        if (this.app) {
+            this.app.unmount();
+            $(this.wrapperEl).remove();
+        }
+
+        this.app = null;
+        this.vm = null;
+        this.wrapperEl = null;
+        this.element = null;
+    }
+}
+
+export default FormWidget;

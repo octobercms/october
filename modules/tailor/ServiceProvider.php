@@ -23,7 +23,6 @@ class ServiceProvider extends ModuleServiceProvider
         $this->registerConsole();
         $this->registerRenamedClasses();
 
-        $this->extendMigrateCommand();
         $this->extendDeferredBindingForContent();
     }
 
@@ -132,10 +131,7 @@ class ServiceProvider extends ModuleServiceProvider
      */
     protected function registerConsole()
     {
-        $this->registerConsoleCommand('tailor.refresh', \Tailor\Console\TailorRefresh::class);
-        $this->registerConsoleCommand('tailor.migrate', \Tailor\Console\TailorMigrate::class);
-        $this->registerConsoleCommand('tailor.prune', \Tailor\Console\TailorPrune::class);
-        $this->registerConsoleCommand('tailor.propagate', \Tailor\Console\TailorPropagate::class);
+        $this->discoverConsoleCommands('tailor');
     }
 
     /**
@@ -160,17 +156,6 @@ class ServiceProvider extends ModuleServiceProvider
             \Tailor\ContentFields\TagListField::class => 'taglist',
             \Tailor\ContentFields\RecordFinderField::class => 'recordfinder',
         ];
-    }
-
-    /**
-     * extendMigrateCommand to migrate blueprints
-     */
-    public function extendMigrateCommand()
-    {
-        Event::listen('system.updater.migrate', function ($updateManager) {
-            BlueprintIndexer::instance()
-                ->setNotesOutput($updateManager->getNotesOutput())->migrate();
-        });
     }
 
     /**

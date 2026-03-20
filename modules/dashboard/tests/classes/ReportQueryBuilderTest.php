@@ -480,7 +480,7 @@ class ReportQueryBuilderTest extends TestCase
                 $isCompletedSales = $metric->getCode() === 'completed_sales_total';
                 $isAbandonedSales = $metric->getCode() === 'abandoned_sales_total';
 
-                $joinAdded = $salesDataJoinAdded->contains($query);
+                $joinAdded = $salesDataJoinAdded->offsetExists($query);
                 if (($isCompletedSales || $isAbandonedSales) && !$joinAdded) {
                     $query->join('test_sales_report_data as tsrd', 'tsrd.product_id', '=', 'test_sales_products_data.id');
                     $salesDataJoinAdded[$query] = true;

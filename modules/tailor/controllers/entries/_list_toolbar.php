@@ -8,10 +8,13 @@
 <div data-control="toolbar" data-list-linkage="<?= $this->listGetId() ?>">
 
     <?php if ($this->hasSourcePermission('create')): ?>
-        <?= Ui::button($section->getMessage('buttonCreate', "New :name", ['name' => e(__($section->name))]), 'tailor/entries/'.$section->handleSlug.'/create')
-            ->labelHtml()
-            ->icon('icon-plus')
-            ->primary() ?>
+        <?= Ui::button(
+            label: $section->getMessage('buttonCreate', "New :name", ['name' => e(__($section->name))]),
+            href: Backend::url('tailor/entries/'.$section->handleSlug.'/create'),
+            icon: 'icon-plus',
+            primary: true,
+            labelHtml: true
+        ) ?>
 
         <div class="toolbar-divider"></div>
     <?php endif ?>
@@ -23,36 +26,37 @@
     <?php endif ?>
 
     <?php if ($hasDropdown): ?>
-        <div class="dropdown dropdown-fixed">
-            <?= Ui::button("More Actions")
-                ->attributes(['data-toggle' => 'dropdown'])
-                ->circleIcon('icon-ellipsis-v')
-                ->secondary()
-            ?>
-            <ul class="dropdown-menu">
-                <?php if ($showImport): ?>
-                    <li>
-                        <?= Ui::button("Import", 'tailor/bulkactions/'.$section->handleSlug.'/import')
-                            ->replaceCssClass('dropdown-item')
-                            ->icon('icon-upload') ?>
-                    </li>
-                <?php endif ?>
-                <?php if ($showExport): ?>
-                    <li>
-                        <?= Ui::button("Export", 'tailor/bulkactions/'.$section->handleSlug.'/export')
-                            ->replaceCssClass('dropdown-item')
-                            ->icon('icon-download') ?>
-                    </li>
-                <?php endif ?>
-                <?php if ($showResetStructure): ?>
-                    <li>
-                        <?= Ui::ajaxButton("Reset Structure", 'onResetStructure')
-                            ->confirmMessage("Are you sure?")
-                            ->replaceCssClass('dropdown-item')
-                            ->icon('icon-set-parent') ?>
-                    </li>
-                <?php endif ?>
-            </ul>
-        </div>
+        <?php Ui::dropdownButton(
+            title: __("More Actions"),
+            icon: 'icon-ellipsis-v',
+            secondary: true,
+            caret: false,
+            class: 'btn-circle'
+        )->slot() ?>
+
+            <?php if ($showImport): ?>
+                <?= Ui::dropdownItem(
+                    label: __("Import"),
+                    href: Backend::url('tailor/bulkactions/'.$section->handleSlug.'/import'),
+                    icon: 'icon-upload'
+                ) ?>
+            <?php endif ?>
+            <?php if ($showExport): ?>
+                <?= Ui::dropdownItem(
+                    label: __("Export"),
+                    href: Backend::url('tailor/bulkactions/'.$section->handleSlug.'/export'),
+                    icon: 'icon-download'
+                ) ?>
+            <?php endif ?>
+            <?php if ($showResetStructure): ?>
+                <?= Ui::dropdownItem(
+                    label: __("Reset Structure"),
+                    handler: 'onResetStructure',
+                    icon: 'icon-set-parent',
+                    dataRequestConfirm: __("Are you sure?")
+                ) ?>
+            <?php endif ?>
+
+        <?php Ui::end() ?>
     <?php endif ?>
 </div>

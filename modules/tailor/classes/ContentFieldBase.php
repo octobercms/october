@@ -126,7 +126,9 @@ abstract class ContentFieldBase extends FieldDefinition
     public function extendModelMultisite($model)
     {
         if ($this->translatable === false || $this->propagatable === true) {
-            $model->addPropagatable($this->fieldName);
+            if (method_exists($model, 'addPropagatable')) {
+                $model->addPropagatable($this->fieldName);
+            }
         }
     }
 

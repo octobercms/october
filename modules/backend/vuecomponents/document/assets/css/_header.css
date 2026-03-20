@@ -1,0 +1,131 @@
+.component-backend-document {
+    .document-header-container {
+        opacity: 1;
+        padding: 10px 20px;
+        border-bottom: 1px solid var(--oc-primary-border);
+
+        .document-header {
+            position: relative;
+
+            &.has-document-icon {
+                padding-left: 30px;
+            }
+
+            &.has-close-icon {
+                padding-right: 30px;
+            }
+        }
+
+        .close-icon {
+            position: absolute;
+            top: 11px;
+            right: 0;
+            width: 19px;
+            height: 19px;
+            border-radius: 20px;
+
+            opacity: 1;
+            font-size: 0;
+            color: transparent;
+
+            &:after {
+                display: none !important;
+            }
+
+            &:focus {
+                outline: none;
+                background-color: var(--oc-toolbar-hover-bg);
+            }
+
+            &:before {
+                display: block;
+                width: 11px;
+                height: 11px;
+                position: absolute;
+                background-position: -253px 0;
+                top: 4px;
+                right: 4px;
+            }
+
+            &:focus,
+            &:hover {
+                &:before {
+                    background-position: -268px 0;
+                }
+            }
+        }
+
+        .document-icon {
+            display: block;
+            position: absolute;
+            left: 0;
+            top: 11px;
+            width: 18px;
+            height: 18px;
+            border-radius: 4px;
+
+            i {
+                display: block;
+                color: white;
+                position: absolute;
+                left: 4px;
+                top: 4px;
+                font-size: 10px;
+            }
+        }
+
+        input.header-title, input.header-subtitle {
+            border: 1px solid var(--bs-body-bg);
+            color: var(--bs-body-color);
+            outline: none;
+            background: transparent;
+            border-radius: 4px;
+            padding: 1px;
+            -webkit-appearance: none;
+
+            &[disabled] {
+                color: var(--oc-form-control-disabled-color);
+            }
+        }
+
+        input.header-title {
+            display: block;
+            font-size: 24px;
+            width: 100%;
+            margin: 0 -2px;
+        }
+
+        .subtitle-label {
+            color: var(--oc-primary-color);
+            margin-right: 3px;
+        }
+    }
+
+    .document-header-fade-enter-active {
+        transition: opacity .3s;
+    }
+
+    .document-header-fade-leave-active {
+        transition: opacity .1s;
+    }
+
+    .document-header-fade-enter, .document-header-fade-leave-to {
+        opacity: 0;
+    }
+
+    &.no-header-elements .document-header-container {
+        padding: 0;
+    }
+}
+
+@media (hover: hover) {
+    .component-backend-document {
+        .document-header-container {
+            input.header-title, input.header-subtitle {
+                &:not([disabled]):hover {
+                    border: 1px solid var(--bs-border-color);
+                }
+            }
+        }
+    }
+}

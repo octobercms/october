@@ -89,5 +89,12 @@
   "All :name Items": "Усе запісы :name",
   "Update Existing Records": "Абнавіць існуючыя запісы",
   "Check this box to update records that match the same ID, title or slug.": "Усталюйце гэты сцяжок, каб абнаўляць запісы, якія адпавядаюць аднолькавым ідэнтыфікатарам, назве або смоўгу.",
-  "Copy": "Копія"
+  "Copy": "Копія",
+  "App": "Праграма",
+  "Blueprints": "Чарцяжы",
+  "App Blueprint": "План прыкладання",
+  "Theme Blueprint": "План тэмы",
+  "Reset Structure": "Скінуць структуру",
+  "Structure has been reset": "Структура была скінута",
+  "Content": "Змест"
 }

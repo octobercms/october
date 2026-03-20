@@ -195,10 +195,19 @@ class EntriesField extends FallbackField
         $isSingular = $this->maxItems === 1;
         $isNested = $model instanceof RepeaterItem;
 
+        // RepeaterItem doesn't have getBlueprintDefinition, and nested relations
+        // don't participate in dual-multisite propagation
+        $parentMultisite = $isNested ? false : $model->getBlueprintDefinition()->useMultisite();
+
+        // Dual-multisite: both parent and related use multisite, so use actual IDs
+        // and let pivot site_id scoping + propagation handle site separation
+        $isDualMultisite = $parentMultisite && $relatedMultisite;
+
         if ($isSingular) {
             $model->belongsTo[$this->fieldName] = [
                 $relatedModel::class,
-                'key' => $this->getSingularKeyName()
+                'key' => $this->getSingularKeyName(),
+                'otherKey' => ($relatedMultisite && !$isDualMultisite) ? 'site_root_id' : 'id'
             ];
         }
         elseif ($isNested) {
@@ -215,7 +224,7 @@ class EntriesField extends FallbackField
                 'table' => $model->getBlueprintDefinition()->getJoinTableName(),
                 'name' => $this->fieldName,
                 'relationClass' => CustomMultiJoinRelation::class,
-                'relatedKey' => $relatedMultisite ? 'site_root_id' : 'id'
+                'relatedKey' => ($relatedMultisite && !$isDualMultisite) ? 'site_root_id' : 'id'
             ];
         }
     }
@@ -236,15 +245,22 @@ class EntriesField extends FallbackField
         $relatedMultisite = $this->getSourceBlueprint()->useMultisite();
         $relatedModel = $this->getSourceBlueprint()->newModelInstance();
 
+        // Dual-multisite: both parent and related use multisite
+        $isDualMultisite = $parentMultisite && $relatedMultisite;
+
         $isSingular = $this->maxItems === 1;
         $otherIsSingular = $otherField->maxItems === 1;
         $otherIsPropagatable = $relatedMultisite && ($otherField->translatable === false || $otherField->propagatable === true);
+
+        // In dual-multisite, use 'id' for proper site isolation; otherwise use site_root_id for sharing
+        $useRelatedRootKey = $otherIsPropagatable && !$isDualMultisite;
+        $useParentRootKey = $parentMultisite && !$isDualMultisite;
 
         if ($isSingular) {
             $model->hasOne[$this->fieldName] = [
                 $relatedModel::class,
                 'key' => $otherField->getSingularKeyName(),
-                'otherKey' => $otherIsPropagatable ? 'site_root_id' : 'id',
+                'otherKey' => $useRelatedRootKey ? 'site_root_id' : 'id',
                 'replicate' => false
             ];
         }
@@ -252,7 +268,7 @@ class EntriesField extends FallbackField
             $model->hasMany[$this->fieldName] = [
                 $relatedModel::class,
                 'key' => $otherField->getSingularKeyName(),
-                'otherKey' => $otherIsPropagatable ? 'site_root_id' : 'id',
+                'otherKey' => $useRelatedRootKey ? 'site_root_id' : 'id',
                 'replicate' => false
             ];
         }
@@ -262,8 +278,8 @@ class EntriesField extends FallbackField
                 'table' => $this->getSourceBlueprint()->getJoinTableName(),
                 'name' => $this->inverse,
                 'relationClass' => CustomMultiJoinRelation::class,
-                'relatedKey' => $otherIsPropagatable ? 'site_root_id' : 'id',
-                'parentKey' => $parentMultisite ? 'site_root_id' : 'id',
+                'relatedKey' => $useRelatedRootKey ? 'site_root_id' : 'id',
+                'parentKey' => $useParentRootKey ? 'site_root_id' : 'id',
                 'replicate' => false
             ];
         }

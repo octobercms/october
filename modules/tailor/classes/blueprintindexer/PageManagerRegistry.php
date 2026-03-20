@@ -4,7 +4,7 @@ use Cms;
 use Site;
 use Cms\Classes\Page;
 use Tailor\Classes\Blueprint\EntryBlueprint;
-use Tailor\Models\EntryRecord;
+use Tailor\Classes\BlueprintIndexer;
 
 /**
  * PageManagerRegistry
@@ -162,12 +162,13 @@ trait PageManagerRegistry
             return [];
         }
 
-        $pageUrl = $this->getPageManagerPageUrl($item->cmsPage, $record, $theme);
+        $pageUrl = $this->getPageManagerPageUrl($item->cmsPage, $record, $theme, $item);
 
         $result = [
             'url' => $pageUrl,
             'isActive' => $pageUrl == $url,
             'mtime' => $record->updated_at,
+            'status' => $record->status_code,
         ];
 
         if ($item->sites) {
@@ -198,6 +199,7 @@ trait PageManagerRegistry
                 'isActive' => $childUrl == $url,
                 'title' => $child->title,
                 'mtime' => $child->updated_at,
+                'status' => $child->status_code,
             ];
 
             if ($item->sites) {
@@ -223,9 +225,24 @@ trait PageManagerRegistry
     /**
      * getPageManagerPageUrl
      */
-    protected function getPageManagerPageUrl($pageCode, $record, $theme)
+    protected function getPageManagerPageUrl($pageCode, $record, $theme, $item = null)
     {
-        return Cms::pageUrl($pageCode, $record->makePageUrlParams());
+        $params = $record->makePageUrlParams();
+
+        if ($item) {
+            $params = array_merge($params, $this->extractItemUrlParams($item));
+        }
+
+        return Cms::pageUrl($pageCode, $params);
+    }
+
+    /**
+     * extractItemUrlParams returns URL-relevant params from a PageLookupItem,
+     * filtering out known metadata keys.
+     */
+    protected function extractItemUrlParams($item): array
+    {
+        return \Cms\Models\PageLookupItem::extractUrlParams($item->attributes);
     }
 
     /**
@@ -279,12 +296,10 @@ trait PageManagerRegistry
     {
         $model = $query = null;
 
-        if (str_starts_with($typeName, 'list-')) {
-            $typeName = substr($typeName, 5);
-        }
+        $blueprintUuid = $this->getBlueprintUuidFromTypename($typeName);
 
-        if (str_starts_with($typeName, 'entry-')) {
-            $model = EntryRecord::inSectionUuid(substr($typeName, 6));
+        if ($blueprint = $this->pageManagerTypeToBlueprint($blueprintUuid)) {
+            $model = $blueprint->getModelClassName()::inSectionUuid($blueprintUuid);
             $query = $model->applyVisibleFrontend();
         }
 
@@ -301,5 +316,29 @@ trait PageManagerRegistry
         }
 
         return '';
+    }
+
+    /**
+     * pageManagerTypeToBlueprint
+     */
+    protected function pageManagerTypeToBlueprint($typeName): ?EntryBlueprint
+    {
+        return BlueprintIndexer::instance()->findSection($typeName);
+    }
+
+    /**
+     * getBlueprintUuidFromTypename
+     */
+    protected function getBlueprintUuidFromTypename($typeName)
+    {
+        if (str_starts_with($typeName, 'list-')) {
+            $typeName = substr($typeName, 5);
+        }
+
+        if (str_starts_with($typeName, 'entry-')) {
+            $typeName = substr($typeName, 6);
+        }
+
+        return $typeName;
     }
 }

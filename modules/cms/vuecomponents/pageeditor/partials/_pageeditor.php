@@ -1,4 +1,4 @@
-<backend-component-document
+<backend-document
     :header-collapsed="documentHeaderCollapsed"
     :full-screen="documentFullScreen"
     :loading="initializing"
@@ -8,7 +8,7 @@
     container-css-class="fill-container"
 >
     <template v-slot:header>
-        <backend-component-document-header
+        <backend-document-header
             title-property="title"
             :hide-subtitle-editor="isDirectDocumentMode"
             subtitle-property="url"
@@ -23,32 +23,32 @@
             :disabled="processing"
             @documentcloseclick="onDocumentCloseClick"
             @titleinput="onTitleInput"
-        ></backend-component-document-header>
+        ></backend-document-header>
     </template>
 
     <template v-slot:toolbar>
-        <backend-component-document-toolbar
+        <backend-document-toolbar
             :elements="toolbarElements"
             @command="onToolbarCommand"
             :disabled="processing || toolbarDisabled"
-        ></backend-component-document-toolbar>
+        ></backend-document-toolbar>
     </template>
 
     <template v-slot:content>
         <div class="flex-layout-column fill-container">
             <div class="flex-layout-item fix">
                 <transition name="cms-transition-component-list">
-                    <cms-object-component-list
+                    <cms-component-cmsobjectcomponentlist
                         v-if="hasVisibleComponents"
                         :components="documentData.components"
                         @remove="onComponentRemove"
                         @inspectorshowed="onInspectorShowed"
                         @inspectorhidden="onInspectorHidden"
-                    ></cms-object-component-list>
+                    ></cms-component-cmsobjectcomponentlist>
                 </transition>
             </div>
             <div class="flex-layout-item stretch editor-panel relative">
-                <backend-component-monacoeditor
+                <backend-monacoeditor
                     ref="editor"
                     container-css-class="fill-container"
                     :model-definitions="codeEditorModelDefinitions"
@@ -60,12 +60,12 @@
                     @filtersupportedactions="onEditorFilterSupportedActions"
                     @customevent="onEditorCustomEvent"
                 >
-                </backend-component-monacoeditor>
+                </backend-monacoeditor>
             </div>
 
-            <editor-conflict-resolver
+            <editor-component-editorconflictresolver
                 ref="conflictResolver"
-            ></editor-conflict-resolver>
+            ></editor-component-editorconflictresolver>
         </div>
     </template>
-</backend-component-document>
+</backend-document>

@@ -28,7 +28,11 @@ trait HasRelationStore
         }
         // Take existing relationship
         else {
-            $result = $this->getRelationObject()->pluck($this->nameFrom)->all();
+            $keyName = $this->useKey
+                ? $this->getRelationModel()->getQualifiedKeyName()
+                : $this->nameFrom;
+
+            $result = $this->getRelationObject()->pluck($keyName)->all();
         }
 
         // Default value
@@ -51,17 +55,19 @@ trait HasRelationStore
             // by joining its pivot table. Remove all joins from the query.
             $query->getQuery()->getQuery()->joins = [];
 
-            return $query->pluck($this->nameFrom)->all();
+            $keyName = $this->getRelationModel()->getQualifiedKeyName();
+
+            return $query->pluck($this->nameFrom, $keyName)->all();
         });
     }
 
     /**
      * processSaveForRelation
      */
-    protected function processSaveForRelation($names)
+    protected function processSaveForRelation($values)
     {
-        if (!$names) {
-            return $names;
+        if (!$values) {
+            return $values;
         }
 
         $relationModel = $this->getRelationModel();
@@ -69,24 +75,28 @@ trait HasRelationStore
         // Options from form field
         if ($this->useOptions) {
             $existingTags = (new Collection($this->formField->options()))
-                ->reject(function($value, $key) use ($names) {
-                    return !in_array($value, $names);
+                ->reject(function($value, $key) use ($values) {
+                    return !in_array($value, $values);
                 })
                 ->all()
             ;
         }
-        // Options from model
+        // Options from model, useKey uses IDs directly
+        elseif ($this->useKey) {
+            return $values;
+        }
+        // Options from model, lookup by name
         else {
             $existingTags = $relationModel
-                ->whereIn($this->nameFrom, $names)
+                ->whereIn($this->nameFrom, $values)
                 ->pluck($this->nameFrom, $relationModel->getKeyName())
                 ->all()
             ;
         }
 
-        // Allow custom tags
+        // Allow custom tags (only applicable when useKey is false)
         if ($this->customTags) {
-            $newTags = array_diff($names, $existingTags);
+            $newTags = array_diff($values, $existingTags);
 
             // Cannot create new tags when read-only options are supplied
             if ($newTags && $this->useOptions) {

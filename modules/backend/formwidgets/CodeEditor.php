@@ -26,9 +26,9 @@ class CodeEditor extends FormWidgetBase
     public $showGutter = true;
 
     /**
-     * @var bool wordWrap indicates whether the the word wrapping is enabled.
+     * @var string wordWrap mode: off, fluid, 40, 80.
      */
-    public $wordWrap = true;
+    public $wordWrap = 'fluid';
 
     /**
      * @var string codeFolding mode: manual, markbegin, markbeginend.
@@ -140,6 +140,14 @@ class CodeEditor extends FormWidgetBase
             'displayIndentGuides',
             'showPrintMargin'
         ]);
+
+        // Normalize boolean values for wordWrap
+        if ($this->wordWrap === true || $this->wordWrap === '1') {
+            $this->wordWrap = 'fluid';
+        }
+        elseif ($this->wordWrap === false || $this->wordWrap === '0') {
+            $this->wordWrap = 'off';
+        }
     }
 
     /**

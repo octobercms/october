@@ -2,7 +2,7 @@
     <div
         id="<?= $this->getId() ?>"
         class="search-input-container storm-icon-pseudo"
-        data-control="searchinput"
+        data-control="search-input"
     >
         <input
             placeholder="<?= $placeholder ?>"

@@ -1,5 +1,5 @@
 <div class="component-backend-inspector-grouphost">
-    <backend-component-inspector-controlhost
+    <backend-inspector-controlhost
         :controls="groupedControls.ungrouped"
         :obj="obj"
         :parent-obj="parentObj"
@@ -10,22 +10,22 @@
         :inspector-unique-id="inspectorUniqueId"
         :inspector-preferences="inspectorPreferences"
     >
-    </backend-component-inspector-controlhost>
+    </backend-inspector-controlhost>
 
-    <backend-component-inspector-group
-        v-for="(controls, groupName) in groupedControls"
-        v-if="groupName != 'ungrouped'"
-        :key="groupName"
-        :group-name="groupName"
-        :obj="obj"
-        :parent-obj="parentObj"
-        :controls="controls"
-        :splitter-data="splitterData"
-        :depth="depth"
-        :panel-update-data="panelUpdateData"
-        :layout-update-data="layoutUpdateData"
-        :inspector-unique-id="inspectorUniqueId"
-        :inspector-preferences="inspectorPreferences"
-    >
-    </backend-component-inspector-group>
+    <template v-for="(controls, groupName) in groupedControls" :key="groupName">
+        <backend-inspector-group
+            v-if="groupName != 'ungrouped'"
+            :group-name="groupName"
+            :obj="obj"
+            :parent-obj="parentObj"
+            :controls="controls"
+            :splitter-data="splitterData"
+            :depth="depth"
+            :panel-update-data="panelUpdateData"
+            :layout-update-data="layoutUpdateData"
+            :inspector-unique-id="inspectorUniqueId"
+            :inspector-preferences="inspectorPreferences"
+        >
+        </backend-inspector-group>
+    </template>
 </div>

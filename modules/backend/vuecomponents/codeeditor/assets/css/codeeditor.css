@@ -1,1 +1,15 @@
-.component-backend-codeeditor{position:relative}.component-backend-codeeditor .editor-element{border-radius:4px;bottom:0;left:0;position:absolute;right:0;top:0}html .ace_editor.ace_autocomplete{background-color:#252526;border:1px solid #454545;border-radius:2px;color:#fff;line-height:150%}html .ace_editor.ace_autocomplete .ace_completion-highlight{color:var(--bs-primary);font-weight:700}html .ace_editor.ace_autocomplete .ace_marker-layer .ace_active-line{background-color:var(--bs-primary);opacity:.4}html .ace_editor.ace_autocomplete .ace_marker-layer .ace_line-hover{background-color:hsla(0,0%,100%,.1);border:none}html .ace_editor.ace_autocomplete .ace_rightAlignedText{border-radius:2px;color:hsla(0,0%,100%,.7);display:none;margin-top:-1px;padding:1px 4px;z-index:1}html .ace_editor.ace_autocomplete .ace_line{padding-left:21px}html .ace_editor.ace_autocomplete .ace_line:before{background-position:-144px -38px;display:block;height:16px;left:4px;margin-top:3px;position:absolute;width:14px}html .ace_editor.ace_autocomplete .ace_line.october-cms-tag:before{background-position:-130px -40px;left:6px;width:14px}html .ace_editor.ace_autocomplete .ace_line.october-cms-partial:before{background-position:-165px -40px;height:11px;margin-top:4px;width:11px}html .ace_editor.ace_autocomplete .ace_line.ace_selected .ace_rightAlignedText{background-color:#373738;display:inline-block}html .ace_tooltip.ace_doc-tooltip{background-color:#252526;border:1px solid #454545;border-radius:2px;color:#fff;font-size:13px;line-height:150%;margin:0 10px!important;max-width:250px;outline:none;padding:7px 10px;white-space:normal}html .ace_tooltip.ace_doc-tooltip a{color:#fff;text-decoration:underline}html .ace_marker-layer .ace_link_marker{border-bottom:1px solid var(--bs-primary);border-radius:0;cursor:pointer;pointer-events:auto;position:absolute}
+@import "_autocomplete.css";
+
+.component-backend-codeeditor {
+    position: relative;
+
+    .editor-element {
+        position: absolute;
+        top: 0;
+        right: 0;
+        bottom: 0;
+        left: 0;
+
+        border-radius: 4px;
+    }
+}

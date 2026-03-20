@@ -1,15 +1,17 @@
 'use strict';
 
+import Sizing from './sizing.js';
+
 /**
- * Dashboard_Classes_Dragging
+ * Dragging class for dashboard widget drag-and-drop.
  */
-class Dashboard_Classes_Dragging
+export default class Dragging
 {
     constructor() {
         document.addEventListener('dragend', (ev) => this.onDragEnd(ev));
         this.boundDragEnd = this.onDragEnd.bind(this);
         this.store = null;
-        this.sizing = Dashboard_Classes_Sizing.instance();
+        this.sizing = Sizing.instance();
     }
 
     static instance() {

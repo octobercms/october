@@ -350,5 +350,8 @@
   "Debug mode is enabled. This is not recommended for production installations.": "Način za odpravljanje napak je omogočen. Ta način ni priporočljiv za produkcijsko okolje.",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "PHP razširitev (extension) :name ni nameščena. Prosimo, namestite ustrezno knjižnico in aktivirajte razširitev.",
   "The plugin :name is a dependency but is not installed. Please install this plugin.": "Za delovanje je potreben vtičnik :name, vendar ni nameščen. Prosimo, namestite ta vtičnik.",
-  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "PHP ne more pisati v mapo :name in njene podmape. Prosimo, nastavite spletnemu strežniku ustrezna dovoljenja za to mapo."
+  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "PHP ne more pisati v mapo :name in njene podmape. Prosimo, nastavite spletnemu strežniku ustrezna dovoljenja za to mapo.",
+  "Manage Roles": "Upravljanje z vlogami",
+  "Manage Groups": "Upravljanje s skupinami",
+  "Customize Backend": "Prilagoditev administracije"
 }

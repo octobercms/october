@@ -10,7 +10,7 @@
         <span class="button-label" v-text="buttonText"></span>
     </button>
 
-    <backend-component-dropdownmenu
+    <backend-dropdown-menu
         :items=menuitems
         :menu-id="menuId"
         :labeled-by-id="buttonId"
@@ -19,5 +19,5 @@
         @shown="onMenuShown"
         @hidden="onMenuHidden"
         :preferable-position="preferableMenuPosition"
-    ></backend-component-dropdownmenu>
+    ></backend-dropdown-menu>
 </div>

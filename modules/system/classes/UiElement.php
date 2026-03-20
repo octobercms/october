@@ -4,12 +4,7 @@ use Closure;
 use October\Rain\Element\ElementBase;
 
 /**
- * UiElement
- *
- * @method UiElement body(callable|array|string $body) body contents for the element, optional.
- *
- * @package october\system
- * @author Alexey Bobkov, Samuel Georges
+ * @deprecated
  */
 class UiElement extends ElementBase
 {

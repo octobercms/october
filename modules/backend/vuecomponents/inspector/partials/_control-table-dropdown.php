@@ -3,7 +3,7 @@
     @focus="onContainerFocus"
     class="inspector-table-dropdown-container"
 >
-    <backend-component-dropdown
+    <backend-dropdown
         :options="options"
         :placeholder="column.placeholder"
         :tabindex="0"
@@ -16,12 +16,14 @@
         select-label=""
         selected-label=""
         deselect-label=""
-        @input="updateValue"
+        @update:model-value="updateValue"
         @open="onFocus"
         @close="onBlur"
     >
-        <span slot="noResult"><?= e(trans('backend::lang.form.no_options_found')) ?></span>
-    </backend-component-dropdown>
+        <template #noResult>
+            <span><?= e(trans('backend::lang.form.no_options_found')) ?></span>
+        </template>
+    </backend-dropdown>
 
     <div class="dropdown-placeholder" v-if="!hasValue" v-text="column.placeholder"></div>
 </div>

@@ -2,7 +2,7 @@
     <?= Form::open(['id' => 'tailor-form', 'class' => 'position-relative h-100', 'data-change-monitor' => true]) ?>
         <div class="position-relative h-100" data-control="vue-app">
             <div class="padded-container d-flex flex-column h-100 form-document-layout">
-                <div>
+                <div class="document-header">
                     <div class="d-flex">
                         <div class="flex-grow-1">
                             <?= $this->formRender([
@@ -19,15 +19,15 @@
                 <div data-control="vue-entry-document">
                     <div class="padded-container-inset" data-vue-template>
                         <template>
-                            <backend-component-document
+                            <backend-document
                                 :processing="state.processing"
                                 :toolbar-command-event-bus="state.eventBus">
                                 <template v-slot:toolbar>
-                                    <backend-component-document-toolbar
+                                    <backend-document-toolbar
                                         :elements="state.toolbarElements"
                                         @command="onCommand"
                                         :disabled="state.toolbarDisabled"
-                                    ></backend-component-document-toolbar>
+                                    ></backend-document-toolbar>
                                 </template>
                                 <template v-slot:drawer>
                                     <tailor-component-draftnotes
@@ -37,7 +37,7 @@
                                         :state="state">
                                     </tailor-component-draftnotes>
                                 </template>
-                            </backend-component-document>
+                            </backend-document>
                         </template>
                     </div>
 

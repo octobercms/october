@@ -16,40 +16,39 @@
 <meta name="backend-locale" content="<?= e(Backend\Models\Preference::get('locale')) ?>">
 <meta name="backend-site" content="<?= Site::getEditSiteId() ?>">
 <meta name="csrf-token" content="<?= csrf_token() ?>">
-<meta name="turbo-root" content="<?= Backend::baseUrl() ?>">
-<?php if ($this->turboVisitControl): ?>
-    <meta name="turbo-visit-control" content="<?= $this->turboVisitControl ?>" />
-<?php endif ?>
+<?php foreach ($this->getTurboMetaTags() as $turboMeta): ?>
+    <meta name="<?= $turboMeta['name'] ?>" content="<?= $turboMeta['content'] ?>" />
+<?php endforeach ?>
 <?php
     $coreBuild = Backend::assetVersion();
-
-    $styles = [
-        Backend::skinAsset('assets/vendor/bootstrap/bootstrap.css'),
-        Backend::skinAsset('assets/vendor/bootstrap-icons/bootstrap-icons.css'),
-        Backend::skinAsset('assets/css/october.css'),
-    ];
-
-    $scripts = [
-        Url::asset('modules/system/assets/js/vendor/jquery.min.js'),
-        Url::asset('modules/system/assets/js/framework-bundle.min.js'),
-        Url::asset('modules/system/assets/js/vue.bundle-min.js'),
-        Url::asset('modules/system/assets/js/toolbox.bundle-min.js'),
-        Backend::skinAsset('assets/vendor/bootstrap/bootstrap.min.js'),
-        Backend::skinAsset('assets/js/vendor-min.js'),
-        Backend::skinAsset('assets/js/october-min.js'),
-        Url::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js'),
-    ];
+    $vendorPath = Url::asset('modules/system/assets/vendor');
 ?>
-<?php foreach ($styles as $style): ?>
-    <link href="<?= $style . '?v' . $coreBuild ?>" rel="stylesheet" fetchpriority="high">
-<?php endforeach ?>
-
-<?php foreach ($scripts as $script): ?>
-    <script src="<?= $script . '?v' . $coreBuild ?>" fetchpriority="high"></script>
-<?php endforeach ?>
+<script type="importmap">
+{
+    "imports": {
+        "larajax": "<?= Url::asset('modules/system/assets/js/framework.esm.js') ?>",
+        "bootstrap": "<?= $vendorPath ?>/bootstrap/bootstrap.esm.js",
+        "vue": "<?= $vendorPath ?>/vue/vue.esm.js",
+        "vue-router": "<?= $vendorPath ?>/vue-router/vue-router.esm.js",
+        "js-cookie": "<?= $vendorPath ?>/js-cookie/js.cookie.esm.js",
+        "sortablejs": "<?= $vendorPath ?>/sortablejs/sortable.esm.js",
+        "dropzone": "<?= $vendorPath ?>/dropzone/dropzone.esm.js",
+        "chart.js": "<?= $vendorPath ?>/chartjs/chart.esm.js",
+        "p-queue": "<?= $vendorPath ?>/p-queue/p-queue.esm.js"
+    }
+}
+</script>
+<script src="<?= Url::asset('modules/system/assets/js/vendor.js') ?>?v<?= $coreBuild ?>"></script>
+<script src="<?= Url::asset('modules/system/assets/js/framework-bundle.min.js') ?>?v<?= $coreBuild ?>"></script>
+<script src="<?= Url::asset('modules/system/assets/js/foundation.js') ?>?v<?= $coreBuild ?>"></script>
+<script type="module" src="<?= Url::asset('modules/system/assets/js/main.js') ?>?v<?= $coreBuild ?>"></script>
+<script type="module" src="<?= Url::asset('modules/backend/assets/js/main.js') ?>?v<?= $coreBuild ?>"></script>
+<script type="module" src="<?= Url::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js') ?>?v<?= $coreBuild ?>"></script>
+<link href="<?= Url::asset('modules/system/assets/css/main.css') ?>?v<?= $coreBuild ?>" rel="stylesheet" />
+<link href="<?= Url::asset('modules/backend/assets/css/main.css') ?>?v<?= $coreBuild ?>" rel="stylesheet" />
 
 <?php if (!Config::get('backend.enable_service_workers', false)): ?>
-    <script> unregisterServiceWorkers() </script>
+    <script> oc.waitFor(() => window.unregisterServiceWorkers).then(() => unregisterServiceWorkers()) </script>
 <?php endif ?>
 
 <?= $this->makeAssets() ?>

@@ -18,6 +18,11 @@ use Backend\Classes\VueComponentBase;
 class RichEditor extends VueComponentBase
 {
     /**
+     * @var string componentName is the Vue component tag name.
+     */
+    protected $componentName = 'backend-richeditor';
+
+    /**
      * Prepares variables required by the component's partials
      */
     protected function prepareVars()
@@ -56,7 +61,7 @@ class RichEditor extends VueComponentBase
     protected function loadAssets()
     {
         // This Vue component uses Froala dependencies from the rich editor form widget
-        $this->addJs('/modules/backend/formwidgets/richeditor/assets/js/richeditor.js');
+        // $this->addJs('/modules/backend/formwidgets/richeditor/assets/js/richeditor.js');
         $this->addCss('/modules/backend/formwidgets/richeditor/assets/css/richeditor.css');
     }
 

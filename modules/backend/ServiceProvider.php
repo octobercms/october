@@ -1,11 +1,9 @@
 <?php namespace Backend;
 
 use Backend;
-use System\Classes\MailManager;
 use System\Classes\SettingsManager;
 use Backend\Models\UserRole;
 use Backend\Models\BrandSetting;
-use Backend\Models\Dashboard;
 use October\Rain\Support\ModuleServiceProvider;
 
 /**
@@ -37,11 +35,10 @@ class ServiceProvider extends ModuleServiceProvider
     protected function registerSingletons()
     {
         $this->app->singleton('backend.helper', \Backend\Helpers\Backend::class);
-        $this->app->singleton('backend.menu', \Backend\Classes\NavigationManager::class);
         $this->app->singleton('backend.roles', \Backend\Classes\RoleManager::class);
-        $this->app->singleton('backend.widgets', \Backend\Classes\WidgetManager::class);
-
-        $this->app->singleton('backend.auth', fn () => \Backend\Classes\AuthManager::instance());
+        $this->app->scoped('backend.auth', fn () => \Backend\Classes\AuthManager::instance());
+        $this->app->scoped('backend.menu', \Backend\Classes\NavigationManager::class);
+        $this->app->scoped('backend.widgets', \Backend\Classes\WidgetManager::class);
     }
 
     /**
@@ -51,7 +48,7 @@ class ServiceProvider extends ModuleServiceProvider
     {
         return [
             \Backend\ReportWidgets\Welcome::class => [
-                'label' => 'backend::lang.dashboard.welcome.widget_title_default',
+                'label' => "Welcome",
                 'context' => 'dashboard'
             ],
         ];
@@ -76,7 +73,7 @@ class ServiceProvider extends ModuleServiceProvider
     {
         // return [
         //     'dashboard' => [
-        //         'label' => 'backend::lang.dashboard.menu_label',
+        //         'label' => "Dashboard",
         //         'icon' => 'icon-dashboard',
         //         'iconSvg' => 'modules/backend/assets/images/dashboard-icon.svg',
         //         'url' => Backend::url('backend'),
@@ -294,7 +291,8 @@ class ServiceProvider extends ModuleServiceProvider
                 'attributes' => [
                     'data-control' => 'color-mode-switcher',
                     'data-lang-light-mode' => __("Light Mode"),
-                    'data-lang-dark-mode' => __("Dark Mode")
+                    'data-lang-dark-mode' => __("Dark Mode"),
+                    'data-lang-auto-mode' => __("Auto Mode")
                 ],
                 'order' => 620,
                 'context' => 'mysettings'

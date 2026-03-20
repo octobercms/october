@@ -1,5 +1,5 @@
 <div>
-    <backend-component-modal
+    <backend-modal
         ref="modal"
         unique-key="cms-component-list-popup"
         aria-labeled-by="cms-component-list-popup-title"
@@ -32,7 +32,7 @@
                         ref="componentDragHostImage"
                         src="<?= Url::asset('/modules/cms/assets/images/component-drag-image.svg') ?>" />
                 </div>
-                <backend-component-treeview
+                <backend-treeview
                     aria-label="<?= e(trans('cms::lang.editor.component_list')) ?>"
                     :sections="componentListNodes"
                     :searchable="true"
@@ -43,8 +43,8 @@
                     @customdragstart="onCustomDragStart"
                     ref="treeView"
                 >
-                </backend-component-treeview>
+                </backend-treeview>
             </div>
         </template>
-    </backend-component-modal>
+    </backend-modal>
 </div>

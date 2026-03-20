@@ -154,27 +154,38 @@ class BlueprintVerifier
     protected function validateUniqueBlueprint(Blueprint $blueprint)
     {
         $filePath = $blueprint->getFilePath();
+        $theme = $blueprint->getDatasourceTheme();
 
         // Check handle uniqueness (all blueprints share the same namespace)
         if ($handle = $blueprint->handle) {
-            $this->validateUniqueProperty($blueprint, 'handle', $handle, $filePath);
+            $this->validateUniqueProperty($blueprint, 'handle', $handle, $filePath, $theme);
         }
 
         // Check UUID uniqueness
         if ($uuid = $blueprint->uuid) {
-            $this->validateUniqueProperty($blueprint, 'uuid', $uuid, $filePath);
+            $this->validateUniqueProperty($blueprint, 'uuid', $uuid, $filePath, $theme);
         }
     }
 
     /**
-     * validateUniqueProperty checks a property value is unique across blueprints
+     * validateUniqueProperty checks a property value is unique across blueprints.
+     * Blueprints from different themes are allowed to share handles and UUIDs
+     * since only one theme is active at a time.
      */
-    protected function validateUniqueProperty(Blueprint $blueprint, string $property, string $key, string $filePath)
+    protected function validateUniqueProperty(Blueprint $blueprint, string $property, string $key, string $filePath, ?string $theme = null)
     {
         $cacheKey = $property . ':' . $key;
 
         if (isset($this->registeredBlueprints[$cacheKey])) {
-            $existingPath = File::nicePath($this->registeredBlueprints[$cacheKey]);
+            $existing = $this->registeredBlueprints[$cacheKey];
+
+            // Allow duplicates across different themes since only one theme
+            // is active at a time
+            if ($theme !== null && $existing['theme'] !== null && $theme !== $existing['theme']) {
+                return;
+            }
+
+            $existingPath = File::nicePath($existing['path']);
             $value = $blueprint->$property;
             $lineNo = $this->findLineFromKeyValPair($blueprint->content, $property, $value);
 
@@ -185,7 +196,7 @@ class BlueprintVerifier
             );
         }
 
-        $this->registeredBlueprints[$cacheKey] = $filePath;
+        $this->registeredBlueprints[$cacheKey] = ['path' => $filePath, 'theme' => $theme];
     }
 
     /**

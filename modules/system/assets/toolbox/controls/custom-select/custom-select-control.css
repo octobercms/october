@@ -1,0 +1,90 @@
+/*
+ * Select
+ * --------------------------------------------------
+ */
+
+@import "select.vendor.css";
+@import "select.base.css";
+@import "select.variants.css";
+@import "select.control.css";
+
+/*
+ * Variables
+ * --------------------------------------------------
+ */
+
+.select2-container {
+    /* Select-specific variables */
+    --custom-select-icon-color: var(--bs-secondary-color);
+    --custom-select-hover-bg: #f5f5f5;
+    --custom-select-hover-color: #2b2b2b;
+    --custom-select-active-color: #fff;
+    --custom-select-active-bg: var(--oc-selection);
+    --custom-select-header-color: #98A0A0;
+    --custom-select-link-disabled-color: #98A0A0;
+    --custom-select-choice-bg: #72809d;
+    --custom-select-cursor-disabled: not-allowed;
+
+    /* Input variables */
+    --custom-select-input-bg: var(--oc-form-control-bg);
+    --custom-select-input-color: var(--bs-body-color);
+    --custom-select-input-border: var(--bs-border-color);
+    --custom-select-input-border-radius: 4px;
+    --custom-select-input-box-shadow: none;
+    --custom-select-input-font-size: 1rem;
+    --custom-select-input-border-focus: var(--oc-border-focus);
+    --custom-select-input-focus-box-shadow: 0 0 0 0.25rem rgba(53, 66, 91, 0.1);
+    --custom-select-input-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+    --custom-select-input-color-placeholder: #cccccc;
+    --custom-select-input-disabled-bg: var(--oc-form-control-disabled-bg);
+
+    /* Sizing variables */
+    --custom-select-padding-base-vertical: 8px;
+    --custom-select-padding-base-horizontal: 13px;
+    --custom-select-padding-small-vertical: 5px;
+    --custom-select-padding-small-horizontal: 10px;
+    --custom-select-padding-large-vertical: 10px;
+    --custom-select-padding-large-horizontal: 16px;
+
+    --custom-select-line-height-base: 1.428571429;
+    --custom-select-line-height-small: 1.5;
+    --custom-select-line-height-large: 1.3333333;
+
+    --custom-select-font-size-small: 12px;
+    --custom-select-font-size-large: 18px;
+
+    --custom-select-border-radius-base: 4px;
+    --custom-select-border-radius-small: 3px;
+    --custom-select-border-radius-large: 6px;
+
+    --custom-select-caret-width-base: 4px;
+    --custom-select-caret-width-large: 5px;
+
+    /* Height calculations */
+    --custom-select-input-height-base: 38px;
+    --custom-select-input-height-small: 30px;
+    --custom-select-input-height-large: 46px;
+
+    /* Box shadows */
+    --custom-select-box-shadow-z1: -2px 2px 5px rgba(67, 86, 100, 0.12);
+
+    /* Z-index */
+    --custom-select-zindex-form: 10;
+
+    /* Validation state colors */
+    --custom-select-state-warning-text: #8a6d3b;
+    --custom-select-state-warning-text-dark: #66512c;
+    --custom-select-state-danger-text: #a94442;
+    --custom-select-state-danger-text-dark: #843534;
+    --custom-select-state-success-text: #3c763d;
+    --custom-select-state-success-text-dark: #2b542c;
+
+    /* Brand colors */
+    --custom-select-brand-danger: var(--bs-danger);
+
+    /* Icon font */
+    --custom-select-icon-font-family: 'octo-icon';
+    --custom-select-icon-search: "\f002";
+    --custom-select-icon-angle-down: "\f107";
+    --custom-select-icon-angle-up: "\f106";
+}

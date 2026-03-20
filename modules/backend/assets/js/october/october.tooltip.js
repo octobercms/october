@@ -54,20 +54,24 @@
             };
 
             this.hideAllTooltips = () => {
-                this.clear();
-                this.$tooltipElement = null;
+                this.clearTooltipTimeout();
+                if (this.$tooltipElement) {
+                    this.$tooltipElement.remove();
+                    this.$tooltipElement = null;
+                }
             };
 
             this.addListeners();
         }
 
         addListeners() {
-            addEventListener('page:before-cache', this.hideAllTooltips);
             document.addEventListener('mouseenter', this.onMouseEnter, true);
             document.addEventListener('mouseleave', this.onMouseLeave, true);
             document.addEventListener('mousedown', this.onMouseDown);
             document.addEventListener('click', this.onMouseDown);
             document.addEventListener('keydown', this.onKeyDown);
+            addEventListener('ajax:before-update', this.hideAllTooltips);
+            addEventListener('page:before-render', this.hideAllTooltips);
         }
 
         clear() {
@@ -121,9 +125,15 @@
                 left -= rightDiff + 15;
             }
 
+            var tooltipHeight = this.$tooltipElement.outerHeight(),
+                position = element.getAttribute('data-tooltip-position'),
+                top = position === 'top'
+                    ? elementOffset.top - tooltipHeight - 5
+                    : elementOffset.top + elementHeight + 5;
+
             this.$tooltipElement.css({
                 left: left,
-                top: elementOffset.top + elementHeight + 5
+                top: top
             });
 
             this.$tooltipElement.removeClass('tooltip-invisible');

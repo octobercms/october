@@ -1,7 +1,8 @@
 <div data-control="toolbar">
-    <a
-        href="<?= Backend::url('system/mailpartials/create') ?>"
-        class="btn btn-primary oc-icon-plus">
-        <?= __("New Partial") ?>
-    </a>
+    <?= Ui::button(
+        label: __("New Partial"),
+        href: Backend::url('system/mailpartials/create'),
+        icon: 'oc-icon-plus',
+        primary: true
+    ) ?>
 </div>

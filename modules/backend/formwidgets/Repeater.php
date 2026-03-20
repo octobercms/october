@@ -220,7 +220,8 @@ class Repeater extends FormWidgetBase
     protected function loadAssets()
     {
         $this->addCss('css/repeater.css');
-        $this->addJs('js/repeater-min.js');
+        $this->addJs('js/repeater.accordion.js', ['type' => 'module']);
+        $this->addJs('js/repeater.builder.js', ['type' => 'module']);
     }
 
     /**

@@ -352,5 +352,8 @@
   "An account with a generic login :name was found. Please rename this administrator account.": "Найден аккаунт с логином \":name\". Пожалуйста переименуйте его.",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "Расширение PHP :name не установлено. Установите эту библиотеку и активируйте расширение.",
   "The plugin :name is a dependency but is not installed. Please install this plugin.": "Плагин :name имеет зависимость. Установите этот плагин.",
-  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "Каталог :name или его подкаталоги недоступны для записи. Укажите соответствующие разрешения для веб-сервера."
+  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "Каталог :name или его подкаталоги недоступны для записи. Укажите соответствующие разрешения для веб-сервера.",
+  "Manage Roles": "Управление ролями",
+  "Manage Groups": "Управление группами",
+  "Customize Backend": "Персонализация панели управления"
 }

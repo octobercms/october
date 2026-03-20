@@ -3,68 +3,82 @@
 ?>
 <?php if ($statusCode === 'deleted'): ?>
     <?php if ($this->hasSourcePermission('delete')): ?>
-        <?= Ui::ajaxButton("Restore", 'onBulkAction')
-            ->ajaxData(['action' => 'restore'])
-            ->confirmMessage("Are you sure?")
-            ->listCheckedTrigger()
-            ->listCheckedRequest()
-            ->icon('icon-refresh')
-            ->secondary() ?>
+        <?= Ui::ajaxButton(
+            label: __("Restore"),
+            handler: 'onBulkAction',
+            icon: 'icon-refresh',
+            secondary: true,
+            dataRequestData: "action: 'restore'",
+            dataRequestConfirm: __("Are you sure?"),
+            dataListCheckedTrigger: true,
+            dataListCheckedRequest: true,
+            dataStripeLoadIndicator: true
+        ) ?>
 
-        <?= Ui::ajaxButton("Delete Forever", 'onBulkAction')
-            ->ajaxData(['action' => 'forceDelete'])
-            ->confirmMessage("Are you sure?")
-            ->listCheckedTrigger()
-            ->listCheckedRequest()
-            ->icon('icon-delete')
-            ->secondary() ?>
+        <?= Ui::ajaxButton(
+            label: __("Delete Forever"),
+            handler: 'onBulkAction',
+            icon: 'icon-delete',
+            secondary: true,
+            dataRequestData: "action: 'forceDelete'",
+            dataRequestConfirm: __("Are you sure?"),
+            dataListCheckedTrigger: true,
+            dataListCheckedRequest: true,
+            dataStripeLoadIndicator: true
+        ) ?>
     <?php endif ?>
 <?php else: ?>
     <?php if ($this->hasSourcePermission('publish')): ?>
-        <div class="dropdown dropdown-fixed">
-            <button
-                type="button"
-                class="btn btn-secondary oc-icon-angle-down"
-                data-toggle="dropdown"
-                data-list-checked-trigger
-            ><?= __("Change Status") ?></button>
-            <ul class="dropdown-menu">
-                <li>
-                    <?= Ui::ajaxButton("Enable", 'onBulkAction')
-                        ->ajaxData(['action' => 'enable'])
-                        ->confirmMessage("Are you sure?")
-                        ->listCheckedRequest()
-                        ->icon('icon-check')
-                        ->replaceCssClass('dropdown-item')
-                        ->secondary() ?>
-                    </a>
-                </li>
-                <li>
-                    <?= Ui::ajaxButton("Disable", 'onBulkAction')
-                        ->ajaxData(['action' => 'disable'])
-                        ->confirmMessage("Are you sure?")
-                        ->listCheckedRequest()
-                        ->icon('icon-ban')
-                        ->replaceCssClass('dropdown-item')
-                        ->secondary() ?>
-                </li>
-            </ul>
-        </div>
-        <?= Ui::ajaxButton("Duplicate", 'onBulkAction')
-            ->ajaxData(['action' => 'duplicate'])
-            ->confirmMessage("Are you sure?")
-            ->listCheckedTrigger()
-            ->listCheckedRequest()
-            ->icon('icon-copy')
-            ->secondary() ?>
+        <?php Ui::dropdownButton(
+            label: __("Change Status"),
+            icon: 'oc-icon-angle-down',
+            secondary: true,
+            dataListCheckedTrigger: true
+        )->slot() ?>
+
+            <?= Ui::dropdownItem(
+                label: __("Enable"),
+                handler: 'onBulkAction',
+                icon: 'icon-check',
+                dataRequestData: "action: 'enable'",
+                dataRequestConfirm: __("Are you sure?"),
+                dataListCheckedRequest: true
+            ) ?>
+
+            <?= Ui::dropdownItem(
+                label: __("Disable"),
+                handler: 'onBulkAction',
+                icon: 'icon-ban',
+                dataRequestData: "action: 'disable'",
+                dataRequestConfirm: __("Are you sure?"),
+                dataListCheckedRequest: true
+            ) ?>
+
+        <?php Ui::end() ?>
+
+        <?= Ui::ajaxButton(
+            label: __("Duplicate"),
+            handler: 'onBulkAction',
+            icon: 'icon-copy',
+            secondary: true,
+            dataRequestData: "action: 'duplicate'",
+            dataRequestConfirm: __("Are you sure?"),
+            dataListCheckedTrigger: true,
+            dataListCheckedRequest: true,
+            dataStripeLoadIndicator: true
+        ) ?>
     <?php endif ?>
     <?php if ($this->hasSourcePermission('delete')): ?>
-        <?= Ui::ajaxButton("Delete", 'onBulkAction')
-            ->ajaxData(['action' => 'delete'])
-            ->confirmMessage("Are you sure?")
-            ->listCheckedTrigger()
-            ->listCheckedRequest()
-            ->icon('icon-delete')
-            ->secondary() ?>
+        <?= Ui::ajaxButton(
+            label: __("Delete"),
+            handler: 'onBulkAction',
+            icon: 'icon-delete',
+            secondary: true,
+            dataRequestData: "action: 'delete'",
+            dataRequestConfirm: __("Are you sure?"),
+            dataListCheckedTrigger: true,
+            dataListCheckedRequest: true,
+            dataStripeLoadIndicator: true
+        ) ?>
     <?php endif ?>
 <?php endif ?>

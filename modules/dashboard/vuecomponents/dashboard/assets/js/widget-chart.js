@@ -1,6 +1,7 @@
-(function () {
+import DataHelper from '../../../../assets/js/classes/data-helper.js';
+import WidgetBase from './widget-base.js';
 
-const dataHelper = Dashboard_Classes_DataHelper.instance();
+const dataHelper = DataHelper.instance();
 
 function formatInterval(interval, date) {
     if (interval === 'month') {
@@ -18,16 +19,16 @@ function formatInterval(interval, date) {
     return date.format('MMM D, YYYY');
 }
 
-Vue.component('dashboard-component-dashboard-widget-chart', {
-    extends: Vue.options.components['dashboard-component-dashboard-widget-base'],
+export default {
+    extends: WidgetBase,
     data: function () {
         return {
             chart: null,
             lastGroupInterval: null
         }
     },
-    computed: {
-        chartConfig: function () {
+    methods: {
+        getChartConfig: function () {
             const theme = $('html').data('bs-theme');
             const axisColor = theme === 'dark' ? '#6C757D' : '#E3EAEC';
 
@@ -88,7 +89,7 @@ Vue.component('dashboard-component-dashboard-widget-chart', {
                             fill: true,
                             pointRadius: 2,
                             borderWidth: 2,
-                            spanGaps: false,
+                            spanGaps: true,
                         },
                         bar: {
                             borderRadius: 5,
@@ -146,7 +147,7 @@ Vue.component('dashboard-component-dashboard-widget-chart', {
                                         context.dataset.formatting,
                                         this.store.state.locale
                                     )
-                                    
+
                                     return label;
                                 }
                             }
@@ -207,8 +208,7 @@ Vue.component('dashboard-component-dashboard-widget-chart', {
 
             return result;
         },
-    },
-    methods: {
+
         getRequestDimension: function () {
             return this.widget.configuration.dimension;
         },
@@ -226,7 +226,8 @@ Vue.component('dashboard-component-dashboard-widget-chart', {
         },
 
         makeDefaultConfigAndData: function () {
-            Vue.set(this.widget.configuration, 'title', 'Chart');
+            // Vue 3: Direct assignment is reactive
+            this.widget.configuration.title = oc.t("Chart");
         },
 
         getMetricConfigurationByCode: function (metricCode) {
@@ -250,25 +251,25 @@ Vue.component('dashboard-component-dashboard-widget-chart', {
 
             result.push({
                 property: 'chartType',
-                tab: oc.lang.get('dashboard.tab_general'),
-                title: oc.lang.get('dashboard.widget_chart_type'),
+                tab: oc.t("General"),
+                title: oc.t("Chart type"),
                 type: 'dropdown',
                 options: {
-                    'bar': oc.lang.get('dashboard.widget_chart_type'),
-                    'stacked-bar': oc.lang.get('dashboard.widget_chart_type_stacked_bar'),
-                    'line': oc.lang.get('dashboard.widget_chart_type_line')
+                    'bar': oc.t("Bar"),
+                    'stacked-bar': oc.t("Stacked Bar"),
+                    'line': oc.t("Line")
                 }
             });
 
             result.push({
                 property: 'barDirection',
-                tab: oc.lang.get('dashboard.tab_general'),
-                title: oc.lang.get('dashboard.widget_bar_direction'),
+                tab: oc.t("General"),
+                title: oc.t("Direction"),
                 type: 'dropdown',
                 default: 'vertical',
                 options: {
-                    vertical: oc.lang.get('dashboard.widget_bar_direction_vertical'),
-                    horizontal: oc.lang.get('dashboard.widget_bar_direction_horizontal'),
+                    vertical: oc.t("Vertical"),
+                    horizontal: oc.t("Horizontal"),
                 },
                 visibility: {
                     source_property: 'chartType',
@@ -276,7 +277,7 @@ Vue.component('dashboard-component-dashboard-widget-chart', {
                 },
             });
 
-            this.addDataSourceProps(result, oc.lang.get('dashboard.tab_general'));
+            this.addDataSourceProps(result, oc.t("General"));
             this.addDataSourceConfigurationProps(result, [], ['auto_update']);
 
             return result;
@@ -284,7 +285,7 @@ Vue.component('dashboard-component-dashboard-widget-chart', {
 
         buildChart: function () {
             const ctx = this.$refs.canvas.getContext('2d');
-            this.chart = new Chart(ctx, this.chartConfig);
+            this.chart = Vue.markRaw(new Chart(ctx, this.getChartConfig()));
         },
 
         populateChart: function () {
@@ -293,7 +294,7 @@ Vue.component('dashboard-component-dashboard-widget-chart', {
                 this.loadedValue,
                 this.getRequestMetrics(),
                 false, // Keep null values to create gaps in the chart
-                oc.lang.get('dashboard.value_not_set')
+                oc.t("[not set]")
             );
             this.chart.update();
         }
@@ -334,13 +335,10 @@ Vue.component('dashboard-component-dashboard-widget-chart', {
             deep: true
         }
     },
-    beforeDestroy: function() {
+    beforeUnmount: function() {
         if (this.chart) {
             this.chart.destroy();
             this.chart = null;
         }
-    },
-    template: '#dashboard_vuecomponents_dashboard_widget_chart'
-});
-
-})();
+    }
+};

@@ -226,6 +226,45 @@ class PluginBase extends ServiceProviderBase implements OctoberPackage
     }
 
     /**
+     * discoverConsoleCommands automatically finds and registers console
+     * commands from the plugin's console directory
+     */
+    public function discoverConsoleCommands(): void
+    {
+        if (!$this->app->runningInConsole()) {
+            return;
+        }
+
+        $reflection = new \ReflectionClass(get_class($this));
+        $pluginPath = dirname($reflection->getFileName());
+        $consolePath = $pluginPath . '/console';
+
+        if (!is_dir($consolePath)) {
+            return;
+        }
+
+        $pluginClass = get_class($this);
+        $namespace = substr($pluginClass, 0, strrpos($pluginClass, '\\')) . '\\Console\\';
+
+        foreach (glob($consolePath . '/*.php') as $file) {
+            $className = $namespace . basename($file, '.php');
+
+            if (!class_exists($className)) {
+                continue;
+            }
+
+            $ref = new \ReflectionClass($className);
+
+            if (
+                $ref->isSubclassOf(\Illuminate\Console\Command::class) &&
+                !$ref->isAbstract()
+            ) {
+                $this->commands($className);
+            }
+        }
+    }
+
+    /**
      * registerConsoleCommand registers a new console (artisan) command.
      * @param string $key The command name
      * @param string $class The command class

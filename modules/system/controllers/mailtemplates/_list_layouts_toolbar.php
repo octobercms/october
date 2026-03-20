@@ -1,7 +1,8 @@
 <div data-control="toolbar">
-    <a
-        href="<?= Backend::url('system/maillayouts/create') ?>"
-        class="btn btn-primary oc-icon-plus">
-        <?= __("New Layout") ?>
-    </a>
+    <?= Ui::button(
+        label: __("New Layout"),
+        href: Backend::url('system/maillayouts/create'),
+        icon: 'oc-icon-plus',
+        primary: true
+    ) ?>
 </div>

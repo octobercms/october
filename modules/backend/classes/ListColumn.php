@@ -188,6 +188,12 @@ class ListColumn extends ColumnDefinition
                 if (is_array($result) && array_key_exists($key, $result)) {
                     $result = $result[$key];
                 }
+                elseif ($result instanceof Model) {
+                    $result = $result->getAttribute($key);
+                    if ($result === null) {
+                        return $default;
+                    }
+                }
                 elseif (!isset($result->{$key})) {
                     return $default;
                 }

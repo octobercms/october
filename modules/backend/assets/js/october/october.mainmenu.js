@@ -320,30 +320,4 @@
         if (!data) $this.data('oc.mainMenu', (data = new MainMenu()));
     });
 
-    // Scroll watcher to maintain scroll positions across PJAX requests
-    //
-
-    var scrollPositions = {};
-    addEventListener('page:before-render', function(){
-        document.querySelectorAll('#layout-mainmenu [data-control=toolbar]').forEach(function(element) {
-            if (element.scrollLeft) {
-                scrollPositions[element.id] = element.scrollLeft;
-            }
-        });
-        document.querySelectorAll('#layout-mainmenu-left [data-control=toolbar]').forEach(function(element) {
-            if (element.scrollTop) {
-                scrollPositions[element.id] = element.scrollTop;
-            }
-        });
-    });
-
-    addEventListener('page:render', function(){
-        document.querySelectorAll('#layout-mainmenu [data-control=toolbar]').forEach(function(element) {
-            element.scrollLeft = scrollPositions[element.id];
-        });
-        document.querySelectorAll('#layout-mainmenu-left [data-control=toolbar]').forEach(function(element) {
-            element.scrollTop = scrollPositions[element.id];
-        });
-    });
-
 }(window.jQuery);

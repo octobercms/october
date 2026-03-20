@@ -12,6 +12,8 @@ use System\Classes\PluginManager;
  */
 class PluginVersion extends Model
 {
+    use \System\Models\PluginVersion\HasDisabledContext;
+
     /**
      * @var string table associated with the model
      */
@@ -72,6 +74,19 @@ class PluginVersion extends Model
      * @var array
      */
     protected $appends = ['slug'];
+
+    /**
+     * getAttribute checks for plugin detail properties that exist outside of
+     * the model attributes, since these values are not sourced from the database.
+     */
+    public function getAttribute($key)
+    {
+        if (in_array($key, ['name', 'description', 'author', 'icon', 'homepage'])) {
+            return $this->{$key};
+        }
+
+        return parent::getAttribute($key);
+    }
 
     /**
      * afterFetch

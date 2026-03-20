@@ -1,1 +1,74 @@
-.field-pagefinder .pagefinder-control-container{background:var(--oc-form-control-bg);border:1px solid var(--bs-border-color);border-radius:4px}.field-pagefinder .pagefinder-control-toolbar{font-size:0;padding:3px;white-space:nowrap}.field-pagefinder .pagefinder-control-toolbar .backend-toolbar-button.populated-only{display:none}.field-pagefinder .pagefinder-record-container{position:relative}.field-pagefinder .record-item{display:block;margin:4px;outline:none;position:relative}.field-pagefinder .record-item .record-data-container{padding:4px 3px 3px}.field-pagefinder .record-item .record-data-container-inner{position:relative}.field-pagefinder .record-item .icon-container,.field-pagefinder .record-item .info,.field-pagefinder .record-item .info h4,.field-pagefinder .record-item .info h4 p{display:inline-block;vertical-align:top}.field-pagefinder .record-item .icon-container{height:20px;margin-top:1px;position:absolute;width:20px}.field-pagefinder .record-item .icon-container i{left:3px;position:relative;top:2px}.field-pagefinder .record-item .info{padding-left:22px}.field-pagefinder .record-item .description,.field-pagefinder .record-item .recordname{color:var(--bs-body-color);font-size:14px;margin-bottom:0;word-break:break-all}.field-pagefinder .record-item .description{color:var(--bs-secondary-color);font-size:.9rem}
+.field-pagefinder {
+    .pagefinder-control-container {
+        border-radius: 4px;
+        border: 1px solid var(--bs-border-color);
+        background: var(--oc-form-control-bg);
+    }
+
+    .pagefinder-control-toolbar {
+        padding: 3px;
+        font-size: 0;
+        white-space: nowrap;
+
+        .backend-toolbar-button {
+            &.populated-only {
+                display: none;
+            }
+        }
+    }
+
+    .pagefinder-record-container {
+        position: relative;
+    }
+}
+
+.field-pagefinder {
+    .record-item {
+        position: relative;
+        outline: none;
+        display: block;
+        margin: 4px;
+
+        .record-data-container {
+            padding: 4px 3px 3px;
+        }
+
+        .record-data-container-inner {
+            position: relative;
+        }
+
+        .icon-container, .info, .info h4, .info h4 p {
+            vertical-align: top;
+            display: inline-block;
+        }
+
+        .icon-container {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+            margin-top: 1px;
+
+            i {
+                position: relative;
+                top: 2px;
+                left: 3px;
+            }
+        }
+
+        .info {
+            padding-left: 26px;
+        }
+
+        .recordname, .description {
+            color: var(--bs-body-color);
+            font-size: 14px;
+            word-break: break-all;
+            margin-bottom: 0;
+        }
+
+        .description {
+            font-size: .9rem;
+            color: var(--bs-secondary-color);
+        }
+    }
+}

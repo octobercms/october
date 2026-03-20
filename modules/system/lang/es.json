@@ -272,5 +272,9 @@
   "Seed Theme Data": "Seed Theme Data",
   "Import the blueprints files, language files and database contents for this theme, if applicable. You can skip this and do it later via the Site Theme settings.": "Import the blueprints files, language files and database contents for this theme, if applicable. You can skip this and do it later via the Site Theme settings.",
   "Change Status": "Cambiar Estado",
-  "Site Definitions": "Definiciones de Sitio"
+  "Site Definitions": "Definiciones de Sitio",
+  "System Updates": "Actualizaciones",
+  "Find a Setting...": "Encuentre una configuración...",
+  "Return to System Updates": "Volver a actualizaciones del sistema",
+  "Import the blueprints files, language files and database contents for this theme, if applicable. You can skip this and do it later via the Frontend Theme settings.": "Import the blueprints files, language files and database contents for this theme, if applicable. You can skip this and do it later via the Frontend Theme settings."
 }

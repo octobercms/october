@@ -9,7 +9,7 @@
  *     </script>
  * </div>
  */
-class VueControlBase extends oc.ControlBase
+export class VueControlBase extends oc.ControlBase
 {
     registerMethod(name, callback) {
         this.app.registerMethod(name, this.proxy(callback));
@@ -54,10 +54,13 @@ class VueControlBase extends oc.ControlBase
     }
 
     destroyContainerInternal() {
-        this.app.destroyContainer(this, this.vm);
+        this.app.destroyContainer(this);
     }
 }
 
 oc.registerControl('vue-container', VueControlBase);
 
+// Global for backward compatibility
 oc.VueControlBase = VueControlBase;
+
+export default VueControlBase;

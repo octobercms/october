@@ -89,5 +89,12 @@
   "All :name Items": "همه: ورودی های نام",
   "Update Existing Records": "به روز رسانی سوابق موجود",
   "Check this box to update records that match the same ID, title or slug.": "برای به‌روزرسانی رکوردهایی که با همان شناسه، عنوان یا اسلاگ مطابقت دارند، این کادر را علامت بزنید.",
-  "Copy": "کپی 🀄"
+  "Copy": "کپی 🀄",
+  "App": "برنامه",
+  "Blueprints": "طرح‌ها",
+  "App Blueprint": "طرح اولیه برنامه",
+  "Theme Blueprint": "طرح اولیه تم",
+  "Reset Structure": "ساختار را بازنشانی کنید",
+  "Structure has been reset": "ساختار بازنشانی شده است",
+  "Content": "محتوا"
 }

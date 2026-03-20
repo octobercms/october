@@ -1,8 +1,9 @@
+import { CmsDocumentComponentBase } from '../../../../assets/js/cms.editor.extension.documentcomponent.base.js';
+import EditorModelDefinition from '../../../../../backend/vuecomponents/monacoeditor/assets/js/modeldefinition.js';
 
-Vue.component('cms-editor-component-page-editor', {
-    extends: oc.Modules.import('cms.editor.extension.documentcomponent.base'),
+export default {
+    extends: CmsDocumentComponentBase,
     data: function() {
-        const EditorModelDefinition = oc.Modules.import('backend.vuecomponents.monacoeditor.modeldefinition');
         const defMarkup = new EditorModelDefinition(
             'twig',
             this.trans('cms::lang.page.editor_markup'),
@@ -149,7 +150,7 @@ Vue.component('cms-editor-component-page-editor', {
                 return;
             }
 
-            const path = $.oc.presetEngine.formatValue(
+            const path = oc.InputPresetEngine.formatValue(
                 {
                     inputPresetType: 'file',
                     inputPresetRemoveWords: true
@@ -157,8 +158,8 @@ Vue.component('cms-editor-component-page-editor', {
                 this.documentData.title
             );
 
-            Vue.set(this.documentData, 'fileName', path);
+            // Vue 3: Direct assignment is reactive
+            this.documentData.fileName = path;
         }
-    },
-    template: '#cms_vuecomponents_pageeditor'
-});
+    }
+};

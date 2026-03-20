@@ -1,0 +1,40 @@
+.component-backend-treeview {
+    ul {
+        li {
+            > .item-label-outer-container {
+                &.section-label {
+                    background: var(--oc-editor-section-bg);
+                    margin: 0 -8px;
+                    padding: 0 8px;
+                    position: sticky;
+                    margin-bottom: 2px;
+                    z-index: 3;
+                    top: 0;
+
+                    .node-label {
+                        cursor: pointer;
+                        color: var(--oc-editor-section-color);
+                        font-weight: 600;
+                        padding-left: 19px;
+                    }
+                }
+
+                > .item-label-container.has-menu {
+                    .node-menu-trigger.section-create-button {
+                        right: 30px;
+                        z-index: 2;
+
+                        &:before {
+                            width: 11px;
+                            height: 11px;
+                            top: 9px;
+                            left: 9px;
+                            position: absolute;
+                            background-position: -267px -40px;
+                        }
+                    }
+                }
+            }
+        }
+    }
+}

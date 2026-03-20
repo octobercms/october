@@ -4,7 +4,7 @@
     data-configuration="<?= e($configuration) ?>"
 >
     <div class="flex-layout-item fix" v-if="showTabs">
-        <backend-component-tabs
+        <backend-tabs
             :tabs="editorTabs"
             :closeable="false"
             :no-panes="true"
@@ -12,7 +12,7 @@
             :tooltips-enabled="false"
             tabs-style="monaco-editor"
             @tabselected="onTabSelected"
-        ></backend-component-tabs>
+        ></backend-tabs>
     </div>
 
     <div class="flex-layout-item stretch position-relative h-100" style="overflow: hidden">

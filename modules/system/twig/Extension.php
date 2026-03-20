@@ -6,6 +6,7 @@ use Event;
 use System;
 use Twig\Extension\AbstractExtension as TwigExtension;
 use Twig\Environment as TwigEnvironment;
+use Twig\Runtime\EscaperRuntime;
 use Twig\TwigFilter as TwigSimpleFilter;
 use Twig\TwigFunction as TwigSimpleFunction;
 use October\Rain\Support\Collection;
@@ -41,6 +42,11 @@ class Extension extends TwigExtension
     public static function addExtensionToTwig(TwigEnvironment $twig)
     {
         $twig->addExtension(new static);
+
+        $twig->getRuntime(EscaperRuntime::class)->addSafeClass(
+            \Illuminate\View\ComponentAttributeBag::class,
+            ['html']
+        );
 
         /**
          * @event system.extendTwig
@@ -103,6 +109,17 @@ class Extension extends TwigExtension
         $filters = $this->markupManager->makeTwigFilters($filters);
 
         return $filters;
+    }
+
+    /**
+     * getNodeVisitors returns a list of node visitors this extension provides.
+     * @return array
+     */
+    public function getNodeVisitors()
+    {
+        return [
+            new GetAttrAdjuster
+        ];
     }
 
     /**

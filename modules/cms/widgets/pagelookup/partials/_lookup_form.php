@@ -5,6 +5,9 @@
         <input type="hidden" name="pagelookup_flag" value="1" />
         <input type="hidden" name="pagelookup_title" value="<?= $includeTitle ? 1 : 0 ?>" />
         <input type="hidden" name="pagelookup_single" value="<?= $singleMode ? 1 : 0 ?>" />
+        <input type="hidden" name="pagelookup_allow_custom_url" value="<?= $allowCustomUrl ? 1 : 0 ?>" />
+        <input type="hidden" name="pagelookup_allowed_types" value="<?= e(json_encode($allowedTypes)) ?>" />
+        <input type="hidden" name="pagelookup_excluded_types" value="<?= e(json_encode($excludedTypes)) ?>" />
 
         <div class="modal-header">
             <h4 class="modal-title"><?= e(__($title)) ?></h4>

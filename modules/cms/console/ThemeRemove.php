@@ -4,8 +4,6 @@ use Cms\Classes\Theme;
 use Cms\Classes\ThemeManager;
 use System\Classes\UpdateManager;
 use System\Helpers\Cache as CacheHelper;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 use Illuminate\Console\Command;
 
 /**
@@ -21,9 +19,11 @@ class ThemeRemove extends Command
     use \Illuminate\Console\ConfirmableTrait;
 
     /**
-     * @var string name of console command
+     * @var string signature for the console command
      */
-    protected $name = 'theme:remove';
+    protected $signature = 'theme:remove
+        {name : The directory name of the theme.}
+        {--f|force : Force the operation to run.}';
 
     /**
      * @var string description of the console command
@@ -69,26 +69,6 @@ class ThemeRemove extends Command
         CacheHelper::instance()->clearMeta();
 
         $this->output->success("Theme [{$name}] removed");
-    }
-
-    /**
-     * getArguments get the console command arguments
-     */
-    protected function getArguments()
-    {
-        return [
-            ['name', InputArgument::REQUIRED, 'The directory name of the theme.'],
-        ];
-    }
-
-    /**
-     * getOptions get the console command options
-     */
-    protected function getOptions()
-    {
-        return [
-            ['force', 'f', InputOption::VALUE_NONE, 'Force the operation to run.'],
-        ];
     }
 
     /**

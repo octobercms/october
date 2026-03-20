@@ -7,7 +7,7 @@ You may link an entire row by adding the `data-control="rowlink"` attribute to t
             <tbody>
                 <tr>
                     <td>
-                        <a href="http://octobercms.com">Link to this</a>
+                        <a href="https://octobercms.com">Link to this</a>
                     </td>
                     <td>Row will be linked</td>
                     <td>This will also be linked</td>

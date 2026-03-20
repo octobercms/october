@@ -3,9 +3,12 @@
         <?= e($fatalError) ?>
     </p>
     <p>
-        <?= Ui::button("Return to Previous Page", $this->formGetConfig()->defaultRedirect ?? '')
-            ->icon('icon-arrow-left')
-            ->secondary()
-            ->redirectBack() ?>
+        <?= Ui::button(
+            label: __("Return to Previous Page"),
+            href: Backend::url($this->formGetConfig()->defaultRedirect ?? ''),
+            icon: 'icon-arrow-left',
+            secondary: true,
+            dataBrowserRedirectBack: true
+        ) ?>
     </p>
 </div>

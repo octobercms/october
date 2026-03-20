@@ -1,9 +1,9 @@
 'use strict';
 
 /**
- * Dashboard_Classes_Helpers
+ * Helpers class for dashboard utility functions.
  */
-class Dashboard_Classes_Helpers
+export default class Helpers
 {
     constructor() {
         this.lastKnownKey = 0;

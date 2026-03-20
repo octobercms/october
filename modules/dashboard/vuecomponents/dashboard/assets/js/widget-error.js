@@ -1,4 +1,4 @@
-Vue.component('dashboard-component-dashboard-widget-error', {
+export default {
     props: {
         store: Object,
     },
@@ -7,6 +7,5 @@ Vue.component('dashboard-component-dashboard-widget-error', {
         }
     },
     methods: {
-    },
-    template: '#dashboard_vuecomponents_dashboard_widget_error'
-});
+    }
+};

@@ -21,7 +21,7 @@
             data-edit-row-button
             role="button"
             tabindex="0"
-            aria-label="Add row"
+            aria-label="<?= __("Add Row") ?>"
             @click.prevent="onAddRowClick"
         >
             <i class="ph ph-plus"></i>

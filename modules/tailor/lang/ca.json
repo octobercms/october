@@ -89,5 +89,12 @@
   "All :name Items": "Totes les entrades de :name",
   "Update Existing Records": "Actualitzar els registres existents",
   "Check this box to update records that match the same ID, title or slug.": "Marqueu aquesta casella per actualitzar registres que coincideixin amb el mateix identificador, títol o slug.",
-  "Copy": "Còpia"
+  "Copy": "Còpia",
+  "App": "Aplicació",
+  "Blueprints": "Plànols",
+  "App Blueprint": "Pla d'aplicació",
+  "Theme Blueprint": "Pla temàtic",
+  "Reset Structure": "Restableix l'estructura",
+  "Structure has been reset": "L'estructura s'ha reiniciat",
+  "Content": "Contingut"
 }

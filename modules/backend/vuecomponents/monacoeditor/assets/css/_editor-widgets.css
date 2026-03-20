@@ -1,0 +1,29 @@
+.component-backend-monaco-editor {
+    .monaco-editor {
+        .suggest-widget a {
+            &:hover {
+                text-decoration: none;
+            }
+        }
+
+        .rename-box {
+            /* Removes extra white space below the editor.
+               See https://github.com/microsoft/monaco-editor/issues/29#issuecomment-307536220 */
+            top: 0;
+        }
+    }
+
+    .monaco-menu {
+        .action-menu-item {
+            text-decoration: none !important;
+            &:hover {
+                color: white !important;
+                background: var(--bs-primary)!important;
+            }
+        }
+    }
+
+    .monaco-icon-label > .monaco-icon-label-container > .monaco-icon-name-container > .label-name {
+        text-decoration: none !important;
+    }
+}

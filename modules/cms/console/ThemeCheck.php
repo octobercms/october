@@ -11,10 +11,10 @@ use Illuminate\Console\Command;
  */
 class ThemeCheck extends Command
 {
-     /**
-     * @var string name of console command
+    /**
+     * @var string signature for the console command
      */
-    protected $name = 'theme:check';
+    protected $signature = 'theme:check';
 
     /**
      * @var string description of the console command
@@ -50,13 +50,5 @@ class ThemeCheck extends Command
         }
 
         $this->info('All themes checked');
-    }
-
-    /**
-     * getOptions get the console command options
-     */
-    protected function getOptions()
-    {
-        return [];
     }
 }

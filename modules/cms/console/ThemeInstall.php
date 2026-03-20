@@ -5,8 +5,6 @@ use Cms\Classes\ThemeManager;
 use System\Classes\UpdateManager;
 use System\Helpers\Cache as CacheHelper;
 use October\Rain\Composer\ComposerManager;
-use Symfony\Component\Console\Input\InputArgument;
-use Symfony\Component\Console\Input\InputOption;
 use Illuminate\Console\Command;
 use Exception;
 
@@ -21,9 +19,14 @@ use Exception;
 class ThemeInstall extends Command
 {
     /**
-     * @var string name of console command
+     * @var string signature for the console command
      */
-    protected $name = 'theme:install';
+    protected $signature = 'theme:install
+        {name : The name of the theme. Eg: AuthorName.ThemeName}
+        {--oc : Package uses the oc- prefix.}
+        {--f|from= : Provide a custom source.}
+        {--w|want= : Provide a custom version.}
+        {--no-lock : Do not lock the provided theme.}';
 
     /**
      * @var string description of the console command
@@ -155,29 +158,6 @@ class ThemeInstall extends Command
     protected function removeRepoFromSource($composerCode)
     {
         ComposerManager::instance()->removeRepository($composerCode);
-    }
-
-    /**
-     * getArguments get the console command arguments
-     */
-    protected function getArguments()
-    {
-        return [
-            ['name', InputArgument::REQUIRED, 'The name of the theme. Eg: AuthorName.ThemeName'],
-        ];
-    }
-
-    /**
-     * getOptions get the console command options
-     */
-    protected function getOptions()
-    {
-        return [
-            ['oc', null, InputOption::VALUE_NONE, 'Package uses the oc- prefix.'],
-            ['from', 'f', InputOption::VALUE_REQUIRED, 'Provide a custom source.'],
-            ['want', 'w', InputOption::VALUE_REQUIRED, 'Provide a custom version.'],
-            ['no-lock', null, InputOption::VALUE_NONE, 'Do not lock the provided theme.'],
-        ];
     }
 
     /**

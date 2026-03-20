@@ -20,8 +20,9 @@
                     ><?= e(trans('backend::lang.dropdownmenu.close_menu')) ?></button>
                 </li>
 
-                <backend-component-dropdownmenu-menuitem
+                <backend-dropdown-menu-menuitem
                     v-for="(item, index) in items"
+                    :ref="el => setMenuItemRef(el, index)"
                     :type="item.type"
                     :disabled="item.disabled"
                     :href="item.href"
@@ -40,7 +41,7 @@
                     @submenushown="onItemSubmenuShown"
                     @submenuhidden="onItemSubmenuHidden"
                     @closemenu="$emit('closemenu', $event)"
-                ></backend-component-dropdownmenu-menuitem>
+                ></backend-dropdown-menu-menuitem>
             </ul>
         </transition>
     </div>

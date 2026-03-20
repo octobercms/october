@@ -1,98 +1,92 @@
-oc.Modules.register('cms.editor.intellisense.clickhandler.cssimports', function() {
-    'use strict';
+import { ClickHandlerBase } from './cms.editor.intellisense.clickhandler.base.js';
 
-    const ClickHandlerBase = oc.Modules.import('cms.editor.intellisense.clickhandler.base');
-
-    class ClickHandlerCssImport extends ClickHandlerBase {
-        resolveLink(link, token) {
-            let path = link.templateName;
-            if (link.type === 'cms-asset') {
-                path = path.replace(/^assets\//, '');
-            }
-
-            this.intellisense.emit('onTokenClick', {
-                type: link.type,
-                path: path
-            });
+export class ClickHandlerCssImport extends ClickHandlerBase {
+    resolveLink(link, token) {
+        let path = link.templateName;
+        if (link.type === 'cms-asset') {
+            path = path.replace(/^assets\//, '');
         }
 
-        addUnderscore(fileName) {
-            const parts = fileName.split('/');
-            const baseName = '_' + parts.pop();
+        this.intellisense.emit('onTokenClick', {
+            type: link.type,
+            path: path
+        });
+    }
 
-            return parts.join('/') + '/' + baseName;
-        }
+    addUnderscore(fileName) {
+        const parts = fileName.split('/');
+        const baseName = '_' + parts.pop();
 
-        getAssets() {
-            return this.utils.getAssets().map((asset) => {
-                return asset.name;
-            });
-        }
+        return parts.join('/') + '/' + baseName;
+    }
 
-        makeLinks(model, re, links, basePath, options) {
-            const matches = model.findMatches(re, false, true, false, null, true);
-            let templateList = false;
+    getAssets() {
+        return this.utils.getAssets().map((asset) => {
+            return asset.name;
+        });
+    }
 
-            matches.forEach((findMatch) => {
-                const templateName = findMatch.matches[2];
-                let fullTemplateName = null;
+    makeLinks(model, re, links, basePath, options) {
+        const matches = model.findMatches(re, false, true, false, null, true);
+        let templateList = false;
 
-                const extension = this.getFileExtension(templateName);
-                if (options.allowedExtensions.indexOf(extension) === -1) {
-                    return;
-                }
+        matches.forEach((findMatch) => {
+            const templateName = findMatch.matches[2];
+            let fullTemplateName = null;
 
-                if (templateList === false) {
-                    templateList = this.getAssets();
-                }
-
-                fullTemplateName = this.addExtensionIfMissing(templateName, this.options.extension);
-                fullTemplateName = this.resolveRelativeFilePath(basePath, fullTemplateName);
-
-                if (templateList.indexOf(fullTemplateName) === -1) {
-                    fullTemplateName = this.addUnderscore(fullTemplateName);
-                    if (templateList.indexOf(fullTemplateName) === -1) {
-                        return;
-                    }
-                }
-
-                const templatePos = findMatch.matches[0].indexOf(templateName);
-                const startColumn = findMatch.range.startColumn + templatePos;
-
-                links.push({
-                    type: 'cms-asset',
-                    templateName: fullTemplateName,
-                    range: {
-                        endColumn: startColumn + templateName.length,
-                        endLineNumber: findMatch.range.endLineNumber,
-                        startColumn: startColumn,
-                        startLineNumber: findMatch.range.startLineNumber
-                    }
-                });
-            });
-        }
-
-        provideLinks(model, token) {
-            if (typeof this.options.extension !== 'string') {
-                throw new Error('options.extension must be set for cssimports click handler');
-            }
-
-            if (!this.intellisense.modelHasTag(model, 'cms-asset-contents')) {
+            const extension = this.getFileExtension(templateName);
+            if (options.allowedExtensions.indexOf(extension) === -1) {
                 return;
             }
 
-            const basePath = 'assets/' + this.intellisense.getModelCustomAttribute(model, 'filePath');
-            const result = {
-                links: []
-            };
+            if (templateList === false) {
+                templateList = this.getAssets();
+            }
 
-            this.makeLinks(model, /@import\s+("|')([a-zA-Z0-9\-\/_\.]+)\1/gm, result.links, basePath, {
-                allowedExtensions: [this.options.extension, null]
+            fullTemplateName = this.addExtensionIfMissing(templateName, this.options.extension);
+            fullTemplateName = this.resolveRelativeFilePath(basePath, fullTemplateName);
+
+            if (templateList.indexOf(fullTemplateName) === -1) {
+                fullTemplateName = this.addUnderscore(fullTemplateName);
+                if (templateList.indexOf(fullTemplateName) === -1) {
+                    return;
+                }
+            }
+
+            const templatePos = findMatch.matches[0].indexOf(templateName);
+            const startColumn = findMatch.range.startColumn + templatePos;
+
+            links.push({
+                type: 'cms-asset',
+                templateName: fullTemplateName,
+                range: {
+                    endColumn: startColumn + templateName.length,
+                    endLineNumber: findMatch.range.endLineNumber,
+                    startColumn: startColumn,
+                    startLineNumber: findMatch.range.startLineNumber
+                }
             });
-
-            return result;
-        }
+        });
     }
 
-    return ClickHandlerCssImport;
-});
+    provideLinks(model, token) {
+        if (typeof this.options.extension !== 'string') {
+            throw new Error('options.extension must be set for cssimports click handler');
+        }
+
+        if (!this.intellisense.modelHasTag(model, 'cms-asset-contents')) {
+            return;
+        }
+
+        const basePath = 'assets/' + this.intellisense.getModelCustomAttribute(model, 'filePath');
+        const result = {
+            links: []
+        };
+
+        this.makeLinks(model, /@import\s+("|')([a-zA-Z0-9\-\/_\.]+)\1/gm, result.links, basePath, {
+            allowedExtensions: [this.options.extension, null]
+        });
+
+        return result;
+    }
+}

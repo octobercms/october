@@ -1,4 +1,4 @@
-Vue.component('editor-conflict-resolver', {
+export default {
     props: {},
     data: function() {
         return {
@@ -42,6 +42,5 @@ Vue.component('editor-conflict-resolver', {
             this.$refs.modal.hide();
             this.resolve('save');
         }
-    },
-    template: '#editor_vuecomponents_editorconflictresolver'
-});
+    }
+};

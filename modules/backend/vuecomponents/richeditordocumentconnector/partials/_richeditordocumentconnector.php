@@ -15,12 +15,12 @@
         <slot></slot>
     </div>
     <div class="flex-layout-item stretch relative codeeditor-container">
-        <backend-component-monacoeditor
+        <backend-monacoeditor
             v-if="codeEditingMode"
             ref="codeEditor"
             container-css-class="fill-container"
             :model-definitions="codeEditorModelDefinitions"
         >
-        </backend-component-monacoeditor>
+        </backend-monacoeditor>
     </div>
 </div>

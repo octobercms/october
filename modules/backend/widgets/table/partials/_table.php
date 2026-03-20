@@ -47,7 +47,7 @@
                 placeholder="<?= e(trans('backend::lang.list.search_prompt')) ?>"
                 name="search"
                 id="search"
-                value="<?= get('search') ?>"
+                value="<?= e(get('search')) ?>"
                 type="text"
                 autocomplete="off"
                 class="table-search-input form-control" />

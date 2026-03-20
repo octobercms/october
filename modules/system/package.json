@@ -1,0 +1,34 @@
+{
+    "name": "octobercms-system",
+    "private": true,
+    "type": "module",
+    "scripts": {
+        "build": "node build.js"
+    },
+    "devDependencies": {
+        "esbuild": "^0.27.4",
+        "less": "^4.2.0",
+        "sass": "^1.83.0"
+    },
+    "dependencies": {
+        "@phosphor-icons/web": "^2.1.2",
+        "@popperjs/core": "^2.11.7",
+        "@trevoreyre/autocomplete-vue": "^3.0.3",
+        "bootstrap": "^5.3.3",
+        "bootstrap-icons": "^1.11.3",
+        "chart.js": "^4.3.2",
+        "chartjs-adapter-moment": "^1.0.1",
+        "dropzone": "^6.0.0-beta.2",
+        "jquery": "^3.6.0",
+        "js-cookie": "^3.0.1",
+        "mitt": "^3.0.1",
+        "moment": "^2.30.1",
+        "moment-timezone": "^0.5.46",
+        "mustache": "^4.2.0",
+        "p-queue": "^8.0.1",
+        "sortablejs": "^1.15.0",
+        "vue": "^3.5.0",
+        "vue-multiselect": "^3.1.0",
+        "vue-router": "^4.5.0"
+    }
+}

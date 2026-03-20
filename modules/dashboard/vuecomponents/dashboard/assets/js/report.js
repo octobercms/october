@@ -1,11 +1,14 @@
-Vue.component('dashboard-component-dashboard-report', {
+import Helpers from '../../../../assets/js/classes/helpers.js';
+import Dragging from '../../../../assets/js/classes/dragging.js';
+
+export default {
     props: {
         rows: Array,
         store: Object
     },
     methods: {
         onAddRowClick: function () {
-            const uniqueKey = Dashboard_Classes_Helpers
+            const uniqueKey = Helpers
                 .instance()
                 .makeUniqueKey(this.rows);
 
@@ -44,7 +47,7 @@ Vue.component('dashboard-component-dashboard-report', {
         }
     },
     mounted: function mounted() {
-        Dashboard_Classes_Dragging
+        Dragging
             .instance()
             .setStore(this.store);
 
@@ -69,7 +72,7 @@ Vue.component('dashboard-component-dashboard-report', {
 
         this.resizeObserver.observe(this.$el);
     },
-    beforeDestroy: function beforeDestroy() {
+    beforeUnmount: function beforeUnmount() {
         if (this.resizeObserver) {
             this.resizeObserver.disconnect();
         }
@@ -77,6 +80,5 @@ Vue.component('dashboard-component-dashboard-report', {
         this.resizeObserver = null;
         this.responsivePoints = null;
     },
-    watch: {},
-    template: '#dashboard_vuecomponents_dashboard_report'
-});
+    watch: {}
+};

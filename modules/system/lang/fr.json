@@ -66,7 +66,7 @@
   "Specify domain names and patterns that must be used to serve this site.": "Spécifiez les noms de domaine et les modèles qui doivent être utilisés pour servir ce site.",
   "Display a style for this site": "Afficher une couleur pour ce site",
   "To help identify this site, display a color in the admin panel.": "Pour aider à identifier ce site, affichez une couleur dans le panneau d'administration.",
-  "Save": "Sauvegarder",
+  "Save": "sauvegarder",
   "Back": "Retour",
   "Edit": "Modifier",
   "Refresh": "Rafraîchir",
@@ -90,7 +90,7 @@
   "Please specify a Theme name to install.": "Saisir le nom d’un thème à installer.",
   "Installing theme: :name": "Téléchargement du thème : :name",
   "Extracting theme: :name": "Extraction du thème : :name",
-  "Seeding theme: :name": "Seeding theme: :name",
+  "Seeding theme: :name": "Suppression du thème : :name",
   "Removing plugin: :name": "Suppression du plugin: :name",
   "Please specify a Plugin name to install.": "Saisir le nom d’un plugin à installer.",
   "Update process complete": "Mise à jour terminée avec succès.",
@@ -289,5 +289,9 @@
   "Issues found": "Problèmes trouvés",
   "No issues": "Aucun problème",
   "SMTP Timeout": "Délai d’expiration SMTP",
-  "Connection timeout in seconds (default: 30)": "Délai d’expiration de la connexion en secondes (par défaut : 30)"
+  "Connection timeout in seconds (default: 30)": "Délai d’expiration de la connexion en secondes (par défaut : 30)",
+  "System Updates": "Mise à jour",
+  "Find a Setting...": "Rechercher un paramètre...",
+  "Return to System Updates": "Retourner aux mises à jour du système",
+  "Import the blueprints files, language files and database contents for this theme, if applicable. You can skip this and do it later via the Frontend Theme settings.": "Importer les blueprints, les fichiers de langue et le contenu de la base de données pour ce thème. Vous pourrez le faire plus tard via les paramètres du thème du site."
 }

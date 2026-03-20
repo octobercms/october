@@ -3,7 +3,6 @@
 use System\Models\PluginVersion;
 use System\Classes\PluginManager;
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputArgument;
 
 /**
  * PluginDisable disables a plugin in file system and user preferences
@@ -14,9 +13,10 @@ use Symfony\Component\Console\Input\InputArgument;
 class PluginDisable extends Command
 {
     /**
-     * @var string name of console command
+     * @var string signature for the console command
      */
-    protected $name = 'plugin:disable';
+    protected $signature = 'plugin:disable
+        {name : Name of the plugin, eg: Author.Plugin}';
 
     /**
      * @var string description of the console command
@@ -46,15 +46,5 @@ class PluginDisable extends Command
         }
 
         $this->output->success("Plugin '{$name}' disabled");
-    }
-
-    /**
-     * getArguments get the console command arguments
-     */
-    protected function getArguments()
-    {
-        return [
-            ['name', InputArgument::REQUIRED, 'Name of the plugin, eg: Author.Plugin'],
-        ];
     }
 }

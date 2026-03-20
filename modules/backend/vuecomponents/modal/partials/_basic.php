@@ -1,5 +1,5 @@
 <div>
-    <backend-component-modal
+    <backend-modal
         ref="modal"
         :aria-labeled-by="modalTitleId"
         :unique-key="uniqueKey"
@@ -20,5 +20,5 @@
             </div>
             <div v-html="text" @click="onClick"></div>
         </template>
-    </backend-component-modal>
+    </backend-modal>
 </div>

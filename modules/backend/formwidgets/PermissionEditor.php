@@ -112,7 +112,7 @@ class PermissionEditor extends FormWidgetBase
     protected function loadAssets()
     {
         $this->addCss('css/permissioneditor.css');
-        $this->addJs('js/permissioneditor.js');
+        $this->addJs('js/permissioneditor.js', ['type' => 'module']);
     }
 
     /**

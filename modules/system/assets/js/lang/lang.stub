@@ -9,7 +9,7 @@ if (!window.oc.langMessages) {
     window.oc.langMessages = {};
 }
 
-window.oc.langMessages['{{locale}}'] = $.extend(
+window.oc.langMessages['{{locale}}'] = Object.assign(
     window.oc.langMessages['{{locale}}'] || {},
     {{messages}}
 );

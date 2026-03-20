@@ -1,8 +1,6 @@
 <?php namespace System\Console;
 
 use Illuminate\Console\Command;
-use Symfony\Component\Console\Input\InputOption;
-use Symfony\Component\Console\Input\InputArgument;
 use ApplicationException;
 
 /**
@@ -42,12 +40,16 @@ class OctoberUtil extends Command
     use \System\Console\OctoberUtilPackageDocs;
 
     /**
-     * The console command name.
+     * @var string signature for the console command
      */
-    protected $name = 'october:util';
+    protected $signature = 'october:util
+        {name?* : The utility command to perform.}
+        {--f|force : Force the operation to run when in production.}
+        {--debug : Run the operation in debug / development mode.}
+        {--value= : Specify a generic value for the command.}';
 
     /**
-     * The console command description.
+     * @var string description of the console command
      */
     protected $description = 'Utility commands for October';
 
@@ -96,29 +98,6 @@ class OctoberUtil extends Command
         }, $methods);
 
         return $list;
-    }
-
-    /**
-     * Get the console command arguments.
-     * @return array
-     */
-    protected function getArguments()
-    {
-        return [
-            ['name', InputArgument::IS_ARRAY, 'The utility command to perform, For more info "http://octobercms.com/docs/console/commands#october-util-command".'],
-        ];
-    }
-
-    /**
-     * Get the console command options.
-     */
-    protected function getOptions()
-    {
-        return [
-            ['force', 'f', InputOption::VALUE_NONE, 'Force the operation to run when in production.'],
-            ['debug', null, InputOption::VALUE_NONE, 'Run the operation in debug / development mode.'],
-            ['value', null, InputOption::VALUE_REQUIRED, 'Specify a generic value for the command'],
-        ];
     }
 
     /**

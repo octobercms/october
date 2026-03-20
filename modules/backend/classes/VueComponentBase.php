@@ -34,6 +34,12 @@ abstract class VueComponentBase extends Extendable
     protected $controller;
 
     /**
+     * @var string componentName is the Vue component tag name.
+     * Must be defined in each component class.
+     */
+    protected $componentName;
+
+    /**
      * @var array require Vue component class names for this component.
      */
     protected $require = [];
@@ -42,6 +48,11 @@ abstract class VueComponentBase extends Extendable
      * @var array subcomponents this component provides
      */
     private $subcomponents = [];
+
+    /**
+     * @var array esmModules are JavaScript-only ESM modules (no template)
+     */
+    private $esmModules = [];
 
     /**
      * __construct
@@ -80,7 +91,6 @@ abstract class VueComponentBase extends Extendable
             throw new SystemException(sprintf('Subcomponent not registered: %s', $name));
         }
 
-        $name = str_replace('.', '-', $name);
         return $this->makePartial($name);
     }
 
@@ -101,17 +111,42 @@ abstract class VueComponentBase extends Extendable
     }
 
     /**
-     * loadDefaultAssets
+     * getEsmModules returns JS-only ESM modules (no templates)
+     */
+    public function getEsmModules()
+    {
+        return array_keys($this->esmModules);
+    }
+
+    /**
+     * getEsmModulePath returns the ESM module path for this component.
+     * By default, derived from the component's asset path.
+     */
+    public function getEsmModulePath(): string
+    {
+        $baseName = $this->getComponentBaseName();
+        return $this->assetPath . "/js/{$baseName}.js";
+    }
+
+    /**
+     * getSubcomponentEsmPath returns the ESM path for a specific subcomponent.
+     */
+    public function getSubcomponentEsmPath(string $name): string
+    {
+        return $this->assetPath . "/js/{$name}.js";
+    }
+
+    /**
+     * loadDefaultAssets adds the default CSS file for this component.
+     * JavaScript is loaded via ESM imports in VueMaker::outputVueComponentTemplates()
      */
     protected function loadDefaultAssets()
     {
         $baseName = $this->getComponentBaseName();
 
-        $this->addJsBundle("js/{$baseName}.js");
-
         $cssPath = "css/{$baseName}.css";
         if (File::exists(base_path($this->assetPath.'/'.$cssPath))) {
-            $this->addCssBundle($cssPath);
+            $this->addCss($cssPath);
         }
     }
 
@@ -153,16 +188,49 @@ abstract class VueComponentBase extends Extendable
     }
 
     /**
+     * getComponentName returns the Vue component tag name.
+     */
+    public function getComponentName(): string
+    {
+        if (!$this->componentName) {
+            throw new SystemException(sprintf(
+                'Vue component [%s] must define a $componentName property.',
+                get_class($this)
+            ));
+        }
+
+        return $this->componentName;
+    }
+
+    /**
+     * getSubcomponentName returns the Vue component tag name for a subcomponent.
+     */
+    public function getSubcomponentName(string $subcomponent): string
+    {
+        return $this->getComponentName() . '-' . $subcomponent;
+    }
+
+    /**
      * registerSubcomponent adds a subcomponent.
      * @param string $name The component name.
      * A JavaScript file and partial with the same name must exist.
+     * JavaScript is loaded via ESM imports in VueMaker::outputVueComponentTemplates()
      */
     protected function registerSubcomponent($name)
     {
         $name = strtolower($name);
-
         $this->subcomponents[$name] = true;
-        $this->addJsBundle("js/{$name}.js");
+    }
+
+    /**
+     * registerEsmModule adds a JavaScript-only ESM module (no template).
+     * Use this for utility/helper modules that don't have Vue templates.
+     * @param string $name The module name (without .js extension).
+     */
+    protected function registerEsmModule($name)
+    {
+        $name = strtolower($name);
+        $this->esmModules[$name] = true;
     }
 
     /**

@@ -8,10 +8,10 @@
             aria-label="<?= __("Edit Dashboard") ?>"
             title="<?= __("Edit Dashboard") ?>"
         ><i class="ph ph-gear"></i></button>
-        <backend-component-dropdownmenu
+        <backend-dropdown-menu
             :items="editMenuItems"
             ref="editMenu"
             @command="onEditMenuItemCommand"
-        ></backend-component-dropdownmenu>
+        ></backend-dropdown-menu>
     </div>
 </div>

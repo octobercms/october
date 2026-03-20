@@ -137,5 +137,6 @@
   "Define a Snippet Partial": "Snippet-Partial definieren",
   "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Ungültiger Dropdown Optionsschlüssel: %s. Optionsschlüssel dürfen nur Zahlen, Buchstaben und die Zeichen _ und - enthalten",
   "The description is displayed in the snippet list in the editor when a snippet is added.": "Die Beschreibung wird in der Snippet-Liste im Editor angezeigt, wenn ein Snippet hinzugefügt wird.",
-  "Details": "Details"
+  "Details": "Details",
+  "Frontend Theme": "Frontend Theme"
 }

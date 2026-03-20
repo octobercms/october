@@ -39,7 +39,7 @@ class SystemController extends ControllerBase
         }
         catch (Exception $ex) {
             if (System::checkDebugMode()) {
-                return Response::make($ex, 404);
+                return Response::make(e($ex->getMessage()), 404);
             }
             else {
                 return Response::make('/* '.e(Lang::get('system::lang.page.custom_error.help')).' */', 404);
@@ -69,7 +69,7 @@ class SystemController extends ControllerBase
         }
         catch (Exception $ex) {
             if (System::checkDebugMode()) {
-                return Response::make($ex, 404);
+                return Response::make(e($ex->getMessage()), 404);
             }
             else {
                 return Response::make('/* '.e(Lang::get('system::lang.page.custom_error.help')).' */', 404);

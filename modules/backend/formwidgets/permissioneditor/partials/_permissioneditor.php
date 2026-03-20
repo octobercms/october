@@ -1,4 +1,8 @@
-<div class="permissioneditor <?= $this->previewMode ? 'control-disabled' : '' ?> mw-950" <?= $field->getAttributes() ?>>
+<div
+    class="permissioneditor <?= $this->previewMode ? 'control-disabled' : '' ?> mw-950"
+    data-control="permissioneditor"
+    <?= $field->getAttributes() ?>
+>
     <?php foreach ($permissions as $tab => $tabPermissions): ?>
         <ul>
             <li class="permission-section">

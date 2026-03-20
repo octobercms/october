@@ -23,7 +23,7 @@ class ServiceProvider extends ModuleServiceProvider
         $this->registerSingletons();
 
         // Backend specific
-        if ($this->app->runningInBackend()) {
+        if ($this->app->runningInBackend() || $this->app->runningInOctane()) {
             $this->registerDashboardDatasource();
         }
     }
@@ -53,7 +53,7 @@ class ServiceProvider extends ModuleServiceProvider
     {
         return [
             'dashboard' => [
-                'label' => 'backend::lang.dashboard.menu_label',
+                'label' => "Dashboard",
                 'icon' => 'icon-dashboard',
                 'iconSvg' => 'modules/backend/assets/images/dashboard-icon.svg',
                 'url' => Backend::url('dashboard'),
@@ -71,20 +71,20 @@ class ServiceProvider extends ModuleServiceProvider
         return [
             // Dashboard
             'dashboard' => [
-                'label' => 'Access the Dashboard',
+                'label' => "Access the Dashboard",
                 'comment' => 'backend::lang.permissions.access_dashboard',
-                'tab' => 'Dashboard',
+                'tab' => "Dashboard",
                 'order' => 600
             ],
             'dashboard.manage' => [
-                'label' => 'Manage Dashboards',
+                'label' => "Manage Dashboards",
                 'comment' => 'backend::lang.permissions.create_edit_dashboards',
-                'tab' => 'Dashboard',
+                'tab' => "Dashboard",
                 'order' => 600
             ],
             'dashboard.internal_traffic_statistics' => [
                 'label' => "Manage Traffic Settings and Data",
-                'tab' => 'Internal Traffic Statistics',
+                'tab' => "Internal Traffic Statistics",
                 'order' => 1000
             ]
         ];

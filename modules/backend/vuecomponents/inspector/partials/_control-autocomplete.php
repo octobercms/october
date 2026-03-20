@@ -1,9 +1,9 @@
 <div>
-    <backend-component-loading-indicator v-if="loadingDynamicOptions"
+    <backend-loading-indicator v-if="loadingDynamicOptions"
         size="tiny"
-    ></backend-component-loading-indicator>
+    ></backend-loading-indicator>
 
-    <backend-component-autocomplete
+    <backend-autocomplete
         v-if="!loadingDynamicOptions"
         ref="autocomplete"
         :search="onSearch"
@@ -23,5 +23,5 @@
                 {{ result.value }}
             </li>
         </template>
-    </backend-component-autocomplete>
+    </backend-autocomplete>
 </div>

@@ -26,8 +26,24 @@ fields:
         type: checkbox
         span: right
 
+    roles:
+        label: Assigned Roles
+        comment: Users with the selected roles will see this dashboard. Leave empty and enable Global Access for all users.
+        type: checkboxlist
+        span: full
+        trigger:
+            action: show
+            field: is_global
+            condition: unchecked
+
     code:
         label: API Code
         commentAbove: A unique code to refer to this dashboard using external systems.
         type: text
         preset: name
+
+    is_hidden:
+        label: Hidden
+        comment: Hidden dashboards will not appear for any user.
+        type: checkbox
+        span: full

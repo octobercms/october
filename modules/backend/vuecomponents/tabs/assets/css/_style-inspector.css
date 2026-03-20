@@ -1,0 +1,57 @@
+.component-backend-tabs.style-inspector {
+    > .tablist-container {
+        background: transparent;
+        padding-top: 15px;
+
+        .tablist {
+            &:after {
+                position: absolute;
+                content: '';
+                height: 1px;
+                left: 0;
+                width: 100%;
+                bottom: 0;
+                background-color: var(--oc-primary-border);
+                z-index: 0;
+            }
+
+            button {
+                overflow: visible;
+                text-overflow: clip;
+                color: var(--oc-toolbar-color);
+                font-weight: 600;
+
+                /* Important - setting anything else for z-index
+                   breaks styles for Inspector dropdown controls
+                   overlapping tabs. */
+                z-index: auto;
+
+                margin-right: 15px;
+                padding: 0 0 4px;
+
+                &.active {
+                    color: var(--bs-primary);
+
+                    &:after {
+                        position: absolute;
+                        content: '';
+                        height: 1px;
+                        left: 0;
+                        width: 100%;
+                        bottom: 0;
+                        z-index: 1;
+                        background-color: var(--bs-primary);
+                    }
+                }
+
+                &:first-child {
+                    margin-left: 0;
+                }
+
+                &:last-child {
+                    margin-right: 0;
+                }
+            }
+        }
+    }
+}

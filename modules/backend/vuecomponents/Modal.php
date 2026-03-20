@@ -11,7 +11,13 @@ use Backend\Classes\VueComponentBase;
 class Modal extends VueComponentBase
 {
     /**
+     * @var string componentName is the Vue component tag name.
+     */
+    protected $componentName = 'backend-modal';
+
+    /**
      * @var string assetDefaults is the default attributes for assets.
+     * @deprecated we don't use bundles anymore (remove this)
      */
     protected $assetDefaults = ['build' => 'global'];
 
@@ -22,9 +28,7 @@ class Modal extends VueComponentBase
      */
     protected function loadAssets()
     {
-        $this->addJsBundle('js/modal-position.js');
-        $this->addJsBundle('js/modal-size.js');
-        $this->addJsBundle('js/modal-utils.js');
+        $this->addJs('js/classes/index.js', ['type' => 'module']);
     }
 
     /**

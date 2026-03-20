@@ -10,4 +10,8 @@ use Backend\Classes\VueComponentBase;
  */
 class LoadingIndicator extends VueComponentBase
 {
+    /**
+     * @var string componentName is the Vue component tag name.
+     */
+    protected $componentName = 'backend-loading-indicator';
 }

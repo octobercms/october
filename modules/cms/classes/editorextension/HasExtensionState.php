@@ -104,7 +104,7 @@ trait HasExtensionState
 
         $description->setIcon(EditorExtension::ICON_COLOR_CONTENT, 'backend-icon-background entity-small cms-content');
         $description->setInitialDocumentData([
-            'fileName' => 'new-content.htm',
+            'fileName' => 'new-content.html',
             'components' => [],
             'markup' => ''
         ]);

@@ -1,8 +1,5 @@
 <div id="<?= $this->getId('popup') ?>" data-control="snippetlookup" class="snippetlookup-popup h-100">
-    <?= Form::ajax($this->getEventHandler('onInsertSnippet'), [
-        'data-popup-load-indicator' => true,
-        'class' => 'd-flex flex-column h-100'
-    ]) ?>
+    <form class="d-flex flex-column h-100" onsubmit="return false">
         <input type="hidden" name="snippetmanager_flag" value="1" />
         <div class="modal-header">
             <h4 class="modal-title"><?= e(__($title)) ?></h4>
@@ -16,5 +13,5 @@
                 'data' => $this->getData()
             ]) ?>
         </div>
-    <?= Form::close() ?>
+    </form>
 </div>

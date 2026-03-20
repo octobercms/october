@@ -11,15 +11,9 @@ use Backend\Classes\VueComponentBase;
 class DropdownMenu extends VueComponentBase
 {
     /**
-     * Adds component specific asset files. Use $this->addJs() and $this->addCss()
-     * to register new assets to include on the page.
-     * The default component script and CSS file are loaded automatically.
-     * @return void
+     * @var string componentName is the Vue component tag name.
      */
-    protected function loadAssets()
-    {
-        $this->addJsBundle('js/dropdownmenu-utils.js');
-    }
+    protected $componentName = 'backend-dropdown-menu';
 
     protected function registerSubcomponents()
     {

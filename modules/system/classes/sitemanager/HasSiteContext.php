@@ -38,6 +38,17 @@ trait HasSiteContext
     }
 
     /**
+     * getSiteGroupIdFromContext returns the site group id for the active site.
+     * @return int
+     */
+    public function getSiteGroupIdFromContext()
+    {
+        $site = $this->getSiteFromContext();
+
+        return (int) ($site->group_id ?? 1);
+    }
+
+    /**
      * getSiteCodeFromContext
      * @return string|null
      */

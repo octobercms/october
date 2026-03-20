@@ -3,7 +3,7 @@
         <div v-if="visible" class="backend-dropdownmenu-overlay" @click.prevent="onOverlayClick" @contextmenu.prevent="onOverlayContextMenu"></div>
     </transition>
 
-    <backend-component-dropdownmenu-sheet
+    <backend-dropdown-menu-sheet
         ref="sheet"
         :items="items"
         :labeled-by-id="labeledById"
@@ -13,5 +13,5 @@
         @command="$emit('command', $event)"
         @hidden="onSheetHidden"
         @closemenu="hideMenu"
-    ></backend-component-dropdownmenu-sheet>
+    ></backend-dropdown-menu-sheet>
 </div>

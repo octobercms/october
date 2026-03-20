@@ -20,45 +20,51 @@
             </div>
 
             <div class="form-buttons">
-                <div class="loading-indicator-container">
-                    <button
-                        type="submit"
-                        data-request="onSave"
-                        data-request-data="redirect:0"
-                        data-hotkey="ctrl+s, cmd+s"
-                        data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
-                        class="btn btn-primary">
-                        <?= e(trans('backend::lang.form.save')) ?>
-                    </button>
-                    <button
-                        type="button"
-                        data-request="onSave"
-                        data-request-data="close:1"
-                        data-hotkey="ctrl+enter, cmd+enter"
-                        data-load-indicator="<?= e(trans('backend::lang.form.saving')) ?>"
-                        class="btn btn-default">
-                        <?= e(trans('backend::lang.form.save_and_close')) ?>
-                    </button>
+                <div data-control="loader-container" class="control-loader-container">
+                    <?= Ui::ajaxButton(
+                        label: __("Save"),
+                        handler: 'onSave',
+                        primary: true,
+                        hotkey: ['ctrl+s', 'cmd+s'],
+                        dataRequestData: "redirect: false",
+                        dataRequestMessage: __("Saving :name...", ['name' => $formRecordName])
+                    ) ?>
+                    <?= Ui::ajaxButton(
+                        label: __("Save & Close"),
+                        handler: 'onSave',
+                        secondary: true,
+                        hotkey: ['ctrl+enter', 'cmd+enter'],
+                        dataRequestData: "close: true",
+                        dataRequestMessage: __("Saving :name...", ['name' => $formRecordName])
+                    ) ?>
                     <span class="btn-text">
-                        <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('backend/users') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
+                        <span class="button-separator"><?= __("or") ?></span>
+                        <?= Ui::button(
+                            label: __("Cancel"),
+                            href: Backend::url('backend/users'),
+                            class: 'btn-link p-0'
+                        ) ?>
                     </span>
                     <?php if (BackendAuth::userHasAccess('admins.manage.delete')): ?>
                         <?php if ($formModel->trashed()): ?>
-                            <button
-                                type="button"
-                                class="oc-icon-user-plus btn-icon info pull-right"
-                                data-request="onRestore"
-                                data-load-indicator="<?= e(trans('backend::lang.form.restoring')) ?>"
-                                data-request-confirm="<?= e(trans('backend::lang.form.confirm_restore')) ?>">
-                            </button>
+                            <?= Ui::iconButton(
+                                label: __("Restore"),
+                                icon: 'oc-icon-user-plus',
+                                handler: 'onRestore',
+                                class: 'info pull-right',
+                                dataRequestConfirm: __("Are you sure?"),
+                                dataRequestMessage: __("Restoring :name...", ['name' => $formRecordName])
+                            ) ?>
                         <?php else: ?>
-                            <button
-                                type="button"
-                                class="oc-icon-trash btn-icon danger pull-right"
-                                data-request="onDelete"
-                                data-load-indicator="<?= e(trans('backend::lang.form.deleting')) ?>"
-                                data-request-confirm="<?= e(trans('backend::lang.user.delete_confirm')) ?>">
-                            </button>
+                            <?= Ui::iconButton(
+                                label: __("Delete"),
+                                icon: 'oc-icon-delete',
+                                handler: 'onDelete',
+                                danger: true,
+                                class: 'pull-right',
+                                dataRequestConfirm: __("Are you sure?"),
+                                dataRequestMessage: __("Deleting :name...", ['name' => $formRecordName])
+                            ) ?>
                         <?php endif ?>
                     <?php endif ?>
                 </div>
@@ -83,6 +89,12 @@
     </nav>
     <div class="padded-container">
         <p class="flash-message static error"><?= e(__($this->fatalError)) ?></p>
-        <p><a href="<?= Backend::url('backend/users') ?>" class="btn btn-default"><?= e(trans('backend::lang.user.return')) ?></a></p>
+        <p>
+            <?= Ui::button(
+                label: __("Return to Admins List"),
+                href: Backend::url('backend/users'),
+                secondary: true
+            ) ?>
+        </p>
     </div>
 <?php endif ?>

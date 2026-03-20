@@ -103,7 +103,7 @@ class MailBrandSetting extends SettingModel
             Cache::forever($cacheKey, $customCss);
         }
         catch (Exception $ex) {
-            $customCss = '/* ' . $ex->getMessage() . ' */';
+            $customCss = '/* ' . e($ex->getMessage()) . ' */';
         }
 
         return $customCss;

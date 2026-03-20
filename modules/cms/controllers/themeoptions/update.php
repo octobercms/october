@@ -15,38 +15,46 @@
             </div>
 
             <div class="form-buttons">
-                <div class="loading-indicator-container">
-                    <button
-                        type="submit"
-                        data-request="onSave"
-                        data-request-data="redirect:0"
-                        data-hotkey="ctrl+s, cmd+s"
-                        data-load-indicator="<?= __('Saving Theme...') ?>"
-                        class="btn btn-primary">
-                        <?= e(trans('backend::lang.form.save')) ?>
-                    </button>
-                    <button
-                        type="button"
-                        data-request="onSave"
-                        data-request-data="close:1"
-                        data-hotkey="ctrl+enter, cmd+enter"
-                        data-load-indicator="<?= __('Saving Theme...') ?>"
-                        class="btn btn-default">
-                        <?= e(trans('backend::lang.form.save_and_close')) ?>
-                    </button>
+                <div data-control="loader-container" class="control-loader-container">
+                    <?= Ui::ajaxButton(
+                        label: __("Save"),
+                        handler: 'onSave',
+                        primary: true,
+                        hotkey: ['ctrl+s', 'cmd+s'],
+                        dataRequestData: "redirect: false",
+                        dataRequestMessage: __("Saving Theme...")
+                    ) ?>
+                    <?= Ui::ajaxButton(
+                        label: __("Save & Close"),
+                        handler: 'onSave',
+                        secondary: true,
+                        hotkey: ['ctrl+enter', 'cmd+enter'],
+                        dataBrowserRedirectBack: true,
+                        dataRequestData: "close: true",
+                        dataRequestMessage: __("Saving Theme...")
+                    ) ?>
 
                     <span class="btn-text">
-                        <?= e(trans('backend::lang.form.or')) ?> <a href="<?= Backend::url('cms/themes') ?>"><?= e(trans('backend::lang.form.cancel')) ?></a>
+                        <span class="button-separator"><?= __("or") ?></span>
+                        <?= Ui::ajaxButton(
+                            label: __("Cancel"),
+                            handler: 'onCancel',
+                            hotkey: ['shift+option+c'],
+                            href: 'javascript:;',
+                            class: 'btn-link p-0',
+                            dataBrowserRedirectBack: true,
+                            dataRequestData: "close: true",
+                            dataRequestMessage: __("Loading...")
+                        ) ?>
                     </span>
 
-                    <button
-                        type="button"
-                        class="btn btn-danger pull-right"
-                        data-request="onResetDefault"
-                        data-load-indicator="<?= e(trans('backend::lang.form.resetting')) ?>"
-                        data-request-confirm="<?= e(trans('backend::lang.form.action_confirm')) ?>">
-                        <?= __("Reset to Default") ?>
-                    </button>
+                    <?= Ui::ajaxButton(
+                        label: __("Reset to Default"),
+                        handler: 'onResetDefault',
+                        class: 'btn-danger pull-right',
+                        dataRequestConfirm: __("Are you sure?"),
+                        dataRequestMessage: __("Resetting...")
+                    ) ?>
                 </div>
             </div>
 
@@ -63,6 +71,12 @@
 <?php else: ?>
 
     <p class="flash-message static error"><?= e($this->fatalError) ?></p>
-    <p><a href="<?= Backend::url('cms/themes') ?>" class="btn btn-default"><?= __('Return to Themes List') ?></a></p>
+    <p>
+        <?= Ui::button(
+            label: __("Return to Themes List"),
+            href: Backend::url('cms/themes'),
+            secondary: true
+        ) ?>
+    </p>
 
 <?php endif ?>

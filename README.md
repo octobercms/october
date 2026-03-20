@@ -11,7 +11,7 @@ October's mission is to show the world that web development is not rocket scienc
 [![Version](https://img.shields.io/packagist/v/october/october)](https://octobercms.com/changelog)
 [![License](https://poser.pugx.org/october/october/license.svg)](./LICENSE.md)
 
-> *Please note*: October is open source but it is not free software. A license with a small fee is required for each website you build with October CMS.
+> *Please note*: October CMS is open source and every new account includes a complimentary license for the first year. After that, a license is required to continue receiving updates and access the Marketplace ecosystem.
 
 ## Installing October
 
@@ -49,7 +49,7 @@ Please review [our security policy](https://github.com/octobercms/october/securi
 
 ## Development Team
 
-October CMS was created by [Alexey Bobkov](https://www.linkedin.com/in/alexey-bobkov-232ba02b/) and [Samuel Georges](https://www.linkedin.com/in/samuel-georges-0a964131/), who both continue to develop the platform.
+October CMS was founded in 2014 by Alexey Bobkov and Sam Georges. Today it is supported by a worldwide network of [partners](https://octobercms.com/partners) and contributors.
 
 ## Foundation library
 
@@ -59,7 +59,7 @@ The CMS uses [Laravel](https://laravel.com) as a foundation PHP framework.
 
 For announcements and updates:
 
-* [Contact Us Page](http://octoberdev.test/contact)
+* [Contact Us Page](https://octobercms.com/contact)
 * [Follow us on Twitter](https://twitter.com/octobercms)
 * [Like us on Facebook](https://facebook.com/octobercms)
 

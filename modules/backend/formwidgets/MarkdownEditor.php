@@ -3,7 +3,6 @@
 use Backend\Classes\FormWidgetBase;
 use BackendAuth;
 use Markdown;
-use Request;
 
 /**
  * MarkdownEditor renders a markdown editor field.
@@ -99,8 +98,6 @@ class MarkdownEditor extends FormWidgetBase
         $this->vars['value'] = $this->getLoadValue();
         $this->vars['useMediaManager'] = BackendAuth::userHasAccess('media.library');
         $this->vars['externalToolbarAppState'] = $this->externalToolbarAppState;
-
-        $this->vars['isAjax'] = Request::ajax();
     }
 
     /**
@@ -109,7 +106,7 @@ class MarkdownEditor extends FormWidgetBase
     protected function loadAssets()
     {
         $this->addCss('css/markdowneditor.css');
-        $this->addJs('js/markdowneditor.js');
+        $this->addJs('js/markdowneditor.js', ['type' => 'module']);
         $this->addJs('/modules/backend/formwidgets/codeeditor/assets/js/build-min.js');
     }
 

@@ -32,9 +32,9 @@ class Index extends Controller
     ];
 
     /**
-     * @var bool turboVisitControl
+     * @var bool turboRouter
      */
-    public $turboVisitControl = 'disable';
+    public $turboRouter = false;
 
     /**
      * __construct
@@ -55,18 +55,7 @@ class Index extends Controller
     public function index()
     {
         $this->addCss('/modules/editor/assets/css/editor.css');
-
-        $this->addJsBundle('/modules/editor/assets/js/editor.timeoutpromise.js');
-        $this->addJsBundle('/modules/editor/assets/js/editor.command.js');
-        $this->addJsBundle('/modules/editor/assets/js/editor.documenturi.js');
-        $this->addJsBundle('/modules/editor/assets/js/editor.store.tabmanager.js');
-        $this->addJsBundle('/modules/editor/assets/js/editor.store.js');
-        $this->addJsBundle('/modules/editor/assets/js/editor.page.js');
-        $this->addJsBundle('/modules/editor/assets/js/editor.extension.base.js');
-        $this->addJsBundle('/modules/editor/assets/js/editor.extension.documentcontroller.base.js');
-        $this->addJsBundle('/modules/editor/assets/js/editor.extension.filesystemfunctions.js');
-
-        $this->addJsBundle('/modules/editor/assets/js/editor.extension.documentcomponent.base.js');
+        $this->addJs('/modules/editor/assets/js/editor.page.js', ['type' => 'module']);
 
         $this->registerVueComponent(\Backend\VueComponents\Document::class);
         $this->registerVueComponent(\Backend\VueComponents\Tabs::class);
@@ -82,7 +71,7 @@ class Index extends Controller
         $extensionManager = ExtensionManager::instance();
         $jsFiles = $extensionManager->listJsFiles();
         foreach ($jsFiles as $jsFile) {
-            $this->addJsBundle($jsFile);
+            $this->addJs($jsFile, ['type' => 'module']);
         }
 
         $componentClasses = $extensionManager->listVueComponents();
@@ -118,16 +107,7 @@ class Index extends Controller
             throw new SystemException('Missing command');
         }
 
-        try {
-            return ExtensionManager::instance()->runCommand($extension, $command, $this);
-        }
-        catch (ValidationException $ex) {
-            if ($fields = $ex->getFields()) {
-                return Response::json(['validationErrors' => $fields], 406);
-            }
-
-            throw $ex;
-        }
+        return ExtensionManager::instance()->runCommand($extension, $command, $this);
     }
 
     /**

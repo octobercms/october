@@ -137,5 +137,6 @@
   "Define a Snippet Partial": "Define a Snippet Partial",
   "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Nieprawidłowa opcja: :key. Opcja wyboru może zawierać tylko litery, cyfry, myślnik i podkreślnik",
   "The description is displayed in the snippet list in the editor when a snippet is added.": "The description is displayed in the snippet list in the editor when a snippet is added.",
-  "Details": "Details"
+  "Details": "Details",
+  "Frontend Theme": "Motyw strony"
 }

@@ -137,5 +137,6 @@
   "Define a Snippet Partial": "Definiți un fragment parțial",
   "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Cheie de opțiune derulantă nevalidă: :key. Tastele de opțiuni pot conține doar cifre, litere latine și caractere _ și -",
   "The description is displayed in the snippet list in the editor when a snippet is added.": "Descrierea este afișată în lista de fragmente din editor atunci când este adăugat un fragment.",
-  "Details": "Detalii"
+  "Details": "Detalii",
+  "Frontend Theme": "Tema Front-end"
 }

@@ -12,6 +12,11 @@ use Backend\Classes\VueComponentBase;
  */
 class TreeView extends VueComponentBase
 {
+    /**
+     * @var string componentName is the Vue component tag name.
+     */
+    protected $componentName = 'backend-treeview';
+
     protected $require = [
         \Backend\VueComponents\ScrollablePanel::class,
         \Backend\VueComponents\DropdownMenu::class,
@@ -26,10 +31,7 @@ class TreeView extends VueComponentBase
      */
     protected function loadAssets()
     {
-        $this->addJsBundle('js/treeview-navigation.js');
-        $this->addJsBundle('js/treeview-utils.js');
-        $this->addJsBundle('js/treeview-draganddrop.js');
-        $this->addJsBundle('js/treeview-selection.js');
+        $this->addJs('js/classes/index.js', ['type' => 'module']);
     }
 
     protected function registerSubcomponents()

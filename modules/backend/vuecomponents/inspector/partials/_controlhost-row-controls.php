@@ -1,4 +1,4 @@
-<backend-component-inspector-control-text
+<backend-inspector-control-text
     v-if="control.type == 'string' || control.type == 'text'"
     :obj="obj"
     :parent-obj="parentObj"
@@ -13,9 +13,9 @@
     @blur="onEditorBlur"
     @invalid="onEditorInvalid"
     @valid="onEditorValid"
-></backend-component-inspector-control-text>
+></backend-inspector-control-text>
 
-<backend-component-inspector-control-dropdown
+<backend-inspector-control-dropdown
     v-if="control.type == 'dropdown'"
     :obj="obj"
     :parent-obj="parentObj"
@@ -27,9 +27,9 @@
     @blur="onEditorBlur"
     @invalid="onEditorInvalid"
     @valid="onEditorValid"
-></backend-component-inspector-control-dropdown>
+></backend-inspector-control-dropdown>
 
-<backend-component-inspector-control-autocomplete
+<backend-inspector-control-autocomplete
     v-if="control.type == 'autocomplete'"
     :obj="obj"
     :control="control"
@@ -40,9 +40,9 @@
     @blur="onEditorBlur"
     @invalid="onEditorInvalid"
     @valid="onEditorValid"
-></backend-component-inspector-control-autocomplete>
+></backend-inspector-control-autocomplete>
 
-<backend-component-inspector-control-checkbox
+<backend-inspector-control-checkbox
     v-if="control.type == 'checkbox'"
     :obj="obj"
     :control="control"
@@ -53,9 +53,9 @@
     @blur="onEditorBlur"
     @invalid="onEditorInvalid"
     @valid="onEditorValid"
-></backend-component-inspector-control-checkbox>
+></backend-inspector-control-checkbox>
 
-<backend-component-inspector-control-table
+<backend-inspector-control-table
     v-if="control.type == 'table'"
     :obj="obj"
     :parent-obj="parentObj"
@@ -63,11 +63,11 @@
     :control-id="controlEditorId"
     :inspector-preferences="inspectorPreferences"
     ref="editor"
-    @hidebottomborder="bottomBorderHidden = true" 
+    @hidebottomborder="bottomBorderHidden = true"
     @hidefullwidthlabel="controlLabelHidden = true"
-></backend-component-inspector-control-table>
+></backend-inspector-control-table>
 
-<backend-component-inspector-control-object
+<backend-inspector-control-object
     v-if="control.type == 'object'"
     :obj="obj"
     :parent-obj="parentObj"
@@ -80,11 +80,11 @@
     :panel-update-data="panelUpdateData"
     :layout-update-data="layoutUpdateData"
     ref="editor"
-    @hidefullwidthlabel="controlLabelHidden = true" 
-    @hidebottomborder="bottomBorderHidden = true" 
-></backend-component-inspector-control-object>
+    @hidefullwidthlabel="controlLabelHidden = true"
+    @hidebottomborder="bottomBorderHidden = true"
+></backend-inspector-control-object>
 
-<backend-component-inspector-control-set
+<backend-inspector-control-set
     v-if="control.type == 'set'"
     :obj="obj"
     :parent-obj="parentObj"
@@ -97,11 +97,11 @@
     :panel-update-data="panelUpdateData"
     :layout-update-data="layoutUpdateData"
     ref="editor"
-    @hidefullwidthlabel="controlLabelHidden = true" 
-    @hidebottomborder="bottomBorderHidden = true" 
-></backend-component-inspector-control-set>
+    @hidefullwidthlabel="controlLabelHidden = true"
+    @hidebottomborder="bottomBorderHidden = true"
+></backend-inspector-control-set>
 
-<backend-component-inspector-control-objectlist
+<backend-inspector-control-objectlist
     v-if="control.type == 'objectList'"
     :obj="obj"
     :parent-obj="parentObj"
@@ -114,11 +114,11 @@
     :panel-update-data="panelUpdateData"
     :layout-update-data="layoutUpdateData"
     ref="editor"
-    @hidefullwidthlabel="controlLabelHidden = true" 
-    @hidebottomborder="bottomBorderHidden = true" 
-></backend-component-inspector-control-objectlist>
+    @hidefullwidthlabel="controlLabelHidden = true"
+    @hidebottomborder="bottomBorderHidden = true"
+></backend-inspector-control-objectlist>
 
-<backend-component-inspector-control-objectlist-records
+<backend-inspector-control-objectlist-records
     v-if="control.type == 'objectListRecords'"
     :obj="obj"
     :parent-obj="parentObj"
@@ -131,12 +131,12 @@
     :panel-update-data="panelUpdateData"
     :layout-update-data="layoutUpdateData"
     ref="editor"
-    @hidefullwidthlabel="controlLabelHidden = true" 
-    @hidebottomborder="bottomBorderHidden = true" 
+    @hidefullwidthlabel="controlLabelHidden = true"
+    @hidebottomborder="bottomBorderHidden = true"
     @inspectorcommand="$emit('inspectorcommand', $event)"
-></backend-component-inspector-control-objectlist-records>
+></backend-inspector-control-objectlist-records>
 
-<backend-component-inspector-control-dictionary
+<backend-inspector-control-dictionary
     v-if="control.type == 'dictionary'"
     :obj="obj"
     :parent-obj="parentObj"
@@ -149,11 +149,11 @@
     :panel-update-data="panelUpdateData"
     :layout-update-data="layoutUpdateData"
     ref="editor"
-    @hidefullwidthlabel="controlLabelHidden = true" 
-    @hidebottomborder="bottomBorderHidden = true" 
-></backend-component-inspector-control-dictionary>
+    @hidefullwidthlabel="controlLabelHidden = true"
+    @hidebottomborder="bottomBorderHidden = true"
+></backend-inspector-control-dictionary>
 
-<backend-component-inspector-control-mediafinder
+<backend-inspector-control-mediafinder
     v-if="control.type == 'mediafinder'"
     :obj="obj"
     :parent-obj="parentObj"
@@ -168,4 +168,4 @@
     @blur="onEditorBlur"
     @invalid="onEditorInvalid"
     @valid="onEditorValid"
-></backend-component-inspector-control-mediafinder>
+></backend-inspector-control-mediafinder>

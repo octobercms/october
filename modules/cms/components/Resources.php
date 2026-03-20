@@ -54,6 +54,12 @@ class Resources extends ComponentModuleBase
                 'type' => 'stringList',
                 'showExternalParam' => false
             ],
+            'module' => [
+                'title' => 'JS Module',
+                'description' => 'JavaScript module file(s) in the assets/js folder',
+                'type' => 'stringList',
+                'showExternalParam' => false
+            ],
             'less' => [
                 'title' => 'LESS',
                 'description' => 'LESS file(s) in the assets/less folder',
@@ -107,6 +113,13 @@ class Resources extends ComponentModuleBase
         if ($assets = $this->property('js')) {
             foreach ((array) $assets as $asset) {
                 $this->controller->addJsBundle($this->prefixJs($asset), 'cms-js');
+            }
+        }
+
+        // JS Modules
+        if ($assets = $this->property('module')) {
+            foreach ((array) $assets as $asset) {
+                $this->controller->addJs($this->prefixJs($asset), ['type' => 'module']);
             }
         }
 

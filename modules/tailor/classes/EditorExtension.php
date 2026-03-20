@@ -48,10 +48,7 @@ class EditorExtension extends ExtensionBase
     public function listJsFiles()
     {
         return [
-            '/modules/tailor/assets/js/tailor.editor.extension.js',
-            '/modules/tailor/assets/js/tailor.editor.extension.documentcomponent.base.js',
-            '/modules/tailor/assets/js/tailor.editor.extension.documentcontroller.blueprint.js',
-            '/modules/tailor/assets/js/tailor.editor.extension.documentcontroller.theme-blueprint.js'
+            '/modules/tailor/assets/js/tailor.editor.extension.js'
         ];
     }
 
@@ -125,7 +122,7 @@ class EditorExtension extends ExtensionBase
 
         if (
             EditorExtension::hasAccessToDocType($user, self::DOCUMENT_TYPE_THEME_BLUEPRINT) &&
-            !$documentType || $documentType === self::DOCUMENT_TYPE_THEME_BLUEPRINT
+            (!$documentType || $documentType === self::DOCUMENT_TYPE_THEME_BLUEPRINT)
         ) {
             $this->addThemeBlueprintsNavigatorNodes($tailorSection);
         }

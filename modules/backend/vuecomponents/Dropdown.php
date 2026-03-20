@@ -12,9 +12,13 @@ use Backend\Classes\VueComponentBase;
  */
 class Dropdown extends VueComponentBase
 {
+    /**
+     * @var string componentName is the Vue component tag name.
+     */
+    protected $componentName = 'backend-dropdown';
+
     protected function loadDependencyAssets()
     {
-        $this->addJs('vendor/vue-multiselect/vue-multiselect.min.js');
         $this->addCss('vendor/vue-multiselect/vue-multiselect.min.css');
     }
 }

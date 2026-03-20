@@ -10,6 +10,11 @@ use Backend\Classes\VueComponentBase;
  */
 class Inspector extends VueComponentBase
 {
+    /**
+     * @var string componentName is the Vue component tag name.
+     */
+    protected $componentName = 'backend-inspector';
+
     protected $require = [
         \Backend\VueComponents\Splitter::class,
         \Backend\VueComponents\Tabs::class,
@@ -28,18 +33,7 @@ class Inspector extends VueComponentBase
     protected function loadAssets()
     {
         $this->addJs('vendor/ajv/ajv.min.js');
-        $this->addJsBundle('js/dataschema.js');
-        $this->addJsBundle('js/utils.js');
-        $this->addJsBundle('js/dataloader.js');
-        $this->addJsBundle('js/host.js');
-        $this->addJsBundle('js/control.base.js');
-        $this->addJsBundle('js/control.table.base.js');
-        $this->addJsBundle('js/validatorset.js');
-        $this->addJsBundle('js/validator.base.js');
-        $this->addJsBundle('js/validator.number.base.js');
-        $this->addJsBundle('js/validator.regex.js');
-        $this->addJsBundle('js/validator.integer.js');
-        $this->addJsBundle('js/validator.required.js');
+        $this->addJs('js/classes/index.js', ['type' => 'module']);
     }
 
     protected function registerSubcomponents()
@@ -48,25 +42,25 @@ class Inspector extends VueComponentBase
         $this->registerSubcomponent('group');
         $this->registerSubcomponent('grouphost');
         $this->registerSubcomponent('controlhost');
-        $this->registerSubcomponent('controlhost.row');
-        $this->registerSubcomponent('control.text');
-        $this->registerSubcomponent('control.dropdown');
-        $this->registerSubcomponent('control.checkbox');
-        $this->registerSubcomponent('control.table');
-        $this->registerSubcomponent('control.table.head');
-        $this->registerSubcomponent('control.table.headcell');
-        $this->registerSubcomponent('control.table.row');
-        $this->registerSubcomponent('control.table.cell');
-        $this->registerSubcomponent('control.table.text');
-        $this->registerSubcomponent('control.table.dropdown');
-        $this->registerSubcomponent('control.object');
-        $this->registerSubcomponent('control.set');
-        $this->registerSubcomponent('control.dictionary');
-        $this->registerSubcomponent('control.objectlist');
-        $this->registerSubcomponent('control.objectlist.records');
-        $this->registerSubcomponent('control.objectlist.recordtitle');
-        $this->registerSubcomponent('control.autocomplete');
-        $this->registerSubcomponent('control.mediafinder');
-        $this->registerSubcomponent('host.modal');
+        $this->registerSubcomponent('controlhost-row');
+        $this->registerSubcomponent('control-text');
+        $this->registerSubcomponent('control-dropdown');
+        $this->registerSubcomponent('control-checkbox');
+        $this->registerSubcomponent('control-table');
+        $this->registerSubcomponent('control-table-head');
+        $this->registerSubcomponent('control-table-headcell');
+        $this->registerSubcomponent('control-table-row');
+        $this->registerSubcomponent('control-table-cell');
+        $this->registerSubcomponent('control-table-text');
+        $this->registerSubcomponent('control-table-dropdown');
+        $this->registerSubcomponent('control-object');
+        $this->registerSubcomponent('control-set');
+        $this->registerSubcomponent('control-dictionary');
+        $this->registerSubcomponent('control-objectlist');
+        $this->registerSubcomponent('control-objectlist-records');
+        $this->registerSubcomponent('control-objectlist-recordtitle');
+        $this->registerSubcomponent('control-autocomplete');
+        $this->registerSubcomponent('control-mediafinder');
+        $this->registerSubcomponent('host-modal');
     }
 }

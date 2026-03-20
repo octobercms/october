@@ -1,6 +1,7 @@
 <?php namespace Dashboard\Widgets\Dash;
 
 use BackendAuth;
+use Backend\Classes\WidgetManager;
 use Dashboard\Models\Dashboard as DashboardModel;
 
 /**
@@ -36,12 +37,28 @@ trait ReportProcessor
      */
     protected function processPermissionCheck(array $reports)
     {
+        // For custom dashboards, get the list of permitted widgets once
+        // listReportWidgets() filters widgets by permission
+        $permittedWidgets = $this->isCustom
+            ? WidgetManager::instance()->listReportWidgets()
+            : null;
+
         foreach ($reports as $reportName => $report) {
+            // Check explicit report permissions
             if (
                 $report->permissions &&
                 !BackendAuth::userHasAccess($report->permissions, false)
             ) {
                 $this->removeReport($reportName);
+                continue;
+            }
+
+            // For custom dashboards, also check widget class permissions
+            if ($permittedWidgets !== null) {
+                $widgetClass = $report->configuration['widgetClass'] ?? null;
+                if ($widgetClass && !isset($permittedWidgets[$widgetClass])) {
+                    $this->removeReport($reportName);
+                }
             }
         }
     }

@@ -13,19 +13,17 @@ use Response;
 use BackendAuth;
 use Backend\Models\UserPreference;
 use Backend\Models\Preference as BackendPreference;
-use October\Rain\Exception\AjaxException;
 use October\Rain\Exception\SystemException;
 use October\Rain\Exception\ValidationException;
 use October\Rain\Exception\ApplicationException;
 use October\Rain\Extension\Extendable;
 use Illuminate\Database\Eloquent\MassAssignmentException;
-use Illuminate\Http\RedirectResponse;
 use Larajax\Exceptions\ComponentNotFound;
 use Larajax\Exceptions\HandlerNameInvalid;
 use Larajax\Exceptions\HandlerNotFound;
 use Larajax\Contracts\AjaxControllerInterface;
 use ForbiddenException;
-use Exception;
+use Throwable;
 
 /**
  * Controller is a backend base controller class used by all Backend controllers
@@ -108,7 +106,16 @@ class Controller extends Extendable implements AjaxControllerInterface
     public $bodyClass;
 
     /**
-     * @var bool turboVisitControl for the AJAX framework, supported values: reload, disable.
+     * @var mixed turboRouter for the AJAX framework. Supported values:
+     * - true: enables turbo (outputs visit-control=enable)
+     * - false: disables turbo (no turbo meta tags)
+     * - string: shorthand for visit-control value, e.g. 'reload', 'disable'
+     * - array: each key maps to a turbo-{key} meta tag, e.g. ['visit-control' => 'reload']
+     */
+    public $turboRouter;
+
+    /**
+     * @deprecated use $turboRouter instead
      */
     public $turboVisitControl;
 
@@ -153,15 +160,15 @@ class Controller extends Extendable implements AjaxControllerInterface
         $this->layoutPath[] = "~/modules/{$relativePath}/layouts";
         $this->layoutPath[] = "~/plugins/{$relativePath}/layouts";
 
-        // Disable turbo router everywhere
-        if (!Config::get('backend.turbo_router', true)) {
-            $this->turboVisitControl = 'disable';
+        // Enable turbo router
+        if (Config::get('backend.turbo_router', false)) {
+            $this->turboRouter ??= true;
         }
 
         // Create a new instance of the admin user
         $this->user = BackendAuth::getUser();
 
-        // Site switcher, activates the edit site context
+        // Site switcher
         if ($this->user && Site::hasAnyEditSite()) {
             (new \Backend\Widgets\SiteSwitcher($this))->bindToController();
         }
@@ -197,7 +204,9 @@ class Controller extends Extendable implements AjaxControllerInterface
         // Check security token.
         // @see \System\Traits\SecurityController
         if (!$this->verifyCsrfToken()) {
-            return Response::make(Lang::get('system::lang.page.invalid_token.label'), 403);
+            return Request::ajax()
+                ? ajax()->error(Lang::get('system::lang.page.invalid_token.label'), 403)->reload()
+                : Backend::redirectGuest('backend/auth');
         }
 
         // Check forced HTTPS protocol.
@@ -211,7 +220,7 @@ class Controller extends Extendable implements AjaxControllerInterface
             // Not logged in, redirect to login screen or show ajax error.
             if (!BackendAuth::check()) {
                 return Request::ajax()
-                    ? Response::make(Lang::get('backend::lang.page.access_denied.label'), 403)
+                    ? ajax()->error(Lang::get('backend::lang.page.access_denied.label'), 403)
                     : Backend::redirectGuest('backend/auth');
             }
 
@@ -536,12 +545,12 @@ class Controller extends Extendable implements AjaxControllerInterface
             catch (MassAssignmentException $ex) {
                 throw new ApplicationException(Lang::get('backend::lang.model.mass_assignment_failed', ['attribute' => $ex->getMessage()]));
             }
-            catch (ValidationException $ex) {
-                Flash::error($ex->getMessage());
-                throw $ex;
-            }
         }
-        catch (Exception $ex) {
+        catch (ValidationException $ex) {
+            Flash::error($ex->getMessage());
+            $response = ajax()->invalidFields($ex->errors());
+        }
+        catch (Throwable $ex) {
             $response = ajax()->exception($ex);
         }
 
@@ -551,7 +560,9 @@ class Controller extends Extendable implements AjaxControllerInterface
             }
         }
 
-        if (Flash::check()) {
+        $response = $this->outputVueComponentsForAjax($response);
+
+        if (!$response->isRedirect() && Flash::check()) {
             $response->update([
                 '#layout-flash-messages' => $this->makeLayoutPartial('flash_messages')
             ]);
@@ -672,5 +683,53 @@ class Controller extends Extendable implements AjaxControllerInterface
     {
         $hiddenHints = UserPreference::forUser()->get('backend::hints.hidden', []);
         return array_key_exists($name, $hiddenHints);
+    }
+
+    //
+    // Turbo
+    //
+
+    /**
+     * getTurboMetaTags returns an array of turbo meta tag definitions
+     * based on the $turboRouter property configuration.
+     */
+    public function getTurboMetaTags(): array
+    {
+        $turboRouter = $this->turboRouter;
+
+        // Fallback to deprecated property
+        if ($turboRouter === null && $this->turboVisitControl !== null) {
+            $turboRouter = $this->turboVisitControl === 'disable'
+                ? false
+                : ['visit-control' => $this->turboVisitControl];
+        }
+
+        // Disabled
+        if ($turboRouter === null || $turboRouter === false) {
+            return [];
+        }
+
+        // Simple enable
+        if ($turboRouter === true) {
+            $turboRouter = ['visit-control' => 'enable'];
+        }
+
+        // String shorthand, e.g. 'reload' → ['visit-control' => 'reload']
+        if (is_string($turboRouter)) {
+            $turboRouter = ['visit-control' => $turboRouter];
+        }
+
+        // Default turbo-root
+        if (!isset($turboRouter['root'])) {
+            $turboRouter['root'] = \Backend::baseUrl();
+        }
+
+        // Build meta tags
+        $tags = [];
+        foreach ($turboRouter as $key => $value) {
+            $tags[] = ['name' => "turbo-{$key}", 'content' => $value];
+        }
+
+        return $tags;
     }
 }

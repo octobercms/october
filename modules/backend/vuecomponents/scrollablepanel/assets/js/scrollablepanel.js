@@ -4,57 +4,54 @@
  * The panel is positioned using position=absolute. The hosting
  * element must have position=relative.
  */
-oc.Modules.register('backend.component.scrollable.panel', function () {
-    Vue.component('backend-component-scrollable-panel', {
-        props: {
-            relativeLayout: {
-                type: Boolean,
-                default: false
-            },
-            relativeLayoutMaxHeight: Number
+export default {
+    props: {
+        relativeLayout: {
+            type: Boolean,
+            default: false
         },
-        computed: {
-            containerStyle: function computeContainerStyle() {
-                if (!this.relativeLayout) {
-                    return {};
-                }
-
-                var result = {};
-
-                if (this.relativeLayoutMaxHeight !== undefined) {
-                    result['max-height'] = this.relativeLayoutMaxHeight + 'px';
-                }
-
-                return result;
+        relativeLayoutMaxHeight: Number
+    },
+    computed: {
+        containerStyle: function computeContainerStyle() {
+            if (!this.relativeLayout) {
+                return {};
             }
-        },
-        methods: {
-            gotoStart: function gotoStart() {
-                $(this.$refs.scrollable).dragScroll('goToStart');
-            },
 
-            goToElement: function goToElement(element, options) {
-                var that = this;
-                return new Promise(function (resolve, reject) {
-                    $(that.$refs.scrollable).dragScroll('goToElement', element, resolve, options);
-                });
-            },
+            var result = {};
 
-            onScroll: function onScroll() {
-                $(this.$refs.container).toggleClass('scrolled', this.$refs.scrollable.scrollTop > 0);
+            if (this.relativeLayoutMaxHeight !== undefined) {
+                result['max-height'] = this.relativeLayoutMaxHeight + 'px';
             }
+
+            return result;
+        }
+    },
+    methods: {
+        gotoStart: function gotoStart() {
+            $(this.$refs.scrollable).dragScroll('goToStart');
         },
-        mounted: function mounted() {
-            $(this.$refs.scrollable).dragScroll({
-                useDrag: true,
-                useNative: false,
-                vertical: true,
-                noScrollClasses: true
+
+        goToElement: function goToElement(element, options) {
+            var that = this;
+            return new Promise(function (resolve, reject) {
+                $(that.$refs.scrollable).dragScroll('goToElement', element, resolve, options);
             });
         },
-        beforeDestroy: function beforeDestroy() {
-            $(this.$refs.scrollable).dragScroll('dispose');
-        },
-        template: '#backend_vuecomponents_scrollablepanel'
-    });
-});
+
+        onScroll: function onScroll() {
+            $(this.$refs.container).toggleClass('scrolled', this.$refs.scrollable.scrollTop > 0);
+        }
+    },
+    mounted: function mounted() {
+        $(this.$refs.scrollable).dragScroll({
+            useDrag: true,
+            useNative: false,
+            vertical: true,
+            noScrollClasses: true
+        });
+    },
+    beforeUnmount: function beforeUnmount() {
+        $(this.$refs.scrollable).dragScroll('dispose');
+    }
+};

@@ -40,7 +40,7 @@ class ServiceProvider extends ModuleServiceProvider
         CmsObjectCache::flush();
 
         // Backend specific
-        if ($this->app->runningInBackend()) {
+        if ($this->app->runningInBackend() || $this->app->runningInOctane()) {
             $this->registerPageLookupInstance();
         }
     }
@@ -72,15 +72,7 @@ class ServiceProvider extends ModuleServiceProvider
      */
     protected function registerConsole()
     {
-        $this->registerConsoleCommand('theme.install', \Cms\Console\ThemeInstall::class);
-        $this->registerConsoleCommand('theme.remove', \Cms\Console\ThemeRemove::class);
-        $this->registerConsoleCommand('theme.list', \Cms\Console\ThemeList::class);
-        $this->registerConsoleCommand('theme.use', \Cms\Console\ThemeUse::class);
-        $this->registerConsoleCommand('theme.copy', \Cms\Console\ThemeCopy::class);
-        $this->registerConsoleCommand('theme.check', \Cms\Console\ThemeCheck::class);
-        $this->registerConsoleCommand('theme.seed', \Cms\Console\ThemeSeed::class);
-        $this->registerConsoleCommand('theme.clear', \Cms\Console\ThemeClear::class);
-        $this->registerConsoleCommand('theme.cache', \Cms\Console\ThemeCache::class);
+        $this->discoverConsoleCommands('cms');
     }
 
     /**

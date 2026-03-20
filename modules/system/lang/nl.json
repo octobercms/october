@@ -272,5 +272,9 @@
   "Seed Theme Data": "Vul themagegevens",
   "Import the blueprints files, language files and database contents for this theme, if applicable. You can skip this and do it later via the Site Theme settings.": "Importeer de blauwdrukbestanden, taalbestanden en database-inhoud voor dit thema, indien van toepassing. Je kunt dit overslaan en het later doen via de frontend thema-instellingen.",
   "Change Status": "Status wijzigen",
-  "Site Definitions": "Site definities"
+  "Site Definitions": "Site definities",
+  "System Updates": "Updates & Plugins",
+  "Find a Setting...": "Vind een Instelling...",
+  "Return to System Updates": "Terug naar systeemupdates",
+  "Import the blueprints files, language files and database contents for this theme, if applicable. You can skip this and do it later via the Frontend Theme settings.": "Importeer de blauwdrukbestanden, taalbestanden en database-inhoud voor dit thema, indien van toepassing. Je kunt dit overslaan en het later doen via de frontend thema-instellingen."
 }

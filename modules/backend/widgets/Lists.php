@@ -16,6 +16,7 @@ use Illuminate\Database\Query\Builder as QueryBuilder;
 use Illuminate\Pagination\UrlWindow;
 use ApplicationException;
 use Exception;
+use BackedEnum;
 use UnitEnum;
 
 /**
@@ -507,7 +508,6 @@ class Lists extends WidgetBase implements ListElement
 
             // Relation column
             if ($column->relation) {
-                // @todo Find a way...
                 $relationType = $this->model->getRelationType($column->relation);
                 if ($relationType === 'morphTo') {
                     throw new ApplicationException('The relationship morphTo is not supported for list columns.');
@@ -526,13 +526,27 @@ class Lists extends WidgetBase implements ListElement
 
                 $countQuery = $relationObj->getRelationExistenceQuery($relationQuery, $query);
 
-                $joinSql = $this->isColumnRelated($column, true)
+                $isMultiRelation = $this->isColumnRelated($column, true);
+
+                $joinSql = $isMultiRelation
                     ? DbDongle::raw("group_concat(" . $sqlSelect . " separator ', ')")
                     : DbDongle::raw($sqlSelect);
 
-                $joinSql = $countQuery->select($joinSql)->reorder()->toSql();
+                $countQuery->select($joinSql);
 
-                $selects[] = Db::raw('('.$joinSql.') as '.$alias);
+                // Only strip ordering for multi-relations (group_concat),
+                // singular relations with LIMIT 1 need ordering for deterministic results
+                if ($isMultiRelation) {
+                    $countQuery->reorder();
+                }
+                // Singular relations need a limit to prevent subquery errors
+                else {
+                    $countQuery->limit(1);
+                }
+
+                $joinSql = $countQuery->toSql();
+
+                $selects[] = Db::raw("({$joinSql}) as {$alias}");
 
                 // If a polymorphic relation, bindings need to be added to the query
                 $bindings = array_merge($bindings, $countQuery->getBindings());
@@ -1210,7 +1224,7 @@ class Lists extends WidgetBase implements ListElement
                 $value = $record->{$countColumnName};
             }
             else {
-                $value = $record->{$columnName};
+                $value = $record->getAttribute($columnName);
             }
         }
 
@@ -1267,8 +1281,11 @@ class Lists extends WidgetBase implements ListElement
         }
 
         // Cast enums to scalar
-        if ($value instanceof UnitEnum) {
+        if ($value instanceof BackedEnum) {
             $value = $value->value;
+        }
+        elseif ($value instanceof UnitEnum) {
+            $value = $value->name;
         }
 
         // Apply filters

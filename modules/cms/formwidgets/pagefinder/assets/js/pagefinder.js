@@ -43,7 +43,20 @@ oc.registerControl('pagefinder', class extends oc.ControlBase {
             value: currentValue,
             onInsert: this.proxy(this.onInsertPage),
             includeTitle: true,
-            singleMode: this.config.singleMode
+            singleMode: this.config.singleMode,
+            allowCustomUrl: this.config.allowCustomUrl,
+            allowedTypes: this.parseJsonConfig(this.config.allowedTypes),
+            excludedTypes: this.parseJsonConfig(this.config.excludedTypes)
         });
+    }
+
+    parseJsonConfig(value) {
+        if (!value || value === 'null') {
+            return null;
+        }
+        if (typeof value === 'string') {
+            try { return JSON.parse(value); } catch(e) { return null; }
+        }
+        return value;
     }
 });

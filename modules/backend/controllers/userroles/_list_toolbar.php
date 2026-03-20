@@ -1,5 +1,8 @@
 <div data-control="toolbar">
-    <a href="<?= Backend::url('backend/userroles/create') ?>" class="btn btn-primary oc-icon-plus">
-        <?= e(trans('backend::lang.user.role.new')) ?>
-    </a>
+    <?= Ui::button(
+        label: __("New Role"),
+        href: Backend::url('backend/userroles/create'),
+        icon: 'oc-icon-plus',
+        primary: true
+    ) ?>
 </div>

@@ -1,0 +1,23 @@
+/* Bootstrap */
+@import "../vendor/bootstrap/bootstrap.css";
+@import "../vendor/bootstrap-icons/bootstrap-icons.css";
+
+/* Toolbox */
+@import "../toolbox/toolbox.css";
+
+/* Icons */
+@import "../vendor/october-icons/icons.css";
+@import "../vendor/phosphor-icons/style.css";
+
+/* Prettify */
+@import "../vendor/prettify/prettify.css";
+@import "../vendor/prettify/theme-desert.css";
+
+/* Froala */
+@import "../vendor/froala/froala.css";
+
+/* Handsontable */
+@import "../vendor/handsontable/handsontable.css";
+
+/* JCrop */
+@import "../vendor/jcrop/css/jquery.Jcrop.min.css";

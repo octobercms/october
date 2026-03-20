@@ -27,19 +27,19 @@
             <slot name="content"></slot>
 
             <transition name="processing-fade-in">
-                <backend-component-loading-indicator
+                <backend-loading-indicator
                     v-if="processing"
                     indicator-style="stripe"
                     css-class="document-progress-indicator"
-                ></backend-component-loading-indicator>
+                ></backend-loading-indicator>
             </transition>
         </div>
     </transition>
 
     <div v-if="loading" class="flex-layout-item justify-center">
-        <backend-component-loading-indicator
+        <backend-loading-indicator
             size="small"
-        ></backend-component-loading-indicator>
+        ></backend-loading-indicator>
     </div>
 
     <transition name="processing-fade-in">
