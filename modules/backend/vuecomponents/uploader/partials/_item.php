@@ -1,5 +1,5 @@
 <li :class="cssClass">
-    <span class="item-name" v-text="fileName"></span>
+    <span class="item-name" v-text="file.name"></span>
     <span class="item-error" v-if="errorMessage" v-text="errorMessage"></span>
 
     <i
