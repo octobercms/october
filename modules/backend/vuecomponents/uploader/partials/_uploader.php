@@ -33,10 +33,7 @@
                         <backend-uploader-item
                             v-for="(file, index) in files"
                             :key="file.key"
-                            :fileName="file.name"
-                            :status="file.status"
-                            :progress="file.progress"
-                            :errorMessage="file.errorMessage"
+                            :file="file"
                             @removeclick="onRemoveClick(index)"
                         ></backend-uploader-item>
                     </ul>
