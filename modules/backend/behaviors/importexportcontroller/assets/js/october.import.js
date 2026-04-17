@@ -119,6 +119,10 @@
                 dbColumnName = $dbItem.data('column-name'),
                 $dbItemMatchInput = $('[data-column-match-input]', $dbItem);
 
+            if ($fileItem.hasClass('is-ignored')) {
+                return;
+            }
+
             this.toggleMatchState($fileItem);
 
             $dbItem.data('column-matched-id', matchColumnId);
