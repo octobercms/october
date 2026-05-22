@@ -22,3 +22,10 @@ fields:
             relation: categories
             relationCount: true
             type: number
+
+    related_posts:
+        label: Related Posts
+        type: entries
+        source: UnitTest\Post
+        displayMode: taglist
+        translatable: false
