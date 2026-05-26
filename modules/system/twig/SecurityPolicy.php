@@ -19,11 +19,11 @@ use Twig\Extension\SandboxExtension;
 final class SecurityPolicy implements SecurityPolicyInterface
 {
     /**
-     * @var array blockedClassMethods override list of known forbidden methods on class types
-     * that are included in the allow-list.
+     * @var array blockedClassMethods lists forbidden methods per class.
+     * Each entry holds only methods unique to that class; forwarded methods
+     * are pulled in via $blockedClassForwarders.
      */
     protected $blockedClassMethods = [
-        // Block write operations on database query builders
         \October\Rain\Database\Attach\File::class => [
             'fromPost', 'fromData', 'fromUrl', 'getDisk'
         ],
@@ -41,42 +41,29 @@ final class SecurityPolicy implements SecurityPolicyInterface
             'raw', 'rawValue',
         ],
         \Illuminate\Database\Eloquent\Builder::class => [
-            'insert', 'insertOrIgnore', 'insertGetId', 'insertUsing', 'insertOrIgnoreUsing',
-            'update', 'updateOrInsert', 'upsert',
-            'delete', 'truncate', 'forceDelete',
-            'increment', 'incrementEach', 'decrement', 'decrementEach',
+            'forceDelete',
             'create', 'createQuietly', 'forceCreate', 'forceCreateQuietly',
             'firstOrCreate', 'createOrFirst', 'updateOrCreate', 'incrementOrCreate',
             'fillAndInsert', 'fillAndInsertOrIgnore', 'fillAndInsertGetId',
             'touch',
-            'toRawSql',
-            'selectRaw', 'whereRaw', 'orWhereRaw',
-            'havingRaw', 'orHavingRaw',
-            'orderByRaw', 'groupByRaw',
-            'fromRaw', 'fromSub',
-            'joinSub', 'leftJoinSub', 'rightJoinSub', 'crossJoinSub',
-            'raw', 'rawValue',
         ],
         \Illuminate\Database\Eloquent\Model::class => [
-            'insert', 'insertOrIgnore', 'insertGetId', 'insertUsing', 'insertOrIgnoreUsing',
-            'update', 'updateOrFail', 'updateQuietly', 'updateOrInsert', 'upsert',
-            'delete', 'deleteQuietly', 'deleteOrFail', 'forceDelete', 'destroy', 'forceDestroy',
-            'truncate',
-            'increment', 'incrementEach', 'decrement', 'decrementEach',
-            'create', 'createQuietly', 'forceCreate', 'forceCreateQuietly',
-            'firstOrCreate', 'createOrFirst', 'updateOrCreate', 'incrementOrCreate',
+            'updateOrFail', 'updateQuietly',
+            'deleteQuietly', 'deleteOrFail', 'destroy', 'forceDestroy',
             'save', 'saveQuietly', 'saveOrFail',
             'push', 'pushQuietly',
             'fill', 'forceFill',
-            'touch',
-            'getConnection', 'toRawSql',
-            'selectRaw', 'whereRaw', 'orWhereRaw',
-            'havingRaw', 'orHavingRaw',
-            'orderByRaw', 'groupByRaw',
-            'fromRaw', 'fromSub',
-            'joinSub', 'leftJoinSub', 'rightJoinSub', 'crossJoinSub',
-            'raw', 'rawValue',
         ],
+    ];
+
+    /**
+     * @var array blockedClassForwarders maps a class to the class its __call
+     * forwards to, so the sandbox enforces both blocklists for one receiver.
+     */
+    protected $blockedClassForwarders = [
+        \Illuminate\Database\Eloquent\Builder::class => \Illuminate\Database\Query\Builder::class,
+        \Illuminate\Database\Eloquent\Model::class => \Illuminate\Database\Eloquent\Builder::class,
+        \Tailor\Classes\ComponentVariable::class => \Illuminate\Database\Eloquent\Builder::class,
     ];
 
     /**
@@ -266,10 +253,27 @@ final class SecurityPolicy implements SecurityPolicyInterface
     {
         $blockedMethod = strtr($method, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz');
 
-        // Check objects
+        // Check direct class blocklists
         foreach ($this->blockedClassMethods as $blockedClass => $blockedMethods) {
             if (is_a($obj, $blockedClass) && in_array($blockedMethod, $blockedMethods)) {
                 throw new SecurityNotAllowedMethodError(sprintf('Calling "%s" method on a "%s" object is blocked.', $method, $blockedClass), $blockedClass, $method);
+            }
+        }
+
+        // Check forwarder chains: if $obj's class forwards __call to another
+        // class, enforce that class's blocklist as well (transitively).
+        foreach ($this->blockedClassForwarders as $sourceClass => $targetClass) {
+            if (!is_a($obj, $sourceClass)) {
+                continue;
+            }
+
+            $cursor = $targetClass;
+            while ($cursor !== null) {
+                $targetMethods = $this->blockedClassMethods[$cursor] ?? [];
+                if (in_array($blockedMethod, $targetMethods)) {
+                    throw new SecurityNotAllowedMethodError(sprintf('Calling "%s" method on a "%s" object is blocked.', $method, $sourceClass), $sourceClass, $method);
+                }
+                $cursor = $this->blockedClassForwarders[$cursor] ?? null;
             }
         }
 

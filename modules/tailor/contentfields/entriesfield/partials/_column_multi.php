@@ -1,5 +1,7 @@
 <?php if ($value): ?>
-    <?php if ($column->clickable !== false): ?>
+    <?php if ($column->clickable === true): ?>
+        <?= e(implode(', ', $value->pluck('title')->all())) ?>
+    <?php else: ?>
         <ul class="list-link-list">
             <?php foreach ($value as $entry): ?>
                 <?php
@@ -8,7 +10,5 @@
                 <li><a href="<?= $url ?>"><?= e($entry->title) ?></a></li>
             <?php endforeach ?>
         </ul>
-    <?php else: ?>
-        <?= e(implode(', ', $value->pluck('title')->all())) ?>
     <?php endif ?>
 <?php endif ?>

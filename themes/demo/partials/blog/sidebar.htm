@@ -9,8 +9,11 @@ handle = "Blog\Category"
 handle = "Blog\Config"
 ==
 {% set archiveDates = blog
-    .selectRaw("count(*) as post_count, published_at_month, published_at_year")
-    .groupBy('published_at_month', 'published_at_year').get()
+    .select('published_at_month', 'published_at_year')
+    .groupBy('published_at_month', 'published_at_year')
+    .orderBy('published_at_year', 'desc')
+    .orderBy('published_at_month', 'desc')
+    .get()
 %}
 
 <div class="sidebar-search">
