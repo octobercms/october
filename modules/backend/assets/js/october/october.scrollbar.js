@@ -229,8 +229,13 @@ oc.registerControl('scrollbar', class extends oc.ControlBase {
         let offset = 1;
         let thumbSizeRatio = viewportSize / (canvasSize - offset);
         let thumbSize = viewportSize * thumbSizeRatio;
-        let thumbPositionRatio = scrollAmount / (canvasSize - viewportSize);
+        let maxScroll = Math.max(0, canvasSize - viewportSize);
+        let thumbPositionRatio = maxScroll > 0 ? scrollAmount / maxScroll : 0;
+
         let thumbPosition = ((viewportSize - thumbSize) * thumbPositionRatio) + scrollAmount;
+
+        let maxThumbPosition = Math.max(0, canvasSize - thumbSize);
+        thumbPosition = Math.max(0, Math.min(thumbPosition, maxThumbPosition));
 
         return { viewportSize, canvasSize, scrollAmount, thumbSizeRatio, thumbSize, thumbPosition };
     }
