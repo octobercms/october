@@ -271,7 +271,7 @@ class CodeParser
 
         if (
             $cached !== false &&
-            ($cached = @unserialize(@base64_decode($cached))) !== false
+            ($cached = @unserialize(@base64_decode($cached), ['allowed_classes' => false])) !== false
         ) {
             return $cached;
         }

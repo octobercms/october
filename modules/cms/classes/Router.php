@@ -342,7 +342,7 @@ class Router
             return null;
         }
 
-        $unserialized = @unserialize(@base64_decode($cached));
+        $unserialized = @unserialize(@base64_decode($cached), ['allowed_classes' => false]);
         if (!$unserialized) {
             return null;
         }
@@ -376,7 +376,7 @@ class Router
             return null;
         }
 
-        $urlList = @unserialize(@base64_decode($urlList));
+        $urlList = @unserialize(@base64_decode($urlList), ['allowed_classes' => false]);
         if (!is_array($urlList)) {
             return null;
         }

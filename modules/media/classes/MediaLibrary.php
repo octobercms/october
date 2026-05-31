@@ -103,7 +103,7 @@ class MediaLibrary
 
         // Try to load the contents from cache
         $cached = Cache::memo()->get($this->cacheKey, false);
-        $cached = $cached ? @unserialize(@base64_decode($cached)) : [];
+        $cached = $cached ? @unserialize(@base64_decode($cached), ['allowed_classes' => [MediaLibraryItem::class]]) : [];
 
         if (!is_array($cached)) {
             $cached = [];

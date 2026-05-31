@@ -135,7 +135,7 @@ class PreviewController extends ControllerBehavior
 
         // Check cache
         $cached = Cache::memo()->get($cacheKey, false);
-        if ($cached !== false && ($cached = @unserialize($cached)) !== false && is_array($cached)) {
+        if ($cached !== false && ($cached = @unserialize($cached, ["allowed_classes" => false])) !== false && is_array($cached)) {
             if (array_key_exists($lookupKey, $cached)) {
                 return $cached[$lookupKey];
             }
