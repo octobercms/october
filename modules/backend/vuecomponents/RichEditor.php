@@ -1,8 +1,6 @@
 <?php namespace Backend\VueComponents;
 
 use App;
-use Url;
-use File;
 use BackendAuth;
 use Backend\Models\EditorSetting;
 use Backend\Classes\VueComponentBase;
@@ -30,7 +28,6 @@ class RichEditor extends VueComponentBase
         $configuration = [
             'editorLang' => $this->getValidEditorLang(),
             'useMediaManager' => BackendAuth::userHasAccess('media.library'),
-            'iframeStylesFile' => Url::asset('/modules/backend/vuecomponents/richeditor/assets/css/iframestyles.css'),
 
             'globalToolbarButtons' => $this->getGlobalButtons(),
             'allowEmptyTags' => EditorSetting::getConfigured('html_allow_empty_tags'),
@@ -46,7 +43,7 @@ class RichEditor extends VueComponentBase
             'paragraphStyles' => EditorSetting::getConfiguredStyles('html_style_paragraph'),
             'inlineStyles' => EditorSetting::getConfiguredStyles('html_style_inline'),
             'tableStyles' => EditorSetting::getConfiguredStyles('html_style_table'),
-            'tableCellStyles' => EditorSetting::getConfiguredStyles('html_style_table_cell')
+            'tableCellStyles' => EditorSetting::getConfiguredStyles('html_style_table_cell'),
         ];
 
         $this->vars['configuration'] = json_encode($configuration);
@@ -88,7 +85,7 @@ class RichEditor extends VueComponentBase
     {
         $result = EditorSetting::getConfigured('html_toolbar_buttons');
         if (!$result) {
-            return null;
+            return $this->getDefaultButtons();
         }
 
         $result = explode(',', $result);
@@ -98,5 +95,30 @@ class RichEditor extends VueComponentBase
         }
 
         return $buttons;
+    }
+
+    /**
+     * getDefaultButtons returns the default toolbar button set, matching
+     * oc.richEditorButtons which may not be available in all contexts.
+     */
+    protected function getDefaultButtons()
+    {
+        return [
+            'paragraphFormat',
+            'align',
+            'bold',
+            'italic',
+            'underline',
+            '|',
+            'formatOL',
+            'formatUL',
+            '|',
+            'insertSnippet',
+            'insertTable',
+            'insertPageLink',
+            'insertImage',
+            'insertHR',
+            'html'
+        ];
     }
 }

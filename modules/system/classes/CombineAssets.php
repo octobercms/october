@@ -654,7 +654,7 @@ class CombineAssets
 
         $this->putCacheIndex($cacheKey);
 
-        Cache::forever($cacheKey, base64_encode(serialize($cacheInfo)));
+        Cache::forever($cacheKey, base64_encode(json_encode($cacheInfo)));
 
         return true;
     }
@@ -669,7 +669,9 @@ class CombineAssets
         $cacheKey = 'combiner.'.$cacheKey;
 
         if ($cache = Cache::memo()->get($cacheKey)) {
-            return @unserialize(@base64_decode($cache));
+            $decoded = base64_decode($cache);
+            // @deprecated unserialize can be removed in v4.4
+            return json_decode($decoded, true) ?: @unserialize($decoded, ['allowed_classes' => false]);
         }
 
         return false;
@@ -715,7 +717,9 @@ class CombineAssets
     public static function resetCache()
     {
         if ($cache = Cache::get('combiner.index')) {
-            $index = (array) @unserialize(@base64_decode($cache)) ?: [];
+            $decoded = base64_decode($cache);
+            // @deprecated unserialize can be removed in v4.4
+            $index = (array) (json_decode($decoded, true) ?: @unserialize($decoded, ['allowed_classes' => false])) ?: [];
 
             foreach ($index as $cacheKey) {
                 Cache::forget($cacheKey);
@@ -737,7 +741,9 @@ class CombineAssets
         $index = [];
 
         if ($cache = Cache::memo()->get('combiner.index')) {
-            $index = (array) @unserialize(@base64_decode($cache)) ?: [];
+            $decoded = base64_decode($cache);
+            // @deprecated unserialize can be removed in v4.4
+            $index = (array) (json_decode($decoded, true) ?: @unserialize($decoded, ['allowed_classes' => false])) ?: [];
         }
 
         if (in_array($cacheKey, $index)) {
@@ -746,7 +752,7 @@ class CombineAssets
 
         $index[] = $cacheKey;
 
-        Cache::forever('combiner.index', base64_encode(serialize($index)));
+        Cache::forever('combiner.index', base64_encode(json_encode($index)));
 
         return true;
     }

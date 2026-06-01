@@ -32,9 +32,9 @@ class Index extends Controller
     ];
 
     /**
-     * @var bool turboRouter
+     * @var string turboRouter
      */
-    public $turboRouter = false;
+    public $turboRouter = 'reload';
 
     /**
      * __construct

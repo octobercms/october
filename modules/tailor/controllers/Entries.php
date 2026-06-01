@@ -559,13 +559,14 @@ class Entries extends WildcardController
     {
         $model = $widget->getModel();
 
-        // Entry type switching, existing records already have content_group
-        if (
-            !$model->exists &&
-            $model instanceof \Tailor\Classes\BlueprintModel &&
-            ($entryType = post('EntryRecord[content_group]'))
-        ) {
-            $model->setBlueprintGroup($entryType);
+        // Entry type switching
+        if ($model instanceof \Tailor\Classes\BlueprintModel) {
+            if ($entryType = post('_content_group_switch')) {
+                $model->setBlueprintGroup($entryType);
+            }
+            elseif (!$model->exists) {
+                $model->setDefaultContentGroup();
+            }
         }
 
         // Disable adaptive fields
@@ -576,6 +577,20 @@ class Entries extends WildcardController
                 }
             }
         });
+    }
+
+    /**
+     * relationBeforeSave
+     */
+    public function relationBeforeSave($field, $model)
+    {
+        // Entry type switching
+        if (
+            $model instanceof \Tailor\Classes\BlueprintModel &&
+            ($entryType = post('_content_group_value'))
+        ) {
+            $model->setBlueprintGroup($entryType);
+        }
     }
 
     /**
@@ -660,6 +675,11 @@ class Entries extends WildcardController
      */
     public function formBeforeSave($model)
     {
+        // Entry type switching
+        if ($entryType = post('_content_group_value')) {
+            $model->setBlueprintGroup($entryType);
+        }
+
         if ($this->isSectionVersionable()) {
             $this->asExtension('VersionController')->versionBeforeSave($model);
         }
@@ -755,7 +775,7 @@ class Entries extends WildcardController
     public function formExtendModel($model)
     {
         // Entry type switching
-        if ($entryType = post('EntryRecord[content_group]')) {
+        if ($entryType = post('_content_group_switch')) {
             $model->setBlueprintGroup($entryType);
         }
     }

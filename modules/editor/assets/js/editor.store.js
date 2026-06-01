@@ -12,7 +12,9 @@ export class EditorStore {
     extensions;
 
     constructor() {
-        this.state = {
+        // Vue 3: Make state reactive so modifications through the raw
+        // store reference ($.oc.editor.store) trigger Vue updates
+        this.state = Vue.reactive({
             navigatorSections: [],
             navigatorCreateMenuItems: [],
             navigatorSelectedUniqueKey: '',
@@ -21,7 +23,7 @@ export class EditorStore {
             params: {},
             lang: {},
             globalInspectorConfigurations: {}
-        };
+        });
 
         this.tabManager = new TabManager(this);
         this.extensions = {};

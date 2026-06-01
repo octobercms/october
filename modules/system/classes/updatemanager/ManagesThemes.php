@@ -143,13 +143,6 @@ trait ManagesThemes
         $theme = CmsTheme::load($themeName);
         $model = new ThemeSeed;
 
-        // Seed everything
-        $allFolders = [
-            'blueprints' => true,
-            'data' => true,
-            'lang' => true,
-        ];
-
-        $model->seed($theme, ['folders' => $allFolders]);
+        $model->seed($theme);
     }
 }

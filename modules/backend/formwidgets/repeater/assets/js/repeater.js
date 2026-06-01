@@ -387,7 +387,7 @@ export class RepeaterFormWidgetBase extends ControlBase {
             }
         }
 
-        return result ? result : defaultText;
+        return result ? result : (explicitText || defaultText);
     }
 
     getTitleFromAttribute($item) {

@@ -1,9 +1,11 @@
 <?php namespace System\Models;
 
 use Str;
+use File;
 use Model;
 use System;
 use Exception;
+use Throwable;
 
 /**
  * EventLog model for logging system errors and debug trace messages
@@ -59,7 +61,7 @@ class EventLog extends Model
         $record->level = $level;
 
         if ($details !== null) {
-            $record->details = (array) $details;
+            $record->details = static::normalizeDetails((array) $details);
         }
 
         try {
@@ -69,6 +71,57 @@ class EventLog extends Model
         }
 
         return $record;
+    }
+
+    /**
+     * normalizeDetails converts non-serializable values in the details array,
+     * such as Throwable objects, into structured data that survives JSON encoding.
+     */
+    protected static function normalizeDetails(array $details): array
+    {
+        foreach ($details as $key => $value) {
+            if ($value instanceof Throwable) {
+                $details[$key] = static::normalizeException($value);
+            }
+        }
+
+        return $details;
+    }
+
+    /**
+     * normalizeException converts a Throwable into a JSON-safe array.
+     */
+    protected static function normalizeException(Throwable $exception): array
+    {
+        $result = [
+            'class' => get_class($exception),
+            'message' => $exception->getMessage(),
+            'code' => $exception->getCode(),
+            'file' => File::nicePath($exception->getFile()),
+            'line' => $exception->getLine(),
+            'trace' => array_map(function ($frame) {
+                $parts = [];
+                if (isset($frame['file'])) {
+                    $parts['file'] = File::nicePath($frame['file']);
+                }
+                if (isset($frame['line'])) {
+                    $parts['line'] = $frame['line'];
+                }
+                if (isset($frame['class'])) {
+                    $parts['call'] = $frame['class'] . ($frame['type'] ?? '') . ($frame['function'] ?? '');
+                }
+                elseif (isset($frame['function'])) {
+                    $parts['call'] = $frame['function'];
+                }
+                return $parts;
+            }, $exception->getTrace()),
+        ];
+
+        if ($exception->getPrevious()) {
+            $result['previous'] = static::normalizeException($exception->getPrevious());
+        }
+
+        return $result;
     }
 
     /**

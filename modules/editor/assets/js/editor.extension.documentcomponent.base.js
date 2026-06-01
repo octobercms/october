@@ -32,6 +32,9 @@ export const DocumentComponentBase = {
             documentData: {},
             lastSavedDocumentData: {},
             documentMetadata: {},
+            // Vue 3: Reactive mirror of componentData.key since componentData
+            // is markRaw and its properties are not tracked by Vue reactivity
+            documentKey: this.componentData.key,
             // Vue 3: Mark as raw to prevent reactivity breaking private class fields
             ajaxQueue: Vue.markRaw(new PQueue({ concurrency: 1 })),
             abortController: Vue.markRaw(new AbortController()),
@@ -104,7 +107,7 @@ export const DocumentComponentBase = {
         },
 
         documentUriObj: function computeDocumentUriObj() {
-            return new DocumentUri(this.namespace, this.documentType, this.componentData.key);
+            return new DocumentUri(this.namespace, this.documentType, this.documentKey);
         },
 
         documentUri: function computeDocumentUri() {
@@ -290,8 +293,14 @@ export const DocumentComponentBase = {
                     this.lastSavedDocumentData = $.oc.vueUtils.getCleanObject(lastSavedData);
 
                     if (isNewDocument) {
+                        // Compute the reveal URI from metadata since documentKey
+                        // has not yet been updated (watcher runs asynchronously)
+                        const revealUri = this.documentMetadata.uniqueKey
+                            ? new DocumentUri(this.namespace, this.documentType, this.documentMetadata.uniqueKey).uri
+                            : this.documentUri;
+
                         this.store.refreshExtensionNavigatorNodes(this.namespace, this.documentType).then(() => {
-                            $.oc.editor.application.revealNavigatorNode(this.documentUri);
+                            $.oc.editor.application.revealNavigatorNode(revealUri);
                         });
                     }
 
@@ -477,10 +486,26 @@ export const DocumentComponentBase = {
             }
 
             // This propagates the new unique key to the
-            // Navigator and Tabs.
+            // Navigator and Tabs. Since componentData is markRaw,
+            // we must handle the key change explicitly here rather
+            // than relying on a Vue watcher.
             //
-            if (this.documentMetadata.uniqueKey) {
+            if (this.documentMetadata.uniqueKey && this.documentKey !== this.documentMetadata.uniqueKey) {
+                const oldKey = this.documentKey;
                 this.componentData.key = this.documentMetadata.uniqueKey;
+                this.documentKey = this.documentMetadata.uniqueKey;
+
+                const oldUri = new DocumentUri(this.namespace, this.documentType, oldKey).uri;
+                const newUri = new DocumentUri(this.namespace, this.documentType, this.componentData.key).uri;
+                const navigatorNode = this.store.findNavigatorNode(oldUri);
+
+                if (navigatorNode) {
+                    navigatorNode.uniqueKey = newUri;
+                    $.oc.editor.application.navigatorNodeKeyChanged(oldUri, newUri);
+                }
+
+                this.store.tabManager.setTabKey(oldUri, newUri);
+                this.$emit('tabkeychanged', oldUri, newUri);
             }
         },
 
@@ -568,19 +593,6 @@ export const DocumentComponentBase = {
 
         lastSavedDocumentData: function watchSavedDocumentData(value) {
             this.updateEditorUiForDocument(value);
-        },
-
-        'componentData.key': function watchComponentDataKey(value, oldValue) {
-            const oldUri = new DocumentUri(this.namespace, this.documentType, oldValue).uri;
-            const navigatorNode = this.store.findNavigatorNode(oldUri);
-
-            if (navigatorNode) {
-                navigatorNode.uniqueKey = this.documentUri;
-                $.oc.editor.application.navigatorNodeKeyChanged(oldUri, this.documentUri);
-            }
-
-            this.store.tabManager.setTabKey(oldUri, this.documentUri);
-            this.$emit('tabkeychanged', oldUri, this.documentUri);
         },
 
         initializing: function onInitializingChanged(value) {

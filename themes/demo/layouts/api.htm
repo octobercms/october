@@ -1,0 +1,25 @@
+##
+description = "API Layout"
+is_priority = 1
+
+[resources]
+headers[Content-Type] = 'application/json'
+headers[Access-Control-Allow-Origin] = '*'
+headers[Access-Control-Allow-Methods] = 'GET, POST, OPTIONS'
+headers[Access-Control-Allow-Headers] = 'Content-Type, Authorization'
+==
+{#
+    API Middleware Layout
+    ====================
+    This layout acts as middleware for all API endpoints. It uses priority
+    mode (is_priority) to ensure it runs before the page. The [resources]
+    component sets CORS and JSON headers on every response automatically.
+
+    Any page using layout = "api" inherits these headers and the OPTIONS
+    preflight handler below.
+#}
+{% if this.request.method == 'OPTIONS' %}
+    {% do response(null, 204) %}
+{% endif %}
+
+{% page %}

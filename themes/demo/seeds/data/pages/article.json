@@ -79,7 +79,7 @@
         "title": "Knowledge Base",
         "content": "<p>Knowledge Base<\/p>",
         "slug": "knowledge-base",
-        "fullslug": "our-locations/knowledge-base",
+        "fullslug": "knowledge-base",
         "is_enabled": 1,
         "content_group": null,
         "parent_id": null,

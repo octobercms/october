@@ -392,7 +392,7 @@ trait HasValueProcessor
             $fieldOptions = $formField->getOptionsFromModel(
                 $model,
                 $fieldOptions,
-                $record->toArray()
+                $record
             );
         }
 
@@ -417,7 +417,11 @@ trait HasValueProcessor
             // Build link URL - always process linkUrl config with parameter replacement
             if ($column->linkUrl) {
                 $linkUrl = RouterHelper::replaceParameters($record, $column->linkUrl);
-                if (!starts_with($linkUrl, ['//', 'http://', 'https://'])) {
+                if (
+                    !str_starts_with($linkUrl, '//') &&
+                    !str_starts_with($linkUrl, 'http://') &&
+                    !str_starts_with($linkUrl, 'https://')
+                ) {
                     $linkUrl = Backend::url($linkUrl);
                 }
             }

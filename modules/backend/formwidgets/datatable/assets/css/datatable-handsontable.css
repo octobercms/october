@@ -76,7 +76,133 @@
     z-index: 201;
 }
 
+/* Cell backgrounds and borders */
+.field-datatable.is-handsontable .handsontable tr {
+    background: var(--oc-form-control-bg);
+}
+
+.field-datatable.is-handsontable .handsontable th,
+.field-datatable.is-handsontable .handsontable td {
+    background-color: var(--oc-form-control-bg);
+    border-color: var(--bs-border-color);
+}
+
+.field-datatable.is-handsontable .handsontable th:last-child {
+    border-color: var(--bs-border-color);
+}
+
+.field-datatable.is-handsontable .handsontable th:first-child,
+.field-datatable.is-handsontable .handsontable th:nth-child(2),
+.field-datatable.is-handsontable .handsontable td:first-of-type,
+.field-datatable.is-handsontable .handsontable .htNoFrame + th,
+.field-datatable.is-handsontable .handsontable .htNoFrame + td {
+    border-left-color: var(--bs-border-color);
+}
+
+.field-datatable.is-handsontable .handsontable tr:first-child th,
+.field-datatable.is-handsontable .handsontable tr:first-child td {
+    border-top-color: var(--bs-border-color);
+}
+
+/* No-frame cells */
+.field-datatable.is-handsontable .handsontable th.htNoFrame {
+    background-color: var(--oc-form-control-bg);
+    border-color: var(--oc-form-control-bg);
+}
+
+/* Row header styling */
+.field-datatable.is-handsontable .handsontable th {
+    background-color: var(--bs-tertiary-bg);
+    color: var(--oc-heading-color);
+}
+
 /* Selected cell highlight */
 .field-datatable.is-handsontable .handsontable td.area:before {
     background: var(--bs-primary);
+}
+
+/* Cell editor input */
+.field-datatable.is-handsontable .handsontableInput {
+    color: var(--bs-body-color);
+    background-color: var(--oc-form-control-bg);
+}
+
+/* Dimmed / read-only cells */
+.field-datatable.is-handsontable .handsontable .htDimmed {
+    color: var(--bs-secondary-color);
+}
+
+/* Autocomplete arrow */
+.field-datatable.is-handsontable .handsontable .htAutocompleteArrow {
+    color: var(--bs-border-color);
+}
+
+.field-datatable.is-handsontable .handsontable td .htAutocompleteArrow:hover {
+    color: var(--bs-secondary-color);
+}
+
+/* Placeholder */
+.field-datatable.is-handsontable .handsontable .htPlaceholder {
+    color: var(--bs-secondary-color);
+}
+
+/* Search result (dark mode only — light mode uses vendor defaults) */
+[data-bs-theme="dark"] .field-datatable.is-handsontable .handsontable td.htSearchResult {
+    background: #3d2e10;
+    color: #d4a84b;
+}
+
+/* Context menu (appended to body, not inside .field-datatable) */
+.htContextMenu table.htCore {
+    border-color: var(--bs-border-color);
+}
+
+.htContextMenu table tbody tr td {
+    background: var(--oc-form-control-bg);
+    color: var(--bs-body-color);
+}
+
+.htContextMenu table tbody tr td.htDimmed {
+    color: var(--bs-body-color);
+}
+
+.htContextMenu table tbody tr td.current,
+.htContextMenu table tbody tr td.zeroclipboard-is-hover {
+    background: var(--bs-tertiary-bg);
+}
+
+.htContextMenu table tbody tr td.htSeparator {
+    border-top-color: var(--bs-border-color);
+}
+
+.htContextMenu table tbody tr td.htDisabled {
+    color: var(--bs-secondary-color);
+}
+
+.htContextMenu table tbody tr td.htDisabled:hover {
+    background: var(--oc-form-control-bg);
+    color: var(--bs-secondary-color);
+}
+
+/* Listbox / autocomplete dropdown (appended to body) */
+.handsontable.listbox .ht_master table {
+    border-color: var(--bs-border-color);
+    background: var(--oc-form-control-bg);
+}
+
+.handsontable.listbox tr td.current,
+.handsontable.listbox tr:hover td {
+    background: var(--bs-tertiary-bg);
+}
+
+/* Comment text area */
+.htCommentTextArea {
+    background-color: var(--oc-form-control-bg);
+    color: var(--bs-body-color);
+    border-left-color: var(--bs-border-color);
+}
+
+/* Striped row override */
+.field-datatable.is-handsontable .handsontable .table-striped > tbody > tr:nth-of-type(even) {
+    background-color: var(--oc-form-control-bg);
 }

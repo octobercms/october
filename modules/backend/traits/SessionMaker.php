@@ -28,7 +28,7 @@ trait SessionMaker
 
         $currentStore[$key] = $value;
 
-        Session::put($sessionId, base64_encode(serialize($currentStore)));
+        Session::put($sessionId, json_encode($currentStore));
     }
 
     /**
@@ -41,20 +41,47 @@ trait SessionMaker
     {
         $sessionId = $this->makeSessionId();
 
-        $currentStore = [];
-
-        if (
-            Session::has($sessionId) &&
-            ($cached = @unserialize(@base64_decode(Session::get($sessionId)))) !== false
-        ) {
-            $currentStore = $cached;
-        }
+        $currentStore = $this->readSessionStore($sessionId);
 
         if ($key === null) {
             return $currentStore;
         }
 
         return array_get($currentStore, $key, $default);
+    }
+
+    /**
+     * Reads the widget session store, preferring JSON and falling back to
+     * the legacy base64+serialize format for sessions written before the
+     * format change. Legacy values are deserialized with allowed_classes
+     * set to false so deserialization cannot instantiate gadget chains.
+     *
+     * @return array<string, mixed>
+     */
+    protected function readSessionStore(string $sessionId): array
+    {
+        if (!Session::has($sessionId)) {
+            return [];
+        }
+
+        $raw = Session::get($sessionId);
+        if (!is_string($raw) || $raw === '') {
+            return [];
+        }
+
+        // JSON-encoded sessions always begin with { or [ since putSession
+        // stores an associative array. Anything else is the legacy format.
+        if ($raw[0] === '{' || $raw[0] === '[') {
+            $decoded = json_decode($raw, true);
+            return is_array($decoded) ? $decoded : [];
+        }
+
+        // @deprecated Legacy base64(serialize($array)) format. Retained for
+        // one upgrade cycle so existing sessions don't lose their saved
+        // widget state. The allowed_classes guard prevents object
+        // instantiation. Remove this fallback in a future release.
+        $decoded = @unserialize(@base64_decode($raw), ['allowed_classes' => false]);
+        return is_array($decoded) ? $decoded : [];
     }
 
     /**

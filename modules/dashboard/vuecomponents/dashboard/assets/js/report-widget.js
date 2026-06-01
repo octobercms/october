@@ -107,7 +107,7 @@ export default {
             const tracker = { pending: true, cancelled: false };
             this.loadingPromises.push(tracker);
 
-            loadingPromise
+            return loadingPromise
                 .then((data) => {
                     if (!tracker.cancelled) {
                         this.applyData(data);
@@ -127,7 +127,6 @@ export default {
                     if (!tracker.cancelled) {
                         this.autoUpdating = false;
                         this.loading = this.hasActiveLoadingPromise();
-                        this.showInspectorWhenLoaded();
                     }
                 });
         },
@@ -171,7 +170,6 @@ export default {
 
                 if (widgetImplementation) {
                     widgetImplementation.makeDefaultConfigAndData();
-
                     this.showInspector();
                 }
             }
@@ -197,7 +195,7 @@ export default {
                 .then($.noop, $.noop);
         },
         isComponentRegistered: function(componentName) {
-            return !!Vue.options.components[componentName];
+            return !!(window.oc && window.oc.vueComponents && window.oc.vueComponents[componentName]);
         },
         isKnownWidgetType: function(widgetType) {
             return [
@@ -373,16 +371,26 @@ export default {
             return this.store.state.range.interval;
         }
     },
-    mounted: function mounted() {
-        // Widgets are dragged together with their data.
-        // No need to reload the widget if its data is
-        // already loaded.
+    mounted: async function mounted() {
+        // Vue report widgets (chart, indicator, table) have their inspector schema
+        // available immediately, so the inspector can open right away.
+        //
+        // Classic report widgets (static) depend on loaded data for their schema,
+        // so we await load() before opening the inspector.
+        const needsConfiguration = this.systemFlags && this.systemFlags.needsConfiguration;
+
+        // Widgets are dragged together with their data. No need to reload the widget
+        // if its data is already loaded.
         if (this.loadedValue === undefined) {
-            this.load();
+            await oc.pageReady();
+            await this.load();
         }
         else {
-            this.showInspectorWhenLoaded();
             this.loading = false;
+        }
+
+        if (needsConfiguration) {
+            this.showInspectorWhenLoaded();
         }
     },
     beforeUnmount: function beforeUnmount() {

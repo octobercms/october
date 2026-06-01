@@ -3,5 +3,5 @@
         'section' => 'primary',
         'preview' => $initialState['isDeleted']
     ]) ?>
-    <input type="hidden" name="EntryRecord[content_group]" value="<?= e($formModel->content_group) ?>"/>
+    <input type="hidden" name="_content_group_value" value="<?= e($formModel->content_group) ?>"/>
 </div>

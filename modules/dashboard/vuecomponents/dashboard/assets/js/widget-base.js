@@ -353,7 +353,7 @@ export default {
             if (index !== -1) {
                 configuration.splice(index, 0, propConfiguration);
             } else {
-                throw new Error('Property ' + afterProperty + ' not found in the Inspector configuration');
+                throw new Error('Property ' + beforeProperty + ' not found in the Inspector configuration');
             }
         }
     }

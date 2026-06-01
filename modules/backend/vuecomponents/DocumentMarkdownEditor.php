@@ -31,8 +31,6 @@ class DocumentMarkdownEditor extends VueComponentBase
      */
     protected function loadAssets()
     {
-        $this->addJs('/modules/backend/vuecomponents/documentmarkdowneditor/assets/vendor/easymde@2.12.0/easymde.min.js');
-        $this->addCss('/modules/backend/vuecomponents/documentmarkdowneditor/assets/vendor/easymde@2.12.0/easymde.min.css');
         $this->addJs('js/formwidget.js', ['type' => 'module']);
     }
 
@@ -45,6 +43,8 @@ class DocumentMarkdownEditor extends VueComponentBase
      */
     protected function loadDependencyAssets()
     {
+        $this->addJs('/modules/backend/vuecomponents/documentmarkdowneditor/assets/vendor/easymde@2.12.0/easymde.min.js');
+        $this->addCss('/modules/backend/vuecomponents/documentmarkdowneditor/assets/vendor/easymde@2.12.0/easymde.min.css');
         $this->addJs('vendor/marked@1.2.0/marked.min.js');
         $this->addJs('vendor/dompurify@2.1.1/purify.min.js');
     }

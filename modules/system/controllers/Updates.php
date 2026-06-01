@@ -2,6 +2,7 @@
 
 use Lang;
 use Flash;
+use Artisan;
 use Backend;
 use BackendAuth;
 use BackendMenu;
@@ -175,6 +176,19 @@ class Updates extends Controller
         CacheHelper::clear();
 
         Flash::success(__("Cache cleared successfully."));
+    }
+
+    /**
+     * manage_onMigrateDatabase runs all pending migrations
+     */
+    public function manage_onMigrateDatabase()
+    {
+        Artisan::call('october:migrate');
+        Artisan::call('tailor:migrate');
+
+        Flash::success(__("Database migrated successfully."));
+
+        return $this->listRefresh('manage');
     }
 
     /**

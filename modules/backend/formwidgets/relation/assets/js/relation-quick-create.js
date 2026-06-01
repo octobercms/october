@@ -2,7 +2,6 @@ import { ControlBase, registerControl } from 'larajax';
 
 registerControl('relation-quick-create', class extends ControlBase {
     init() {
-        this.$el = $(this.element);
         this.config = Object.assign({
             handlerLoad: null,
             quickCreateValue: '__quick_create__',
@@ -12,6 +11,7 @@ registerControl('relation-quick-create', class extends ControlBase {
     }
 
     connect() {
+        this.$el = $(this.element);
         this.$select = this.$el.find('select').first();
         this.previousValue = this.$select.val();
         this.listen('change', 'select', this.onSelectChange);

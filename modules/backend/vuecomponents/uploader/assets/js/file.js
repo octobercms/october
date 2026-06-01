@@ -24,30 +24,35 @@ class File {
         this.key = makeUniqueFileKey();
         this.participatesInTotal = true;
         this.abortController = new AbortController();
-        this.promise = queue.add(
+
+        const self = Vue.reactive(this);
+
+        self.promise = queue.add(
             handlerName,
             formFieldName,
             file,
             file.name,
             (progress) => {
-                this.progress = progress;
+                self.progress = progress;
             },
-            this.abortController.signal,
+            self.abortController.signal,
             extraData
         );
 
-        this.promise.then(
+        self.promise.then(
             () => {
-                this.progress = 100;
-                this.status = 'completed';
+                self.progress = 100;
+                self.status = 'completed';
             },
             (err) => {
-                this.status = 'error';
+                self.status = 'error';
                 if (typeof err === 'string') {
-                    this.errorMessage = err;
+                    self.errorMessage = err;
                 }
             }
         );
+
+        return self;
     }
 
     abort() {

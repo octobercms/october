@@ -285,6 +285,10 @@ class ReportDataQueryBuilder
             $result->setTotalRecords($this->getTotalRecords());
         }
 
+        if ($this->groupInterval !== ReportDataSourceBase::GROUP_INTERVAL_DAY) {
+            $result->setPreAggregated();
+        }
+
         $result->setMetricTotals($this->getMetricTotals($metricsConfiguration));
 
         return $result;
@@ -671,8 +675,7 @@ class ReportDataQueryBuilder
         }
 
         if ($this->timestampColumnName && $this->startTimestamp !== null) {
-            $startTimestampDate = gmdate('Y-m-d H:i:s', $this->startTimestamp);
-            $query->where($this->timestampColumnName, '>=', $startTimestampDate);
+            $query->where($this->timestampColumnName, '>=', Carbon::createFromTimestamp($this->startTimestamp));
         }
 
         return $query;

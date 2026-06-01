@@ -9,8 +9,10 @@
     data-select-single-image="<?= e(trans('backend::lang.media.select_single_image')) ?>"
     data-selection-not-image="<?= e(trans('backend::lang.media.selection_not_image')) ?>"
     data-overwrite-confirm="<?= e(trans('backend::lang.media.overwrite_confirm')) ?>"
+    data-path-copied-message="<?= e(trans('backend::lang.media.path_copied')) ?>"
     data-bottom-toolbar="<?= $this->bottomToolbar ? 'true' : 'false' ?>"
     data-crop-and-insert-button="<?= $this->cropAndInsertButton ? 'true' : 'false' ?>"
+    data-max-filesize="<?= $maxFilesize ?>"
     data-read-only="<?= $this->readOnly ? 'true' : 'false' ?>"
     tabindex="0"
 >

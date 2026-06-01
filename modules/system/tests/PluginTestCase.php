@@ -92,6 +92,10 @@ abstract class PluginTestCase extends TestCase
                 continue;
             }
 
+            if (str_starts_with($class, 'Mockery_')) {
+                continue;
+            }
+
             $reflectClass = new ReflectionClass($class);
             if (
                 !$reflectClass->isInstantiable() ||

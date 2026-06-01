@@ -112,6 +112,7 @@
   "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Les alias du composant sont requis et doivent contenir uniquement des symboles latins, des chiffres et des tirets bas. Les alias doivent commencer par un symbole latin.",
   "Unnamed": "Sans nom",
   "No description provided": "Aucune description n’a été fournie",
+  "Insert Snippet": "Insérer un fragment",
   "No snippets found": "Aucun fragment trouvé",
   "Search...": "Rechercher...",
   "Snippet with the requested code :code was not found in the theme.": "Le fragment demandé avec le code :code n’a pas été trouvé dans le thème.",

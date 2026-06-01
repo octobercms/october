@@ -20,6 +20,11 @@ class BlueprintVerifier
     protected $registeredBlueprints = [];
 
     /**
+     * @var array warnings collects non-fatal validation warnings
+     */
+    protected $warnings = [];
+
+    /**
      * @var array|null knownSources stores known blueprint handles and UUIDs for source validation
      */
     protected $knownSources;
@@ -78,11 +83,20 @@ class BlueprintVerifier
     }
 
     /**
+     * getWarnings returns collected validation warnings
+     */
+    public function getWarnings(): array
+    {
+        return $this->warnings;
+    }
+
+    /**
      * clearCache resets all validation caches
      */
     public function clearCache(): void
     {
         $this->registeredBlueprints = [];
+        $this->warnings = [];
         $this->knownSources = null;
     }
 
@@ -169,8 +183,8 @@ class BlueprintVerifier
 
     /**
      * validateUniqueProperty checks a property value is unique across blueprints.
-     * Blueprints from different themes are allowed to share handles and UUIDs
-     * since only one theme is active at a time.
+     * Duplicates are collected as warnings instead of throwing exceptions since
+     * the first registered blueprint (by priority order) takes precedence.
      */
     protected function validateUniqueProperty(Blueprint $blueprint, string $property, string $key, string $filePath, ?string $theme = null)
     {
@@ -178,22 +192,16 @@ class BlueprintVerifier
 
         if (isset($this->registeredBlueprints[$cacheKey])) {
             $existing = $this->registeredBlueprints[$cacheKey];
-
-            // Allow duplicates across different themes since only one theme
-            // is active at a time
-            if ($theme !== null && $existing['theme'] !== null && $theme !== $existing['theme']) {
-                return;
-            }
-
             $existingPath = File::nicePath($existing['path']);
             $value = $blueprint->$property;
             $lineNo = $this->findLineFromKeyValPair($blueprint->content, $property, $value);
 
-            throw new BlueprintException(
-                $blueprint,
-                "Duplicate {$property} '{$value}'. Already defined in: {$existingPath}",
-                $lineNo
-            );
+            $this->warnings[] = [
+                'message' => "Duplicate {$property} '{$value}'. Already defined in: {$existingPath}",
+                'line' => $lineNo,
+                'file' => $filePath,
+            ];
+            return;
         }
 
         $this->registeredBlueprints[$cacheKey] = ['path' => $filePath, 'theme' => $theme];

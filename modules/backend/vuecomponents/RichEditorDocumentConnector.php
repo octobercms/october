@@ -66,6 +66,9 @@ class RichEditorDocumentConnector extends VueComponentBase
         $this->vars['configuration'] = json_encode($configuration);
     }
 
+    /**
+     * registerSubcomponents
+     */
     protected function registerSubcomponents()
     {
         $this->registerSubcomponent('formwidgetconnector');

@@ -11,9 +11,6 @@ import { ControlBase, registerControl } from 'larajax';
  */
 registerControl('datatable-handsontable', class extends ControlBase {
     init() {
-        this.containerEl = this.element.querySelector('[data-hot-container]');
-        this.dataInputEl = this.element.querySelector('[data-table-data]');
-
         this.config = Object.assign({
             columns: [],
             data: [],
@@ -30,6 +27,9 @@ registerControl('datatable-handsontable', class extends ControlBase {
     }
 
     connect() {
+        this.containerEl = this.element.querySelector('[data-hot-container]');
+        this.dataInputEl = this.element.querySelector('[data-table-data]');
+
         this.initHandsontable();
         this.bindToolbar();
         this.bindFormSubmit();
@@ -75,6 +75,8 @@ registerControl('datatable-handsontable', class extends ControlBase {
         var self = this;
         var columns = this.processColumns();
 
+        this.lastSelectedRow = null;
+
         var hotOptions = Object.assign({}, this.config.hotOptions, {
             data: this.config.data.length ? this.config.data : [{}],
             columns: columns,
@@ -88,6 +90,12 @@ registerControl('datatable-handsontable', class extends ControlBase {
             },
             afterCreateRow: function() {
                 self.syncToHiddenInput();
+            },
+            afterSelectionEnd: function(row) {
+                self.lastSelectedRow = row;
+            },
+            afterDeselect: function() {
+                // Keep lastSelectedRow so toolbar buttons can reference it
             }
         });
 
@@ -240,9 +248,13 @@ registerControl('datatable-handsontable', class extends ControlBase {
 
         this.listen('click', '[data-table-delete]', function() {
             var selected = self.hot.getSelected();
-            var row = selected ? selected[0][0] : self.hot.countRows() - 1;
+            var row = selected ? selected[0][0] : self.lastSelectedRow;
+            if (row === null || row === undefined) {
+                row = self.hot.countRows() - 1;
+            }
             if (row >= 0) {
                 self.hot.alter('remove_row', row);
+                self.lastSelectedRow = null;
             }
         });
 
@@ -263,7 +275,7 @@ registerControl('datatable-handsontable', class extends ControlBase {
     bindFormSubmit() {
         this.formEl = this.element.closest('form');
         if (this.formEl) {
-            this.formEl.addEventListener('ajaxBeforeSend', this.proxy(this.onBeforeFormSubmit));
+            this.listen('ajaxBeforeSend', this.formEl, this.onBeforeFormSubmit);
         }
     }
 

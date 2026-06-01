@@ -1,6 +1,5 @@
 <?php namespace Tailor\Traits;
 
-use Tailor\Models\EntryRecord;
 use Tailor\Models\GlobalRecord;
 use Tailor\Classes\Fieldset;
 use Tailor\Classes\Blueprint;
@@ -93,7 +92,8 @@ trait BlueprintModel
         }
 
         if ($blueprint instanceof EntryBlueprint) {
-            return EntryRecord::inSectionUuid($this->blueprint_uuid);
+            $modelClass = $blueprint->getModelClassName();
+            return $modelClass::inSectionUuid($this->blueprint_uuid);
         }
 
         throw new SystemException('Unable to find a usable blueprint in import/export model.');

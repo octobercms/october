@@ -205,7 +205,9 @@ class Controller extends Extendable implements AjaxControllerInterface
         // @see \System\Traits\SecurityController
         if (!$this->verifyCsrfToken()) {
             return Request::ajax()
-                ? ajax()->error(Lang::get('system::lang.page.invalid_token.label'), 403)->reload()
+                ? ajax()->error('', 403)->browserEvent('backend:token-mismatch', [
+                        'message' => Lang::get('system::lang.page.invalid_token.label')
+                    ])
                 : Backend::redirectGuest('backend/auth');
         }
 
@@ -551,6 +553,7 @@ class Controller extends Extendable implements AjaxControllerInterface
             $response = ajax()->invalidFields($ex->errors());
         }
         catch (Throwable $ex) {
+            report($ex);
             $response = ajax()->exception($ex);
         }
 

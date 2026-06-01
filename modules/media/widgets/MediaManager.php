@@ -17,6 +17,7 @@ use ApplicationException;
 use Backend\Classes\WidgetBase;
 use Media\Classes\MediaLibrary;
 use Media\Classes\MediaLibraryItem;
+use System\Models\File as FileModel;
 use October\Rain\Resize\Resizer;
 use October\Rain\Filesystem\Definitions as FileDefinitions;
 use Form as FormHelper;
@@ -569,7 +570,7 @@ class MediaManager extends WidgetBase
             }
             else {
                 $segments = explode('/', $folder);
-                $name = str_repeat('&nbsp;', (count($segments)-1)*4).basename($folder);
+                $name = str_repeat("\xC2\xA0", (count($segments)-1)*4).basename($folder);
             }
 
             $folderList[$path] = $name;
@@ -884,6 +885,7 @@ class MediaManager extends WidgetBase
         $this->vars['searchMode'] = $searchMode;
         $this->vars['searchTerm'] = $searchTerm;
         $this->vars['sidebarVisible'] = $this->getSidebarVisible();
+        $this->vars['maxFilesize'] = $this->getUploadMaxFilesize();
     }
 
     /**
@@ -1990,6 +1992,14 @@ class MediaManager extends WidgetBase
     protected function isVector($path)
     {
         return strtolower(pathinfo($path, PATHINFO_EXTENSION)) === 'svg';
+    }
+
+    /**
+     * getUploadMaxFilesize returns max upload filesize in MB
+     */
+    protected function getUploadMaxFilesize(): float
+    {
+        return FileModel::getMaxFilesize() / 1024;
     }
 
     /**

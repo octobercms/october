@@ -453,6 +453,30 @@ export default {
 
         onBlur: function onBlur() {
             this.$emit('blur');
+        },
+
+        onPaste: function onPaste(editor, event) {
+            var clipboardData = event.clipboardData;
+            if (!clipboardData || !clipboardData.items) {
+                return;
+            }
+
+            for (var i = 0; i < clipboardData.items.length; i++) {
+                if (clipboardData.items[i].type.indexOf('image/') === 0) {
+                    event.preventDefault();
+
+                    var file = clipboardData.items[i].getAsFile();
+                    var uploaderUtils = oc.vueComponentHelpers.uploader.utils;
+
+                    uploaderUtils.uploadMediaManagerFile(file).then(function(response) {
+                        var data = JSON.parse(response);
+                        var title = data.link.split('/').pop();
+                        editor.replaceSelection('![' + decodeURIComponent(title) + '](' + data.link + ')');
+                    });
+
+                    break;
+                }
+            }
         }
     },
     mounted: function onMounted() {
@@ -501,6 +525,7 @@ export default {
         this.editor.codemirror.on('change', this.onChange);
         this.editor.codemirror.on('focus', this.onFocus);
         this.editor.codemirror.on('blur', this.onBlur);
+        this.editor.codemirror.on('paste', this.onPaste);
         $(window).on('oc.updateUi', this.refresh);
         this.internalEventBus.on('toolbarcmd', this.onToolbarCommand);
 
@@ -526,6 +551,7 @@ export default {
             this.editor.codemirror.off('change', this.onEditorContextChanged);
             this.editor.codemirror.off('focus', this.onFocus);
             this.editor.codemirror.off('blur', this.onBlur);
+            this.editor.codemirror.off('paste', this.onPaste);
         }
 
         $(window).off('oc.updateUi', this.refresh);

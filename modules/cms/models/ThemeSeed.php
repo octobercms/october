@@ -126,9 +126,9 @@ class ThemeSeed extends Model
         if (File::isDirectory($themeBpPath)) {
             $this->note('Importing Blueprints');
             File::copyDirectory($themeBpPath, $appBpPath);
-
-            BlueprintIndexer::instance()->setNotesOutput($this->getNotesOutput())->migrate();
         }
+
+        BlueprintIndexer::instance()->setNotesOutput($this->getNotesOutput())->migrate();
     }
 
     /**

@@ -4,8 +4,9 @@
 +function ($) { "use strict";
 
     oc.registerControl('updatelist', class extends oc.ControlBase {
-        connect() {
+        async connect() {
             this.listen('click', '[data-updatelist-check]', this.checkForUpdates);
+            await oc.pageReady();
             this.checkForUpdates(true);
         }
 

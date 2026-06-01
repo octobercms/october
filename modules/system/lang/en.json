@@ -295,5 +295,12 @@
   "Edit Composer": "Edit Composer",
   "Composer file updated successfully.": "Composer file updated successfully.",
   "Invalid JSON: :error": "Invalid JSON: :error",
-  "Cache cleared successfully.": "Cache cleared successfully."
+  "Cache cleared successfully.": "Cache cleared successfully.",
+  "Migrate Database": "Migrate Database",
+  "Are you sure you want to run all pending migrations?": "Are you sure you want to run all pending migrations?",
+  "Database migrated successfully.": "Database migrated successfully.",
+  "Open Link": "Open Link",
+  "Path": "Path",
+  "Copy Path": "Copy Path",
+  "Copied!": "Copied!"
 }

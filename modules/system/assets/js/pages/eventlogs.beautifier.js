@@ -384,7 +384,8 @@
         var stacktrace,
             messageContainer,
             tabs,
-            iframe;
+            iframe,
+            attachments = [];
 
         markup.find('.beautifier-file').each(function () {
             $(this).find('.beautifier-class').each(function () {
@@ -425,27 +426,60 @@
 
         // Rude check if this is a mail message
         if (rawSource.includes('Message-ID:') && rawSource.includes('Subject:') && rawSource.includes('From:') && rawSource.includes('To:')) {
-            markup = rawSource.trim().replace(/(?:^|<\/html>)[^]*?(?:<html|$)/g, function(m) {
-                return m.replace(/\r\n|\r|\n/g, '<br>').replace(/ {2}/g, '&nbsp;&nbsp;')
-            });
+            // Extract the HTML portion from the MIME message
+            var htmlMatch = rawSource.match(/<html[\s\S]*<\/html>/i);
+            if (htmlMatch) {
+                markup = htmlMatch[0];
+            }
+            else {
+                // Fallback to plain text content
+                var textMatch = rawSource.match(/Content-Type:\s*text\/plain[^\r\n]*[\r\n]+(?:Content-Transfer-Encoding:[^\r\n]*[\r\n]+)*[\r\n]+([\s\S]*?)(?=\r?\n--)/);
+                markup = textMatch
+                    ? '<pre style="font-family:inherit">' + textMatch[1].replace(/</g, '&lt;') + '</pre>'
+                    : rawSource.trim().replace(/\r\n|\r|\n/g, '<br>');
+            }
 
             iframe = $('<iframe id="#beautifier-tab-formatted-iframe" sandbox="" style="width: 100%; height: 500px; padding: 0" frameborder="0"></iframe>');
+            iframe.attr('srcdoc', markup);
+
+            // Extract attachments from MIME parts
+            var parts = rawSource.split(/\r?\n--/);
+            parts.forEach(function(part) {
+                if (!/Content-Disposition:\s*attachment/i.test(part)) {
+                    return;
+                }
+                var typeMatch = part.match(/Content-Type:\s*([^\s;]+)/i);
+                var nameMatch = part.match(/(?:file)?name=["']?([^"';\r\n]+)/i);
+                var bodyMatch = part.match(/\r?\n\r?\n([\s\S]*?)$/);
+                if (typeMatch && nameMatch && bodyMatch) {
+                    attachments.push({
+                        name: nameMatch[1].trim(),
+                        type: typeMatch[1].trim(),
+                        data: bodyMatch[1].trim().replace(/\r?\n/g, '').replace(/--$/, '')
+                    });
+                }
+            });
         }
 
         // Build tab content
         if (iframe) {
             tabs.find('#beautifier-tab-formatted').append(iframe);
             iframe.wrap('<div class="beautifier-formatted-content" />');
-            iframe.on('load', function() {
-                var $html = iframe.contents().find('html');
-                $html.html(markup);
-                $html.css({
-                    'font-family': '-apple-system,BlinkMacSystemFont,"Segoe UI",Helvetica,Arial,sans-serif,"Apple Color Emoji","Segoe UI Emoji","Segoe UI Symbol"',
-                    'font-size': '14px',
-                    'color': '#74787e'
+
+            // Add attachment download links
+            if (attachments.length) {
+                var attachBar = $('<div class="beautifier-attachments" />');
+                attachments.forEach(function(file) {
+                    var dataUri = 'data:' + file.type + ';base64,' + file.data;
+                    $('<a class="beautifier-attachment" />')
+                        .attr('href', dataUri)
+                        .attr('download', file.name)
+                        .text(file.name)
+                        .prepend('<i class="icon-attachment"></i> ')
+                        .appendTo(attachBar);
                 });
-                iframe.height($html.height() + 1);
-            });
+                tabs.find('.beautifier-formatted-content').append(attachBar);
+            }
         }
         else {
             tabs.find('#beautifier-tab-formatted').append(markup);

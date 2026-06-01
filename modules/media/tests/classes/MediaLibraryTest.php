@@ -114,7 +114,10 @@ class MediaLibraryTest extends TestCase
         $result = self::callProtectedMethod($instance, 'scanFolderContents', ['']);
 
         foreach ($result['files'] as $item) {
-            $this->assertTrue(starts_with($item->path, '/'), "Path [$item->path] should start with a forward slash");
+            $this->assertTrue(
+                str_starts_with($item->path, '/'),
+                "Path [$item->path] should start with a forward slash"
+            );
         }
     }
 }

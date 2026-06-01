@@ -192,7 +192,7 @@ class Page extends CmsCompoundObject
 
         $page = self::loadCached($theme, $item->reference);
 
-        $params = PageLookupItem::extractUrlParams($item->attributes);
+        $params = PageLookupItem::extractUrlParams($item->attributes ?? []);
 
         $pageUrl = Cms::pageUrl($item->reference, $params);
 

@@ -13,6 +13,7 @@ use BackendAuth;
 use Backend\Models\AccessLog;
 use Backend\Classes\Controller;
 use Backend\Models\User as UserModel;
+use System\Classes\RateLimiter;
 use System\Classes\UpdateManager;
 use ApplicationException;
 use ValidationException;
@@ -179,6 +180,17 @@ class Auth extends Controller
         if ($validation->fails()) {
             throw new ValidationException($validation);
         }
+
+        // Throttle reset requests by IP to limit email flooding and slow
+        // username enumeration via timing analysis.
+        $limiter = new RateLimiter('backend.auth.restore');
+        if ($limiter->tooManyAttempts(5)) {
+            throw new ApplicationException(__("Too many password reset attempts, please try again in :seconds seconds.", [
+                'seconds' => $limiter->availableIn()
+            ]));
+        }
+
+        $limiter->increment(600);
 
         $user = BackendAuth::findUserByLogin(post('login'));
 

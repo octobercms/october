@@ -1,0 +1,117 @@
+/*
+ * Base editor typography styles.
+ * Single canonical source for richeditor and markdown editor.
+ * Placed in @layer so EditorSetting customizations always win.
+ */
+
+@layer editor-base {
+    .component-backend-richeditor .fr-box .fr-element.fr-view,
+    .component-backend-documentmarkdowneditor {
+        --oc-editor-blockquote-l1: #5e35b1;
+        --oc-editor-blockquote-l2: #00bcd4;
+        --oc-editor-blockquote-l3: #43a047;
+        --oc-editor-table-header-bg: #e6e6e6;
+        --oc-editor-code-bg: #eee;
+        --oc-editor-table-border: #ddd;
+        --oc-editor-muted-color: #434343;
+
+        a {
+            text-decoration: underline;
+            color: var(--oc-link-color);
+        }
+
+        h1 {
+            font-size: 34px;
+            font-weight: normal;
+            margin-bottom: 20px;
+        }
+
+        h2 {
+            font-size: 26px;
+            font-weight: normal;
+            margin-bottom: 20px;
+        }
+
+        h3 {
+            font-size: 21px;
+            font-weight: normal;
+            margin-bottom: 20px;
+        }
+
+        h4 {
+            font-size: 18px;
+            font-weight: normal;
+            margin: 20px 0;
+        }
+
+        h5 {
+            font-size: 16px;
+            font-weight: normal;
+            color: var(--oc-editor-muted-color);
+        }
+
+        strong {
+            font-weight: 700;
+        }
+
+        pre {
+            white-space: pre-wrap;
+            word-wrap: break-word;
+            padding: 5px 10px;
+            border-radius: 4px;
+        }
+
+        code {
+            background: var(--oc-editor-code-bg);
+            padding: 0px 3px 2px;
+            display: inline-block;
+            border-radius: 4px;
+        }
+
+        blockquote {
+            border-left: solid 2px var(--oc-editor-blockquote-l1);
+            margin-left: 0;
+            padding-left: 5px;
+            color: var(--oc-editor-blockquote-l1);
+            font-size: inherit;
+
+            blockquote {
+                border-color: var(--oc-editor-blockquote-l2);
+                color: var(--oc-editor-blockquote-l2);
+
+                blockquote {
+                    border-color: var(--oc-editor-blockquote-l3);
+                    color: var(--oc-editor-blockquote-l3);
+                }
+            }
+        }
+
+        table {
+            border: none;
+            border-collapse: collapse;
+            empty-cells: show;
+            max-width: 100%;
+            margin-bottom: 10px;
+
+            td,
+            th {
+                border: 1px solid var(--oc-editor-table-border);
+                padding: 5px;
+
+                &:empty {
+                    height: 20px;
+                }
+            }
+
+            th {
+                background: var(--oc-editor-table-header-bg);
+            }
+        }
+
+        hr {
+            clear: both;
+            user-select: none;
+            page-break-after: always;
+        }
+    }
+}

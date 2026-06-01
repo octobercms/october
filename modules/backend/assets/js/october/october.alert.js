@@ -6,6 +6,7 @@
  * JavaScript API:
  * oc.alert()
  * oc.confirm()
+ * oc.confirmReload()
  *
  * Dependencies:
  * - Translations (october.lang.js)
@@ -44,6 +45,16 @@
         return oc.vueComponentHelpers.modalUtils.showConfirm(messageTitle, message, {});
     }
 
+    oc.confirmReload = function(message) {
+        return oc.vueComponentHelpers.modalUtils.showConfirm(
+            $.oc.lang.get('alert.confirm'),
+            message,
+            { buttonText: $.oc.lang.get('alert.reload') }
+        ).then(function() {
+            location.reload();
+        });
+    }
+
     // @deprecated
     if ($.oc === undefined) {
         $.oc = {};
@@ -67,6 +78,19 @@ $(window).on('ajaxErrorMessage', function(event, message) {
     // Prevent the default alert() message
     event.preventDefault();
 })
+
+addEventListener('backend:token-mismatch', function(event) {
+    event.preventDefault();
+
+    if (window.jaxTokenMismatch) {
+        return;
+    }
+
+    window.jaxTokenMismatch = true;
+    oc.confirmReload(event.detail.message).then(null, function() {
+        window.jaxTokenMismatch = false;
+    });
+});
 
 $(window).on('ajaxConfirmMessage', function(event, message, promise) {
     if (!message) {

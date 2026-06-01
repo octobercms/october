@@ -10,6 +10,7 @@ import InputPreset from './controls/input/input-preset.js';
 import InputHotkeyControl from './controls/input/input-hotkey-control.js';
 import InputTriggerControl from './controls/input/input-trigger-control.js';
 import ChangeMonitorControl from './controls/input/change-monitor-control.js';
+import DragScrollControl from './controls/drag-scroll/drag-scroll-control.js';
 
 // Instances
 oc.ContextMenu = ContextMenu;
@@ -23,6 +24,7 @@ registerControl('search-input', SearchInputControl);
 registerControl('custom-select', CustomSelectControl);
 registerControl('tab', TabControl);
 registerControl('datepicker', DatePickerControl);
+registerControl('drag-scroll', DragScrollControl);
 
 // Scripts
 registerControl('input-hotkey', InputHotkeyControl);

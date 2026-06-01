@@ -41,14 +41,12 @@ oc.registerControl('mailpreview', class extends oc.ControlBase {
         var content = previewTemplate.innerHTML;
         var previewIframe = this.previewIframe = document.createElement('iframe');
 
-        this.updatePreviewContent(content);
-
         previewIframe.style.width = '100%';
         previewIframe.setAttribute('frameborder', 0);
-        previewIframe.setAttribute('id', this.element.id);
         previewIframe.onload = this.adjustPreviewHeight.bind(this);
 
         this.element.appendChild(previewIframe);
+        this.updatePreviewContent(content);
 
         return previewIframe;
     }
@@ -67,10 +65,14 @@ oc.registerControl('mailpreview', class extends oc.ControlBase {
     }
 
     adjustPreviewHeight() {
-        // Fudge factor for retina displays
-        var offset = 1;
-        this.previewIframe.style.height = (this.previewIframe.contentWindow.document.getElementsByTagName('body')[0].scrollHeight) +
-            offset +
-            'px';
+        try {
+            var body = this.previewIframe.contentWindow.document.body;
+            if (body && body.scrollHeight > 0) {
+                this.previewIframe.style.height = (body.scrollHeight + 1) + 'px';
+            }
+        }
+        catch (e) {
+            // Iframe content not ready
+        }
     }
 });

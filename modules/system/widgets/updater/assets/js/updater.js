@@ -91,7 +91,7 @@
                 }
 
                 var template = $('#executeFailed').html(),
-                    html = Mustache.to_html(template, reason);
+                    html = Mustache.render(template, reason);
 
                 $('#executeActivity').hide();
                 $('#executeStatus').html(html);

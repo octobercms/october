@@ -4,7 +4,7 @@
  */
 
 // ESM (bundled with esbuild)
-import * as Vue from '../vendor/vue/vue.esm.js';
+import * as Vue from 'vue';
 window.Vue = Vue;
 
 import * as VueRouter from '../vendor/vue-router/vue-router.esm.js';

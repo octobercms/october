@@ -8,13 +8,15 @@ export class ExtensionBase {
     constructor(namespace) {
         this.editorNamespace = namespace;
 
-        this.state = {
+        // Vue 3: Make state reactive so modifications through the
+        // extension reference trigger Vue updates for shared objects
+        this.state = Vue.reactive({
             navigatorSections: [],
             createMenuItems: [],
             newDocumentData: {},
             settingsForms: {},
             customData: null
-        };
+        });
     }
 
     get customData() {

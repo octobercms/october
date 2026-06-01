@@ -107,6 +107,12 @@ class BlueprintIndexer
             }
         }
 
+        // Output any duplicate handle/UUID warnings
+        $warnings = BlueprintVerifier::instance()->getWarnings();
+        foreach ($warnings as $warning) {
+            $this->note('- <comment>Warning</comment>: ' . $warning['message']);
+        }
+
         // Migrate blueprints
         foreach ($allBlueprints as $blueprint) {
             if ($blueprint instanceof EntryBlueprint) {
@@ -284,6 +290,6 @@ class BlueprintIndexer
 
         $theme = Theme::getEditTheme() ?: Theme::getActiveTheme();
 
-        return $theme ? $theme->getDirname() : null;
+        return $theme ? $theme->getDirName() : null;
     }
 }

@@ -21,9 +21,7 @@ export default {
     },
     methods: {
         setCellRef: function setCellRef(el, index) {
-            if (el) {
-                this.cellRefs[index] = el;
-            }
+            this.cellRefs[index] = el;
         },
 
         focusFirst: function focusFirst() {

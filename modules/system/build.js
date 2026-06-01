@@ -124,6 +124,7 @@ concat([
 
 // ESM packages (need bundling to resolve bare imports)
 await bundle('vue/dist/vue.esm-browser.js', 'vue/vue.esm.js');
+await bundle('vue/dist/vue.esm-browser.prod.js', 'vue/vue.esm.prod.js');
 await bundle('vue-router', 'vue-router/vue-router.esm.js');
 await bundle('mitt', 'mitt/mitt.esm.js');
 await bundle('bootstrap', 'bootstrap/bootstrap.esm.js');

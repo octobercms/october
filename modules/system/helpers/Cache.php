@@ -85,7 +85,7 @@ class Cache
     {
         collect(File::files(cache_path('cms')))
             ->reject(function($file) {
-                return !starts_with($file->getFilename(), 'theme-');
+                return !str_starts_with($file->getFilename(), 'theme-');
             })
             ->each(function($file) {
                 File::delete(cache_path('cms/'.$file->getFilename()));
@@ -99,7 +99,7 @@ class Cache
     {
         collect(File::files(cache_path('cms')))
             ->reject(function($file) {
-                return !starts_with($file->getFilename(), 'blueprint-');
+                return !str_starts_with($file->getFilename(), 'blueprint-');
             })
             ->each(function($file) {
                 File::delete(cache_path('cms/'.$file->getFilename()));

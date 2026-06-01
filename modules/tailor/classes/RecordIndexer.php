@@ -1,6 +1,7 @@
 <?php namespace Tailor\Classes;
 
 use App;
+use Tailor\Models\StructureRecord;
 
 /**
  * RecordIndexer super class responsible for indexing record models
@@ -23,7 +24,7 @@ class RecordIndexer
      */
     public function process($model)
     {
-        if ($model->isEntryStructure()) {
+        if ($model instanceof StructureRecord) {
             $this->processFullSlug($model);
         }
     }

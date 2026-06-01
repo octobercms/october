@@ -35,7 +35,7 @@ class ActiveSite
         $rootUri = trim(parse_url(Url::to(''), PHP_URL_PATH), '/');
         $fullUri = trim(parse_url($request->fullUrl(), PHP_URL_PATH), '/');
 
-        return $rootUri === "" || starts_with($fullUri, $rootUri)
+        return $rootUri === "" || str_starts_with($fullUri, $rootUri)
             ? trim(substr($fullUri, strlen($rootUri)), '/')
             : $fullUri;
     }

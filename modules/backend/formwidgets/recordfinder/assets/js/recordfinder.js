@@ -11,8 +11,6 @@ import { ControlBase, registerControl } from 'larajax';
  */
 registerControl('recordfinder', class extends ControlBase {
     init() {
-        this.$el = $(this.element);
-
         this.config = Object.assign({
             refreshHandler: null,
             dataLocker: null
@@ -20,6 +18,7 @@ registerControl('recordfinder', class extends ControlBase {
     }
 
     connect() {
+        this.$el = $(this.element);
         this.listen('dblclick', this.onDoubleClick);
     }
 

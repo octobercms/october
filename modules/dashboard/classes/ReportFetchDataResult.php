@@ -21,6 +21,13 @@ class ReportFetchDataResult
     private $metricTotals = [];
 
     /**
+     * @var bool preAggregated indicates the data has already been aggregated by the
+     * date group interval at the query level, so the framework should only normalize
+     * (gap-fill) the data without re-aggregating metric values.
+     */
+    private $preAggregated = false;
+
+    /**
      * Constructs a new ReportFetchDataResult instance.
      * @param array $rows An array of row objects to initialize the result dataset
      */
@@ -107,6 +114,24 @@ class ReportFetchDataResult
     public function getMetricTotals(): array
     {
         return $this->metricTotals;
+    }
+
+    /**
+     * Sets the pre-aggregated flag indicating the data has already been aggregated
+     * by the date group interval at the query level.
+     */
+    public function setPreAggregated(bool $preAggregated = true): ReportFetchDataResult
+    {
+        $this->preAggregated = $preAggregated;
+        return $this;
+    }
+
+    /**
+     * Returns whether the data has been pre-aggregated by the date group interval.
+     */
+    public function isPreAggregated(): bool
+    {
+        return $this->preAggregated;
     }
 
     /**

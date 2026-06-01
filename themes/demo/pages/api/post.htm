@@ -1,0 +1,43 @@
+##
+url = "/api/blog/post/:id"
+layout = "api"
+
+[section post]
+handle = "Blog\Post"
+identifier = "id"
+==
+{#
+    GET /api/blog/post/:id
+    ======================
+    Returns a single blog post by ID with full content and related data.
+
+    Example: /api/blog/post/1
+    Returns 404 JSON error if the post is not found.
+#}
+{% if post is empty %}
+    {% do response({ error: 'Post not found' }, 404) %}
+{% endif %}
+
+{% do post.load('author', 'categories') %}
+
+{% do response({
+    data: {
+        id: post.id,
+        title: post.title,
+        slug: post.slug,
+        content: post.content,
+        entry_type: post.entry_type,
+        featured_text: post.featured_text,
+        banner: post.banner ? post.banner.path : null,
+        published_at: post.published_at_date,
+        author: post.author ? {
+            id: post.author.id,
+            title: post.author.title,
+            slug: post.author.slug,
+            email: post.author.email,
+            role: post.author.role,
+            avatar: post.author.avatar
+        } : null,
+        categories: post.categories.pluck('title', 'slug')
+    }
+}) %}

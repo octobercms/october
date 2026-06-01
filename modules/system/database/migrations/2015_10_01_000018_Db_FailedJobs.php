@@ -9,6 +9,7 @@ return new class extends Migration
     {
         Schema::create($this->getTableName(), function (Blueprint $table) {
             $table->increments('id');
+            $table->string('uuid')->unique()->nullable();
             $table->text('connection');
             $table->text('queue');
             $table->text('payload');

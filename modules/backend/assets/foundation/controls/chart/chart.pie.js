@@ -1,41 +1,52 @@
 /*
- * The pie chart plugin.
+ * Pie chart control
  *
  * Data attributes:
- * - data-control="chart-pie" - enables the pie chart plugin
+ * - data-control="chart-pie" - enables the pie chart control
  * - data-size="200" - optional, size of the graph
  * - data-center-text - text to display inside the graph
  *
  * JavaScript API:
- * $('.scoreboard .chart').pieChart()
+ * oc.fetchControl(element, 'chart-pie')
  *
  * Dependencies:
- * - Raphaël (raphael-min.js)
+ * - Raphael (raphael-min.js)
  * - October chart utilities (chart.utils.js)
  */
-+function ($) { "use strict";
+oc.registerControl('chart-pie', class extends oc.ControlBase {
+    init() {
+        this.config = Object.assign({
+            size: undefined,
+            centerText: undefined,
+            startAngle: 45
+        }, this.config);
+    }
 
-    var PieChart = function (element, options) {
-        this.options = options || {}
-
-        var
-            $el = this.$el = $(element),
-            size = this.size = (this.options.size !== undefined ? this.options.size : $el.height()),
-            outerRadius = size/2 - 1,
-            innerRadius = outerRadius - outerRadius/3.5,
-            values = $.oc.chartUtils.loadListValues($('ul', $el)),
-            $legend = $.oc.chartUtils.createLegend($('ul', $el)),
-            indicators = $.oc.chartUtils.initLegendColorIndicators($legend),
-            self = this;
-
+    connect() {
+        this.$el = $(this.element);
         // Canvas already drawn
-        var $canvas = $('div.canvas', $el);
-        if ($canvas.length > 0) {
+        if ($('div.canvas', this.$el).length > 0) {
             return;
         }
 
+        this.buildChart();
+    }
+
+    disconnect() {
+        this.$el = null;
+    }
+
+    buildChart() {
+        var size = this.size = (this.config.size !== undefined ? this.config.size : this.$el.height()),
+            outerRadius = size/2 - 1,
+            innerRadius = outerRadius - outerRadius/3.5,
+            values = $.oc.chartUtils.loadListValues($('ul', this.$el)),
+            $legend = $.oc.chartUtils.createLegend($('ul', this.$el)),
+            indicators = $.oc.chartUtils.initLegendColorIndicators($legend),
+            self = this;
+
         var $canvas = $('<div />').addClass('canvas').width(size).height(size);
-        $el.prepend($canvas);
+        this.$el.prepend($canvas);
 
         // Truncate scoreboard in cases where there are more than 3 items
         $legend.height(size).css('overflow', 'hidden');
@@ -77,14 +88,14 @@
 
                 path.hover(function(ev){
                     $.oc.chartUtils.showTooltip(ev.pageX, ev.pageY,
-                        $.trim($.oc.chartUtils.getLegendLabel($legend, index)) + ': <strong>'+valueInfo.value+'</stong>')
+                        $.trim($.oc.chartUtils.getLegendLabel($legend, index)) + ': <strong>'+valueInfo.value+'</strong>')
                 }, function() {
                     $.oc.chartUtils.hideTooltip()
                 })
             });
 
             // Animate segments
-            var start = self.options.startAngle
+            var start = self.config.startAngle
             $.each(values.values, function(index, valueInfo) {
                 var length = (values.total && valueInfo.value) ? 360/values.total * valueInfo.value : 0
                 if (length == 360)
@@ -95,56 +106,27 @@
             });
         })
 
-        if (this.options.centerText !== undefined) {
-            var $text = $('<span>').addClass('center').html(this.options.centerText);
+        if (this.config.centerText !== undefined) {
+            var $text = $('<span>').addClass('center').html(this.config.centerText);
             $canvas.append($text);
         }
     }
 
-    PieChart.prototype.arcCoords = function(radius, angle) {
-      var
-        a = Raphael.rad(angle),
-        x = this.size/2 + radius * Math.cos(a),
-        y = this.size/2 - radius * Math.sin(a);
+    arcCoords(radius, angle) {
+        var
+            a = Raphael.rad(angle),
+            x = this.size/2 + radius * Math.cos(a),
+            y = this.size/2 - radius * Math.sin(a);
 
         return {'x': x, 'y': y};
     }
+});
 
-    PieChart.DEFAULTS = {
-        startAngle: 45
-    }
+// JQUERY PLUGIN DEFINITION
+// ============================
 
-    // PIECHART PLUGIN DEFINITION
-    // ============================
-
-    var old = $.fn.pieChart
-
-    $.fn.pieChart = function (option) {
-        return this.each(function () {
-            var $this = $(this)
-            var data  = $this.data('oc.pieChart')
-            var options = $.extend({}, PieChart.DEFAULTS, $this.data(), typeof option == 'object' && option)
-
-            if (!data)
-                $this.data('oc.pieChart', new PieChart(this, options))
-        })
-    }
-
-    $.fn.pieChart.Constructor = PieChart
-
-    // PIECHART NO CONFLICT
-    // =================
-
-    $.fn.pieChart.noConflict = function () {
-        $.fn.pieChart = old
-        return this
-    }
-
-    // PIECHART DATA-API
-    // ===============
-
-    $(document).render(function () {
-        $('[data-control=chart-pie]').pieChart()
-    })
-
-}(window.jQuery);
+$.fn.pieChart = function (option) {
+    return this.each(function () {
+        oc.observeControl(this, 'chart-pie');
+    });
+};

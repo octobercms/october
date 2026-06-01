@@ -25,9 +25,13 @@
                                 <i class="icon-chain"></i>
                             </div>
                             <div class="info">
-                                <span class="recordname"><?= e(__($nameValue)) ?: __('Link') ?></span>
+                                <span class="recordname">
+                                    <?= e($nameValue) ?: __('Link') ?>
+                                </span>
                                 <?php if ($descriptionValue): ?>
-                                    <span class="description"> - <?= e(__($descriptionValue)) ?></span>
+                                    <span class="description">
+                                        <?= e($descriptionValue) ?>
+                                    </span>
                                 <?php endif ?>
                             </div>
                         </div>

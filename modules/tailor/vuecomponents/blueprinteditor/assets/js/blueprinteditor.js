@@ -15,8 +15,6 @@ export default {
         );
 
         return {
-            documentData: {
-            },
             documentDeletedMessage: this.trans('tailor::lang.blueprint.deleted'),
             documentTitleProperty: 'fileName',
             codeEditorModelDefinitions: [defMarkup],
@@ -159,6 +157,23 @@ export default {
             try {
                 const data = await this.saveDocument(false, null, null, noSavedMessage);
                 this.$refs.editor.updateDecorations([]);
+
+                // Show warning decorations for duplicate handles/UUIDs
+                if (data.blueprintWarnings && data.blueprintWarnings.length) {
+                    const decorations = data.blueprintWarnings.map(function(warning) {
+                        return {
+                            range: this.$refs.editor.makeRange(warning.line, 1, warning.line, 100),
+                            options: {
+                                isWholeLine: true,
+                                className: 'monaco-warning-line',
+                                glyphMarginClassName: 'monaco-warning-glyph',
+                                hoverMessage: [{ value: warning.message }],
+                                glyphMarginHoverMessage: [{ value: warning.message }]
+                            }
+                        };
+                    }.bind(this));
+                    this.$refs.editor.updateDecorations(decorations);
+                }
 
                 if (data.contentChanged) {
                     this.processing = true;

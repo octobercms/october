@@ -13,10 +13,6 @@ export default {
         );
 
         return {
-            documentData: {
-                markup: '',
-                components: []
-            },
             documentSettingsPopupTitle: this.trans('cms::lang.editor.content'),
             documentTitleProperty: 'fileName',
             codeEditorModelDefinitions: [defMarkup],
@@ -144,6 +140,19 @@ export default {
 
         monacoLoaded: function monacoLoaded() {
             this.updateDocumentLanguage();
+        },
+
+        onToolbarCommand: function onToolbarCommand(command, isHotkey, ev) {
+            this.handleBasicDocumentCommands(command, isHotkey);
+
+            if (command === 'show-template-info') {
+                this.showTemplateInfo();
+            }
+
+            var connector = this.$refs.richEditorDocumentConnector || this.$refs.markdownEditor;
+            if (connector && connector.internalEventBus) {
+                connector.internalEventBus.emit('toolbarcmd', { command: command, ev: ev });
+            }
         },
 
         onParentTabSelected: function onParentTabSelected() {

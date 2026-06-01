@@ -193,10 +193,14 @@ trait VueMaker
     protected function getEsmModuleUrl(string $path): string
     {
         $basePath = base_path();
+
         if (str_starts_with($path, $basePath)) {
             $path = substr($path, strlen($basePath));
         }
-        return str_replace('\\', '/', $path);
+
+        $path = str_replace('\\', '/', $path);
+
+        return Request::getBasePath() . '/' . ltrim($path, '/');
     }
 
     /**

@@ -12,7 +12,7 @@ use ReflectionMethod;
  */
 class DependencyResolver
 {
-    use \Illuminate\Routing\RouteDependencyResolverTrait;
+    use \Illuminate\Routing\ResolvesRouteDependencies;
 
     /**
      * @var Container container for application

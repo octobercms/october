@@ -55,7 +55,8 @@ window.oc.langMessages['id'] = Object.assign(
         "dismiss": "Dismiss",
         "confirm_button_text": "OK",
         "cancel_button_text": "Cancel",
-        "widget_remove_confirm": "Remove this widget?"
+        "widget_remove_confirm": "Remove this widget?",
+        "reload": "Reload"
     },
     "datepicker": {
         "previousMonth": "Previous Month",
@@ -154,131 +155,561 @@ window.oc.langMessages['id'] = Object.assign(
         "cancel": "Cancel",
         "items": "Items"
     },
-    "[not set]": "[not set]",
-    "1 day (today) if not set": "1 day (today) if not set",
-    "Apply": "Apply",
-    "Ascending": "Ascending",
-    "Attribute": "Attribute",
-    "Bar": "Bar",
-    "Chart": "Chart",
-    "Chart type": "Chart type",
-    "Color": "Color",
-    "Compare Totals": "Compare Totals",
-    "Configure": "Configure",
-    "Custom": "Custom",
-    "Dashboard interval": "Dashboard interval",
-    "Data source": "Data source",
-    "Date interval": "Date interval",
-    "Day": "Day",
-    "Delete": "Delete",
-    "Delete Dashboard": "Delete Dashboard",
-    "Delete row": "Delete row",
-    "Descending": "Descending",
-    "Dimension": "Dimension",
-    "Direction": "Direction",
-    "Disabled": "Disabled",
-    "Display": "Display",
-    "Display [not set]": "Display [not set]",
-    "Display all records": "Display all records",
-    "Display relative bars": "Display relative bars",
-    "Display totals": "Display totals",
-    "Edit Dashboard": "Edit Dashboard",
-    "Empty values": "Empty values",
-    "Enter a positive number": "Enter a positive number",
-    "Enter a positive number or leave empty to display all records.": "Enter a positive number or leave empty to display all records.",
-    "Equal to": "Equal to",
-    "Export Dashboard": "Export Dashboard",
-    "Extra table fields": "Extra table fields",
-    "Filters": "Filters",
-    "General": "General",
-    "Greater or equal to": "Greater or equal to",
-    "Greater than": "Greater than",
-    "Hide": "Hide",
-    "Horizontal": "Horizontal",
-    "Icon": "Icon",
-    "Icon Status": "Icon Status",
-    "Important": "Important",
-    "Includes": "Includes",
-    "Indicator": "Indicator",
-    "Information": "Information",
-    "Last 30 days": "Last 30 days",
-    "Last 7 days": "Last 7 days",
-    "Last month": "Last month",
-    "Leave empty to disable pagination": "Leave empty to disable pagination",
-    "Leave empty to hide the title": "Leave empty to hide the title",
-    "Less or equal to": "Less or equal to",
-    "Less than": "Less than",
-    "Limit": "Limit",
-    "Line": "Line",
-    "Link Text": "Link Text",
-    "Link URL": "Link URL",
-    "Make Default": "Make Default",
-    "Manage Dashboards": "Manage Dashboards",
-    "Metric": "Metric",
-    "Metrics": "Metrics",
-    "Month": "Month",
-    "My Custom Widget": "My Custom Widget",
-    "No Value": "No Value",
-    "Notice text": "Notice text",
-    "Number of days": "Number of days",
-    "One of": "One of",
-    "One value per line": "One value per line",
-    "Operation": "Operation",
-    "Order": "Order",
-    "Past hour": "Past hour",
-    "Past X days": "Past X days",
-    "Please provide the widget title": "Please provide the widget title",
-    "Please select a data source": "Please select a data source",
-    "Please select a dimension": "Please select a dimension",
-    "Please select an icon": "Please select an icon",
-    "Please select metric(s).": "Please select metric(s).",
-    "Prev period": "Prev period",
-    "Quarter": "Quarter",
-    "Records per page": "Records per page",
-    "Refresh every minute": "Refresh every minute",
-    "Rename Dashboard": "Rename Dashboard",
-    "Reset Layout": "Reset Layout",
-    "Reset layout back to default?": "Reset layout back to default?",
-    "Same period last year": "Same period last year",
-    "Section": "Section",
-    "Section Title": "Section Title",
-    "Select a dimension and metrics": "Select a dimension and metrics",
-    "Select an attribute": "Select an attribute",
-    "Select an operation": "Select an operation",
-    "Select sorting metric or dimension": "Select sorting metric or dimension",
-    "Select the metric color": "Select the metric color",
-    "Set the current layout as the default?": "Set the current layout as the default?",
-    "Show Date Interval": "Show Date Interval",
-    "Sort by": "Sort by",
-    "Sorting": "Sorting",
-    "Sorting & Filtering": "Sorting & Filtering",
-    "Stacked Bar": "Stacked Bar",
-    "Starts with": "Starts with",
-    "Success": "Success",
-    "Table": "Table",
-    "Text Notice": "Text Notice",
-    "The dashboard layout has been reset to default.": "The dashboard layout has been reset to default.",
-    "The dashboard was successfully updated.": "The dashboard was successfully updated.",
-    "The limit value must be at least 1": "The limit value must be at least 1",
-    "This dashboard is now the default layout.": "This dashboard is now the default layout.",
-    "This is a text notice widget.": "This is a text notice widget.",
-    "This month": "This month",
-    "This quarter": "This quarter",
-    "This week": "This week",
-    "This year": "This year",
-    "Title": "Title",
-    "Today": "Today",
-    "Value": "Value",
-    "Values": "Values",
-    "Vertical": "Vertical",
-    "Warning": "Warning",
-    "Week": "Week",
-    "Year": "Year",
-    "Yesterday": "Yesterday"
+    "[not set]": "[belum diatur]",
+    "1 day (today) if not set": "1 hari (hari ini) jika belum diatur",
+    "Apply": "Menerapkan",
+    "Ascending": "Naik",
+    "Attribute": "Atribut",
+    "Bar": "Batang",
+    "Chart": "Bagan",
+    "Chart type": "Jenis grafik",
+    "Color": "Warna",
+    "Compare Totals": "Bandingkan Total",
+    "Configure": "Konfigurasi",
+    "Custom": "Kebiasaan",
+    "Dashboard interval": "Interval dasbor",
+    "Data source": "Sumber data",
+    "Date interval": "Interval tanggal",
+    "Day": "Hari",
+    "Delete": "Menghapus",
+    "Delete Dashboard": "Hapus Dasbor",
+    "Delete row": "Hapus baris",
+    "Descending": "Menurun",
+    "Dimension": "Dimensi",
+    "Direction": "Arah",
+    "Disabled": "Dengan disabilitas",
+    "Display": "Menampilkan",
+    "Display [not set]": "Tampilan [belum diatur]",
+    "Display all records": "Tampilkan semua catatan",
+    "Display relative bars": "Tampilkan batang relatif",
+    "Display totals": "Tampilkan total",
+    "Edit Dashboard": "Edit Dasbor",
+    "Empty values": "Nilai kosong",
+    "Enter a positive number": "Masukkan angka positif",
+    "Enter a positive number or leave empty to display all records.": "Masukkan angka positif atau biarkan kosong untuk menampilkan semua data.",
+    "Equal to": "Sama dengan",
+    "Export Dashboard": "Ekspor Dasbor",
+    "Extra table fields": "Kolom tabel tambahan",
+    "Filters": "Filter",
+    "General": "Umum",
+    "Greater or equal to": "Lebih besar atau sama dengan",
+    "Greater than": "Lebih besar dari",
+    "Hide": "Bersembunyi",
+    "Horizontal": "Horisontal",
+    "Icon": "Ikon",
+    "Icon Status": "Status Ikon",
+    "Important": "Penting",
+    "Includes": "Termasuk",
+    "Indicator": "Indikator",
+    "Information": "Informasi",
+    "Last 30 days": "30 hari terakhir",
+    "Last 7 days": "7 hari terakhir",
+    "Last month": "Bulan lalu",
+    "Leave empty to disable pagination": "Biarkan kosong untuk menonaktifkan paginasi.",
+    "Leave empty to hide the title": "Biarkan kosong untuk menyembunyikan judul.",
+    "Less or equal to": "Kurang dari atau sama dengan",
+    "Less than": "Kurang dari",
+    "Limit": "Membatasi",
+    "Line": "Garis",
+    "Link Text": "Teks Tautan",
+    "Link URL": "Tautan URL",
+    "Make Default": "Jadikan Default",
+    "Manage Dashboards": "Kelola Dasbor",
+    "Metric": "Metrik",
+    "Metrics": "Metrik",
+    "Month": "Bulan",
+    "My Custom Widget": "Widget Kustom Saya",
+    "No Value": "Tidak Bernilai",
+    "Notice text": "Teks pemberitahuan",
+    "Number of days": "Jumlah hari",
+    "One of": "Salah satu",
+    "One value per line": "Satu nilai per baris",
+    "Operation": "Operasi",
+    "Order": "Memesan",
+    "Past hour": "Satu jam yang lalu",
+    "Past X days": "X hari terakhir",
+    "Please provide the widget title": "Mohon berikan judul widgetnya.",
+    "Please select a data source": "Silakan pilih sumber data.",
+    "Please select a dimension": "Silakan pilih dimensi",
+    "Please select an icon": "Silakan pilih ikon",
+    "Please select metric(s).": "Silakan pilih metrik.",
+    "Prev period": "Periode sebelumnya",
+    "Quarter": "Seperempat",
+    "Records per page": "Jumlah catatan per halaman",
+    "Refresh every minute": "Segarkan setiap menit",
+    "Rename Dashboard": "Ganti nama Dasbor",
+    "Reset Layout": "Atur Ulang Tata Letak",
+    "Reset layout back to default?": "Apakah tata letak perlu dikembalikan ke pengaturan default?",
+    "Same period last year": "Periode yang sama tahun lalu",
+    "Section": "Bagian",
+    "Section Title": "Judul Bagian",
+    "Select a dimension and metrics": "Pilih dimensi dan metrik",
+    "Select an attribute": "Pilih atribut",
+    "Select an operation": "Pilih operasi",
+    "Select sorting metric or dimension": "Pilih metrik atau dimensi pengurutan",
+    "Select the metric color": "Pilih warna metrik",
+    "Set the current layout as the default?": "Jadikan tata letak saat ini sebagai tata letak default?",
+    "Show Date Interval": "Tampilkan Interval Tanggal",
+    "Sort by": "Urutkan berdasarkan",
+    "Sorting": "Penyortiran",
+    "Sorting & Filtering": "Pengurutan & Pemfilteran",
+    "Stacked Bar": "Batang Bertumpuk",
+    "Starts with": "Dimulai dengan",
+    "Success": "Kesuksesan",
+    "Table": "Meja",
+    "Text Notice": "Pemberitahuan Teks",
+    "The dashboard layout has been reset to default.": "Tata letak dasbor telah diatur ulang ke pengaturan default.",
+    "The dashboard was successfully updated.": "Dasbor berhasil diperbarui.",
+    "The limit value must be at least 1": "Nilai batasnya harus minimal 1.",
+    "This dashboard is now the default layout.": "Dasbor ini sekarang menjadi tata letak default.",
+    "This is a text notice widget.": "Ini adalah widget pemberitahuan teks.",
+    "This month": "Bulan ini",
+    "This quarter": "Kuartal ini",
+    "This week": "Minggu ini",
+    "This year": "tahun ini",
+    "Title": "Judul",
+    "Today": "Hari ini",
+    "Value": "Nilai",
+    "Values": "Nilai-nilai",
+    "Vertical": "Vertikal",
+    "Warning": "Peringatan",
+    "Week": "Pekan",
+    "Year": "Tahun",
+    "Yesterday": "Kemarin"
 }
 );
+
+
+//! moment.js locale configuration
+//! locale : Indonesian [id]
+//! author : Mohammad Satrio Utomo : https://github.com/tyok
+//! reference: http://id.wikisource.org/wiki/Pedoman_Umum_Ejaan_Bahasa_Indonesia_yang_Disempurnakan
+
+;(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined'
+       && typeof require === 'function' ? factory(require('../moment')) :
+   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   factory(global.moment)
+}(this, (function (moment) { 'use strict';
+
+    //! moment.js locale configuration
+
+    var id = moment.defineLocale('id', {
+        months: 'Januari_Februari_Maret_April_Mei_Juni_Juli_Agustus_September_Oktober_November_Desember'.split(
+            '_'
+        ),
+        monthsShort: 'Jan_Feb_Mar_Apr_Mei_Jun_Jul_Agt_Sep_Okt_Nov_Des'.split('_'),
+        weekdays: 'Minggu_Senin_Selasa_Rabu_Kamis_Jumat_Sabtu'.split('_'),
+        weekdaysShort: 'Min_Sen_Sel_Rab_Kam_Jum_Sab'.split('_'),
+        weekdaysMin: 'Mg_Sn_Sl_Rb_Km_Jm_Sb'.split('_'),
+        longDateFormat: {
+            LT: 'HH.mm',
+            LTS: 'HH.mm.ss',
+            L: 'DD/MM/YYYY',
+            LL: 'D MMMM YYYY',
+            LLL: 'D MMMM YYYY [pukul] HH.mm',
+            LLLL: 'dddd, D MMMM YYYY [pukul] HH.mm',
+        },
+        meridiemParse: /pagi|siang|sore|malam/,
+        meridiemHour: function (hour, meridiem) {
+            if (hour === 12) {
+                hour = 0;
+            }
+            if (meridiem === 'pagi') {
+                return hour;
+            } else if (meridiem === 'siang') {
+                return hour >= 11 ? hour : hour + 12;
+            } else if (meridiem === 'sore' || meridiem === 'malam') {
+                return hour + 12;
+            }
+        },
+        meridiem: function (hours, minutes, isLower) {
+            if (hours < 11) {
+                return 'pagi';
+            } else if (hours < 15) {
+                return 'siang';
+            } else if (hours < 19) {
+                return 'sore';
+            } else {
+                return 'malam';
+            }
+        },
+        calendar: {
+            sameDay: '[Hari ini pukul] LT',
+            nextDay: '[Besok pukul] LT',
+            nextWeek: 'dddd [pukul] LT',
+            lastDay: '[Kemarin pukul] LT',
+            lastWeek: 'dddd [lalu pukul] LT',
+            sameElse: 'L',
+        },
+        relativeTime: {
+            future: 'dalam %s',
+            past: '%s yang lalu',
+            s: 'beberapa detik',
+            ss: '%d detik',
+            m: 'semenit',
+            mm: '%d menit',
+            h: 'sejam',
+            hh: '%d jam',
+            d: 'sehari',
+            dd: '%d hari',
+            M: 'sebulan',
+            MM: '%d bulan',
+            y: 'setahun',
+            yy: '%d tahun',
+        },
+        week: {
+            dow: 0, // Sunday is the first day of the week.
+            doy: 6, // The week that contains Jan 6th is the first week of the year.
+        },
+    });
+
+    return id;
+
+})));
 
 
 /*! Select2 4.1.0-rc.0 | https://github.com/select2/select2/blob/master/LICENSE.md */
 
 !function(){if(jQuery&&jQuery.fn&&jQuery.fn.select2&&jQuery.fn.select2.amd)var n=jQuery.fn.select2.amd;n.define("select2/i18n/id",[],function(){return{errorLoading:function(){return"Data tidak boleh diambil."},inputTooLong:function(n){return"Hapuskan "+(n.input.length-n.maximum)+" huruf"},inputTooShort:function(n){return"Masukkan "+(n.minimum-n.input.length)+" huruf lagi"},loadingMore:function(){return"Mengambil data…"},maximumSelected:function(n){return"Anda hanya dapat memilih "+n.maximum+" pilihan"},noResults:function(){return"Tidak ada data yang sesuai"},searching:function(){return"Mencari…"},removeAllItems:function(){return"Hapus semua item"}}}),n.define,n.require}();
+
+/*!
+ * Froala Editor for October CMS
+ */
+
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function( root, jQuery ) {
+            if ( jQuery === undefined ) {
+                // require('jQuery') returns a factory that requires window to
+                // build a jQuery instance, we normalize how we use modules
+                // that require this pattern but the window provided is a noop
+                // if it's defined (how jquery works)
+                if ( typeof window !== 'undefined' ) {
+                    jQuery = require('jquery');
+                }
+                else {
+                    jQuery = require('jquery')(root);
+                }
+            }
+            return factory(jQuery);
+        };
+    } else {
+        // Browser globals
+        factory(window.jQuery);
+    }
+}(function ($) {
+/**
+ * Indonesian
+ */
+
+if (!$.FE_LANGUAGE) {
+    $.FE_LANGUAGE = {};
+}
+
+$.FE_LANGUAGE['id'] = {
+  translation: {
+    // Place holder
+    "Type something": "Ketik sesuatu",
+
+    // Basic formatting
+    "Bold": "Tebal",
+    "Italic": "Miring",
+    "Underline": "Garis bawah",
+    "Strikethrough": "Coret",
+
+    // Main buttons
+    "Insert": "Memasukkan",
+    "Delete": "Hapus",
+    "Cancel": "Batal",
+    "OK": "Ok",
+    "Back": "Kembali",
+    "Remove": "Hapus",
+    "More": "Lebih",
+    "Update": "Memperbarui",
+    "Style": "Gaya",
+
+    // Font
+    "Font Family": "Jenis Huruf",
+    "Font Size": "Ukuran leter",
+
+    // Colors
+    "Colors": "Warna",
+    "Background": "Latar belakang",
+    "Text": "Teks",
+    "HEX Color": "Warna hex",
+
+    // Paragraphs
+    "Paragraph Format": "Format",
+    "Normal": "Normal",
+    "Code": "Kode",
+    "Heading 1": "Header 1",
+    "Heading 2": "Header 2",
+    "Heading 3": "Header 3",
+    "Heading 4": "Header 4",
+
+    // Style
+    "Paragraph Style": "Paragraf gaya",
+    "Inline Style": "Di barisan gaya",
+
+    // Alignment
+    "Align": "Rate",
+    "Align Left": "Rate kiri",
+    "Align Center": "Rate tengah",
+    "Align Right": "Rata kanan",
+    "Align Justify": "Justifi",
+    "None": "Tak satupun",
+
+    // Lists
+    "Ordered List": "List nomor",
+    "Default": "Standar",
+    "Lower Alpha": "Alpha lebih rendah",
+    "Lower Greek": "Yunani lebih rendah",
+    "Lower Roman": "Roman rendah",
+    "Upper Alpha": "Alpha atas",
+    "Upper Roman": "Roman atas",
+
+    "Unordered List": "List simbol",
+    "Circle": "Lingkaran",
+    "Disc": "Cakram",
+    "Square": "Kotak",
+
+    // Line height
+    "Line Height": "Tinggi garis",
+    "Single": "Tunggal",
+    "Double": "Dua kali lipat",
+
+    // Indent
+    "Decrease Indent": "Turunkan inden",
+    "Increase Indent": "Tambah inden",
+
+    // Links
+    "Insert Link": "Memasukkan link",
+    "Open in new tab": "Buka di tab baru",
+    "Open Link": "Buka tautan",
+    "Edit Link": "Mengedit link",
+    "Unlink": "Menghapus link",
+    "Choose Link": "Memilih link",
+
+    // Images
+    "Insert Image": "Memasukkan gambar",
+    "Upload Image": "Meng-upload gambar",
+    "By URL": "Oleh URL",
+    "Browse": "Melihat-lihat",
+    "Drop image": "Jatuhkan gambar",
+    "or click": "atau klik",
+    "Manage Images": "Mengelola gambar",
+    "Loading": "Pemuatan",
+    "Deleting": "Menghapus",
+    "Tags": "Label",
+    "Are you sure? Image will be deleted.": "Apakah Anda yakin? Gambar akan dihapus.",
+    "Replace": "Mengganti",
+    "Uploading": "Gambar upload",
+    "Loading image": "Pemuatan gambar",
+    "Display": "Pameran",
+    "Inline": "Di barisan",
+    "Break Text": "Memecah teks",
+    "Alternative Text": "Teks alternatif",
+    "Change Size": "Ukuran perubahan",
+    "Width": "Lebar",
+    "Height": "Tinggi",
+    "Something went wrong. Please try again.": "Ada yang salah. Silakan coba lagi.",
+    "Image Caption": "Keterangan gambar",
+    "Advanced Edit": "Edit lanjutan",
+
+    // Video
+    "Insert Video": "Memasukkan video",
+    "Embedded Code": "Kode tertanam",
+    "Paste in a video URL": "Paste di url video",
+    "Drop video": "Jatuhkan video",
+    "Your browser does not support HTML5 video.": "Browser Anda tidak mendukung video html5.",
+    "Upload Video": "Mengunggah video",
+
+    // Tables
+    "Insert Table": "Sisipkan tabel",
+    "Table Header": "Header tabel",
+    "Remove Table": "Hapus tabel",
+    "Table Style": "Gaya tabel",
+    "Horizontal Align": "Menyelaraskan horisontal",
+
+    "Row": "Baris",
+    "Insert row above": "Sisipkan baris di atas",
+    "Insert row below": "Sisipkan baris di bawah",
+    "Delete row": "Hapus baris",
+    "Column": "Kolom",
+    "Insert column before": "Sisipkan kolom sebelumSisipkan kolom sebelum",
+    "Insert column after": "Sisipkan kolom setelah",
+    "Delete column": "Hapus kolom",
+    "Cell": "Sel",
+    "Merge cells": "Menggabungkan sel",
+    "Horizontal split": "Perpecahan horisontal",
+    "Vertical split": "Perpecahan vertikal",
+    "Cell Background": "Latar belakang sel",
+    "Vertical Align": "Menyelaraskan vertikal",
+    "Top": "Teratas",
+    "Middle": "Tengah",
+    "Bottom": "Bagian bawah",
+    "Align Top": "Menyelaraskan atas",
+    "Align Middle": "Menyelaraskan tengah",
+    "Align Bottom": "Menyelaraskan bawah",
+    "Cell Style": "Gaya sel",
+
+    // Files
+    "Upload File": "Meng-upload berkas",
+    "Drop file": "Jatuhkan berkas",
+
+    // Emoticons
+    "Emoticons": "Emoticon",
+    "Grinning face": "Sambil tersenyum wajah",
+    "Grinning face with smiling eyes": "Sambil tersenyum wajah dengan mata tersenyum",
+    "Face with tears of joy": "Hadapi dengan air mata sukacita",
+    "Smiling face with open mouth": "Tersenyum wajah dengan mulut terbuka",
+    "Smiling face with open mouth and smiling eyes": "Tersenyum wajah dengan mulut terbuka dan tersenyum mata",
+    "Smiling face with open mouth and cold sweat": "Tersenyum wajah dengan mulut terbuka dan keringat dingin",
+    "Smiling face with open mouth and tightly-closed eyes": "Tersenyum wajah dengan mulut terbuka dan mata tertutup rapat",
+    "Smiling face with halo": "Tersenyum wajah dengan halo",
+    "Smiling face with horns": "Tersenyum wajah dengan tanduk",
+    "Winking face": "Mengedip wajah",
+    "Smiling face with smiling eyes": "Tersenyum wajah dengan mata tersenyum",
+    "Face savoring delicious food": "Wajah menikmati makanan lezat",
+    "Relieved face": "Wajah Lega",
+    "Smiling face with heart-shaped eyes": "Tersenyum wajah dengan mata berbentuk hati",
+    "Smiling face with sunglasses": "Tersenyum wajah dengan kacamata hitam",
+    "Smirking face": "Menyeringai wajah",
+    "Neutral face": "Wajah Netral",
+    "Expressionless face": "Wajah tanpa ekspresi",
+    "Unamused face": "Wajah tidak senang",
+    "Face with cold sweat": "Muka dengan keringat dingin",
+    "Pensive face": "Wajah termenung",
+    "Confused face": "Wajah Bingung",
+    "Confounded face": "Wajah kesal",
+    "Kissing face": "wajah mencium",
+    "Face throwing a kiss": "Wajah melempar ciuman",
+    "Kissing face with smiling eyes": "Berciuman wajah dengan mata tersenyum",
+    "Kissing face with closed eyes": "Berciuman wajah dengan mata tertutup",
+    "Face with stuck out tongue": "Muka dengan menjulurkan lidah",
+    "Face with stuck out tongue and winking eye": "Muka dengan menjulurkan lidah dan mengedip mata",
+    "Face with stuck out tongue and tightly-closed eyes": "Wajah dengan lidah terjebak dan mata erat-tertutup",
+    "Disappointed face": "Wajah kecewa",
+    "Worried face": "Wajah Khawatir",
+    "Angry face": "Wajah Marah",
+    "Pouting face": "Cemberut wajah",
+    "Crying face": "Menangis wajah",
+    "Persevering face": "Tekun wajah",
+    "Face with look of triumph": "Hadapi dengan tampilan kemenangan",
+    "Disappointed but relieved face": "Kecewa tapi lega wajah",
+    "Frowning face with open mouth": "Sambil mengerutkan kening wajah dengan mulut terbuka",
+    "Anguished face": "Wajah sedih",
+    "Fearful face": "Wajah Takut",
+    "Weary face": "Wajah lelah",
+    "Sleepy face": "wajah mengantuk",
+    "Tired face": "Wajah Lelah",
+    "Grimacing face": "Sambil meringis wajah",
+    "Loudly crying face": "Keras menangis wajah",
+    "Face with open mouth": "Hadapi dengan mulut terbuka",
+    "Hushed face": "Wajah dipetieskan",
+    "Face with open mouth and cold sweat": "Hadapi dengan mulut terbuka dan keringat dingin",
+    "Face screaming in fear": "Hadapi berteriak dalam ketakutan",
+    "Astonished face": "Wajah Kaget",
+    "Flushed face": "Wajah memerah",
+    "Sleeping face": "Tidur face",
+    "Dizzy face": "Wajah pusing",
+    "Face without mouth": "Wajah tanpa mulut",
+    "Face with medical mask": "Hadapi dengan masker medis",
+
+    // Line breaker
+    "Break": "Memecah",
+
+    // Math
+    "Subscript": "Subskrip",
+    "Superscript": "Superskrip",
+
+    // Full screen
+    "Fullscreen": "Layar penuh",
+
+    // Horizontal line
+    "Insert Horizontal Line": "Sisipkan Garis Horizontal",
+
+    // Clear formatting
+    "Clear Formatting": "Menghapus format",
+
+    // Save
+    "Save": "Menyimpan",
+
+    // Undo, redo
+    "Undo": "Batal",
+    "Redo": "Ulang",
+
+    // Select all
+    "Select All": "Pilih semua",
+
+    // Code view
+    "Code View": "Melihat kode",
+
+    // Quote
+    "Quote": "Kutipan",
+    "Increase": "Meningkat",
+    "Decrease": "Penurunan",
+
+    // Quick Insert
+    "Quick Insert": "Memasukkan cepat",
+
+    // Spcial Characters
+    "Special Characters": "Karakter spesial",
+    "Latin": "Latin",
+    "Greek": "Yunani",
+    "Cyrillic": "Kyrillic",
+    "Punctuation": "Tanda baca",
+    "Currency": "Mata uang",
+    "Arrows": "Panah",
+    "Math": "Matematika",
+    "Misc": "Misc",
+
+    // Print.
+    "Print": "Mencetak",
+
+    // Spell Checker.
+    "Spell Checker": "Pemeriksa ejaan",
+
+    // Help
+    "Help": "Membantu",
+    "Shortcuts": "Jalan pintas",
+    "Inline Editor": "Editor inline",
+    "Show the editor": "Tunjukkan editornya",
+    "Common actions": "Tindakan umum",
+    "Copy": "Salinan",
+    "Cut": "Memotong",
+    "Paste": "Pasta",
+    "Basic Formatting": "Format dasar",
+    "Increase quote level": "Meningkatkan tingkat kutipan",
+    "Decrease quote level": "Menurunkan tingkat kutipan",
+    "Image / Video": "Gambar / video",
+    "Resize larger": "Mengubah ukuran lebih besar",
+    "Resize smaller": "Mengubah ukuran lebih kecil",
+    "Table": "Meja",
+    "Select table cell": "Pilih sel tabel",
+    "Extend selection one cell": "Memperpanjang seleksi satu sel",
+    "Extend selection one row": "Perpanjang pilihan satu baris",
+    "Navigation": "Navigasi",
+    "Focus popup / toolbar": "Fokus popup / toolbar",
+    "Return focus to previous position": "Kembali fokus ke posisi sebelumnya",
+
+    // Embed.ly
+    "Embed URL": "Embed url",
+    "Paste in a URL to embed": "Paste di url untuk menanamkan",
+
+    // Word Paste.
+    "The pasted content is coming from a Microsoft Word document. Do you want to keep the format or clean it up?": "Konten yang disisipkan berasal dari dokumen kata microsoft. apakah Anda ingin menyimpan format atau membersihkannya?",
+    "Keep": "Menjaga",
+    "Clean": "Bersih",
+    "Word Paste Detected": "Kata paste terdeteksi"
+  },
+  direction: "ltr"
+};
+
+}));
+

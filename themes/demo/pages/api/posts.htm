@@ -1,0 +1,71 @@
+##
+url = "/api/blog/posts"
+layout = "api"
+
+[collection posts]
+handle = "Blog\Post"
+==
+<?
+function onStart()
+{
+    $this['searchTerm'] = get('search');
+    $this['categorySlug'] = get('category');
+    $this['sortField'] = get('sort', 'published_at_date');
+    $this['sortDirection'] = get('direction', 'desc');
+    $this['perPage'] = (int) get('per_page', 10);
+}
+?>
+==
+{#
+    GET /api/blog/posts
+    ===================
+    Returns a paginated list of blog posts with curated fields.
+
+    Query parameters:
+        ?page=1          - Page number (default: 1)
+        ?per_page=10     - Results per page (default: 10)
+        ?search=keyword  - Search posts by title and content
+        ?category=slug   - Filter posts by category slug
+        ?sort=title      - Sort field (default: published_at_date)
+        ?direction=asc   - Sort direction: asc or desc (default: desc)
+
+    Example: /api/blog/posts?search=hello&category=news&sort=title&direction=asc
+#}
+{% set result = posts %}
+
+{% if searchTerm %}
+    {% set result = result.searchWhere(searchTerm, ['title', 'content']) %}
+{% endif %}
+
+{% if categorySlug %}
+    {% set result = result.whereRelation('categories', 'slug', categorySlug) %}
+{% endif %}
+
+{% set result = result.orderBy(sortField, sortDirection).paginate(perPage) %}
+
+{% do result.load('author', 'categories') %}
+
+{% set data = collect() %}
+{% for post in result %}
+    {% do data.push({
+        id: post.id,
+        title: post.title,
+        slug: post.slug,
+        featured_text: post.featured_text,
+        published_at: post.published_at_date,
+        author: post.author ? {
+            id: post.author.id,
+            title: post.author.title,
+            slug: post.author.slug
+        } : null,
+        categories: post.categories.pluck('title', 'slug')
+    }) %}
+{% endfor %}
+
+{% set pager = pager(result) %}
+
+{% do response({
+    data: data,
+    links: pager.links,
+    meta: pager.meta
+}) %}

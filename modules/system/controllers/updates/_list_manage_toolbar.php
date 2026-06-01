@@ -58,6 +58,15 @@
             dataStripeLoadIndicator: true
         ) ?>
 
+        <?= Ui::ajaxButton(
+            label: __("Migrate Database"),
+            handler: 'onMigrateDatabase',
+            icon: 'icon-database',
+            secondary: true,
+            dataRequestConfirm: __("Are you sure you want to run all pending migrations?"),
+            dataStripeLoadIndicator: true
+        ) ?>
+
         <?= Ui::popupButton(
             label: __("Edit Composer"),
             handler: 'onLoadComposerForm',

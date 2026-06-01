@@ -41,8 +41,19 @@
         "allow-plugins": {
             "composer/installers": true
         },
-        "audit": {
-            "block-insecure": false
+        "policy": {
+            "advisories": {
+                "block": false,
+                "audit": "report"
+            },
+            "abandoned": {
+                "block": false,
+                "audit": "report"
+            },
+            "malware": {
+                "block": true,
+                "audit": "report"
+            }
         }
     },
     "autoload": {

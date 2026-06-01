@@ -55,7 +55,8 @@ window.oc.langMessages['ca'] = Object.assign(
         "dismiss": "Dismiss",
         "confirm_button_text": "OK",
         "cancel_button_text": "Cancel\u00b7lar",
-        "widget_remove_confirm": "Eliminar aquest widget?"
+        "widget_remove_confirm": "Eliminar aquest widget?",
+        "reload": "Reload"
     },
     "datepicker": {
         "previousMonth": "Mes anterior",
@@ -152,129 +153,242 @@ window.oc.langMessages['ca'] = Object.assign(
         "cancel": "Cancel",
         "items": "Items"
     },
-    "[not set]": "[not set]",
-    "1 day (today) if not set": "1 day (today) if not set",
-    "Apply": "Apply",
-    "Ascending": "Ascending",
-    "Attribute": "Attribute",
+    "[not set]": "[no definit]",
+    "1 day (today) if not set": "1 dia (avui) si no s'ha definit",
+    "Apply": "Aplica",
+    "Ascending": "Ascendent",
+    "Attribute": "Atribut",
     "Bar": "Bar",
-    "Chart": "Chart",
-    "Chart type": "Chart type",
+    "Chart": "Gr\u00e0fic",
+    "Chart type": "Tipus de gr\u00e0fic",
     "Color": "Color",
-    "Compare Totals": "Compare Totals",
-    "Configure": "Configure",
-    "Custom": "Custom",
-    "Dashboard interval": "Dashboard interval",
-    "Data source": "Data source",
-    "Date interval": "Date interval",
-    "Day": "Day",
-    "Delete": "Delete",
-    "Delete Dashboard": "Delete Dashboard",
-    "Delete row": "Delete row",
-    "Descending": "Descending",
-    "Dimension": "Dimension",
-    "Direction": "Direction",
-    "Disabled": "Disabled",
-    "Display": "Display",
-    "Display [not set]": "Display [not set]",
-    "Display all records": "Display all records",
-    "Display relative bars": "Display relative bars",
-    "Display totals": "Display totals",
-    "Edit Dashboard": "Edit Dashboard",
-    "Empty values": "Empty values",
-    "Enter a positive number": "Enter a positive number",
-    "Enter a positive number or leave empty to display all records.": "Enter a positive number or leave empty to display all records.",
-    "Equal to": "Equal to",
-    "Export Dashboard": "Export Dashboard",
-    "Extra table fields": "Extra table fields",
-    "Filters": "Filters",
+    "Compare Totals": "Comparar totals",
+    "Configure": "Configura",
+    "Custom": "Personalitzat",
+    "Dashboard interval": "Interval del tauler de control",
+    "Data source": "Font de dades",
+    "Date interval": "Interval de dates",
+    "Day": "Dia",
+    "Delete": "Suprimeix",
+    "Delete Dashboard": "Suprimeix el tauler de control",
+    "Delete row": "Suprimeix la fila",
+    "Descending": "Descendent",
+    "Dimension": "Dimensi\u00f3",
+    "Direction": "Direcci\u00f3",
+    "Disabled": "Discapacitat",
+    "Display": "Pantalla",
+    "Display [not set]": "Pantalla [no configurada]",
+    "Display all records": "Mostra tots els registres",
+    "Display relative bars": "Mostra les barres relatives",
+    "Display totals": "Mostra els totals",
+    "Edit Dashboard": "Edita el tauler de control",
+    "Empty values": "Valors buits",
+    "Enter a positive number": "Introdueix un nombre positiu",
+    "Enter a positive number or leave empty to display all records.": "Introdu\u00efu un n\u00famero positiu o deixeu-ho en blanc per mostrar tots els registres.",
+    "Equal to": "Igual a",
+    "Export Dashboard": "Exporta el tauler de control",
+    "Extra table fields": "Camps de taula addicionals",
+    "Filters": "Filtres",
     "General": "General",
-    "Greater or equal to": "Greater or equal to",
-    "Greater than": "Greater than",
-    "Hide": "Hide",
-    "Horizontal": "Horizontal",
-    "Icon": "Icon",
-    "Icon Status": "Icon Status",
+    "Greater or equal to": "M\u00e9s gran o igual a",
+    "Greater than": "M\u00e9s gran que",
+    "Hide": "Amaga",
+    "Horizontal": "Horitzontal",
+    "Icon": "Icona",
+    "Icon Status": "Estat de la icona",
     "Important": "Important",
-    "Includes": "Includes",
-    "Indicator": "Indicator",
-    "Information": "Information",
-    "Last 30 days": "Last 30 days",
-    "Last 7 days": "Last 7 days",
-    "Last month": "Last month",
-    "Leave empty to disable pagination": "Leave empty to disable pagination",
-    "Leave empty to hide the title": "Leave empty to hide the title",
-    "Less or equal to": "Less or equal to",
-    "Less than": "Less than",
-    "Limit": "Limit",
-    "Line": "Line",
-    "Link Text": "Link Text",
-    "Link URL": "Link URL",
-    "Make Default": "Make Default",
-    "Manage Dashboards": "Manage Dashboards",
-    "Metric": "Metric",
-    "Metrics": "Metrics",
-    "Month": "Month",
-    "My Custom Widget": "My Custom Widget",
-    "No Value": "No Value",
-    "Notice text": "Notice text",
-    "Number of days": "Number of days",
-    "One of": "One of",
-    "One value per line": "One value per line",
-    "Operation": "Operation",
-    "Order": "Order",
-    "Past hour": "Past hour",
-    "Past X days": "Past X days",
-    "Please provide the widget title": "Please provide the widget title",
-    "Please select a data source": "Please select a data source",
-    "Please select a dimension": "Please select a dimension",
-    "Please select an icon": "Please select an icon",
-    "Please select metric(s).": "Please select metric(s).",
-    "Prev period": "Prev period",
-    "Quarter": "Quarter",
-    "Records per page": "Records per page",
-    "Refresh every minute": "Refresh every minute",
-    "Rename Dashboard": "Rename Dashboard",
-    "Reset Layout": "Reset Layout",
-    "Reset layout back to default?": "Reset layout back to default?",
-    "Same period last year": "Same period last year",
-    "Section": "Section",
-    "Section Title": "Section Title",
-    "Select a dimension and metrics": "Select a dimension and metrics",
-    "Select an attribute": "Select an attribute",
-    "Select an operation": "Select an operation",
-    "Select sorting metric or dimension": "Select sorting metric or dimension",
-    "Select the metric color": "Select the metric color",
-    "Set the current layout as the default?": "Set the current layout as the default?",
-    "Show Date Interval": "Show Date Interval",
-    "Sort by": "Sort by",
-    "Sorting": "Sorting",
-    "Sorting & Filtering": "Sorting & Filtering",
-    "Stacked Bar": "Stacked Bar",
-    "Starts with": "Starts with",
-    "Success": "Success",
-    "Table": "Table",
-    "Text Notice": "Text Notice",
-    "The dashboard layout has been reset to default.": "The dashboard layout has been reset to default.",
-    "The dashboard was successfully updated.": "The dashboard was successfully updated.",
-    "The limit value must be at least 1": "The limit value must be at least 1",
-    "This dashboard is now the default layout.": "This dashboard is now the default layout.",
-    "This is a text notice widget.": "This is a text notice widget.",
-    "This month": "This month",
-    "This quarter": "This quarter",
-    "This week": "This week",
-    "This year": "This year",
-    "Title": "Title",
-    "Today": "Today",
-    "Value": "Value",
-    "Values": "Values",
+    "Includes": "Inclou",
+    "Indicator": "Indicador",
+    "Information": "Informaci\u00f3",
+    "Last 30 days": "darrers 30 dies",
+    "Last 7 days": "\u00daltims 7 dies",
+    "Last month": "El mes passat",
+    "Leave empty to disable pagination": "Deixeu-ho en blanc per desactivar la paginaci\u00f3",
+    "Leave empty to hide the title": "Deixeu-ho en blanc per ocultar el t\u00edtol",
+    "Less or equal to": "Menys o igual a",
+    "Less than": "Menys de",
+    "Limit": "L\u00edmit",
+    "Line": "L\u00ednia",
+    "Link Text": "Text de l'enlla\u00e7",
+    "Link URL": "URL de l'enlla\u00e7",
+    "Make Default": "Estableix com a predeterminat",
+    "Manage Dashboards": "Gestiona els taulers de control",
+    "Metric": "M\u00e8trica",
+    "Metrics": "M\u00e8triques",
+    "Month": "Mes",
+    "My Custom Widget": "El meu widget personalitzat",
+    "No Value": "Sense valor",
+    "Notice text": "Text d'av\u00eds",
+    "Number of days": "Nombre de dies",
+    "One of": "Un de",
+    "One value per line": "Un valor per l\u00ednia",
+    "Operation": "Operaci\u00f3",
+    "Order": "Comanda",
+    "Past hour": "Hora passada",
+    "Past X days": "Darrers X dies",
+    "Please provide the widget title": "Si us plau, proporcioneu el t\u00edtol del widget",
+    "Please select a data source": "Seleccioneu una font de dades",
+    "Please select a dimension": "Si us plau, seleccioneu una dimensi\u00f3",
+    "Please select an icon": "Si us plau, seleccioneu una icona",
+    "Please select metric(s).": "Seleccioneu m\u00e8triques.",
+    "Prev period": "Per\u00edode anterior",
+    "Quarter": "Trimestre",
+    "Records per page": "Registres per p\u00e0gina",
+    "Refresh every minute": "Actualitza cada minut",
+    "Rename Dashboard": "Canvia el nom del tauler de control",
+    "Reset Layout": "Restableix el disseny",
+    "Reset layout back to default?": "Voleu restablir el disseny per defecte?",
+    "Same period last year": "El mateix per\u00edode de l'any passat",
+    "Section": "Secci\u00f3",
+    "Section Title": "T\u00edtol de la secci\u00f3",
+    "Select a dimension and metrics": "Seleccioneu una dimensi\u00f3 i unes m\u00e8triques",
+    "Select an attribute": "Selecciona un atribut",
+    "Select an operation": "Selecciona una operaci\u00f3",
+    "Select sorting metric or dimension": "Seleccioneu la m\u00e8trica o la dimensi\u00f3 d'ordenaci\u00f3",
+    "Select the metric color": "Seleccioneu el color de la m\u00e8trica",
+    "Set the current layout as the default?": "Voleu establir el disseny actual com a predeterminat?",
+    "Show Date Interval": "Mostra l'interval de dates",
+    "Sort by": "Ordena per",
+    "Sorting": "Ordenaci\u00f3",
+    "Sorting & Filtering": "Ordenaci\u00f3 i filtratge",
+    "Stacked Bar": "Barra apilada",
+    "Starts with": "Comen\u00e7a amb",
+    "Success": "\u00c8xit",
+    "Table": "Taula",
+    "Text Notice": "Av\u00eds per SMS",
+    "The dashboard layout has been reset to default.": "El disseny del tauler de control s'ha restablert a la configuraci\u00f3 predeterminada.",
+    "The dashboard was successfully updated.": "El tauler de control s'ha actualitzat correctament.",
+    "The limit value must be at least 1": "El valor l\u00edmit ha de ser com a m\u00ednim 1",
+    "This dashboard is now the default layout.": "Aquest tauler de control ara t\u00e9 el disseny per defecte.",
+    "This is a text notice widget.": "Aquest \u00e9s un widget d'av\u00eds de text.",
+    "This month": "Aquest mes",
+    "This quarter": "Aquest trimestre",
+    "This week": "Aquesta setmana",
+    "This year": "Aquest any",
+    "Title": "T\u00edtol",
+    "Today": "Avui",
+    "Value": "Valor",
+    "Values": "Valors",
     "Vertical": "Vertical",
-    "Warning": "Warning",
-    "Week": "Week",
-    "Year": "Year",
-    "Yesterday": "Yesterday"
+    "Warning": "Av\u00eds",
+    "Week": "Setmana",
+    "Year": "Any",
+    "Yesterday": "Ahir"
 }
 );
+
+
+//! moment.js locale configuration
+//! locale : Catalan [ca]
+//! author : Juan G. Hurtado : https://github.com/juanghurtado
+
+;(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined'
+       && typeof require === 'function' ? factory(require('../moment')) :
+   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   factory(global.moment)
+}(this, (function (moment) { 'use strict';
+
+    //! moment.js locale configuration
+
+    var ca = moment.defineLocale('ca', {
+        months: {
+            standalone:
+                'gener_febrer_març_abril_maig_juny_juliol_agost_setembre_octubre_novembre_desembre'.split(
+                    '_'
+                ),
+            format: "de gener_de febrer_de març_d'abril_de maig_de juny_de juliol_d'agost_de setembre_d'octubre_de novembre_de desembre".split(
+                '_'
+            ),
+            isFormat: /D[oD]?(\s)+MMMM/,
+        },
+        monthsShort:
+            'gen._febr._març_abr._maig_juny_jul._ag._set._oct._nov._des.'.split(
+                '_'
+            ),
+        monthsParseExact: true,
+        weekdays:
+            'diumenge_dilluns_dimarts_dimecres_dijous_divendres_dissabte'.split(
+                '_'
+            ),
+        weekdaysShort: 'dg._dl._dt._dc._dj._dv._ds.'.split('_'),
+        weekdaysMin: 'dg_dl_dt_dc_dj_dv_ds'.split('_'),
+        weekdaysParseExact: true,
+        longDateFormat: {
+            LT: 'H:mm',
+            LTS: 'H:mm:ss',
+            L: 'DD/MM/YYYY',
+            LL: 'D MMMM [de] YYYY',
+            ll: 'D MMM YYYY',
+            LLL: 'D MMMM [de] YYYY [a les] H:mm',
+            lll: 'D MMM YYYY, H:mm',
+            LLLL: 'dddd D MMMM [de] YYYY [a les] H:mm',
+            llll: 'ddd D MMM YYYY, H:mm',
+        },
+        calendar: {
+            sameDay: function () {
+                return '[avui a ' + (this.hours() !== 1 ? 'les' : 'la') + '] LT';
+            },
+            nextDay: function () {
+                return '[demà a ' + (this.hours() !== 1 ? 'les' : 'la') + '] LT';
+            },
+            nextWeek: function () {
+                return 'dddd [a ' + (this.hours() !== 1 ? 'les' : 'la') + '] LT';
+            },
+            lastDay: function () {
+                return '[ahir a ' + (this.hours() !== 1 ? 'les' : 'la') + '] LT';
+            },
+            lastWeek: function () {
+                return (
+                    '[el] dddd [passat a ' +
+                    (this.hours() !== 1 ? 'les' : 'la') +
+                    '] LT'
+                );
+            },
+            sameElse: 'L',
+        },
+        relativeTime: {
+            future: "d'aquí %s",
+            past: 'fa %s',
+            s: 'uns segons',
+            ss: '%d segons',
+            m: 'un minut',
+            mm: '%d minuts',
+            h: 'una hora',
+            hh: '%d hores',
+            d: 'un dia',
+            dd: '%d dies',
+            M: 'un mes',
+            MM: '%d mesos',
+            y: 'un any',
+            yy: '%d anys',
+        },
+        dayOfMonthOrdinalParse: /\d{1,2}(r|n|t|è|a)/,
+        ordinal: function (number, period) {
+            var output =
+                number === 1
+                    ? 'r'
+                    : number === 2
+                      ? 'n'
+                      : number === 3
+                        ? 'r'
+                        : number === 4
+                          ? 't'
+                          : 'è';
+            if (period === 'w' || period === 'W') {
+                output = 'a';
+            }
+            return number + output;
+        },
+        week: {
+            dow: 1, // Monday is the first day of the week.
+            doy: 4, // The week that contains Jan 4th is the first week of the year.
+        },
+    });
+
+    return ca;
+
+})));
 
 
 /*! Select2 4.1.0-rc.0 | https://github.com/select2/select2/blob/master/LICENSE.md */

@@ -75,7 +75,7 @@ trait OctoberUtilPackageDocs
         foreach ($navArray as &$item) {
             // Process links
             if ($itemLink = $item['link'] ?? '') {
-                if (($contentPath = realpath($baseDir . $itemLink)) && file_exists($contentPath)) {
+                if (($contentPath = realpath($baseDir . '/' . $itemLink)) && file_exists($contentPath)) {
                     $itemSlug = $this->compileDocsContentLink($itemLink);
                     $item['slug'] = $itemSlug;
                     $contentArray[$itemSlug] = file_get_contents($contentPath);

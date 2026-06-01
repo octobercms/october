@@ -39,7 +39,11 @@ trait HasThemeAssetMaker
      */
     public function getAssetPath($fileName, $assetPath = null)
     {
-        if (starts_with($fileName, ['//', 'http://', 'https://'])) {
+        if (
+            str_starts_with($fileName, '//') ||
+            str_starts_with($fileName, 'http://') ||
+            str_starts_with($fileName, 'https://')
+        ) {
             return $fileName;
         }
 

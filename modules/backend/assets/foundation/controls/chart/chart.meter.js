@@ -1,83 +1,58 @@
 /*
- * The goal meter plugin.
+ * Goal meter control
  *
  * Applies the goal meter style to a scoreboard item.
  *
  * Data attributes:
- * - data-control="goal-meter" - enables the goal meter plugin
+ * - data-control="goal-meter" - enables the goal meter control
  * - data-value - sets the value, in percents
  *
  * JavaScript API:
- * $('.scoreboard .goal-meter').goalMeter({value: 20})
- * $('.scoreboard .goal-meter').goalMeter(10) // Sets the current value
+ * oc.fetchControl(element, 'goal-meter')
  */
-+function ($) { "use strict";
+oc.registerControl('goal-meter', class extends oc.ControlBase {
+    init() {
+        this.config = Object.assign({
+            value: 50
+        }, this.config);
+    }
 
-    var GoalMeter = function (element, options) {
-        var
-            $el = this.$el = $(element),
-            self = this;
-
-        this.options = options || {};
-
+    connect() {
+        this.$el = $(this.element);
         // Canvas already drawn
-        var $canvas = $('span.goal-meter-indicator', $el);
-        if ($canvas.length > 0) {
+        if ($('span.goal-meter-indicator', this.$el).length > 0) {
             return;
         }
 
-        this.$indicatorBar = $('<span />').text(this.options.value + '%');
+        this.$indicatorBar = $('<span />').text(this.config.value + '%');
         this.$indicatorOuter = $('<span />').addClass('goal-meter-indicator').append(this.$indicatorBar);
 
         $('p', this.$el).first().before(this.$indicatorOuter);
 
-        window.setTimeout(function(){
-            self.update(self.options.value);
+        window.setTimeout(() => {
+            this.update(this.config.value);
         }, 200);
     }
 
-    GoalMeter.prototype.update = function(value) {
+    disconnect() {
+        this.$indicatorBar = null;
+        this.$indicatorOuter = null;
+        this.$el = null;
+    }
+
+    update(value) {
         this.$indicatorBar.css('height', value + '%');
     }
+});
 
-    GoalMeter.DEFAULTS = {
-        value: 50
-    }
+// JQUERY PLUGIN DEFINITION
+// ============================
 
-    // GOALMETER PLUGIN DEFINITION
-    // ============================
-
-    var old = $.fn.goalMeter
-
-    $.fn.goalMeter = function (option) {
-        return this.each(function () {
-            var $this = $(this)
-            var data  = $this.data('oc.goalMeter')
-            var options = $.extend({}, GoalMeter.DEFAULTS, $this.data(), typeof option == 'object' && option)
-
-            if (!data)
-                $this.data('oc.goalMeter', (data = new GoalMeter(this, options)))
-            else
-                data.update(option)
-        })
-    }
-
-    $.fn.goalMeter.Constructor = GoalMeter
-
-    // GOALMETER NO CONFLICT
-    // =================
-
-    $.fn.goalMeter.noConflict = function () {
-        $.fn.goalMeter = old
-        return this
-    }
-
-    // GOALMETER DATA-API
-    // ===============
-
-
-    $(document).render(function () {
-        $('[data-control=goal-meter]').goalMeter()
-    })
-
-}(window.jQuery);
+$.fn.goalMeter = function (option) {
+    return this.each(function () {
+        var instance = oc.observeControl(this, 'goal-meter');
+        if (typeof option === 'number' && instance) {
+            instance.update(option);
+        }
+    });
+};

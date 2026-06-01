@@ -38,6 +38,7 @@ class User extends UserBase
      */
     protected $dates = [
         'password_changed_at',
+        'reset_password_at',
         'activated_at',
         'last_login',
         'created_at',
@@ -103,6 +104,40 @@ class User extends UserBase
         }
 
         return $this->persist_code;
+    }
+
+    /**
+     * getResetPasswordCode generates a reset code and stamps the issue time so
+     * that checkResetPasswordCode can enforce an expiration window.
+     */
+    public function getResetPasswordCode()
+    {
+        $this->reset_password_at = $this->freshTimestamp();
+        return parent::getResetPasswordCode();
+    }
+
+    /**
+     * checkResetPasswordCode validates the supplied code against the stored
+     * code AND ensures the code was issued within the configured TTL.
+     */
+    public function checkResetPasswordCode($resetCode)
+    {
+        if (!parent::checkResetPasswordCode($resetCode)) {
+            return false;
+        }
+
+        $expireMinutes = (int) Config::get('backend.password_policy.reset_expire_minutes', 60);
+        if ($expireMinutes <= 0) {
+            return true;
+        }
+
+        // A token with no issued-at timestamp predates this expiry mechanism
+        // and is treated as expired. Affected users can request a new reset.
+        if (!$this->reset_password_at) {
+            return false;
+        }
+
+        return $this->reset_password_at->diffInMinutes($this->freshTimestamp()) < $expireMinutes;
     }
 
     /**

@@ -177,7 +177,7 @@ class EditorSetting extends SettingModel
     public function beforeSave()
     {
         if ($this->isDirty('html_custom_styles')) {
-            $this->html_custom_styles = Html::clean($this->html_custom_styles);
+            $this->html_custom_styles = Html::cleanCss($this->html_custom_styles);
 
             if (System::checkSafeMode()) {
                 $this->html_custom_styles = str_ireplace('@import', 'import', $this->html_custom_styles);

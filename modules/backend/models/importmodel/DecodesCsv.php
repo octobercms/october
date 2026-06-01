@@ -45,7 +45,7 @@ trait DecodesCsv
      */
     protected function decodeArrayValueForCsv($value, $delimiter = '|')
     {
-        if (starts_with($value, 'base64:')) {
+        if (str_starts_with($value, 'base64:')) {
             return json_decode(base64_decode(substr($value, strlen('base64:'))), true);
         }
 

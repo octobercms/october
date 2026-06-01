@@ -129,8 +129,6 @@ function initFroala(component) {
         froalaOptions.height = Infinity;
     }
 
-    froalaOptions.iframeStyleFiles = [options.iframeStylesFile];
-
     if (component.fullPage) {
         froalaOptions.fullPage = true;
     }

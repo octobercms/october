@@ -495,6 +495,11 @@ class FormField extends FieldDefinition
      */
     public function getOptionsFromModel($model, $fieldOptions, $data)
     {
+        // Prefer populated data over empty model
+        if ($data instanceof $model) {
+            $model = $data;
+        }
+
         // Preset
         if (is_string($fieldOptions) && str_starts_with($fieldOptions, 'preset:')) {
             $fieldOptions = \System\Classes\PresetManager::instance()->getPreset($fieldOptions);

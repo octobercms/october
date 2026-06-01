@@ -104,7 +104,14 @@ abstract class ReportDataSourceBase
         if ($dimension->isDate() && $data->dateStart) {
             $range = CarbonPeriod::create($data->dateStart, $data->dateEnd);
             $dataset = new ReportDateDataSet($dimension, $metrics, $range, $data->orderRule, $groupInterval, $fetchResult->getRows());
-            $rows = $dataset->aggregateData($groupInterval);
+
+            if ($fetchResult->isPreAggregated()) {
+                $rows = $dataset->getNormalizedData();
+            }
+            else {
+                $rows = $dataset->aggregateData($groupInterval);
+            }
+
             $fetchResult->setRows($rows);
         }
 

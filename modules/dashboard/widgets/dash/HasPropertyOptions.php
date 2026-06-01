@@ -74,7 +74,49 @@ trait HasPropertyOptions
             return $this->getRequestedDataSourceFilterAttributes();
         }
 
-        return [];
+        return $this->getReportWidgetPropertyOptions($property);
+    }
+
+    /**
+     * getReportWidgetPropertyOptions resolves dynamic options from a report widget class
+     */
+    private function getReportWidgetPropertyOptions(string $property): array
+    {
+        $className = post('widgetClass') ?: post('inspectorClassName');
+        if (!$className || $className === 'undefined') {
+            return [];
+        }
+
+        $traitFound = in_array(\System\Traits\PropertyContainer::class, class_uses_recursive($className));
+        if (!$traitFound) {
+            return [];
+        }
+
+        $obj = new $className($this->controller, null);
+        $obj->setProperties(post());
+
+        // Nested properties have names like object.property
+        // Convert them to ObjectProperty
+        $propertyMethodName = '';
+        foreach (explode('.', $property) as $part) {
+            $part = trim($part);
+            if (strlen($part)) {
+                $propertyMethodName .= ucfirst($part);
+            }
+        }
+
+        // Find options method
+        $propertyConfig = $obj->defineProperties()[$property] ?? [];
+        $optionsMethod = $propertyConfig['optionsMethod'] ?? ($propertyConfig['options'] ?? null);
+        $methodName = is_string($optionsMethod)
+            ? $optionsMethod
+            : 'get'.$propertyMethodName.'Options';
+
+        if (method_exists($obj, $methodName)) {
+            return $obj->$methodName();
+        }
+
+        return $obj->getPropertyOptions($property);
     }
 
     /**

@@ -3,6 +3,7 @@
 use App;
 use Url;
 use Event;
+use Config;
 use System;
 use Twig\Extension\AbstractExtension as TwigExtension;
 use Twig\Environment as TwigEnvironment;
@@ -73,6 +74,9 @@ class Extension extends TwigExtension
             new TwigSimpleFunction('pager', [$this, 'pagerFunction'], ['is_safe' => ['html']]),
             new TwigSimpleFunction('ajaxPager', [$this, 'ajaxPagerFunction'], ['is_safe' => ['html']]),
             new TwigSimpleFunction('collect', [$this, 'collectFunction'], []),
+            new TwigSimpleFunction('__', '__'),
+            new TwigSimpleFunction('trans', '__'),
+            new TwigSimpleFunction('trans_choice', 'trans_choice'),
         ];
 
         // Disabled by safe mode
@@ -96,13 +100,13 @@ class Extension extends TwigExtension
         $filters = [
             new TwigSimpleFilter('app', [$this, 'appFilter'], ['is_safe' => ['html']]),
             new TwigSimpleFilter('resize', [$this, 'resizeFilter'], ['is_safe' => ['html']]),
+
+            // @deprecated
             new TwigSimpleFilter('trans', '__'),
+            new TwigSimpleFilter('transchoice', 'trans_choice'),
             new TwigSimpleFilter('trans_choice', 'trans_choice'),
             new TwigSimpleFilter('_', '__'),
             new TwigSimpleFilter('__', 'trans_choice'),
-
-            // @deprecated
-            new TwigSimpleFilter('transchoice', 'trans_choice'),
         ];
 
         // Include extensions provided by plugins
@@ -160,7 +164,10 @@ class Extension extends TwigExtension
      */
     public function carbonFunction($value)
     {
-        if (App::runningInFrontend() && System::hasModule('Cms')) {
+        if (
+            (App::runningInFrontend() || Config::get('cms.timezone_force')) &&
+            System::hasModule('Cms')
+        ) {
             return \Cms::makeCarbon($value);
         }
 

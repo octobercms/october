@@ -144,8 +144,8 @@ class PreviewToken extends Model
      */
     protected function isValid(): bool
     {
-        if ($this->count_limit && $this->count_use > $this->count_limit) {
-            return true;
+        if ($this->count_limit && $this->count_use >= $this->count_limit) {
+            return false;
         }
 
         if ($this->expired_at->isFuture()) {

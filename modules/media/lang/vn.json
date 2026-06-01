@@ -1,2 +1,8 @@
 {
+    "Media": "Media",       
+    "Access the Media Manager": "Truy cập trình quản lý Media",
+    "Upload Media": "Tải lên Media",
+    "Delete Media": "Xóa Media",
+    "A media file already exists at this location, please upload using a different filename.": "Một tệp media đã tồn tại ở vị trí này, vui lòng tải lên bằng một tên tệp khác.",
+    "Remove Selected": "Xóa mục đã chọn"
 }

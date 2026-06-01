@@ -151,19 +151,19 @@ trait OctoberUtilCommands
             ).PHP_EOL;
 
             // Include the moment localization data
-            $momentPath = base_path('modules/backend/assets/vendor/moment/locale/'.$locale.'.js');
+            $momentPath = base_path('modules/system/assets/vendor/moment/locale/'.$locale.'.js');
             if (file_exists($momentPath)) {
                 $contents .= PHP_EOL.File::get($momentPath).PHP_EOL;
             }
 
             // Include the select localization data
-            $selectPath = base_path('modules/backend/assets/vendor/select2/js/i18n/'.$locale.'.js');
+            $selectPath = base_path('modules/system/assets/vendor/select2/js/i18n/'.$locale.'.js');
             if (file_exists($selectPath)) {
                 $contents .= PHP_EOL.File::get($selectPath).PHP_EOL;
             }
 
             // Include the froala localization data
-            $froalaPath = base_path('modules/backend/assets/vendor/froala/languages/'.str_replace('-', '_', strtolower($locale)).'.js');
+            $froalaPath = base_path('modules/system/assets/vendor/froala/languages/'.str_replace('-', '_', strtolower($locale)).'.js');
             if (file_exists($froalaPath)) {
                 $contents .= PHP_EOL.File::get($froalaPath).PHP_EOL;
             }
@@ -203,9 +203,14 @@ trait OctoberUtilCommands
             return;
         }
 
+        $uploadsDisk = Config::get('filesystems.disks.uploads.driver', 'local');
+        if ($uploadsDisk !== 'local') {
+            $this->error('Purging uploads is only supported on the local disk');
+            return;
+        }
+
         $totalCount = 0;
-        $uploadsPath = Config::get('filesystems.disks.local.root', storage_path('app'));
-        $uploadsPath .= '/uploads';
+        $uploadsPath = Config::get('filesystems.disks.uploads.root', storage_path('app/uploads'));
 
         /*
          * Recursive function to scan the directory for files beginning

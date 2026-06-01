@@ -15,7 +15,7 @@
                                 <span class="nav-icon">
                                     <i class="<?= e($item->icon) ?>"></i>
                                 </span>
-                                <span class="nav-label"><?= e($item->name) ?></span>
+                                <span class="nav-label"><?= e(__($item->name)) ?></span>
                             </a>
                         </li>
                     <?php endforeach ?>

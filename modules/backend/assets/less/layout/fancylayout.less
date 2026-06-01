@@ -470,7 +470,7 @@ body.breadcrumb-fancy .control-breadcrumb,
                             padding: 0 7px 6px;
 
                             &:before, &:after {
-                                display: none;
+                                display: none !important;
                             }
 
                             span {
@@ -610,15 +610,9 @@ body.breadcrumb-fancy .control-breadcrumb,
         .loading-indicator-container {
             .loading-indicator {
                 background-color: @color-fancy-form-tabless-fields-bg;
-                padding: 0 0 0 45px;
                 color: @color-fancy-form-label;
-                margin-top: 4px;
-                height: 90%;
-                font-size: 12px;
-                line-height: 100%;
-                > span {
-                    left: 5px;
-                    top: 18px;
+                > span, > div {
+                    margin-left: 15px;
                 }
             }
         }
@@ -722,16 +716,4 @@ body.side-panel-not-fixed {
     }
 }
 
-html.cssanimations {
-    .fancy-layout {
-        .form-tabless-fields {
-            .loading-indicator-container {
-                .loading-indicator > span {
-                    .animation(spin 1s linear infinite);
-                    //background-image: url('../../../system/assets/ui/images/loader-white.svg');
-                    background-size: 20px 20px;
-                }
-            }
-        }
-    }
-}
+

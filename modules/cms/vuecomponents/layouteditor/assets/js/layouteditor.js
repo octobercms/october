@@ -25,11 +25,6 @@ export default {
         defCode.setAutoPrefix('<?php\n\n', /^\s*\<\?(php)?\n*/);
 
         return {
-            documentData: {
-                markup: '',
-                code: '',
-                components: []
-            },
             documentSettingsPopupTitle: this.trans('cms::lang.editor.layout'),
             documentTitleProperty: 'fileName',
             codeEditorModelDefinitions: [defMarkup, defCode],

@@ -11,10 +11,11 @@ import { ControlBase, registerControl } from 'larajax';
  */
 registerControl('permissioneditor', class extends ControlBase {
     init() {
-        this.$el = $(this.element);
     }
 
     connect() {
+        this.$el = $(this.element);
+
         this.listen('click', '[data-field-permission-all]', this.onPermissionAllClick);
         this.listen('click', '[data-field-permission-none]', this.onPermissionNoneClick);
         this.listen('click', '[data-field-permission-toggle]', this.onPermissionToggleClick);

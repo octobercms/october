@@ -58,7 +58,7 @@ class AuthManager extends RainAuthManager
     }
 
     /**
-     * userHasAccess is identical to User::hasPermission
+     * userHasPermission is identical to User::hasPermission
      */
     public function userHasPermission($permissions, $all = true)
     {

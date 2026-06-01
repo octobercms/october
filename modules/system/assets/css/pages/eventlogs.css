@@ -119,7 +119,7 @@
     font-family: monospace;
     font-size: 13px;
     line-height: 1.6;
-    background: var(--oc-secondary-bg);
+    background: var(--bs-tertiary-bg);
     border-radius: 4px;
     padding: 15px 20px;
     margin-top: 15px;
@@ -143,4 +143,25 @@
     content: '';
     display: block;
     margin-bottom: 15px;
+}
+
+.plugin-exception-beautifier .beautifier-attachments {
+    padding: 10px 20px;
+    border-top: 1px solid var(--oc-primary-border);
+}
+
+.plugin-exception-beautifier .beautifier-attachment {
+    display: inline-block;
+    padding: 6px 12px;
+    margin: 4px;
+    background: var(--oc-secondary-bg);
+    color: var(--bs-body-color);
+    text-decoration: none;
+    border-radius: 4px;
+    font-size: 13px;
+}
+
+.plugin-exception-beautifier .beautifier-attachment:hover {
+    background: var(--bs-link-color);
+    color: white;
 }

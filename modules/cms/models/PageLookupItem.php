@@ -237,7 +237,7 @@ class PageLookupItem extends Model
     public function getReferenceLabel()
     {
         $label = $this->getReferenceOptions()[$this->reference] ?? '';
-        $label = str_replace('&nbsp;', '', $label);
+        $label = str_replace("\xC2\xA0", '', $label);
         return $label;
     }
 
@@ -259,7 +259,7 @@ class PageLookupItem extends Model
             return $references;
         }
 
-        $indent = '&nbsp;&nbsp;&nbsp;';
+        $indent = "\xC2\xA0\xC2\xA0\xC2\xA0";
         $options = [];
 
         $iterator = function($items, $depth = 0) use (&$iterator, &$options, $indent) {

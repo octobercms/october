@@ -112,6 +112,7 @@
   "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.",
   "Unnamed": "Unnamed",
   "No description provided": "No description provided",
+  "Insert Snippet": "Insert Snippet",
   "No snippets found": "No snippets found",
   "Search...": "Search...",
   "Snippet with the requested code :code was not found in the theme.": "Snippet with the requested code :code was not found in the theme.",
@@ -149,5 +150,6 @@
   "Website status information": "Website status information",
   "Manage status": "Manage status",
   "Maintenance": "Maintenance",
-  "Online": "Online"
+  "Online": "Online",
+  "Frontend Theme": "Frontend Theme"
 }

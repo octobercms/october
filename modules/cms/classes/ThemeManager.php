@@ -419,7 +419,7 @@ class ThemeManager
      */
     public function deleteTheme(string $theme)
     {
-        if (!$theme) {
+        if (!$theme || !preg_match('/^[a-z0-9\_\-]+$/i', $theme)) {
             return false;
         }
 

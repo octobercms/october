@@ -4,5 +4,5 @@
     </ol>
 <?php Block::endPut() ?>
 
-<?= $this->renderSampleMessageAsScript() ?>
+<?= $this->renderSampleMessageAsTemplate() ?>
 <?= $this->formRenderDesign() ?>

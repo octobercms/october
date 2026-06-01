@@ -90,7 +90,7 @@ class OctoberUtil extends Command
     {
         $methods = preg_grep('/^util/', get_class_methods(get_called_class()));
         $list = array_map(function ($item) {
-            if (starts_with($item, 'utilPatch')) {
+            if (str_starts_with($item, 'utilPatch')) {
                 return;
             }
 

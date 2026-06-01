@@ -14917,43 +14917,60 @@ API.txt for details.
 }(window.jQuery);
 ;
 /*
- * The bar chart plugin.
+ * Bar chart control
  *
  * Data attributes:
- * - data-control="chart-bar" - enables the bar chart plugin
+ * - data-control="chart-bar" - enables the bar chart control
  * - data-height="200" - optional, height of the graph
  * - data-full-width="1" - optional, determines whether the chart should use the full width of the container
  *
  * JavaScript API:
- * $('.scoreboard .chart').barChart()
+ * oc.fetchControl(element, 'chart-bar')
  *
  * Dependencies:
- * - Raphaël (raphael-min.js)
+ * - Raphael (raphael-min.js)
  */
-+function ($) { "use strict";
+oc.registerControl('chart-bar', class extends oc.ControlBase {
+    init() {
+        this.config = Object.assign({
+            gap: 2,
+            height: undefined,
+            fullWidth: undefined
+        }, this.config);
+    }
 
-    var BarChart = function (element, options) {
-        this.options = options || {}
+    connect() {
+        this.$el = $(this.element);
+        this.buildChart();
+    }
 
-        var
-            $el = this.$el = $(element),
-            size = this.size = $el.height(),
-            self = this,
-            values = $.oc.chartUtils.loadListValues($('ul', $el)),
-            $legend = $.oc.chartUtils.createLegend($('ul', $el)),
+    disconnect() {
+        $(window).off('resize', this.proxy(this.onResize));
+        this.$el = null;
+    }
+
+    isFullWidth() {
+        return this.config.fullWidth !== undefined && this.config.fullWidth;
+    }
+
+    buildChart() {
+        var self = this,
+            size = this.size = this.$el.height(),
+            values = $.oc.chartUtils.loadListValues($('ul', this.$el)),
+            $legend = $.oc.chartUtils.createLegend($('ul', this.$el)),
             indicators = $.oc.chartUtils.initLegendColorIndicators($legend),
             isFullWidth = this.isFullWidth(),
-            chartHeight = this.options.height !== undefined ? this.options.height : size,
+            chartHeight = this.config.height !== undefined ? this.config.height : size,
             chartWidth = isFullWidth ? this.$el.width() : size,
-            barWidth = (chartWidth - (values.values.length-1)*this.options.gap)/values.values.length
+            barWidth = (chartWidth - (values.values.length-1)*this.config.gap)/values.values.length;
 
-        var $canvas = $('<div/>').addClass('canvas').height(chartHeight).width(isFullWidth ? '100%' : chartWidth)
-        $el.prepend($canvas)
-        $el.toggleClass('full-width', isFullWidth)
+        var $canvas = $('<div/>').addClass('canvas').height(chartHeight).width(isFullWidth ? '100%' : chartWidth);
+        this.$el.prepend($canvas);
+        this.$el.toggleClass('full-width', isFullWidth);
 
         Raphael($canvas.get(0), isFullWidth ? '100%' : chartWidth, chartHeight, function(){
-            self.paper = this
-            self.bars = this.set()
+            self.paper = this;
+            self.bars = this.set();
 
             self.paper.customAttributes.bar = function (start, height) {
                 return {
@@ -14964,103 +14981,80 @@ API.txt for details.
                         ["L", start + barWidth, chartHeight],
                         ["Z"]
                     ]
-                }
-            }
+                };
+            };
 
             // Add bars
-            var start = 0
+            var start = 0;
             $.each(values.values, function(index, valueInfo) {
                 var color = valueInfo.color !== undefined ? valueInfo.color : $.oc.chartUtils.getColor(index),
-                    path = self.paper.path().attr({"stroke-width": 0}).attr({bar: [start, 0]}).attr({fill: color})
+                    path = self.paper.path().attr({"stroke-width": 0}).attr({bar: [start, 0]}).attr({fill: color});
 
-                self.bars.push(path)
-                indicators[index].css('background-color', color)
-                start += barWidth + self.options.gap
+                self.bars.push(path);
+                indicators[index].css('background-color', color);
+                start += barWidth + self.config.gap;
 
                 path.hover(function(ev){
                     $.oc.chartUtils.showTooltip(ev.pageX, ev.pageY,
-                        $.trim($.oc.chartUtils.getLegendLabel($legend, index)) + ': <strong>'+valueInfo.value+'</stong>')
+                        $.trim($.oc.chartUtils.getLegendLabel($legend, index)) + ': <strong>'+valueInfo.value+'</strong>')
                 }, function() {
                     $.oc.chartUtils.hideTooltip()
-                })
-            })
+                });
+            });
 
             // Animate bars
-            start = 0
+            start = 0;
             $.each(values.values, function(index, valueInfo) {
-                var height = (values.max && valueInfo.value) ? chartHeight/values.max * valueInfo.value : 0
+                var height = (values.max && valueInfo.value) ? chartHeight/values.max * valueInfo.value : 0;
 
-                self.bars[index].animate({bar: [start, height]}, 1000, "bounce")
-                start += barWidth + self.options.gap
-            })
+                self.bars[index].animate({bar: [start, height]}, 1000, "bounce");
+                start += barWidth + self.config.gap;
+            });
 
-            // Update the full-width chart when the window is redized
+            // Update the full-width chart when the window is resized
             if (isFullWidth) {
-                $(window).on('resize', function(){
-                    chartWidth = self.$el.width()
-                    barWidth = (chartWidth - (values.values.length-1)*self.options.gap)/values.values.length
-
-                    var start = 0
-                    $.each(values.values, function(index, valueInfo) {
-                        var height = (values.max && valueInfo.value) ? chartHeight/values.max * valueInfo.value : 0
-
-                        self.bars[index].animate({bar: [start, height]}, 10, "bounce")
-                        start += barWidth + self.options.gap
-                    })
-                })
+                $(window).on('resize', self.proxy(self.onResize));
+                self._resizeData = { values: values, chartHeight: chartHeight };
             }
-        })
+        });
     }
 
-    BarChart.prototype.isFullWidth = function() {
-        return this.options.fullWidth !== undefined && this.options.fullWidth
+    onResize() {
+        if (!this._resizeData) {
+            return;
+        }
+
+        var values = this._resizeData.values,
+            chartHeight = this._resizeData.chartHeight,
+            chartWidth = this.$el.width(),
+            barWidth = (chartWidth - (values.values.length-1)*this.config.gap)/values.values.length;
+
+        var start = 0;
+        var self = this;
+        $.each(values.values, function(index, valueInfo) {
+            var height = (values.max && valueInfo.value) ? chartHeight/values.max * valueInfo.value : 0;
+
+            self.bars[index].animate({bar: [start, height]}, 10, "bounce");
+            start += barWidth + self.config.gap;
+        });
     }
+});
 
-    BarChart.DEFAULTS = {
-        gap: 2
-    }
+// JQUERY PLUGIN DEFINITION
+// ============================
 
-    // BARCHART PLUGIN DEFINITION
-    // ============================
-
-    var old = $.fn.barChart
-
-    $.fn.barChart = function (option) {
-        return this.each(function () {
-            var $this = $(this)
-            var data  = $this.data('oc.barChart')
-            var options = $.extend({}, BarChart.DEFAULTS, $this.data(), typeof option == 'object' && option)
-
-            if (!data)
-                $this.data('oc.barChart', new BarChart(this, options))
-        })
-    }
-
-    $.fn.barChart.Constructor = BarChart
-
-    // BARCHART NO CONFLICT
-    // =================
-
-    $.fn.barChart.noConflict = function () {
-        $.fn.barChart = old
-        return this
-    }
-
-    // BARCHART DATA-API
-    // ===============
-
-    $(document).render(function () {
-        $('[data-control=chart-bar]').barChart()
-    })
-
-}(window.jQuery)
+$.fn.barChart = function (option) {
+    return this.each(function () {
+        oc.observeControl(this, 'chart-bar');
+    });
+};
 
 ;
 /*
- * Line Chart Plugin
+ * Line chart control
  *
  * Data attributes:
- * - data-control="chart-line" - enables the line chart plugin
+ * - data-control="chart-line" - enables the line chart control
  * - data-reset-zoom-link="#reset-zoom" - specifies a link to reset zoom
  * - data-zoomable - indicates that the chart is zoomable
  * - data-time-mode="weeks" - if the "weeks" value is specified and the xaxis mode is "time", the X axis labels will be displayed as week end dates.
@@ -15071,7 +15065,7 @@ API.txt for details.
  * attributes are described in the Flot documentation: https://github.com/flot/flot/blob/master/API.md#data-format
  *
  * JavaScript API:
- * $('.chart').chartLine({ resetZoomLink:'#reset-zoom' })
+ * oc.fetchControl(element, 'chart-line')
  *
  * Dependencies:
  * - Flot (jquery.flot.js)
@@ -15079,15 +15073,19 @@ API.txt for details.
  * - Flot Resize (jquery.flot.resize.js)
  * - Flot Time (jquery.flot.time.js)
  */
+oc.registerControl('chart-line', class extends oc.ControlBase {
+    init() {
+        this.config = Object.assign({
+            chartOptions: "",
+            timeMode: null,
+            zoomable: false,
+            resetZoomLink: null
+        }, this.config);
+    }
 
-+function ($) { "use strict";
-
-    // LINE CHART CLASS DEFINITION
-    // ============================
-
-    var ChartLine = function(element, options) {
-        var self = this;
-
+    connect() {
+        this.$el = $(this.element);
+        this.fullDataSet = [];
         var isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
         var colorBackground = '#fff',
             colorMarkings = 'rgba(0,0,0,0.02)';
@@ -15137,79 +15135,43 @@ API.txt for details.
                 show: true,
                 noColumns: 2
             }
-        }
+        };
 
         this.defaultDataSetOptions = {
             shadowSize: 0
-        }
+        };
 
-        var parsedOptions = {}
+        var parsedOptions = {};
         try {
-            parsedOptions = oc.parseJSON("{" + options.chartOptions + "}");
+            parsedOptions = oc.parseJSON("{" + this.config.chartOptions + "}");
         }
         catch (e) {
             throw new Error('Error parsing the data-chart-options attribute value. '+e);
         }
 
-        this.chartOptions = $.extend({}, this.chartOptions, parsedOptions)
+        this.chartOptions = $.extend({}, this.chartOptions, parsedOptions);
 
-        this.options = options
-        this.$el = $(element)
-        this.fullDataSet = []
-        this.resetZoomLink = $(options.resetZoomLink)
+        this.resetZoomLink = $(this.config.resetZoomLink);
 
-        this.$el.trigger('oc.chartLineInit', [this])
+        this.$el.trigger('oc.chartLineInit', [this]);
 
-        /*
-         * Bind Events
-         */
-
-        this.resetZoomLink.on('click', $.proxy(this.clearZoom, this));
-
-        if (this.options.zoomable) {
-            this.$el.on("plotselected", function (event, ranges) {
-                var newCoords = {
-                    xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to }
-                }
-
-                $.plot(self.$el, self.fullDataSet, $.extend(true, {}, self.chartOptions, newCoords))
-                self.resetZoomLink.show()
-            });
+        // Bind events
+        if (this.config.resetZoomLink) {
+            this.resetZoomLink.on('click', this.proxy(this.clearZoom));
         }
 
-        /*
-         * Markings Helper
-         */
-
-        if (this.chartOptions.xaxis.mode == "time" && this.options.timeMode == "weeks")
-            this.chartOptions.markings = weekendAreas
-
-        function weekendAreas(axes) {
-            var markings = [],
-                d = new Date(axes.xaxis.min);
-
-            // Go to the first Saturday
-            d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 1) % 7))
-            d.setUTCSeconds(0)
-            d.setUTCMinutes(0)
-            d.setUTCHours(0)
-            var i = d.getTime()
-
-            do {
-                // When we don't set yaxis, the rectangle automatically
-                // extends to infinity upwards and downwards
-                markings.push({ xaxis: { from: i, to: i + 2 * 24 * 60 * 60 * 1000 } })
-                i += 7 * 24 * 60 * 60 * 1000
-            } while (i < axes.xaxis.max)
-
-            return markings
+        if (this.config.zoomable) {
+            this.$el.on("plotselected", this.proxy(this.onPlotSelected));
         }
 
-        /*
-         * Process the datasets
-         */
+        // Markings helper
+        if (this.chartOptions.xaxis.mode == "time" && this.config.timeMode == "weeks") {
+            this.chartOptions.markings = this.weekendAreas;
+        }
 
-        this.initializing = true
+        // Process the datasets
+        this.initializing = true;
+        var self = this;
 
         this.$el.find('>[data-chart="dataset"]').each(function(){
             var data = $(this).data(),
@@ -15227,202 +15189,193 @@ API.txt for details.
             }
 
             self.addDataSet($.extend({}, self.defaultDataSetOptions, processedData));
-        })
+        });
 
-        /*
-         * Build chart
-         */
-
-        this.initializing = false
-        this.rebuildChart()
+        // Build chart
+        this.initializing = false;
+        this.rebuildChart();
     }
 
-    ChartLine.DEFAULTS = {
-        chartOptions: "",
-        timeMode: null,
-        zoomable: false
+    disconnect() {
+        if (this.config.resetZoomLink) {
+            this.resetZoomLink.off('click', this.proxy(this.clearZoom));
+        }
+
+        if (this.config.zoomable) {
+            this.$el.off("plotselected", this.proxy(this.onPlotSelected));
+        }
+
+        this.resetZoomLink = null;
+        this.$el = null;
     }
 
-    /*
-     * Adds a data set to the chart.
-     * See https://github.com/flot/flot/blob/master/API.md#data-format for the list
-     * of supported data set options.
-     */
-    ChartLine.prototype.addDataSet = function (dataSet) {
-        this.fullDataSet.push(dataSet)
+    onPlotSelected(event, ranges) {
+        var newCoords = {
+            xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to }
+        };
 
-        if (!this.initializing)
-            this.rebuildChart()
+        $.plot(this.$el, this.fullDataSet, $.extend(true, {}, this.chartOptions, newCoords));
+        this.resetZoomLink.show();
     }
 
-    ChartLine.prototype.rebuildChart = function() {
-        this.$el.trigger('oc.beforeChartLineRender', [this])
+    weekendAreas(axes) {
+        var markings = [],
+            d = new Date(axes.xaxis.min);
 
-        $.plot(this.$el, this.fullDataSet, this.chartOptions)
+        // Go to the first Saturday
+        d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 1) % 7));
+        d.setUTCSeconds(0);
+        d.setUTCMinutes(0);
+        d.setUTCHours(0);
+        var i = d.getTime();
+
+        do {
+            markings.push({ xaxis: { from: i, to: i + 2 * 24 * 60 * 60 * 1000 } });
+            i += 7 * 24 * 60 * 60 * 1000;
+        } while (i < axes.xaxis.max);
+
+        return markings;
     }
 
-    ChartLine.prototype.clearZoom = function() {
-        this.rebuildChart()
-        this.resetZoomLink.hide()
+    addDataSet(dataSet) {
+        this.fullDataSet.push(dataSet);
+
+        if (!this.initializing) {
+            this.rebuildChart();
+        }
     }
 
-    // LINE CHART PLUGIN DEFINITION
-    // ============================
+    rebuildChart() {
+        this.$el.trigger('oc.beforeChartLineRender', [this]);
 
-    var old = $.fn.chartLine
-
-    $.fn.chartLine = function (option) {
-        return this.each(function () {
-            var $this   = $(this)
-            var data    = $this.data('october.chartLine')
-            var options = $.extend({}, ChartLine.DEFAULTS, $this.data(), typeof option == 'object' && option)
-            if (!data) $this.data('october.chartLine', (data = new ChartLine(this, options)))
-            if (typeof option == 'string') data[option].call($this)
-        })
+        $.plot(this.$el, this.fullDataSet, this.chartOptions);
     }
 
-    $.fn.chartLine.Constructor = ChartLine
-
-    // LINE CHART NO CONFLICT
-    // =================
-
-    $.fn.chartLine.noConflict = function () {
-        $.fn.chartLine = old
-        return this
+    clearZoom() {
+        this.rebuildChart();
+        this.resetZoomLink.hide();
     }
+});
 
+// JQUERY PLUGIN DEFINITION
+// ============================
 
-    // LINE CHART DATA-API
-    // ===============
-    $(document).render(function () {
-        $('[data-control="chart-line"]').chartLine()
-    })
-
-}(window.jQuery);
+$.fn.chartLine = function (option) {
+    return this.each(function () {
+        oc.observeControl(this, 'chart-line');
+    });
+};
 
 ;
 /*
- * The goal meter plugin.
+ * Goal meter control
  *
  * Applies the goal meter style to a scoreboard item.
  *
  * Data attributes:
- * - data-control="goal-meter" - enables the goal meter plugin
+ * - data-control="goal-meter" - enables the goal meter control
  * - data-value - sets the value, in percents
  *
  * JavaScript API:
- * $('.scoreboard .goal-meter').goalMeter({value: 20})
- * $('.scoreboard .goal-meter').goalMeter(10) // Sets the current value
+ * oc.fetchControl(element, 'goal-meter')
  */
-+function ($) { "use strict";
+oc.registerControl('goal-meter', class extends oc.ControlBase {
+    init() {
+        this.config = Object.assign({
+            value: 50
+        }, this.config);
+    }
 
-    var GoalMeter = function (element, options) {
-        var
-            $el = this.$el = $(element),
-            self = this;
-
-        this.options = options || {};
-
+    connect() {
+        this.$el = $(this.element);
         // Canvas already drawn
-        var $canvas = $('span.goal-meter-indicator', $el);
-        if ($canvas.length > 0) {
+        if ($('span.goal-meter-indicator', this.$el).length > 0) {
             return;
         }
 
-        this.$indicatorBar = $('<span />').text(this.options.value + '%');
+        this.$indicatorBar = $('<span />').text(this.config.value + '%');
         this.$indicatorOuter = $('<span />').addClass('goal-meter-indicator').append(this.$indicatorBar);
 
         $('p', this.$el).first().before(this.$indicatorOuter);
 
-        window.setTimeout(function(){
-            self.update(self.options.value);
+        window.setTimeout(() => {
+            this.update(this.config.value);
         }, 200);
     }
 
-    GoalMeter.prototype.update = function(value) {
+    disconnect() {
+        this.$indicatorBar = null;
+        this.$indicatorOuter = null;
+        this.$el = null;
+    }
+
+    update(value) {
         this.$indicatorBar.css('height', value + '%');
     }
+});
 
-    GoalMeter.DEFAULTS = {
-        value: 50
-    }
+// JQUERY PLUGIN DEFINITION
+// ============================
 
-    // GOALMETER PLUGIN DEFINITION
-    // ============================
+$.fn.goalMeter = function (option) {
+    return this.each(function () {
+        var instance = oc.observeControl(this, 'goal-meter');
+        if (typeof option === 'number' && instance) {
+            instance.update(option);
+        }
+    });
+};
 
-    var old = $.fn.goalMeter
-
-    $.fn.goalMeter = function (option) {
-        return this.each(function () {
-            var $this = $(this)
-            var data  = $this.data('oc.goalMeter')
-            var options = $.extend({}, GoalMeter.DEFAULTS, $this.data(), typeof option == 'object' && option)
-
-            if (!data)
-                $this.data('oc.goalMeter', (data = new GoalMeter(this, options)))
-            else
-                data.update(option)
-        })
-    }
-
-    $.fn.goalMeter.Constructor = GoalMeter
-
-    // GOALMETER NO CONFLICT
-    // =================
-
-    $.fn.goalMeter.noConflict = function () {
-        $.fn.goalMeter = old
-        return this
-    }
-
-    // GOALMETER DATA-API
-    // ===============
-
-
-    $(document).render(function () {
-        $('[data-control=goal-meter]').goalMeter()
-    })
-
-}(window.jQuery);
 ;
 /*
- * The pie chart plugin.
+ * Pie chart control
  *
  * Data attributes:
- * - data-control="chart-pie" - enables the pie chart plugin
+ * - data-control="chart-pie" - enables the pie chart control
  * - data-size="200" - optional, size of the graph
  * - data-center-text - text to display inside the graph
  *
  * JavaScript API:
- * $('.scoreboard .chart').pieChart()
+ * oc.fetchControl(element, 'chart-pie')
  *
  * Dependencies:
- * - Raphaël (raphael-min.js)
+ * - Raphael (raphael-min.js)
  * - October chart utilities (chart.utils.js)
  */
-+function ($) { "use strict";
+oc.registerControl('chart-pie', class extends oc.ControlBase {
+    init() {
+        this.config = Object.assign({
+            size: undefined,
+            centerText: undefined,
+            startAngle: 45
+        }, this.config);
+    }
 
-    var PieChart = function (element, options) {
-        this.options = options || {}
-
-        var
-            $el = this.$el = $(element),
-            size = this.size = (this.options.size !== undefined ? this.options.size : $el.height()),
-            outerRadius = size/2 - 1,
-            innerRadius = outerRadius - outerRadius/3.5,
-            values = $.oc.chartUtils.loadListValues($('ul', $el)),
-            $legend = $.oc.chartUtils.createLegend($('ul', $el)),
-            indicators = $.oc.chartUtils.initLegendColorIndicators($legend),
-            self = this;
-
+    connect() {
+        this.$el = $(this.element);
         // Canvas already drawn
-        var $canvas = $('div.canvas', $el);
-        if ($canvas.length > 0) {
+        if ($('div.canvas', this.$el).length > 0) {
             return;
         }
 
+        this.buildChart();
+    }
+
+    disconnect() {
+        this.$el = null;
+    }
+
+    buildChart() {
+        var size = this.size = (this.config.size !== undefined ? this.config.size : this.$el.height()),
+            outerRadius = size/2 - 1,
+            innerRadius = outerRadius - outerRadius/3.5,
+            values = $.oc.chartUtils.loadListValues($('ul', this.$el)),
+            $legend = $.oc.chartUtils.createLegend($('ul', this.$el)),
+            indicators = $.oc.chartUtils.initLegendColorIndicators($legend),
+            self = this;
+
         var $canvas = $('<div />').addClass('canvas').width(size).height(size);
-        $el.prepend($canvas);
+        this.$el.prepend($canvas);
 
         // Truncate scoreboard in cases where there are more than 3 items
         $legend.height(size).css('overflow', 'hidden');
@@ -15464,14 +15417,14 @@ API.txt for details.
 
                 path.hover(function(ev){
                     $.oc.chartUtils.showTooltip(ev.pageX, ev.pageY,
-                        $.trim($.oc.chartUtils.getLegendLabel($legend, index)) + ': <strong>'+valueInfo.value+'</stong>')
+                        $.trim($.oc.chartUtils.getLegendLabel($legend, index)) + ': <strong>'+valueInfo.value+'</strong>')
                 }, function() {
                     $.oc.chartUtils.hideTooltip()
                 })
             });
 
             // Animate segments
-            var start = self.options.startAngle
+            var start = self.config.startAngle
             $.each(values.values, function(index, valueInfo) {
                 var length = (values.total && valueInfo.value) ? 360/values.total * valueInfo.value : 0
                 if (length == 360)
@@ -15482,60 +15435,30 @@ API.txt for details.
             });
         })
 
-        if (this.options.centerText !== undefined) {
-            var $text = $('<span>').addClass('center').html(this.options.centerText);
+        if (this.config.centerText !== undefined) {
+            var $text = $('<span>').addClass('center').html(this.config.centerText);
             $canvas.append($text);
         }
     }
 
-    PieChart.prototype.arcCoords = function(radius, angle) {
-      var
-        a = Raphael.rad(angle),
-        x = this.size/2 + radius * Math.cos(a),
-        y = this.size/2 - radius * Math.sin(a);
+    arcCoords(radius, angle) {
+        var
+            a = Raphael.rad(angle),
+            x = this.size/2 + radius * Math.cos(a),
+            y = this.size/2 - radius * Math.sin(a);
 
         return {'x': x, 'y': y};
     }
+});
 
-    PieChart.DEFAULTS = {
-        startAngle: 45
-    }
+// JQUERY PLUGIN DEFINITION
+// ============================
 
-    // PIECHART PLUGIN DEFINITION
-    // ============================
-
-    var old = $.fn.pieChart
-
-    $.fn.pieChart = function (option) {
-        return this.each(function () {
-            var $this = $(this)
-            var data  = $this.data('oc.pieChart')
-            var options = $.extend({}, PieChart.DEFAULTS, $this.data(), typeof option == 'object' && option)
-
-            if (!data)
-                $this.data('oc.pieChart', new PieChart(this, options))
-        })
-    }
-
-    $.fn.pieChart.Constructor = PieChart
-
-    // PIECHART NO CONFLICT
-    // =================
-
-    $.fn.pieChart.noConflict = function () {
-        $.fn.pieChart = old
-        return this
-    }
-
-    // PIECHART DATA-API
-    // ===============
-
-    $(document).render(function () {
-        $('[data-control=chart-pie]').pieChart()
-    })
-
-}(window.jQuery);
-
+$.fn.pieChart = function (option) {
+    return this.each(function () {
+        oc.observeControl(this, 'chart-pie');
+    });
+};
 ;
 /*
  * October charting utilities.

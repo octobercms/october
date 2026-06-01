@@ -15,10 +15,6 @@ export default {
         defMarkup.setModelTags(['cms-asset-contents']);
 
         return {
-            documentData: {
-                content: '',
-                components: []
-            },
             documentSettingsPopupTitle: this.trans('cms::lang.editor.asset'),
             documentDeletedMessage: this.trans('cms::lang.asset.deleted'),
             documentTitleProperty: 'fileName',

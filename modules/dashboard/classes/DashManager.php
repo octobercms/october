@@ -48,7 +48,7 @@ class DashManager
 
             $isVueReport = is_subclass_of($className, \Dashboard\Classes\VueReportWidgetBase::class);
             if ($isVueReport) {
-                $componentName = strtolower(str_replace('\\', '-', $className));
+                $componentName = $this->resolveVueComponentName($className);
                 $groups[$group][] = [
                     'type' => 'widget',
                     'label' => __($widgetInfo['label'] ?? "Unknown"),
@@ -66,6 +66,18 @@ class DashManager
         }
 
         return $groups;
+    }
+
+    /**
+     * resolveVueComponentName reads the $componentName property from a Vue widget class
+     * without instantiating it. Falls back to deriving the name from the class name.
+     */
+    protected function resolveVueComponentName(string $className): string
+    {
+        $defaults = (new \ReflectionClass($className))->getDefaultProperties();
+
+        return $defaults['componentName']
+            ?? strtolower(str_replace('\\', '-', $className));
     }
 
     /**

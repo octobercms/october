@@ -120,6 +120,8 @@ class MailLayout extends Model
             $layout->fillFromView($path);
             $layout->save();
         }
+
+        self::$codeCache = null;
     }
 
     /**

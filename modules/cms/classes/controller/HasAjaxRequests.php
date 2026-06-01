@@ -3,15 +3,12 @@
 use Lang;
 use Flash;
 use Request;
-use Response;
+use Cms\Classes\Partial;
 use Cms\Classes\CmsException;
 use Cms\Classes\PartialWatcher;
 use Cms\Classes\AjaxApiResponse;
-use Cms\Classes\Partial;
-use October\Rain\Exception\AjaxException;
 use October\Rain\Exception\ApplicationException;
 use October\Rain\Exception\ValidationException;
-use Illuminate\Http\RedirectResponse;
 use Exception;
 use Throwable;
 
@@ -166,6 +163,7 @@ trait HasAjaxRequests
             }
         }
         catch (Throwable $ex) {
+            report($ex);
             $response = ajax()->exception($ex);
         }
 
@@ -317,18 +315,18 @@ trait HasAjaxRequests
         // Process partial code section handler
         if ($this->partialStack && ($partialObj = $this->partialStack->findPartialByHandler($handler))) {
             if (method_exists($partialObj, $handler)) {
-                return $partialObj->$handler() ?: true;
+                return app()->call([$partialObj, $handler]) ?: true;
             }
         }
 
         // Process page code section handler
         if (method_exists($this->pageObj, $handler)) {
-            return $this->pageObj->$handler() ?: true;
+            return app()->call([$this->pageObj, $handler]) ?: true;
         }
 
         // Process layout code section handler
         if (!$this->layout->isFallBack() && method_exists($this->layoutObj, $handler)) {
-            return $this->layoutObj->$handler() ?: true;
+            return app()->call([$this->layoutObj, $handler]) ?: true;
         }
 
         // Cycle each component to locate a usable handler

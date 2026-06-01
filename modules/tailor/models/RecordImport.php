@@ -2,6 +2,7 @@
 
 use Site;
 use Backend\Models\ImportModel;
+use Tailor\Classes\RecordIndexer;
 use October\Contracts\Element\ListElement;
 use October\Contracts\Element\FormElement;
 
@@ -63,10 +64,9 @@ class RecordImport extends ImportModel
     public function importData($results, $sessionKey = null)
     {
         foreach ($results as $row => $data) {
-            $id = array_get($data, 'id');
-            if (!$id) {
-                $this->logSkipped($row, "Missing entry ID");
-                continue;
+            // If id is empty, unset it so the database auto-increments
+            if (!array_get($data, 'id')) {
+                unset($data['id']);
             }
 
             // Find or create
@@ -90,6 +90,8 @@ class RecordImport extends ImportModel
                 $this->decodeModelAttribute($record, $attr, $value, $sessionKey);
             }
             $record->forceSave(null, $sessionKey);
+
+            RecordIndexer::instance()->process($record);
 
             if ($exists) {
                 $this->logUpdated();

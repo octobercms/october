@@ -1,7 +1,6 @@
 <?php namespace System\Traits;
 
 use App;
-use Url;
 use Html;
 use File;
 use Event;
@@ -363,7 +362,11 @@ trait AssetMaker
      */
     public function getAssetPath($fileName, $assetPath = null)
     {
-        if (starts_with($fileName, ['//', 'http://', 'https://'])) {
+        if (
+            str_starts_with($fileName, '//') ||
+            str_starts_with($fileName, 'http://') ||
+            str_starts_with($fileName, 'https://')
+        ) {
             return $fileName;
         }
 
@@ -444,12 +447,16 @@ trait AssetMaker
      */
     protected function getAssetScheme(string $asset): string
     {
-        if (starts_with($asset, ['//', 'http://', 'https://'])) {
+        if (
+            str_starts_with($asset, '//') ||
+            str_starts_with($asset, 'http://') ||
+            str_starts_with($asset, 'https://')
+        ) {
             return $asset;
         }
 
         if (substr($asset, 0, 1) === '/') {
-            $asset = Url::asset($asset);
+            $asset = Request::getBasePath() . $asset;
         }
 
         return $asset;

@@ -2,6 +2,7 @@
 @import './backend/_brand.css';
 @import './backend/_vars.css';
 @import './controls/settings-nav.css';
+@import './base-editor-styles.css';
 
 /* temp */
 @import './october.css';

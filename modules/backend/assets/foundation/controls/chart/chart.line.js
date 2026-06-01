@@ -1,8 +1,8 @@
 /*
- * Line Chart Plugin
+ * Line chart control
  *
  * Data attributes:
- * - data-control="chart-line" - enables the line chart plugin
+ * - data-control="chart-line" - enables the line chart control
  * - data-reset-zoom-link="#reset-zoom" - specifies a link to reset zoom
  * - data-zoomable - indicates that the chart is zoomable
  * - data-time-mode="weeks" - if the "weeks" value is specified and the xaxis mode is "time", the X axis labels will be displayed as week end dates.
@@ -13,7 +13,7 @@
  * attributes are described in the Flot documentation: https://github.com/flot/flot/blob/master/API.md#data-format
  *
  * JavaScript API:
- * $('.chart').chartLine({ resetZoomLink:'#reset-zoom' })
+ * oc.fetchControl(element, 'chart-line')
  *
  * Dependencies:
  * - Flot (jquery.flot.js)
@@ -21,15 +21,19 @@
  * - Flot Resize (jquery.flot.resize.js)
  * - Flot Time (jquery.flot.time.js)
  */
+oc.registerControl('chart-line', class extends oc.ControlBase {
+    init() {
+        this.config = Object.assign({
+            chartOptions: "",
+            timeMode: null,
+            zoomable: false,
+            resetZoomLink: null
+        }, this.config);
+    }
 
-+function ($) { "use strict";
-
-    // LINE CHART CLASS DEFINITION
-    // ============================
-
-    var ChartLine = function(element, options) {
-        var self = this;
-
+    connect() {
+        this.$el = $(this.element);
+        this.fullDataSet = [];
         var isDark = document.documentElement.getAttribute('data-bs-theme') === 'dark';
         var colorBackground = '#fff',
             colorMarkings = 'rgba(0,0,0,0.02)';
@@ -79,79 +83,43 @@
                 show: true,
                 noColumns: 2
             }
-        }
+        };
 
         this.defaultDataSetOptions = {
             shadowSize: 0
-        }
+        };
 
-        var parsedOptions = {}
+        var parsedOptions = {};
         try {
-            parsedOptions = oc.parseJSON("{" + options.chartOptions + "}");
+            parsedOptions = oc.parseJSON("{" + this.config.chartOptions + "}");
         }
         catch (e) {
             throw new Error('Error parsing the data-chart-options attribute value. '+e);
         }
 
-        this.chartOptions = $.extend({}, this.chartOptions, parsedOptions)
+        this.chartOptions = $.extend({}, this.chartOptions, parsedOptions);
 
-        this.options = options
-        this.$el = $(element)
-        this.fullDataSet = []
-        this.resetZoomLink = $(options.resetZoomLink)
+        this.resetZoomLink = $(this.config.resetZoomLink);
 
-        this.$el.trigger('oc.chartLineInit', [this])
+        this.$el.trigger('oc.chartLineInit', [this]);
 
-        /*
-         * Bind Events
-         */
-
-        this.resetZoomLink.on('click', $.proxy(this.clearZoom, this));
-
-        if (this.options.zoomable) {
-            this.$el.on("plotselected", function (event, ranges) {
-                var newCoords = {
-                    xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to }
-                }
-
-                $.plot(self.$el, self.fullDataSet, $.extend(true, {}, self.chartOptions, newCoords))
-                self.resetZoomLink.show()
-            });
+        // Bind events
+        if (this.config.resetZoomLink) {
+            this.resetZoomLink.on('click', this.proxy(this.clearZoom));
         }
 
-        /*
-         * Markings Helper
-         */
-
-        if (this.chartOptions.xaxis.mode == "time" && this.options.timeMode == "weeks")
-            this.chartOptions.markings = weekendAreas
-
-        function weekendAreas(axes) {
-            var markings = [],
-                d = new Date(axes.xaxis.min);
-
-            // Go to the first Saturday
-            d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 1) % 7))
-            d.setUTCSeconds(0)
-            d.setUTCMinutes(0)
-            d.setUTCHours(0)
-            var i = d.getTime()
-
-            do {
-                // When we don't set yaxis, the rectangle automatically
-                // extends to infinity upwards and downwards
-                markings.push({ xaxis: { from: i, to: i + 2 * 24 * 60 * 60 * 1000 } })
-                i += 7 * 24 * 60 * 60 * 1000
-            } while (i < axes.xaxis.max)
-
-            return markings
+        if (this.config.zoomable) {
+            this.$el.on("plotselected", this.proxy(this.onPlotSelected));
         }
 
-        /*
-         * Process the datasets
-         */
+        // Markings helper
+        if (this.chartOptions.xaxis.mode == "time" && this.config.timeMode == "weeks") {
+            this.chartOptions.markings = this.weekendAreas;
+        }
 
-        this.initializing = true
+        // Process the datasets
+        this.initializing = true;
+        var self = this;
 
         this.$el.find('>[data-chart="dataset"]').each(function(){
             var data = $(this).data(),
@@ -169,75 +137,79 @@
             }
 
             self.addDataSet($.extend({}, self.defaultDataSetOptions, processedData));
-        })
+        });
 
-        /*
-         * Build chart
-         */
-
-        this.initializing = false
-        this.rebuildChart()
+        // Build chart
+        this.initializing = false;
+        this.rebuildChart();
     }
 
-    ChartLine.DEFAULTS = {
-        chartOptions: "",
-        timeMode: null,
-        zoomable: false
+    disconnect() {
+        if (this.config.resetZoomLink) {
+            this.resetZoomLink.off('click', this.proxy(this.clearZoom));
+        }
+
+        if (this.config.zoomable) {
+            this.$el.off("plotselected", this.proxy(this.onPlotSelected));
+        }
+
+        this.resetZoomLink = null;
+        this.$el = null;
     }
 
-    /*
-     * Adds a data set to the chart.
-     * See https://github.com/flot/flot/blob/master/API.md#data-format for the list
-     * of supported data set options.
-     */
-    ChartLine.prototype.addDataSet = function (dataSet) {
-        this.fullDataSet.push(dataSet)
+    onPlotSelected(event, ranges) {
+        var newCoords = {
+            xaxis: { min: ranges.xaxis.from, max: ranges.xaxis.to }
+        };
 
-        if (!this.initializing)
-            this.rebuildChart()
+        $.plot(this.$el, this.fullDataSet, $.extend(true, {}, this.chartOptions, newCoords));
+        this.resetZoomLink.show();
     }
 
-    ChartLine.prototype.rebuildChart = function() {
-        this.$el.trigger('oc.beforeChartLineRender', [this])
+    weekendAreas(axes) {
+        var markings = [],
+            d = new Date(axes.xaxis.min);
 
-        $.plot(this.$el, this.fullDataSet, this.chartOptions)
+        // Go to the first Saturday
+        d.setUTCDate(d.getUTCDate() - ((d.getUTCDay() + 1) % 7));
+        d.setUTCSeconds(0);
+        d.setUTCMinutes(0);
+        d.setUTCHours(0);
+        var i = d.getTime();
+
+        do {
+            markings.push({ xaxis: { from: i, to: i + 2 * 24 * 60 * 60 * 1000 } });
+            i += 7 * 24 * 60 * 60 * 1000;
+        } while (i < axes.xaxis.max);
+
+        return markings;
     }
 
-    ChartLine.prototype.clearZoom = function() {
-        this.rebuildChart()
-        this.resetZoomLink.hide()
+    addDataSet(dataSet) {
+        this.fullDataSet.push(dataSet);
+
+        if (!this.initializing) {
+            this.rebuildChart();
+        }
     }
 
-    // LINE CHART PLUGIN DEFINITION
-    // ============================
+    rebuildChart() {
+        this.$el.trigger('oc.beforeChartLineRender', [this]);
 
-    var old = $.fn.chartLine
-
-    $.fn.chartLine = function (option) {
-        return this.each(function () {
-            var $this   = $(this)
-            var data    = $this.data('october.chartLine')
-            var options = $.extend({}, ChartLine.DEFAULTS, $this.data(), typeof option == 'object' && option)
-            if (!data) $this.data('october.chartLine', (data = new ChartLine(this, options)))
-            if (typeof option == 'string') data[option].call($this)
-        })
+        $.plot(this.$el, this.fullDataSet, this.chartOptions);
     }
 
-    $.fn.chartLine.Constructor = ChartLine
-
-    // LINE CHART NO CONFLICT
-    // =================
-
-    $.fn.chartLine.noConflict = function () {
-        $.fn.chartLine = old
-        return this
+    clearZoom() {
+        this.rebuildChart();
+        this.resetZoomLink.hide();
     }
+});
 
+// JQUERY PLUGIN DEFINITION
+// ============================
 
-    // LINE CHART DATA-API
-    // ===============
-    $(document).render(function () {
-        $('[data-control="chart-line"]').chartLine()
-    })
-
-}(window.jQuery);
+$.fn.chartLine = function (option) {
+    return this.each(function () {
+        oc.observeControl(this, 'chart-line');
+    });
+};

@@ -11,7 +11,19 @@
         </tr>
         <tr>
             <th><?= e(trans('backend::lang.media.public_url')) ?></th>
-            <td><a href="#" data-label="public-url" target="_blank"><?= e(trans('backend::lang.media.click_here')) ?></a></td>
+            <td>
+                <a href="#" data-label="public-url" target="_blank" rel="noopener noreferrer">
+                    <?= e(trans('backend::lang.media.open_in_new_tab')) ?>
+                </a>
+            </td>
+        </tr>
+        <tr>
+            <th><?= e(trans('backend::lang.media.media_path')) ?></th>
+            <td>
+                <a href="javascript:;" data-media-copy-path>
+                    <?= e(trans('backend::lang.media.copy_path')) ?>
+                </a>
+            </td>
         </tr>
         <tr data-media-last-modified>
             <th><?= e(trans('backend::lang.media.last_modified')) ?></th>

@@ -166,9 +166,10 @@ export default {
                                 }
                             },
                             ticks: {
-                                autoSkip: true,
+                                autoSkip: indexAxis !== 'y',
                                 maxRotation: 0,
                                 minRotation: 0,
+                                maxTicksLimit: indexAxis === 'y' ? 5 : undefined,
                                 callback: function (value, index, values) {
                                     if (!isDateDimension) {
                                         return this.getLabelForValue(value);
@@ -190,7 +191,8 @@ export default {
                             },
                             beginAtZero: true,
                             ticks: {
-                                maxTicksLimit: 5,
+                                autoSkip: indexAxis === 'y' ? false : undefined,
+                                maxTicksLimit: indexAxis !== 'y' ? 5 : undefined,
                             },
                             stacked: chartType === 'stacked-bar'
                         }

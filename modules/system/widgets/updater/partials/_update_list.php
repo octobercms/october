@@ -8,6 +8,17 @@
                 <?= e(trans('system::lang.updates.found.help')) ?>
             </p>
 
+            <?php if (!empty($memoryWarning)): ?>
+                <div class="callout callout-warning no-icon no-subheader no-title">
+                    <div class="header">
+                        <p>
+                            <i class="icon-exclamation-triangle"></i>
+                            <?= e(trans('system::lang.installer.memory_limit_warning', ['limit' => ini_get('memory_limit')])) ?>
+                        </p>
+                    </div>
+                </div>
+            <?php endif ?>
+
             <div class="control-updatelist">
                 <div class="control-scrollbar" style="height:400px" data-control="scrollbar">
                     <?php if ($core): ?>

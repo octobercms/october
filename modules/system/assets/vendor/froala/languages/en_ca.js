@@ -80,6 +80,7 @@ $.FE_LANGUAGE['en_ca'] = {
     // Style
     "Paragraph Style": "Paragraph Style",
     "Inline Style": "Inline Style",
+    "Inline Class": "Inline Class",
 
     // Alignment
     "Align": "Align",
@@ -153,6 +154,12 @@ $.FE_LANGUAGE['en_ca'] = {
     "Drop video": "Drop video",
     "Your browser does not support HTML5 video.": "Your browser does not support HTML5 video.",
     "Upload Video": "Upload Video",
+
+    // Audio
+    "Insert Audio": "Insert Audio",
+
+    // Snippet
+    "Insert Snippet": "Insert Snippet",
 
     // Tables
     "Insert Table": "Insert Table",

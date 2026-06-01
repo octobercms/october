@@ -212,7 +212,7 @@
     InstallProcess.prototype.renderPartial = function($el, name, data, options) {
         var container = $el,
             template = $('[data-partial="' + name + '"]'),
-            contents = Mustache.to_html(template.html(), data);
+            contents = Mustache.render(template.html(), data);
 
         options = $.extend(true, {
             append: false

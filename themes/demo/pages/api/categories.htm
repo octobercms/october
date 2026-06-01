@@ -1,0 +1,17 @@
+##
+url = "/api/blog/categories"
+layout = "api"
+
+[collection categories]
+handle = "Blog\Category"
+==
+{#
+    GET /api/blog/categories
+    ========================
+    Returns all blog categories.
+
+    Example: /api/blog/categories
+#}
+{% do response({
+    data: categories
+}) %}

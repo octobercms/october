@@ -55,7 +55,8 @@ window.oc.langMessages['cs'] = Object.assign(
         "dismiss": "Dismiss",
         "confirm_button_text": "OK",
         "cancel_button_text": "Zru\u0161it",
-        "widget_remove_confirm": "Odstranit widget?"
+        "widget_remove_confirm": "Odstranit widget?",
+        "reload": "Reload"
     },
     "datepicker": {
         "previousMonth": "P\u0159edchoz\u00ed m\u011bs\u00edc",
@@ -152,131 +153,665 @@ window.oc.langMessages['cs'] = Object.assign(
         "cancel": "Cancel",
         "items": "Items"
     },
-    "[not set]": "[not set]",
-    "1 day (today) if not set": "1 day (today) if not set",
-    "Apply": "Apply",
-    "Ascending": "Ascending",
-    "Attribute": "Attribute",
-    "Bar": "Bar",
-    "Chart": "Chart",
-    "Chart type": "Chart type",
-    "Color": "Color",
-    "Compare Totals": "Compare Totals",
-    "Configure": "Configure",
-    "Custom": "Custom",
-    "Dashboard interval": "Dashboard interval",
-    "Data source": "Data source",
-    "Date interval": "Date interval",
-    "Day": "Day",
-    "Delete": "Delete",
-    "Delete Dashboard": "Delete Dashboard",
-    "Delete row": "Delete row",
-    "Descending": "Descending",
-    "Dimension": "Dimension",
-    "Direction": "Direction",
-    "Disabled": "Disabled",
-    "Display": "Display",
-    "Display [not set]": "Display [not set]",
-    "Display all records": "Display all records",
-    "Display relative bars": "Display relative bars",
-    "Display totals": "Display totals",
-    "Edit Dashboard": "Edit Dashboard",
-    "Empty values": "Empty values",
-    "Enter a positive number": "Enter a positive number",
-    "Enter a positive number or leave empty to display all records.": "Enter a positive number or leave empty to display all records.",
-    "Equal to": "Equal to",
-    "Export Dashboard": "Export Dashboard",
-    "Extra table fields": "Extra table fields",
-    "Filters": "Filters",
-    "General": "General",
-    "Greater or equal to": "Greater or equal to",
-    "Greater than": "Greater than",
-    "Hide": "Hide",
-    "Horizontal": "Horizontal",
-    "Icon": "Icon",
-    "Icon Status": "Icon Status",
-    "Important": "Important",
-    "Includes": "Includes",
-    "Indicator": "Indicator",
-    "Information": "Information",
-    "Last 30 days": "Last 30 days",
-    "Last 7 days": "Last 7 days",
-    "Last month": "Last month",
-    "Leave empty to disable pagination": "Leave empty to disable pagination",
-    "Leave empty to hide the title": "Leave empty to hide the title",
-    "Less or equal to": "Less or equal to",
-    "Less than": "Less than",
-    "Limit": "Limit",
-    "Line": "Line",
-    "Link Text": "Link Text",
-    "Link URL": "Link URL",
-    "Make Default": "Make Default",
-    "Manage Dashboards": "Manage Dashboards",
-    "Metric": "Metric",
-    "Metrics": "Metrics",
-    "Month": "Month",
-    "My Custom Widget": "My Custom Widget",
-    "No Value": "No Value",
-    "Notice text": "Notice text",
-    "Number of days": "Number of days",
-    "One of": "One of",
-    "One value per line": "One value per line",
-    "Operation": "Operation",
-    "Order": "Order",
-    "Past hour": "Past hour",
-    "Past X days": "Past X days",
-    "Please provide the widget title": "Please provide the widget title",
-    "Please select a data source": "Please select a data source",
-    "Please select a dimension": "Please select a dimension",
-    "Please select an icon": "Please select an icon",
-    "Please select metric(s).": "Please select metric(s).",
-    "Prev period": "Prev period",
-    "Quarter": "Quarter",
-    "Records per page": "Records per page",
-    "Refresh every minute": "Refresh every minute",
-    "Rename Dashboard": "Rename Dashboard",
-    "Reset Layout": "Reset Layout",
-    "Reset layout back to default?": "Reset layout back to default?",
-    "Same period last year": "Same period last year",
-    "Section": "Section",
-    "Section Title": "Section Title",
-    "Select a dimension and metrics": "Select a dimension and metrics",
-    "Select an attribute": "Select an attribute",
-    "Select an operation": "Select an operation",
-    "Select sorting metric or dimension": "Select sorting metric or dimension",
-    "Select the metric color": "Select the metric color",
-    "Set the current layout as the default?": "Set the current layout as the default?",
-    "Show Date Interval": "Show Date Interval",
-    "Sort by": "Sort by",
-    "Sorting": "Sorting",
-    "Sorting & Filtering": "Sorting & Filtering",
-    "Stacked Bar": "Stacked Bar",
-    "Starts with": "Starts with",
-    "Success": "Success",
-    "Table": "Table",
-    "Text Notice": "Text Notice",
-    "The dashboard layout has been reset to default.": "The dashboard layout has been reset to default.",
-    "The dashboard was successfully updated.": "The dashboard was successfully updated.",
-    "The limit value must be at least 1": "The limit value must be at least 1",
-    "This dashboard is now the default layout.": "This dashboard is now the default layout.",
-    "This is a text notice widget.": "This is a text notice widget.",
-    "This month": "This month",
-    "This quarter": "This quarter",
-    "This week": "This week",
-    "This year": "This year",
-    "Title": "Title",
-    "Today": "Today",
-    "Value": "Value",
-    "Values": "Values",
-    "Vertical": "Vertical",
-    "Warning": "Warning",
-    "Week": "Week",
-    "Year": "Year",
-    "Yesterday": "Yesterday"
+    "[not set]": "[nen\u00ed nastaveno]",
+    "1 day (today) if not set": "1 den (dnes), pokud nen\u00ed nastaveno",
+    "Apply": "Pou\u017e\u00edt",
+    "Ascending": "Vzestupn\u011b",
+    "Attribute": "Atribut",
+    "Bar": "Sloupec",
+    "Chart": "Sch\u00e9ma",
+    "Chart type": "Typ grafu",
+    "Color": "Barva",
+    "Compare Totals": "Porovnat sou\u010dty",
+    "Configure": "Konfigurovat",
+    "Custom": "Zvyk",
+    "Dashboard interval": "Interval \u0159\u00eddic\u00ed desky",
+    "Data source": "Zdroj dat",
+    "Date interval": "Interval data",
+    "Day": "Den",
+    "Delete": "Vymazat",
+    "Delete Dashboard": "Smazat \u0159\u00eddic\u00ed panel",
+    "Delete row": "Smazat \u0159\u00e1dek",
+    "Descending": "Klesaj\u00edc\u00ed",
+    "Dimension": "Dimenze",
+    "Direction": "Sm\u011br",
+    "Disabled": "Zak\u00e1z\u00e1no",
+    "Display": "Zobrazit",
+    "Display [not set]": "Displej [nenastaveno]",
+    "Display all records": "Zobrazit v\u0161echny z\u00e1znamy",
+    "Display relative bars": "Zobrazit relativn\u00ed sloupce",
+    "Display totals": "Zobrazit sou\u010dty",
+    "Edit Dashboard": "Upravit \u0159\u00eddic\u00ed panel",
+    "Empty values": "Pr\u00e1zdn\u00e9 hodnoty",
+    "Enter a positive number": "Zadejte kladn\u00e9 \u010d\u00edslo",
+    "Enter a positive number or leave empty to display all records.": "Zadejte kladn\u00e9 \u010d\u00edslo nebo nechte pole pr\u00e1zdn\u00e9 pro zobrazen\u00ed v\u0161ech z\u00e1znam\u016f.",
+    "Equal to": "Rovn\u00e9",
+    "Export Dashboard": "Exportovat \u0159\u00eddic\u00ed panel",
+    "Extra table fields": "Dal\u0161\u00ed pole tabulky",
+    "Filters": "Filtry",
+    "General": "Gener\u00e1l",
+    "Greater or equal to": "V\u011bt\u0161\u00ed nebo rovno",
+    "Greater than": "V\u011bt\u0161\u00ed ne\u017e",
+    "Hide": "Skr\u00fdt",
+    "Horizontal": "Horizont\u00e1ln\u00ed",
+    "Icon": "Ikona",
+    "Icon Status": "Ikona Stav",
+    "Important": "D\u016fle\u017eit\u00e9",
+    "Includes": "Zahrnuje",
+    "Indicator": "Indik\u00e1tor",
+    "Information": "Informace",
+    "Last 30 days": "Posledn\u00edch 30 dn\u00ed",
+    "Last 7 days": "Posledn\u00edch 7 dn\u00ed",
+    "Last month": "Minul\u00fd m\u011bs\u00edc",
+    "Leave empty to disable pagination": "Pro vypnut\u00ed str\u00e1nkov\u00e1n\u00ed ponechte pr\u00e1zdn\u00e9.",
+    "Leave empty to hide the title": "Pro skryt\u00ed n\u00e1zvu ponechte pr\u00e1zdn\u00e9.",
+    "Less or equal to": "Men\u0161\u00ed nebo rovno",
+    "Less than": "M\u00e9n\u011b ne\u017e",
+    "Limit": "Omezit",
+    "Line": "\u010c\u00e1ra",
+    "Link Text": "Text odkazu",
+    "Link URL": "URL odkazu",
+    "Make Default": "Nastavit jako v\u00fdchoz\u00ed",
+    "Manage Dashboards": "Spr\u00e1va \u0159\u00eddic\u00edch panel\u016f",
+    "Metric": "Metrick\u00fd",
+    "Metrics": "Metriky",
+    "Month": "M\u011bs\u00edc",
+    "My Custom Widget": "M\u016fj vlastn\u00ed widget",
+    "No Value": "\u017d\u00e1dn\u00e1 hodnota",
+    "Notice text": "Text ozn\u00e1men\u00ed",
+    "Number of days": "Po\u010det dn\u00ed",
+    "One of": "Jeden z",
+    "One value per line": "Jedna hodnota na \u0159\u00e1dek",
+    "Operation": "Operace",
+    "Order": "Objedn\u00e1vka",
+    "Past hour": "Posledn\u00ed hodina",
+    "Past X days": "Posledn\u00edch X dn\u00ed",
+    "Please provide the widget title": "Pros\u00edm, uve\u010fte n\u00e1zev widgetu",
+    "Please select a data source": "Vyberte zdroj dat",
+    "Please select a dimension": "Vyberte pros\u00edm dimenzi",
+    "Please select an icon": "Vyberte pros\u00edm ikonu",
+    "Please select metric(s).": "Vyberte pros\u00edm metriku(y).",
+    "Prev period": "P\u0159edchoz\u00ed obdob\u00ed",
+    "Quarter": "\u010ctvrtlet\u00ed",
+    "Records per page": "Z\u00e1znam\u016f na str\u00e1nku",
+    "Refresh every minute": "Obnovovat ka\u017edou minutu",
+    "Rename Dashboard": "P\u0159ejmenovat \u0159\u00eddic\u00ed panel",
+    "Reset Layout": "Obnovit rozvr\u017een\u00ed",
+    "Reset layout back to default?": "Obnovit rozvr\u017een\u00ed zp\u011bt na v\u00fdchoz\u00ed?",
+    "Same period last year": "Stejn\u00e9 obdob\u00ed lo\u0148sk\u00e9ho roku",
+    "Section": "Sekce",
+    "Section Title": "N\u00e1zev sekce",
+    "Select a dimension and metrics": "Vyberte dimenzi a metriky",
+    "Select an attribute": "Vyberte atribut",
+    "Select an operation": "Vyberte operaci",
+    "Select sorting metric or dimension": "Vyberte metriku nebo dimenzi \u0159azen\u00ed",
+    "Select the metric color": "Vyberte barvu metriky",
+    "Set the current layout as the default?": "Nastavit aktu\u00e1ln\u00ed rozvr\u017een\u00ed jako v\u00fdchoz\u00ed?",
+    "Show Date Interval": "Zobrazit interval dat",
+    "Sort by": "Se\u0159adit podle",
+    "Sorting": "\u0158azen\u00ed",
+    "Sorting & Filtering": "\u0158azen\u00ed a filtrov\u00e1n\u00ed",
+    "Stacked Bar": "Skl\u00e1dan\u00fd sloupcov\u00fd graf",
+    "Starts with": "Za\u010d\u00edn\u00e1 s",
+    "Success": "\u00dasp\u011bch",
+    "Table": "Tabulka",
+    "Text Notice": "Textov\u00e9 ozn\u00e1men\u00ed",
+    "The dashboard layout has been reset to default.": "Rozvr\u017een\u00ed \u0159\u00eddic\u00ed desky bylo obnoveno na v\u00fdchoz\u00ed nastaven\u00ed.",
+    "The dashboard was successfully updated.": "\u0158\u00eddic\u00ed panel byl \u00fasp\u011b\u0161n\u011b aktualizov\u00e1n.",
+    "The limit value must be at least 1": "Limitn\u00ed hodnota mus\u00ed b\u00fdt alespo\u0148 1",
+    "This dashboard is now the default layout.": "Tento \u0159\u00eddic\u00ed panel m\u00e1 nyn\u00ed v\u00fdchoz\u00ed rozvr\u017een\u00ed.",
+    "This is a text notice widget.": "Toto je widget s textov\u00fdmi ozn\u00e1men\u00edmi.",
+    "This month": "Tento m\u011bs\u00edc",
+    "This quarter": "Toto \u010dtvrtlet\u00ed",
+    "This week": "Tento t\u00fdden",
+    "This year": "Letos",
+    "Title": "Titul",
+    "Today": "Dnes",
+    "Value": "Hodnota",
+    "Values": "Hodnoty",
+    "Vertical": "Vertik\u00e1ln\u00ed",
+    "Warning": "Varov\u00e1n\u00ed",
+    "Week": "T\u00fdden",
+    "Year": "Rok",
+    "Yesterday": "V\u010dera"
 }
 );
+
+
+//! moment.js locale configuration
+//! locale : Czech [cs]
+//! author : petrbela : https://github.com/petrbela
+
+;(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined'
+       && typeof require === 'function' ? factory(require('../moment')) :
+   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   factory(global.moment)
+}(this, (function (moment) { 'use strict';
+
+    //! moment.js locale configuration
+
+    var months = {
+            standalone:
+                'leden_únor_březen_duben_květen_červen_červenec_srpen_září_říjen_listopad_prosinec'.split(
+                    '_'
+                ),
+            format: 'ledna_února_března_dubna_května_června_července_srpna_září_října_listopadu_prosince'.split(
+                '_'
+            ),
+            isFormat: /DD?[o.]?(\[[^\[\]]*\]|\s)+MMMM/,
+        },
+        monthsShort = 'led_úno_bře_dub_kvě_čvn_čvc_srp_zář_říj_lis_pro'.split('_'),
+        monthsParse = [
+            /^led/i,
+            /^úno/i,
+            /^bře/i,
+            /^dub/i,
+            /^kvě/i,
+            /^(čvn|červen$|června)/i,
+            /^(čvc|červenec|července)/i,
+            /^srp/i,
+            /^zář/i,
+            /^říj/i,
+            /^lis/i,
+            /^pro/i,
+        ],
+        // NOTE: 'červen' is substring of 'červenec'; therefore 'červenec' must precede 'červen' in the regex to be fully matched.
+        // Otherwise parser matches '1. červenec' as '1. červen' + 'ec'.
+        monthsRegex =
+            /^(leden|únor|březen|duben|květen|červenec|července|červen|června|srpen|září|říjen|listopad|prosinec|led|úno|bře|dub|kvě|čvn|čvc|srp|zář|říj|lis|pro)/i;
+
+    function plural(n) {
+        return n > 1 && n < 5 && ~~(n / 10) !== 1;
+    }
+    function translate(number, withoutSuffix, key, isFuture) {
+        var result = number + ' ';
+        switch (key) {
+            case 's': // a few seconds / in a few seconds / a few seconds ago
+                return withoutSuffix || isFuture ? 'pár sekund' : 'pár sekundami';
+            case 'ss': // 9 seconds / in 9 seconds / 9 seconds ago
+                if (withoutSuffix || isFuture) {
+                    return result + (plural(number) ? 'sekundy' : 'sekund');
+                } else {
+                    return result + 'sekundami';
+                }
+            case 'm': // a minute / in a minute / a minute ago
+                return withoutSuffix ? 'minuta' : isFuture ? 'minutu' : 'minutou';
+            case 'mm': // 9 minutes / in 9 minutes / 9 minutes ago
+                if (withoutSuffix || isFuture) {
+                    return result + (plural(number) ? 'minuty' : 'minut');
+                } else {
+                    return result + 'minutami';
+                }
+            case 'h': // an hour / in an hour / an hour ago
+                return withoutSuffix ? 'hodina' : isFuture ? 'hodinu' : 'hodinou';
+            case 'hh': // 9 hours / in 9 hours / 9 hours ago
+                if (withoutSuffix || isFuture) {
+                    return result + (plural(number) ? 'hodiny' : 'hodin');
+                } else {
+                    return result + 'hodinami';
+                }
+            case 'd': // a day / in a day / a day ago
+                return withoutSuffix || isFuture ? 'den' : 'dnem';
+            case 'dd': // 9 days / in 9 days / 9 days ago
+                if (withoutSuffix || isFuture) {
+                    return result + (plural(number) ? 'dny' : 'dní');
+                } else {
+                    return result + 'dny';
+                }
+            case 'M': // a month / in a month / a month ago
+                return withoutSuffix || isFuture ? 'měsíc' : 'měsícem';
+            case 'MM': // 9 months / in 9 months / 9 months ago
+                if (withoutSuffix || isFuture) {
+                    return result + (plural(number) ? 'měsíce' : 'měsíců');
+                } else {
+                    return result + 'měsíci';
+                }
+            case 'y': // a year / in a year / a year ago
+                return withoutSuffix || isFuture ? 'rok' : 'rokem';
+            case 'yy': // 9 years / in 9 years / 9 years ago
+                if (withoutSuffix || isFuture) {
+                    return result + (plural(number) ? 'roky' : 'let');
+                } else {
+                    return result + 'lety';
+                }
+        }
+    }
+
+    var cs = moment.defineLocale('cs', {
+        months: months,
+        monthsShort: monthsShort,
+        monthsRegex: monthsRegex,
+        monthsShortRegex: monthsRegex,
+        // NOTE: 'červen' is substring of 'červenec'; therefore 'červenec' must precede 'červen' in the regex to be fully matched.
+        // Otherwise parser matches '1. červenec' as '1. červen' + 'ec'.
+        monthsStrictRegex:
+            /^(leden|ledna|února|únor|březen|března|duben|dubna|květen|května|červenec|července|červen|června|srpen|srpna|září|říjen|října|listopadu|listopad|prosinec|prosince)/i,
+        monthsShortStrictRegex:
+            /^(led|úno|bře|dub|kvě|čvn|čvc|srp|zář|říj|lis|pro)/i,
+        monthsParse: monthsParse,
+        longMonthsParse: monthsParse,
+        shortMonthsParse: monthsParse,
+        weekdays: 'neděle_pondělí_úterý_středa_čtvrtek_pátek_sobota'.split('_'),
+        weekdaysShort: 'ne_po_út_st_čt_pá_so'.split('_'),
+        weekdaysMin: 'ne_po_út_st_čt_pá_so'.split('_'),
+        longDateFormat: {
+            LT: 'H:mm',
+            LTS: 'H:mm:ss',
+            L: 'DD.MM.YYYY',
+            LL: 'D. MMMM YYYY',
+            LLL: 'D. MMMM YYYY H:mm',
+            LLLL: 'dddd D. MMMM YYYY H:mm',
+            l: 'D. M. YYYY',
+        },
+        calendar: {
+            sameDay: '[dnes v] LT',
+            nextDay: '[zítra v] LT',
+            nextWeek: function () {
+                switch (this.day()) {
+                    case 0:
+                        return '[v neděli v] LT';
+                    case 1:
+                    case 2:
+                        return '[v] dddd [v] LT';
+                    case 3:
+                        return '[ve středu v] LT';
+                    case 4:
+                        return '[ve čtvrtek v] LT';
+                    case 5:
+                        return '[v pátek v] LT';
+                    case 6:
+                        return '[v sobotu v] LT';
+                }
+            },
+            lastDay: '[včera v] LT',
+            lastWeek: function () {
+                switch (this.day()) {
+                    case 0:
+                        return '[minulou neděli v] LT';
+                    case 1:
+                    case 2:
+                        return '[minulé] dddd [v] LT';
+                    case 3:
+                        return '[minulou středu v] LT';
+                    case 4:
+                    case 5:
+                        return '[minulý] dddd [v] LT';
+                    case 6:
+                        return '[minulou sobotu v] LT';
+                }
+            },
+            sameElse: 'L',
+        },
+        relativeTime: {
+            future: 'za %s',
+            past: 'před %s',
+            s: translate,
+            ss: translate,
+            m: translate,
+            mm: translate,
+            h: translate,
+            hh: translate,
+            d: translate,
+            dd: translate,
+            M: translate,
+            MM: translate,
+            y: translate,
+            yy: translate,
+        },
+        dayOfMonthOrdinalParse: /\d{1,2}\./,
+        ordinal: '%d.',
+        week: {
+            dow: 1, // Monday is the first day of the week.
+            doy: 4, // The week that contains Jan 4th is the first week of the year.
+        },
+    });
+
+    return cs;
+
+})));
 
 
 /*! Select2 4.1.0-rc.0 | https://github.com/select2/select2/blob/master/LICENSE.md */
 
 !function(){if(jQuery&&jQuery.fn&&jQuery.fn.select2&&jQuery.fn.select2.amd)var e=jQuery.fn.select2.amd;e.define("select2/i18n/cs",[],function(){function e(e,n){switch(e){case 2:return n?"dva":"dvě";case 3:return"tři";case 4:return"čtyři"}return""}return{errorLoading:function(){return"Výsledky nemohly být načteny."},inputTooLong:function(n){var t=n.input.length-n.maximum;return 1==t?"Prosím, zadejte o jeden znak méně.":t<=4?"Prosím, zadejte o "+e(t,!0)+" znaky méně.":"Prosím, zadejte o "+t+" znaků méně."},inputTooShort:function(n){var t=n.minimum-n.input.length;return 1==t?"Prosím, zadejte ještě jeden znak.":t<=4?"Prosím, zadejte ještě další "+e(t,!0)+" znaky.":"Prosím, zadejte ještě dalších "+t+" znaků."},loadingMore:function(){return"Načítají se další výsledky…"},maximumSelected:function(n){var t=n.maximum;return 1==t?"Můžete zvolit jen jednu položku.":t<=4?"Můžete zvolit maximálně "+e(t,!1)+" položky.":"Můžete zvolit maximálně "+t+" položek."},noResults:function(){return"Nenalezeny žádné položky."},searching:function(){return"Vyhledávání…"},removeAllItems:function(){return"Odstraňte všechny položky"}}}),e.define,e.require}();
+
+/*!
+ * Froala Editor for October CMS
+ */
+
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function( root, jQuery ) {
+            if ( jQuery === undefined ) {
+                // require('jQuery') returns a factory that requires window to
+                // build a jQuery instance, we normalize how we use modules
+                // that require this pattern but the window provided is a noop
+                // if it's defined (how jquery works)
+                if ( typeof window !== 'undefined' ) {
+                    jQuery = require('jquery');
+                }
+                else {
+                    jQuery = require('jquery')(root);
+                }
+            }
+            return factory(jQuery);
+        };
+    } else {
+        // Browser globals
+        factory(window.jQuery);
+    }
+}(function ($) {
+/**
+ * Czech
+ */
+
+if (!$.FE_LANGUAGE) {
+    $.FE_LANGUAGE = {};
+}
+
+$.FE_LANGUAGE['cs'] = {
+  translation: {
+    // Place holder
+    "Type something": "Napi\u0161te n\u011bco",
+
+    // Basic formatting
+    "Bold": "Tu\u010dn\u00e9",
+    "Italic": "Kurz\u00edva",
+    "Underline": "Podtr\u017een\u00e9",
+    "Strikethrough": "P\u0159e\u0161krtnut\u00e9",
+
+    // Main buttons
+    "Insert": "Vlo\u017eit",
+    "Delete": "Vymazat",
+    "Cancel": "Zru\u0161it",
+    "OK": "OK",
+    "Back": "Zp\u011bt",
+    "Remove": "Odstranit",
+    "More": "V\u00edce",
+    "Update": "Aktualizovat",
+    "Style": "Styl",
+
+    // Font
+    "Font Family": "Typ p\u00edsma",
+    "Font Size": "Velikost p\u00edsma",
+
+    // Colors
+    "Colors": "Barvy",
+    "Background": "Pozad\u00ed",
+    "Text": "P\u00edsmo",
+    "HEX Color": "Hex Barvy",
+
+    // Paragraphs
+    "Paragraph Format": "Form\u00e1t odstavec",
+    "Normal": "Norm\u00e1ln\u00ed",
+    "Code": "K\u00f3d",
+    "Heading 1": "Nadpis 1",
+    "Heading 2": "Nadpis 2",
+    "Heading 3": "Nadpis 3",
+    "Heading 4": "Nadpis 4",
+
+    // Style
+    "Paragraph Style": "Odstavec styl",
+    "Inline Style": "Inline styl",
+
+    // Alignment
+    "Align": "Zarovn\u00e1n\u00ed",
+    "Align Left": "Zarovnat vlevo",
+    "Align Center": "Zarovnat na st\u0159ed",
+    "Align Right": "Zarovnat vpravo",
+    "Align Justify": "Zarovnat do bloku",
+    "None": "Nikdo",
+
+    // Lists
+    "Ordered List": "\u010c\u00edslovan\u00fd seznam",
+    "Default": "Výchozí",
+    "Lower Alpha": "Nižší alfa",
+    "Lower Greek": "Nižší řečtina",
+    "Lower Roman": "Nižší římský",
+    "Upper Alpha": "Horní alfa",
+    "Upper Roman": "Horní římský",
+
+    "Unordered List": "Ne\u010d\u00edslovan\u00fd seznam",
+    "Circle": "Kruh",
+    "Disc": "Disk",
+    "Square": "Náměstí",
+
+    // Line height
+    "Line Height": "Výška řádku",
+    "Single": "Singl",
+    "Double": "Dvojnásobek",
+
+    // Indent
+    "Decrease Indent": "Zmen\u0161it odsazen\u00ed",
+    "Increase Indent": "Zv\u011bt\u0161it odsazen\u00ed",
+
+    // Links
+    "Insert Link": "Vlo\u017eit odkaz",
+    "Open in new tab": "Otev\u0159\u00edt v nov\u00e9 z\u00e1lo\u017ece",
+    "Open Link": "Otev\u0159\u00edt odkaz",
+    "Edit Link": "Upravit odkaz",
+    "Unlink": "Odstranit odkaz",
+    "Choose Link": "Zvolte odkaz",
+
+    // Images
+    "Insert Image": "Vlo\u017eit obr\u00e1zek",
+    "Upload Image": "Nahr\u00e1t obr\u00e1zek",
+    "By URL": "Podle URL",
+    "Browse": "Proch\u00e1zet",
+    "Drop image": "P\u0159et\u00e1hn\u011bte sem obr\u00e1zek",
+    "or click": "nebo zde klepn\u011bte",
+    "Manage Images": "Spr\u00e1va obr\u00e1zk\u016f",
+    "Loading": "Nakl\u00e1d\u00e1n\u00ed",
+    "Deleting": "Odstran\u011bn\u00ed",
+    "Tags": "Zna\u010dky",
+    "Are you sure? Image will be deleted.": "Ur\u010dit\u011b? Obr\u00e1zek bude smaz\u00e1n.",
+    "Replace": "Nahradit",
+    "Uploading": "Nahr\u00e1v\u00e1n\u00ed",
+    "Loading image": "Obr\u00e1zek se na\u010d\u00edt\u00e1",
+    "Display": "Zobrazit",
+    "Inline": "Inline",
+    "Break Text": "P\u0159est\u00e1vka textu",
+    "Alternative Text": "Alternativn\u00ed textu",
+    "Change Size": "Zm\u011bnit velikost",
+    "Width": "\u0160\u00ed\u0159ka",
+    "Height": "V\u00fd\u0161ka",
+    "Something went wrong. Please try again.": "N\u011bco se pokazilo. Pros\u00edm zkuste to znovu.",
+    "Image Caption": "Obrázek titulku",
+    "Advanced Edit": "Pokročilá úprava",
+
+    // Video
+    "Insert Video": "Vlo\u017eit video",
+    "Embedded Code": "Vlo\u017een\u00fd k\u00f3d",
+    "Paste in a video URL": "Vložit adresu URL videa",
+    "Drop video": "Drop video",
+    "Your browser does not support HTML5 video.": "Váš prohlížeč nepodporuje video html5.",
+    "Upload Video": "Nahrát video",
+
+    // Tables
+    "Insert Table": "Vlo\u017eit tabulku",
+    "Table Header": "Hlavi\u010dka tabulky",
+    "Remove Table": "Odstranit tabulku",
+    "Table Style": "Styl tabulky",
+    "Horizontal Align": "Horizont\u00e1ln\u00ed zarovn\u00e1n\u00ed",
+    "Row": "\u0158\u00e1dek",
+    "Insert row above": "Vlo\u017eit \u0159\u00e1dek nad",
+    "Insert row below": "Vlo\u017eit \u0159\u00e1dek pod",
+    "Delete row": "Smazat \u0159\u00e1dek",
+    "Column": "Sloupec",
+    "Insert column before": "Vlo\u017eit sloupec vlevo",
+    "Insert column after": "Vlo\u017eit sloupec vpravo",
+    "Delete column": "Smazat sloupec",
+    "Cell": "Bu\u0148ka",
+    "Merge cells": "Slou\u010dit bu\u0148ky",
+    "Horizontal split": "Horizont\u00e1ln\u00ed rozd\u011blen\u00ed",
+    "Vertical split": "Vertik\u00e1ln\u00ed rozd\u011blen\u00ed",
+    "Cell Background": "Bu\u0148ka pozad\u00ed",
+    "Vertical Align": "Vertik\u00e1ln\u00ed zarovn\u00e1n\u00ed",
+    "Top": "Vrchol",
+    "Middle": "St\u0159ed",
+    "Bottom": "Spodn\u00ed",
+    "Align Top": "Zarovnat vrchol",
+    "Align Middle": "Zarovnat st\u0159ed",
+    "Align Bottom": "Zarovnat spodn\u00ed",
+    "Cell Style": "Styl bu\u0148ky",
+
+    // Files
+    "Upload File": "Nahr\u00e1t soubor",
+    "Drop file": "P\u0159et\u00e1hn\u011bte sem soubor",
+
+    // Emoticons
+    "Emoticons": "Emotikony",
+    "Grinning face": "S \u00fasm\u011bvem tv\u00e1\u0159",
+    "Grinning face with smiling eyes": "S \u00fasm\u011bvem obli\u010dej s o\u010dima s \u00fasm\u011bvem",
+    "Face with tears of joy": "tv\u00e1\u0159 se slzami radosti",
+    "Smiling face with open mouth": "Usm\u00edvaj\u00edc\u00ed se obli\u010dej s otev\u0159en\u00fdmi \u00fasty",
+    "Smiling face with open mouth and smiling eyes": "Usm\u00edvaj\u00edc\u00ed se obli\u010dej s otev\u0159en\u00fdmi \u00fasty a o\u010dima s \u00fasm\u011bvem",
+    "Smiling face with open mouth and cold sweat": "Usm\u00edvaj\u00edc\u00ed se tv\u00e1\u0159 s otev\u0159en\u00fdmi \u00fasty a studen\u00fd pot",
+    "Smiling face with open mouth and tightly-closed eyes": "Usm\u00edvaj\u00edc\u00ed se tv\u00e1\u0159 s otev\u0159en\u00fdmi \u00fasty a t\u011bsn\u011b zav\u0159en\u00e9 o\u010di",
+    "Smiling face with halo": "Usm\u00edvaj\u00edc\u00ed se obli\u010dej s halo",
+    "Smiling face with horns": "Usm\u00edvaj\u00edc\u00ed se obli\u010dej s  rohy",
+    "Winking face": "Mrk\u00e1n\u00ed tv\u00e1\u0159",
+    "Smiling face with smiling eyes": "Usm\u00edvaj\u00edc\u00ed se obli\u010dej s  o\u010dima s \u00fasm\u011bvem",
+    "Face savoring delicious food": "Tv\u00e1\u0159 vychutn\u00e1val chutn\u00e9 j\u00eddlo",
+    "Relieved face": "Ulevilo tv\u00e1\u0159",
+    "Smiling face with heart-shaped eyes": "Usm\u00edvaj\u00edc\u00ed se tv\u00e1\u0159 ve tvaru srdce o\u010dima",
+    "Smiling face with sunglasses": "Usm\u00edvaj\u00edc\u00ed se tv\u00e1\u0159 se slune\u010dn\u00edmi br\u00fdlemi",
+    "Smirking face": "Uculoval tv\u00e1\u0159",
+    "Neutral face": "Neutr\u00e1ln\u00ed tv\u00e1\u0159",
+    "Expressionless face": "Bezv\u00fdrazn\u00fd obli\u010dej",
+    "Unamused face": "Ne pobaven\u00fd tv\u00e1\u0159",
+    "Face with cold sweat": "Tv\u00e1\u0159 se studen\u00fdm potem",
+    "Pensive face": "Zamy\u0161len\u00fd obli\u010dej",
+    "Confused face": "Zmaten\u00fd tv\u00e1\u0159",
+    "Confounded face": "Na\u0161tvan\u00fd tv\u00e1\u0159",
+    "Kissing face": "L\u00edb\u00e1n\u00ed tv\u00e1\u0159",
+    "Face throwing a kiss": "Tv\u00e1\u0159 h\u00e1zet polibek",
+    "Kissing face with smiling eyes": "L\u00edb\u00e1n\u00ed obli\u010dej s o\u010dima s \u00fasm\u011bvem",
+    "Kissing face with closed eyes": "L\u00edb\u00e1n\u00ed tv\u00e1\u0159 se zav\u0159en\u00fdma o\u010dima",
+    "Face with stuck out tongue": "Tv\u00e1\u0159 s tr\u010dely jazyk",
+    "Face with stuck out tongue and winking eye": "Tv\u00e1\u0159 s tr\u010dely jazykem a mrkat o\u010dima",
+    "Face with stuck out tongue and tightly-closed eyes": "Suo\u010diti s tr\u010dely jazykem t\u011bsn\u011b zav\u0159en\u00e9 vidikovce",
+    "Disappointed face": "Zklaman\u00fd tv\u00e1\u0159",
+    "Worried face": "Boj\u00ed\u0161 se tv\u00e1\u0159",
+    "Angry face": "Rozzloben\u00fd tv\u00e1\u0159",
+    "Pouting face": "Na\u0161pulen\u00e9 tv\u00e1\u0159",
+    "Crying face": "Pl\u00e1\u010d tv\u00e1\u0159",
+    "Persevering face": "Vytrval\u00fdm tv\u00e1\u0159",
+    "Face with look of triumph": "Tv\u00e1\u0159 s v\u00fdrazem triumfu",
+    "Disappointed but relieved face": "Zklaman\u00fd ale ulevilo tv\u00e1\u0159",
+    "Frowning face with open mouth": "Zamra\u010dil se obli\u010dej s otev\u0159en\u00fdmi \u00fasty",
+    "Anguished face": "\u00fazkostn\u00e9 tv\u00e1\u0159",
+    "Fearful face": "Stra\u0161n\u00fd tv\u00e1\u0159",
+    "Weary face": "Unaven\u00fd tv\u00e1\u0159",
+    "Sleepy face": "Ospal\u00fd tv\u00e1\u0159",
+    "Tired face": "Unaven\u00fd tv\u00e1\u0159",
+    "Grimacing face": "\u0161klebil tv\u00e1\u0159",
+    "Loudly crying face": "Hlasit\u011b pl\u00e1\u010de tv\u00e1\u0159",
+    "Face with open mouth": "Obli\u010dej s otev\u0159en\u00fdmi \u00fasty",
+    "Hushed face": "Tlumen\u00fd tv\u00e1\u0159",
+    "Face with open mouth and cold sweat": "Obli\u010dej s otev\u0159en\u00fdmi \u00fasty a studen\u00fd pot",
+    "Face screaming in fear": "Tv\u00e1\u0159 k\u0159i\u010d\u00ed ve strachu",
+    "Astonished face": "V \u00fa\u017easu tv\u00e1\u0159",
+    "Flushed face": "Zarudnut\u00ed v obli\u010deji",
+    "Sleeping face": "Sp\u00edc\u00ed tv\u00e1\u0159",
+    "Dizzy face": "Z\u00e1vrat\u011b tv\u00e1\u0159",
+    "Face without mouth": "Tv\u00e1\u0159 bez \u00fast",
+    "Face with medical mask": "Tv\u00e1\u0159 s l\u00e9ka\u0159sk\u00fdm maskou",
+
+    // Line breaker
+    "Break": "P\u0159eru\u0161en\u00ed",
+
+    // Math
+    "Subscript": "Doln\u00ed index",
+    "Superscript": "Horn\u00ed index",
+
+    // Full screen
+    "Fullscreen": "Cel\u00e1 obrazovka",
+
+    // Horizontal line
+    "Insert Horizontal Line": "Vlo\u017eit vodorovnou \u010d\u00e1ru",
+
+    // Clear formatting
+    "Clear Formatting": "Vymazat form\u00e1tov\u00e1n\u00ed",
+
+    // Save
+    "Save": "\u0055\u006c\u006f\u017e\u0069\u0074",
+
+    // Undo, redo
+    "Undo": "Zp\u011bt",
+    "Redo": "Znovu",
+
+    // Select all
+    "Select All": "Vybrat v\u0161e",
+
+    // Code view
+    "Code View": "Zobrazen\u00ed k\u00f3d",
+
+    // Quote
+    "Quote": "Cit\u00e1t",
+    "Increase": "Nav\u00fd\u0161it",
+    "Decrease": "Sn\u00ed\u017een\u00ed",
+
+    // Quick Insert
+    "Quick Insert": "Rychl\u00e1 vlo\u017eka",
+
+    // Spcial Characters
+    "Special Characters": "Speciální znaky",
+    "Latin": "Latinský",
+    "Greek": "Řecký",
+    "Cyrillic": "Cyrilice",
+    "Punctuation": "Interpunkce",
+    "Currency": "Měna",
+    "Arrows": "Šipky",
+    "Math": "Matematika",
+    "Misc": "Misc",
+
+    // Print.
+    "Print": "Tisk",
+
+    // Spell Checker.
+    "Spell Checker": "Kontrola pravopisu",
+
+    // Help
+    "Help": "Pomoc",
+    "Shortcuts": "Zkratky",
+    "Inline Editor": "Inline editor",
+    "Show the editor": "Zobrazit editor",
+    "Common actions": "Společné akce",
+    "Copy": "Kopírovat",
+    "Cut": "Střih",
+    "Paste": "Vložit",
+    "Basic Formatting": "Základní formátování",
+    "Increase quote level": "Zvýšení cenové hladiny",
+    "Decrease quote level": "Snížit úroveň cenové nabídky",
+    "Image / Video": "Obraz / video",
+    "Resize larger": "Změna velikosti větší",
+    "Resize smaller": "Změnit velikost menší",
+    "Table": "Stůl",
+    "Select table cell": "Vyberte buňku tabulky",
+    "Extend selection one cell": "Rozšířit výběr o jednu buňku",
+    "Extend selection one row": "Rozšířit výběr o jeden řádek",
+    "Navigation": "Navigace",
+    "Focus popup / toolbar": "Popup / panel nástrojů zaostření",
+    "Return focus to previous position": "Návrat na předchozí pozici",
+
+    // Embed.ly
+    "Embed URL": "Vložte url",
+    "Paste in a URL to embed": "Vložit adresu URL, kterou chcete vložit",
+
+    // Word Paste.
+    "The pasted content is coming from a Microsoft Word document. Do you want to keep the format or clean it up?": "Vložený obsah pochází z dokumentu Microsoft Word. chcete formát uchovat nebo jej vyčistit?",
+    "Keep": "Držet",
+    "Clean": "Čistý",
+    "Word Paste Detected": "Slovní vložka zjištěna"
+  },
+  direction: "ltr"
+};
+
+}));
+

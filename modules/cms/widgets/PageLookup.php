@@ -209,7 +209,6 @@ class PageLookup extends WidgetBase
         }
 
         $model = new PageLookupItem;
-        $model->type = 'url';
         $model->singleMode = $this->isSingleMode();
         $model->allowCustomUrl = $this->isAllowCustomUrl();
         $model->allowedTypes = $this->getAllowedTypes();
@@ -221,6 +220,12 @@ class PageLookup extends WidgetBase
             $model->allowCustomUrl = $this->isAllowCustomUrl();
             $model->allowedTypes = $this->getAllowedTypes();
             $model->excludedTypes = $this->getExcludedTypes();
+        }
+
+        $typeOptions = $model->getTypeOptions();
+
+        if (!$model->type || !array_key_exists($model->type, $typeOptions)) {
+            $model->type = $typeOptions ? array_key_first($typeOptions) : 'url';
         }
 
         $config = $this->makeConfig();

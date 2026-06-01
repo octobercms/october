@@ -159,6 +159,7 @@ class Updater extends WidgetBase
             $this->vars['hasImportantUpdates'] = $result['hasImportantUpdates'] ?? false;
             $this->vars['pluginList'] = $result['plugins'] ?? [];
             $this->vars['themeList'] = $result['themes'] ?? [];
+            $this->vars['memoryWarning'] = $this->checkMemoryLimit();
         }
         catch (Exception $ex) {
             $this->handleError($ex);
@@ -658,5 +659,46 @@ class Updater extends WidgetBase
 
         // Cache helper may be encoded by Source Guardian
         class_exists(\System\Helpers\Cache::class);
+    }
+
+    /**
+     * checkMemoryLimit returns true if the PHP memory limit may be too low for updates
+     */
+    protected function checkMemoryLimit(): bool
+    {
+        $limit = ini_get('memory_limit');
+
+        if (!$limit || $limit === '-1') {
+            return false;
+        }
+
+        $bytes = $this->parseMemoryValue($limit);
+
+        // Warn if 128MB or less
+        return $bytes > 0 && $bytes <= 128 * 1024 * 1024;
+    }
+
+    /**
+     * parseMemoryValue converts a PHP ini memory value to bytes
+     */
+    protected function parseMemoryValue(string $value): int
+    {
+        $value = trim($value);
+        $unit = strtolower(substr($value, -1));
+        $bytes = (int) $value;
+
+        switch ($unit) {
+            case 'g':
+                $bytes *= 1024 * 1024 * 1024;
+                break;
+            case 'm':
+                $bytes *= 1024 * 1024;
+                break;
+            case 'k':
+                $bytes *= 1024;
+                break;
+        }
+
+        return $bytes;
     }
 }

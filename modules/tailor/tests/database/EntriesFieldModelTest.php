@@ -130,6 +130,28 @@ SQL;
     }
 
     /**
+     * testSelfReferencingEntriesFieldWithTranslatableFalse covers a regression where
+     * a non-multisite blueprint with an `entries` field marked `translatable: false`
+     * (or `propagatable: true`) crashed during model extension. The propagation
+     * setup instantiated a bare related EntryRecord and called isMultisiteEnabled()
+     * on it, which threw "Missing section definition". A self-referencing source is
+     * used here to also cover the related infinite-recursion fix.
+     */
+    public function testSelfReferencingEntriesFieldWithTranslatableFalse()
+    {
+        $post = $this->createPost();
+        $other = $this->createPost();
+
+        $post->related_posts()->add($other);
+        $post->save();
+
+        $fresh = EntryRecord::inSection('UnitTest\Post')->find($post->id);
+
+        $this->assertEquals(1, $fresh->related_posts->count());
+        $this->assertEquals($other->id, $fresh->related_posts->first()->id);
+    }
+
+    /**
      * createPost
      */
     protected function createPost()

@@ -81,7 +81,7 @@ class ServiceProvider extends ModuleServiceProvider
                 isset($config['driver']) &&
                 $config['driver'] === 'local' &&
                 isset($config['root']) &&
-                ends_with($config['root'], '/storage/app') &&
+                str_ends_with($config['root'], '/storage/app') &&
                 empty($config['url'])
             ) {
                 Config::set("filesystems.disks.$key.url", '/storage/app');

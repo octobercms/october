@@ -190,7 +190,7 @@ class FileUpload extends FormWidgetBase
         $record = false;
 
         if ($fileId = post('file_id')) {
-            $record = $this->getRelationModel()->find($fileId) ?: false;
+            $record = $this->getRelationObject()->find($fileId) ?: false;
         }
 
         return $record;
@@ -320,7 +320,7 @@ class FileUpload extends FormWidgetBase
         $types = $this->fileTypes;
 
         if ($types === false) {
-            $definitionCode = starts_with($this->getDisplayMode(), 'image')
+            $definitionCode = str_starts_with($this->getDisplayMode(), 'image')
                 ? 'image_extensions'
                 : 'default_extensions';
 
@@ -363,8 +363,7 @@ class FileUpload extends FormWidgetBase
      */
     public function onRemoveAttachment()
     {
-        $fileModel = $this->getRelationModel();
-        if (($fileId = post('file_id')) && ($file = $fileModel::find($fileId))) {
+        if (($fileId = post('file_id')) && ($file = $this->getRelationObject()->find($fileId))) {
             $this->getRelationObject()->remove($file, $this->getSessionKey());
         }
     }
@@ -379,8 +378,13 @@ class FileUpload extends FormWidgetBase
             $ids = array_keys($sortData);
             $orders = array_values($sortData);
 
-            $fileModel = $this->getRelationModel();
-            $fileModel->setSortableOrder($ids, $orders);
+            // Validate IDs against existing ones
+            $relationIds = $this->getRelationObject()->pluck('id')->all();
+            $ids = array_intersect($ids, $relationIds);
+
+            if ($ids) {
+                $this->getRelationModel()->setSortableOrder($ids, $orders);
+            }
         }
     }
 

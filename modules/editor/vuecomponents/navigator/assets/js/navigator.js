@@ -94,7 +94,6 @@ export default {
         },
 
         onCreateMenuItemCommand: function onCreateMenuItemCommand(cmd) {
-            console.log('Remove navigator.onCreateMenuItemCommand');
             this.store.dispatchCommand(cmd);
         }
     },

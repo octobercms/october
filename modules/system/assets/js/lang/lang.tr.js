@@ -55,7 +55,8 @@ window.oc.langMessages['tr'] = Object.assign(
         "dismiss": "Dismiss",
         "confirm_button_text": "Evet",
         "cancel_button_text": "\u0130ptal",
-        "widget_remove_confirm": "Bu eklentiyi kald\u0131rma istedi\u011finize emin misiniz?"
+        "widget_remove_confirm": "Bu eklentiyi kald\u0131rma istedi\u011finize emin misiniz?",
+        "reload": "Reload"
     },
     "datepicker": {
         "previousMonth": "\u00d6nceki Ay",
@@ -154,131 +155,590 @@ window.oc.langMessages['tr'] = Object.assign(
         "cancel": "Cancel",
         "items": "Items"
     },
-    "[not set]": "[not set]",
-    "1 day (today) if not set": "1 day (today) if not set",
-    "Apply": "Apply",
-    "Ascending": "Ascending",
-    "Attribute": "Attribute",
-    "Bar": "Bar",
-    "Chart": "Chart",
-    "Chart type": "Chart type",
-    "Color": "Color",
-    "Compare Totals": "Compare Totals",
-    "Configure": "Configure",
-    "Custom": "Custom",
-    "Dashboard interval": "Dashboard interval",
-    "Data source": "Data source",
-    "Date interval": "Date interval",
-    "Day": "Day",
-    "Delete": "Delete",
-    "Delete Dashboard": "Delete Dashboard",
-    "Delete row": "Delete row",
-    "Descending": "Descending",
-    "Dimension": "Dimension",
-    "Direction": "Direction",
-    "Disabled": "Disabled",
-    "Display": "Display",
-    "Display [not set]": "Display [not set]",
-    "Display all records": "Display all records",
-    "Display relative bars": "Display relative bars",
-    "Display totals": "Display totals",
-    "Edit Dashboard": "Edit Dashboard",
-    "Empty values": "Empty values",
-    "Enter a positive number": "Enter a positive number",
-    "Enter a positive number or leave empty to display all records.": "Enter a positive number or leave empty to display all records.",
-    "Equal to": "Equal to",
-    "Export Dashboard": "Export Dashboard",
-    "Extra table fields": "Extra table fields",
-    "Filters": "Filters",
-    "General": "General",
-    "Greater or equal to": "Greater or equal to",
-    "Greater than": "Greater than",
-    "Hide": "Hide",
-    "Horizontal": "Horizontal",
-    "Icon": "Icon",
-    "Icon Status": "Icon Status",
-    "Important": "Important",
-    "Includes": "Includes",
-    "Indicator": "Indicator",
-    "Information": "Information",
-    "Last 30 days": "Last 30 days",
-    "Last 7 days": "Last 7 days",
-    "Last month": "Last month",
-    "Leave empty to disable pagination": "Leave empty to disable pagination",
-    "Leave empty to hide the title": "Leave empty to hide the title",
-    "Less or equal to": "Less or equal to",
-    "Less than": "Less than",
-    "Limit": "Limit",
-    "Line": "Line",
-    "Link Text": "Link Text",
-    "Link URL": "Link URL",
-    "Make Default": "Make Default",
-    "Manage Dashboards": "Manage Dashboards",
-    "Metric": "Metric",
-    "Metrics": "Metrics",
-    "Month": "Month",
-    "My Custom Widget": "My Custom Widget",
-    "No Value": "No Value",
-    "Notice text": "Notice text",
-    "Number of days": "Number of days",
-    "One of": "One of",
-    "One value per line": "One value per line",
-    "Operation": "Operation",
-    "Order": "Order",
-    "Past hour": "Past hour",
-    "Past X days": "Past X days",
-    "Please provide the widget title": "Please provide the widget title",
-    "Please select a data source": "Please select a data source",
-    "Please select a dimension": "Please select a dimension",
-    "Please select an icon": "Please select an icon",
-    "Please select metric(s).": "Please select metric(s).",
-    "Prev period": "Prev period",
-    "Quarter": "Quarter",
-    "Records per page": "Records per page",
-    "Refresh every minute": "Refresh every minute",
-    "Rename Dashboard": "Rename Dashboard",
-    "Reset Layout": "Reset Layout",
-    "Reset layout back to default?": "Reset layout back to default?",
-    "Same period last year": "Same period last year",
-    "Section": "Section",
-    "Section Title": "Section Title",
-    "Select a dimension and metrics": "Select a dimension and metrics",
-    "Select an attribute": "Select an attribute",
-    "Select an operation": "Select an operation",
-    "Select sorting metric or dimension": "Select sorting metric or dimension",
-    "Select the metric color": "Select the metric color",
-    "Set the current layout as the default?": "Set the current layout as the default?",
-    "Show Date Interval": "Show Date Interval",
-    "Sort by": "Sort by",
-    "Sorting": "Sorting",
-    "Sorting & Filtering": "Sorting & Filtering",
-    "Stacked Bar": "Stacked Bar",
-    "Starts with": "Starts with",
-    "Success": "Success",
-    "Table": "Table",
-    "Text Notice": "Text Notice",
-    "The dashboard layout has been reset to default.": "The dashboard layout has been reset to default.",
-    "The dashboard was successfully updated.": "The dashboard was successfully updated.",
-    "The limit value must be at least 1": "The limit value must be at least 1",
-    "This dashboard is now the default layout.": "This dashboard is now the default layout.",
-    "This is a text notice widget.": "This is a text notice widget.",
-    "This month": "This month",
-    "This quarter": "This quarter",
-    "This week": "This week",
-    "This year": "This year",
-    "Title": "Title",
-    "Today": "Today",
-    "Value": "Value",
-    "Values": "Values",
-    "Vertical": "Vertical",
-    "Warning": "Warning",
-    "Week": "Week",
-    "Year": "Year",
-    "Yesterday": "Yesterday"
+    "[not set]": "[ayarlanmad\u0131]",
+    "1 day (today) if not set": "Ayarlanmam\u0131\u015fsa 1 g\u00fcn (bug\u00fcn)",
+    "Apply": "Uygula",
+    "Ascending": "Y\u00fckselen",
+    "Attribute": "Ba\u011flanmak",
+    "Bar": "\u00c7ubuk",
+    "Chart": "\u00c7izelge",
+    "Chart type": "Grafik t\u00fcr\u00fc",
+    "Color": "Renk",
+    "Compare Totals": "Toplamlar\u0131 Kar\u015f\u0131la\u015ft\u0131r",
+    "Configure": "Yap\u0131land\u0131r",
+    "Custom": "Gelenek",
+    "Dashboard interval": "G\u00f6sterge paneli aral\u0131\u011f\u0131",
+    "Data source": "Veri kayna\u011f\u0131",
+    "Date interval": "Tarih aral\u0131\u011f\u0131",
+    "Day": "G\u00fcn",
+    "Delete": "Silmek",
+    "Delete Dashboard": "Kontrol Panelini Sil",
+    "Delete row": "Sat\u0131r\u0131 sil",
+    "Descending": "\u0130nen",
+    "Dimension": "Boyut",
+    "Direction": "Y\u00f6n",
+    "Disabled": "Engelli",
+    "Display": "G\u00f6r\u00fcnt\u00fclemek",
+    "Display [not set]": "[Ayarlanmad\u0131]",
+    "Display all records": "T\u00fcm kay\u0131tlar\u0131 g\u00f6r\u00fcnt\u00fcle",
+    "Display relative bars": "G\u00f6reli \u00e7ubuklar\u0131 g\u00f6ster",
+    "Display totals": "Toplamlar\u0131 g\u00f6ster",
+    "Edit Dashboard": "Kontrol Panelini D\u00fczenle",
+    "Empty values": "Bo\u015f de\u011ferler",
+    "Enter a positive number": "Pozitif bir say\u0131 girin",
+    "Enter a positive number or leave empty to display all records.": "Pozitif bir say\u0131 girin veya t\u00fcm kay\u0131tlar\u0131 g\u00f6r\u00fcnt\u00fclemek i\u00e7in bo\u015f b\u0131rak\u0131n.",
+    "Equal to": "E\u015fittir",
+    "Export Dashboard": "D\u0131\u015fa Aktarma Kontrol Paneli",
+    "Extra table fields": "Ek tablo alanlar\u0131",
+    "Filters": "Filtreler",
+    "General": "Genel",
+    "Greater or equal to": "Daha b\u00fcy\u00fck veya e\u015fit",
+    "Greater than": "Daha b\u00fcy\u00fck",
+    "Hide": "Saklamak",
+    "Horizontal": "Yatay",
+    "Icon": "Simge",
+    "Icon Status": "Simge Durumu",
+    "Important": "\u00d6nemli",
+    "Includes": "\u0130\u00e7erir",
+    "Indicator": "G\u00f6sterge",
+    "Information": "Bilgi",
+    "Last 30 days": "Son 30 g\u00fcn",
+    "Last 7 days": "Son 7 g\u00fcn",
+    "Last month": "Ge\u00e7en ay",
+    "Leave empty to disable pagination": "Sayfalama \u00f6zelli\u011fini devre d\u0131\u015f\u0131 b\u0131rakmak i\u00e7in bo\u015f b\u0131rak\u0131n.",
+    "Leave empty to hide the title": "Ba\u015fl\u0131\u011f\u0131 gizlemek i\u00e7in bo\u015f b\u0131rak\u0131n.",
+    "Less or equal to": "Daha az veya e\u015fit",
+    "Less than": "Daha az",
+    "Limit": "S\u0131n\u0131r",
+    "Line": "Astar",
+    "Link Text": "Ba\u011flant\u0131 Metni",
+    "Link URL": "Ba\u011flant\u0131 URL'si",
+    "Make Default": "Varsay\u0131lan\u0131 Ayarla",
+    "Manage Dashboards": "Kontrol Panellerini Y\u00f6netin",
+    "Metric": "Metrik",
+    "Metrics": "Metrikler",
+    "Month": "Ay",
+    "My Custom Widget": "\u00d6zel Widget'\u0131m",
+    "No Value": "De\u011feri Yok",
+    "Notice text": "Bildirim metni",
+    "Number of days": "G\u00fcn say\u0131s\u0131",
+    "One of": "Bir tanesi",
+    "One value per line": "Her sat\u0131rda bir de\u011fer",
+    "Operation": "Operasyon",
+    "Order": "Emir",
+    "Past hour": "Ge\u00e7ti\u011fimiz saat",
+    "Past X days": "Ge\u00e7ti\u011fimiz X g\u00fcn",
+    "Please provide the widget title": "L\u00fctfen widget ba\u015fl\u0131\u011f\u0131n\u0131 belirtin.",
+    "Please select a data source": "L\u00fctfen bir veri kayna\u011f\u0131 se\u00e7in.",
+    "Please select a dimension": "L\u00fctfen bir boyut se\u00e7in.",
+    "Please select an icon": "L\u00fctfen bir simge se\u00e7in.",
+    "Please select metric(s).": "L\u00fctfen \u00f6l\u00e7\u00fct(ler)i se\u00e7in.",
+    "Prev period": "\u00d6nceki d\u00f6nem",
+    "Quarter": "\u00c7eyrek",
+    "Records per page": "Sayfa ba\u015f\u0131na kay\u0131t say\u0131s\u0131",
+    "Refresh every minute": "Her dakika yenileyin",
+    "Rename Dashboard": "Kontrol Panelini Yeniden Adland\u0131r",
+    "Reset Layout": "D\u00fczeni S\u0131f\u0131rla",
+    "Reset layout back to default?": "D\u00fczeni varsay\u0131lan ayarlara s\u0131f\u0131rla?",
+    "Same period last year": "Ge\u00e7en y\u0131l\u0131n ayn\u0131 d\u00f6nemi",
+    "Section": "B\u00f6l\u00fcm",
+    "Section Title": "B\u00f6l\u00fcm Ba\u015fl\u0131\u011f\u0131",
+    "Select a dimension and metrics": "Bir boyut ve \u00f6l\u00e7\u00fct se\u00e7in.",
+    "Select an attribute": "Bir \u00f6zellik se\u00e7in",
+    "Select an operation": "Bir i\u015flem se\u00e7in",
+    "Select sorting metric or dimension": "S\u0131ralama \u00f6l\u00e7\u00fct\u00fcn\u00fc veya boyutunu se\u00e7in",
+    "Select the metric color": "Metrik rengi se\u00e7in",
+    "Set the current layout as the default?": "Ge\u00e7erli d\u00fczeni varsay\u0131lan olarak ayarla?",
+    "Show Date Interval": "Tarih Aral\u0131\u011f\u0131n\u0131 G\u00f6ster",
+    "Sort by": "G\u00f6re s\u0131rala",
+    "Sorting": "S\u0131ralama",
+    "Sorting & Filtering": "S\u0131ralama ve Filtreleme",
+    "Stacked Bar": "\u00dcst \u00dcste Dizilmi\u015f Bar",
+    "Starts with": "\u015eununla ba\u015flar:",
+    "Success": "Ba\u015far\u0131",
+    "Table": "Masa",
+    "Text Notice": "Metin Bildirimi",
+    "The dashboard layout has been reset to default.": "Kontrol paneli d\u00fczeni varsay\u0131lan ayarlara s\u0131f\u0131rland\u0131.",
+    "The dashboard was successfully updated.": "Kontrol paneli ba\u015far\u0131yla g\u00fcncellendi.",
+    "The limit value must be at least 1": "S\u0131n\u0131r de\u011feri en az 1 olmal\u0131d\u0131r.",
+    "This dashboard is now the default layout.": "Bu kontrol paneli art\u0131k varsay\u0131lan d\u00fczen olarak ayarlanm\u0131\u015ft\u0131r.",
+    "This is a text notice widget.": "Bu bir metin bildirim widget'\u0131d\u0131r.",
+    "This month": "Bu ay",
+    "This quarter": "Bu \u00e7eyrek",
+    "This week": "Bu hafta",
+    "This year": "Bu y\u0131l",
+    "Title": "Ba\u015fl\u0131k",
+    "Today": "Bug\u00fcn",
+    "Value": "De\u011fer",
+    "Values": "De\u011ferler",
+    "Vertical": "Dikey",
+    "Warning": "Uyar\u0131",
+    "Week": "Hafta",
+    "Year": "Y\u0131l",
+    "Yesterday": "D\u00fcn"
 }
 );
+
+
+//! moment.js locale configuration
+//! locale : Turkish [tr]
+//! authors : Erhan Gundogan : https://github.com/erhangundogan,
+//!           Burak Yiğit Kaya: https://github.com/BYK
+
+;(function (global, factory) {
+   typeof exports === 'object' && typeof module !== 'undefined'
+       && typeof require === 'function' ? factory(require('../moment')) :
+   typeof define === 'function' && define.amd ? define(['../moment'], factory) :
+   factory(global.moment)
+}(this, (function (moment) { 'use strict';
+
+    //! moment.js locale configuration
+
+    var suffixes = {
+        1: "'inci",
+        5: "'inci",
+        8: "'inci",
+        70: "'inci",
+        80: "'inci",
+        2: "'nci",
+        7: "'nci",
+        20: "'nci",
+        50: "'nci",
+        3: "'üncü",
+        4: "'üncü",
+        100: "'üncü",
+        6: "'ncı",
+        9: "'uncu",
+        10: "'uncu",
+        30: "'uncu",
+        60: "'ıncı",
+        90: "'ıncı",
+    };
+
+    var tr = moment.defineLocale('tr', {
+        months: 'Ocak_Şubat_Mart_Nisan_Mayıs_Haziran_Temmuz_Ağustos_Eylül_Ekim_Kasım_Aralık'.split(
+            '_'
+        ),
+        monthsShort: 'Oca_Şub_Mar_Nis_May_Haz_Tem_Ağu_Eyl_Eki_Kas_Ara'.split('_'),
+        weekdays: 'Pazar_Pazartesi_Salı_Çarşamba_Perşembe_Cuma_Cumartesi'.split(
+            '_'
+        ),
+        weekdaysShort: 'Paz_Pzt_Sal_Çar_Per_Cum_Cmt'.split('_'),
+        weekdaysMin: 'Pz_Pt_Sa_Ça_Pe_Cu_Ct'.split('_'),
+        meridiem: function (hours, minutes, isLower) {
+            if (hours < 12) {
+                return isLower ? 'öö' : 'ÖÖ';
+            } else {
+                return isLower ? 'ös' : 'ÖS';
+            }
+        },
+        meridiemParse: /öö|ÖÖ|ös|ÖS/,
+        isPM: function (input) {
+            return input === 'ös' || input === 'ÖS';
+        },
+        longDateFormat: {
+            LT: 'HH:mm',
+            LTS: 'HH:mm:ss',
+            L: 'DD.MM.YYYY',
+            LL: 'D MMMM YYYY',
+            LLL: 'D MMMM YYYY HH:mm',
+            LLLL: 'dddd, D MMMM YYYY HH:mm',
+        },
+        calendar: {
+            sameDay: '[bugün saat] LT',
+            nextDay: '[yarın saat] LT',
+            nextWeek: '[gelecek] dddd [saat] LT',
+            lastDay: '[dün] LT',
+            lastWeek: '[geçen] dddd [saat] LT',
+            sameElse: 'L',
+        },
+        relativeTime: {
+            future: '%s sonra',
+            past: '%s önce',
+            s: 'birkaç saniye',
+            ss: '%d saniye',
+            m: 'bir dakika',
+            mm: '%d dakika',
+            h: 'bir saat',
+            hh: '%d saat',
+            d: 'bir gün',
+            dd: '%d gün',
+            w: 'bir hafta',
+            ww: '%d hafta',
+            M: 'bir ay',
+            MM: '%d ay',
+            y: 'bir yıl',
+            yy: '%d yıl',
+        },
+        ordinal: function (number, period) {
+            switch (period) {
+                case 'd':
+                case 'D':
+                case 'Do':
+                case 'DD':
+                    return number;
+                default:
+                    if (number === 0) {
+                        // special case for zero
+                        return number + "'ıncı";
+                    }
+                    var a = number % 10,
+                        b = (number % 100) - a,
+                        c = number >= 100 ? 100 : null;
+                    return number + (suffixes[a] || suffixes[b] || suffixes[c]);
+            }
+        },
+        week: {
+            dow: 1, // Monday is the first day of the week.
+            doy: 7, // The week that contains Jan 7th is the first week of the year.
+        },
+    });
+
+    return tr;
+
+})));
 
 
 /*! Select2 4.1.0-rc.0 | https://github.com/select2/select2/blob/master/LICENSE.md */
 
 !function(){if(jQuery&&jQuery.fn&&jQuery.fn.select2&&jQuery.fn.select2.amd)var n=jQuery.fn.select2.amd;n.define("select2/i18n/tr",[],function(){return{errorLoading:function(){return"Sonuç yüklenemedi"},inputTooLong:function(n){return n.input.length-n.maximum+" karakter daha girmelisiniz"},inputTooShort:function(n){return"En az "+(n.minimum-n.input.length)+" karakter daha girmelisiniz"},loadingMore:function(){return"Daha fazla…"},maximumSelected:function(n){return"Sadece "+n.maximum+" seçim yapabilirsiniz"},noResults:function(){return"Sonuç bulunamadı"},searching:function(){return"Aranıyor…"},removeAllItems:function(){return"Tüm öğeleri kaldır"}}}),n.define,n.require}();
+
+/*!
+ * Froala Editor for October CMS
+ */
+
+(function (factory) {
+    if (typeof define === 'function' && define.amd) {
+        // AMD. Register as an anonymous module.
+        define(['jquery'], factory);
+    } else if (typeof module === 'object' && module.exports) {
+        // Node/CommonJS
+        module.exports = function( root, jQuery ) {
+            if ( jQuery === undefined ) {
+                // require('jQuery') returns a factory that requires window to
+                // build a jQuery instance, we normalize how we use modules
+                // that require this pattern but the window provided is a noop
+                // if it's defined (how jquery works)
+                if ( typeof window !== 'undefined' ) {
+                    jQuery = require('jquery');
+                }
+                else {
+                    jQuery = require('jquery')(root);
+                }
+            }
+            return factory(jQuery);
+        };
+    } else {
+        // Browser globals
+        factory(window.jQuery);
+    }
+}(function ($) {
+/**
+ * Turkish
+ */
+
+if (!$.FE_LANGUAGE) {
+    $.FE_LANGUAGE = {};
+}
+
+$.FE_LANGUAGE['tr'] = {
+  translation: {
+    // Place holder
+    "Type something": "Bir \u015fey yaz\u0131n",
+
+    // Basic formatting
+    "Bold": "Kal\u0131n",
+    "Italic": "\u0130talik",
+    "Underline": "Alt\u0131 \u00e7izili",
+    "Strikethrough": "\u00dcst\u00fc \u00e7izili",
+
+    // Main buttons
+    "Insert": "Ekle",
+    "Delete": "Silmek",
+    "Cancel": "\u0130ptal",
+    "OK": "Tamam",
+    "Back": "Geri",
+    "Remove": "Kald\u0131r",
+    "More": "Daha",
+    "Update": "G\u00fcncelle\u015ftirme",
+    "Style": "Stil",
+
+    // Font
+    "Font Family": "Yaz\u0131tipi Ailesi",
+    "Font Size": "Yaz\u0131tipi B\u00fcy\u00fckl\u00fc\u011f\u00fc",
+
+    // Colors
+    "Colors": "Renkler",
+    "Background": "Arkaplan",
+    "Text": "Metin",
+    "HEX Color": "Altı renkli",
+
+    // Paragraphs
+    "Paragraph Format": "Bi\u00e7imler",
+    "Normal": "Normal",
+    "Code": "Kod",
+    "Heading 1": "Ba\u015fl\u0131k 1",
+    "Heading 2": "Ba\u015fl\u0131k 2",
+    "Heading 3": "Ba\u015fl\u0131k 3",
+    "Heading 4": "Ba\u015fl\u0131k 4",
+
+    // Style
+    "Paragraph Style": "Paragraf stili",
+    "Inline Style": "\u00c7izgide stili",
+
+    // Alignment
+    "Align": "Hizalama",
+    "Align Left": "Sola hizala",
+    "Align Center": "Ortala",
+    "Align Right": "Sa\u011fa hizala",
+    "Align Justify": "\u0130ki yana yasla",
+    "None": "Hi\u00e7biri",
+
+    // Lists
+    "Ordered List": "S\u0131ral\u0131 liste",
+    "Default": "Varsayılan",
+    "Lower Alpha": "Alt alfa",
+    "Lower Greek": "Alt yunan",
+    "Lower Roman": "Alt roma",
+    "Upper Alpha": "Üst alfa",
+    "Upper Roman": "Üst roma",
+
+    "Unordered List": "S\u0131ras\u0131z liste",
+    "Circle": "Daire",
+    "Disc": "Disk",
+    "Square": "Kare",
+
+    // Line height
+    "Line Height": "Satır yüksekliği",
+    "Single": "Tek",
+    "Double": "Çift",
+
+    // Indent
+    "Decrease Indent": "Girintiyi azalt",
+    "Increase Indent": "Girintiyi art\u0131r",
+
+    // Links
+    "Insert Link": "Ba\u011flant\u0131 ekle",
+    "Open in new tab": "Yeni sekmede a\u00e7",
+    "Open Link": "Linki a\u00e7",
+    "Edit Link": "D\u00fczenleme ba\u011flant\u0131s\u0131",
+    "Unlink": "Ba\u011flant\u0131y\u0131 kald\u0131r",
+    "Choose Link": "Ba\u011flant\u0131y\u0131 se\u00e7in",
+
+    // Images
+    "Insert Image": "Resim ekle",
+    "Upload Image": "Y\u00fckleme g\u00f6r\u00fcnt\u00fcs\u00fc",
+    "By URL": "URL'ye g\u00f6re",
+    "Browse": "G\u00f6zat",
+    "Drop image": "B\u0131rak resim",
+    "or click": "ya da t\u0131klay\u0131n",
+    "Manage Images": "G\u00f6r\u00fcnt\u00fcleri y\u00f6netin",
+    "Loading": "Y\u00fckleniyor",
+    "Deleting": "Silme",
+    "Tags": "Etiketler",
+    "Are you sure? Image will be deleted.": "Emin misin? Resim silinecektir.",
+    "Replace": "De\u011fi\u015ftirmek",
+    "Uploading": "Y\u00fckleme",
+    "Loading image": "Y\u00fckleme g\u00f6r\u00fcnt\u00fcs\u00fc",
+    "Display": "G\u00f6stermek",
+    "Inline": "\u00c7izgide",
+    "Break Text": "K\u0131r\u0131lma metni",
+    "Alternative Text": "Alternatif metin",
+    "Change Size": "De\u011fi\u015fim boyutu",
+    "Width": "Geni\u015flik",
+    "Height": "Y\u00fckseklik",
+    "Something went wrong. Please try again.": "Bir \u015feyler yanl\u0131\u015f gitti. L\u00fctfen tekrar deneyin.",
+    "Image Caption": "Resim yazısı",
+    "Advanced Edit": "Ileri düzey düzenleme",
+
+    // Video
+    "Insert Video": "Video ekle",
+    "Embedded Code": "G\u00f6m\u00fcl\u00fc kod",
+    "Paste in a video URL": "Bir video URL'sine yapıştırın",
+    "Drop video": "Video bırak",
+    "Your browser does not support HTML5 video.": "Tarayıcınız html5 videoyu desteklemez.",
+    "Upload Video": "Video yükle",
+
+    // Tables
+    "Insert Table": "Tablo ekle",
+    "Table Header": "Tablo \u00fcstbilgisi",
+    "Remove Table": "Tablo kald\u0131rma",
+    "Table Style": "Tablo stili",
+    "Horizontal Align": "Yatay hizalama",
+    "Row": "Sat\u0131r",
+    "Insert row above": "\u00d6ncesine yeni sat\u0131r ekle",
+    "Insert row below": "Sonras\u0131na yeni sat\u0131r ekle",
+    "Delete row": "Sat\u0131r\u0131 sil",
+    "Column": "S\u00fctun",
+    "Insert column before": "\u00d6ncesine yeni s\u00fctun ekle",
+    "Insert column after": "Sonras\u0131na yeni s\u00fctun ekle",
+    "Delete column": "S\u00fctunu sil",
+    "Cell": "H\u00fccre",
+    "Merge cells": "H\u00fccreleri birle\u015ftir",
+    "Horizontal split": "Yatay b\u00f6l\u00fcnm\u00fc\u015f",
+    "Vertical split": "Dikey  b\u00f6l\u00fcnm\u00fc\u015f",
+    "Cell Background": "H\u00fccre arka plan\u0131",
+    "Vertical Align": "Dikey hizalama",
+    "Top": "\u00dcst",
+    "Middle": "Orta",
+    "Bottom": "Alt",
+    "Align Top": "\u00dcst hizalama",
+    "Align Middle": "Orta hizalama",
+    "Align Bottom": "Dibe hizalama",
+    "Cell Style": "H\u00fccre stili",
+
+    // Files
+    "Upload File": "Dosya Y\u00fckle",
+    "Drop file": "B\u0131rak dosya",
+
+    // Emoticons
+    "Emoticons": "\u0130fadeler",
+    "Grinning face": "S\u0131r\u0131tan y\u00fcz",
+    "Grinning face with smiling eyes": "G\u00fclen g\u00f6zlerle y\u00fcz s\u0131r\u0131tarak",
+    "Face with tears of joy": "Sevin\u00e7 g\u00f6zya\u015flar\u0131yla Y\u00fcz",
+    "Smiling face with open mouth": "A\u00e7\u0131k a\u011fz\u0131 ile g\u00fcl\u00fcmseyen y\u00fcz\u00fc",
+    "Smiling face with open mouth and smiling eyes": "A\u00e7\u0131k a\u011fzı ve g\u00fcl\u00fcmseyen g\u00f6zlerle g\u00fcler y\u00fcz",
+    "Smiling face with open mouth and cold sweat": "A\u00e7\u0131k a\u011fz\u0131 ve so\u011fuk ter ile g\u00fclen y\u00fcz\u00fc",
+    "Smiling face with open mouth and tightly-closed eyes": "A\u00e7\u0131k a\u011fz\u0131 s\u0131k\u0131ca kapal\u0131 g\u00f6zlerle g\u00fclen y\u00fcz\u00fc",
+    "Smiling face with halo": "Halo ile y\u00fcz g\u00fclen",
+    "Smiling face with horns": "Boynuzlar\u0131 ile g\u00fcler y\u00fcz",
+    "Winking face": "G\u00f6z a\u00e7\u0131p kapay\u0131ncaya y\u00fcz\u00fc",
+    "Smiling face with smiling eyes": "G\u00fclen g\u00f6zlerle g\u00fcler Y\u00fcz",
+    "Face savoring delicious food": "Lezzetli yemekler tad\u0131n\u0131 Y\u00fcz",
+    "Relieved face": "Rahatlad\u0131m y\u00fcz\u00fc",
+    "Smiling face with heart-shaped eyes": "Kalp \u015feklinde g\u00f6zlerle g\u00fcler y\u00fcz",
+    "Smiling face with sunglasses": "Kalp \u015feklinde g\u00f6zlerle g\u00fcler y\u00fcz",
+    "Smirking face": "S\u0131r\u0131tan y\u00fcz",
+    "Neutral face": "N\u00f6tr y\u00fcz",
+    "Expressionless face": "Ifadesiz y\u00fcz\u00fc",
+    "Unamused face": "Kay\u0131ts\u0131z y\u00fcz\u00fc",
+    "Face with cold sweat": "So\u011fuk terler Y\u00fcz",
+    "Pensive face": "dalg\u0131n bir y\u00fcz",
+    "Confused face": "\u015fa\u015fk\u0131n bir y\u00fcz",
+    "Confounded face": "Ele\u015ftirilmi\u015ftir y\u00fcz\u00fc",
+    "Kissing face": "\u00f6p\u00fc\u015fme y\u00fcz\u00fc",
+    "Face throwing a kiss": "Bir \u00f6p\u00fcc\u00fck atma Y\u00fcz",
+    "Kissing face with smiling eyes": "G\u00fclen g\u00f6zlerle y\u00fcz \u00f6p\u00fc\u015fme",
+    "Kissing face with closed eyes": "Kapal\u0131 g\u00f6zlerle \u00f6p\u00f6\u015fme y\u00fcz",
+    "Face with stuck out tongue": "Dilini y\u00fcz ile s\u0131k\u0131\u015fm\u0131\u015f",
+    "Face with stuck out tongue and winking eye": "\u015ea\u015f\u0131r\u0131p kalm\u0131\u015f d\u0131\u015far\u0131 dil ve g\u00f6z k\u0131rpan y\u00fcz",
+    "Face with stuck out tongue and tightly-closed eyes": "Y\u00fcz ile dil ve s\u0131k\u0131ca kapal\u0131 g\u00f6zleri s\u0131k\u0131\u015fm\u0131\u015f",
+    "Disappointed face": "Hayal k\u0131r\u0131kl\u0131\u011f\u0131na y\u00fcz\u00fc",
+    "Worried face": "Endi\u015feli bir y\u00fcz",
+    "Angry face": "K\u0131zg\u0131n y\u00fcz",
+    "Pouting face": "Somurtarak y\u00fcz\u00fc",
+    "Crying face": "A\u011flayan y\u00fcz",
+    "Persevering face": "Azmeden y\u00fcz\u00fc",
+    "Face with look of triumph": "Zafer bak\u0131\u015fla Y\u00fcz",
+    "Disappointed but relieved face": "Hayal k\u0131r\u0131kl\u0131\u011f\u0131 ama rahatlad\u0131m y\u00fcz",
+    "Frowning face with open mouth": "A\u00e7\u0131k a\u011fz\u0131 ile \u00e7at\u0131k y\u00fcz\u00fc",
+    "Anguished face": "Kederli y\u00fcz",
+    "Fearful face": "Korkulu y\u00fcz\u00fc",
+    "Weary face": "Yorgun y\u00fcz\u00fc",
+    "Sleepy face": "Uykulu y\u00fcz\u00fc",
+    "Tired face": "Yorgun y\u00fcz\u00fc",
+    "Grimacing face": "Y\u00fcz\u00fcn\u00fc buru\u015fturarak y\u00fcz\u00fc",
+    "Loudly crying face": "Y\u00fcksek sesle y\u00fcz\u00fc a\u011fl\u0131yor",
+    "Face with open mouth": "A\u00e7\u0131k a\u011fz\u0131 ile Y\u00fcz",
+    "Hushed face": "Dingin y\u00fcz\u00fc",
+    "Face with open mouth and cold sweat": "A\u00e7\u0131k a\u011fz\u0131 ve so\u011fuk ter ile Y\u00fcz",
+    "Face screaming in fear": "Korku i\u00e7inde \u00e7ı\u011fl\u0131k Y\u00fcz",
+    "Astonished face": "\u015fa\u015fk\u0131n bir y\u00fcz",
+    "Flushed face": "K\u0131zarm\u0131\u015f y\u00fcz\u00fc",
+    "Sleeping face": "Uyuyan y\u00fcz\u00fc",
+    "Dizzy face": "Ba\u015f\u0131m d\u00f6nd\u00fc y\u00fcz",
+    "Face without mouth": "A\u011f\u0131z olmadan Y\u00fcz",
+    "Face with medical mask": "T\u0131bbi maske ile y\u00fcz",
+
+    // Line breaker
+    "Break": "K\u0131r\u0131lma",
+
+    // Math
+    "Subscript": "Alt simge",
+    "Superscript": "\u00dcst simge",
+
+    // Full screen
+    "Fullscreen": "Tam ekran",
+
+    // Horizontal line
+    "Insert Horizontal Line": "Yatay \u00e7izgi ekleme",
+
+    // Clear formatting
+    "Clear Formatting": "Bi\u00e7imlendirme kald\u0131r",
+
+    // Save
+    "Save": "Kayıt etmek",
+
+    // Undo, redo
+    "Undo": "Geri Al",
+    "Redo": "Yinele",
+
+    // Select all
+    "Select All": "T\u00fcm\u00fcn\u00fc se\u00e7",
+
+    // Code view
+    "Code View": "Kod g\u00f6r\u00fcn\u00fcm\u00fc",
+
+    // Quote
+    "Quote": "Al\u0131nt\u0131",
+    "Increase": "Art\u0131rmak",
+    "Decrease": "Azal\u0131\u015f",
+
+    // Quick Insert
+    "Quick Insert": "H\u0131zl\u0131 insert",
+
+    // Spcial Characters
+    "Special Characters": "Özel karakterler",
+    "Latin": "Latince",
+    "Greek": "Yunan",
+    "Cyrillic": "Kiril",
+    "Punctuation": "Noktalama",
+    "Currency": "Para birimi",
+    "Arrows": "Oklar",
+    "Math": "Matematik",
+    "Misc": "Misc",
+
+    // Print.
+    "Print": "Baskı",
+
+    // Spell Checker.
+    "Spell Checker": "Yazım denetleyicisi",
+
+    // Help
+    "Help": "Yardım et",
+    "Shortcuts": "Kısayollar",
+    "Inline Editor": "Satır içi düzenleyici",
+    "Show the editor": "Editörü gösterin",
+    "Common actions": "Ortak eylemler",
+    "Copy": "Kopya",
+    "Cut": "Kesim",
+    "Paste": "Yapıştırmak",
+    "Basic Formatting": "Temel biçimlendirme",
+    "Increase quote level": "Teklif seviyesini yükselt",
+    "Decrease quote level": "Teklif seviyesini azalt",
+    "Image / Video": "Resim / video",
+    "Resize larger": "Daha büyük yeniden boyutlandır",
+    "Resize smaller": "Daha küçük boyuta getir",
+    "Table": "Tablo",
+    "Select table cell": "Tablo hücresi seç",
+    "Extend selection one cell": "Seçimi bir hücre genişlet",
+    "Extend selection one row": "Seçimi bir sıra genişlet",
+    "Navigation": "Navigasyon",
+    "Focus popup / toolbar": "Odaklanma açılır penceresi / araç çubuğu",
+    "Return focus to previous position": "Odaklamaya önceki konumuna geri dönün",
+
+    // Embed.ly
+    "Embed URL": "URL göm",
+    "Paste in a URL to embed": "Yerleştirmek için bir URL'ye yapıştırın",
+
+    // Word Paste.
+    "The pasted content is coming from a Microsoft Word document. Do you want to keep the format or clean it up?": "Yapıştırılan içerik bir Microsoft Word belgesinden geliyor. Biçimi saklamaya mı yoksa temizlemeyi mi istiyor musun?",
+    "Keep": "Tutmak",
+    "Clean": "Temiz",
+    "Word Paste Detected": "Kelime yapıştırması algılandı"
+  },
+  direction: "ltr"
+};
+
+}));
+

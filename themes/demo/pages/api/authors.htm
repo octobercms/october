@@ -1,0 +1,30 @@
+##
+url = "/api/blog/authors"
+layout = "api"
+
+[collection authors]
+handle = "Blog\Author"
+==
+{#
+    GET /api/blog/authors
+    =====================
+    Returns all blog authors with curated fields.
+
+    Example: /api/blog/authors
+#}
+{% set data = collect() %}
+
+{% for author in authors %}
+    {% do data.push({
+        id: author.id,
+        title: author.title,
+        slug: author.slug,
+        email: author.email,
+        role: author.role,
+        avatar: author.avatar
+    }) %}
+{% endfor %}
+
+{% do response({
+    data: data
+}) %}

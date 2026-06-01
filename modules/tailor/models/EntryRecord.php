@@ -173,8 +173,14 @@ class EntryRecord extends BlueprintModel
      */
     public function beforeValidate()
     {
-        if (!$this->slug) {
-            $this->slug = 'slug-' . Str::random(32);
+        if (!$this->slug && !$this->isDraftStatus()) {
+            if ($this->title) {
+                $this->slug = Str::slug($this->title) . '-' . Str::random(8);
+            }
+
+            if (!$this->slug) {
+                $this->slug = 'slug-' . Str::random(32);
+            }
         }
     }
 

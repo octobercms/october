@@ -20,6 +20,14 @@ Displays a detailed message to the user, also allowing it to be dismissed.
         </div>
     </div>
 
+### Plain message
+
+    <div class="callout callout-warning no-subheader no-title no-icon">
+        <div class="content">
+            <p>Warning Notice</p>
+        </div>
+    </div>
+
 ### No sub-header
 
 Include the `no-subheader` class to omit the sub heading.

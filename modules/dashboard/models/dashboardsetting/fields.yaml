@@ -44,24 +44,24 @@ tabs:
             options: true
             useKey: true
 
-        # filter_exclude_ips:
-        #     label: Exclude IP Addresses
-        #     commentAbove: Requests from these addresses will be ignored in statistics.
-        #     tooltip: "Supports IPv4, IPv6, and CIDR notation (e.g. `192.168.0.0/24`)."
-        #     tab: Data Filters
-        #     span: auto
-        #     type: datatable
-        #     columns:
-        #         ip_address:
-        #             title: IP / CIDR
+        filter_exclude_ips:
+            label: Exclude IP Addresses
+            commentAbove: Requests from these addresses will be ignored in statistics.
+            tooltip: "Supports IPv4, IPv6, and CIDR notation (e.g. `192.168.0.0/24`)."
+            tab: Data Filters
+            span: auto
+            type: datatable
+            columns:
+                ip_address:
+                    title: IP / CIDR
 
-        # filter_exclude_paths:
-        #     label: Exclude Paths
-        #     commentAbove: Enter one path or pattern per row to ignore matching URLs.
-        #     tooltip: "Supports wildcards (`*`) and regular expressions (`^/admin.*`). For example: `/admin*`, `/backend*`."
-        #     tab: Data Filters
-        #     span: auto
-        #     type: datatable
-        #     columns:
-        #         ip_address:
-        #             title: URI
+        filter_exclude_paths:
+            label: Exclude Paths
+            commentAbove: Enter one path or pattern per row to ignore matching URLs.
+            tooltip: "Supports wildcards (`*`) and regular expressions (`^/admin.*`). For example: `/login`, `/admin*`."
+            tab: Data Filters
+            span: auto
+            type: datatable
+            columns:
+                path:
+                    title: URI

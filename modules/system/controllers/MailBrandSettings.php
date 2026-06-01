@@ -122,11 +122,11 @@ class MailBrandSettings extends SettingsController
     }
 
     /**
-     * renderSampleMessageAsScript template
+     * renderSampleMessageAsTemplate
      */
-    protected function renderSampleMessageAsScript()
+    protected function renderSampleMessageAsTemplate()
     {
-        return '<script type="text/template" id="'.$this->getId('mailPreviewTemplate').'">'.$this->renderSampleMessage().'</script>';
+        return '<template id="'.$this->getId('mailPreviewTemplate').'">'.$this->renderSampleMessage().'</template>';
     }
 
     /**

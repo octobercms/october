@@ -1,6 +1,7 @@
 <?php namespace Tailor\Classes\Blueprint;
 
 use System;
+use Cms\Classes\Theme as CmsTheme;
 use Cms\Classes\ThemeManager;
 use System\Classes\PluginManager;
 use Exception;
@@ -27,6 +28,11 @@ trait HasDatasources
      * @var array|null resolvedPlugins
      */
     protected static $resolvedPlugins = null;
+
+    /**
+     * @var array|null resolvedActiveTheme
+     */
+    protected static $resolvedActiveTheme = null;
 
     /**
      * @var array|null resolvedThemes
@@ -83,7 +89,38 @@ trait HasDatasources
     }
 
     /**
-     * getDefaultThemes
+     * getDefaultActiveTheme returns the active theme as a datasource
+     */
+    protected static function getDefaultActiveTheme()
+    {
+        if (self::$resolvedActiveTheme !== null) {
+            return self::$resolvedActiveTheme;
+        }
+
+        $result = [];
+
+        try {
+            if (System::hasModule('Cms')) {
+                $activeCode = CmsTheme::getActiveThemeCode();
+                if ($activeCode) {
+                    $themes = ThemeManager::instance()->getThemePaths();
+                    if (isset($themes[$activeCode])) {
+                        $path = $themes[$activeCode];
+                        if (file_exists($bpPath = $path . '/blueprints')) {
+                            $result[$activeCode] = $bpPath;
+                        }
+                    }
+                }
+            }
+        }
+        catch (Exception $ex) {
+        }
+
+        return self::$resolvedActiveTheme = $result;
+    }
+
+    /**
+     * getDefaultThemes returns all non-active themes as datasources
      */
     protected static function getDefaultThemes()
     {
@@ -94,8 +131,12 @@ trait HasDatasources
         $result = [];
 
         try {
+            $activeCode = System::hasModule('Cms') ? CmsTheme::getActiveThemeCode() : null;
             $themes = System::hasModule('Cms') ? ThemeManager::instance()->getThemePaths() : [];
             foreach ($themes as $code => $path) {
+                if ($code === $activeCode) {
+                    continue;
+                }
                 if (file_exists($bpPath = $path . '/blueprints')) {
                     $result[$code] = $bpPath;
                 }

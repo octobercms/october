@@ -20,7 +20,6 @@ abstract class ComponentBase extends Extendable implements ViewComponentInterfac
 {
     use \System\Traits\AssetMaker;
     use \System\Traits\EventEmitter;
-    use \System\Traits\DependencyMaker;
     use \System\Traits\PropertyContainer;
     use \Larajax\Traits\ViewComponent;
 
@@ -227,7 +226,7 @@ abstract class ComponentBase extends Extendable implements ViewComponentInterfac
             return $event;
         }
 
-        $result = $this->makeCallMethod($this, $handler);
+        $result = app()->call([$this, $handler]);
 
         /**
          * @event cms.component.runAjaxHandler

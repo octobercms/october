@@ -15,9 +15,6 @@ import RichEditorFormWidget from '../../../../vuecomponents/richeditordocumentco
  */
 registerControl('richeditor', class extends ControlBase {
     init() {
-        this.$el = $(this.element);
-        this.$textarea = this.$el.find('textarea[data-richeditor-textarea]:first');
-        this.$form = this.$el.closest('form');
         this.editor = null;
         this.vueWidget = null;
 
@@ -48,17 +45,21 @@ registerControl('richeditor', class extends ControlBase {
             readOnly: false
         }, this.config);
 
-        // Textarea must have an identifier
-        if (!this.$textarea.attr('id')) {
-            this.$textarea.attr('id', 'element-' + Math.random().toString(36).substring(7));
-        }
-
-        if (this.config.editorOptions.constructor !== {}.constructor) {
+        if (!this.config.editorOptions || this.config.editorOptions.constructor !== {}.constructor) {
             this.config.editorOptions = {};
         }
     }
 
     connect() {
+        this.$el = $(this.element);
+        this.$textarea = this.$el.find('textarea[data-richeditor-textarea]:first');
+        this.$form = this.$el.closest('form');
+
+        // Textarea must have an identifier
+        if (!this.$textarea.attr('id')) {
+            this.$textarea.attr('id', 'element-' + Math.random().toString(36).substring(7));
+        }
+
         if (!this.config.legacyMode) {
             this.initVueConnector();
             return;

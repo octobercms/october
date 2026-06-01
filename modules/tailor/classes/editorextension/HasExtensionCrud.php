@@ -11,6 +11,7 @@ use Tailor\Classes\Blueprint;
 use Tailor\Classes\ThemeBlueprint;
 use Editor\Classes\ApiHelpers;
 use Tailor\Classes\BlueprintIndexer;
+use Tailor\Classes\BlueprintVerifier;
 use Tailor\Classes\BlueprintException;
 use Tailor\Classes\BlueprintErrorData;
 
@@ -90,7 +91,15 @@ trait HasExtensionCrud
             return BlueprintErrorData::fromException($ex)->toResponse();
         }
 
-        return $this->getUpdateResponse($template, $originalContent);
+        $result = $this->getUpdateResponse($template, $originalContent);
+
+        // Attach any blueprint warnings (e.g. duplicate handles) to the response
+        $warnings = BlueprintVerifier::instance()->getWarnings();
+        if ($warnings) {
+            $result['blueprintWarnings'] = $warnings;
+        }
+
+        return $result;
     }
 
     /**

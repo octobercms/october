@@ -44,6 +44,14 @@ trait HasSearch
     }
 
     /**
+     * getSearchTerm returns the active search term.
+     */
+    public function getSearchTerm(): ?string
+    {
+        return $this->searchTerm;
+    }
+
+    /**
      * setSearchOptions applies a search options to the list search.
      * @param array $options
      */
@@ -62,7 +70,7 @@ trait HasSearch
      * getSearchableColumns returns a collection of columns which can be searched.
      * @return array
      */
-    protected function getSearchableColumns()
+    public function getSearchableColumns()
     {
         $columns = $this->getColumns();
         $searchable = [];

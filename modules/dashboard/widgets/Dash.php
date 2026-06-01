@@ -459,9 +459,9 @@ class Dash extends WidgetBase
                 '#64748b' => Lang::get('system::lang.colors.slate')
             ],
             'dashboard' => [
-                'name' => $this->name,
+                'name' => Lang::get($this->name),
                 'code' => $this->code,
-                'rows' => $this->allRows,
+                'rows' => $this->translateRows($this->allRows),
             ],
             'manageUrl' => $this->manageUrl,
             'showInterval' => $this->showInterval,
@@ -627,6 +627,53 @@ class Dash extends WidgetBase
         }
 
         return ReportMetric::findMetricByCodeStrict($dataSource->getAvailableMetrics(), $metricCode, true);
+    }
+
+    /**
+     * translateRows resolves localizable strings inside the dashboard rows
+     * structure just before it is emitted to the Vue state. This is the edge
+     * where YAML/saved config flows into the frontend.
+     */
+    protected function translateRows(?array $rows): ?array
+    {
+        if (!$rows) {
+            return $rows;
+        }
+
+        $localizable = ['title', 'linkText', 'notice'];
+
+        foreach ($rows as &$row) {
+            if (!isset($row['widgets']) || !is_array($row['widgets'])) {
+                continue;
+            }
+
+            foreach ($row['widgets'] as &$widget) {
+                $config = $widget instanceof DashReport
+                    ? (array) $widget->configuration
+                    : ($widget['configuration'] ?? null);
+
+                if (!is_array($config)) {
+                    continue;
+                }
+
+                foreach ($localizable as $key) {
+                    if (isset($config[$key]) && is_string($config[$key])) {
+                        $config[$key] = Lang::get($config[$key]);
+                    }
+                }
+
+                if ($widget instanceof DashReport) {
+                    $widget->configuration($config);
+                }
+                else {
+                    $widget['configuration'] = $config;
+                }
+            }
+            unset($widget);
+        }
+        unset($row);
+
+        return $rows;
     }
 
     /**

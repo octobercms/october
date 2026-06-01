@@ -628,7 +628,7 @@ class FormController extends ControllerBehavior
     public function makeRedirect($context = null, $model = null, $queryParams = [])
     {
         $redirectUrl = null;
-        if (post('close') && !ends_with($context, '-close')) {
+        if (post('close') && !str_ends_with($context, '-close')) {
             $context .= '-close';
         }
 
@@ -657,7 +657,11 @@ class FormController extends ControllerBehavior
             $redirectUrl .= '?' . http_build_query($queryParams);
         }
 
-        if (starts_with($redirectUrl, ['//', 'http://', 'https://'])) {
+        if (
+            str_starts_with($redirectUrl, '//') ||
+            str_starts_with($redirectUrl, 'http://') ||
+            str_starts_with($redirectUrl, 'https://')
+        ) {
             $redirect = Redirect::to($redirectUrl);
         }
         else {
@@ -677,7 +681,7 @@ class FormController extends ControllerBehavior
     protected function getRedirectUrl($context = null)
     {
         $redirectContext = explode('-', $context, 2)[0];
-        $redirectSource = ends_with($context, '-close') ? 'redirectClose' : 'redirect';
+        $redirectSource = str_ends_with($context, '-close') ? 'redirectClose' : 'redirect';
 
         // Get the redirect for the provided context
         $redirects = [$context => $this->getConfig("{$redirectContext}[{$redirectSource}]", '')];

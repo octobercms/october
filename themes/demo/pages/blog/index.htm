@@ -13,10 +13,6 @@ handle = "Blog\Config"
 vars[activeNavLink] = 'blog'
 ==
 {% set posts = blog.paginate(5) %}
-{% set archiveDates = blog
-    .selectRaw("count(*) as post_count, published_at_month, published_at_year")
-    .groupBy('published_at_month', 'published_at_year').get()
-%}
 {% put pageTitle = blogConfig.blog_name ?: 'Blog' %}
 
 {% for post in posts %}

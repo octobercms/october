@@ -39,9 +39,7 @@ export default {
     },
     methods: {
         setRowRef: function setRowRef(el, index) {
-            if (el) {
-                this.rowRefs[index] = el;
-            }
+            this.rowRefs[index] = el;
         },
 
         updateValue: function updateValue() {

@@ -1,8 +1,5 @@
 <?php
     $formModel = $relationManageFormWidget->getModel();
-    if (!$relationManageId) {
-        $formModel->setDefaultContentGroup($formModel->exists ? post('EntryRecord[content_group]') : null);
-    }
     $initialState = $this->makeInitialState($formModel);
     $langState = $this->makeLangState();
 ?>
@@ -22,7 +19,7 @@
             <input type="hidden" name="_relation_field" value="<?= $relationField ?>" />
             <input type="hidden" name="_relation_extra_config" value="<?= e(json_encode($relationExtraConfig)) ?>" />
             <input type="hidden" name="_form_session_key" value="<?= $formSessionKey ?>" />
-            <input type="hidden" name="EntryRecord[content_group]" value="<?= e($formModel->content_group) ?>"/>
+            <input type="hidden" name="_content_group_value" value="<?= e($formModel->content_group) ?>"/>
 
             <div class="modal-header">
                 <div class="flex-grow-1">
@@ -76,7 +73,7 @@
             <input type="hidden" name="_relation_field" value="<?= $relationField ?>" />
             <input type="hidden" name="_relation_extra_config" value="<?= e(json_encode($relationExtraConfig)) ?>" />
             <input type="hidden" name="_form_session_key" value="<?= $formSessionKey ?>" />
-            <input type="hidden" name="EntryRecord[content_group]" value="<?= e($formModel->content_group) ?>"/>
+            <input type="hidden" name="_content_group_value" value="<?= e($formModel->content_group) ?>"/>
 
             <div class="modal-header">
                 <div class="flex-grow-1">

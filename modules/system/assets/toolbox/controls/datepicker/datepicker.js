@@ -18,8 +18,6 @@ import { ControlBase } from 'larajax';
  */
 export default class DatePickerControl extends ControlBase {
     init() {
-        this.$el = $(this.element);
-
         // Apply defaults to config
         this.config = Object.assign({
             minDate: null,
@@ -39,6 +37,7 @@ export default class DatePickerControl extends ControlBase {
     }
 
     connect() {
+        this.$el = $(this.element);
         this.$dataLocker = $('[data-datetime-value]', this.$el);
         this.$datePicker = $('[data-datepicker]', this.$el);
         this.$timePicker = $('[data-timepicker]', this.$el);

@@ -28,7 +28,7 @@
     "imports": {
         "larajax": "<?= Url::asset('modules/system/assets/js/framework.esm.js') ?>",
         "bootstrap": "<?= $vendorPath ?>/bootstrap/bootstrap.esm.js",
-        "vue": "<?= $vendorPath ?>/vue/vue.esm.js",
+        "vue": "<?= $vendorPath ?>/vue/vue.esm<?= Config::get('app.debug') ? '' : '.prod' ?>.js",
         "vue-router": "<?= $vendorPath ?>/vue-router/vue-router.esm.js",
         "js-cookie": "<?= $vendorPath ?>/js-cookie/js.cookie.esm.js",
         "sortablejs": "<?= $vendorPath ?>/sortablejs/sortable.esm.js",
@@ -41,9 +41,9 @@
 <script src="<?= Url::asset('modules/system/assets/js/vendor.js') ?>?v<?= $coreBuild ?>"></script>
 <script src="<?= Url::asset('modules/system/assets/js/framework-bundle.min.js') ?>?v<?= $coreBuild ?>"></script>
 <script src="<?= Url::asset('modules/system/assets/js/foundation.js') ?>?v<?= $coreBuild ?>"></script>
+<script src="<?= Url::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js') ?>?v<?= $coreBuild ?>"></script>
 <script type="module" src="<?= Url::asset('modules/system/assets/js/main.js') ?>?v<?= $coreBuild ?>"></script>
 <script type="module" src="<?= Url::asset('modules/backend/assets/js/main.js') ?>?v<?= $coreBuild ?>"></script>
-<script type="module" src="<?= Url::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js') ?>?v<?= $coreBuild ?>"></script>
 <link href="<?= Url::asset('modules/system/assets/css/main.css') ?>?v<?= $coreBuild ?>" rel="stylesheet" />
 <link href="<?= Url::asset('modules/backend/assets/css/main.css') ?>?v<?= $coreBuild ?>" rel="stylesheet" />
 

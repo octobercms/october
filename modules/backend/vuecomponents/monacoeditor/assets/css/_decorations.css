@@ -21,5 +21,22 @@
         .monaco-error-line {
             background: rgba(255, 0, 0, 0.4);
         }
+
+        .monaco-warning-glyph {
+            margin-left: 5px;
+
+            &:before {
+                content: '';
+                display: block;
+                width: 11px;
+                height: 11px;
+                background-color: #f0ad4e;
+                border-radius: 100%;
+            }
+        }
+
+        .monaco-warning-line {
+            background: rgba(240, 173, 78, 0.25);
+        }
     }
 }

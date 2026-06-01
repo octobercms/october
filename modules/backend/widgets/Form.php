@@ -142,7 +142,12 @@ class Form extends WidgetBase implements FormElement
     /**
      * @var bool useTranslatable fields
      */
-    public $useTranslatable  = true;
+    public $useTranslatable = true;
+
+    /**
+     * @var bool useFilterFields enables the model filterFields method and events
+     */
+    public $useFilterFields = true;
 
     /**
      * @inheritDoc
@@ -165,6 +170,7 @@ class Form extends WidgetBase implements FormElement
             'surveyMode',
             'horizontalMode',
             'useTranslatable',
+            'useFilterFields',
         ]);
 
         $this->initFormWidgetsConcern();
@@ -435,7 +441,7 @@ class Form extends WidgetBase implements FormElement
 
         // Data set differs from model
         if ($this->data !== $this->model) {
-            $this->data = (object) array_merge((array) $this->data, (array) $data);
+            $this->data = (object) array_replace((array) $this->data, (array) $data);
         }
 
         // Set field values from data source
@@ -1198,6 +1204,10 @@ class Form extends WidgetBase implements FormElement
      */
     protected function applyFiltersFromModel($applyData = null)
     {
+        if (!$this->useFilterFields) {
+            return;
+        }
+
         $targetModel = clone $this->model;
 
         // Apply specified data before filtering

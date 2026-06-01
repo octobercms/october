@@ -107,7 +107,7 @@
                 name = $this.data('column-name');
 
                 var matchedColumn = fileColumns[name] || fileColumns[label];
-                if (matchedColumn) {
+                if (matchedColumn && !matchedColumn.hasClass('is-ignored')) {
                     $this.appendTo($('.import-column-bindings > ul', matchedColumn));
                     self.matchColumn($this, matchedColumn);
                 }
@@ -118,6 +118,10 @@
             var matchColumnId = $fileItem.data('column-id'),
                 dbColumnName = $dbItem.data('column-name'),
                 $dbItemMatchInput = $('[data-column-match-input]', $dbItem);
+
+            if ($fileItem.hasClass('is-ignored')) {
+                return;
+            }
 
             this.toggleMatchState($fileItem);
 

@@ -55,7 +55,8 @@ window.oc.langMessages['vn'] = Object.assign(
         "dismiss": "Dismiss",
         "confirm_button_text": "\u0110\u1ed3ng \u00fd",
         "cancel_button_text": "B\u1ecf qua",
-        "widget_remove_confirm": "\u0110\u1ed3ng \u00fd x\u00f3a widget n\u00e0y?"
+        "widget_remove_confirm": "\u0110\u1ed3ng \u00fd x\u00f3a widget n\u00e0y?",
+        "reload": "Reload"
     },
     "datepicker": {
         "previousMonth": "Th\u00e1ng tr\u01b0\u1edbc",

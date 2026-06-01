@@ -382,7 +382,7 @@ class FieldManager
 
         $validationMessages = [];
         foreach ($customMessages as $key => $message) {
-            if (starts_with($key, $fieldName.'.')) {
+            if (str_starts_with($key, $fieldName.'.')) {
                 $shortKey = substr($key, strlen($fieldName.'.'));
                 $validationMessages[$shortKey] = $message;
             }

@@ -49,7 +49,9 @@ registerControl('media-manager', class extends ControlBase {
             selectSingleImage: 'Please select a single image.',
             selectionNotImage: 'The selected item is not an image.',
             overwriteConfirm: 'Some files already exist. Do you want to replace them?',
+            pathCopiedMessage: 'Copied!',
             bottomToolbar: false,
+            maxFilesize: 256,
             cropAndInsertButton: false,
             readOnly: false
         }, this.config);
@@ -145,6 +147,7 @@ registerControl('media-manager', class extends ControlBase {
     registerHandlers() {
         this.$el.on('dblclick', this.proxy(this.onNavigate));
         this.$el.on('click.tree-path', 'ul.tree-path, [data-media-sidebar-labels]', this.proxy(this.onNavigate));
+        this.$el.on('click.copy-path', '[data-media-copy-path]', this.proxy(this.onCopyPathClick));
 
         this.$el.on('click.command', '[data-command]', this.proxy(this.onCommandClick));
 
@@ -171,6 +174,7 @@ registerControl('media-manager', class extends ControlBase {
     unregisterHandlers() {
         this.$el.off('dblclick', this.proxy(this.onNavigate));
         this.$el.off('click.tree-path', this.proxy(this.onNavigate));
+        this.$el.off('click.copy-path', this.proxy(this.onCopyPathClick));
         this.$el.off('click.command', this.proxy(this.onCommandClick));
 
         this.$el.off('click.item', this.proxy(this.onItemClick));
@@ -753,6 +757,7 @@ registerControl('media-manager', class extends ControlBase {
             clickable: this.$el.find('[data-media-upload]').get(0),
             url: this.config.url,
             paramName: 'file_data',
+            maxFilesize: this.config.maxFilesize || 256,
             headers: {},
             timeout: 0,
             createImageThumbnails: false,
@@ -1187,8 +1192,43 @@ registerControl('media-manager', class extends ControlBase {
 
         this.navigateToItem($item);
 
-        if ($(ev.target).data('label') != 'public-url') {
+        if ($(ev.target).data('label') != 'public-url'
+            && !$(ev.target).closest('[data-media-copy-path]').length) {
             return false;
+        }
+    }
+
+    onCopyPathClick(ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+
+        var items = this.$el.get(0).querySelectorAll('[data-type="media-item"].selected');
+        if (items.length === 1) {
+            var textarea = document.createElement('textarea');
+            textarea.value = items[0].getAttribute('data-path');
+            textarea.style.position = 'fixed';
+            textarea.style.opacity = '0';
+            document.body.appendChild(textarea);
+            textarea.select();
+            document.execCommand('copy');
+            document.body.removeChild(textarea);
+
+            var link = ev.currentTarget,
+                originalText = link.textContent;
+
+            link.textContent = this.config.pathCopiedMessage;
+            link.style.transition = 'none';
+            link.style.opacity = '1';
+
+            setTimeout(function() {
+                link.style.transition = 'opacity 0.3s ease';
+                link.style.opacity = '0';
+                setTimeout(function() {
+                    link.textContent = originalText;
+                    link.style.opacity = '';
+                    link.style.transition = '';
+                }, 300);
+            }, 800);
         }
     }
 

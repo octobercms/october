@@ -5,7 +5,7 @@
         <input type="hidden" name="file_id" value="<?= $file->id ?>" />
         <input type="hidden" name="fileupload_flag" value="1" />
 
-        <?php if (starts_with($displayMode, 'image')): ?>
+        <?php if (str_starts_with($displayMode, 'image')): ?>
             <div class="file-upload-modal-image-header">
                 <button type="button" class="btn-close" data-dismiss="popup"></button>
                 <img

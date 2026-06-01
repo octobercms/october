@@ -37,6 +37,7 @@
     'install_demo_label' => 'Install the demonstration theme and content? (Recommended)',
     'operation_timeout_comment' => 'The operation timed out. Please increase the server\'s timeout and try again.',
     'operation_timeout_hint' => 'See the relevant documentation for :name.',
+    'memory_limit_warning' => 'Your PHP memory limit is set to :limit, which may not be enough for the update process. Consider increasing the memory_limit value in your PHP configuration before updating.',
   ],
   'app' => [
     'name' => 'October CMS',

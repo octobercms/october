@@ -136,13 +136,14 @@ return [
     |
     | Specify the password policy for backend administrators.
     |
-    | allow_reset       - Allow administrators to reset their own passwords via self service
-    | min_length        - Password minimum length between 4 - 128 chars
-    | require_uppercase - Require at least one uppercase letter (A–Z)
-    | require_lowercase - Require at least one lowercase letter (a–z)
-    | require_number    - Require at least one number
-    | require_nonalpha  - Require at least one non-alphanumeric character
-    | expire_days       - Enable password expiration after number of days, false to disable
+    | allow_reset            - Allow administrators to reset their own passwords via self service
+    | min_length             - Password minimum length between 4 - 128 chars
+    | require_uppercase      - Require at least one uppercase letter (A-Z)
+    | require_lowercase      - Require at least one lowercase letter (a-z)
+    | require_number         - Require at least one number
+    | require_nonalpha       - Require at least one non-alphanumeric character
+    | expire_days            - Enable password expiration after number of days, false to disable
+    | reset_expire_minutes   - Password reset tokens expire after this many minutes, 0 to disable
     |
     */
 
@@ -154,6 +155,7 @@ return [
         'require_number' => false,
         'require_nonalpha' => false,
         'expire_days' => false,
+        'reset_expire_minutes' => 60,
     ],
 
     /*

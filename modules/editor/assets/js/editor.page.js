@@ -65,7 +65,7 @@ class EditorPage {
     }
 }
 
-$(document).ready(function() {
+oc.pageReady().then(() => {
     var editorPage = new EditorPage();
 
     $.oc.editor.application = editorPage.getApplication();

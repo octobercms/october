@@ -21,6 +21,18 @@ abstract class ImportModel extends Model
     protected $guarded = [];
 
     /**
+     * isFillable always returns true since import models are transient containers
+     * for arbitrary user-supplied options. Subclasses (e.g. Tailor's RecordImport)
+     * populate `$fillable` with blueprint fields, which would otherwise flip
+     * Laravel's mass-assignment logic into strict mode and silently drop options
+     * like `update_existing`.
+     */
+    public function isFillable($key)
+    {
+        return true;
+    }
+
+    /**
      * attachOne relations
      */
     public $attachOne = [

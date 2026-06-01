@@ -23,7 +23,7 @@ class PageFinder extends FormWidgetBase
     //
 
     /**
-     * @var bool singleMode only allows items to be selected that resovle to a single URL.
+     * @var bool singleMode only allows items to be selected that resolve to a single URL.
      */
     public $singleMode = false;
 
@@ -147,14 +147,7 @@ class PageFinder extends FormWidgetBase
             return '';
         }
 
-        $label = $item->getReferenceLabel() ?: $item->getTypeLabel();
-
-        if ($item->cmsPage) {
-            $cmsPageLabel = $item->getCmsPageOptions()[$item->cmsPage] ?? $item->cmsPage;
-            $label .= ' - ' . $cmsPageLabel;
-        }
-
-        return $label;
+        return $item->getReferenceLabel() ?: $item->getTypeLabel();
     }
 
     /**
@@ -162,21 +155,20 @@ class PageFinder extends FormWidgetBase
      */
     public function getDescriptionValue()
     {
-        $linkUrl = (string) $this->getKeyValue();
-        if (!$linkUrl) {
-            return '';
-        }
-
         $item = $this->getLookupItemValue();
         if (!$item) {
             return '';
         }
 
-        if (str_starts_with($linkUrl, 'october://')) {
-            return $item->getPreviewUrl();
+        if ($item->type === 'url' && $item->url) {
+            return $item->url;
         }
 
-        return $item->url ?? '';
+        if ($item->cmsPage) {
+            return $item->getCmsPageOptions()[$item->cmsPage] ?? $item->cmsPage;
+        }
+
+        return '';
     }
 
     /**

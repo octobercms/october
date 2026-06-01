@@ -297,7 +297,7 @@
       }));
     }
     getDomPatches() {
-      return this.getOps("patchDom").map(({ selector, html = "", swap = "innerHTML" }) => ({
+      return this.getOps("patchDom").map(({ selector, html = "", swap = "update" }) => ({
         selector,
         html,
         swap
@@ -554,10 +554,10 @@ window['${id}']();`;
 
   // ../../vendor/larajax/larajax/resources/src/request/dom-patcher.js
   var DomUpdateMode = {
-    replaceWith: "replace",
+    replace: "replace",
     prepend: "prepend",
     append: "append",
-    update: "innerHTML"
+    update: "update"
   };
   var DomPatcher = class {
     constructor(envelope, partialMap, options = {}) {
@@ -628,14 +628,12 @@ window['${id}']();`;
           runScriptsOnFragment(element, content);
           break;
         case "replace":
-          element.replaceWith(content);
-          runScriptsOnFragment(parentEl, content);
-          break;
         case "outerHTML":
           element.outerHTML = content;
           runScriptsOnFragment(parentEl, content);
           break;
         default:
+        case "update":
         case "innerHTML":
           element.innerHTML = content;
           runScriptsOnElement(element);
@@ -667,7 +665,7 @@ window['${id}']();`;
   function getSelectorUpdateMode(selector, el) {
     if (typeof selector === "string") {
       if (selector.charAt(0) === "!") {
-        return DomUpdateMode.replaceWith;
+        return DomUpdateMode.replace;
       }
       if (selector.charAt(0) === "@") {
         return DomUpdateMode.append;
@@ -1990,7 +1988,7 @@ window['${id}']();`;
   };
   function decorateResponse(response, statusCode, xhr) {
     if (!response || response.constructor !== {}.constructor || !response.__ajax) {
-      return response;
+      return response || {};
     }
     const { __ajax, ...data } = response, envelope = new Envelope(response, statusCode), meta = {
       env: envelope,
@@ -4552,6 +4550,7 @@ window['${id}']();`;
     constructor(delegate) {
       this.started = false;
       this.pageLoaded = false;
+      this.currentPosition = 0;
       this.onPopState = (event) => {
         if (!this.shouldHandlePopState()) {
           return;
@@ -4561,8 +4560,10 @@ window['${id}']();`;
         }
         const { ajaxTurbo } = event.state;
         const location2 = Location.currentLocation;
-        const { restorationIdentifier } = ajaxTurbo;
-        this.delegate.historyPoppedToLocationWithRestorationIdentifier(location2, restorationIdentifier);
+        const { restorationIdentifier, position } = ajaxTurbo;
+        const direction = typeof position === "number" && position > this.currentPosition ? "forward" : "back";
+        this.currentPosition = typeof position === "number" ? position : this.currentPosition;
+        this.delegate.historyPoppedToLocationWithRestorationIdentifier(location2, restorationIdentifier, direction);
       };
       this.onPageLoad = (event) => {
         defer(() => {
@@ -4586,6 +4587,7 @@ window['${id}']();`;
       }
     }
     push(location2, restorationIdentifier) {
+      this.currentPosition++;
       this.update(history.pushState, location2, restorationIdentifier);
     }
     replace(location2, restorationIdentifier) {
@@ -4599,7 +4601,7 @@ window['${id}']();`;
       return this.pageLoaded || document.readyState == "complete";
     }
     update(method, location2, restorationIdentifier) {
-      const state = { ajaxTurbo: { restorationIdentifier } };
+      const state = { ajaxTurbo: { restorationIdentifier, position: this.currentPosition } };
       method.call(history, state, "", location2.absoluteURL);
     }
   };
@@ -4647,7 +4649,10 @@ window['${id}']();`;
           this.delegate.viewRendered(this.newBody);
         };
         if (this.willPerformViewTransition()) {
-          document.startViewTransition(() => completeRender());
+          const transition = document.startViewTransition(() => completeRender());
+          if (typeof this.delegate.setViewTransitionFinished === "function") {
+            this.delegate.setViewTransitionFinished(transition.finished);
+          }
         } else {
           completeRender();
         }
@@ -5281,6 +5286,7 @@ window['${id}']();`;
       this.currentVisit = null;
       this.historyVisit = null;
       this.pageIsReady = false;
+      this.viewTransitionFinished = null;
       this.pageLoaded = () => {
         this.pageIsReady = true;
         this.lastRenderedLocation = this.location;
@@ -5319,6 +5325,10 @@ window['${id}']();`;
         this.scrollManager.start();
         this.started = true;
         this.enabled = this.documentIsEnabled();
+        if ("scrollRestoration" in history) {
+          this.previousScrollRestoration = history.scrollRestoration;
+          history.scrollRestoration = "manual";
+        }
       }
     }
     disable() {
@@ -5332,6 +5342,9 @@ window['${id}']();`;
         this.scrollManager.stop();
         this.stopHistory();
         this.started = false;
+        if ("scrollRestoration" in history && this.previousScrollRestoration) {
+          history.scrollRestoration = this.previousScrollRestoration;
+        }
       }
     }
     isEnabled() {
@@ -5399,12 +5412,12 @@ window['${id}']();`;
       this.history.replace(this.location, this.restorationIdentifier);
     }
     // History delegate
-    historyPoppedToLocationWithRestorationIdentifier(location2, restorationIdentifier) {
+    historyPoppedToLocationWithRestorationIdentifier(location2, restorationIdentifier, direction) {
       if (this.enabled) {
         this.location = location2;
         this.restorationIdentifier = restorationIdentifier;
         const restorationData = this.getRestorationDataForIdentifier(restorationIdentifier);
-        this.startVisit(location2, "restore", { restorationIdentifier, restorationData, historyChanged: true });
+        this.startVisit(location2, "restore", { restorationIdentifier, restorationData, historyChanged: true, direction });
       } else {
         this.adapter.pageInvalidated();
       }
@@ -5458,11 +5471,16 @@ window['${id}']();`;
       this.lastRenderedLocation = this.currentVisit.location;
       this.notifyApplicationAfterRender();
     }
+    setViewTransitionFinished(promise) {
+      this.viewTransitionFinished = promise;
+    }
     viewTransitionEnabled() {
       return this.view.getPage().isViewTransitionEnabled();
     }
-    markVisitDirection(action) {
-      const direction = { advance: "forward", restore: "back" }[action] || "none";
+    markVisitDirection(action, direction) {
+      if (!direction) {
+        direction = { advance: "forward", restore: "back" }[action] || "none";
+      }
       document.documentElement.setAttribute("data-turbo-visit-direction", direction);
     }
     unmarkVisitDirection() {
@@ -5530,7 +5548,7 @@ window['${id}']();`;
       }
       this.currentVisit = this.createVisit(location2, action, properties);
       this.currentVisit.scrolled = !this.useScroll;
-      this.markVisitDirection(action);
+      this.markVisitDirection(action, properties.direction);
       this.currentVisit.start();
       this.notifyApplicationAfterVisitingLocation(location2);
     }
@@ -5542,7 +5560,16 @@ window['${id}']();`;
       return visit;
     }
     visitCompleted(visit) {
-      this.unmarkVisitDirection();
+      if (this.viewTransitionFinished) {
+        this.viewTransitionFinished.then(() => {
+          this.unmarkVisitDirection();
+        }).catch(() => {
+          this.unmarkVisitDirection();
+        });
+        this.viewTransitionFinished = null;
+      } else {
+        this.unmarkVisitDirection();
+      }
       this.notifyApplicationAfterPageLoad(visit.getTimingMetrics());
       if (this.pendingAssets === 0) {
         this.pageIsReady = true;
@@ -5725,14 +5752,15 @@ window['${id}']();`;
         Events.off(this.element, eventName, this.proxy(targetOrHandler), handlerOrOptions);
       }
       const compareArrays = (a, b) => {
-        if (a.length === b.length) {
-          for (var i = 0; i < a.length; i++) {
-            if (a[i] === b[i]) {
-              return true;
-            }
+        if (a.length !== b.length) {
+          return false;
+        }
+        for (var i = 0; i < a.length; i++) {
+          if (a[i] !== b[i]) {
+            return false;
           }
         }
-        return false;
+        return true;
       };
       for (const key in this.proxiedEvents) {
         if (compareArrays(arguments, this.proxiedEvents[key])) {
@@ -5770,6 +5798,15 @@ window['${id}']();`;
       if (value === "null") return null;
       if (value === "undefined") return void 0;
       if (value !== "" && !isNaN(Number(value))) return Number(value);
+      if (typeof value === "string") {
+        const first = value.charAt(0), last = value.charAt(value.length - 1);
+        if (first === "{" && last === "}" || first === "[" && last === "]") {
+          try {
+            return JSON.parse(value);
+          } catch (e) {
+          }
+        }
+      }
       return value;
     }
   };

@@ -150,7 +150,13 @@ trait HasNestedRelations
         };
 
         if ($lookupModel = $arrayGet($model, $parts)) {
-            return [$lookupModel, $lastField];
+            if ($lookupModel instanceof \Illuminate\Support\Collection) {
+                $lookupModel = $lookupModel->first();
+            }
+
+            if ($lookupModel) {
+                return [$lookupModel, $lastField];
+            }
         }
 
         return null;

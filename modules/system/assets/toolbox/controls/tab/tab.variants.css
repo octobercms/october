@@ -419,6 +419,42 @@
 }
 
 /*
+ * Underline tabs
+ */
+
+.control-tabs.underline-tabs {
+    > ul.nav-tabs,
+    > div > ul.nav-tabs,
+    > div > div > ul.nav-tabs {
+        border-bottom: 1px solid var(--tab-border);
+        > li {
+            margin-right: 30px;
+
+            a {
+                font-size: 15px;
+                padding-bottom: 3px;
+                font-weight: 400;
+            }
+
+            &.active a {
+                font-weight: 600;
+            }
+
+            &.active:after {
+                content: '';
+                display: block;
+                position: absolute;
+                width: 100%;
+                height: 2px;
+                bottom: 0;
+                background: var(--tab-brand-primary);
+                border-radius: 3px 3px 0 0;
+            }
+        }
+    }
+}
+
+/*
  * Content tabs
  */
 

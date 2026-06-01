@@ -496,6 +496,9 @@ class Lists extends WidgetBase implements ListElement
                     }
                 }
             }
+
+            // Allow extensions inside the search grouping
+            $this->fireSystemEvent('backend.list.extendSearchQuery', [$innerQuery]);
         });
 
         // Custom select queries
@@ -808,8 +811,9 @@ class Lists extends WidgetBase implements ListElement
         if ($this->pivotMode) {
             $url = RouterHelper::replaceParameters($record->pivot, $this->recordUrl);
         }
-
-        $url = RouterHelper::replaceParameters($record, $this->recordUrl);
+        else {
+            $url = RouterHelper::replaceParameters($record, $this->recordUrl);
+        }
 
         return Backend::url($url);
     }

@@ -13,6 +13,13 @@
  * --------------------------------------------------
  */
 
+:root {
+    /* Shared with .taglist--preview */
+    --custom-select-choice-bg: #72809d;
+    --custom-select-padding-base-vertical: 8px;
+    --custom-select-padding-base-horizontal: 13px;
+}
+
 .select2-container {
     /* Select-specific variables */
     --custom-select-icon-color: var(--bs-secondary-color);
@@ -22,7 +29,6 @@
     --custom-select-active-bg: var(--oc-selection);
     --custom-select-header-color: #98A0A0;
     --custom-select-link-disabled-color: #98A0A0;
-    --custom-select-choice-bg: #72809d;
     --custom-select-cursor-disabled: not-allowed;
 
     /* Input variables */
@@ -39,8 +45,6 @@
     --custom-select-input-disabled-bg: var(--oc-form-control-disabled-bg);
 
     /* Sizing variables */
-    --custom-select-padding-base-vertical: 8px;
-    --custom-select-padding-base-horizontal: 13px;
     --custom-select-padding-small-vertical: 5px;
     --custom-select-padding-small-horizontal: 10px;
     --custom-select-padding-large-vertical: 10px;

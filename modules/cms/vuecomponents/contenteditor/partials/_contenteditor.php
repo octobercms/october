@@ -48,6 +48,7 @@
                     :use-media-manager="editorUserData.useMediaManager"
                     unique-key="content-html-editor"
                     container-css-class="fill-container"
+                    ref="richEditorDocumentConnector"
                     v-if="isRicheditorDocument"
                 >
                     <backend-richeditor

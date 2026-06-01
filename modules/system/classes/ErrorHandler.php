@@ -31,9 +31,12 @@ class ErrorHandler extends ErrorHandlerBase
     {
         $handler = App::make(ExceptionHandler::class);
 
-        $handler->map(\Twig\Error\RuntimeError::class, function($e) {
-            return $this->handleTwigRuntimeError($e);
-        });
+        // The map method is not part of the contract (nunomaduro/collision)
+        if (method_exists($handler, 'map')) {
+            $handler->map(\Twig\Error\RuntimeError::class, function($e) {
+                return $this->handleTwigRuntimeError($e);
+            });
+        }
     }
 
     /**

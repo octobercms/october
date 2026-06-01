@@ -559,6 +559,10 @@ class ReportQueryBuilder
             $result->setTotalRecords($this->getTotalRecords());
         }
 
+        if ($this->groupInterval !== ReportDataSourceBase::GROUP_INTERVAL_DAY) {
+            $result->setPreAggregated();
+        }
+
         $result->setMetricTotals($this->getMetricTotals($metricsConfiguration));
 
         return $result;

@@ -55,9 +55,7 @@ export default {
     },
     methods: {
         setMenuItemRef: function setMenuItemRef(el, index) {
-            if (el) {
-                this.menuItemRefs[index] = el;
-            }
+            this.menuItemRefs[index] = el;
         },
 
         getMenuItems: function getMenuItems() {

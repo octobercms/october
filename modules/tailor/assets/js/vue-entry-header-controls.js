@@ -59,9 +59,7 @@ class VueEntryHeaderControls extends VueControlBase {
         try {
             await oc.request(targetElement, 'onChangeEntryType', {
                 data: {
-                    EntryRecord: {
-                        content_group: entryType
-                    }
+                    _content_group_switch: entryType
                 }
             });
 

@@ -103,7 +103,7 @@ class CmsException extends ApplicationException
         $message = $exception->getMessage();
 
         // Expecting: syntax error, unexpected '!' in Unknown on line 4
-        if (!starts_with($message, 'syntax error')) {
+        if (!str_starts_with($message, 'syntax error')) {
             return false;
         }
         if (strpos($message, 'Unknown') === false) {

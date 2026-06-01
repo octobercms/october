@@ -84,7 +84,7 @@ abstract class ExportModel extends Model
             throw new ApplicationException(__("File not found"));
         }
 
-        $contentType = ends_with($name, 'xjson')
+        $contentType = str_ends_with($name, 'xjson')
             ? 'application/json'
             : 'text/csv';
 
@@ -181,7 +181,7 @@ abstract class ExportModel extends Model
         $results = [];
 
         foreach ($columns as $column => $label) {
-            $results[] = array_get($data, $column);
+            $results[] = data_get($data, $column);
         }
 
         return $results;

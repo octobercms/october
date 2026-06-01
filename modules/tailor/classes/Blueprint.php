@@ -128,12 +128,15 @@ class Blueprint extends Extendable
     }
 
     /**
-     * listInProject lists all blueprints in a project (app and plugins)
+     * listInProject lists all blueprints in a project, loaded in priority order:
+     * app, plugins, active theme, then other themes.
      */
     public static function listInProject(array $options = []): BlueprintCollection
     {
+        // 1. App blueprints (highest priority)
         $results = (new static)->get($options);
 
+        // 2. Plugin blueprints
         $plugins = array_pull($options, 'plugins', self::getDefaultPlugins());
 
         foreach ($plugins as $path) {
@@ -143,6 +146,17 @@ class Blueprint extends Extendable
             );
         }
 
+        // 3. Active theme blueprints
+        $activeTheme = array_pull($options, 'activeTheme', self::getDefaultActiveTheme());
+
+        foreach ($activeTheme as $dirName => $path) {
+            $results = array_merge(
+                static::inDatasource($path, $dirName)->get($options),
+                $results,
+            );
+        }
+
+        // 4. Other theme blueprints (lowest priority)
         $themes = array_pull($options, 'themes', self::getDefaultThemes());
 
         foreach ($themes as $dirName => $path) {

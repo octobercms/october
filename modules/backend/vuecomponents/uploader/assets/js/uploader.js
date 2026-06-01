@@ -15,7 +15,7 @@ export default {
             },
             collapsed: false,
             hidden: true,
-            queue: new UploaderQueue()
+            queue: Vue.markRaw(new UploaderQueue())
         };
     },
     computed: {
