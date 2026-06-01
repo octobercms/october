@@ -3,9 +3,12 @@
 use Str;
 use File;
 use Model;
+use Config;
 use System;
 use Exception;
 use Throwable;
+use Illuminate\Log\Events\MessageLogged;
+use October\Rain\Log\LogManager;
 
 /**
  * EventLog model for logging system errors and debug trace messages
@@ -46,6 +49,32 @@ class EventLog extends Model
         catch (Exception $ex) {
             return false;
         }
+    }
+
+    /**
+     * addFromMessageLogged adds a log record from a Laravel MessageLogged event,
+     * respecting the useLogging() gate and only accepting records from the
+     * default log channel.
+     *
+     * If the channel name cannot be determined (e.g. when running on a stock
+     * LogManager that doesn't tag records), the record is accepted to preserve
+     * legacy behaviour.
+     */
+    public static function addFromMessageLogged(MessageLogged $event): ?EventLog
+    {
+        if (!static::useLogging()) {
+            return null;
+        }
+
+        $channel = $event->context[LogManager::CHANNEL_CONTEXT_KEY] ?? null;
+        if ($channel !== null && $channel !== Config::get('logging.default')) {
+            return null;
+        }
+
+        $context = $event->context;
+        unset($context[LogManager::CHANNEL_CONTEXT_KEY]);
+
+        return static::add($event->message, $event->level, $context);
     }
 
     /**

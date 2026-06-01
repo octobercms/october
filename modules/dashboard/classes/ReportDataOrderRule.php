@@ -1,7 +1,7 @@
 <?php namespace Dashboard\Classes;
 
 use Str;
-use SystemException;
+use ApplicationException;
 
 /**
  * ReportDataOrderRule represents a report data order rule.
@@ -33,15 +33,15 @@ class ReportDataOrderRule
             self::ATTR_TYPE_DIMENSION_FIELD
         ];
         if (!in_array($dataAttributeType, $knownAttributeTypes)) {
-            throw new SystemException('Invalid data attribute type. Supported types: ' . implode(', ', $knownAttributeTypes));
+            throw new ApplicationException('Invalid data attribute type. Supported types: ' . implode(', ', $knownAttributeTypes));
         }
 
         if (!$attributeName && $dataAttributeType !== self::ATTR_TYPE_DIMENSION) {
-            throw new SystemException('Attribute name cannot be empty for ' . $dataAttributeType . ' data attribute type.');
+            throw new ApplicationException('Attribute name cannot be empty for ' . $dataAttributeType . ' data attribute type.');
         }
 
         if ($attributeName && $dataAttributeType === self::ATTR_TYPE_DIMENSION) {
-            throw new SystemException('Attribute name must be empty for ' . self::ATTR_TYPE_DIMENSION . ' data attribute type.');
+            throw new ApplicationException('Attribute name must be empty for ' . self::ATTR_TYPE_DIMENSION . ' data attribute type.');
         }
 
         if ($dataAttributeType === self::ATTR_TYPE_DIMENSION_FIELD) {

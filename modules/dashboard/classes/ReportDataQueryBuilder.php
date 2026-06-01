@@ -4,6 +4,7 @@ use Db;
 use Dashboard\Classes\ReportDataSourceBase;
 use Illuminate\Database\Query\Builder as QueryBuilder;
 use Carbon\Carbon;
+use ApplicationException;
 use SystemException;
 
 /**
@@ -164,11 +165,11 @@ class ReportDataQueryBuilder
         bool $totalsOnly
     ) {
         if (($startDate || $endDate) && $startTimestamp !== null) {
-            throw new SystemException('Start and end dates cannot be set if the start timestamp is also set.');
+            throw new ApplicationException('Start and end dates cannot be set if the start timestamp is also set.');
         }
 
         if (!$startDate && $startTimestamp === null) {
-            throw new SystemException('Either the start and end dates or the start timestamp must be set.');
+            throw new ApplicationException('Either the start and end dates or the start timestamp must be set.');
         }
 
         $this->tableName = $tableName;
@@ -322,7 +323,7 @@ class ReportDataQueryBuilder
             if ($configuration->getDisplayTotals() || $configuration->getDisplayRelativeBar()) {
                 $metric = ReportMetric::findMetricByCode($this->metrics, $metricCode);
                 if (!$metric) {
-                    throw new SystemException("Metric not found: $metricCode");
+                    throw new ApplicationException("Metric not found: $metricCode");
                 }
 
                 $metrics[] = $metric;
@@ -439,7 +440,7 @@ class ReportDataQueryBuilder
                 return '%1$s';
                 break;
             default:
-                throw new SystemException('Invalid aggregate function: ' . $function);
+                throw new ApplicationException('Invalid aggregate function: ' . $function);
         }
     }
 
@@ -483,7 +484,7 @@ class ReportDataQueryBuilder
 
                 break;
             default:
-                throw new SystemException('Invalid order rule data attribute type: ' . $dataAttributeType);
+                throw new ApplicationException('Invalid order rule data attribute type: ' . $dataAttributeType);
                 break;
         }
 
@@ -563,7 +564,7 @@ class ReportDataQueryBuilder
             return;
         }
 
-        throw new SystemException('Invalid filter operation: ' . $operation);
+        throw new ApplicationException('Invalid filter operation: ' . $operation);
     }
 
     /**
@@ -658,7 +659,7 @@ class ReportDataQueryBuilder
         }
 
         if ($this->limit !== null && $this->paginationParams) {
-            throw new SystemException('Limit and pagination parameters cannot be both set.');
+            throw new ApplicationException('Limit and pagination parameters cannot be both set.');
         }
 
         if ($this->limit) {

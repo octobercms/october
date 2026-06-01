@@ -1,6 +1,6 @@
 <?php namespace Dashboard\Classes;
 
-use SystemException;
+use ApplicationException;
 
 /**
  * ReportDataPaginationParams defines pagination parameters for a data source query
@@ -18,11 +18,11 @@ class ReportDataPaginationParams
     public function __construct(int $recordsPerPage, int $currentPage)
     {
         if ($recordsPerPage <= 0) {
-            throw new SystemException('Records per page must be a positive integer');
+            throw new ApplicationException('Records per page must be a positive integer');
         }
 
         if ($currentPage < 0) {
-            throw new SystemException('Current page must be zero or a positive integer');
+            throw new ApplicationException('Current page must be zero or a positive integer');
         }
 
         $this->recordsPerPage = $recordsPerPage;

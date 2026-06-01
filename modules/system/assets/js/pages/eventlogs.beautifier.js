@@ -319,7 +319,7 @@
         var self = this,
             start = str.indexOf('{exception-beautifier-'),
             cssOffset = 'exception-beautifier-'.length,
-            end, endtag, tmp, matches, tag, html, css, attrs, markup = '';
+            end, endtag, tmp, matches, tag, html, css, markup = '';
 
         if (start >= 0) {
             if (start > 0) {
@@ -342,21 +342,17 @@
                 }
 
                 html = 'span';
-                attrs = '';
                 css = tag;
 
                 if (matches = tag.match(/(.+)#([a-z]+)$/)) {
                     css = matches[1];
-                    html = matches[2];
+                    // Only allow tags actually used by the formatter
+                    html = matches[2] === 'div' ? 'div' : 'span';
                 }
 
                 css = 'beautifier-' + css.substr(cssOffset);
 
-                if (tmp >= 0 && tmp < endtag) {
-                    attrs = str.substring(tmp, endtag);
-                }
-
-                markup += '<' + html + ' class="' + css + '"' + attrs + '>';
+                markup += '<' + html + ' class="' + css + '">';
                 markup += self.buildMarkup(str.substring(start + 1, end));
                 markup += '</' + html + '>';
 
