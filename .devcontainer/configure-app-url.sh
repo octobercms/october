@@ -13,8 +13,13 @@ fi
 
 if [ -f .env ]; then
   sed -i "s|^APP_URL=.*|APP_URL=${APP_URL}|" .env
+
+  if [ "${CODESPACES:-}" = "true" ]; then
+    sed -i 's/^LINK_POLICY=.*/LINK_POLICY=force/' .env
+  fi
 fi
 
 php artisan config:clear --quiet 2>/dev/null || true
+php artisan cache:clear --quiet 2>/dev/null || true
 
 echo "APP_URL=${APP_URL}"
