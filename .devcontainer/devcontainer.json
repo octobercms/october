@@ -13,6 +13,7 @@
     }
   },
   "postCreateCommand": "composer install && touch storage/database.sqlite && php artisan october:migrate",
+  "postStartCommand": "php artisan serve --host=0.0.0.0 --port=8080",
   "customizations": {
     "vscode": {
       "extensions": []
