@@ -8,8 +8,8 @@ if [ ! -f .env ]; then
 fi
 
 sed -i 's/^DB_CONNECTION=.*/DB_CONNECTION=sqlite/' .env
-sed -i 's|^APP_URL=.*|APP_URL=http://localhost:8080|' .env
 sed -i "s|^DB_DATABASE=.*|DB_DATABASE=$(pwd)/database/database.sqlite|" .env
+bash .devcontainer/configure-app-url.sh
 
 mkdir -p \
   database \
