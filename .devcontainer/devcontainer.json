@@ -1,0 +1,21 @@
+{
+  "name": "October CMS",
+  "build": {
+    "dockerfile": "Dockerfile",
+    "context": ".."
+  },
+  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "forwardPorts": [8080],
+  "portsAttributes": {
+    "8080": {
+      "label": "October CMS",
+      "onAutoForward": "openBrowser"
+    }
+  },
+  "postCreateCommand": "composer install && touch storage/database.sqlite && php artisan october:migrate",
+  "customizations": {
+    "vscode": {
+      "extensions": []
+    }
+  }
+}
