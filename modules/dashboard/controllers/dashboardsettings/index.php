@@ -5,7 +5,7 @@
         <div class="scoreboard">
             <div data-control="toolbar">
                 <div class="scoreboard-item title-value">
-                    <h4>Traffic Records</h4>
+                    <h4><?= e(__("Traffic Records")) ?></h4>
                     <p><?= e($recordsTotal) ?></p>
                     <p class="description">
                         <a
@@ -17,14 +17,14 @@
                     </p>
                 </div>
                 <div class="scoreboard-item title-value">
-                    <h4>Sample Traffic Data</h4>
-                    <p>Seed</p>
+                    <h4><?= e(__("Sample Traffic Data")) ?></h4>
+                    <p><?= e(__("Seed")) ?></p>
                     <p class="description">
                         <a
                             href="javascript:;"
                             data-request="onGenerateDemoData"
-                            data-request-message="Generating data..."
-                            data-request-confirm="Do you really want to generate the demo traffic data? This could take a few minutes..."
+                            data-request-message="<?= e(__("Generating data...")) ?>"
+                            data-request-confirm="<?= e(__("Do you really want to generate the demo traffic data? This could take a few minutes...")) ?>"
                         ><?= __("Generate Data") ?></a>
                     </p>
                 </div>
