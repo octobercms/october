@@ -1,24 +1,15 @@
 {
   "name": "October CMS",
-  "build": {
-    "dockerfile": "Dockerfile",
-    "context": ".."
-  },
-  "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-  "forwardPorts": [8080],
+  "image": "ghcr.io/octobercms/runtime-dev:latest",
+  "workspaceFolder": "/var/www/html",
+  "forwardPorts": [80],
   "portsAttributes": {
-    "8080": {
+    "80": {
       "label": "October CMS",
-      "onAutoForward": "openBrowser"
+      "onAutoForward": "openPreview",
+      "protocol": "https"
     }
   },
   "postCreateCommand": "bash .devcontainer/post-create.sh",
-  "postStartCommand": "bash .devcontainer/post-start.sh",
-  "customizations": {
-    "vscode": {
-      "extensions": [
-        "bmewburn.vscode-intelephense-client"
-      ]
-    }
-  }
+  "postStartCommand": "php-fpm -D && nginx"
 }
