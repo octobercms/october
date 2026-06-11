@@ -1,6 +1,6 @@
 {
   "name": "October CMS",
-  "image": "ghcr.io/octobercms/runtime-dev:latest",
+  "image": "ghcr.io/octobercms/runtime-dev:php85",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "forwardPorts": [80],
   "portsAttributes": {
