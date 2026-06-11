@@ -1,8 +1,7 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-app_root=/var/www/html
-cd "${app_root}"
+app_root="$(pwd)"
 
 [ -f .env ] || cp .env.example .env
 

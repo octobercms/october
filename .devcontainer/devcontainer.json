@@ -2,9 +2,6 @@
   "name": "October CMS",
   "image": "ghcr.io/octobercms/runtime-dev:latest",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
-  "mounts": [
-    "source=${localWorkspaceFolder},target=/var/www/html,type=bind,consistency=cached"
-  ],
   "forwardPorts": [80],
   "portsAttributes": {
     "80": {
