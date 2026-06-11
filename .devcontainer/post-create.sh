@@ -1,10 +1,13 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
+app_root=/var/www/html
+cd "${app_root}"
+
 [ -f .env ] || cp .env.example .env
 
 sed -i 's/^DB_CONNECTION=.*/DB_CONNECTION=sqlite/' .env
-sed -i 's|^DB_DATABASE=.*|DB_DATABASE=/var/www/html/database/database.sqlite|' .env
+sed -i "s|^DB_DATABASE=.*|DB_DATABASE=${app_root}/database/database.sqlite|" .env
 
 mkdir -p \
   database \
@@ -25,3 +28,7 @@ php artisan key:generate --force
 php artisan october:migrate --force
 php artisan tailor:migrate
 php artisan theme:seed demo
+
+if id www-data >/dev/null 2>&1; then
+    chown -R www-data:www-data database storage bootstrap/cache
+fi
