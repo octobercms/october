@@ -35,7 +35,8 @@ set_port_public() {
 pkill -f "artisan serve --host=0.0.0.0 --port=${app_port}" 2>/dev/null || true
 
 cd "${workspace}"
-php artisan serve --host=0.0.0.0 --port="${app_port}" >>"${web_log}" 2>&1 &
+env APP_URL="${app_url}" LINK_POLICY="${link_policy}" \
+    php artisan serve --host=0.0.0.0 --port="${app_port}" >>"${web_log}" 2>&1 &
 
 for _ in $(seq 1 30); do
     web_ready && break
