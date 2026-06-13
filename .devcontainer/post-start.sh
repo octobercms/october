@@ -6,7 +6,7 @@ workspace="${containerWorkspaceFolder:-$(pwd)}"
 env_file="${workspace}/.env"
 web_log="${workspace}/storage/logs/web-server.log"
 nginx_conf="/etc/nginx/conf.d/default.conf"
-public_root="${workspace}/public"
+public_root="${workspace}"
 
 read_env_var() {
     local key=$1
