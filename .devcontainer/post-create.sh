@@ -27,3 +27,5 @@ php artisan key:generate --force
 php artisan october:migrate --force
 php artisan tailor:migrate
 php artisan theme:seed demo
+
+bash .devcontainer/configure-app-url.sh >/dev/null || true
