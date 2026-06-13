@@ -26,10 +26,13 @@ configure_nginx_site() {
         "${nginx_conf}"
 
     if ! grep -q "HTTP_X_FORWARDED_PROTO" "${nginx_conf}"; then
-        sed -i '/include fastcgi_params;/i\
+        sed -i '/include fastcgi_params;/a\
         fastcgi_param HTTP_HOST $host;\
         fastcgi_param HTTPS on;\
+        fastcgi_param SERVER_PORT 443;\
+        fastcgi_param REQUEST_SCHEME https;\
         fastcgi_param HTTP_X_FORWARDED_PROTO https;\
+        fastcgi_param HTTP_X_FORWARDED_SSL on;\
         fastcgi_param HTTP_X_FORWARDED_HOST $host;\
         fastcgi_param HTTP_X_FORWARDED_PORT 443;' "${nginx_conf}"
     fi
@@ -60,17 +63,18 @@ else
 fi
 
 export APP_URL="${app_url}"
+export CMS_URL="${app_url}"
 export LINK_POLICY="${link_policy}"
 
-env APP_URL="${app_url}" LINK_POLICY="${link_policy}" \
-    php artisan config:cache --quiet 2>/dev/null || php artisan config:clear --quiet 2>/dev/null || true
+php artisan config:clear --quiet 2>/dev/null || true
+php artisan config:cache --quiet 2>/dev/null || true
 
 stop_web_stack
 configure_nginx_site
 prepare_app_permissions
 
 : > "${web_log}"
-env APP_URL="${app_url}" LINK_POLICY="${link_policy}" php-fpm -D 2>>"${web_log}"
+php-fpm -D 2>>"${web_log}"
 nginx -g "daemon on;" >>"${web_log}" 2>&1
 
 web_ready() {
