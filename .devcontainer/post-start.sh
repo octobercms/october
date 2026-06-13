@@ -24,6 +24,16 @@ configure_nginx_site() {
         -e "s|^\([[:space:]]*listen \)[0-9]\+;|\1${app_port};|" \
         -e "s|^\([[:space:]]*root \).*;|\1${public_root};|" \
         "${nginx_conf}"
+
+    if ! grep -q "HTTP_X_FORWARDED_PROTO" "${nginx_conf}"; then
+        sed -i '/include fastcgi_params;/i\
+        fastcgi_param HTTP_HOST $host;\
+        fastcgi_param HTTPS on;\
+        fastcgi_param HTTP_X_FORWARDED_PROTO https;\
+        fastcgi_param HTTP_X_FORWARDED_HOST $host;\
+        fastcgi_param HTTP_X_FORWARDED_PORT 443;' "${nginx_conf}"
+    fi
+
     nginx -t
 }
 
