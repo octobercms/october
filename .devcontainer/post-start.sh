@@ -35,8 +35,10 @@ set_port_public() {
 pkill -f "artisan serve --host=0.0.0.0 --port=${app_port}" 2>/dev/null || true
 
 cd "${workspace}"
+# artisan serve strips env vars from the PHP server process unless --no-reload
+# is set, so LINK_POLICY=force and APP_URL would otherwise be ignored.
 env APP_URL="${app_url}" LINK_POLICY="${link_policy}" \
-    php artisan serve --host=0.0.0.0 --port="${app_port}" >>"${web_log}" 2>&1 &
+    php artisan serve --host=0.0.0.0 --port="${app_port}" --no-reload >>"${web_log}" 2>&1 &
 
 for _ in $(seq 1 30); do
     web_ready && break

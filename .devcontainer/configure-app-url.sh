@@ -39,8 +39,8 @@ fi
 set_env APP_URL "${app_url}"
 set_env LINK_POLICY "${link_policy}"
 
-php artisan config:clear --quiet 2>/dev/null || true
-php artisan cache:clear --quiet 2>/dev/null || true
+env APP_URL="${app_url}" LINK_POLICY="${link_policy}" php artisan config:clear --quiet 2>/dev/null || true
+env APP_URL="${app_url}" LINK_POLICY="${link_policy}" php artisan cache:clear --quiet 2>/dev/null || true
 
 echo "APP_URL=${app_url}"
 echo "LINK_POLICY=${link_policy}"
