@@ -27,7 +27,3 @@ php artisan key:generate --force
 php artisan october:migrate --force
 php artisan tailor:migrate
 php artisan theme:seed demo
-
-if id www-data >/dev/null 2>&1; then
-    chown -R www-data:www-data database storage bootstrap/cache
-fi
