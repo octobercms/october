@@ -98,6 +98,10 @@ if ! web_ready; then
     exit 1
 fi
 
+if [[ -n "${CODESPACE_NAME:-}" ]] && command -v gh >/dev/null 2>&1; then
+    gh codespace ports visibility "${app_port}:public" --codespace "${CODESPACE_NAME}" >/dev/null 2>&1 || true
+fi
+
 if [[ -n "${app_url}" ]]; then
     echo ""
     echo "October CMS is running. Open from the Ports panel:"
