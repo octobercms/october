@@ -4,11 +4,11 @@
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "overrideCommand": true,
   "runArgs": ["--init"],
+  "forwardPorts": [8080],
   "portsAttributes": {
     "8080": {
       "label": "October CMS",
       "onAutoForward": "notify",
-      "protocol": "https",
       "visibility": "public"
     },
     "9000": {
