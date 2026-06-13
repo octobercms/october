@@ -5,8 +5,18 @@ app_port=8080
 workspace="${containerWorkspaceFolder:-$(pwd)}"
 web_log="${workspace}/storage/logs/web-server.log"
 
-app_url="$(bash "${workspace}/.devcontainer/configure-app-url.sh" | tail -n1 | sed 's/^APP_URL=//')"
+while IFS='=' read -r key value; do
+    case "${key}" in
+        APP_URL) app_url="${value}" ;;
+        LINK_POLICY) link_policy="${value}" ;;
+    esac
+done < <(bash "${workspace}/.devcontainer/configure-app-url.sh" | grep -E '^(APP_URL|LINK_POLICY)=')
+
 app_url="${app_url:-http://127.0.0.1:${app_port}}"
+link_policy="${link_policy:-detect}"
+
+export APP_URL="${app_url}"
+export LINK_POLICY="${link_policy}"
 
 web_ready() {
     curl -fsS "http://127.0.0.1:${app_port}/" >/dev/null 2>&1
