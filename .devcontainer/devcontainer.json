@@ -2,11 +2,12 @@
   "name": "October CMS",
   "image": "ghcr.io/octobercms/runtime-dev:latest",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
+  "runArgs": ["--init"],
   "forwardPorts": [8080],
   "portsAttributes": {
     "8080": {
       "label": "October CMS",
-      "onAutoForward": "openPreview",
+      "onAutoForward": "notify",
       "protocol": "https"
     },
     "9000": {
@@ -19,5 +20,5 @@
   },
   "postCreateCommand": "bash .devcontainer/post-create.sh",
   "postStartCommand": "bash .devcontainer/post-start.sh",
-  "postAttachCommand": "curl -fsS http://127.0.0.1:8080/_health >/dev/null || bash .devcontainer/post-start.sh"
+  "postAttachCommand": "bash .devcontainer/post-start.sh"
 }
