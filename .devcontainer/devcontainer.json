@@ -7,11 +7,9 @@
   "portsAttributes": {
     "8080": {
       "label": "October CMS",
-      "onAutoForward": "notify",
-      "visibility": "public"
+      "onAutoForward": "notify"
     }
   },
   "postCreateCommand": "bash .devcontainer/post-create.sh",
-  "postStartCommand": "bash .devcontainer/post-start.sh",
-  "postAttachCommand": "bash .devcontainer/post-start.sh"
+  "postStartCommand": "bash .devcontainer/post-start.sh"
 }
