@@ -7,7 +7,7 @@
   "portsAttributes": {
     "8080": {
       "label": "October CMS",
-      "onAutoForward": "openPreview",
+      "onAutoForward": "notify",
       "protocol": "https"
     },
     "9000": {
