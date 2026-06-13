@@ -10,7 +10,7 @@ while IFS='=' read -r key value; do
         APP_URL) app_url="${value}" ;;
         LINK_POLICY) link_policy="${value}" ;;
     esac
-done < <(bash "${workspace}/.devcontainer/configure-app-url.sh" | grep -E '^(APP_URL|LINK_POLICY)=')
+done < <(env -u APP_URL bash "${workspace}/.devcontainer/configure-app-url.sh" | grep -E '^(APP_URL|LINK_POLICY)=')
 
 app_url="${app_url:-http://127.0.0.1:${app_port}}"
 link_policy="${link_policy:-detect}"

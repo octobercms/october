@@ -23,15 +23,14 @@ set_env() {
 forwarding_domain="${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN:-app.github.dev}"
 forwarding_domain="${forwarding_domain#.}"
 
-if [[ -n "${APP_URL:-}" ]]; then
+# In Codespaces, always derive the public URL from CODESPACE_NAME. Do not trust
+# APP_URL from the environment or .env — it is often still http://localhost.
+if [[ -n "${CODESPACE_NAME:-}" ]]; then
+    app_url="https://${CODESPACE_NAME}-${app_port}.${forwarding_domain}"
+    link_policy=force
+elif [[ -n "${APP_URL:-}" ]]; then
     app_url="${APP_URL}"
-    link_policy="${LINK_POLICY:-force}"
-elif [[ "${CODESPACES:-}" == "true" && -n "${CODESPACE_NAME:-}" ]]; then
-    app_url="https://${CODESPACE_NAME}-${app_port}.${forwarding_domain}"
-    link_policy=force
-elif [[ -n "${CODESPACE_NAME:-}" && -n "${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN:-}" ]]; then
-    app_url="https://${CODESPACE_NAME}-${app_port}.${forwarding_domain}"
-    link_policy=force
+    link_policy="${LINK_POLICY:-detect}"
 else
     app_url="http://127.0.0.1:${app_port}"
     link_policy=detect
