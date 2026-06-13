@@ -19,27 +19,6 @@ stop_web_stack() {
     pkill -x php-fpm 2>/dev/null || true
 }
 
-configure_nginx_site() {
-    sed -i \
-        -e "s|^\([[:space:]]*listen \)[0-9]\+;|\1${app_port};|" \
-        -e "s|^\([[:space:]]*root \).*;|\1${public_root};|" \
-        "${nginx_conf}"
-
-    if ! grep -q "HTTP_X_FORWARDED_PROTO" "${nginx_conf}"; then
-        sed -i '/include fastcgi_params;/a\
-            fastcgi_param HTTP_HOST $host;\
-            fastcgi_param HTTPS on;\
-            fastcgi_param SERVER_PORT 443;\
-            fastcgi_param REQUEST_SCHEME https;\
-            fastcgi_param HTTP_X_FORWARDED_PROTO https;\
-            fastcgi_param HTTP_X_FORWARDED_SSL on;\
-            fastcgi_param HTTP_X_FORWARDED_HOST $host;\
-            fastcgi_param HTTP_X_FORWARDED_PORT 443;' "${nginx_conf}"
-    fi
-
-    nginx -t
-}
-
 prepare_app_permissions() {
     mkdir -p storage/logs
     chmod -R ug+rwX storage bootstrap/cache database 2>/dev/null || true
@@ -69,7 +48,6 @@ env APP_URL="${app_url}" LINK_POLICY="${link_policy}" \
     php artisan config:cache --quiet 2>/dev/null || php artisan config:clear --quiet 2>/dev/null || true
 
 stop_web_stack
-configure_nginx_site
 prepare_app_permissions
 
 : > "${web_log}"
