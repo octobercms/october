@@ -6,6 +6,7 @@ workspace="${containerWorkspaceFolder:-$(pwd)}"
 env_file="${workspace}/.env"
 web_log="${workspace}/storage/logs/web-server.log"
 nginx_conf="/etc/nginx/conf.d/default.conf"
+public_root="${workspace}"
 
 read_env_var() {
     local key=$1
@@ -19,24 +20,21 @@ stop_web_stack() {
 }
 
 configure_nginx_site() {
-    local app_url="${1}"
-
     sed -i \
         -e "s|^\([[:space:]]*listen \)[0-9]\+;|\1${app_port};|" \
-        -e "s|^\([[:space:]]*listen \)[0-9]\+ default_server;|\1${app_port} default_server;|" \
-        -e "s|^\([[:space:]]*root \).*;|\1${workspace};|" \
+        -e "s|^\([[:space:]]*root \).*;|\1${public_root};|" \
         "${nginx_conf}"
 
-    # Codespaces port forwarding often opens https://localhost; redirect to APP_URL
-    # so guest redirects never store a localhost URL in session('url.intended').
-    if [[ -n "${CODESPACE_NAME:-}" ]] && [[ -n "${app_url}" ]]; then
-        local marker="october-codespace-localhost-redirect"
-        local redirect_base="${app_url%/}"
-
-        sed -i "/# ${marker}/d" "${nginx_conf}"
-        sed -i "/server {/a\\
-    if (\$host ~* ^(localhost|127\\.0\\.0\\.1)(:.*)?\$) { return 301 ${redirect_base}\$request_uri; } # ${marker}" \
-            "${nginx_conf}"
+    if ! grep -q "HTTP_X_FORWARDED_PROTO" "${nginx_conf}"; then
+        sed -i '/include fastcgi_params;/a\
+        fastcgi_param HTTP_HOST $host;\
+        fastcgi_param HTTPS on;\
+        fastcgi_param SERVER_PORT 443;\
+        fastcgi_param REQUEST_SCHEME https;\
+        fastcgi_param HTTP_X_FORWARDED_PROTO https;\
+        fastcgi_param HTTP_X_FORWARDED_SSL on;\
+        fastcgi_param HTTP_X_FORWARDED_HOST $host;\
+        fastcgi_param HTTP_X_FORWARDED_PORT 443;' "${nginx_conf}"
     fi
 
     nginx -t
@@ -49,19 +47,30 @@ prepare_app_permissions() {
 }
 
 cd "${workspace}"
-
 env -u APP_URL bash "${workspace}/.devcontainer/configure-app-url.sh" >/dev/null
 
 app_url="$(read_env_var APP_URL)"
 link_policy="$(read_env_var LINK_POLICY)"
 
-export APP_URL="${app_url}" CMS_URL="${app_url}" LINK_POLICY="${link_policy}"
+if [[ -n "${CODESPACE_NAME:-}" ]]; then
+    forwarding_domain="${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN:-app.github.dev}"
+    forwarding_domain="${forwarding_domain#.}"
+    app_url="${app_url:-https://${CODESPACE_NAME}-${app_port}.${forwarding_domain}}"
+    link_policy=force
+else
+    app_url="${app_url:-http://127.0.0.1:${app_port}}"
+    link_policy="${link_policy:-detect}"
+fi
+
+export APP_URL="${app_url}"
+export CMS_URL="${app_url}"
+export LINK_POLICY="${link_policy}"
 
 php artisan config:clear --quiet 2>/dev/null || true
 php artisan config:cache --quiet 2>/dev/null || true
 
 stop_web_stack
-configure_nginx_site "${app_url}"
+configure_nginx_site
 prepare_app_permissions
 
 : > "${web_log}"
@@ -69,13 +78,7 @@ php-fpm -D 2>>"${web_log}"
 nginx -g "daemon on;" >>"${web_log}" 2>&1
 
 web_ready() {
-    local curl_args=( -fsS )
-
-    if [[ -n "${CODESPACE_NAME:-}" ]] && [[ -n "${app_url}" ]]; then
-        curl_args+=( -H "Host: $(php -r "echo parse_url('${app_url}', PHP_URL_HOST);")" )
-    fi
-
-    curl "${curl_args[@]}" "http://127.0.0.1:${app_port}/_health" >/dev/null 2>&1
+    curl -fsS "http://127.0.0.1:${app_port}/_health" >/dev/null 2>&1
 }
 
 for _ in $(seq 1 30); do
