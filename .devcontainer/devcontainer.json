@@ -3,23 +3,14 @@
   "image": "ghcr.io/octobercms/runtime-dev:latest",
   "workspaceFolder": "/workspaces/${localWorkspaceFolderBasename}",
   "overrideCommand": true,
-  "runArgs": ["--init"],
   "forwardPorts": [8080],
   "portsAttributes": {
     "8080": {
       "label": "October CMS",
       "onAutoForward": "notify",
       "visibility": "public"
-    },
-    "9000": {
-      "label": "PHP-FPM (internal)",
-      "onAutoForward": "ignore"
     }
   },
-  "otherPortsAttributes": {
-    "onAutoForward": "ignore"
-  },
   "postCreateCommand": "bash .devcontainer/post-create.sh",
-  "postStartCommand": "bash .devcontainer/post-start.sh",
-  "postAttachCommand": "bash .devcontainer/ensure-web.sh"
+  "postStartCommand": "bash .devcontainer/post-start.sh"
 }

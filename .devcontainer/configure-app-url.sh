@@ -1,15 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-app_root=/var/www/html
+workspace="${containerWorkspaceFolder:-$(pwd)}"
 app_port=8080
-env_file="${app_root}/.env"
+env_file="${workspace}/.env"
 
 if [[ ! -f "${env_file}" ]]; then
     exit 0
 fi
 
-cd "${app_root}"
+cd "${workspace}"
 
 set_env() {
     local key=$1
