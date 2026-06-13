@@ -70,6 +70,7 @@ if port_open "${app_port}" && web_ready; then
     if [[ -n "${app_url}" ]]; then
         echo "October CMS is already running at ${app_url}"
     fi
+    bash "${workspace}/.devcontainer/configure-port.sh" "${app_port}" || true
     exit 0
 fi
 
@@ -98,9 +99,7 @@ if ! web_ready; then
     exit 1
 fi
 
-if [[ -n "${CODESPACE_NAME:-}" ]] && command -v gh >/dev/null 2>&1; then
-    gh codespace ports visibility "${app_port}:public" --codespace "${CODESPACE_NAME}" >/dev/null 2>&1 || true
-fi
+bash "${workspace}/.devcontainer/configure-port.sh" "${app_port}" || true
 
 if [[ -n "${app_url}" ]]; then
     echo ""
