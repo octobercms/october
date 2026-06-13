@@ -19,55 +19,23 @@ stop_web_stack() {
     pkill -x php-fpm 2>/dev/null || true
 }
 
-configure_nginx_localhost_redirect() {
-    local marker="october-codespace-localhost-redirect"
-    local redirect_base="${app_url%/}"
-
-    sed -i "/# ${marker}/d" "${nginx_conf}"
-
-    sed -i "/server {/a\\
-    if (\$host ~* ^(localhost|127\\.0\\.0\\.1)(:.*)?\$) { return 301 ${redirect_base}\$request_uri; } # ${marker}" \
-        "${nginx_conf}"
-}
-
-configure_nginx_fastcgi_params() {
-    local marker="october-codespace-fastcgi-params"
-
-    sed -i \
-        -e '/fastcgi_param HTTP_HOST \$host;/d' \
-        -e '/fastcgi_param HTTPS on;/d' \
-        -e '/fastcgi_param SERVER_PORT 443;/d' \
-        -e '/fastcgi_param REQUEST_SCHEME https;/d' \
-        -e '/fastcgi_param HTTP_X_FORWARDED_PROTO https;/d' \
-        -e '/fastcgi_param HTTP_X_FORWARDED_SSL on;/d' \
-        -e '/fastcgi_param HTTP_X_FORWARDED_HOST \$host;/d' \
-        -e '/fastcgi_param HTTP_X_FORWARDED_PORT 443;/d' \
-        "${nginx_conf}"
-
-    sed -i "/# ${marker}/d" "${nginx_conf}"
-
-    sed -i "/include fastcgi_params;/a\\
-        fastcgi_param HTTP_HOST \$http_host; # ${marker}\\
-        fastcgi_param HTTPS \$https if_not_empty; # ${marker}\\
-        fastcgi_param SERVER_PORT \$server_port; # ${marker}\\
-        fastcgi_param REQUEST_SCHEME \$scheme; # ${marker}\\
-        fastcgi_param HTTP_X_FORWARDED_PROTO \$scheme; # ${marker}\\
-        fastcgi_param HTTP_X_FORWARDED_HOST \$http_host; # ${marker}\\
-        fastcgi_param HTTP_X_FORWARDED_PORT \$server_port; # ${marker}" \
-        "${nginx_conf}"
-}
-
 configure_nginx_site() {
     sed -i \
         -e "s|^\([[:space:]]*listen \)[0-9]\+;|\1${app_port};|" \
         -e "s|^\([[:space:]]*root \).*;|\1${public_root};|" \
         "${nginx_conf}"
 
-    if [[ -n "${CODESPACE_NAME:-}" ]] && [[ -n "${app_url:-}" ]]; then
-        configure_nginx_localhost_redirect
+    if ! grep -q "HTTP_X_FORWARDED_PROTO" "${nginx_conf}"; then
+        sed -i '/include fastcgi_params;/a\
+        fastcgi_param HTTP_HOST $host;\
+        fastcgi_param HTTPS on;\
+        fastcgi_param SERVER_PORT 443;\
+        fastcgi_param REQUEST_SCHEME https;\
+        fastcgi_param HTTP_X_FORWARDED_PROTO https;\
+        fastcgi_param HTTP_X_FORWARDED_SSL on;\
+        fastcgi_param HTTP_X_FORWARDED_HOST $host;\
+        fastcgi_param HTTP_X_FORWARDED_PORT 443;' "${nginx_conf}"
     fi
-
-    configure_nginx_fastcgi_params
 
     nginx -t
 }
@@ -110,15 +78,7 @@ php-fpm -D 2>>"${web_log}"
 nginx -g "daemon on;" >>"${web_log}" 2>&1
 
 web_ready() {
-    local curl_args=( -fsS )
-
-    if [[ -n "${CODESPACE_NAME:-}" ]] && [[ -n "${app_url:-}" ]]; then
-        local health_host
-        health_host="$(php -r "echo parse_url('${app_url}', PHP_URL_HOST);")"
-        curl_args+=( -H "Host: ${health_host}" )
-    fi
-
-    curl "${curl_args[@]}" "http://127.0.0.1:${app_port}/_health" >/dev/null 2>&1
+    curl -fsS "http://127.0.0.1:${app_port}/_health" >/dev/null 2>&1
 }
 
 for _ in $(seq 1 30); do
