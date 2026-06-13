@@ -2,7 +2,7 @@
 set -euo pipefail
 
 app_root=/var/www/html
-app_port=80
+app_port=8080
 env_file="${app_root}/.env"
 
 if [[ ! -f "${env_file}" ]]; then
@@ -28,7 +28,7 @@ elif [[ -n "${CODESPACE_NAME:-}" && -n "${GITHUB_CODESPACES_PORT_FORWARDING_DOMA
     APP_URL="https://${CODESPACE_NAME}-${app_port}.${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN}"
     link_policy=force
 else
-    APP_URL="http://127.0.0.1"
+    APP_URL="http://127.0.0.1:${app_port}"
     link_policy=detect
 fi
 
