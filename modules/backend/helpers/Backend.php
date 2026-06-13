@@ -91,7 +91,7 @@ class Backend
      */
     public function redirectIntended($path, $status = 302, $headers = [], $secure = null)
     {
-        return Redirect::intended($this->baseUrl($path), $status, $headers, $secure);
+        return Redirect::intended(Request::getBaseUrl() . '/' .$this->uri() . '/' . $path, $status, $headers, $secure);
     }
 
     /**
