@@ -31,7 +31,7 @@ for dir in "${storage_dirs[@]}"; do
     fi
 done
 
-bash "${workspace}/.devcontainer/configure-app-url.sh"
+app_url="$(bash "${workspace}/.devcontainer/configure-app-url.sh" | tail -n1 | sed 's/^APP_URL=//')"
 
 port_open() {
     (echo >/dev/tcp/127.0.0.1/"$1") 2>/dev/null
@@ -45,4 +45,13 @@ if port_open 80; then
     nginx -s reload 2>/dev/null || nginx
 else
     nginx
+fi
+
+if [[ -n "${app_url}" ]]; then
+    echo ""
+    echo "October CMS is running. Open in your browser:"
+    echo "  ${app_url}"
+    echo ""
+    echo "Use port 80 (nginx), not port 9000 (php-fpm)."
+    echo ""
 fi

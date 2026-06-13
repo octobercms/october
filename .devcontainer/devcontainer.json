@@ -8,7 +8,14 @@
       "label": "October CMS",
       "onAutoForward": "openPreview",
       "protocol": "https"
+    },
+    "9000": {
+      "label": "PHP-FPM (internal)",
+      "onAutoForward": "ignore"
     }
+  },
+  "otherPortsAttributes": {
+    "onAutoForward": "ignore"
   },
   "postCreateCommand": "bash .devcontainer/post-create.sh",
   "postStartCommand": "bash .devcontainer/post-start.sh"
