@@ -355,7 +355,11 @@ class Auth extends Controller
 
         // Redirect
         Flash::success(__('Welcome to your Administration Area, :name', ['name' => e(post('first_name'))]));
-        return Backend::redirect('backend');
+
+        // Fresh setup should not resume a stale guest URL (e.g. https://localhost/admin).
+        session()->forget('url.intended');
+
+        return Backend::redirectIntended('backend');
     }
 
     /**
