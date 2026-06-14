@@ -40,12 +40,6 @@ configure_nginx_site() {
     nginx -t
 }
 
-prepare_app_permissions() {
-    mkdir -p storage/logs
-    chmod -R ug+rwX storage bootstrap/cache database 2>/dev/null || true
-    chown -R www-data:www-data storage bootstrap/cache 2>/dev/null || true
-}
-
 cd "${workspace}"
 env -u APP_URL bash "${workspace}/.devcontainer/configure-app-url.sh" >/dev/null
 
@@ -71,7 +65,11 @@ php artisan config:cache --quiet 2>/dev/null || true
 
 stop_web_stack
 configure_nginx_site
-prepare_app_permissions
+
+# prepare app permissions
+mkdir -p storage/logs
+chmod -R ug+rwX storage bootstrap/cache database 2>/dev/null || true
+chown -R www-data:www-data storage bootstrap/cache 2>/dev/null || true
 
 : > "${web_log}"
 php-fpm -D 2>>"${web_log}"
