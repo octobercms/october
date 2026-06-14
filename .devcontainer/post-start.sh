@@ -6,7 +6,6 @@ workspace="${containerWorkspaceFolder:-$(pwd)}"
 env_file="${workspace}/.env"
 web_log="${workspace}/storage/logs/web-server.log"
 nginx_conf="/etc/nginx/conf.d/default.conf"
-public_root="${workspace}"
 
 read_env_var() {
     local key=$1
@@ -14,11 +13,7 @@ read_env_var() {
 }
 
 configure_nginx_site() {
-    sed -i \
-        -e "s|^\([[:space:]]*listen \)[0-9]\+;|\1${app_port};|" \
-        -e "s|^\([[:space:]]*root \).*;|\1${public_root};|" \
-        "${nginx_conf}"
-
+    sed -i "s|^\([[:space:]]*listen \)[0-9]\+;|\1${app_port};|" "${nginx_conf}"
     nginx -t
 }
 
