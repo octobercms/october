@@ -18,6 +18,7 @@ fi
 
 sed -i "s|^APP_URL=.*|APP_URL=${app_url}|" .env
 
+# Pick up the new APP_URL - config:cache avoids stale values on subsequent requests.
 php artisan config:clear --quiet 2>/dev/null || true
 php artisan cache:clear --quiet 2>/dev/null || true
 php artisan config:cache --quiet 2>/dev/null || true
