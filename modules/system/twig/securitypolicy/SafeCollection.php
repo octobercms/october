@@ -62,15 +62,8 @@ class SafeCollection implements CallsAnyMethod
             return $this;
         }
 
-        // Remove args that are callable, or hybrid methods only get removed
-        // if they are non-strings based on Collection::useAsCallable method
         foreach ($parameters as &$param) {
-            if (
-                is_callable($param) &&
-                (!in_array($method, $this->hybridCallableArgs) || !is_string($param))
-            ) {
-                $param = null;
-            }
+            $param = $this->stripCallables($param, $method);
         }
 
         return $this->forwardCallTo(
@@ -78,5 +71,29 @@ class SafeCollection implements CallsAnyMethod
             $method,
             $parameters
         );
+    }
+
+    /**
+     * stripCallables walks the value and nulls out any callable found at
+     * any depth. Hybrid methods (contains, groupBy, etc.) keep string
+     * values because they may be used as attribute names.
+     */
+    protected function stripCallables($value, string $method)
+    {
+        if (is_array($value)) {
+            foreach ($value as $key => $item) {
+                $value[$key] = $this->stripCallables($item, $method);
+            }
+            return $value;
+        }
+
+        if (
+            is_callable($value) &&
+            (!in_array($method, $this->hybridCallableArgs) || !is_string($value))
+        ) {
+            return null;
+        }
+
+        return $value;
     }
 }

@@ -1,5 +1,6 @@
 <?php namespace Cms\Twig;
 
+use Site;
 use Event;
 use Twig\Source as TwigSource;
 use Twig\Loader\LoaderInterface as TwigLoaderInterface;
@@ -131,7 +132,7 @@ class Loader extends LoaderBase implements TwigLoaderInterface
 
     /**
      * findFallbackObject looks up a fallback CMS partial object.
-     * @return Cms\Classes\Partial
+     * @return \Cms\Classes\Partial
      */
     protected function findFallbackObject($name)
     {
@@ -144,10 +145,19 @@ class Loader extends LoaderBase implements TwigLoaderInterface
         }
 
         try {
+            if (($site = Site::getSiteFromContext()) && $site->theme) {
+                return $this->fallbackCache[$name] = CmsPartial::inTheme($site->theme)->find($name);
+            }
+        }
+        catch (Exception $ex) {
+        }
+
+        try {
             return $this->fallbackCache[$name] = CmsPartial::find($name);
         }
         catch (Exception $ex) {
-            return false;
         }
+
+        return false;
     }
 }

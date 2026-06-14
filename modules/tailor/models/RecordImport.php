@@ -22,6 +22,11 @@ class RecordImport extends ImportModel
     public $rules = [];
 
     /**
+     * @var array fillable attributes for mass assignment
+     */
+    protected $fillable = ['update_existing'];
+
+    /**
      * defineListColumns
      */
     public function defineListColumns(ListElement $host)

@@ -140,7 +140,11 @@ class BulkActions extends WildcardController
      */
     protected function checkSourcePermission()
     {
-        if (!$this->user->hasAccess($this->activeSource->getPermissionCodeName())) {
+        $code = $this->activeSource->getPermissionCodeName(
+            $this->actionMethod === 'import' ? 'create' : null
+        );
+
+        if (!$this->user->hasAccess($code)) {
             throw new ForbiddenException;
         }
     }
