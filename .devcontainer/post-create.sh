@@ -12,12 +12,7 @@ mkdir -p \
   database \
   bootstrap/cache \
   storage/framework/cache/data \
-  storage/framework/sessions \
-  storage/framework/views \
-  storage/logs \
   storage/app/public \
-  storage/temp/public \
-  storage/cms \
   storage/system
 
 touch database/database.sqlite
