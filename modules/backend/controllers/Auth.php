@@ -353,12 +353,11 @@ class Auth extends Controller
         $user = UserModel::createDefaultAdmin(post());
         BackendAuth::login($user);
 
-        // Redirect
-        Flash::success(__('Welcome to your Administration Area, :name', ['name' => e(post('first_name'))]));
-
         // Fresh setup should not resume a stale guest URL (e.g. https://localhost/admin).
         session()->forget('url.intended');
 
+        // Redirect
+        Flash::success(__('Welcome to your Administration Area, :name', ['name' => e(post('first_name'))]));
         return Backend::redirectIntended('backend');
     }
 
