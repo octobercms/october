@@ -49,7 +49,7 @@ export const ControlBase = {
         computeValue: function computeValue() {
             var result = utils.getProperty(this.obj, this.control.property);
 
-            if (result !== undefined) {
+            if (result !== undefined && result !== null) {
                 return result;
             }
 

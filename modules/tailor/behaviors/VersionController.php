@@ -63,6 +63,9 @@ class VersionController extends ControllerBehavior
     public function update($recordId = null)
     {
         try {
+            $this->controller->formSetContext(FormField::CONTEXT_PREVIEW);
+            $this->controller->formApplyDesign();
+
             $model = $this->controller->formFindModelObject($recordId);
 
             $this->initVersion($model);

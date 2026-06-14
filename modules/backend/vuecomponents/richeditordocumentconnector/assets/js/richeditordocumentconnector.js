@@ -25,7 +25,7 @@ export default {
             type: Boolean,
             default: false
         },
-        externalToolbarAppState: String
+        externalToolbarBus: String
     },
     data: function() {
         const imageDropdownItems = [];
@@ -268,12 +268,12 @@ export default {
         },
 
         externalToolbarEventBusObj: function computeExternalToolbarEventBusObj() {
-            if (!this.externalToolbarAppState) {
+            if (!this.externalToolbarBus) {
                 return null;
             }
 
             const point = $.oc.vueUtils.getToolbarExtensionPoint(
-                this.externalToolbarAppState,
+                this.externalToolbarBus,
                 this.$el
             );
 

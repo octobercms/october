@@ -31,6 +31,18 @@ export const dataSchema = {
                 group: {
                     type: 'string'
                 },
+                showExternalParam: {
+                    type: 'boolean'
+                },
+                ignoreIfEmpty: {
+                    type: 'boolean'
+                },
+                ignoreIfDefault: {
+                    type: 'boolean'
+                },
+                emptyOption: {
+                    type: 'string'
+                },
                 preset: {"$ref": '#/definitions/preset'}
             },
             required: ['property', 'type', 'title']

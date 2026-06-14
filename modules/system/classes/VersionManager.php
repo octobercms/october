@@ -6,6 +6,7 @@ use Date;
 use File;
 use Yaml;
 use Exception;
+use Illuminate\Database\QueryException;
 
 /**
  * VersionManager manages the versions and database updates for plugins
@@ -85,9 +86,38 @@ class VersionManager
             return false;
         }
 
-        $this->note($code);
-
         $newUpdates = $this->getNewFileVersions($code, $databaseVersion);
+        $pendingCount = count($newUpdates);
+        $dbIsAhead = (string) $databaseVersion !== (string) self::NO_VERSION_VALUE
+            && version_compare((string) $databaseVersion, (string) $currentVersion, '>');
+
+        if ($dbIsAhead) {
+            $this->note(sprintf(
+                '<info>%s</info> <fg=yellow>db ahead of files: v%s > v%s</> <fg=gray>(nothing to migrate)</>',
+                $code,
+                $databaseVersion,
+                $currentVersion
+            ));
+
+            return false;
+        }
+
+        if ($pendingCount === 0) {
+            return false;
+        }
+
+        $fromLabel = ((string) $databaseVersion === (string) self::NO_VERSION_VALUE)
+            ? 'not installed'
+            : 'v' . $databaseVersion;
+
+        $this->note(sprintf(
+            '<info>%s</info> <comment>%s -> v%s</comment> <fg=gray>(%d pending %s)</>',
+            $code,
+            $fromLabel,
+            $currentVersion,
+            $pendingCount,
+            $pendingCount === 1 ? 'migration' : 'migrations'
+        ));
 
         foreach ($newUpdates as $version => $details) {
             $this->applyPluginUpdate($code, $version, $details);
@@ -512,8 +542,53 @@ class VersionManager
         }
         catch (Exception $ex) {
             $this->note('- <error>v' . $version . ':  Migration "' . $script . '" failed</error>');
+            $this->noteScriptException($ex, $updateFile);
             throw $ex;
         }
+    }
+
+    /**
+     * noteScriptException prints detailed context for a migration failure:
+     * exception class + message, SQL + bindings for QueryException, and
+     * the migration file path.
+     */
+    protected function noteScriptException(Exception $ex, string $updateFile): void
+    {
+        $this->note('  <fg=red>' . class_basename($ex) . ':</> ' . $ex->getMessage());
+
+        if ($ex instanceof QueryException) {
+            $sql = $ex->getSql();
+            if ($sql !== '') {
+                $this->note('  <fg=gray>SQL:</> ' . $sql);
+            }
+
+            $bindings = $ex->getBindings();
+            if (!empty($bindings)) {
+                $rendered = array_map(static function ($binding) {
+                    if (is_string($binding)) {
+                        return "'" . $binding . "'";
+                    }
+                    if (is_bool($binding)) {
+                        return $binding ? 'true' : 'false';
+                    }
+                    if ($binding === null) {
+                        return 'null';
+                    }
+                    if ($binding instanceof \DateTimeInterface) {
+                        return "'" . $binding->format('Y-m-d H:i:s') . "'";
+                    }
+                    if (is_scalar($binding)) {
+                        return (string) $binding;
+                    }
+                    return json_encode($binding);
+                }, $bindings);
+
+                $this->note('  <fg=gray>bindings:</> [' . implode(', ', $rendered) . ']');
+            }
+        }
+
+        $relative = str_replace(base_path() . DIRECTORY_SEPARATOR, '', $updateFile);
+        $this->note('  <fg=gray>file:</> ' . str_replace('\\', '/', $relative));
     }
 
     /**

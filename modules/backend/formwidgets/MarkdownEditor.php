@@ -41,12 +41,10 @@ class MarkdownEditor extends FormWidgetBase
     public $sideBySide = false;
 
     /**
-     * @var string Defines a mount point for the editor toolbar.
-     * Must include a module name that exports the Vue application and a state element name.
-     * Format: stateElementName
+     * @var string externalToolbarBus defines a mount point for the editor toolbar.
      * Only works in Vue applications and form document layouts.
      */
-    public $externalToolbarAppState = null;
+    public $externalToolbarBus = null;
 
     //
     // Object Properties
@@ -67,7 +65,7 @@ class MarkdownEditor extends FormWidgetBase
             'safe',
             'legacyMode',
             'sideBySide',
-            'externalToolbarAppState'
+            'externalToolbarBus'
         ]);
 
         if (!$this->legacyMode) {
@@ -97,7 +95,7 @@ class MarkdownEditor extends FormWidgetBase
         $this->vars['name'] = $this->getFieldName();
         $this->vars['value'] = $this->getLoadValue();
         $this->vars['useMediaManager'] = BackendAuth::userHasAccess('media.library');
-        $this->vars['externalToolbarAppState'] = $this->externalToolbarAppState;
+        $this->vars['externalToolbarBus'] = $this->externalToolbarBus;
     }
 
     /**

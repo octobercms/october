@@ -1,4 +1,4 @@
-<div class="layout-row min-size">
+<div>
     <div class="callout callout-danger">
         <div class="header">
             <i class="icon-trash"></i>

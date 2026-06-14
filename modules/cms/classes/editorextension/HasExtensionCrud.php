@@ -13,6 +13,7 @@ use Cms\Classes\Layout;
 use Cms\Classes\Partial;
 use Cms\Classes\Snippet;
 use Cms\Classes\Content;
+use Cms\Classes\Lang as CmsLang;
 use Cms\Classes\Router;
 use Cms\Classes\SnippetManager;
 use Cms\Classes\CmsCompoundObject;
@@ -50,13 +51,18 @@ trait HasExtensionCrud
         }
 
         $template = $this->loadTemplate($documentType, $key);
-        if ($documentType !== EditorExtension::DOCUMENT_TYPE_ASSET) {
-            $templateData = $template->toArray();
+        if ($documentType === EditorExtension::DOCUMENT_TYPE_LANG) {
+            $templateData = [
+                'content' => $this->mergeLangContentWithDefaultKeys($template)
+            ];
         }
-        else {
+        elseif ($documentType === EditorExtension::DOCUMENT_TYPE_ASSET) {
             $templateData = [
                 'content' => $template->content
             ];
+        }
+        else {
+            $templateData = $template->toArray();
         }
 
         $templateData['fileName'] = ltrim($template->getFileName(), '/');
@@ -126,7 +132,7 @@ trait HasExtensionCrud
             return $response;
         }
 
-        if (!$template instanceof Asset) {
+        if (!$template instanceof Asset && !$template instanceof CmsLang) {
             $template->attributes = [];
         }
 
@@ -258,7 +264,8 @@ trait HasExtensionCrud
             EditorExtension::DOCUMENT_TYPE_PARTIAL => Partial::class,
             EditorExtension::DOCUMENT_TYPE_LAYOUT => Layout::class,
             EditorExtension::DOCUMENT_TYPE_CONTENT => Content::class,
-            EditorExtension::DOCUMENT_TYPE_ASSET => Asset::class
+            EditorExtension::DOCUMENT_TYPE_ASSET => Asset::class,
+            EditorExtension::DOCUMENT_TYPE_LANG => CmsLang::class
         ];
 
         if (!array_key_exists($documentType, $types)) {
@@ -295,7 +302,8 @@ trait HasExtensionCrud
             EditorExtension::DOCUMENT_TYPE_LAYOUT => Lang::get('cms::lang.editor.layout'),
             EditorExtension::DOCUMENT_TYPE_PARTIAL => Lang::get('cms::lang.editor.partial'),
             EditorExtension::DOCUMENT_TYPE_CONTENT => Lang::get('cms::lang.editor.content'),
-            EditorExtension::DOCUMENT_TYPE_ASSET => Lang::get('cms::lang.editor.asset')
+            EditorExtension::DOCUMENT_TYPE_ASSET => Lang::get('cms::lang.editor.asset'),
+            EditorExtension::DOCUMENT_TYPE_LANG => Lang::get('cms::lang.editor.lang')
         ];
 
         $documentType = $documentData['type'];
@@ -688,7 +696,7 @@ trait HasExtensionCrud
             $result['previewUrl'] = $this->getPagePreviewUrl($template, $templateData);
         }
 
-        if ($documentType == EditorExtension::DOCUMENT_TYPE_ASSET) {
+        if ($documentType == EditorExtension::DOCUMENT_TYPE_ASSET || $documentType == EditorExtension::DOCUMENT_TYPE_LANG) {
             $result['fileName'] = $template->fileName;
         }
 
@@ -750,6 +758,10 @@ trait HasExtensionCrud
             return '/assets';
         }
 
+        if ($template instanceof CmsLang) {
+            return '/lang';
+        }
+
         return $template->getObjectTypeDirName();
     }
 
@@ -766,5 +778,50 @@ trait HasExtensionCrud
                 ['doctype' => $documentType]
             ));
         }
+    }
+
+    /**
+     * mergeLangContentWithDefaultKeys merges the default locale's keys into the
+     * lang file content so translators see all available keys prepopulated.
+     */
+    /**
+     * command_onGetLangDefaultKeys returns the default language keys for
+     * prepopulating a new or existing lang file.
+     */
+    protected function command_onGetLangDefaultKeys()
+    {
+        $metadata = $this->getRequestMetadata();
+        $this->validateRequestTheme($metadata);
+        $this->assertDocumentTypePermissions(EditorExtension::DOCUMENT_TYPE_LANG);
+
+        $theme = $this->getTheme();
+        $excludeFileName = post('excludeFile');
+
+        $keys = CmsLang::getDefaultKeys($theme, $excludeFileName ?: null);
+
+        return ['keys' => $keys ?: []];
+    }
+
+    /**
+     * mergeLangContentWithDefaultKeys merges the default locale's keys into the
+     * lang file content so translators see all available keys prepopulated.
+     */
+    private function mergeLangContentWithDefaultKeys(CmsLang $template): string
+    {
+        $content = json_decode($template->content ?: '{}', true) ?: [];
+
+        $defaultKeys = CmsLang::getDefaultKeys($template->getTheme(), $template->getFileName());
+        if (!$defaultKeys) {
+            return $template->content;
+        }
+
+        // Add missing keys with empty values
+        foreach ($defaultKeys as $key => $value) {
+            if (!array_key_exists($key, $content)) {
+                $content[$key] = '';
+            }
+        }
+
+        return json_encode($content, JSON_PRETTY_PRINT | JSON_UNESCAPED_UNICODE) . "\n";
     }
 }

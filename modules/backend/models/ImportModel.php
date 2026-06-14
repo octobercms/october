@@ -1,5 +1,6 @@
 <?php namespace Backend\Models;
 
+use File;
 use Model;
 use ApplicationException;
 
@@ -13,6 +14,7 @@ abstract class ImportModel extends Model
 {
     use \Backend\Models\ImportModel\DecodesCsv;
     use \Backend\Models\ImportModel\DecodesJson;
+    use \Backend\Models\ImportModel\DecodesZip;
     use \October\Rain\Database\Traits\Validation;
 
     /**
@@ -137,7 +139,9 @@ abstract class ImportModel extends Model
     }
 
     /**
-     * getImportFilePath returns an attached imported file local path, if available
+     * getImportFilePath returns an attached imported file local path, if available.
+     * If the uploaded file is a ZIP archive, it will be extracted and the path
+     * to the data file inside will be returned.
      * @return string
      */
     public function getImportFilePath($sessionKey = null)
@@ -153,7 +157,14 @@ abstract class ImportModel extends Model
             return null;
         }
 
-        return $file->getLocalPath();
+        $localPath = $file->getLocalPath();
+
+        // Handle ZIP archive imports
+        if (strtolower($file->getExtension()) === 'zip') {
+            return $this->extractImportZip($localPath);
+        }
+
+        return $localPath;
     }
 
     /**

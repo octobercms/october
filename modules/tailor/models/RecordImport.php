@@ -154,6 +154,9 @@ class RecordImport extends ImportModel
             if ($relationModel instanceof RepeaterItem) {
                 $this->decodeRepeaterItems($model, $attr, $value, $sessionKey);
             }
+            elseif ($relationModel instanceof \System\Models\File) {
+                $this->decodeFileRelation($model, $attr, $value, $sessionKey);
+            }
             else {
                 $model->setRelationSimpleValue($attr, $value);
             }

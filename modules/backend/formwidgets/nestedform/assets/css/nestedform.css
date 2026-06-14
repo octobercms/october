@@ -1,1 +1,40 @@
-.nested-form{min-height:30px;position:relative}.nested-form .control-tabs.primary-tabs .nav-tabs{margin:0!important}.nested-form.is-paneled{background:var(--bs-body-bg);border:1px solid var(--oc-primary-border);border-radius:4px;box-shadow:none;margin-top:5px;padding:10px 15px 0!important}.nested-form.is-paneled .control-tabs.primary-tabs .nav-tabs{margin-left:-15px!important;margin-right:-15px!important}.nested-form.is-paneled .control-tabs.primary-tabs .nav-tabs>li.active>a:before{background-color:var(--bs-body-bg);border-color:var(--bs-body-bg)}.nested-form.is-paneled .control-tabs.primary-tabs .nav-tabs>li>a>span.title:after,.nested-form.is-paneled .control-tabs.primary-tabs .nav-tabs>li>a>span.title:before{background-color:var(--bs-body-bg)}
+:root {
+    --oc-nestedform-bg: var(--bs-body-bg);
+    --oc-nestedform-border: var(--oc-primary-border);
+}
+
+.nested-form {
+    position: relative;
+    min-height: 30px;
+
+    .control-tabs.primary-tabs {
+        .nav-tabs {
+            margin: 0 !important;
+        }
+    }
+
+    &.is-paneled {
+        background: var(--oc-nestedform-bg);
+        border: 1px solid var(--oc-nestedform-border);
+        border-radius: 4px;
+        box-shadow: none;
+        margin-top: 5px;
+        padding: 10px 15px 0 15px !important;
+
+        .control-tabs.primary-tabs .nav-tabs {
+            margin-left: -15px !important;
+            margin-right: -15px !important;
+
+            > li.active > a:before {
+                background-color: var(--oc-nestedform-bg);
+                border-color: var(--oc-nestedform-bg);
+            }
+
+            > li > a > span.title {
+                &:before, &:after {
+                    background-color: var(--oc-nestedform-bg);
+                }
+            }
+        }
+    }
+}

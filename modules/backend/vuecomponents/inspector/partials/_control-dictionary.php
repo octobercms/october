@@ -4,6 +4,7 @@
 >
     <backend-inspector-group
         :group-name="control.title"
+        :group-description="control.description"
         :obj="editedObject"
         :controls="nestedControlProperties"
         :splitter-data="splitterData"

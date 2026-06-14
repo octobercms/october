@@ -5,7 +5,7 @@
 <?php else: ?>
     <div
         id="<?= $this->getId() ?>"
-        class="field-codeeditor size-<?= $size ?> <?= $stretch?'layout-relative':'' ?>"
+        class="field-codeeditor size-<?= $size ?> <?= $stretch ? 'is-stretch' : '' ?>"
         data-control="codeeditor"
         data-font-size="<?= $fontSize ?>"
         data-word-wrap="<?= $wordWrap ?>"

@@ -8,6 +8,7 @@ import { DocumentControllerLayout } from './cms.editor.extension.documentcontrol
 import { DocumentControllerPartial } from './cms.editor.extension.documentcontroller.partial.js';
 import { DocumentControllerContent } from './cms.editor.extension.documentcontroller.content.js';
 import { DocumentControllerAsset } from './cms.editor.extension.documentcontroller.asset.js';
+import { DocumentControllerLang } from './cms.editor.extension.documentcontroller.lang.js';
 import { modalUtils } from '../../../backend/vuecomponents/modal/assets/js/classes/index.js';
 
 // Declaring this as a scoped variable. For some reason,
@@ -49,7 +50,8 @@ class CmsEditorExtension extends ExtensionBase {
             DocumentControllerLayout,
             DocumentControllerPartial,
             DocumentControllerContent,
-            DocumentControllerAsset
+            DocumentControllerAsset,
+            DocumentControllerLang
         ];
     }
 

@@ -196,10 +196,17 @@
         };
 
         this.getToolbarExtensionPoint = function (source, element) {
-            // Expected source format: eventBus::toolbarExtensionPoint
-            let parts = source.split('::');
-            if (parts.length !== 2) {
-                parts = ['eventBus', parts[0]];
+            // Expected source value: 'document'
+            // Maps to Vue app state keys: eventBus + toolbarExtensionPoint
+            let parts;
+            if (source === 'document') {
+                parts = ['eventBus', 'toolbarExtensionPoint'];
+            }
+            else if (source.indexOf('::') !== -1) {
+                parts = source.split('::');
+            }
+            else {
+                parts = ['eventBus', source];
             }
 
             const vueApp = oc.VueApp.getFromElement(element);

@@ -64,7 +64,83 @@
   background-color: #FFF;
 }
 
+/*
+ * Theming variables.
+ *
+ * Override any of these on the .handsontable container (or a parent) to
+ * restyle the grid without touching this file. Variables are grouped by
+ * what they control; see HANDSONTABLE-THEMING.md for the inventory.
+ */
 .handsontable {
+  /* Surfaces */
+  --ht-background-color: #FFF;
+  --ht-foreground-color: #222;
+  --ht-foreground-secondary-color: #777;
+  --ht-foreground-muted-color: #999;
+  --ht-foreground-disabled-color: #EEE;
+
+  /* Borders */
+  --ht-border-color: #CCC;
+  --ht-border-color-light: #E6E6E6;
+  --ht-border-color-strong: #000;
+
+  /* Accent (selection, focus ring, resize handles) */
+  --ht-accent-color: #5292F7;
+  --ht-selection-background: #005eff;
+  --ht-resize-handle-color: #34a9db;
+  --ht-resize-guide-color: #777;
+
+  /* Headers */
+  --ht-header-background: #f0f0f0;
+  --ht-header-foreground: #222;
+  --ht-header-active-background: #CCC;
+  --ht-header-highlight-background: #dcdcdc;
+  --ht-header-active-highlight-background: #8eb0e7;
+  --ht-header-active-highlight-foreground: #000;
+
+  /* Cell states */
+  --ht-cell-invalid-background: #ff4c42;
+  --ht-cell-search-background: #fcedd9;
+  --ht-cell-search-foreground: #583707;
+  --ht-cell-placeholder-foreground: #999;
+  --ht-cell-readonly-foreground: #777;
+
+  /* Editor input */
+  --ht-editor-background: #FFF;
+  --ht-editor-foreground: #000;
+  --ht-editor-focus-ring-color: #5292F7;
+
+  /* Listbox (used by autocomplete dropdown) */
+  --ht-listbox-border-color: #ccc;
+  --ht-listbox-hover-background: #eee;
+
+  /* Move handle (manualRowMove / manualColumnMove guide) */
+  --ht-move-handle-background: #757575;
+  --ht-move-backlight-background: #343434;
+  --ht-move-backlight-overlay: rgba(52, 52, 52, 0.25);
+
+  /* Context menu */
+  --ht-menu-background: #FFF;
+  --ht-menu-border-color: #ccc;
+  --ht-menu-separator-color: #e6e6e6;
+  --ht-menu-item-hover-background: #f3f3f3;
+  --ht-menu-item-disabled-foreground: #999;
+
+  /* Shadows */
+  --ht-shadow-elevated: 1px 1px 3px rgba(0, 0, 0, 0.4);
+  --ht-collapse-button-border: #f3f3f3;
+  --ht-collapse-button-line: #ccc;
+  --ht-collapsible-indicator-border: #A6A6A6;
+  --ht-collapsible-indicator-shadow: rgba(238, 238, 238, 1);
+
+  /* Sizing / density */
+  --ht-cell-line-height: 21px;
+  --ht-cell-min-height: 22px;
+  --ht-cell-padding-horizontal: 4px;
+  --ht-cell-padding-vertical: 0;
+  --ht-header-padding-horizontal: 4px;
+  --ht-header-padding-vertical: 2px;
+
   position: relative;
 }
 
@@ -145,14 +221,14 @@
 .handsontable td {
   border-top-width: 0;
   border-left-width: 0;
-  border-right: 1px solid #CCC;
-  border-bottom: 1px solid #CCC;
-  height: 22px;
+  border-right: 1px solid var(--ht-border-color);
+  border-bottom: 1px solid var(--ht-border-color);
+  height: var(--ht-cell-min-height);
   empty-cells: show;
-  line-height: 21px;
-  padding: 0 4px 0 4px;
+  line-height: var(--ht-cell-line-height);
+  padding: var(--ht-cell-padding-vertical) var(--ht-cell-padding-horizontal);
   /* top, bottom padding different than 0 is handled poorly by FF with HTML5 doctype */
-  background-color: #FFF;
+  background-color: var(--ht-background-color);
   vertical-align: top;
   overflow: hidden;
   outline-width: 0;
@@ -162,25 +238,31 @@
 }
 
 .handsontable td.htInvalid {
-  background-color: #ff4c42 !important; /*gives priority over td.area selection background*/
+  background-color: var(--ht-cell-invalid-background) !important; /*gives priority over td.area selection background*/
 }
 
 .handsontable td.htNoWrap {
   white-space: nowrap;
 }
 
+.handsontable td.htEllipsis {
+  text-overflow: ellipsis;
+  overflow: hidden;
+  white-space: nowrap;
+}
+
 .handsontable th:last-child {
   /*Foundation framework fix*/
-  border-right: 1px solid #CCC;
-  border-bottom: 1px solid #CCC;
+  border-right: 1px solid var(--ht-border-color);
+  border-bottom: 1px solid var(--ht-border-color);
 }
 
 .handsontable tr:first-child th.htNoFrame,
 .handsontable th:first-child.htNoFrame,
 .handsontable th.htNoFrame {
   border-left-width: 0;
-  background-color: white;
-  border-color: #FFF;
+  background-color: var(--ht-background-color);
+  border-color: var(--ht-background-color);
 }
 
 .handsontable th:first-child,
@@ -188,16 +270,16 @@
 .handsontable td:first-of-type,
 .handsontable .htNoFrame + th,
 .handsontable .htNoFrame + td {
-  border-left: 1px solid #CCC;
+  border-left: 1px solid var(--ht-border-color);
 }
 
 .handsontable.htRowHeaders thead tr th:nth-child(2) {
-  border-left: 1px solid #CCC;
+  border-left: 1px solid var(--ht-border-color);
 }
 
 .handsontable tr:first-child th,
 .handsontable tr:first-child td {
-  border-top: 1px solid #CCC;
+  border-top: 1px solid var(--ht-border-color);
 }
 
 .ht_master:not(.innerBorderLeft):not(.emptyColumns) ~ .handsontable tbody tr th,
@@ -213,8 +295,8 @@
 }
 
 .handsontable th {
-  background-color: #f0f0f0;
-  color: #222;
+  background-color: var(--ht-header-background);
+  color: var(--ht-header-foreground);
   text-align: center;
   font-weight: normal;
   white-space: nowrap;
@@ -225,18 +307,10 @@
 }
 
 .handsontable th.active {
-  background-color: #CCC;
+  background-color: var(--ht-header-active-background);
 }
 .handsontable thead th .relative {
-  padding: 2px 4px;
-}
-
-#hot-display-license-info {
-  font-size: 10px;
-  color: #323232 ;
-  padding: 5px 0 3px 0;
-  font-family: Helvetica, Arial, sans-serif;
-  text-align: left;
+  padding: var(--ht-header-padding-vertical) var(--ht-header-padding-horizontal);
 }
 
 /* plugins */
@@ -264,17 +338,17 @@
 .handsontable .manualColumnResizer.active,
 .handsontable .manualRowResizer:hover,
 .handsontable .manualRowResizer.active {
-  background-color: #34a9db;
+  background-color: var(--ht-resize-handle-color);
 }
 
 .handsontable .manualColumnResizerGuide {
   position: fixed;
   right: 0;
   top: 0;
-  background-color: #34a9db;
+  background-color: var(--ht-resize-handle-color);
   display: none;
   width: 0;
-  border-right: 1px dashed #777;
+  border-right: 1px dashed var(--ht-resize-guide-color);
   margin-left: 5px;
 }
 
@@ -282,10 +356,10 @@
   position: fixed;
   left: 0;
   bottom: 0;
-  background-color: #34a9db;
+  background-color: var(--ht-resize-handle-color);
   display: none;
   height: 0;
-  border-bottom: 1px dashed #777;
+  border-bottom: 1px dashed var(--ht-resize-guide-color);
   margin-top: 5px;
 }
 
@@ -393,7 +467,7 @@
   right: 0;
   bottom: 0;
   bottom: -100%\9; /* Fix for IE9 to spread the ":before" pseudo element to 100% height of the parent element */
-  background: #005eff;
+  background: var(--ht-selection-background);
 }
 
 /* Fix for IE10 and IE11 to spread the ":before" pseudo element to 100% height of the parent element */
@@ -437,13 +511,13 @@
 
 .handsontable tbody th.ht__highlight,
 .handsontable thead th.ht__highlight {
-  background-color: #dcdcdc;
+  background-color: var(--ht-header-highlight-background);
 }
 
 .handsontable tbody th.ht__active_highlight,
 .handsontable thead th.ht__active_highlight {
-  background-color: #8eb0e7;
-  color: #000;
+  background-color: var(--ht-header-active-highlight-background);
+  color: var(--ht-header-active-highlight-foreground);
 }
 
 /* fill handle */
@@ -465,15 +539,15 @@
   margin: 0;
   padding: 1px 5px 0 5px;
   font-family: inherit;
-  line-height: 21px;
+  line-height: var(--ht-cell-line-height);
   font-size: inherit;
-  box-shadow: 0 0 0 2px #5292F7 inset;
+  box-shadow: 0 0 0 2px var(--ht-editor-focus-ring-color) inset;
   resize: none;
   /*below are needed to overwrite stuff added by jQuery UI Bootstrap theme*/
   display: block;
-  color: #000;
+  color: var(--ht-editor-foreground);
   border-radius: 0;
-  background-color: #FFF;
+  background-color: var(--ht-editor-background);
   /*overwrite styles potentionally made by a framework*/
 }
 
@@ -495,7 +569,7 @@ TextRenderer readOnly cell
 */
 
 .handsontable .htDimmed {
-  color: #777;
+  color: var(--ht-cell-readonly-foreground);
 }
 
 .handsontable .htSubmenu {
@@ -504,7 +578,7 @@ TextRenderer readOnly cell
 
 .handsontable .htSubmenu :after{
   content: '▶';
-  color: #777;
+  color: var(--ht-foreground-secondary-color);
   position: absolute;
   right: 5px;
   font-size: 9px;
@@ -544,7 +618,7 @@ TextRenderer placeholder value
 */
 
 .handsontable .htPlaceholder {
-  color: #999;
+  color: var(--ht-cell-placeholder-foreground);
 }
 
 /*
@@ -554,14 +628,14 @@ AutocompleteRenderer down arrow
 .handsontable .htAutocompleteArrow {
   float: right;
   font-size: 10px;
-  color: #EEE;
+  color: var(--ht-foreground-disabled-color);
   cursor: default;
   width: 16px;
   text-align: center;
 }
 
 .handsontable td .htAutocompleteArrow:hover {
-  color: #777;
+  color: var(--ht-foreground-secondary-color);
 }
 
 .handsontable td.area .htAutocompleteArrow {
@@ -612,9 +686,9 @@ CheckboxRenderer
 }
 
 .handsontable.listbox .ht_master table {
-  border: 1px solid #ccc;
+  border: 1px solid var(--ht-listbox-border-color);
   border-collapse: separate;
-  background: white;
+  background: var(--ht-background-color);
 }
 
 .handsontable.listbox th,
@@ -643,7 +717,7 @@ CheckboxRenderer
 
 .handsontable.listbox tr td.current,
 .handsontable.listbox tr:hover td {
-  background: #eee;
+  background: var(--ht-listbox-hover-background);
 }
 
 .ht_clone_top {
@@ -664,8 +738,8 @@ CheckboxRenderer
 }
 
 .handsontable td.htSearchResult {
-  background: #fcedd9;
-  color: #583707;
+  background: var(--ht-cell-search-background);
+  color: var(--ht-cell-search-foreground);
 }
 
 /*
@@ -677,33 +751,33 @@ Cell borders
 }
 .htBordered.htTopBorderSolid {
   border-top-style: solid;
-  border-top-color: #000;
+  border-top-color: var(--ht-border-color-strong);
 }
 .htBordered.htRightBorderSolid {
   border-right-style: solid;
-  border-right-color: #000;
+  border-right-color: var(--ht-border-color-strong);
 }
 .htBordered.htBottomBorderSolid {
   border-bottom-style: solid;
-  border-bottom-color: #000;
+  border-bottom-color: var(--ht-border-color-strong);
 }
 .htBordered.htLeftBorderSolid {
   border-left-style: solid;
-  border-left-color: #000;
+  border-left-color: var(--ht-border-color-strong);
 }
 
 .handsontable tbody tr th:nth-last-child(2) {
-  border-right: 1px solid #CCC;
+  border-right: 1px solid var(--ht-border-color);
 }
 
 .handsontable thead tr:nth-last-child(2) th.htGroupIndicatorContainer {
-  border-bottom: 1px solid #CCC;
+  border-bottom: 1px solid var(--ht-border-color);
   padding-bottom: 5px;
 }
 
 
 .ht_clone_top_left_corner thead tr th:nth-last-child(2) {
-  border-right: 1px solid #CCC;
+  border-right: 1px solid var(--ht-border-color);
 }
 
 .htCollapseButton {
@@ -712,9 +786,9 @@ Cell borders
   line-height: 10px;
   text-align: center;
   border-radius: 5px;
-  border: 1px solid #f3f3f3;
-  -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--ht-collapse-button-border);
+  -webkit-box-shadow: var(--ht-shadow-elevated);
+  box-shadow: var(--ht-shadow-elevated);
   cursor: pointer;
   margin-bottom: 3px;
   position: relative;
@@ -725,7 +799,7 @@ Cell borders
   height: 300%;
   width: 1px;
   display: block;
-  background: #ccc;
+  background: var(--ht-collapse-button-line);
   margin-left: 4px;
   position: absolute;
   /*top: -300%;*/
@@ -737,7 +811,7 @@ thead .htCollapseButton {
   right: 5px;
   position: absolute;
   top: 5px;
-  background: #fff;
+  background: var(--ht-background-color);
 }
 
 thead .htCollapseButton:after {
@@ -754,9 +828,9 @@ thead .htCollapseButton:after {
   line-height: 10px;
   text-align: center;
   border-radius: 5px;
-  border: 1px solid #f3f3f3;
-  -webkit-box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
-  box-shadow: 1px 1px 3px rgba(0, 0, 0, 0.4);
+  border: 1px solid var(--ht-collapse-button-border);
+  -webkit-box-shadow: var(--ht-shadow-elevated);
+  box-shadow: var(--ht-shadow-elevated);
   cursor: pointer;
   top: 0;
   display: none;
@@ -776,18 +850,18 @@ thead .htCollapseButton:after {
   top: 50%;
   transform: translate(0% ,-50%);
   right: 5px;
-  border: 1px solid #A6A6A6;
+  border: 1px solid var(--ht-collapsible-indicator-border);
   line-height: 10px;
-  color: #222;
+  color: var(--ht-foreground-color);
   border-radius: 10px;
   font-size: 10px;
   width: 10px;
   height: 10px;
   cursor: pointer;
-  -webkit-box-shadow: 0 0 0 6px rgba(238,238,238,1);
-  -moz-box-shadow: 0 0 0 6px rgba(238,238,238,1);
-  box-shadow: 0 0 0 6px rgba(238,238,238,1);
-  background: #eee;
+  -webkit-box-shadow: 0 0 0 6px var(--ht-collapsible-indicator-shadow);
+  -moz-box-shadow: 0 0 0 6px var(--ht-collapsible-indicator-shadow);
+  box-shadow: 0 0 0 6px var(--ht-collapsible-indicator-shadow);
+  background: var(--ht-listbox-hover-background);
 }
 
 .handsontable col.hidden {
@@ -795,7 +869,7 @@ thead .htCollapseButton:after {
 }
 
 .handsontable table tr th.lightRightBorder {
-  border-right: 1px solid #E6E6E6;
+  border-right: 1px solid var(--ht-border-color-light);
 }
 
 .handsontable tr.hidden,
@@ -825,6 +899,29 @@ thead .htCollapseButton:after {
 .ht_clone_left .wtHolder,
 .ht_clone_bottom .wtHolder {
   overflow: hidden;
+}
+
+/*
+ * Density presets.
+ *
+ * Apply one of these classes to the .handsontable container to switch the
+ * cell/header padding without overriding individual variables. The default
+ * (no class) matches the legacy size.
+ */
+.handsontable.ht-compact {
+  --ht-cell-min-height: 18px;
+  --ht-cell-line-height: 17px;
+  --ht-cell-padding-horizontal: 4px;
+  --ht-header-padding-horizontal: 4px;
+  --ht-header-padding-vertical: 1px;
+}
+
+.handsontable.ht-comfortable {
+  --ht-cell-min-height: 30px;
+  --ht-cell-line-height: 28px;
+  --ht-cell-padding-horizontal: 8px;
+  --ht-header-padding-horizontal: 8px;
+  --ht-header-padding-vertical: 4px;
 }
 
 /*
@@ -1101,7 +1198,7 @@ thead .htCollapseButton:after {
 }
 
 .htContextMenu table.htCore {
-  border: 1px solid #ccc;
+  border: 1px solid var(--ht-menu-border-color);
   border-bottom-width: 2px;
   border-right-width: 2px;
 }
@@ -1111,7 +1208,7 @@ thead .htCollapseButton:after {
 }
 
 .htContextMenu table tbody tr td {
-  background: white;
+  background: var(--ht-menu-background);
   border-width: 0;
   padding: 4px 6px 0 6px;
   cursor: pointer;
@@ -1126,29 +1223,29 @@ thead .htCollapseButton:after {
 
 .htContextMenu table tbody tr td.htDimmed {
   font-style: normal;
-  color: #323232;
+  color: var(--ht-foreground-color);
 }
 
 .htContextMenu table tbody tr td.current,
 .htContextMenu table tbody tr td.zeroclipboard-is-hover {
-  background: #f3f3f3;
+  background: var(--ht-menu-item-hover-background);
 }
 
 .htContextMenu table tbody tr td.htSeparator {
-  border-top: 1px solid #e6e6e6;
+  border-top: 1px solid var(--ht-menu-separator-color);
   height: 0;
   padding: 0;
   cursor: default;
 }
 
 .htContextMenu table tbody tr td.htDisabled {
-  color: #999;
+  color: var(--ht-menu-item-disabled-foreground);
   cursor: default;
 }
 
 .htContextMenu table tbody tr td.htDisabled:hover {
-  background: #fff;
-  color: #999;
+  background: var(--ht-menu-background);
+  color: var(--ht-menu-item-disabled-foreground);
   cursor: default;
 }
 
@@ -1178,6 +1275,103 @@ textarea#HandsontableCopyPaste {
   overflow: hidden;
   opacity: 0;
   outline: 0 none !important;
+}
+
+/*!
+ * Handsontable EmptyDataState plugin
+ *
+ * Renders a centered overlay above the grid when there are no visible rows.
+ * Themed via the --ht-* variables declared on .handsontable.
+ */
+
+.handsontable {
+  /* Plugin-specific tokens — colors fall back to the global --ht-* defaults. */
+  --ht-empty-state-row-height: var(--ht-cell-min-height);
+  --ht-empty-state-row-padding-x: var(--ht-cell-padding-horizontal);
+  --ht-empty-state-gap: 8px;
+  --ht-empty-state-button-padding: 1px 8px;
+  --ht-empty-state-button-radius: 3px;
+  --ht-empty-state-button-bg: var(--ht-header-background);
+  --ht-empty-state-button-fg: var(--ht-foreground-color);
+  --ht-empty-state-button-bg-hover: var(--ht-header-active-background);
+  --ht-empty-state-primary-bg: var(--ht-accent-color);
+  --ht-empty-state-primary-fg: #fff;
+}
+
+/*
+ * Empty state: rendered as a single ghost row spanning the body area so the
+ * grid keeps the same visual structure (headers + one row) whether or not
+ * data is present.
+ */
+.handsontable .htEmptyDataState {
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  display: flex;
+  align-items: flex-start;
+  justify-content: flex-start;
+  pointer-events: none;
+  z-index: 200;
+  background: var(--ht-background-color);
+}
+
+.handsontable .htEmptyDataState__inner {
+  pointer-events: auto;
+  display: flex;
+  align-items: center;
+  gap: var(--ht-empty-state-gap);
+  box-sizing: border-box;
+  width: 100%;
+  min-height: var(--ht-empty-state-row-height);
+  padding: 0 var(--ht-empty-state-row-padding-x);
+  border-left: 1px solid var(--ht-border-color);
+  border-right: 1px solid var(--ht-border-color);
+  border-bottom: 1px solid var(--ht-border-color);
+  color: var(--ht-cell-readonly-foreground);
+  font-family: inherit;
+  font-size: inherit;
+  line-height: var(--ht-cell-line-height);
+}
+
+.handsontable .htEmptyDataState__title {
+  font-weight: 500;
+  color: var(--ht-cell-readonly-foreground);
+}
+
+.handsontable .htEmptyDataState__description {
+  color: var(--ht-foreground-secondary-color);
+}
+
+.handsontable .htEmptyDataState__actions {
+  margin-left: auto;
+  display: flex;
+  gap: 6px;
+}
+
+.handsontable .htEmptyDataState__button {
+  padding: var(--ht-empty-state-button-padding);
+  border-radius: var(--ht-empty-state-button-radius);
+  border: 1px solid var(--ht-border-color);
+  background: var(--ht-empty-state-button-bg);
+  color: var(--ht-empty-state-button-fg);
+  font: inherit;
+  cursor: pointer;
+}
+
+.handsontable .htEmptyDataState__button:hover {
+  background: var(--ht-empty-state-button-bg-hover);
+}
+
+.handsontable .htEmptyDataState__button--primary {
+  background: var(--ht-empty-state-primary-bg);
+  color: var(--ht-empty-state-primary-fg);
+  border-color: var(--ht-empty-state-primary-bg);
+}
+
+.handsontable .htEmptyDataState__button--primary:hover {
+  filter: brightness(0.95);
 }
 
 .htRowHeaders .ht_master.innerBorderLeft ~ .ht_clone_top_left_corner th:nth-child(2),
@@ -1211,15 +1405,15 @@ textarea#HandsontableCopyPaste {
   display: none;
 }
 .handsontable .ht__manualColumnMove--guideline {
-  background: #757575;
+  background: var(--ht-move-handle-background);
   width: 2px;
   top: 0;
   margin-left: -1px;
   z-index: 105;
 }
 .handsontable .ht__manualColumnMove--backlight {
-  background: #343434;
-  background: rgba(52, 52, 52, 0.25);
+  background: var(--ht-move-backlight-background);
+  background: var(--ht-move-backlight-overlay);
   display: none;
   z-index: 105;
   pointer-events: none;
@@ -1255,15 +1449,15 @@ textarea#HandsontableCopyPaste {
   display: none;
 }
 .handsontable .ht__manualRowMove--guideline {
-  background: #757575;
+  background: var(--ht-move-handle-background);
   height: 2px;
   left: 0;
   margin-top: -1px;
   z-index: 105;
 }
 .handsontable .ht__manualRowMove--backlight {
-  background: #343434;
-  background: rgba(52, 52, 52, 0.25);
+  background: var(--ht-move-backlight-background);
+  background: var(--ht-move-backlight-overlay);
   display: none;
   z-index: 105;
   pointer-events: none;

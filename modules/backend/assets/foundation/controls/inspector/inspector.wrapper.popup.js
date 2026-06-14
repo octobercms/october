@@ -132,7 +132,7 @@
     }
 
     InspectorPopup.prototype.forceClose = function() {
-        this.$popoverContainer.trigger('close.oc.popover')
+        oc.dispatch('close.oc.popover', { target: this.$popoverContainer.get(0) })
     }
 
     InspectorPopup.prototype.registerPopupHandlers = function() {
@@ -188,7 +188,7 @@
 
     InspectorPopup.prototype.onPopoverKeyDown = function(ev) {
         if(ev.key === 'Enter') {
-            $(ev.currentTarget).trigger('close.oc.popover')
+            oc.dispatch('close.oc.popover', { target: ev.currentTarget })
         }
     }
 

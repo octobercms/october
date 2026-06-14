@@ -124,6 +124,50 @@
             }
         }
 
+        .external-param-editor-container {
+            position: relative;
+            padding-right: 30px;
+
+            .external-param-normal-editor {
+                min-height: var(--inspector-control-height);
+            }
+
+            .external-editor {
+                input {
+                    padding-left: var(--inspector-base-control-side-padding);
+                }
+            }
+
+            .external-editor-link {
+                position: absolute;
+                right: 0;
+                top: 0;
+                display: flex;
+                align-items: center;
+                justify-content: center;
+                width: 30px;
+                height: var(--inspector-control-height);
+                color: var(--bs-primary);
+                outline: none;
+                text-decoration: none;
+                opacity: 0.5;
+                transition: opacity 0.2s;
+                font-size: 14px;
+
+                &:hover, &:focus {
+                    opacity: 1;
+                }
+            }
+
+            &.editor-visible {
+                .external-editor-link {
+                    opacity: 1;
+                    color: var(--bs-primary);
+                    font-size: 18px;
+                }
+            }
+        }
+
         .full-width-control-label {
             padding-top: 8px;
 

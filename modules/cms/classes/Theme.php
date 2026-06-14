@@ -69,6 +69,28 @@ class Theme implements CallsMethods
     }
 
     /**
+     * exists determines if a theme with given directory name exists
+     */
+    public static function exists(string $dirName): bool
+    {
+        return static::load($dirName)->isValid();
+    }
+
+    /**
+     * isValid checks if this theme has a valid directory name and exists on disk
+     */
+    public function isValid(): bool
+    {
+        $dirName = $this->getDirName();
+
+        if (!$dirName || !preg_match('/^[a-z0-9\_\-]+$/i', $dirName)) {
+            return false;
+        }
+
+        return File::isDirectory($this->getPath());
+    }
+
+    /**
      * getPath returns the absolute theme path.
      */
     public function getPath(?string $dirName = null): string
@@ -103,22 +125,6 @@ class Theme implements CallsMethods
     public function getId(): string
     {
         return snake_case(str_replace('/', '-', $this->getDirName()));
-    }
-
-    /**
-     * exists determines if a theme with given directory name exists
-     */
-    public static function exists(string $dirName): bool
-    {
-        if (strlen(trim($dirName)) === 0) {
-            return false;
-        }
-
-        $theme = static::load($dirName);
-
-        $path = $theme->getPath();
-
-        return File::isDirectory($path);
     }
 
     /**
@@ -206,7 +212,7 @@ class Theme implements CallsMethods
             throw new ApplicationException(Lang::get('cms::lang.theme.active.is_locked', ['theme' => $themeCode]));
         }
 
-        if (!File::isDirectory($theme->getPath())) {
+        if (!$theme->isValid()) {
             return self::$activeThemeCache = null;
         }
 
@@ -222,7 +228,7 @@ class Theme implements CallsMethods
     public static function setActiveTheme(string $code)
     {
         $theme = static::load($code);
-        if ($theme && $theme->isLocked()) {
+        if ($theme->isLocked()) {
             throw new ApplicationException(Lang::get('cms::lang.theme.active.is_locked', ['theme' => $code]));
         }
 
@@ -343,7 +349,7 @@ class Theme implements CallsMethods
 
         $theme = static::load(static::getEditThemeCode());
 
-        if (!File::isDirectory($theme->getPath())) {
+        if (!$theme->isValid()) {
             return self::$editThemeCache = null;
         }
 

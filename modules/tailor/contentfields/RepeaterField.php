@@ -58,10 +58,6 @@ class RepeaterField extends ContentFieldBase
     {
         $config = ['groupKeyFrom' => 'content_group'] + $this->getCleanFormConfig();
 
-        if (isset($config['span']) && $config['span'] === 'adaptive') {
-            $config['externalToolbarAppState'] = 'toolbarExtensionPoint';
-        }
-
         $form->addFormField($this->fieldName, $this->label)->useConfig($config);
     }
 
@@ -99,12 +95,19 @@ class RepeaterField extends ContentFieldBase
     public function extendModelObject($model)
     {
         // Define the relationship
-        $model->hasMany[$this->fieldName] = [
+        $relationConfig = [
             RepeaterItem::class,
             'key' => 'host_id',
             'delete' => true,
             'relationClass' => CustomFieldHasManyRelation::class
         ];
+
+        // Add multisiteSync flag to prevent otherKey rewrite
+        if ($this->translatable === 'sync') {
+            $relationConfig['multisiteSync'] = true;
+        }
+
+        $model->hasMany[$this->fieldName] = $relationConfig;
 
         // Pass the fieldset configuration to all related instances
         $model->bindEvent('model.afterRelation', function($name, $related) use ($model) {

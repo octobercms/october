@@ -34,8 +34,9 @@ import './october/october.jsmodule.js';
 import './october/october.flyout.js';
 import './october/october.tabformexpandcontrols.js';
 
-// Settings nav control
+// Controls
 import './controls/settings-nav.js';
+import './controls/color-mode-switcher.js';
 
 // Backend core
 import './backend/backend.js';

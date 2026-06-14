@@ -51,7 +51,8 @@ export default {
                 'objectList',
                 'objectListRecords',
                 'set',
-                'dictionary'
+                'dictionary',
+                'stringList'
             ]
         };
     },

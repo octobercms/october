@@ -8,9 +8,9 @@
 <?php if (!$this->fatalError): ?>
 
     <?php Block::put('form-contents') ?>
-        <div class="layout">
+        <div class="d-flex flex-column h-100">
 
-            <div class="layout-row">
+            <div class="flex-grow-1">
                 <?= $this->formRenderOutsideFields() ?>
                 <?= $this->formRenderPrimaryTabs() ?>
             </div>

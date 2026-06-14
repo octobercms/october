@@ -344,19 +344,6 @@ class ServiceProvider extends ModuleServiceProvider
     }
 
     /**
-     * registerReportWidgets
-     */
-    public function registerReportWidgets()
-    {
-        return [
-            \System\ReportWidgets\Status::class => [
-                'label' => "System status",
-                'context' => 'dashboard'
-            ],
-        ];
-    }
-
-    /**
      * registerPermissions
      */
     public function registerPermissions()

@@ -8,7 +8,7 @@
     data-sort-handler="<?= $this->getEventHandler('onSortAttachments') ?>"
     data-unique-id="<?= $this->getId() ?>"
     data-max-filesize="<?= $maxFilesize ?>"
-    <?php if ($externalToolbarAppState): ?>data-external-toolbar-app-state="<?= e($externalToolbarAppState)?>"<?php endif ?>
+    <?php if ($externalToolbarBus): ?>data-external-toolbar-bus="<?= e($externalToolbarBus)?>"<?php endif ?>
     <?php if ($maxFiles): ?>data-max-files="<?= $maxFiles ?>"<?php endif ?>
     <?php if ($useCaption): ?>data-config-handler="<?= $this->getEventHandler('onLoadAttachmentConfig') ?>"<?php endif ?>
     <?php if ($acceptedFileTypes): ?>data-file-types="<?= $acceptedFileTypes ?>"<?php endif ?>
@@ -21,7 +21,7 @@
         <img src="<?= Url::asset('/modules/backend/assets/images/no-files.svg') ?>"/>
     </div>
 
-    <div class="uploader-control-container <?= $externalToolbarAppState ? 'external-toolbar' : null ?>">
+    <div class="uploader-control-container <?= $externalToolbarBus ? 'external-toolbar' : null ?>">
         <div class="uploader-control-toolbar">
             <a href="javascript:;" class="backend-toolbar-button control-button toolbar-upload-button">
                 <i class="icon-common-file-upload"></i>

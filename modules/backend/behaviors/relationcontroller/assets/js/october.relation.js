@@ -26,12 +26,12 @@
         }
 
         initToolbarExtensionPoint() {
-            if (!this.config.externalToolbarAppState) {
+            if (!this.config.externalToolbarBus) {
                 return;
             }
 
             const point = $.oc.vueUtils.getToolbarExtensionPoint(
-                this.config.externalToolbarAppState,
+                this.config.externalToolbarBus,
                 this.element
             );
 

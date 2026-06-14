@@ -12,7 +12,7 @@
     data-use-duplicate="<?= $showDuplicate ?>"
     data-duplicate-handler="<?= $this->getEventHandler('onDuplicateItem') ?>"
     data-default-title="<?= e(trans('backend::lang.page.untitled')) ?>"
-    <?php if ($externalToolbarAppState): ?>data-external-toolbar-app-state="<?= e($externalToolbarAppState)?>"<?php endif ?>
+    <?php if ($externalToolbarBus): ?>data-external-toolbar-bus="<?= e($externalToolbarBus)?>"<?php endif ?>
 >
     <!-- Passable fields -->
     <input type="hidden" name="<?= $name ?>" value="" data-repeater-pointer-input disabled />

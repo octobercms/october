@@ -1,0 +1,144 @@
+/*
+ * List Data Table
+ */
+
+.list-hidden-drag-ghost {
+    opacity: 0 !important;
+}
+
+table.table.data {
+    /*
+     * Trees
+     */
+
+    tr:hover .list-reorder {
+        span.list-reorder-handle {
+            display: block;
+        }
+    }
+
+    tbody.tree-drag-mode {
+        &, * {
+            cursor: move!important;
+        }
+
+        td.list-reorder span.list-reorder-handle {
+            display: none;
+        }
+
+        tr.sortable-chosen td.list-reorder span.list-reorder-handle {
+            display: block;
+        }
+    }
+
+    tbody.tree-drag-updated {
+        td.list-reorder span.list-reorder-handle {
+            display: none !important;
+        }
+    }
+
+    th.list-reorder,
+    td.list-reorder {
+        width: 24px;
+        min-width: 24px;
+        padding-left: 0;
+        padding-right: 0;
+    }
+
+    td.list-reorder {
+        vertical-align: middle;
+        position: relative;
+
+        span.list-reorder-handle {
+            display: none;
+            background: var(--oc-toolbar-bg);
+            text-align: center;
+            cursor: move;
+            left: -6px;
+
+            width: 24px;
+            height: 24px;
+            position: absolute;
+            top: calc(50% - 12px);
+            border-radius: 3px;
+            text-decoration: none;
+
+            i {
+                font-size: 24px;
+                top: 2px;
+            }
+
+            &:active {
+                background: var(--oc-toolbar-hover-bg);
+            }
+        }
+    }
+
+    td.list-cell-tree {
+        vertical-align: middle;
+        position: relative;
+        transition: padding 0.3s ease;
+
+        a.tree-expand-collapse {
+            width: 24px;
+            height: 24px;
+            display: block;
+            position: absolute;
+            top: calc(50% - 12px);
+            border-radius: 3px;
+            text-decoration: none;
+        }
+
+        a.tree-expand-collapse {
+            margin-left: -25px;
+
+            > span {
+                position: absolute;
+                display: inline-block;
+                left: 0;
+                top: 0;
+                width: 24px;
+                height: 24px;
+
+                &:after {
+                    font-family: 'octo-icon' !important;
+                    speak: none;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-variant: normal;
+                    text-transform: none;
+                    line-height: 1;
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                    content: "\f105";
+                    position: absolute;
+                    left: calc(100% - 15px);
+                    top: 5px;
+                    width: 24px;
+                    height: 24px;
+                    font-size: 15px;
+                    color: var(--bs-body-color);
+                    text-indent: 0;
+                }
+            }
+
+            &.is-expanded span:after {
+                content: "\f107";
+                left: calc(100% - 17px);
+            }
+        }
+    }
+}
+
+.control-list.list-checkboxes table.table.data {
+    th.list-reorder,
+    td.list-reorder {
+        width: 18px;
+    }
+
+    td.list-reorder {
+        span.list-reorder-handle {
+            left: -13px;
+        }
+    }
+}

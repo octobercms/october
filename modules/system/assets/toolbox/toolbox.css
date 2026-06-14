@@ -7,9 +7,23 @@
 @import "controls/search-input/search-input-control.css";
 @import "controls/custom-select/custom-select-control.css";
 @import "controls/tab/tab-control.css";
+@import "controls/checkbox/checkbox-control.css";
+@import "controls/toolbar/toolbar-control.css";
+@import "controls/popover/popover-control.css";
+@import "controls/dropdown/dropdown.css";
 
 /*
  * Elements
  */
 @import "elements/timeline/timeline.css";
 @import "elements/flag/flag.css";
+@import "elements/scoreboard/scoreboard.css";
+@import "elements/buttons/buttons.css";
+@import "elements/tooltip/tooltip.css";
+
+/*
+ * Widgets
+ */
+@import "widgets/form/form.css";
+@import "widgets/list/list.css";
+@import "widgets/filter/filter.css";

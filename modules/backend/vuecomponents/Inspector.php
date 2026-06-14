@@ -61,6 +61,8 @@ class Inspector extends VueComponentBase
         $this->registerSubcomponent('control-objectlist-recordtitle');
         $this->registerSubcomponent('control-autocomplete');
         $this->registerSubcomponent('control-mediafinder');
+        $this->registerSubcomponent('control-stringlist');
+        $this->registerSubcomponent('control-stringlistautocomplete');
         $this->registerSubcomponent('host-modal');
     }
 }

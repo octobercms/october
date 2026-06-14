@@ -208,11 +208,13 @@ class ThemeManager
      */
     public function findByIdentifier(string $dirName): ?CmsTheme
     {
-        if (!CmsTheme::exists($dirName)) {
+        $theme = CmsTheme::load($dirName);
+
+        if (!$theme->isValid()) {
             return null;
         }
 
-        return CmsTheme::load($dirName);
+        return $theme;
     }
 
     /**
@@ -319,15 +321,15 @@ class ThemeManager
      */
     public function duplicateTheme(string $dirName, ?string $newDirName = null): bool
     {
-        if (!$dirName) {
-            return false;
-        }
-
         if (!$newDirName) {
             $newDirName = $dirName . '-copy';
         }
 
         $theme = CmsTheme::load($dirName);
+
+        if (!$theme->isValid()) {
+            return false;
+        }
 
         $sourcePath = $theme->getPath();
         $destinationPath = themes_path().'/'.$newDirName;
@@ -419,11 +421,12 @@ class ThemeManager
      */
     public function deleteTheme(string $theme)
     {
-        if (!$theme || !preg_match('/^[a-z0-9\_\-]+$/i', $theme)) {
+        $theme = CmsTheme::load($theme);
+
+        if (!$theme->isValid()) {
             return false;
         }
 
-        $theme = CmsTheme::load($theme);
         if ($theme->isActiveTheme()) {
             throw new ApplicationException(__('Cannot delete the active theme, try making another theme active first.'));
         }

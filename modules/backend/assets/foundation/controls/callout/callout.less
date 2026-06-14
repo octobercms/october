@@ -325,3 +325,11 @@
 .form-group > .callout {
     margin-bottom: 0;
 }
+
+// Adaptive callouts (hints) sit flush against the pane edges
+.form-group.span-adaptive > .callout,
+.form-group.span-adaptive > .callout > .header,
+.form-group.span-adaptive > .callout > .header:last-child,
+.form-group.span-adaptive > .callout > .content {
+    border-radius: 0;
+}

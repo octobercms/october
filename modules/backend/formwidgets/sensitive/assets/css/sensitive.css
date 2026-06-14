@@ -1,1 +1,8 @@
-div[data-control=sensitive] a[data-copy],div[data-control=sensitive] a[data-toggle]{border:1px solid var(--bs-border-color);border-left:0;box-shadow:none}
+div[data-control="sensitive"] {
+    a[data-toggle],
+    a[data-copy] {
+        box-shadow: none;
+        border: 1px solid var(--bs-border-color);
+        border-left: 0;
+    }
+}

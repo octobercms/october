@@ -42,7 +42,10 @@ class PartialTokenParser extends TwigTokenParser
         while (!$stream->test(TwigToken::BLOCK_END_TYPE)) {
             $current = $stream->next();
 
-            if ($current->test(TwigToken::NAME_TYPE, 'lazy') && !$stream->test(TwigToken::OPERATOR_TYPE, '=')) {
+            $isKeywordCandidate = !$stream->test(TwigToken::OPERATOR_TYPE, '=')
+                && !$stream->test(TwigToken::OPERATOR_TYPE, '-');
+
+            if ($current->test(TwigToken::NAME_TYPE, 'lazy') && $isKeywordCandidate) {
                 if (!$isAjax) {
                     throw new TwigErrorSyntax(
                         'Cannot use lazy mode with partial tag. Did you mean ajaxPartial?',
@@ -54,18 +57,26 @@ class PartialTokenParser extends TwigTokenParser
                 continue;
             }
 
-            if ($current->test(TwigToken::NAME_TYPE, 'body') && !$stream->test(TwigToken::OPERATOR_TYPE, '=')) {
+            if ($current->test(TwigToken::NAME_TYPE, 'body') && $isKeywordCandidate) {
                 $hasBody = true;
                 continue;
             }
 
-            if ($current->test(TwigToken::NAME_TYPE, 'only') && !$stream->test(TwigToken::OPERATOR_TYPE, '=')) {
+            if ($current->test(TwigToken::NAME_TYPE, 'only') && $isKeywordCandidate) {
                 $hasOnly = true;
                 continue;
             }
 
             if ($current->test(TwigToken::NAME_TYPE)) {
                 $paramName = $current->getValue();
+
+                // Support hyphenated attribute names like `data-testid` and `aria-label`.
+                // Twig tokenizes them as NAME `-` NAME ..., so consume the pieces until `=`.
+                while ($stream->test(TwigToken::OPERATOR_TYPE, '-')) {
+                    $stream->next();
+                    $paramName .= '-' . $stream->expect(TwigToken::NAME_TYPE)->getValue();
+                }
+
                 $stream->expect(TwigToken::OPERATOR_TYPE, '=');
                 $nodes[$paramName] = $this->parser->parseExpression();
                 $paramNames[] = $paramName;

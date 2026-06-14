@@ -52,12 +52,10 @@ class MediaFinder extends FormWidgetBase
     ];
 
     /**
-     * @var string Defines a mount point for the editor toolbar.
-     * Must include a module name that exports the Vue application and a state element name.
-     * Format: module.name::stateElementName
+     * @var string externalToolbarBus defines a mount point for the editor toolbar.
      * Only works in Vue applications and form document layouts.
      */
-    public $externalToolbarAppState = null;
+    public $externalToolbarBus = null;
 
     //
     // Object Properties
@@ -79,7 +77,7 @@ class MediaFinder extends FormWidgetBase
             'imageHeight',
             'maxItems',
             'thumbOptions',
-            'externalToolbarAppState'
+            'externalToolbarBus'
         ]);
 
         if ($this->formField->disabled || $this->formField->readOnly) {
@@ -125,7 +123,7 @@ class MediaFinder extends FormWidgetBase
         $this->vars['maxItems'] = $this->maxItems;
         $this->vars['imageWidth'] = $this->imageWidth;
         $this->vars['imageHeight'] = $this->imageHeight;
-        $this->vars['externalToolbarAppState'] = $this->externalToolbarAppState;
+        $this->vars['externalToolbarBus'] = $this->externalToolbarBus;
     }
 
     /**

@@ -93,8 +93,11 @@ class DraftController extends ControllerBehavior
     public function update($recordId = null, $context = null)
     {
         try {
-            $model = $this->controller->formFindModelObject($recordId);
             $context = $context ?: FormField::CONTEXT_UPDATE;
+            $this->controller->formSetContext($context);
+            $this->controller->formApplyDesign();
+
+            $model = $this->controller->formFindModelObject($recordId);
 
             // Multisite
             if ($this->controller->formHasMultisite($model)) {

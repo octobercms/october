@@ -374,6 +374,10 @@ class Relation extends FormWidgetBase
             $controllerConfig['readOnly'] = $this->readOnly;
         }
 
+        if (!isset($controllerConfig['externalToolbarBus']) && isset($this->config->externalToolbarBus)) {
+            $controllerConfig['externalToolbarBus'] = $this->config->externalToolbarBus;
+        }
+
         if (!isset($controllerConfig['sessionKey'])) {
             $controllerConfig['sessionKey'] = $this->getParentForm()?->getSessionKeyWithSuffix();
         }

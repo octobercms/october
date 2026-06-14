@@ -64,13 +64,15 @@ class Resources extends ComponentModuleBase
                 'title' => 'LESS',
                 'description' => 'LESS file(s) in the assets/less folder',
                 'type' => 'stringList',
-                'showExternalParam' => false
+                'showExternalParam' => false,
+                'hidden' => true
             ],
             'scss' => [
                 'title' => 'SCSS',
                 'description' => 'SCSS file(s) in the assets/scss folder',
                 'type' => 'stringList',
-                'showExternalParam' => false
+                'showExternalParam' => false,
+                'hidden' => true
             ],
             'css' => [
                 'title' => 'CSS',

@@ -58,17 +58,17 @@ export default {
             return this.options.readOnly;
         },
 
-        externalToolbarAppState: function computeExternalToolbarAppState() {
-            return this.options.externalToolbarAppState;
+        externalToolbarBus: function computeExternalToolbarAppState() {
+            return this.options.externalToolbarBus;
         },
 
         toolbarExtensionPointProxy: function computeToolbarExtensionPointProxy() {
-            if (!this.options.externalToolbarAppState) {
+            if (!this.options.externalToolbarBus) {
                 return this.toolbarExtensionPoint;
             }
 
             const point = $.oc.vueUtils.getToolbarExtensionPoint(
-                this.options.externalToolbarAppState,
+                this.options.externalToolbarBus,
                 this.textarea
             );
 
@@ -76,7 +76,7 @@ export default {
         },
 
         hasExternalToolbar: function computeHasExternalToolbar() {
-            return !!this.options.externalToolbarAppState;
+            return !!this.options.externalToolbarBus;
         },
 
         showMargins: function computeShowMargins() {

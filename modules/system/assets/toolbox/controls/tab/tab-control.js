@@ -11,10 +11,6 @@
  * - maxTitleSymbols
  * - closeConfirmation
  *
- * Require:
- *  - bootstrap/transition
- *  - bootstrap/tab
- *  - foundation/toolbar
  */
 import { ControlBase } from 'larajax';
 import * as bootstrap from 'bootstrap';
@@ -54,7 +50,7 @@ export default class TabControl extends ControlBase {
             this.initTab(el);
         });
 
-        this.$tabsContainer.toolbar({
+        this.$tabsContainer.dragScroll({
             scrollClassContainer: this.$el
         });
 
@@ -69,7 +65,7 @@ export default class TabControl extends ControlBase {
         this.$el.off('unmodified.oc.tab', this.proxy(this.onUnmodifyTab));
         this.$tabsContainer.off('shown.bs.tab', 'li', this.proxy(this.onContainerTabShown));
 
-        this.$tabsContainer.toolbar('dispose');
+        this.$tabsContainer.dragScroll('dispose');
 
         this.$el.removeData('oc.tab');
         this.tabInstance = null;

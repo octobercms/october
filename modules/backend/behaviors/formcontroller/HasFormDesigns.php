@@ -1,23 +1,54 @@
 <?php namespace Backend\Behaviors\FormController;
 
 use Backend;
-use ApplicationException;
+use System\Classes\PluginManager;
 
 /**
- * HasFormDesigns
+ * HasFormDesigns manages the form design system, resolving and applying
+ * design behaviors to the controller based on the form configuration.
  */
 trait HasFormDesigns
 {
     /**
+     * @var bool formDesignResolved tracks whether the form design has been resolved
+     */
+    protected $formDesignResolved = false;
+
+    /**
+     * @var string|null formDesignClass stores the resolved design class name
+     */
+    protected $formDesignClass;
+
+    /**
+     * isGlobalDesignMode returns true if the design must be resolved early
+     * in beforeDisplay, before the form context is known. This is needed
+     * for designs that provide AJAX handlers on the index action.
+     */
+    protected function isGlobalDesignMode(): bool
+    {
+        return $this->getConfig('design[displayMode]') === 'popup';
+    }
+
+    /**
      * getDesignDisplayMode returns the display mode taken from the form configuration,
      * defaults to `basic` display mode.
      */
-    protected function getDesignDisplayMode()
+    public function getDesignDisplayMode()
+    {
+        return $this->getDesignConfigValue('displayMode') ?: 'basic';
+    }
+
+    /**
+     * getDesignConfigValue reads a design config value from the YAML config,
+     * checking the context-specific value first, then falling back to the
+     * global value.
+     */
+    protected function getDesignConfigValue(string $name, $default = null)
     {
         return $this->getConfig(
-            "{$this->context}[design][displayMode]",
-            $this->getConfig('design[displayMode]')
-        ) ?: 'basic';
+            "{$this->context}[design][{$name}]",
+            $this->getConfig("design[{$name}]", $default)
+        );
     }
 
     /**
@@ -26,165 +57,127 @@ trait HasFormDesigns
      */
     protected function getDesignFormSize($name = 'size')
     {
-        $value = $this->getConfig(
-            "{$this->context}[design][{$name}]",
-            $this->getConfig("design[{$name}]")
-        ) ?: 'auto';
+        $value = $this->getDesignConfigValue($name) ?: 'auto';
 
         return Backend::sizeToPixels($value) ?: null;
     }
 
     /**
-     * getDesignBodyClass
+     * getFormDesignObject returns the active form design behavior instance,
+     * or null if no design is applied.
      */
-    protected function getDesignBodyClass()
+    public function getFormDesignObject(): ?\Backend\Classes\FormDesignBase
     {
-        if ($this->getDesignDisplayMode() === 'sidebar') {
-            return 'compact-container';
+        if ($this->formDesignClass) {
+            return $this->controller->getClassExtension($this->formDesignClass);
         }
 
         return null;
     }
 
     /**
-     * isHorizontalForm
+     * getDesignBodyClass returns the body class from the active design behavior,
+     * falls back to null if no design is applied.
      */
-    protected function isHorizontalForm(): bool
+    public function getDesignBodyClass()
     {
-        if ($this->getConfig("{$this->context}[design][horizontalMode]", $this->getConfig('design[horizontalMode]'))) {
-            return true;
+        if ($designObj = $this->getFormDesignObject()) {
+            return $designObj->getDesignBodyClass();
         }
 
-        return $this->getDesignDisplayMode() === 'survey';
+        return null;
     }
 
     /**
-     * isSurveyDesign
+     * formRenderDesignButtons renders the form buttons, delegated to the
+     * active design behavior with a default fallback.
      */
-    protected function isSurveyDesign(): bool
+    public function formRenderDesignButtons(): string
     {
-        if ($this->getConfig("{$this->context}[design][surveyMode]", $this->getConfig('design[surveyMode]'))) {
-            return true;
-        }
-
-        return $this->getDesignDisplayMode() === 'survey';
+        return $this->formMakePartial('buttons');
     }
 
     /**
-     * isPopupDesign
+     * formRenderDesignError renders the form error state, delegated to the
+     * active design behavior with a default fallback.
      */
-    protected function isPopupDesign(): bool
+    public function formRenderDesignError(string $fatalError): string
     {
-        return $this->getDesignDisplayMode() === 'popup';
+        return $this->formMakePartial('error', ['fatalError' => $fatalError]);
     }
 
     /**
-     * beforeDisplayPopup
+     * renderDesignContent renders the form design content, delegated to the
+     * active design behavior. Returns empty by default for custom mode.
      */
-    protected function beforeDisplayPopup()
+    public function renderDesignContent(array $options = []): string
     {
-        $updateId = $this->getPopupFormRecordId();
+        return '';
+    }
 
-        // Emulate the form action
-        if (post('form_popup_flag')) {
-            if ($updateId) {
-                $this->update($updateId);
-            }
-            else {
-                $this->create();
-            }
+    /**
+     * resolveFormDesign applies the appropriate form design behavior to the
+     * controller based on the current context. Called from create/update/preview
+     * actions after context is set.
+     */
+    protected function resolveFormDesign(): void
+    {
+        if ($this->formDesignResolved) {
             return;
         }
 
-        // Initialize the model for relation AJAX requests inside popup forms
-        // this is needed since bindToPopups doesn't propagate far enough, so
-        // this could be removed if that ability was improved to go further.
-        if ($this->controller->isClassExtendedWith(\Backend\Behaviors\RelationController::class)) {
-            $this->controller->initRelation($this->controller->formCreateModelObject());
+        $this->formDesignResolved = true;
+
+        $displayMode = $this->getDesignDisplayMode();
+
+        // Popup is already resolved in beforeDisplay, custom has no design
+        if ($displayMode === 'custom' || $displayMode === 'popup') {
+            return;
+        }
+
+        $this->applyFormDesign($displayMode);
+    }
+
+    /**
+     * applyFormDesign resolves and applies a form design behavior to the controller
+     */
+    protected function applyFormDesign(string $displayMode): void
+    {
+        $designClass = $this->resolveFormDesignClass($displayMode);
+
+        if ($designClass && class_exists($designClass)) {
+            if (!$this->controller->isClassExtendedWith($designClass)) {
+                $this->controller->extendClassWith($designClass);
+            }
+
+            $this->formDesignClass = $designClass;
+
+            if ($designObj = $this->getFormDesignObject()) {
+                $designObj->init();
+            }
         }
     }
 
     /**
-     * hidePopupDesign
+     * resolveFormDesignClass returns the class name for a given design code
+     * by checking all registered form designs from plugins and modules.
      */
-    protected function hidePopupDesign()
+    protected function resolveFormDesignClass(string $code): ?string
     {
-        $this->extensionHideMethod('index_onPopupLoadForm');
-        $this->extensionHideMethod('index_onPopupSave');
-        $this->extensionHideMethod('index_onPopupDelete');
-        $this->extensionHideMethod('index_onPopupCancel');
-    }
+        $designs = PluginManager::instance()->getRegistrationMethodValues('registerFormDesigns');
 
-    /**
-     * index_onPopupLoadForm
-     */
-    public function index_onLoadPopupForm()
-    {
-        if (!$this->isPopupDesign()) {
-            throw new ApplicationException(__("This form is not using a popup design."));
+        foreach ($designs as $pluginId => $pluginDesigns) {
+            if (!is_array($pluginDesigns)) {
+                continue;
+            }
+
+            foreach ($pluginDesigns as $className => $designCode) {
+                if ($designCode === $code) {
+                    return $className;
+                }
+            }
         }
 
-        if ($id = $this->getPopupFormRecordId()) {
-            $this->update($id);
-            $this->vars['popupTitle'] = $this->getLang('update[title]', 'backend::lang.form.update_title');
-            $this->vars['recordId'] = $id;
-        }
-        else {
-            $this->create();
-            $this->vars['popupTitle'] = $this->getLang('create[title]', 'backend::lang.form.create_title');
-        }
-
-        $this->vars['popupSize'] = $this->controller->pageSize;
-        return $this->formRenderDesign();
-    }
-
-    /**
-     * index_onSave
-     */
-    public function index_onPopupSave()
-    {
-        if ($id = $this->getPopupFormRecordId()) {
-            $this->update_onSave($id);
-        }
-        else {
-            $this->create_onSave();
-        }
-
-        return $this->controller->listRefresh();
-    }
-
-    /**
-     * index_onPopupCancel
-     */
-    public function index_onPopupCancel()
-    {
-        if ($id = $this->getPopupFormRecordId()) {
-            $this->update_onCancel($id);
-        }
-        else {
-            $this->create_onCancel();
-        }
-    }
-
-    /**
-     * index_onPopupDelete
-     */
-    public function index_onPopupDelete()
-    {
-        if ($id = $this->getPopupFormRecordId()) {
-            $this->update_onDelete($id);
-        }
-
-        return $this->controller->listRefresh();
-    }
-
-    /**
-     * getPopupFormRecordId returns the target identifier for the record,
-     * contained within the `form_record_id` postback value. The value is
-     * decoded since HTML attributes are escaped and it may be a string.
-     */
-    protected function getPopupFormRecordId(): string
-    {
-        return urldecode((string) post('form_record_id'));
+        return null;
     }
 }

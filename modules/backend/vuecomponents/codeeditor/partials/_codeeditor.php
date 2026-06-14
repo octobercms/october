@@ -1,9 +1,9 @@
 <div
-    class="component-backend-codeeditor flex-layout-column"
+    class="component-backend-codeeditor d-flex flex-column"
     :class="cssClass"
     data-configuration="<?= e($configuration) ?>"
 >
-    <div class="flex-layout-item stretch relative">
+    <div class="flex-fill position-relative">
         <div v-bind:id="editorId" class="editor-element"></div>
     </div>
 </div>

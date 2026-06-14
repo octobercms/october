@@ -17,6 +17,7 @@ abstract class ExportModel extends Model
 {
     use \Backend\Models\ExportModel\EncodesCsv;
     use \Backend\Models\ExportModel\EncodesJson;
+    use \Backend\Models\ExportModel\EncodesZip;
 
     /**
      * @var array guarded attributes that aren't mass assignable.
@@ -84,9 +85,15 @@ abstract class ExportModel extends Model
             throw new ApplicationException(__("File not found"));
         }
 
-        $contentType = str_ends_with($name, 'xjson')
-            ? 'application/json'
-            : 'text/csv';
+        if (str_ends_with($name, 'xzip')) {
+            $contentType = 'application/zip';
+        }
+        elseif (str_ends_with($name, 'xjson')) {
+            $contentType = 'application/json';
+        }
+        else {
+            $contentType = 'text/csv';
+        }
 
         return Response::download($csvPath, $outputName, [
             'Content-Type' => $contentType,
@@ -124,17 +131,32 @@ abstract class ExportModel extends Model
 
         // Prepare export
         if ($this->file_format === 'json') {
-            $fileName .= 'xjson';
-            $options['savePath'] = $this->getTemporaryExportPath($fileName);
+            $dataFileName = $fileName . 'xjson';
+            $options['savePath'] = $this->getTemporaryExportPath($dataFileName);
             $this->processExportDataAsJson($columns, $results, $options);
         }
         else {
-            $fileName .= 'xcsv';
-            $options['savePath'] = $this->getTemporaryExportPath($fileName);
+            $dataFileName = $fileName . 'xcsv';
+            $options['savePath'] = $this->getTemporaryExportPath($dataFileName);
             $this->processExportDataAsCsv($columns, $results, $options);
         }
 
-        return $fileName;
+        // Package as ZIP if there are exported files
+        if ($this->exportedFiles) {
+            $zipFileName = $fileName . 'xzip';
+            $this->processExportDataAsZip(
+                $this->getTemporaryExportPath($zipFileName),
+                $options['savePath'],
+                $this->file_format === 'json' ? 'data.json' : 'data.csv'
+            );
+
+            // Remove the standalone data file
+            @unlink($options['savePath']);
+
+            return $zipFileName;
+        }
+
+        return $dataFileName;
     }
 
     /**

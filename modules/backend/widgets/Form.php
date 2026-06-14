@@ -140,9 +140,9 @@ class Form extends WidgetBase implements FormElement
     public $horizontalMode = false;
 
     /**
-     * @var bool useTranslatable fields
+     * @var bool|null useTranslatable fields, null inherits from parent
      */
-    public $useTranslatable = true;
+    public $useTranslatable = null;
 
     /**
      * @var bool useFilterFields enables the model filterFields method and events
@@ -740,6 +740,8 @@ class Form extends WidgetBase implements FormElement
             $this->processRequiredAttributes($this->allFields);
             $this->processTranslatableAttributes($this->allFields);
         }
+
+        $this->processUntranslatableWidgets($this->allFields);
 
         // Set field values from data source, if not from the outside
         foreach ($this->allFields as $field) {

@@ -33,6 +33,10 @@ export default {
         readOnly: {
             type: Boolean,
             default: false
+        },
+        enableExternalParameterEditor: {
+            type: Boolean,
+            default: false
         }
     },
     data: function () {
@@ -51,13 +55,45 @@ export default {
             return {
                 readOnly: this.readOnly,
                 inspectorClass: this.inspectorClass,
-                handlerAlias: this.handlerAlias
+                handlerAlias: this.handlerAlias,
+                enableExternalParameterEditor: this.enableExternalParameterEditor
             };
         }
     },
     methods: {
         getCleanObject: function getCleanObject() {
-            return $.oc.vueUtils.getCleanObject(this.liveObject);
+            var result = $.oc.vueUtils.getCleanObject(this.liveObject);
+
+            this.dataSchema.forEach(function(control) {
+                if (!control.property) {
+                    return;
+                }
+
+                var value = utils.getProperty(result, control.property);
+
+                // ignoreIfEmpty: strip property if the value is empty
+                if (control.ignoreIfEmpty) {
+                    if (utils.isValueEmpty(value)) {
+                        utils.deleteProperty(result, control.property);
+                        return;
+                    }
+                }
+
+                // ignoreIfDefault: strip property if the value matches the default
+                if (control.ignoreIfDefault) {
+                    if (control.default !== undefined && utils.compareValues(value, control.default)) {
+                        utils.deleteProperty(result, control.property);
+                        return;
+                    }
+                }
+
+                // Implicit: strip if value matches the defined default
+                if (control.default !== undefined && utils.compareValues(value, control.default)) {
+                    utils.deleteProperty(result, control.property);
+                }
+            });
+
+            return result;
         },
 
         applyChanges: function applyChanges() {

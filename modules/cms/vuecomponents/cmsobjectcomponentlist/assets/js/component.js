@@ -1,76 +1,73 @@
+import { host as inspectorHost } from '../../../../../backend/vuecomponents/inspector/assets/js/classes/index.js';
+
 export default {
     props: {
         component: Object
     },
     computed: {
-        isInspectable: function computeIsInspectable() {
-            if (this.component.inspectorEnabled) {
-                return true;
-            }
-        },
-
         componentIcon: function computeComponentIcon() {
             return this.component.icon;
-        },
-
-        inspectorTitle: function computeInspectorTitle() {
-            if (!this.component.inspectorEnabled) {
-                return null;
-            }
-
-            return this.component.title;
-        },
-
-        inspectorDescription: function computeInspectorDescription() {
-            if (!this.component.inspectorEnabled) {
-                return null;
-            }
-
-            return this.component.description;
-        },
-
-        inspectorConfig: function computeInspectorConfig() {
-            if (!this.component.inspectorEnabled) {
-                return null;
-            }
-
-            return this.component.propertyConfig;
-        },
-
-        inspectorClass: function computeInspectorClass() {
-            if (!this.component.inspectorEnabled) {
-                return null;
-            }
-
-            return this.component.className;
         }
     },
     methods: {
-        onInspectorHidden: function onInspectorHidden(ev) {
-            var values = this.$refs.component_properties.value;
-            this.component.propertyValues = values;
+        onComponentClick: function onComponentClick() {
+            if (!this.component.inspectorEnabled) {
+                return;
+            }
 
-            values = JSON.parse(values);
-            this.component.alias = values['oc.alias'];
-            this.$emit('inspectorhidden');
-        },
+            var dataSchema = JSON.parse(this.component.propertyConfig);
+            var obj = JSON.parse(this.component.propertyValues);
 
-        onInspectorHiding: function onInspectorHiding(ev, values) {
-            this.$emit('inspectorhiding', { ev: ev, values: values });
-        },
-
-        onInspectorShowed: function onInspectorShowed() {
             this.$emit('inspectorshowed');
+
+            inspectorHost
+                .showModal(
+                    this.component.title,
+                    obj,
+                    dataSchema,
+                    'cms-component-inspector',
+                    {
+                        description: this.component.description,
+                        resizableWidth: true,
+                        enableExternalParameterEditor: true,
+                        inspectorClass: this.component.className,
+                        beforeApplyCallback: (updatedObj) => {
+                            return this.beforeInspectorApply(updatedObj);
+                        }
+                    }
+                )
+                .then(
+                    (updatedObj) => {
+                        this.onInspectorApplied(updatedObj);
+                    },
+                    $.noop
+                )
+                .finally(() => {
+                    this.$emit('inspectorhidden');
+                });
+        },
+
+        beforeInspectorApply: function beforeInspectorApply(updatedObj) {
+            return new Promise((resolve, reject) => {
+                var eventData = {
+                    values: updatedObj,
+                    prevented: false
+                };
+
+                this.$emit('inspectorhiding', eventData);
+
+                if (eventData.prevented) {
+                    resolve(false);
+                    return;
+                }
+
+                resolve(true);
+            });
+        },
+
+        onInspectorApplied: function onInspectorApplied(updatedObj) {
+            this.component.propertyValues = JSON.stringify(updatedObj);
+            this.component.alias = updatedObj['oc.alias'];
         }
-    },
-    mounted: function mounted() {
-        $(this.$el).on('hidden.oc.inspector', this.onInspectorHidden);
-        $(this.$el).on('showed.oc.inspector', this.onInspectorShowed);
-        $(this.$el).on('hiding.oc.inspector', this.onInspectorHiding);
-    },
-    beforeUnmount: function beforeUnmount() {
-        $(this.$el).off('hidden.oc.inspector', this.onInspectorHidden);
-        $(this.$el).off('showed.oc.inspector', this.onInspectorShowed);
-        $(this.$el).off('hiding.oc.inspector', this.onInspectorHiding);
     }
 };

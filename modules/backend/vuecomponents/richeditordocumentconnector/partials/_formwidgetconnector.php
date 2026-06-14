@@ -14,12 +14,12 @@
     </template>
 
     <template v-slot:content>
-        <div class="flex-layout-column fill-container" ref="contentContainer">
-            <div class="flex-layout-item stretch editor-panel relative">
+        <div class="d-flex flex-column fill-container" ref="contentContainer">
+            <div class="flex-fill position-relative editor-panel">
                 <backend-richeditor-document-connector
                     :allow-resizing="showMargins"
                     :toolbar-container="toolbarExtensionPointProxy"
-                    :external-toolbar-app-state="externalToolbarAppState"
+                    :external-toolbar-bus="externalToolbarBus"
                     :use-media-manager="useMediaManager"
                     :built-in-mode="true"
                     unique-key="html-editor-form-widget"

@@ -85,12 +85,10 @@ class Repeater extends FormWidgetBase
     public $useTabs = false;
 
     /**
-     * @var string Defines a mount point for the editor toolbar.
-     * Must include a module name that exports the Vue application and a state element name.
-     * Format: stateElementName
+     * @var string externalToolbarBus defines a mount point for the editor toolbar.
      * Only works in Vue applications and form document layouts.
      */
-    public $externalToolbarAppState = null;
+    public $externalToolbarBus = null;
 
     //
     // Object Properties
@@ -159,7 +157,7 @@ class Repeater extends FormWidgetBase
             'minItems',
             'maxItems',
             'useTabs',
-            'externalToolbarAppState'
+            'externalToolbarBus'
         ]);
 
         if ($this->formField->disabled) {
@@ -211,7 +209,7 @@ class Repeater extends FormWidgetBase
         $this->vars['groupDefinitions'] = $this->groupDefinitions;
         $this->vars['showReorder'] = $this->showReorder;
         $this->vars['showDuplicate'] = $this->showDuplicate;
-        $this->vars['externalToolbarAppState'] = $this->externalToolbarAppState;
+        $this->vars['externalToolbarBus'] = $this->externalToolbarBus;
     }
 
     /**
@@ -344,6 +342,7 @@ class Repeater extends FormWidgetBase
         $config->sessionKey = $this->sessionKey;
         $config->sessionKeySuffix = $this->sessionKeySuffix . "-{$index}";
         $config->parentFieldName = $this->formField->fieldName . "[{$indexName}]";
+        $config->useTranslatable = $this->getParentForm()->useTranslatable;
 
         $widget = $this->makeWidget(\Backend\Widgets\Form::class, $config);
         $widget->previewMode = $this->previewMode;

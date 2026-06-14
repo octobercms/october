@@ -8,8 +8,8 @@ registerControl('dashwidget', class extends ControlBase
         this.vueElement = this.element.querySelector('[data-vue-template]');
         this.store = this.createStore();
 
-        this.initDefaultQueryParameters();
-        this.setIntervalRange();
+        const initialSearchParams = this.initDefaultQueryParameters();
+        this.setIntervalRange(initialSearchParams);
         this.initVue();
     }
 
@@ -41,7 +41,7 @@ registerControl('dashwidget', class extends ControlBase
     initDefaultQueryParameters() {
         // Skip interval parameters if interval is hidden
         if (!this.store.state.showInterval) {
-            return;
+            return null;
         }
 
         const searchParams = new URLSearchParams(window.location.search);
@@ -63,12 +63,14 @@ registerControl('dashwidget', class extends ControlBase
             searchParams.delete('compare');
         }
 
-        // Set defaults from dashboard configuration
+        // Resolution order: URL > sessionStorage (sticky) > dashboard configuration
+        const stickyRange = this.readStickyRange();
+
         const requiredQueryParams = {
-            start: this.resolveRangeKeyword(this.store.state.defaultStart),
-            end: this.resolveRangeKeyword(this.store.state.defaultEnd),
-            interval: this.store.state.defaultInterval,
-            compare: this.store.state.defaultCompare
+            start: stickyRange.start || this.resolveRangeKeyword(this.store.state.defaultStart),
+            end: stickyRange.end || this.resolveRangeKeyword(this.store.state.defaultEnd),
+            interval: stickyRange.interval || this.store.state.defaultInterval,
+            compare: stickyRange.compare || this.store.state.defaultCompare
         };
 
         let isDirty = false;
@@ -83,21 +85,101 @@ registerControl('dashwidget', class extends ControlBase
         if (isDirty) {
             this.store.setQueryParams(searchParams);
         }
+
+        return searchParams;
     }
 
-    setIntervalRange() {
+    getStickyStorageKey() {
+        const dashboardCode = this.store.state.dashboard && this.store.state.dashboard.code
+            ? this.store.state.dashboard.code
+            : this.store.state.alias;
+
+        return 'oc.dashboard.range.' + dashboardCode;
+    }
+
+    readStickyRange() {
+        try {
+            const raw = window.sessionStorage.getItem(this.getStickyStorageKey());
+            if (!raw) {
+                return {};
+            }
+
+            const parsed = JSON.parse(raw);
+            const result = {};
+
+            if (moment(parsed.start, this.universalDateFormat, true).isValid()) {
+                result.start = parsed.start;
+            }
+
+            if (moment(parsed.end, this.universalDateFormat, true).isValid()) {
+                result.end = parsed.end;
+            }
+
+            if (this.store.isIntervalCodeValid(parsed.interval)) {
+                result.interval = parsed.interval;
+            }
+
+            if (this.store.isCompareModeValid(parsed.compare)) {
+                result.compare = parsed.compare;
+            }
+
+            return result;
+        }
+        catch (e) {
+            return {};
+        }
+    }
+
+    writeStickyRange() {
+        try {
+            window.sessionStorage.setItem(this.getStickyStorageKey(), JSON.stringify({
+                start: this.store.state.range.dateStart,
+                end: this.store.state.range.dateEnd,
+                interval: this.store.state.range.interval,
+                compare: this.store.state.compareMode
+            }));
+        }
+        catch (e) {
+            // sessionStorage may be unavailable (private mode, quota)
+        }
+    }
+
+    setIntervalRange(searchParams = null) {
         let dateStart, dateEnd, interval, compareMode;
+        const getQueryParam = (name) => this.store.getQueryParam(name, searchParams);
 
         if (this.store.state.showInterval) {
-            dateStart = moment(this.store.getQueryParam('start'), this.universalDateFormat, true);
-            dateEnd = moment(this.store.getQueryParam('end'), this.universalDateFormat, true);
-            interval = this.store.getQueryParam('interval');
-            compareMode = this.store.getQueryParam('compare');
+            dateStart = moment(getQueryParam('start'), this.universalDateFormat, true);
+            dateEnd = moment(getQueryParam('end'), this.universalDateFormat, true);
+            interval = getQueryParam('interval');
+            compareMode = getQueryParam('compare');
         }
         else {
             dateStart = moment(this.resolveRangeKeyword(this.store.state.defaultStart), this.universalDateFormat, true);
             dateEnd = moment(this.resolveRangeKeyword(this.store.state.defaultEnd), this.universalDateFormat, true);
             interval = this.store.state.defaultInterval;
+            compareMode = this.store.state.defaultCompare;
+        }
+
+        if (!dateStart.isValid()) {
+            dateStart = moment(this.resolveRangeKeyword(this.store.state.defaultStart), this.universalDateFormat, true);
+        }
+
+        if (!dateEnd.isValid()) {
+            dateEnd = moment(this.resolveRangeKeyword(this.store.state.defaultEnd), this.universalDateFormat, true);
+        }
+
+        if (dateStart.isAfter(dateEnd)) {
+            const swappedStart = dateEnd;
+            dateEnd = dateStart;
+            dateStart = swappedStart;
+        }
+
+        if (!this.store.isIntervalCodeValid(interval)) {
+            interval = this.store.state.defaultInterval;
+        }
+
+        if (!this.store.isCompareModeValid(compareMode)) {
             compareMode = this.store.state.defaultCompare;
         }
 
@@ -107,6 +189,10 @@ registerControl('dashwidget', class extends ControlBase
         this.store.state.intervalName = this.makeIntervalName(dateStart.toDate(), dateEnd.toDate());
         this.store.state.compareMode = compareMode;
         this.store.resetData();
+
+        if (this.store.state.showInterval) {
+            this.writeStickyRange();
+        }
     }
 
     resolveRangeKeyword(keyword) {

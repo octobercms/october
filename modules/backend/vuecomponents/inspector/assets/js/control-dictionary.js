@@ -36,7 +36,7 @@ export default {
                 tableData: []
             };
 
-        if (typeof value === 'object') {
+        if (value && typeof value === 'object') {
             for (var prop in value) {
                 if (!value.hasOwnProperty(prop)) {
                     continue;
@@ -59,7 +59,7 @@ export default {
         groupValue: function computeGroupValue() {
             var value = this.computeValue();
 
-            if (typeof value !== 'object') {
+            if (!value || typeof value !== 'object') {
                 return '';
             }
 

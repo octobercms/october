@@ -1,7 +1,7 @@
 <div
     id="<?= $this->getId() ?>"
     class="field-datatable is-handsontable"
-    data-control="datatable-handsontable"
+    data-control="datatable"
     data-alias="<?= $this->alias ?>"
     data-columns='<?= e(json_encode($columns)) ?>'
     data-data='<?= e(json_encode($value)) ?>'

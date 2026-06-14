@@ -131,7 +131,7 @@ export default {
                 return;
             }
 
-            if (document !== event.target && this.$el !== event.target && !this.$el.contains(event.target)) {
+            if (document !== ev.target && this.$el !== ev.target && !this.$el.contains(ev.target)) {
                 $(this.$el).find('li:not([disabled]):not(.separator) [data-menuitem]').first().focus();
             }
         },

@@ -200,7 +200,7 @@ class SnippetManager
         $result = [];
         $cached = Cache::memo()->get($key, false);
 
-        if ($cached !== false && ($cached = @unserialize($cached)) !== false) {
+        if ($cached !== false && ($cached = @unserialize($cached, ['allowed_classes' => false])) !== false) {
             return $cached;
         }
 
