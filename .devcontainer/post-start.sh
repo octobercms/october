@@ -13,12 +13,6 @@ read_env_var() {
     grep "^${key}=" "${env_file}" 2>/dev/null | tail -n1 | cut -d= -f2- | tr -d '\r' || true
 }
 
-stop_web_stack() {
-    pkill -f "artisan serve --host=0.0.0.0 --port=${app_port}" 2>/dev/null || true
-    nginx -s quit 2>/dev/null || pkill -x nginx 2>/dev/null || true
-    pkill -x php-fpm 2>/dev/null || true
-}
-
 configure_nginx_site() {
     sed -i \
         -e "s|^\([[:space:]]*listen \)[0-9]\+;|\1${app_port};|" \
@@ -51,7 +45,6 @@ export LINK_POLICY="${link_policy}"
 php artisan config:clear --quiet 2>/dev/null || true
 php artisan config:cache --quiet 2>/dev/null || true
 
-stop_web_stack
 configure_nginx_site
 
 # prepare app permissions
