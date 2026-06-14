@@ -4,9 +4,9 @@
   "workspaceMount": "source=${localWorkspaceFolder},target=/var/www/html,type=bind,consistency=cached",
   "workspaceFolder": "/var/www/html",
   "overrideCommand": true,
-  "forwardPorts": [8080],
+  "forwardPorts": [80],
   "portsAttributes": {
-    "8080": {
+    "80": {
       "label": "October CMS",
       "onAutoForward": "notify"
     }

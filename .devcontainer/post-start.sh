@@ -1,20 +1,14 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-app_port=8080
+app_port=80
 workspace="${containerWorkspaceFolder:-$(pwd)}"
 env_file="${workspace}/.env"
 web_log="${workspace}/storage/logs/web-server.log"
-nginx_conf="/etc/nginx/conf.d/default.conf"
 
 read_env_var() {
     local key=$1
     grep "^${key}=" "${env_file}" 2>/dev/null | tail -n1 | cut -d= -f2- | tr -d '\r' || true
-}
-
-configure_nginx_site() {
-    sed -i "s|^\([[:space:]]*listen \)[0-9]\+;|\1${app_port};|" "${nginx_conf}"
-    nginx -t
 }
 
 cd "${workspace}"
@@ -29,7 +23,7 @@ if [[ -n "${CODESPACE_NAME:-}" ]]; then
     app_url="${app_url:-https://${CODESPACE_NAME}-${app_port}.${forwarding_domain}}"
     link_policy=force
 else
-    app_url="${app_url:-http://127.0.0.1:${app_port}}"
+    app_url="${app_url:-http://127.0.0.1}"
     link_policy="${link_policy:-detect}"
 fi
 
@@ -40,19 +34,19 @@ export LINK_POLICY="${link_policy}"
 php artisan config:clear --quiet 2>/dev/null || true
 php artisan config:cache --quiet 2>/dev/null || true
 
-configure_nginx_site
-
 # prepare app permissions
 mkdir -p storage/logs
 chmod -R ug+rwX storage bootstrap/cache database 2>/dev/null || true
 chown -R www-data:www-data storage bootstrap/cache 2>/dev/null || true
+
+nginx -t
 
 : > "${web_log}"
 php-fpm -D 2>>"${web_log}"
 nginx -g "daemon on;" >>"${web_log}" 2>&1
 
 web_ready() {
-    curl -fsS "http://127.0.0.1:${app_port}/_health" >/dev/null 2>&1
+    curl -fsS "http://127.0.0.1/_health" >/dev/null 2>&1
 }
 
 for _ in $(seq 1 30); do

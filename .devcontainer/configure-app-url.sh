@@ -2,7 +2,7 @@
 set -euo pipefail
 
 workspace="${containerWorkspaceFolder:-$(pwd)}"
-app_port=8080
+app_port=80
 env_file="${workspace}/.env"
 
 [[ -f "${env_file}" ]] || exit 0
@@ -32,7 +32,7 @@ elif [[ -n "${APP_URL:-}" ]]; then
     app_url="${APP_URL}"
     link_policy="${LINK_POLICY:-detect}"
 else
-    app_url="http://127.0.0.1:${app_port}"
+    app_url="http://127.0.0.1"
     link_policy=detect
 fi
 
