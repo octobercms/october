@@ -53,9 +53,11 @@ trait ActionExport
         $model->file_format = $exportOptions['fileFormat'] ?? 'json';
         $reference = $model->export($columns, $exportOptions);
 
+        $outputFormat = str_ends_with($reference, 'xzip') ? 'zip' : $model->file_format;
+
         $fileUrl = $this->controller->actionUrl(
             'download',
-            $reference.'/'.$this->makeExportFileName($model->file_format)
+            $reference.'/'.$this->makeExportFileName($outputFormat)
         );
 
         $this->vars['fileUrl'] = $fileUrl;
@@ -77,7 +79,10 @@ trait ActionExport
         $fileName = File::name($fileName);
 
         $extension = 'csv';
-        if ($mode === 'json') {
+        if ($mode === 'zip') {
+            $extension = 'zip';
+        }
+        elseif ($mode === 'json') {
             $extension = 'json';
         }
 

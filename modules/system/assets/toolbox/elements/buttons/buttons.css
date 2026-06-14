@@ -1,0 +1,312 @@
+/*
+ * Buttons
+ */
+.btn {
+    --bs-btn-padding-x: 1.25rem;
+    --bs-btn-padding-y: 0.5rem;
+}
+
+.btn-lg,
+.btn-group-lg > .btn {
+    --bs-btn-padding-y: 0.5rem;
+    --bs-btn-padding-x: 1.5rem;
+    --bs-btn-font-size: 1.15rem;
+}
+
+.btn-sm,
+.btn-group-sm > .btn {
+    --bs-btn-padding-y: 0.4rem;
+    --bs-btn-padding-x: 0.85rem;
+}
+
+/* Everything except btn-link */
+.btn-default,
+.btn-primary,
+.btn-secondary,
+.btn-success,
+.btn-info,
+.btn-warning,
+.btn-danger {
+    --bs-btn-box-shadow: rgba(20, 19, 78, 0.32) 0 1px 1px 0, var(--bs-btn-bg) 0 0 0 1px, rgba(64, 68, 82, 0.08) 0 2px 5px 0;
+    box-shadow: var(--bs-btn-box-shadow);
+    border: none;
+}
+
+/* Primary gets a bigger weight */
+.btn-primary {
+    --bs-btn-font-weight: 600;
+    --bs-btn-bg: var(--bs-primary);
+    --bs-btn-hover-bg: var(--oc-primary-hover-bg);
+    --bs-btn-active-bg: var(--oc-primary-active-bg);
+}
+
+.btn-secondary {
+    --bs-btn-color: var(--bs-emphasis-color);
+    --bs-btn-bg: var(--oc-secondary-bg);
+    --bs-btn-hover-color: var(--bs-emphasis-color);
+    --bs-btn-hover-bg: var(--oc-secondary-hover-bg);
+    --bs-btn-active-color: var(--bs-emphasis-color);
+    --bs-btn-active-bg: var(--oc-secondary-active-bg);
+    --bs-btn-disabled-bg: var(--oc-secondary-bg);
+    --bs-btn-disabled-color: var(--bs-body-color);
+    --bs-btn-box-shadow: rgba(0, 0, 0, 0.12) 0 1px 1px 0, rgba(64, 68, 82, 0.16) 0 0 0 1px, rgba(64, 68, 82, 0.08) 0 2px 5px 0;
+}
+
+/* All buttons have white text */
+.btn-primary,
+.btn-success,
+.btn-info,
+.btn-warning,
+.btn-danger {
+    --bs-btn-color: #fff;
+    --bs-btn-hover-color: #fff;
+    --bs-btn-active-color: #fff;
+    --bs-btn-disabled-color: rgba(255, 255, 255, 0.6);
+}
+
+/* Use a darker hover color */
+.btn-success {
+    --bs-btn-hover-bg: var(--bs-success);
+}
+
+.btn-info {
+    --bs-btn-hover-bg: var(--bs-info);
+}
+
+.btn-warning {
+    --bs-btn-hover-bg: var(--bs-warning);
+}
+
+/* Custom default button style */
+.btn-default {
+    --bs-btn-color: #fff;
+    --bs-btn-bg: var(--bs-secondary);
+    --bs-btn-border-color: var(--bs-secondary);
+    --bs-btn-hover-color: #fff;
+    --bs-btn-hover-bg: var(--oc-primary-hover-bg);
+    --bs-btn-hover-border-color: var(--oc-primary-hover-bg);
+    --bs-btn-focus-shadow-rgb: 90, 92, 210;
+    --bs-btn-active-color: #fff;
+    --bs-btn-active-bg: var(--oc-primary-active-bg);
+    --bs-btn-active-border-color: var(--oc-primary-active-bg);
+    --bs-btn-active-shadow: inset 0 3px 5px rgba(0, 0, 0, 0.125);
+    --bs-btn-disabled-color: #f0f0f0;
+    --bs-btn-disabled-bg: var(--bs-secondary);
+    --bs-btn-disabled-border-color: var(--bs-secondary);
+}
+
+.btn-link.text-muted {
+    text-decoration: underline;
+
+    &:hover,
+    &:focus-visible {
+        color: #124364 !important;
+    }
+}
+
+.input-group .btn {
+    --bs-btn-box-shadow: none;
+}
+
+/*
+ * Outline Buttons
+ */
+
+/* Bootstrap has this set to #000 for some reason */
+.btn-outline-default,
+.btn-outline-primary,
+.btn-outline-success,
+.btn-outline-info,
+.btn-outline-warning,
+.btn-outline-danger {
+    --bs-btn-hover-color: #fff;
+    --bs-btn-active-color: #f0f0f0;
+}
+
+.btn-outline-default {
+    --bs-btn-hover-bg: var(--oc-brand-primary);
+    --bs-btn-active-bg: var(--oc-brand-primary);
+}
+
+/*
+ * Button separator
+ */
+.button-separator {
+    color: var(--bs-secondary-color);
+    margin: 0 10px;
+    font-size: 14px;
+    padding-bottom: 2px;
+
+    + .btn-link {
+        margin-left: -5px;
+    }
+}
+
+/*
+ * Buttons with icons
+ */
+.btn {
+    &[class^="oc-icon-"],
+    &[class*=" oc-icon-"] {
+        &::before {
+            font-size: 14px;
+            line-height: 14px;
+            position: relative;
+            text-decoration: none;
+        }
+    }
+
+    i {
+        font-size: 14px;
+        line-height: 14px;
+        position: relative;
+        top: 1px;
+        text-decoration: none;
+        margin-right: 4px;
+    }
+}
+
+.btn-group {
+    .btn {
+        border-right: 1px solid rgba(0, 0, 0, 0.09);
+        margin-left: 0 !important;
+
+        &:last-child,
+        &.last {
+            border-right: none;
+        }
+
+        &.last {
+            border-bottom-right-radius: 4px !important;
+            border-top-right-radius: 4px !important;
+        }
+    }
+
+    > .dropdown {
+        float: left;
+
+        &:not(:last-child, .last) > .btn {
+            border-right: 1px solid rgba(0, 0, 0, 0.09);
+            border-bottom-right-radius: 0 !important;
+            border-top-right-radius: 0 !important;
+        }
+
+        &:not(:first-child) > .btn {
+            border-bottom-left-radius: 0 !important;
+            border-top-left-radius: 0 !important;
+        }
+
+        &.last .btn {
+            border-right: none;
+        }
+    }
+}
+
+.btn,
+.btn-group {
+    &.offset-right {
+        margin-right: 10px;
+    }
+}
+
+/* Display a button as an icon link */
+.btn-icon {
+    display: inline-block;
+    height: 36px;
+    font-size: 21px;
+    background: transparent;
+    border: none;
+    outline: none;
+    border-radius: .3rem;
+    transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
+
+    &::before {
+        display: block;
+        color: #bcc3c7;
+    }
+
+    &:focus-visible {
+        box-shadow: 0 0 0 0.25rem rgba(53, 66, 91, 0.1);
+    }
+
+    &:hover::before {
+        color: var(--bs-link-color);
+    }
+
+    &.danger:hover::before {
+        color: #c63e26;
+    }
+
+    &.pull-right::before {
+        margin-right: 0;
+    }
+
+    &.margin-left {
+        margin-left: 5px;
+    }
+
+    &.small {
+        font-size: 17px;
+        height: 17px;
+        line-height: 15px;
+    }
+
+    &.larger {
+        font-size: 21px;
+        height: 21px;
+        line-height: 17px;
+    }
+}
+
+/* Display a button as text only */
+.btn-text {
+    font-size: 14px;
+    color: var(--bs-secondary-color);
+    vertical-align: middle;
+    display: inline-block;
+    padding: 8px 0;
+
+    a,
+    .btn.btn-link {
+        font-size: 14px;
+        color: var(--bs-secondary-color);
+        text-decoration: underline;
+        vertical-align: baseline;
+
+        &:hover {
+            color: var(--bs-link-color);
+        }
+    }
+}
+
+/* Circular button with icon inside */
+.btn-circle {
+    width: 30px;
+    height: 30px;
+    text-align: center;
+    padding-left: 0;
+    padding-right: 0;
+    font-size: 12px;
+    line-height: 1.428571429;
+    border-radius: 30px;
+
+    i {
+        margin: 0;
+    }
+
+    &.btn-lg {
+        width: 50px;
+        height: 50px;
+        font-size: 18px;
+        line-height: 1.33;
+        border-radius: 25px;
+    }
+
+    &.btn-xl {
+        width: 70px;
+        height: 70px;
+        font-size: 24px;
+        line-height: 1.33;
+        border-radius: 35px;
+    }
+}

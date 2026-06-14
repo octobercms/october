@@ -104,10 +104,6 @@ class FormController extends ControllerBehavior
 
         // Build configuration
         $this->setConfig($controller->formConfig, $this->requiredConfig);
-
-        if (!$this->isPopupDesign()) {
-            $this->hidePopupDesign();
-        }
     }
 
     /**
@@ -115,8 +111,8 @@ class FormController extends ControllerBehavior
      */
     public function beforeDisplay()
     {
-        if ($this->isPopupDesign()) {
-            $this->beforeDisplayPopup();
+        if ($this->isGlobalDesignMode()) {
+            $this->applyFormDesign($this->getConfig('design[displayMode]'));
         }
     }
 
@@ -148,9 +144,14 @@ class FormController extends ControllerBehavior
         $config->model = $model;
         $config->arrayName = class_basename($model);
         $config->context = $this->getConfig("{$context}[context]", $context);
-        $config->surveyMode = $this->isSurveyDesign();
         $config->sessionKey = post('_form_session_key');
-        $config->horizontalMode = $this->isHorizontalForm();
+        $config->horizontalMode = $this->getDesignConfigValue('horizontalMode');
+        $config->surveyMode = $this->getDesignConfigValue('surveyMode');
+
+        // Allow the active design to extend the form widget config
+        if ($designObj = $this->getFormDesignObject()) {
+            $designObj->extendFormWidgetConfig($config);
+        }
 
         // Make Form Widget and apply extensions
         $this->formWidget = $this->makeWidget(\Backend\Widgets\Form::class, $config);
@@ -224,8 +225,7 @@ class FormController extends ControllerBehavior
 
         try {
             $this->context = $context ?: $this->getConfig('create[context]', FormField::CONTEXT_CREATE);
-            $this->controller->bodyClass ??= $this->getDesignBodyClass();
-            $this->controller->pageSize ??= $this->getDesignFormSize();
+            $this->controller->formApplyDesign();
             $this->controller->pageTitle ??= $this->getLang('create[title]', 'backend::lang.form.create_title');
 
             $model = $this->controller->formCreateModelObject();
@@ -333,8 +333,7 @@ class FormController extends ControllerBehavior
 
         try {
             $this->context = $context ?: $this->getConfig('update[context]', FormField::CONTEXT_UPDATE);
-            $this->controller->bodyClass ??= $this->getDesignBodyClass();
-            $this->controller->pageSize ??= $this->getDesignFormSize();
+            $this->controller->formApplyDesign();
             $this->controller->pageTitle ??= $this->getLang('update[title]', 'backend::lang.form.update_title');
 
             $model = $this->controller->formFindModelObject($recordId);
@@ -478,8 +477,7 @@ class FormController extends ControllerBehavior
 
         try {
             $this->context = $context ?: $this->getConfig('preview[context]', FormField::CONTEXT_PREVIEW);
-            $this->controller->bodyClass ??= $this->getDesignBodyClass();
-            $this->controller->pageSize ??= $this->getDesignFormSize();
+            $this->controller->formApplyDesign();
             $this->controller->pageTitle ??= $this->getLang('preview[title]', 'backend::lang.form.preview_title');
 
             $model = $this->controller->formFindModelObject($recordId);
@@ -505,6 +503,17 @@ class FormController extends ControllerBehavior
     //
 
     /**
+     * formApplyDesign resolves the form design behavior and applies
+     * the design body class and page size to the controller.
+     */
+    public function formApplyDesign(): void
+    {
+        $this->resolveFormDesign();
+        $this->controller->bodyClass ??= $this->getDesignBodyClass();
+        $this->controller->pageSize ??= $this->getDesignFormSize();
+    }
+
+    /**
      * formRender the prepared form markup. This method is usually called from a view file.
      *
      *     <?= $this->formRender() ?>
@@ -528,7 +537,7 @@ class FormController extends ControllerBehavior
         $section = strtolower($options['section'] ?? '');
         switch ($section) {
             case 'buttons':
-                return $this->formMakePartial($this->isPopupDesign() ? 'popup_buttons' : 'buttons');
+                return $this->controller->formRenderDesignButtons();
         }
 
         return $this->formWidget->render($options);
@@ -541,30 +550,20 @@ class FormController extends ControllerBehavior
     public function formRenderDesign($options = [])
     {
         if ($this->controller->hasFatalError()) {
-            return $this->formMakePartial($this->isPopupDesign() ? 'popup_error' : 'error', [
-                'fatalError' => $this->controller->getFatalError()
-            ]);
+            return $this->controller->formRenderDesignError(
+                $this->controller->getFatalError()
+            );
         }
 
-        if (!isset($options['displayMode'])) {
-            $options['displayMode'] = $this->getDesignDisplayMode();
+        $displayMode = $options['displayMode'] ?? $this->getDesignDisplayMode();
+
+        if ($displayMode === 'custom') {
+            return $this->formRender();
         }
 
         $this->vars['options'] = $options;
 
-        $displayMode = strtolower($options['displayMode'] ?? 'basic');
-        switch ($displayMode) {
-            case 'popup':
-            case 'sidebar':
-            case 'document':
-                return $this->formMakePartial("mode_{$displayMode}");
-
-            case 'custom':
-                return $this->formRender();
-
-            default:
-                return $this->formMakePartial('mode_basic');
-        }
+        return $this->controller->renderDesignContent($options);
     }
 
     /**
@@ -593,6 +592,15 @@ class FormController extends ControllerBehavior
     public function formGetModel()
     {
         return $this->model;
+    }
+
+    /**
+     * formSetContext sets the form context manually, used when the context
+     * needs to be established before delegating to another behavior.
+     */
+    public function formSetContext(string $context): void
+    {
+        $this->context = $context;
     }
 
     /**

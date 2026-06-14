@@ -51,7 +51,9 @@ export default {
         return {
             hasErrors: false,
             controlLabelHidden: false,
-            bottomBorderHidden: false
+            bottomBorderHidden: false,
+            externalParamEditorVisible: false,
+            externalParamValue: ''
         };
     },
     computed: {
@@ -131,6 +133,19 @@ export default {
 
         controlEditorId: function computeControlEditorId() {
             return this.controlHostUniqueId + this.control.property;
+        },
+
+        showExternalParamEditor: function computeShowExternalParamEditor() {
+            if (!this.inspectorPreferences || !this.inspectorPreferences.enableExternalParameterEditor) {
+                return false;
+            }
+
+            var unsupportedTypes = ['object', 'objectList', 'objectListRecords', 'dictionary', 'set', 'table', 'stringList', 'stringListAutocomplete'];
+            if (unsupportedTypes.indexOf(this.control.type) !== -1) {
+                return false;
+            }
+
+            return this.control.showExternalParam !== false;
         }
     },
     methods: {
@@ -155,8 +170,68 @@ export default {
 
         onEditorValid: function onEditorValid() {
             this.hasErrors = false;
+        },
+
+        toggleExternalParamEditor: function toggleExternalParamEditor() {
+            if (!this.externalParamEditorVisible) {
+                // Entering external param mode
+                this.externalParamEditorVisible = true;
+                this.syncExternalParamToObj();
+
+                Vue.nextTick(() => {
+                    if (this.$refs.externalParamInput) {
+                        this.$refs.externalParamInput.focus();
+                    }
+                });
+            }
+            else {
+                // Leaving external param mode
+                this.externalParamEditorVisible = false;
+
+                // Clear the {{ }} value from obj so the normal editor gets a clean value
+                var currentVal = utils.getProperty(this.obj, this.control.property);
+                if (typeof currentVal === 'string' && currentVal.match(/^\{\{.*\}\}$/)) {
+                    utils.setProperty(this.obj, this.control.property, this.control.default !== undefined ? this.control.default : '');
+                }
+
+                if (this.$refs.editor) {
+                    this.$refs.editor.refreshDisplayedValue();
+                }
+            }
+        },
+
+        syncExternalParamToObj: function syncExternalParamToObj() {
+            var value = this.externalParamValue.trim();
+            if (value.length > 0) {
+                utils.setProperty(this.obj, this.control.property, '{{ ' + value + ' }}');
+            }
+        },
+
+        onExternalParamInput: function onExternalParamInput(ev) {
+            this.externalParamValue = ev.target.value;
+            this.syncExternalParamToObj();
+        },
+
+        onExternalParamFocus: function onExternalParamFocus() {
+            this.onEditorFocus();
+        },
+
+        onExternalParamBlur: function onExternalParamBlur() {
+            this.onEditorBlur();
         }
     },
     created: function created() {
+    },
+    mounted: function mounted() {
+        if (this.showExternalParamEditor) {
+            var value = utils.getProperty(this.obj, this.control.property);
+            if (typeof value === 'string') {
+                var matches = value.match(/^\{\{\s*([^\}]+?)\s*\}\}$/);
+                if (matches) {
+                    this.externalParamValue = matches[1];
+                    this.externalParamEditorVisible = true;
+                }
+            }
+        }
     }
 };

@@ -3,47 +3,119 @@ fields:
         type: hint
         comment: This is a system generated dashboard and cannot be deleted.
 
-    name:
-        label: Dashboard Name
-        type: text
-        span: auto
+tabs:
+    defaultTab: Definition
+    fields:
+        name:
+            label: Dashboard Name
+            type: text
+            span: auto
 
-    icon:
-        label: Icon
-        type: dropdown
-        optionsPreset: icons@phosphor
-        span: auto
+        icon:
+            label: Icon
+            type: dropdown
+            optionsPreset: icons@phosphor
+            span: auto
 
-    is_global:
-        label: Global Access
-        comment: Dashboards with Global Access enabled can be viewed by other users.
-        type: checkbox
-        span: left
+        code:
+            label: API Code
+            commentAbove: A unique code to refer to this dashboard using external systems.
+            type: text
+            preset: name
 
-    is_interval_hidden:
-        label: Hide Interval
-        comment: Check this if the dashboard does not use the date range picker.
-        type: checkbox
-        span: right
+        is_hidden:
+            label: Hidden
+            comment: Hidden dashboards will not appear for any user.
+            type: checkbox
+            span: full
 
-    roles:
-        label: Assigned Roles
-        comment: Users with the selected roles will see this dashboard. Leave empty and enable Global Access for all users.
-        type: checkboxlist
-        span: full
-        trigger:
-            action: show
-            field: is_global
-            condition: unchecked
+        is_global:
+            label: Global Access
+            comment: Dashboards with Global Access enabled can be viewed by other users.
+            type: checkbox
+            span: left
+            tab: Access
 
-    code:
-        label: API Code
-        commentAbove: A unique code to refer to this dashboard using external systems.
-        type: text
-        preset: name
+        roles:
+            label: Assigned Roles
+            comment: Users with the selected roles will see this dashboard. Leave empty and enable Global Access for all users.
+            type: checkboxlist
+            span: full
+            tab: Access
+            trigger:
+                action: show
+                field: is_global
+                condition: unchecked
 
-    is_hidden:
-        label: Hidden
-        comment: Hidden dashboards will not appear for any user.
-        type: checkbox
-        span: full
+        is_interval_hidden:
+            label: Hide Interval
+            comment: Check this if the dashboard does not use the date range picker.
+            type: checkbox
+            span: full
+            tab: Interval
+
+        default_start:
+            label: Default Start
+            type: dropdown
+            span: auto
+            tab: Interval
+            placeholder: "Use Default"
+            options:
+                today: Today
+                week: This week
+                month: This month
+                quarter: This quarter
+                year: This year
+            trigger:
+                action: hide
+                field: is_interval_hidden
+                condition: checked
+
+        default_end:
+            label: Default End
+            type: dropdown
+            span: auto
+            tab: Interval
+            placeholder: "Use Default"
+            options:
+                today: Today
+                week: This week
+                month: This month
+                quarter: This quarter
+                year: This year
+            trigger:
+                action: hide
+                field: is_interval_hidden
+                condition: checked
+
+        default_interval:
+            label: Default Grouping
+            type: dropdown
+            span: auto
+            tab: Interval
+            placeholder: "Use Default"
+            options:
+                day: Day
+                week: Week
+                month: Month
+                quarter: Quarter
+                year: Year
+            trigger:
+                action: hide
+                field: is_interval_hidden
+                condition: checked
+
+        default_compare:
+            label: Default Comparison
+            type: dropdown
+            span: auto
+            tab: Interval
+            placeholder: "Use Default"
+            options:
+                none: Disabled
+                prev-period: Previous period
+                prev-year: Same period last year
+            trigger:
+                action: hide
+                field: is_interval_hidden
+                condition: checked

@@ -1,6 +1,6 @@
 <?php if (!$this->fatalError): ?>
-    <?= Form::open(['class' => 'layout design-settings']) ?>
-        <div class="layout-row">
+    <?= Form::open(['class' => 'd-flex flex-column h-100 design-settings']) ?>
+        <div class="flex-grow-1">
             <?= $this->formRender() ?>
         </div>
 

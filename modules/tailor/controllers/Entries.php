@@ -131,10 +131,11 @@ class Entries extends WildcardController
         }
 
         if ($this->actionMethod) {
+            $this->bodyClass = $this->getDesignBodyClass();
+
             $this->addJs('/modules/tailor/assets/js/vue-entry-header-controls.js', ['type' => 'module']);
             $this->addJs('/modules/tailor/assets/js/vue-entry-document.js', ['type' => 'module']);
 
-            $this->registerVueComponent(\Backend\VueComponents\Document::class);
             $this->registerVueComponent(\Backend\VueComponents\DropdownMenuButton::class);
             $this->registerVueComponent(\Tailor\VueComponents\PublishingControls::class);
             $this->registerVueComponent(\Tailor\VueComponents\PublishButton::class);
@@ -224,8 +225,6 @@ class Entries extends WildcardController
             return $this->asExtension('DraftController')->create();
         }
 
-        $this->bodyClass = 'compact-container';
-
         $this->setPageTitleFromMessage('titleCreateForm', "Create Entry");
 
         $this->asExtension('FormController')->create();
@@ -240,8 +239,6 @@ class Entries extends WildcardController
      */
     public function update($recordId = null)
     {
-        $this->bodyClass = 'compact-container';
-
         $this->setPageTitleFromMessage('titleUpdateForm', "Update Entry");
 
         if ($this->isVersionMode()) {
@@ -498,6 +495,8 @@ class Entries extends WildcardController
         }
 
         $this->formGetWidget()->setFormValues();
+        $this->prepareVars();
+
         return ['#entryPrimaryTabs' => $this->makePartial('primary_tabs')];
     }
 
@@ -573,7 +572,7 @@ class Entries extends WildcardController
         $widget->bindEvent('form.extendFields', function ($fields) {
             foreach ($fields as $field) {
                 if ($field->span === 'adaptive') {
-                    $field->span('full')->externalToolbarAppState(null);
+                    $field->span('full')->externalToolbarBus(null);
                 }
             }
         });

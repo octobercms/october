@@ -21,7 +21,7 @@ fields:
         type: fileupload
         mode: file
         span: left
-        fileTypes: [csv, json]
+        fileTypes: [csv, json, zip]
         useCaption: false
 
     format_delimiter:

@@ -15,6 +15,10 @@ class CmsObjectComponentList extends VueComponentBase
      */
     protected $componentName = 'cms-component-cmsobjectcomponentlist';
 
+    protected $require = [
+        \Backend\VueComponents\Inspector::class,
+    ];
+
     /**
      * registerSubcomponents
      */

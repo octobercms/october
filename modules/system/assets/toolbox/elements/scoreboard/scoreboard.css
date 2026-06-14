@@ -1,0 +1,202 @@
+/*
+ * Scoreboard
+ */
+div.scoreboard {
+    --scoreboard-title-color: var(--bs-heading-color);
+    --scoreboard-description-color: var(--bs-secondary-color);
+    --scoreboard-body-color: var(--bs-body-color);
+    --scoreboard-icon-color: var(--oc-color-neutral);
+    --scoreboard-positive-color: var(--oc-color-positive);
+    --scoreboard-negative-color: var(--oc-color-negative);
+    --scoreboard-scroll-indicator-color: #bbbbbb;
+
+    position: relative;
+    padding: 0;
+
+    /* Horizontal scroll indicators */
+    &::after,
+    &::before {
+        display: none;
+        position: absolute;
+        top: 50%;
+        margin-top: -10px;
+        height: 9px;
+        font-size: 10px;
+        color: var(--scoreboard-scroll-indicator-color);
+        font-family: bootstrap-icons !important;
+        speak: none;
+        font-style: normal;
+        font-weight: normal;
+        font-variant: normal;
+        text-transform: none;
+        line-height: 1;
+        -webkit-font-smoothing: antialiased;
+    }
+
+    &::before {
+        left: 7px;
+        content: "\f284";
+    }
+
+    &::after {
+        right: 10px;
+        content: "\f285";
+    }
+
+    &.scroll-before::before {
+        display: block;
+    }
+
+    &.scroll-after::after {
+        display: block;
+    }
+
+    /* Scoreboard items */
+    div.scoreboard-item {
+        display: inline-block;
+        margin-right: 40px;
+        margin-bottom: 20px;
+        vertical-align: top;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        &.thumbnail-value {
+            margin-right: 20px;
+
+            img {
+                height: 72px;
+            }
+        }
+
+        span.scoreboard-colorpicker {
+            width: 0;
+            height: 0;
+            background-color: transparent;
+            border-right-color: var(--background-color);
+            border-bottom-color: var(--background-color);
+            border-top-color: var(--foreground-color);
+            border-left-color: var(--foreground-color);
+            border-width: 10px;
+            border-style: solid;
+            border-radius: 20px;
+            display: inline-block;
+
+            &::after {
+                content: "";
+                top: -10px;
+                left: -10px;
+                width: 20px;
+                height: 20px;
+                position: absolute;
+                box-shadow: inset 0 0 0 1px rgba(var(--bs-body-bg-rgb), 0.2);
+                border-radius: 20px;
+            }
+        }
+    }
+
+    /* Chart within scoreboard */
+    .control-chart {
+        height: 67px;
+
+        ul {
+            margin-left: 77px;
+            top: -2px;
+
+            li {
+                padding-left: 18px;
+
+                > i {
+                    margin-left: -18px;
+                }
+            }
+        }
+
+        .canvas + ul {
+            margin-left: 0;
+        }
+    }
+
+    .scoreboard-offset {
+        padding-left: 20px;
+    }
+}
+
+body.slim-container div.scoreboard {
+    padding: 0 20px;
+}
+
+/* Title value */
+.title-value {
+    h4 {
+        font-size: 1.1rem;
+        line-height: 1;
+        font-weight: normal;
+        margin: 0;
+        color: var(--scoreboard-title-color);
+    }
+
+    p {
+        color: var(--scoreboard-body-color);
+        margin: 0;
+        font-size: 28px;
+
+        i,
+        &::before {
+            color: var(--scoreboard-icon-color);
+            font-size: 22px;
+            position: relative;
+            top: -2px;
+        }
+
+        &.success {
+            color: var(--scoreboard-positive-color);
+        }
+
+        &.danger {
+            color: var(--scoreboard-negative-color);
+        }
+
+        &.negative,
+        &.positive {
+            &::after {
+                font-family: bootstrap-icons !important;
+                speak: none;
+                font-style: normal;
+                font-weight: normal;
+                font-variant: normal;
+                text-transform: none;
+                line-height: 1;
+                -webkit-font-smoothing: antialiased;
+                font-size: 17px;
+                vertical-align: middle;
+                position: relative;
+                top: -3px;
+                left: 5px;
+            }
+        }
+
+        &.negative {
+            color: var(--scoreboard-negative-color);
+
+            &::after {
+                content: "\f27e";
+            }
+        }
+
+        &.positive {
+            color: var(--scoreboard-positive-color);
+
+            &::after {
+                content: "\f281";
+            }
+        }
+
+        &.description {
+            color: var(--scoreboard-description-color);
+            line-height: 100%;
+            font-size: 13px;
+        }
+    }
+}

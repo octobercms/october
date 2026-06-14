@@ -45,7 +45,7 @@
             min-height: 395px;
         }
 
-        &.stretch .editor-write {
+        &.is-stretch .editor-write {
             float: none;
             height: calc(100%);
             position: relative;

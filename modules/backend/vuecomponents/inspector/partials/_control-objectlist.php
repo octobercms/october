@@ -5,6 +5,7 @@
 >
     <backend-inspector-group
         :group-name="control.title"
+        :group-description="control.description"
         :obj="editedObject"
         :parent-obj="obj"
         :controls="nestedControlProperties"

@@ -58,22 +58,13 @@ concat([
     // Drag scripts
     'modules/backend/assets/foundation/scripts/drag/drag.value.js',
     'modules/backend/assets/foundation/scripts/drag/drag.sort.js',
-    'modules/backend/assets/foundation/scripts/drag/drag.scroll.js',
-
-    // Rowlink
-    'modules/backend/assets/foundation/scripts/rowlink/rowlink.js',
 
     // Foundation controls
     'modules/backend/assets/foundation/controls/autocomplete/autocomplete.js',
     'modules/backend/assets/foundation/controls/balloon-selector/balloon-selector.js',
     'modules/backend/assets/foundation/controls/callout/callout.js',
-    'modules/backend/assets/foundation/controls/dropdown/dropdown.js',
-    'modules/backend/assets/foundation/controls/popover/popover.js',
     'modules/backend/assets/foundation/controls/popup/popup.js',
     'modules/backend/assets/foundation/controls/popup/popup.stacker.js',
-    'modules/backend/assets/foundation/controls/toolbar/toolbar.js',
-    'modules/backend/assets/foundation/controls/tooltip/tooltip.js',
-    'modules/backend/assets/foundation/controls/checkbox/checkbox.js',
 
     // Inspector
     'modules/backend/assets/foundation/controls/inspector/inspector.surface.js',
@@ -221,6 +212,7 @@ if (fs.existsSync(handsontableDir)) {
         'src/plugins/comments/comments.css',
         'src/plugins/contextMenu/contextMenu.css',
         'src/plugins/copyPaste/copyPaste.css',
+        'src/plugins/emptyDataState/emptyDataState.css',
         'src/plugins/manualColumnFreeze/manualColumnFreeze.css',
         'src/plugins/manualColumnMove/manualColumnMove.css',
         'src/plugins/manualRowMove/manualRowMove.css',

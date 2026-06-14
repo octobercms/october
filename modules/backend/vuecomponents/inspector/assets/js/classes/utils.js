@@ -136,6 +136,13 @@ export class InspectorUtils {
             return undefined;
         }
 
+        // Check if the literal key exists before trying dot-path traversal.
+        // This handles property names like "oc.alias" that contain dots
+        // but are not nested paths.
+        if (obj && obj[dotNotationPath] !== undefined) {
+            return obj[dotNotationPath];
+        }
+
         function reducer(obj, i) {
             if (!obj) {
                 return undefined;
@@ -148,6 +155,14 @@ export class InspectorUtils {
     }
 
     setProperty(obj, dotNotationPath, value) {
+        // Check if the literal key exists before trying dot-path traversal.
+        // This handles property names like "oc.alias" that contain dots
+        // but are not nested paths.
+        if (obj && obj[dotNotationPath] !== undefined) {
+            obj[dotNotationPath] = value;
+            return;
+        }
+
         var parts = dotNotationPath.split('.');
 
         function setPropertyAtPath(currentObj, pathParts) {
@@ -171,6 +186,12 @@ export class InspectorUtils {
     }
 
     deleteProperty(obj, dotNotationPath) {
+        // Check if the literal key exists before trying dot-path traversal.
+        if (obj && obj[dotNotationPath] !== undefined) {
+            delete obj[dotNotationPath];
+            return;
+        }
+
         var parts = dotNotationPath.split('.');
 
         function deletePropertyAtPath(currentObj, pathParts) {
@@ -198,6 +219,22 @@ export class InspectorUtils {
             || (typeof value == 'object' && $.isEmptyObject(value))
             || (typeof value == 'string' && $.trim(value).length === 0)
             || (Object.prototype.toString.call(value) === '[object Array]' && value.length === 0);
+    }
+
+    compareValues(value1, value2) {
+        if (value1 === value2) {
+            return true;
+        }
+
+        if (typeof value1 !== typeof value2) {
+            return false;
+        }
+
+        if (typeof value1 === 'object' && value1 !== null && value2 !== null) {
+            return JSON.stringify(value1) === JSON.stringify(value2);
+        }
+
+        return false;
     }
 
     getLocalStorageKey(component, key) {

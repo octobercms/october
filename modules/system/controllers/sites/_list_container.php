@@ -8,7 +8,7 @@
     </div>
 <?php endif ?>
 
-<div class="layout-row">
+<div class="flex-grow-1">
     <div class="list-widget-container">
         <?php if ($filter): ?>
             <?= $filter->render() ?>

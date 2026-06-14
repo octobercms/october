@@ -1,12 +1,12 @@
 <?php
-    $navCss = '';
-    $contentCss = '';
-    $paneCss = '';
+    $navCss = 'form-tab-nav';
+    $contentCss = 'form-tab-content';
+    $paneCss = 'form-tab-pane';
 
     if ($tabs->stretch) {
-        $navCss = 'layout-row min-size';
-        $contentCss = 'layout-row flex-grow-1';
-        $paneCss = 'layout-cell';
+        $navCss .= ' is-stretch';
+        $contentCss .= ' is-stretch';
+        $paneCss .= ' is-stretch';
     }
 ?>
 <div class="<?= $navCss ?>">
@@ -17,8 +17,7 @@
                 $isLazy = !$isActive && $tabs->isLazy($name);
                 $anchorId = $tabs->getPaneAnchorId($index, $name);
                 $tabId = $tabs->getTabId($name);
-                $tabClass = ($isActive ? 'active ' : '')
-                    . ($isLazy ? 'tab-lazy ' : '');
+                $tabClass = ($isActive ? 'active ' : '') . ($isLazy ? 'tab-lazy ' : '');
             ?>
             <li class="<?= $tabClass ?>" <?php if ($tabId): ?>id="<?= $tabId ?>"<?php endif ?>>
                 <a href="#<?= e($anchorId) ?>" name="<?= e($anchorId) ?>"

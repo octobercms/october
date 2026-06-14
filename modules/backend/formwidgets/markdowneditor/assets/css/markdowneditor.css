@@ -32,6 +32,10 @@
         border: 1px solid var(--oc-border-focus);
     }
 
+    &.is-stretch {
+        height: 100%;
+    }
+
     &.size-tiny {
         .editor-write {
             min-height: 50px;
@@ -39,7 +43,7 @@
         .editor-preview {
             height: 50px;
         }
-        &.stretch {
+        &.is-stretch {
             min-height: 95px;
         }
     }
@@ -50,7 +54,7 @@
         .editor-preview {
             height: 100px;
         }
-        &.stretch {
+        &.is-stretch {
             min-height: 145px;
         }
     }
@@ -61,7 +65,7 @@
         .editor-preview {
             height: 200px;
         }
-        &.stretch {
+        &.is-stretch {
             min-height: 245px;
         }
     }
@@ -72,7 +76,7 @@
         .editor-preview {
             height: 250px;
         }
-        &.stretch {
+        &.is-stretch {
             min-height: 295px;
         }
     }
@@ -83,9 +87,16 @@
         .editor-preview {
             height: 350px;
         }
-        &.stretch {
+        &.is-stretch {
             min-height: 395px;
         }
+    }
+
+    /* Columns */
+
+    .editor-columns {
+        position: relative;
+        height: 100%;
     }
 
     /* Code */
@@ -153,7 +164,7 @@
     }
 
     /* Stretch */
-    &.stretch {
+    &.is-stretch {
         &,
         .editor-toolbar {
             border-radius: 0 !important;
@@ -235,8 +246,8 @@
             }
         }
 
-        .editor-toolbar,
-        .layout-cell.editor-preview {
+        > .editor-columns > .editor-toolbar,
+        > .editor-columns > .editor-preview {
             display: none !important;
         }
 

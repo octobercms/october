@@ -97,11 +97,28 @@
         }
     }
 
-    div.primary-tabs-container > div > .layout-row {
-        display: table-cell;
-
+    div.primary-tabs-container > div > .form-section {
         .tab-pane.is-adaptive {
             padding-top: 0;
+
+            &.active {
+                display: flex;
+                flex-direction: column;
+            }
+
+            > .form-group:not(.form-field-stretch) {
+                flex: 0 0 auto;
+            }
+
+            > .form-group.form-field-stretch {
+                height: auto;
+                flex: 0 0 auto;
+
+                &:last-child {
+                    flex: 1 1 auto;
+                    min-height: 0;
+                }
+            }
         }
     }
 
@@ -121,5 +138,85 @@
     .record-management-controls {
         padding-left: 20px;
         padding-bottom: 20px;
+        font-size: 0;
+
+        > div {
+            display: inline-block;
+            margin-right: 10px;
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            > .record-management-button {
+                margin-right: 0;
+            }
+        }
+
+        .record-management-button {
+            display: inline-block;
+            border: 1px solid @toolbar-border;
+            background: @primary-bg;
+            outline: none;
+            -webkit-appearance: none;
+            font-size: 14px;
+            height: 38px;
+            margin-right: 10px;
+            border-radius: 4px;
+            padding: 0 15px;
+            position: relative;
+            white-space: nowrap;
+            cursor: pointer;
+
+            &:last-child {
+                margin-right: 0;
+            }
+
+            &.has-menu {
+                &:after {
+                    font-family: 'octo-icon' !important;
+                    speak: none;
+                    font-style: normal;
+                    font-weight: normal;
+                    font-variant: normal;
+                    text-transform: none;
+                    line-height: 1;
+                    -webkit-font-smoothing: antialiased;
+                    -moz-osx-font-smoothing: grayscale;
+                    content: "\e90a";
+                    position: relative;
+                    font-size: 16px;
+                    vertical-align: middle;
+                    margin-left: 3px;
+                    margin-right: -4px;
+                }
+            }
+        }
+    }
+}
+
+.control-popover.document-secondary-popover {
+    width: 450px;
+
+    .control-tabs.secondary-tabs {
+        > div > ul.nav-tabs {
+            padding: 10px 15px;
+        }
+
+        &[data-single-tab] > div > ul.nav-tabs {
+            display: none;
+        }
+
+        .tab-content {
+            padding: 0 15px 15px;
+        }
+
+        .form-group {
+            padding-bottom: 15px;
+
+            &:last-child {
+                padding-bottom: 0;
+            }
+        }
     }
 }

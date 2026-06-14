@@ -13,15 +13,15 @@
     </template>
 
     <template v-slot:content>
-        <div class="flex-layout-column fill-container" ref="contentContainer">
-            <div class="flex-layout-item stretch editor-panel relative">
+        <div class="d-flex flex-column fill-container" ref="contentContainer">
+            <div class="flex-fill position-relative editor-panel">
                 <backend-document-markdowneditor
                     v-model="value"
                     ref="markdownEditor"
                     container-css-class="fill-container"
                     :built-in-mode="true"
                     :toolbar-container="toolbarExtensionPointProxy"
-                    :external-toolbar-app-state="externalToolbarAppState"
+                    :external-toolbar-bus="externalToolbarBus"
                     :use-media-manager="useMediaManager"
                     :side-by-side="sideBySide"
                     @focus="onFocus"

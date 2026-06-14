@@ -1,1 +1,1 @@
-<?= $this->makePartial('edit') ?>
+<?= $this->formRenderDesign() ?>

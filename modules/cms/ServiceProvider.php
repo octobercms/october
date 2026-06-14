@@ -139,19 +139,6 @@ class ServiceProvider extends ModuleServiceProvider
     }
 
     /**
-     * registerReportWidgets
-     */
-    public function registerReportWidgets()
-    {
-        return [
-            \Cms\ReportWidgets\ActiveTheme::class => [
-                'label' => 'cms::lang.dashboard.active_theme.widget_title_default',
-                'context' => 'dashboard'
-            ],
-        ];
-    }
-
-    /**
      * registerPermissions
      */
     public function registerPermissions()
@@ -178,6 +165,13 @@ class ServiceProvider extends ModuleServiceProvider
                 'tab' => 'Editor',
                 'roles' => UserRole::CODE_DEVELOPER,
                 'order' => 300
+            ],
+            'editor.cms_langs' => [
+                'label' => 'Manage Language Files',
+                'comment' => 'cms::lang.permissions.manage_langs',
+                'tab' => 'Editor',
+                'roles' => UserRole::CODE_DEVELOPER,
+                'order' => 350
             ],
             'editor.cms_pages' => [
                 'label' => 'Manage Pages',

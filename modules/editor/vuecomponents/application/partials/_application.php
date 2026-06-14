@@ -14,7 +14,7 @@
         </template>
 
         <template v-slot:second>
-            <div class="flex-layout-column fill-container">
+            <div class="d-flex flex-column fill-container">
                 <backend-tabs
                     ref="tabs"
                     :tabs="store.state.editorTabs"
@@ -32,8 +32,8 @@
                     @contextmenu="onTabContextMenu"
                 >
                     <template v-slot:noTabsView>
-                        <div class="flex-layout-item stretch relative">
-                            <div class="editor-application-splash layout-fill-container flex-layout-column align-center justify-center">
+                        <div class="flex-fill position-relative">
+                            <div class="editor-application-splash fill-container d-flex flex-column align-items-center justify-content-center">
                                 <div>
                                     <div class="splash-content" :class="{'document-not-found': directDocumentNotFound}">
                                         <div v-if="!customLogo" class="october-cms-logo-grey"/>

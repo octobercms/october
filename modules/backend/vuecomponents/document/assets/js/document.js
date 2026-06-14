@@ -43,7 +43,7 @@ export default {
             var result = '';
 
             if (this.fullHeight) {
-                result += ' full-height-strict';
+                result += ' h-100';
             }
 
             if (this.fullScreen) {
@@ -51,7 +51,7 @@ export default {
             }
 
             if (this.loading || this.errorLoadingDocument) {
-                result += ' justify-center align-center';
+                result += ' justify-content-center align-items-center';
             }
 
             if (this.builtInMode) {

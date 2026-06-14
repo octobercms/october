@@ -63,10 +63,6 @@ class NestedItemsField extends ContentFieldBase
             ]
         ];
 
-        if ($this->span === 'adaptive') {
-            $fieldConfig['externalToolbarAppState'] = 'toolbarExtensionPoint';
-        }
-
         $form->addFormField($this->fieldName, $this->label)
             ->useConfig($this->getCleanFormConfig())
             ->displayAs('relation')

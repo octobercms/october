@@ -218,8 +218,10 @@ class ThemeData extends Model
      */
     public function getFormFields()
     {
-        if (!$theme = CmsTheme::load($this->theme)) {
-            throw new Exception(Lang::get('Unable to find theme with name :name', $this->theme));
+        $theme = CmsTheme::load($this->theme);
+
+        if (!$theme->isValid()) {
+            return [];
         }
 
         $config = $theme->getFormConfig();

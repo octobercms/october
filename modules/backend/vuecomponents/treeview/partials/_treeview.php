@@ -1,6 +1,6 @@
-<div class="component-backend-treeview flex-layout-column full-height-strict" :class="containerCssClass">
+<div class="component-backend-treeview d-flex flex-column h-100" :class="containerCssClass">
     <div
-        class="treeview-container flex-layout-item stretch relative"
+        class="treeview-container flex-fill position-relative"
     >
         <div class="treeview-ghost-image-container">
             <img
@@ -78,7 +78,7 @@
 
     <div
         v-if="searchable"
-        class="flex-layout-item fix treeview-search-control backend-icon-background-pseudo"
+        class="flex-shrink-0 treeview-search-control backend-icon-background-pseudo"
         :class="{'search-enabled': searchQuery.length > 0}"
     >
         <input

@@ -29,6 +29,34 @@ trait ReportProcessor
             $this->reports = $this->allRows = $savedDash->definition;
             $this->isCustom = true;
         }
+
+        if ($savedDash) {
+            $this->applyIntervalDefaultsFromDatabase($savedDash);
+        }
+    }
+
+    /**
+     * applyIntervalDefaultsFromDatabase overrides the widget's interval defaults
+     * with values managed by the user via the dashboard form, falling back to
+     * the YAML/property defaults when a column is empty.
+     */
+    protected function applyIntervalDefaultsFromDatabase(DashboardModel $savedDash): void
+    {
+        if (strlen((string) $savedDash->default_start)) {
+            $this->defaultStart = $savedDash->default_start;
+        }
+
+        if (strlen((string) $savedDash->default_end)) {
+            $this->defaultEnd = $savedDash->default_end;
+        }
+
+        if (strlen((string) $savedDash->default_interval)) {
+            $this->defaultInterval = $savedDash->default_interval;
+        }
+
+        if (strlen((string) $savedDash->default_compare)) {
+            $this->defaultCompare = $savedDash->default_compare;
+        }
     }
 
     /**

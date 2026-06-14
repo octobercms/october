@@ -1,4 +1,7 @@
 .component-backend-monaco-editor {
+    display: flex;
+    flex-direction: column;
+
     .editor-container {
         &.editor-container-vs-dark {
             background: #1e1e1e;

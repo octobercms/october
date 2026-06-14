@@ -1,0 +1,61 @@
+.field-repeater > .field-repeater-builder > .field-repeater-toolbar,
+.field-repeater > .field-repeater-toolbar {
+    position: relative;
+    border: 1px dashed var(--oc-dropdown-trigger-border);
+    border-radius: 5px;
+    background: var(--oc-dropdown-trigger-bg);
+    display: inline-block;
+
+    > button {
+        color: var(--oc-dropdown-trigger-color);
+        text-align: center;
+        text-decoration: none;
+        padding: 7px 15px;
+        font-weight: normal;
+        font-size: 14px;
+        display: block;
+        background: transparent;
+        border: none;
+
+        > i {
+            margin-right: 4px;
+            margin-left: -2px;
+            position: relative;
+            top: 1px;
+        }
+    }
+
+    &:hover, &:focus {
+        background-color: var(--oc-dropdown-hover-bg);
+        border-color: transparent;
+
+        > button {
+            &, > i {
+                color: var(--oc-dropdown-hover-color);
+            }
+        }
+    }
+
+    &:active {
+        background-color: var(--oc-dropdown-active-bg);
+        border-color: transparent;
+
+        > button {
+            &, > i {
+                color: var(--oc-dropdown-hover-color);
+            }
+        }
+    }
+
+    &.in-progress {
+        border-color: #e0e0e0 !important;
+        background: transparent !important;
+    }
+}
+
+.field-repeater > .field-repeater-builder > .field-repeater-toolbar {
+    display: block;
+    > a, > button {
+        width: 100%;
+    }
+}

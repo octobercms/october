@@ -9,11 +9,11 @@
 
     <input type="text" ref="titleInput" class="header-title" v-model="data[titleProperty]" v-bind:disabled="disabled || disableTitleEditor" @input="onTitleInput"></input>
 
-    <div class="flex-layout-row" v-if="subtitleProperty" v-show="!hideSubtitleEditor">
-        <div class="flex-layout-item fix subtitle-label center" v-text="subtitleLabel + ':'"></div>
+    <div class="d-flex flex-row" v-if="subtitleProperty" v-show="!hideSubtitleEditor">
+        <div class="flex-shrink-0 align-self-center subtitle-label" v-text="subtitleLabel + ':'"></div>
         <input
             type="text"
-            class="header-subtitle flex-layout-item stretch"
+            class="header-subtitle flex-fill"
             v-model="data[subtitleProperty]"
             v-bind:disabled="disabled"
             @input="onSubtitleInput"

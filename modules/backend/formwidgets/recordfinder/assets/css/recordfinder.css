@@ -1,1 +1,147 @@
-.recordfinder-list{border-top:1px solid var(--bs-border-color)}.recordfinder-list .control-list{margin-bottom:1rem}.recordfinder-list .control-list table.table.data{border-bottom:none}.recordfinder-list .control-filter{border-top:none}.recordfinder-list .search-input-container:before{right:12px;top:12px}.field-recordfinder .recordfinder-control-container{background:var(--oc-form-control-bg);border:1px solid var(--bs-border-color);border-radius:4px}.field-recordfinder .recordfinder-control-toolbar{font-size:0;padding:3px}.field-recordfinder .recordfinder-control-toolbar .backend-toolbar-button{white-space:nowrap}.field-recordfinder .recordfinder-control-toolbar .backend-toolbar-button.populated-only{display:none}.field-recordfinder .recordfinder-record-container{position:relative}.field-recordfinder.is-populated.is-multi .recordfinder-control-toolbar{border-bottom:1px solid var(--oc-toolbar-border)}.field-recordfinder.is-preview .recordfinder-control-container{background-color:var(--oc-form-control-disabled-bg)}.field-recordfinder .record-item{display:block;margin:4px;outline:none;position:relative}.field-recordfinder .record-item .record-data-container-inner{position:relative}.field-recordfinder .record-item .icon-container,.field-recordfinder .record-item .info,.field-recordfinder .record-item .info h4,.field-recordfinder .record-item .info h4 p{display:inline-block;vertical-align:top}.field-recordfinder .record-item .icon-container{height:20px;position:absolute;width:20px}.field-recordfinder .record-item .icon-container i{left:3px;position:relative;top:2px}.field-recordfinder .record-item .info{padding-left:26px}.field-recordfinder .record-item .description,.field-recordfinder .record-item .recordname{color:var(--bs-body-color);font-size:14px;margin-bottom:0;word-break:break-all}.field-recordfinder .record-item .description{color:var(--bs-secondary-color);font-size:.9rem}.field-recordfinder.is-single .record-item .record-data-container{padding:4px 3px 3px}.field-recordfinder.is-single .record-item .icon-container{margin-top:1px}.field-recordfinder.is-multi .record-item .record-data-container-inner{padding-top:4px}.field-recordfinder.is-multi .record-item .record-data-container{border-radius:4px;padding:3px}.field-recordfinder.is-multi .record-item .record-data-container:hover{background:var(--oc-toolbar-hover-bg)}.field-recordfinder.is-multi .record-item .icon-container{margin-top:-1px}
+/*
+ * Record Finder - List
+ */
+
+.recordfinder-list {
+    border-top: 1px solid var(--bs-border-color);
+
+    .control-list {
+        margin-bottom: 1rem;
+
+        table.table.data {
+            border-bottom: none;
+        }
+    }
+
+    .control-filter {
+        border-top: none;
+    }
+
+    .search-input-container:before {
+        top: 12px;
+        right: 12px;
+    }
+}
+
+/*
+ * Record Finder
+ */
+
+.field-recordfinder {
+
+    /* Control UI */
+
+    .recordfinder-control-container {
+        border-radius: 4px;
+        border: 1px solid var(--bs-border-color);
+        background: var(--oc-form-control-bg);
+    }
+
+    .recordfinder-control-toolbar {
+        padding: 3px;
+        font-size: 0;
+
+        .backend-toolbar-button {
+            white-space: nowrap;
+
+            &.populated-only {
+                display: none;
+            }
+        }
+    }
+
+    .recordfinder-record-container {
+        position: relative;
+    }
+
+    &.is-populated.is-multi {
+        .recordfinder-control-toolbar {
+            border-bottom: 1px solid var(--oc-toolbar-border);
+        }
+    }
+
+    &.is-preview {
+        .recordfinder-control-container {
+            background-color: var(--oc-form-control-disabled-bg);
+        }
+    }
+
+    /* Record Items */
+
+    .record-item {
+        position: relative;
+        outline: none;
+        display: block;
+        margin: 4px;
+
+        .record-data-container-inner {
+            position: relative;
+        }
+
+        .icon-container, .info, .info h4, .info h4 p {
+            vertical-align: top;
+            display: inline-block;
+        }
+
+        .icon-container {
+            width: 20px;
+            height: 20px;
+            position: absolute;
+
+            i {
+                position: relative;
+                top: 2px;
+                left: 3px;
+            }
+        }
+
+        .info {
+            padding-left: 26px;
+        }
+
+        .recordname, .description {
+            color: var(--bs-body-color);
+            font-size: 14px;
+            word-break: break-all;
+            margin-bottom: 0;
+        }
+
+        .description {
+            font-size: .9rem;
+            color: var(--bs-secondary-color);
+        }
+    }
+
+    &.is-single {
+        .record-item {
+            .record-data-container {
+                padding: 4px 3px 3px;
+            }
+
+            .icon-container {
+                margin-top: 1px;
+            }
+        }
+    }
+
+    &.is-multi {
+        .record-item {
+            .record-data-container-inner {
+                padding-top: 4px;
+            }
+
+            .record-data-container {
+                padding: 3px;
+                border-radius: 4px;
+
+                &:hover {
+                    background: var(--oc-toolbar-hover-bg);
+                }
+            }
+
+            .icon-container {
+                margin-top: -1px;
+            }
+        }
+    }
+}

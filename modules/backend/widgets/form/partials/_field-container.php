@@ -1,5 +1,5 @@
 <div
-    class="form-group <?= $this->previewMode ? 'form-group-preview' : '' ?> <?= $field->type ?>-field span-<?= $field->span ?> <?= $field->spanClass ?> <?= $field->required ? 'is-required' : '' ?> <?= $field->stretch ? 'layout-relative' : '' ?> <?= $field->cssClass ?>"
+    class="form-group <?= $this->previewMode ? 'form-group-preview' : '' ?> <?= $field->type ?>-field span-<?= $field->span ?> <?= $field->spanClass ?> <?= $field->required ? 'is-required' : '' ?> <?= $field->stretch ? 'form-field-stretch' : '' ?> <?= $field->cssClass ?>"
     <?php if ($depends = $this->getFieldDepends($field)): ?>data-field-depends="<?= $depends ?>"<?php endif ?>
     <?php if ($field->changeHandler): ?>data-change-handler="<?= e($field->changeHandler) ?>"<?php endif ?>
     data-field-name="<?= $field->fieldName ?>"

@@ -17,7 +17,7 @@
         <?= $this->makePartial('hint_preview') ?>
     </div>
 
-    <div class="layout-item stretch layout-column">
+    <div class="flex-grow-1">
         <?= $this->formRenderPreview() ?>
     </div>
 

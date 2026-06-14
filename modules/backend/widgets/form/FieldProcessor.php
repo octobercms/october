@@ -54,7 +54,7 @@ trait FieldProcessor
                 // Adaptive sizing
                 if (strtolower($field->span) === 'adaptive') {
                     $field->size = 'adaptive';
-                    $field->stretch = true;
+                    $field->stretch ??= true;
                     $tabs->stretch = true;
                     $tabs->addAdaptive($field->tab ?: $tabs->defaultTab);
                 }
@@ -90,6 +90,11 @@ trait FieldProcessor
             }
 
             $newConfig = ['widget' => $field->type];
+
+            // Auto-wire adaptive fields to the toolbar extension point
+            if (strtolower($field->span) === 'adaptive') {
+                $newConfig['externalToolbarBus'] = 'document';
+            }
 
             if (is_array($field->config)) {
                 $newConfig += $field->config;
@@ -247,6 +252,26 @@ trait FieldProcessor
                 if (in_array($attrName, $currencyableAttrs)) {
                     $field->translatable = 'currency';
                 }
+            }
+        }
+    }
+
+    /**
+     * processUntranslatableWidgets removes the translatable flag from widget types
+     * that use nested forms, since the translate popup cannot reliably handle
+     * their AJAX lifecycle (e.g. adding repeater items inside the popup).
+     */
+    protected function processUntranslatableWidgets(array $fields)
+    {
+        $unsupported = ['repeater', 'nestedform'];
+
+        foreach ($fields as $field) {
+            if (
+                $field->translatable &&
+                isset($field->config['widget']) &&
+                in_array($field->config['widget'], $unsupported)
+            ) {
+                $field->translatable = false;
             }
         }
     }

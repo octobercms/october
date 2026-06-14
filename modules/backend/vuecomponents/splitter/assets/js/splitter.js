@@ -59,9 +59,12 @@ export default {
         cssClass: function computeCssClass() {
             var result = {};
 
-            result['full-height-strict'] = this.fullHeight;
-            result['flex-layout-row'] = this.direction == 'vertical';
-            result['flex-layout-column'] = this.direction == 'horizontal';
+            result['h-100'] = this.fullHeight;
+            result['d-flex'] = true;
+            result['flex-row'] = this.direction == 'vertical';
+            result['flex-column'] = this.direction == 'horizontal';
+            result['splitter-vertical'] = this.direction == 'vertical';
+            result['splitter-horizontal'] = this.direction == 'horizontal';
 
             return result;
         },

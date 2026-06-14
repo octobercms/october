@@ -9,7 +9,7 @@
         color: var(--oc-toolbar-color);
         user-select: none;
 
-        span {
+        .group-name-text {
             display: block;
             padding-left: 14px;
             margin-left: -14px;
@@ -30,8 +30,27 @@
             }
         }
 
+        .property-description {
+            position: absolute;
+            right: 5px;
+            top: 6px;
+            width: 19px;
+            height: 19px;
+            border-radius: 25px;
+            cursor: pointer;
+
+            &:before {
+                width: 5px;
+                height: 11px;
+                left: 7px;
+                top: 4px;
+                background-position: -52px -35px;
+                position: absolute;
+            }
+        }
+
         &.loading {
-            span {
+            .group-name-text {
                 margin-right: 50px;
 
                 &:before {
@@ -45,7 +64,7 @@
             }
         }
 
-        &.expanded span:before {
+        &.expanded .group-name-text:before {
             transform: rotate(0);
         }
 

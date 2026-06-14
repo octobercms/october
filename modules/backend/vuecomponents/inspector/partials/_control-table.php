@@ -4,6 +4,7 @@
 >
     <table>
         <backend-inspector-control-table-head
+            v-if="!control.noHeader"
             :columns="columns"
         >
         </backend-inspector-control-table-head>

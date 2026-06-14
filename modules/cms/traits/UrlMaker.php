@@ -146,7 +146,7 @@ trait UrlMaker
         $key = 'cms_url_maker_'.$this->urlComponentName.crc32(get_class($this));
 
         $cached = Cache::memo()->get($key, false);
-        if ($cached !== false && ($cached = @unserialize($cached)) !== false) {
+        if ($cached !== false && ($cached = @unserialize($cached, ['allowed_classes' => false])) !== false) {
             $filePath = array_get($cached, 'path');
             $mtime = array_get($cached, 'mtime');
             if (!File::isFile($filePath) || ($mtime != File::lastModified($filePath))) {

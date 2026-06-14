@@ -1,9 +1,9 @@
 <?php
     $type = $tabs->section;
-    $containerCss = 'layout-row min-size';
+    $containerCss = 'form-section';
 
     if ($tabs->stretch) {
-        $containerCss = 'layout-row';
+        $containerCss .= ' is-stretch';
     }
 ?>
 <!-- <?= ucfirst($type) ?> Tabs -->
@@ -20,7 +20,7 @@
 
         <div
             id="<?= $this->getId($type.'Tabs') ?>"
-            class="control-tabs <?= $type ?>-tabs layout <?= $tabs->cssClass ?>"
+            class="control-tabs <?= $type ?>-tabs form-section-stretch <?= $tabs->cssClass ?>"
             <?= $tabs->linkable ? 'data-linkable' : '' ?>
             <?php if (iterator_count($tabs) === 1): ?>data-single-tab<?php endif ?>
             data-control="tab">

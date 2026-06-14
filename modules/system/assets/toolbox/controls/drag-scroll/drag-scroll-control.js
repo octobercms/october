@@ -12,8 +12,7 @@
  * - vertical - enables vertical scrolling mode
  */
 import { ControlBase } from 'larajax';
-
-const $ = window.jQuery;
+import DragScroll from './drag-scroll.js';
 
 export default class DragScrollControl extends ControlBase {
     init() {
@@ -27,7 +26,7 @@ export default class DragScrollControl extends ControlBase {
             this.element.classList.add('is-native-drag');
         }
 
-        $(this.element).dragScroll({
+        this.instance = new DragScroll(this.element, {
             scrollClassContainer: this.scrollClassContainer,
             useDrag: !noDragSupport,
             useNative: this.config.useNativeDrag,
@@ -37,6 +36,7 @@ export default class DragScrollControl extends ControlBase {
     }
 
     disconnect() {
-        $(this.element).dragScroll('dispose');
+        this.instance.dispose();
+        this.instance = null;
     }
 }

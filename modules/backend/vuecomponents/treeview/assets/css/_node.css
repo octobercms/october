@@ -101,21 +101,14 @@
 
             /* Alignment of the collapse button, icon and label text */
 
-            &.mode-tree,
-            &.root-node {
-                > .item-label-outer-container > .item-label-container {
-                    .node-label {
-                        padding-left: 19px;
-                    }
-
-                    &.has-icon .node-label {
-                        padding-left: 38px;
-                    }
+            > .item-label-outer-container > .item-label-container {
+                .node-label {
+                    padding-left: 19px;
                 }
-            }
 
-            > .item-label-outer-container > .item-label-container.has-icon .node-label {
-                padding-left: 19px;
+                &.has-icon .node-label {
+                    padding-left: 38px;
+                }
             }
         }
     }

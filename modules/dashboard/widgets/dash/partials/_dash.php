@@ -3,7 +3,7 @@
     class="oc-dashboard-container"
 >
     <div
-        class="flex-layout-column full-height"
+        class="d-flex flex-column min-vh-100"
         data-control="dashwidget"
     >
         <div data-vue-template>

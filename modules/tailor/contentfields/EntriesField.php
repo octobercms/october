@@ -324,10 +324,6 @@ class EntriesField extends FallbackField
             ] + ((array) $blueprint->structure);
         }
 
-        if ($this->span === 'adaptive') {
-            $fieldConfig['externalToolbarAppState'] = 'toolbarExtensionPoint';
-        }
-
         // Transfer custom configuration
         $toTransfer = ['label', 'list', 'form', 'view', 'manage'];
         foreach ($toTransfer as $transfer) {

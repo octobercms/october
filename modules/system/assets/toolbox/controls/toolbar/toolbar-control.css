@@ -1,0 +1,482 @@
+/*
+ * Toolbar
+ */
+.control-toolbar {
+    font-size: 0;
+    padding: 0 0 10px 0;
+    position: relative;
+    display: table;
+    table-layout: fixed;
+    width: 100%;
+
+    .toolbar-divider {
+        margin-right: 1px;
+        display: inline-block;
+        height: 1em;
+        padding: 10px 0;
+        border-right: 1px solid var(--oc-toolbar-border);
+        border-left: 1px solid var(--bs-border-color);
+        width: 1px;
+        vertical-align: middle;
+        margin-right: 8px;
+    }
+
+    .toolbar-item {
+        position: relative;
+        white-space: nowrap;
+        display: table-cell;
+        vertical-align: top;
+        padding-right: 10px;
+
+        &:last-child,
+        &.last {
+            padding-right: 0;
+        }
+
+        /* Primary item with scroll shadow */
+        &.toolbar-primary {
+            position: relative;
+
+            &::after,
+            &::before {
+                content: '';
+                position: absolute;
+                top: 0;
+                bottom: 0;
+                width: 10px;
+                z-index: 2;
+                opacity: 0;
+                transition: opacity 0.1s ease-out;
+            }
+
+            &::before {
+                background: transparent linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0) 100%);
+                left: -3px;
+            }
+
+            &::after {
+                background: transparent linear-gradient(270deg, #000 0%, rgba(0, 0, 0, 0) 100%);
+                right: 13px;
+            }
+
+            &.scroll-before::before {
+                opacity: .15;
+            }
+
+            &.scroll-after::after {
+                opacity: .15;
+            }
+        }
+
+        /* Setup button */
+        &.toolbar-setup {
+            width: 28px;
+            vertical-align: middle;
+
+            a {
+                padding: 8px 15px;
+
+                > span {
+                    display: block;
+                    color: var(--oc-toolbar-color);
+                    width: 24px;
+                    height: 24px;
+                    text-align: center;
+                    border-radius: 3px;
+
+                    &::before {
+                        font-family: 'octo-icon' !important;
+                        speak: none;
+                        font-style: normal;
+                        font-weight: normal;
+                        font-variant: normal;
+                        text-transform: none;
+                        line-height: 1;
+                        -webkit-font-smoothing: antialiased;
+                        content: "\e90c";
+                        font-size: 14px;
+                        line-height: 24px;
+                        display: inline-block;
+                        vertical-align: middle;
+                    }
+                }
+
+                &:hover > span {
+                    color: var(--oc-toolbar-hover-color);
+                    background: var(--oc-toolbar-hover-bg);
+                }
+            }
+        }
+    }
+
+    .btn,
+    .btn-group,
+    .dropdown,
+    .btn-container {
+        white-space: nowrap;
+        float: none;
+        display: inline-block;
+        margin-right: 10px;
+
+        &:last-child {
+            margin-right: 0;
+        }
+
+        &.standalone {
+            margin-right: 15px;
+        }
+    }
+
+    .dropdown > .btn {
+        margin-right: 0;
+    }
+
+    .btn-group {
+        > .btn,
+        > .dropdown {
+            margin-right: 0;
+            display: inline-block;
+            float: none;
+        }
+
+        .dropdown {
+            > .btn {
+                margin-right: 0;
+                border-bottom-right-radius: 0;
+                border-top-right-radius: 0;
+            }
+
+            &.last > .btn {
+                border-bottom-right-radius: 4px !important;
+                border-top-right-radius: 4px !important;
+            }
+        }
+    }
+
+    input.form-control[type=text] {
+        height: auto;
+        padding: 7px 13px 6px;
+    }
+
+    &.toolbar-padded {
+        padding: 20px;
+    }
+
+    &.flex {
+        display: flex;
+        flex-direction: row;
+
+        .toolbar-item {
+            display: block;
+            flex: 1 1 auto;
+
+            &.fix-width {
+                flex: 0 0 auto;
+            }
+        }
+    }
+}
+
+/* Relation toolbar and toolbar-form button style */
+.relation-toolbar .control-toolbar,
+.control-toolbar.toolbar-form {
+    .btn {
+        line-height: inherit;
+        display: inline-block;
+        color: inherit;
+        padding: 0 6px;
+        min-width: 40px;
+        text-align: center;
+        text-decoration: none !important;
+        border-radius: 4px;
+        outline: none;
+        box-shadow: none;
+        -webkit-appearance: none;
+        border: none;
+        background: transparent;
+        color: var(--oc-toolbar-color);
+        font-size: 14px;
+        margin-right: 8px;
+        line-height: 30px;
+
+        &.control-button {
+            color: var(--oc-toolbar-color);
+            font-size: 14px;
+            margin-right: 8px;
+            line-height: 30px;
+        }
+
+        &.icon-only {
+            min-width: 30px;
+        }
+
+        &[disabled] {
+            cursor: default;
+
+            > i,
+            > span,
+            &::after {
+                opacity: 0.5;
+            }
+        }
+
+        i {
+            display: inline-block;
+            position: relative;
+            font-size: 16px;
+            top: 1px;
+
+            + span.button-label {
+                margin-left: 6px;
+            }
+        }
+
+        &:not([disabled]):hover {
+            background: var(--oc-toolbar-hover-bg);
+        }
+
+        &:not([disabled]):focus {
+            background: var(--oc-toolbar-hover-bg);
+        }
+
+        &.has-menu::after {
+            font-family: 'octo-icon' !important;
+            speak: none;
+            font-style: normal;
+            font-weight: normal;
+            font-variant: normal;
+            text-transform: none;
+            line-height: 1;
+            -webkit-font-smoothing: antialiased;
+            content: "\e90a";
+            font-size: 16px;
+            vertical-align: middle;
+            margin-left: 0;
+            margin-right: -3px;
+            position: relative;
+            top: -1px;
+        }
+    }
+}
+
+/* Toolbar data-control element */
+[data-control~=toolbar] {
+    white-space: nowrap;
+    width: 100%;
+    overflow: hidden;
+    padding: .3rem;
+    margin: -.3rem;
+}
+
+@media (pointer: coarse) {
+    [data-control~=toolbar].is-native-drag {
+        overflow: auto;
+    }
+}
+
+/* Clear input text button */
+.clear-input-text {
+    padding: 0 5px;
+    cursor: pointer;
+    border: none;
+    border-radius: 100px;
+    -webkit-appearance: none;
+    font-size: 21px;
+    font-weight: bold;
+    line-height: 1;
+    color: var(--bs-emphasis-color);
+    text-shadow: 0 1px 0 var(--bs-body-bg);
+    font-family: sans-serif;
+    display: inline-block;
+    position: absolute;
+    right: 3px;
+    top: 0;
+    bottom: 0;
+    margin: auto;
+    background-color: var(--oc-form-control-bg);
+    height: 28px;
+    width: 26px;
+    z-index: 2;
+
+    > i {
+        opacity: 1;
+        width: 16px;
+        height: 16px;
+        background-position: -16px -38px;
+        display: block;
+    }
+
+    &:hover,
+    &:focus {
+        text-decoration: none;
+        cursor: pointer;
+    }
+
+    &:focus {
+        outline: none;
+    }
+}
+
+/*
+ * Form Toolbar
+ */
+.control-toolbar.form-toolbar {
+    background-color: var(--oc-content-tab-content-bg);
+    border-radius: 6px;
+
+    .btn-outline-secondary {
+        --bs-btn-color: var(--bs-body-color);
+    }
+
+    .btn {
+        --bs-btn-padding-x: .5rem;
+        --bs-btn-padding-y: .4rem;
+        border: none;
+        font-size: 14px;
+        margin-right: 8px;
+        transition: all 0.15s ease-in-out;
+
+        &::before {
+            transition: color 0.15s ease-in-out;
+        }
+
+        &,
+        &::before {
+            color: var(--bs-body-color);
+        }
+
+        &:hover,
+        &:focus:hover,
+        &:active,
+        &:focus-visible {
+            &,
+            &::before {
+                color: #fff;
+            }
+        }
+    }
+}
+
+/*
+ * Editor Toolbar
+ */
+.control-toolbar.editor-toolbar {
+    padding: 0;
+    background: #ffffff;
+    border-bottom-right-radius: 0;
+    border-bottom-left-radius: 0;
+    border-bottom: 1px solid var(--oc-toolbar-border);
+
+    .toolbar-item {
+        .btn,
+        .btn-group,
+        .dropdown {
+            margin: 0;
+            padding: 0;
+        }
+
+        .btn {
+            text-align: center;
+            height: 38px;
+            width: 38px;
+            line-height: 38px;
+            color: #333;
+            background: transparent;
+            user-select: none;
+            box-shadow: none;
+            text-shadow: none;
+            border-radius: 0;
+            font-size: 14px;
+
+            > i {
+                opacity: 1;
+            }
+
+            &:hover {
+                outline: none;
+                background-color: #ddd;
+                color: #000;
+            }
+
+            &.active,
+            &:active {
+                outline: none;
+                background-color: #ccc;
+                color: #000;
+            }
+
+            &.disabled,
+            &[disabled] {
+                opacity: 1;
+                color: #bdbdbd;
+                cursor: default;
+                background: transparent;
+            }
+        }
+
+        .dropdown.open .btn {
+            background-color: #ccc;
+            color: #000;
+        }
+
+        .btn[class^="oc-icon-"],
+        .btn[class*=" oc-icon-"] {
+            &::before {
+                opacity: 1;
+                margin: 0;
+            }
+        }
+
+        .btn.oc-autumn-button {
+            color: #c03f31;
+
+            &:hover {
+                color: #000 !important;
+            }
+        }
+    }
+}
+
+/* Toolbar tweaks for the side panel */
+#layout-side-panel,
+.compact-toolbar {
+    div.control-toolbar {
+        &,
+        &.toolbar-padded {
+            padding: 0;
+        }
+
+        &.separator {
+            border-bottom: 1px solid var(--oc-toolbar-border);
+        }
+
+        .toolbar-item {
+            padding-right: 0;
+        }
+
+        .btn {
+            border-radius: 0 !important;
+            padding-top: 12px;
+            padding-bottom: 13px;
+            margin-right: 0;
+            box-shadow: none;
+        }
+
+        input.form-control {
+            border: none;
+            padding: 11px 13px 12px;
+            height: auto;
+            border-radius: 0 !important;
+
+            &.icon.search {
+                background-position: right -78px;
+            }
+        }
+
+        div.loading-indicator-container.size-input-text {
+            .loading-indicator {
+                top: 6px;
+            }
+        }
+    }
+}

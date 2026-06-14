@@ -15,7 +15,7 @@
             </label>
         <?php endif ?>
 
-        <?php if ($this->useTranslatable && $field->translatable && !$this->previewMode): ?>
+        <?php if ($this->useTranslatable !== false && $field->translatable && !$this->previewMode): ?>
             <?= $this->makePartial('translate_button', ['field' => $field]) ?>
         <?php endif ?>
 

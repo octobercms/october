@@ -37,7 +37,7 @@ class ThemeUse extends Command
         $newThemeName = $this->argument('name');
         $newTheme = Theme::load($newThemeName);
 
-        if (!$newTheme->exists($newThemeName)) {
+        if (!$newTheme->isValid()) {
             return $this->error(sprintf('The theme %s does not exist.', $newThemeName));
         }
 

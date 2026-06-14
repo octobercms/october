@@ -122,7 +122,7 @@ function initFroala(component) {
     froalaOptions.placeholderText = placeholder ? placeholder : '';
 
     var fieldEl = component.$el.closest('.field-richeditor');
-    if (fieldEl && !fieldEl.classList.contains('stretch')) {
+    if (fieldEl && !fieldEl.classList.contains('is-stretch')) {
         froalaOptions.height = $('.height-indicator', fieldEl).height();
     }
     else {
@@ -196,7 +196,7 @@ export default {
             var result = '';
 
             if (this.fullHeight) {
-                result += ' full-height-strict';
+                result += ' h-100';
             }
 
             result += ' ' + this.containerCssClass;

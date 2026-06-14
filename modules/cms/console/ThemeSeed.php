@@ -34,7 +34,7 @@ class ThemeSeed extends Command
         $themeName = $this->argument('name');
         $theme = Theme::load($themeName);
 
-        if (!$theme->exists($themeName)) {
+        if (!$theme->isValid()) {
             return $this->error(sprintf('The theme %s does not exist.', $themeName));
         }
 

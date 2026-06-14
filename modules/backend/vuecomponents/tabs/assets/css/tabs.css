@@ -3,6 +3,9 @@
 @import "_style-inspector.css";
 
 .component-backend-tabs {
+    display: flex;
+    flex-direction: column;
+
     &.full-screen {
         background: var(--bs-body-bg);
         position: fixed;

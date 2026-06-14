@@ -4,7 +4,7 @@
 <?php else: ?>
     <div
         id="<?= $this->getId() ?>"
-        class="field-richeditor size-<?= $size ?> <?= $stretch?'layout-relative stretch':'' ?> <?= $legacyMode ? '' : 'vue-mode' ?>"
+        class="field-richeditor size-<?= $size ?> <?= $stretch ? 'is-stretch' : '' ?> <?= $legacyMode ? '' : 'vue-mode' ?>"
         <?php if ($fullPage): ?>data-fullpage="true"<?php endif ?>
         <?php if ($useLineBreaks): ?>data-use-line-breaks="true"<?php endif ?>
         <?php if ($readOnly): ?>data-read-only="true"<?php endif ?>
@@ -27,12 +27,12 @@
         <?php if (isset($tableCellStyles)): ?>data-table-cell-styles="<?= e(json_encode($tableCellStyles)) ?>"<?php endif ?>
         <?php if (isset($editorOptions)): ?>data-editor-options="<?= e(json_encode($editorOptions)) ?>"<?php endif ?>
         <?php if ($showMargins): ?>data-show-margins="true"<?php endif ?>
-        <?php if ($externalToolbarAppState): ?>data-external-toolbar-app-state="<?= e($externalToolbarAppState)?>"<?php endif ?>
+        <?php if ($externalToolbarBus): ?>data-external-toolbar-bus="<?= e($externalToolbarBus)?>"<?php endif ?>
         data-lang-fullscreen="<?= e(trans('backend::lang.form.toggle_full_screen')) ?>"
         data-legacy-mode="<?= $legacyMode ? 1 : 0 ?>"
         data-ace-vendor-path="<?= Url::asset('/modules/backend/formwidgets/codeeditor/assets/vendor/ace') ?>"
         data-control="richeditor">
-            <?php if (!$legacyMode): ?><div class="editor-write layout-cell"><?php endif ?>
+            <?php if (!$legacyMode): ?><div class="editor-write"><?php endif ?>
                 <textarea
                     data-richeditor-textarea
                     placeholder="<?= e(__($field->placeholder)) ?>"

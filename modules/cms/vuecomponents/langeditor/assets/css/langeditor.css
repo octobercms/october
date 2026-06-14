@@ -1,0 +1,15 @@
+div.lang-editor-search {
+    border-bottom: 1px solid var(--oc-primary-border);
+    background: var(--oc-callout-warning-bg);
+
+    input[type=text] {
+        padding: 10px 20px;
+        border: none;
+        outline: none;
+        background: transparent;
+        width: 100%;
+        display: block;
+        -webkit-appearance: none;
+        appearance: none;
+    }
+}

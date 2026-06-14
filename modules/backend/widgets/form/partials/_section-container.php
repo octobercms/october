@@ -1,7 +1,7 @@
 <div
     data-control="formwidget"
     data-refresh-handler="<?= $this->getEventHandler('onRefresh') ?>"
-    class="layout-row <?= $this->horizontalMode ? 'form-horizontal' : '' ?>"
+    class="form-contents d-flex flex-column flex-grow-1 <?= $this->horizontalMode ? 'form-horizontal' : '' ?>"
     role="form"
     id="<?= $this->getId($renderSection.'Container') ?>">
 

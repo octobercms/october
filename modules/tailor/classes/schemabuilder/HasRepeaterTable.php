@@ -45,6 +45,10 @@ trait HasRepeaterTable
             $table->integer('parent_id')->nullable();
         }
 
+        if (!in_array('site_root_id', $tableColumns)) {
+            $table->integer('site_root_id')->nullable()->index();
+        }
+
         // Increment actions
         if ($table->getColumns() || $table->getCommands()) {
             $this->defineTableComment($table);
@@ -65,6 +69,7 @@ trait HasRepeaterTable
         $table->mediumText('content_value')->nullable();
         $table->text('content_spawn_path')->nullable();
         $table->integer('parent_id')->nullable();
+        $table->integer('site_root_id')->nullable()->index();
         $table->integer('sort_order')->nullable();
         $table->timestamps();
         $table->index(['host_id', 'host_field'], $table->getTable().'_idx');

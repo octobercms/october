@@ -35,8 +35,8 @@
     </template>
 
     <template v-slot:content>
-        <div class="flex-layout-column fill-container">
-            <div class="flex-layout-item fix">
+        <div class="d-flex flex-column fill-container">
+            <div class="flex-shrink-0">
                 <transition name="cms-transition-component-list">
                     <cms-component-cmsobjectcomponentlist
                         v-if="hasVisibleComponents"
@@ -47,7 +47,7 @@
                     ></cms-component-cmsobjectcomponentlist>
                 </transition>
             </div>
-            <div class="flex-layout-item stretch editor-panel relative">
+            <div class="flex-fill position-relative editor-panel">
                 <backend-monacoeditor
                     ref="editor"
                     container-css-class="fill-container"

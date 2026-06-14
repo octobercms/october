@@ -28,8 +28,8 @@
     </template>
 
     <template v-slot:content>
-        <div class="flex-layout-column fill-container">
-            <div class="flex-layout-item stretch editor-panel relative">
+        <div class="d-flex flex-column fill-container">
+            <div class="flex-fill position-relative editor-panel">
                 <backend-monacoeditor
                     v-show="!isRicheditorDocument && !isMarkdownDocument"
                     ref="editor"
