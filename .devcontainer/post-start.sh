@@ -2,7 +2,9 @@
 set -euo pipefail
 
 cd /var/www/html
-eval "$(env -u APP_URL bash .devcontainer/configure-app-url.sh 2>/dev/null)"
+bash .devcontainer/configure-app-url.sh
+
+app_url="$(grep '^APP_URL=' .env | tail -n1 | cut -d= -f2- | tr -d '\r')"
 
 chmod -R ug+rwX storage bootstrap/cache database 2>/dev/null || true
 chown -R www-data:www-data storage bootstrap/cache 2>/dev/null || true
@@ -28,4 +30,4 @@ if ! $ready; then
     exit 1
 fi
 
-echo "October CMS is running at ${APP_URL}"
+echo "October CMS is running at ${app_url}"

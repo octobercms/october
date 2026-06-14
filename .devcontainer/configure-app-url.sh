@@ -3,7 +3,7 @@ set -euo pipefail
 
 cd /var/www/html
 
-[[ -f .env ]] || exit 0
+[[ -f .env ]] || exit 1
 
 forwarding_domain="${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN:-app.github.dev}"
 forwarding_domain="${forwarding_domain#.}"
@@ -17,10 +17,7 @@ else
 fi
 
 sed -i "s|^APP_URL=.*|APP_URL=${app_url}|" .env
-sed -i 's|^LINK_POLICY=.*|LINK_POLICY=force|' .env
 
 php artisan config:clear --quiet 2>/dev/null || true
 php artisan cache:clear --quiet 2>/dev/null || true
 php artisan config:cache --quiet 2>/dev/null || true
-
-echo "APP_URL=${app_url}"
