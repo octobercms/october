@@ -1,18 +1,15 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-app_port=80
-workspace="${containerWorkspaceFolder:-$(pwd)}"
-env_file="${workspace}/.env"
-web_log="${workspace}/storage/logs/web-server.log"
+web_log=storage/logs/web-server.log
 
 read_env_var() {
     local key=$1
-    grep "^${key}=" "${env_file}" 2>/dev/null | tail -n1 | cut -d= -f2- | tr -d '\r' || true
+    grep "^${key}=" .env 2>/dev/null | tail -n1 | cut -d= -f2- | tr -d '\r' || true
 }
 
-cd "${workspace}"
-env -u APP_URL bash "${workspace}/.devcontainer/configure-app-url.sh" >/dev/null
+cd /var/www/html
+env -u APP_URL bash .devcontainer/configure-app-url.sh >/dev/null
 
 app_url="$(read_env_var APP_URL)"
 link_policy="$(read_env_var LINK_POLICY)"
@@ -20,7 +17,7 @@ link_policy="$(read_env_var LINK_POLICY)"
 if [[ -n "${CODESPACE_NAME:-}" ]]; then
     forwarding_domain="${GITHUB_CODESPACES_PORT_FORWARDING_DOMAIN:-app.github.dev}"
     forwarding_domain="${forwarding_domain#.}"
-    app_url="${app_url:-https://${CODESPACE_NAME}-${app_port}.${forwarding_domain}}"
+    app_url="${app_url:-https://${CODESPACE_NAME}-80.${forwarding_domain}}"
     link_policy=force
 else
     app_url="${app_url:-http://127.0.0.1}"

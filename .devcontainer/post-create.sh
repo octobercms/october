@@ -1,12 +1,12 @@
 #!/usr/bin/env bash
 set -euo pipefail
 
-app_root="$(pwd)"
+cd /var/www/html
 
 [ -f .env ] || cp .env.example .env
 
 sed -i 's/^DB_CONNECTION=.*/DB_CONNECTION=sqlite/' .env
-sed -i "s|^DB_DATABASE=.*|DB_DATABASE=${app_root}/database/database.sqlite|" .env
+sed -i 's|^DB_DATABASE=.*|DB_DATABASE=/var/www/html/database/database.sqlite|' .env
 
 mkdir -p \
   database \
