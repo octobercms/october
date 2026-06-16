@@ -1,0 +1,16 @@
+{
+  "name": "October CMS",
+  "image": "ghcr.io/octobercms/runtime-dev:latest",
+  "workspaceMount": "source=${localWorkspaceFolder},target=/var/www/html,type=bind,consistency=cached",
+  "workspaceFolder": "/var/www/html",
+  "overrideCommand": true,
+  "forwardPorts": [80],
+  "portsAttributes": {
+    "80": {
+      "label": "October CMS",
+      "onAutoForward": "notify"
+    }
+  },
+  "postCreateCommand": ".devcontainer/post-create.sh",
+  "postStartCommand": ".devcontainer/post-start.sh"
+}
