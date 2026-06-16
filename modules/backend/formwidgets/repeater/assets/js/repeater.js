@@ -288,7 +288,7 @@ export class RepeaterFormWidgetBase extends ControlBase {
             .on('click', 'a', function (ev) {
                 // Defer 2 ticks for framework which is deferred 1 tick
                 setTimeout(function() {
-                    $(ev.target).trigger('close.oc.popover');
+                    oc.dispatch('close.oc.popover', { target: ev.target });
                 }, 2);
             })
             .on('ajaxSetup', '[data-repeater-add]', function(ev, context) {
@@ -454,12 +454,12 @@ export class RepeaterFormWidgetBase extends ControlBase {
     //
 
     initToolbarExtensionPoint() {
-        if (!this.config.externalToolbarAppState) {
+        if (!this.config.externalToolbarBus) {
             return;
         }
 
         const point = $.oc.vueUtils.getToolbarExtensionPoint(
-            this.config.externalToolbarAppState,
+            this.config.externalToolbarBus,
             this.$el.get(0)
         );
 

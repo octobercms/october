@@ -163,6 +163,7 @@ class ListStructure extends Lists
     {
         $this->sortColumn = null;
         $this->putSession('sort', null);
+        $this->putSession('show_structure', true);
         $this->init();
     }
 
@@ -191,6 +192,7 @@ class ListStructure extends Lists
         }
 
         // Disable structure when sorting
+        $this->putSession('show_structure', null);
         $this->disableStructure();
 
         return parent::onSort();
@@ -211,6 +213,20 @@ class ListStructure extends Lists
     protected function useSorting(): bool
     {
         return !$this->useStructure;
+    }
+
+    /**
+     * isUserSorting returns true when the user has chosen a sort column, or when
+     * a default sort is configured and the user has not explicitly opened the
+     * structure view.
+     */
+    public function isUserSorting(): bool
+    {
+        if (parent::isUserSorting()) {
+            return true;
+        }
+
+        return !$this->getSession('show_structure', empty($this->defaultSort));
     }
 
     /**

@@ -239,7 +239,7 @@ registerControl('media-manager', class extends ControlBase {
     //
 
     removeAttachedControls() {
-        this.$el.find('[data-control=toolbar]').toolbar('dispose');
+        this.$el.find('[data-control=toolbar]').dragScroll('dispose');
         this.$el.find('[data-media-sorting]').select2('destroy');
     }
 

@@ -1,0 +1,252 @@
+/*
+ * Filters
+ * --------------------------------------------------
+ */
+
+@import "_filter_checkbox.css";
+@import "_filter_dropdown.css";
+@import "_filter_inline.css";
+@import "_filter_group.css";
+@import "_filter_box.css";
+
+:root {
+    --oc-filter-text: var(--bs-secondary-color);
+    --oc-filter-text-active: var(--bs-emphasis-color);
+    --oc-filter-border: var(--bs-border-color);
+    --oc-filter-bg: var(--bs-body-bg);
+    --oc-filter-bg-active: var(--bs-success);
+    --oc-filter-items-bg-hover: var(--oc-selection);
+}
+
+.control-filter {
+    padding: 0 10px;
+    color: var(--oc-filter-text);
+    background-color: var(--oc-filter-bg);
+    border-top: 1px solid var(--oc-filter-border);
+    border-bottom: 1px solid var(--oc-filter-border);
+    font-size: 14px;
+
+    a {
+        text-decoration: none;
+        color: var(--oc-filter-text);
+    }
+
+    > .filter-setup {
+        padding: 6px 0;
+
+        > a {
+            > span {
+                margin-left: -2px;
+                margin-right: -2px;
+                display: block;
+                color: var(--oc-toolbar-color);
+                width: 24px;
+                height: 24px;
+                text-align: center;
+                border-radius: 3px;
+                > i {
+                    position: relative;
+                    top: 2px;
+                    font-size: 20px;
+                }
+            }
+
+            &:hover > span {
+                color: var(--oc-toolbar-hover-color);
+                background: var(--oc-toolbar-hover-bg);
+            }
+        }
+    }
+
+    > .filter-group {
+        display: inline-block;
+        vertical-align: middle;
+    }
+
+    > .filter-group > .filter-scope {
+        padding: 8px;
+        display: block;
+
+        .filter-label {
+            margin-right: 5px;
+        }
+
+        .filter-setting {
+            display: inline-block;
+            margin-right: 5px;
+            transition: color 0.6s;
+        }
+
+        &.loading-indicator-container.in-progress {
+            pointer-events: none;
+            cursor: default;
+
+            .loading-indicator {
+                background: transparent;
+
+                > span {
+                    left: unset;
+                    right: 0;
+                    top: 10px;
+                    background-color: var(--oc-filter-bg);
+                    border-radius: 50%;
+                    margin-top: 0;
+                    width: 20px;
+                    height: 20px;
+                    background-size: 15px 15px;
+                }
+            }
+        }
+
+        &:after {
+            font-size: 14px;
+            font-family: 'octo-icon' !important;
+            speak: none;
+            font-style: normal;
+            font-weight: normal;
+            font-variant: normal;
+            text-transform: none;
+            line-height: 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            content: "\f107";
+        }
+
+        &.active {
+            .filter-setting {
+                padding-left: 5px;
+                padding-right: 5px;
+                color: #FFF;
+                background-color: var(--oc-filter-bg-active);
+                border-radius: 4px;
+                transition: color 1s, background-color 1s;
+            }
+        }
+
+        &:hover, &.active {
+            color: var(--oc-filter-text-active);
+
+            .filter-label {
+                color: var(--oc-filter-text-active);
+            }
+
+            &.active .filter-setting {
+                background-color: var(--oc-filter-bg-active);
+            }
+        }
+    }
+
+    > .filter-group > .filter-has-popover {
+        display: inline-block;
+        padding: 10px;
+        .filter-setting {
+            display: inline-block;
+            transition: color 0.6s;
+        }
+
+        &:after {
+            font-size: 14px;
+            font-family: 'octo-icon' !important;
+            speak: none;
+            font-style: normal;
+            font-weight: normal;
+            font-variant: normal;
+            text-transform: none;
+            line-height: 1;
+            -webkit-font-smoothing: antialiased;
+            -moz-osx-font-smoothing: grayscale;
+            content: "\f107";
+        }
+
+        &.active {
+            .filter-setting {
+                padding-left: 5px;
+                padding-right: 5px;
+                color: #FFF;
+                background-color: var(--oc-filter-bg-active);
+                border-radius: 4px;
+                transition: color 1s, background-color 1s;
+            }
+        }
+
+        &:hover {
+            color: #000;
+            .filter-label {
+                color: var(--oc-filter-text);
+            }
+            &.active .filter-setting {
+                background-color: #79bf34;
+            }
+        }
+    }
+}
+
+.control-filter.is-loading {
+    cursor: wait;
+
+    > .filter-group {
+        pointer-events: none;
+        opacity: .7;
+    }
+
+    > .filter-setup {
+        > a {
+            opacity: 0;
+        }
+
+        &:after {
+            --loader-size: 20px;
+            content: '';
+            position: absolute;
+            left: 50%;
+            top: 50%;
+            width: var(--loader-size);
+            height: var(--loader-size);
+            margin-top: calc(var(--loader-size) / -2);
+            margin-left: calc(var(--loader-size) / -2);
+            border: 2px solid var(--oc-primary-border);
+            border-top-color: var(--oc-accent);
+            border-radius: 50%;
+            animation: spin 0.8s linear infinite;
+        }
+    }
+}
+
+.control-filter-popover {
+    min-width: 275px;
+
+    > .loading-indicator-container > .loading-indicator {
+        border-radius: 4px;
+
+        > span {
+            left: 10px;
+        }
+    }
+
+    /* Hide spinner on numbers */
+    input[type="number"] {
+        -moz-appearance: textfield;
+    }
+
+    input[type="number"]::-webkit-inner-spin-button,
+    input[type="number"]::-webkit-outer-spin-button {
+        -webkit-appearance: none;
+        margin: 0;
+    }
+
+    .filter-buttons {
+        border-top: 1px solid var(--oc-filter-border);
+        padding: 10px;
+        display: flex;
+        border-bottom-left-radius: 5px;
+        border-bottom-right-radius: 5px;
+
+        > div {
+            flex-grow: 1;
+        }
+
+        > .btn {
+            text-align: center;
+        }
+    }
+}

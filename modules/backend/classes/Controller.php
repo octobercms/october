@@ -536,16 +536,16 @@ class Controller extends Extendable implements AjaxControllerInterface
                 }
             }
             catch (ComponentNotFound $ex) {
-                throw new ApplicationException(Lang::get('backend::lang.widget.not_bound', ['name'=>$this->getAjaxRequest()->component]));
+                throw new SystemException(Lang::get('backend::lang.widget.not_bound', ['name'=>$this->getAjaxRequest()->component]));
+            }
+            catch (MassAssignmentException $ex) {
+                throw new SystemException(Lang::get('backend::lang.model.mass_assignment_failed', ['attribute' => $ex->getMessage()]));
             }
             catch (HandlerNameInvalid $ex) {
                 throw new ApplicationException(Lang::get('backend::lang.ajax_handler.invalid_name', ['name'=>$handler]));
             }
             catch (HandlerNotFound $ex) {
                 throw new ApplicationException(Lang::get('backend::lang.ajax_handler.not_found', ['name'=>e($handler)]));
-            }
-            catch (MassAssignmentException $ex) {
-                throw new ApplicationException(Lang::get('backend::lang.model.mass_assignment_failed', ['attribute' => $ex->getMessage()]));
             }
         }
         catch (ValidationException $ex) {

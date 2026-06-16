@@ -1,5 +1,6 @@
 <?php namespace Cms\Classes;
 
+use Site;
 use Lang;
 use BackendAuth;
 use SystemException;
@@ -22,6 +23,7 @@ class EditorExtension extends ExtensionBase
     use \Cms\Classes\EditorExtension\HasExtensionAssetsCrud;
     use \Cms\Classes\EditorExtension\HasIntellisense;
     use \Cms\Classes\EditorExtension\HasExtensionThemesState;
+    use \Cms\Classes\EditorExtension\HasExtensionLangsState;
     use \Cms\Classes\EditorExtension\HasExtensionThemeCrud;
     use \Cms\Classes\EditorExtension\HasExtensionExtensibility;
 
@@ -30,19 +32,22 @@ class EditorExtension extends ExtensionBase
     const DOCUMENT_TYPE_PARTIAL = 'cms-partial';
     const DOCUMENT_TYPE_CONTENT = 'cms-content';
     const DOCUMENT_TYPE_ASSET = 'cms-asset';
+    const DOCUMENT_TYPE_LANG = 'cms-lang';
 
     const ICON_COLOR_PAGE = '#6A6CF7';
     const ICON_COLOR_PARTIAL = '#9ACD43';
     const ICON_COLOR_LAYOUT = '#5FA75F';
     const ICON_COLOR_CONTENT = '#9D54A1';
     const ICON_COLOR_ASSET = '#E75252';
+    const ICON_COLOR_LANG = '#E0AC36';
 
     const DOCUMENT_TYPE_PERMISSIONS = [
         EditorExtension::DOCUMENT_TYPE_PAGE => ['editor.cms_pages'],
         EditorExtension::DOCUMENT_TYPE_PARTIAL => ['editor.cms_partials'],
         EditorExtension::DOCUMENT_TYPE_LAYOUT => ['editor.cms_layouts'],
         EditorExtension::DOCUMENT_TYPE_CONTENT => ['editor.cms_content'],
-        EditorExtension::DOCUMENT_TYPE_ASSET => ['editor.cms_assets']
+        EditorExtension::DOCUMENT_TYPE_ASSET => ['editor.cms_assets'],
+        EditorExtension::DOCUMENT_TYPE_LANG => ['editor.cms_langs']
     ];
 
     /**
@@ -113,12 +118,20 @@ class EditorExtension extends ExtensionBase
             'cms::lang.asset.upload_files',
             'cms::lang.asset.open',
             'cms::lang.asset.create_directory',
+            'cms::lang.lang.saved',
+            'cms::lang.lang.deleted',
+            'cms::lang.lang.key_column',
+            'cms::lang.lang.value_column',
+            'cms::lang.editor.lang',
             'cms::lang.editor.change_edit_theme',
             'cms::lang.editor.edit_theme_saved_changed_tabs',
             'cms::lang.theme.setting_edit_theme',
             'cms::lang.theme.edit_theme_changed',
             'backend::lang.form.save',
             'backend::lang.form.delete',
+            'backend::lang.form.insert_row',
+            'backend::lang.form.delete_row',
+            'backend::lang.list.search_prompt',
         ];
     }
 
@@ -141,6 +154,7 @@ class EditorExtension extends ExtensionBase
             \Cms\VueComponents\LayoutEditor::class,
             \Cms\VueComponents\ContentEditor::class,
             \Cms\VueComponents\AssetEditor::class,
+            \Cms\VueComponents\LangEditor::class,
             \Cms\VueComponents\CmsComponentListPopup::class
         ];
     }
@@ -198,6 +212,14 @@ class EditorExtension extends ExtensionBase
         }
 
         if (
+            Site::hasMultiSite() &&
+            EditorExtension::hasAccessToDocType($user, self::DOCUMENT_TYPE_LANG) &&
+            (!$documentType || $documentType === self::DOCUMENT_TYPE_LANG)
+        ) {
+            $this->addLangsNavigatorNodes($this->getTheme(), $cmsSection);
+        }
+
+        if (
             EditorExtension::hasAccessToDocType($user, self::DOCUMENT_TYPE_ASSET) &&
             (!$documentType || $documentType === self::DOCUMENT_TYPE_ASSET)
         ) {
@@ -224,6 +246,7 @@ class EditorExtension extends ExtensionBase
             'canManagePartials' => $user->hasAnyAccess(['editor.cms_partials']),
             'canManageContent' => $user->hasAnyAccess(['editor.cms_content']),
             'canManageAssets' => $user->hasAnyAccess(['editor.cms_assets']),
+            'canManageLangs' => Site::hasMultiSite() && $user->hasAnyAccess(['editor.cms_langs']),
             'editableAssetExtensions' => Asset::getEditableExtensions(),
             'databaseTemplatesEnabled' => $theme ? $theme->secondLayerEnabled() : false,
             'assetExtensionList' => $this->getAssetExtensionListInitialState(),
@@ -242,13 +265,19 @@ class EditorExtension extends ExtensionBase
      */
     public function getNewDocumentsData()
     {
-        return [
+        $data = [
             EditorExtension::DOCUMENT_TYPE_PAGE => $this->getCmsPageNewDocumentData(),
             EditorExtension::DOCUMENT_TYPE_PARTIAL => $this->getCmsPartialNewDocumentData(),
             EditorExtension::DOCUMENT_TYPE_LAYOUT => $this->getCmsLayoutNewDocumentData(),
             EditorExtension::DOCUMENT_TYPE_CONTENT => $this->getCmsContentNewDocumentData(),
-            EditorExtension::DOCUMENT_TYPE_ASSET => $this->getCmsAssetNewDocumentData()
+            EditorExtension::DOCUMENT_TYPE_ASSET => $this->getCmsAssetNewDocumentData(),
         ];
+
+        if (Site::hasMultiSite()) {
+            $data[EditorExtension::DOCUMENT_TYPE_LANG] = $this->getCmsLangNewDocumentData();
+        }
+
+        return $data;
     }
 
     /**
@@ -343,8 +372,15 @@ class EditorExtension extends ExtensionBase
             'editor.cms_assets' => [
                 'label' => 'cms::lang.editor.asset',
                 'document' => EditorExtension::DOCUMENT_TYPE_ASSET
-            ]
+            ],
         ];
+
+        if (Site::hasMultiSite()) {
+            $menuConfiguration['editor.cms_langs'] = [
+                'label' => 'cms::lang.editor.lang',
+                'document' => EditorExtension::DOCUMENT_TYPE_LANG
+            ];
+        }
 
         foreach ($menuConfiguration as $permission => $itemConfig) {
             if (!$user->hasAnyAccess([$permission])) {
@@ -379,5 +415,19 @@ class EditorExtension extends ExtensionBase
         }
 
         return $theme->getPath() . '/assets';
+    }
+
+    /**
+     * getLangsPath returns the lang path for a theme
+     * @param $theme Theme
+     * @return string
+     */
+    public function getLangsPath($theme = null)
+    {
+        if (!$theme) {
+            $theme = Theme::getActiveTheme();
+        }
+
+        return $theme->getPath() . '/lang';
     }
 }

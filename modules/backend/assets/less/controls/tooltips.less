@@ -1,15 +1,15 @@
 .october-tooltip {
     display: inline-block;
-    padding: @tooltip-padding;
+    padding: 4px 8px 5px;
     position: absolute;
-    border-radius: @tooltip-border-radius;
-    max-width: @tooltip-max-width;
+    border-radius: 4px;
+    max-width: 200px;
     transition: opacity 0.15s ease-out, transform 0.15s ease-out;
     transform: scale(1);
     opacity: 1;
-    color: @tooltip-color;
-    background: @tooltip-bg;
-    font-size: @tooltip-font-size;
+    color: #fff;
+    background: #536061;
+    font-size: 13px;
     line-height: 140%;
     z-index: @zindex-tooltip;
 
@@ -49,12 +49,12 @@
 
 #flotTip, #chart-tooltip {
     white-space: nowrap;
-    padding: @tooltip-padding;
-    background: @tooltip-bg;
+    padding: 4px 8px 5px;
+    background: #536061;
     position: absolute;
     z-index: @zindex-tooltip;
-    color: @tooltip-color;
-    border-radius: @tooltip-border-radius;
-    font-size: @tooltip-font-size;
-    opacity: @tooltip-opacity;
+    color: #fff;
+    border-radius: 4px;
+    font-size: 13px;
+    opacity: 1;
 }

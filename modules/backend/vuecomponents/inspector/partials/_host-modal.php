@@ -35,8 +35,10 @@
                     :live-mode="liveMode"
                     :unique-id="uniqueId"
                     :handler-alias="handlerAlias"
+                    :inspector-class="inspectorClass"
                     :layout-update-data="layoutUpdateData"
                     :read-only="readOnly"
+                    :enable-external-parameter-editor="enableExternalParameterEditor"
                     ref="inspector"
                 >
                 </backend-inspector>

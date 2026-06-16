@@ -1,12 +1,7 @@
 <li
-    class="flex-layout-item"
+    class=""
     :class="{'unknown': component.isUnknownComponent, 'inspector-enabled': component.inspectorEnabled}"
-    :data-inspectable="isInspectable"
-    :data-inspector-title="inspectorTitle"
-    :data-inspector-description="inspectorDescription"
-    :data-inspector-config="inspectorConfig"
-    :data-inspector-class="inspectorClass"
-    data-inspector-external-parameters="true"
+    @click="onComponentClick"
 >
     <div class="component-header">
         <i :class="componentIcon"></i>
@@ -22,11 +17,4 @@
         title="<?= e(trans('cms::lang.component.remove')) ?>"
         @click.stop.prevent="$emit('removecomponent')"
     ></button>
-
-    <input
-        type="hidden"
-        ref="component_properties"
-        data-inspector-values
-        v-bind:value="component.propertyValues"
-    />
 </li>

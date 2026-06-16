@@ -51,7 +51,7 @@
         </div>
     <?php endif ?>
 
-    <div class="layout-row p-b">
+    <div class="flex-grow-1 p-b">
         <?= $this->listRender() ?>
     </div>
 </div>

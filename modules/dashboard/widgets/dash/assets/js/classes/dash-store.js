@@ -63,16 +63,17 @@ export default class DashStore
     }
 
     setIntervalState(intervalState) {
-        this.setQueryParams(intervalState);
-        this.delegate.setIntervalRange();
+        const searchParams = this.setQueryParams(intervalState);
+        this.delegate.setIntervalRange(searchParams);
     }
 
     getEventHandler(name) {
         return this.state.alias + '::' + name;
     }
 
-    getQueryParam(name) {
-        return new URLSearchParams(window.location.search).get(name);
+    getQueryParam(name, searchParams = null) {
+        const params = searchParams || new URLSearchParams(window.location.search);
+        return params.get(name);
     }
 
     // setQueryParams where params can be an object or an instance of URLSearchParams
@@ -98,6 +99,8 @@ export default class DashStore
         else {
             history.replaceState(null, '', newUrl);
         }
+
+        return searchParams;
     }
 
     setDashboard(dashboard) {

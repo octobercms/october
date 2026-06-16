@@ -327,7 +327,7 @@
     // Global page chooser
     $(document).on('submit', 'form[data-list-page-chooser]', function(ev) {
         ev.preventDefault();
-        $(ev.target).trigger('close.oc.popover');
+        oc.dispatch('close.oc.popover', { target: ev.target });
 
         var $chooser = document.getElementById(ev.target.dataset.chooserId),
             $input = ev.target.querySelector('input[data-chooser-input]'),

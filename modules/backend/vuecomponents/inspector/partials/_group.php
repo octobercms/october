@@ -7,13 +7,19 @@
         <div :style="nameStyle">
             <span
                 v-text="nameAndValue"
-                class="backend-icon-background-pseudo"
+                class="group-name-text backend-icon-background-pseudo"
             ></span>
 
             <backend-loading-indicator v-if="loading"
                 size="tiny"
             ></backend-loading-indicator>
         </div>
+        <span
+            v-if="groupDescription"
+            class="property-description backend-icon-background-pseudo"
+            v-bind:data-tooltip-text="groupDescription"
+            @click.stop
+        ></span>
     </div>
     <transition name="group-fade-in">
         <backend-inspector-controlhost

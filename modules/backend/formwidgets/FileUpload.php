@@ -64,12 +64,10 @@ class FileUpload extends FormWidgetBase
     public $maxFiles;
 
     /**
-     * @var string Defines a mount point for the editor toolbar.
-     * Must include a module name that exports the Vue application and a state element name.
-     * Format: stateElementName
+     * @var string externalToolbarBus defines a mount point for the editor toolbar.
      * Only works in Vue applications and form document layouts.
      */
-    public $externalToolbarAppState = null;
+    public $externalToolbarBus = null;
 
     /**
      * @var array thumbOptions used for generating thumbnails
@@ -121,7 +119,7 @@ class FileUpload extends FormWidgetBase
             'thumbOptions',
             'useCaption',
             'deferredBinding',
-            'externalToolbarAppState'
+            'externalToolbarBus'
         ]);
 
         // @deprecated API
@@ -178,7 +176,7 @@ class FileUpload extends FormWidgetBase
         $this->vars['maxFiles'] = $this->maxFiles;
         $this->vars['cssDimensions'] = $this->getCssDimensions();
         $this->vars['useCaption'] = $this->useCaption;
-        $this->vars['externalToolbarAppState'] = $this->externalToolbarAppState;
+        $this->vars['externalToolbarBus'] = $this->externalToolbarBus;
     }
 
     /**

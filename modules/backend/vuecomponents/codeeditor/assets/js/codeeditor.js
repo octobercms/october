@@ -182,7 +182,7 @@ export default {
             var result = '';
 
             if (this.fullHeight) {
-                result += ' full-height-strict';
+                result += ' h-100';
             }
 
             result += ' ' + this.containerCssClass;

@@ -22,6 +22,11 @@ class RecordImport extends ImportModel
     public $rules = [];
 
     /**
+     * @var array fillable attributes for mass assignment
+     */
+    protected $fillable = ['update_existing'];
+
+    /**
      * defineListColumns
      */
     public function defineListColumns(ListElement $host)
@@ -148,6 +153,9 @@ class RecordImport extends ImportModel
             $relationModel = $model->makeRelation($attr);
             if ($relationModel instanceof RepeaterItem) {
                 $this->decodeRepeaterItems($model, $attr, $value, $sessionKey);
+            }
+            elseif ($relationModel instanceof \System\Models\File) {
+                $this->decodeFileRelation($model, $attr, $value, $sessionKey);
             }
             else {
                 $model->setRelationSimpleValue($attr, $value);

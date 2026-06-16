@@ -25,14 +25,13 @@ class DataTable extends FormWidgetBase
 
     /**
      * @var bool Allow rows to be sorted
-     * @todo Not implemented...
      */
     public $rowSorting = false;
 
     /**
-     * @var bool useLegacy uses legacy Table widget instead of Handsontable
+     * @var bool legacyMode uses legacy Table widget instead of Handsontable
      */
-    public $useLegacy = false;
+    public $legacyMode = false;
 
     //
     // Object Properties
@@ -63,12 +62,12 @@ class DataTable extends FormWidgetBase
      */
     protected function loadAssets()
     {
-        if ($this->useLegacy) {
+        if ($this->legacyMode) {
             return;
         }
 
-        $this->addCss('css/datatable-handsontable.css');
-        $this->addJs('js/datatable-handsontable.js', ['type' => 'module']);
+        $this->addCss('css/datatable.css');
+        $this->addJs('js/datatable.js', ['type' => 'module']);
     }
 
     /**
@@ -79,10 +78,10 @@ class DataTable extends FormWidgetBase
         $this->fillFromConfig([
             'size',
             'rowSorting',
-            'useLegacy',
+            'legacyMode',
         ]);
 
-        if ($this->useLegacy) {
+        if ($this->legacyMode) {
             $this->table = $this->makeLegacyTableWidget();
             $this->table->bindToController();
         }
@@ -98,7 +97,7 @@ class DataTable extends FormWidgetBase
     {
         $this->prepareVars();
 
-        if ($this->useLegacy) {
+        if ($this->legacyMode) {
             return $this->makePartial('datatable');
         }
 
@@ -110,7 +109,7 @@ class DataTable extends FormWidgetBase
      */
     public function prepareVars()
     {
-        if ($this->useLegacy) {
+        if ($this->legacyMode) {
             $this->prepareLegacyVars();
         }
         else {
@@ -171,6 +170,10 @@ class DataTable extends FormWidgetBase
             $column['width'] = (int) str_replace('px', '', $config['width']);
         }
 
+        if (!empty($config['ellipsis'])) {
+            $column['textEllipsis'] = true;
+        }
+
         $type = $config['type'] ?? 'string';
         $column = array_merge($column, $this->getTypeConfig($type, $config));
 
@@ -191,20 +194,28 @@ class DataTable extends FormWidgetBase
                 return ['type' => 'checkbox'];
 
             case 'dropdown':
-                $strict = ($config['strict'] ?? true) !== false;
+                // Strict picker: full list always shown, must pick one option.
                 $typeConfig = [
-                    'type' => $strict ? 'dropdown' : 'autocomplete',
-                    'strict' => $strict,
-                    'filter' => !$strict,
+                    'type' => 'dropdown',
+                    'strict' => true,
+                    'filter' => false,
                 ];
                 if (isset($config['options']) && is_array($config['options'])) {
-                    $typeConfig['source'] = array_values($config['options']);
-                    $typeConfig['_optionMap'] = $config['options'];
+                    $typeConfig['source'] = $this->buildOptionSource($config['options']);
                 }
                 return $typeConfig;
 
             case 'autocomplete':
-                return ['type' => 'autocomplete', 'strict' => false, 'filter' => true];
+                // Filter-as-you-type with free-text entry allowed.
+                $typeConfig = [
+                    'type' => 'autocomplete',
+                    'strict' => false,
+                    'filter' => true,
+                ];
+                if (isset($config['options']) && is_array($config['options'])) {
+                    $typeConfig['source'] = $this->buildOptionSource($config['options']);
+                }
+                return $typeConfig;
 
             case 'date':
                 return [
@@ -242,29 +253,52 @@ class DataTable extends FormWidgetBase
     }
 
     /**
+     * buildOptionSource converts a YAML {key: label} options map into the
+     * Handsontable {key, value} object source format.
+     */
+    protected function buildOptionSource(array $options): array
+    {
+        $source = [];
+        foreach ($options as $key => $value) {
+            $source[] = ['key' => $key, 'value' => $value];
+        }
+        return $source;
+    }
+
+    /**
      * buildOptions builds the global Handsontable configuration
      */
     protected function buildOptions(): array
     {
         $sorting = $this->formField->getConfig('sorting', false);
+        $reorderRows = $this->formField->getConfig('reorderRows', false);
+        $reorderColumns = $this->formField->getConfig('reorderColumns', false);
         $searching = $this->formField->getConfig('searching', false);
         $height = $this->formField->getConfig('height', false);
+        $placeholder = $this->formField->getConfig('placeholder', false);
 
         $options = [
-            'licenseKey' => 'non-commercial-and-evaluation',
-            'rowHeaders' => false,
+            'rowHeaders' => $reorderRows,
             'manualColumnResize' => true,
-            'manualRowMove' => $sorting,
+            'manualRowMove' => $reorderRows,
+            'manualColumnMove' => $reorderColumns,
+            'manualColumnFreeze' => $reorderColumns,
+            'columnSorting' => $sorting,
             'stretchH' => 'all',
             'preventOverflow' => 'horizontal',
             'autoWrapRow' => true,
             'autoWrapCol' => true,
             'undo' => true,
-            'minRows' => 1,
             'rowHeights' => 30,
             'height' => $height ?: 'auto',
             'search' => $searching,
         ];
+
+        if ($placeholder) {
+            $options['emptyDataState'] = ['message' => ['title' => Lang::get($placeholder)]];
+        } else {
+            $options['minRows'] = 1;
+        }
 
         return $options;
     }
@@ -303,7 +337,7 @@ class DataTable extends FormWidgetBase
      */
     public function getLoadValue()
     {
-        if ($this->useLegacy) {
+        if ($this->legacyMode) {
             return $this->getLegacyLoadValue();
         }
 
@@ -315,7 +349,7 @@ class DataTable extends FormWidgetBase
      */
     public function getSaveValue($value)
     {
-        if ($this->useLegacy) {
+        if ($this->legacyMode) {
             return $this->getLegacySaveValue($value);
         }
 

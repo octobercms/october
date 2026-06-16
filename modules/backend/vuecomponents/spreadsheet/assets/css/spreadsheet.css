@@ -1,0 +1,106 @@
+.component-backend-spreadsheet {
+    position: absolute;
+    left: 0;
+    top: 0;
+    width: 100%;
+    height: 100%;
+    overflow: hidden;
+
+    .handsontable thead th {
+        padding: 0;
+        font-weight: normal;
+        font-size: 14px;
+        color: var(--oc-heading-color);
+        background: var(--bs-tertiary-bg);
+        border-color: var(--bs-border-color);
+        white-space: nowrap;
+        overflow: hidden;
+        text-overflow: ellipsis;
+        border-top: none;
+
+        &:first-child {
+            border-left: none;
+        }
+
+        .relative {
+            padding: 7px 10px;
+        }
+    }
+
+    .handsontable td {
+        line-height: 28px;
+
+        &:first-of-type {
+            border-left: none;
+        }
+    }
+
+    .handsontableInput {
+        padding: 0 5px;
+        line-height: 28px;
+        color: var(--bs-body-color);
+        background-color: var(--oc-form-control-bg);
+    }
+
+    .handsontable {
+        tr {
+            background: var(--oc-form-control-bg);
+        }
+
+        th, td {
+            background-color: var(--oc-form-control-bg);
+            border-color: var(--bs-border-color);
+        }
+
+        th {
+            border-color: var(--bs-border-color);
+            background-color: var(--bs-tertiary-bg);
+            color: var(--oc-heading-color);
+        }
+
+        td.area:before {
+            background: var(--bs-primary);
+        }
+
+        .htDimmed {
+            color: var(--bs-secondary-color);
+        }
+
+        td.htSearchResult {
+            background-color: #f0ead0;
+        }
+
+        td.htSearchFocus {
+            background-color: var(--oc-callout-warning-bg);
+        }
+    }
+}
+
+.htContextMenu {
+    table.htCore {
+        border-color: var(--bs-border-color);
+    }
+
+    table tbody tr td {
+        background: var(--oc-form-control-bg);
+        color: var(--bs-body-color);
+
+        &.current,
+        &.zeroclipboard-is-hover {
+            background: var(--bs-tertiary-bg);
+        }
+
+        &.htSeparator {
+            border-top-color: var(--bs-border-color);
+        }
+
+        &.htDisabled {
+            color: var(--bs-secondary-color);
+
+            &:hover {
+                background: var(--oc-form-control-bg);
+                color: var(--bs-secondary-color);
+            }
+        }
+    }
+}

@@ -19,6 +19,10 @@ class Inspector
         $result = [];
 
         foreach ($properties as $name => $params) {
+            if (array_get($params, 'hidden', false)) {
+                continue;
+            }
+
             $property = [
                 'property' => $name,
                 'title' => array_get($params, 'title', $name),

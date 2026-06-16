@@ -74,11 +74,13 @@ export class InspectorHost {
                         size: options.size || 'normal',
                         uniqueId: uniqueId,
                         handlerAlias: options.handlerAlias,
+                        inspectorClass: options.inspectorClass,
                         resizableWidth: options.resizableWidth,
-                        liveMode: options.liveMode
+                        liveMode: options.liveMode,
+                        enableExternalParameterEditor: options.enableExternalParameterEditor || false
                     };
                 },
-                template: '<backend-inspector-host-modal :title="title" :description="description" :data-schema="dataSchema" :data="inspectorData" :button-text="buttonText" :size="size" :unique-id="uniqueId" :handler-alias="handlerAlias" :resizable-width="resizableWidth" :live-mode="liveMode" @beforeapply="onBeforeApply" @applyclick="onApplyClick" @close="onClose" />',
+                template: '<backend-inspector-host-modal ref="hostModal" :title="title" :description="description" :data-schema="dataSchema" :data="inspectorData" :button-text="buttonText" :size="size" :unique-id="uniqueId" :handler-alias="handlerAlias" :inspector-class="inspectorClass" :resizable-width="resizableWidth" :live-mode="liveMode" :enable-external-parameter-editor="enableExternalParameterEditor" @beforeapply="onBeforeApply" @applyclick="onApplyClick" @close="onClose" />',
                 methods: {
                     onBeforeApply(callbackHolder) {
                         if (options.beforeApplyCallback) {
@@ -87,7 +89,7 @@ export class InspectorHost {
                     },
                     onApplyClick() {
                         applyClicked = true;
-                        resolve();
+                        resolve(obj);
                     },
                     onClose() {
                         app.unmount();

@@ -36,7 +36,37 @@
         <div :class="{'inspector-control-container': !isFullWidth, 'no-property-title': !control.title && !control.description}">
             <div v-if="!isFullWidth" class="inspector-drag-handle"></div>
 
-            <?= $this->makePartial('controlhost-row-controls') ?>
+            <div
+                v-if="showExternalParamEditor"
+                class="external-param-editor-container"
+                :class="{'editor-visible': externalParamEditorVisible}"
+            >
+                <div class="external-param-normal-editor" v-show="!externalParamEditorVisible">
+                    <?= $this->makePartial('controlhost-row-controls') ?>
+                </div>
+                <div class="external-editor" v-show="externalParamEditorVisible">
+                    <input
+                        type="text"
+                        class="inspector-control"
+                        ref="externalParamInput"
+                        :value="externalParamValue"
+                        @input="onExternalParamInput"
+                        @focus="onExternalParamFocus"
+                        @blur="onExternalParamBlur"
+                        placeholder="<?= e(trans('backend::lang.inspector.enter_external_param')) ?>"
+                    />
+                </div>
+                <a
+                    href="javascript:;"
+                    class="external-editor-link"
+                    @click.stop.prevent="toggleExternalParamEditor"
+                    data-tooltip-text="<?= e(trans('backend::lang.inspector.external_param_tooltip')) ?>"
+                ><i class="ph ph-brackets-curly"></i></a>
+            </div>
+
+            <template v-if="!showExternalParamEditor">
+                <?= $this->makePartial('controlhost-row-controls') ?>
+            </template>
         </div>
     </td>
 </tr>

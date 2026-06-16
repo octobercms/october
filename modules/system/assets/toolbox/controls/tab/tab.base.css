@@ -150,6 +150,10 @@
                 &.layout-cell {
                    display: table-cell;
                 }
+
+                &.is-stretch {
+                    height: 100%;
+                }
             }
 
             &.pane-compact {

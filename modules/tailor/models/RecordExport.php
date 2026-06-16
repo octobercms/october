@@ -79,6 +79,9 @@ class RecordExport extends ExportModel
             if ($relationModel instanceof RepeaterItem) {
                 $value = $this->encodeRepeaterItems($model, $attr);
             }
+            elseif ($relationModel instanceof \System\Models\File) {
+                $value = $this->encodeFileRelation($model, $attr);
+            }
             else {
                 $value = $model->getRelationSimpleValue($attr);
             }

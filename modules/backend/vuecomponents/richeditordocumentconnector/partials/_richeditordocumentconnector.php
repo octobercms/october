@@ -1,9 +1,9 @@
 <div
-    class="component-backend-richeditor-document-connector flex-layout-column layout-absolute"
+    class="component-backend-richeditor-document-connector d-flex flex-column position-absolute"
     :class="cssClass"
     data-configuration="<?= e($configuration) ?>"
 >
-    <div v-if="allowResizing && !codeEditingMode" class="top-ruler flex-layout-item fix">
+    <div v-if="allowResizing && !codeEditingMode" class="top-ruler flex-shrink-0">
         <div class="width-indicator" :style="rulerStyle">
             <span v-for="tick in majorTicks" :style="tick.style" class="width-tick tick-major"></span>
             <span v-for="tick in minorTicks" :style="tick.style" class="width-tick tick-minor"></span>
@@ -11,10 +11,10 @@
             <div class="width-drag-handle" @mousedown.stop="onResizingHandleMouseDown" ref="handle"></div>
         </div>
     </div>
-    <div class="flex-layout-item stretch richeditor-container">
+    <div class="flex-fill richeditor-container">
         <slot></slot>
     </div>
-    <div class="flex-layout-item stretch relative codeeditor-container">
+    <div class="flex-fill position-relative codeeditor-container">
         <backend-monacoeditor
             v-if="codeEditingMode"
             ref="codeEditor"

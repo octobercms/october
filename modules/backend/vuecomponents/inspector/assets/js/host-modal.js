@@ -41,7 +41,15 @@ export default {
             type: String,
             required: false
         },
+        inspectorClass: {
+            type: String,
+            required: false
+        },
         resizableWidth: {
+            type: Boolean,
+            default: false
+        },
+        enableExternalParameterEditor: {
             type: Boolean,
             default: false
         }

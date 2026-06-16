@@ -1,5 +1,5 @@
-<div class="layout">
-    <div class="layout-cell oc-logo-transparent"></div>
+<div class="d-flex flex-column h-100">
+    <div class="flex-grow-1 oc-logo-transparent"></div>
 </div>
 
 <script>

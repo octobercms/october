@@ -1,11 +1,11 @@
-<div class="flex-layout-column full-height-strict editor-navigator">
-    <div class="flex-layout-item stretch relative">
+<div class="d-flex flex-column h-100 editor-navigator">
+    <div class="flex-fill position-relative">
         <backend-treeview
             aria-label="<?= __('Editor Objects') ?>"
             :sections="store.state.navigatorSections"
             :selected-unique-key="store.state.navigatorSelectedUniqueKey"
             :searchable="true"
-            :container-css-class="'layout-fill-container'"
+            :container-css-class="'fill-container'"
             :readonly="readonly"
             unique-key="editor-navigator"
             @nodeclick="onNodeClick"

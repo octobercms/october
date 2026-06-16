@@ -17,6 +17,11 @@ export default class Calendar
             endDate: end,
             opens: 'left',
             alwaysShowCalendars: true,
+            locale: {
+                applyLabel: oc.t("Apply"),
+                cancelLabel: oc.t("Cancel"),
+                customRangeLabel: oc.t("Custom Range")
+            },
             ranges: {
                 [oc.t("Today")]: [moment(), moment()],
                 [oc.t("This week")]: [moment().isoWeekday(1), moment()],

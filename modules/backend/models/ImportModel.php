@@ -1,5 +1,6 @@
 <?php namespace Backend\Models;
 
+use File;
 use Model;
 use ApplicationException;
 
@@ -13,24 +14,13 @@ abstract class ImportModel extends Model
 {
     use \Backend\Models\ImportModel\DecodesCsv;
     use \Backend\Models\ImportModel\DecodesJson;
+    use \Backend\Models\ImportModel\DecodesZip;
     use \October\Rain\Database\Traits\Validation;
 
     /**
      * @var array guarded attributes that aren't mass assignable.
      */
     protected $guarded = [];
-
-    /**
-     * isFillable always returns true since import models are transient containers
-     * for arbitrary user-supplied options. Subclasses (e.g. Tailor's RecordImport)
-     * populate `$fillable` with blueprint fields, which would otherwise flip
-     * Laravel's mass-assignment logic into strict mode and silently drop options
-     * like `update_existing`.
-     */
-    public function isFillable($key)
-    {
-        return true;
-    }
 
     /**
      * attachOne relations
@@ -149,7 +139,9 @@ abstract class ImportModel extends Model
     }
 
     /**
-     * getImportFilePath returns an attached imported file local path, if available
+     * getImportFilePath returns an attached imported file local path, if available.
+     * If the uploaded file is a ZIP archive, it will be extracted and the path
+     * to the data file inside will be returned.
      * @return string
      */
     public function getImportFilePath($sessionKey = null)
@@ -165,7 +157,14 @@ abstract class ImportModel extends Model
             return null;
         }
 
-        return $file->getLocalPath();
+        $localPath = $file->getLocalPath();
+
+        // Handle ZIP archive imports
+        if (strtolower($file->getExtension()) === 'zip') {
+            return $this->extractImportZip($localPath);
+        }
+
+        return $localPath;
     }
 
     /**

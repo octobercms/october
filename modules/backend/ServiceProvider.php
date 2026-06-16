@@ -42,19 +42,6 @@ class ServiceProvider extends ModuleServiceProvider
     }
 
     /**
-     * registerReportWidgets
-     */
-    public function registerReportWidgets()
-    {
-        return [
-            \Backend\ReportWidgets\Welcome::class => [
-                'label' => "Welcome",
-                'context' => 'dashboard'
-            ],
-        ];
-    }
-
-    /**
      * registerMailTemplates
      */
     public function registerMailTemplates()
@@ -206,6 +193,20 @@ class ServiceProvider extends ModuleServiceProvider
             \Backend\FilterWidgets\Date::class => 'date',
             \Backend\FilterWidgets\Text::class => 'text',
             \Backend\FilterWidgets\Number::class => 'number',
+        ];
+    }
+
+    /**
+     * registerFormDesigns
+     */
+    public function registerFormDesigns()
+    {
+        return [
+            \Backend\FormDesigns\BasicDesign::class => 'basic',
+            \Backend\FormDesigns\SurveyDesign::class => 'survey',
+            \Backend\FormDesigns\PopupDesign::class => 'popup',
+            \Backend\FormDesigns\SidebarDesign::class => 'sidebar',
+            \Backend\FormDesigns\DocumentDesign::class => 'document',
         ];
     }
 

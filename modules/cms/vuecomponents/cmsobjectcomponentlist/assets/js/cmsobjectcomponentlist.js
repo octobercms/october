@@ -35,9 +35,9 @@ export default {
                     continue;
                 }
 
-                var alias = eventData.values.values['oc.alias'];
+                var alias = eventData.values['oc.alias'];
                 if (this.components[index].alias == alias) {
-                    eventData.ev.preventDefault();
+                    eventData.prevented = true;
                     alert('The component alias "' + alias + '" is already used.');
                     return;
                 }

@@ -7,9 +7,9 @@
 
 <?php if (!$this->fatalError): ?>
 
-    <?= Form::open(['class'=>'layout']) ?>
+    <?= Form::open(['class'=>'d-flex flex-column h-100']) ?>
 
-        <div class="layout-row">
+        <div class="flex-grow-1">
             <?= $this->formRender() ?>
         </div>
 

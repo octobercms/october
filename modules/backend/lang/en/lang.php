@@ -436,4 +436,8 @@
     'browse' => 'Browse Media Library',
     'by_url' => 'By URL',
   ],
+  'inspector' => [
+    'enter_external_param' => 'Enter parameter name',
+    'external_param_tooltip' => 'Enter an external parameter name to load the property value from',
+  ],
 ];

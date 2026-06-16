@@ -166,7 +166,7 @@ trait HasTranslatable
         }
 
         // Currencyable: set currency context for the target site.
-        // Always call setCurrency — even for primary sites (no currency_id)
+        // Always call setCurrency, even for primary sites (no currency_id)
         // so the model's cached context is reset from the current page's currency.
         if (
             $model->isClassInstanceOf(\October\Contracts\Database\CurrencyableInterface::class) &&

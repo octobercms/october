@@ -7,7 +7,7 @@
         v-if="!loadingDynamicOptions"
         :options="options"
         :id="controlId"
-        :placeholder="control.placeholder"
+        :placeholder="control.placeholder || control.emptyOption"
         :tabindex="0"
         :disabled="inspectorPreferences.readOnly"
         :allow-empty="true"

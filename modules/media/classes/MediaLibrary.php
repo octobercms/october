@@ -101,7 +101,8 @@ class MediaLibrary
     {
         $folder = self::validatePath($folder);
 
-        // Try to load the contents from cache
+        // Try to load the contents from cache. MediaLibraryItem is allowlisted because
+        // scanFolderContents() stores instances of it directly in the cached structure.
         $cached = Cache::memo()->get($this->cacheKey, false);
         $cached = $cached ? @unserialize(@base64_decode($cached), ['allowed_classes' => [MediaLibraryItem::class]]) : [];
 

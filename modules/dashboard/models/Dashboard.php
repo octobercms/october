@@ -19,6 +19,10 @@ use Backend\Models\UserPreference;
  * @property string $owner_type
  * @property string $owner_field
  * @property string $definition
+ * @property string $default_start
+ * @property string $default_end
+ * @property string $default_interval
+ * @property string $default_compare
  * @property bool $is_global
  * @property bool $is_custom
  * @property int $updated_user_id
@@ -224,6 +228,10 @@ class Dashboard extends Model
             $dashboard->name = $definition['name'] ?? 'Unknown';
             $dashboard->icon = $definition['icon'] ?? 'icon-globe';
             $dashboard->is_interval_hidden = !($definition['showInterval'] ?? 1) ? 1 : 0;
+            $dashboard->default_start = $definition['defaultStart'] ?? null;
+            $dashboard->default_end = $definition['defaultEnd'] ?? null;
+            $dashboard->default_interval = $definition['defaultInterval'] ?? null;
+            $dashboard->default_compare = $definition['defaultCompare'] ?? null;
             $dashboard->forceSave();
         }
     }

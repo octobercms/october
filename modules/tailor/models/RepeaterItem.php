@@ -16,8 +16,15 @@ use SystemException;
 class RepeaterItem extends ExpandoModel
 {
     use \Tailor\Traits\DeferredContentModel;
+    use \October\Rain\Database\Traits\Multisite;
     use \October\Rain\Database\Traits\Sortable;
     use \October\Rain\Database\Traits\Validation;
+
+    /**
+     * @var array propagatable list of attributes to propagate to other sites.
+     * Populated dynamically based on non-translatable sub-fields.
+     */
+    protected $propagatable = [];
 
     /**
      * @var array rules for validation
@@ -71,11 +78,141 @@ class RepeaterItem extends ExpandoModel
     protected $isLazyLoadedRelation = [];
 
     /**
+     * @var bool multisiteEnabled for this repeater context.
+     * When false, the Multisite trait's global scope and lifecycle
+     * events become no-ops, so non-multisite repeaters are unaffected.
+     */
+    protected $multisiteEnabled = false;
+
+    /**
+     * @var array multisiteTranslatable sub-field names that are translatable (per-site)
+     */
+    protected $multisiteTranslatable = [];
+
+    /**
+     * @var string|null multisiteSyncConfig inherited from the parent model's
+     * blueprint at enableMultisite() time.
+     */
+    protected $multisiteSyncConfig;
+
+    /**
      * morphTo
      */
     public $morphTo = [
         'host' => []
     ];
+
+    /**
+     * isMultisiteEnabled overrides the Multisite trait default.
+     * Returns false unless explicitly enabled via enableMultisite().
+     */
+    public function isMultisiteEnabled()
+    {
+        return $this->multisiteEnabled;
+    }
+
+    /**
+     * isMultisiteSyncEnabled returns true when multisite is enabled.
+     * This allows processTranslatableAttributes to detect translatable
+     * fields (globe icon).
+     */
+    public function isMultisiteSyncEnabled()
+    {
+        return $this->multisiteEnabled;
+    }
+
+    /**
+     * getMultisiteConfig reads from the config inherited from the
+     * parent model's blueprint, not from a local $propagatableSync.
+     * 'delete' is always false, the parent's propagation handles
+     * orphan cleanup.
+     */
+    public function getMultisiteConfig($key, $default = null)
+    {
+        if ($key === 'delete') {
+            return false;
+        }
+
+        if ($key === 'structure') {
+            return false;
+        }
+
+        if ($key === 'sync') {
+            return $this->multisiteSyncConfig ?? $default;
+        }
+
+        return $default;
+    }
+
+    /**
+     * isAttributePropagatable checks if an attribute is propagatable.
+     * Uses the translatable field list for inversion: translatable fields
+     * are NOT propagatable, everything else IS propagatable.
+     */
+    public function isAttributePropagatable($attribute)
+    {
+        if (!$this->multisiteEnabled) {
+            return false;
+        }
+
+        return !in_array($attribute, $this->multisiteTranslatable);
+    }
+
+    /**
+     * enableMultisite activates multisite mode for this repeater context.
+     * Called from setBlueprintFieldConfig when the parent repeater field
+     * has translatable: sync.
+     *
+     * @param string|null $syncConfig The parent's multisite sync mode ('sync', 'locale', 'all', 'group')
+     */
+    public function enableMultisite(?string $syncConfig = null)
+    {
+        $this->multisiteEnabled = true;
+        $this->multisiteSyncConfig = $syncConfig;
+
+        $this->buildMultisiteFieldLists();
+
+        // Trigger the relation key rewriting that was deferred from
+        // initializeMultisite(). Only relations in $propagatable get
+        // their keys rewritten to site_root_id.
+        foreach ($this->propagatable as $name) {
+            if ($this->getRelationType($name)) {
+                $this->defineMultisiteRelation($name);
+            }
+        }
+    }
+
+    /**
+     * buildMultisiteFieldLists iterates the resolved fieldset once to populate
+     * both $propagatable (non-translatable) and $multisiteTranslatable lists.
+     */
+    protected function buildMultisiteFieldLists(): void
+    {
+        $this->propagatable = [];
+        $this->multisiteTranslatable = [];
+
+        foreach ($this->getContentFieldsetDefinition()->getAllFields() as $name => $field) {
+            if ($field->translatable) {
+                $this->multisiteTranslatable[] = $name;
+            }
+            else {
+                $this->propagatable[] = $name;
+            }
+        }
+    }
+
+    /**
+     * defineMultisiteRelations is overridden to defer execution.
+     * The Multisite trait calls this in initializeMultisite(), but
+     * RepeaterItem's relations aren't defined yet at that point,
+     * they come from extendWithBlueprint() which runs later.
+     */
+    protected function defineMultisiteRelations()
+    {
+        // No-op during initialization. Relation rewriting is deferred
+        // to enableMultisite() where we iterate $propagatable and call
+        // defineMultisiteRelation() for each relation field.
+    }
 
     /**
      * getTypeAttribute
@@ -156,6 +293,17 @@ class RepeaterItem extends ExpandoModel
         $this->getFieldsetDefinition()->applyModelExtensions($this);
 
         $this->isBlueprintExtended = true;
+
+        // After relations are defined, apply deferred multisite relation rewriting.
+        // For grouped repeaters, enableMultisite() runs before extendWithBlueprint()
+        // so relation rewriting was a no-op at that time.
+        if ($this->multisiteEnabled) {
+            foreach ($this->propagatable as $name) {
+                if ($this->getRelationType($name)) {
+                    $this->defineMultisiteRelation($name);
+                }
+            }
+        }
     }
 
     /**
@@ -193,10 +341,30 @@ class RepeaterItem extends ExpandoModel
             $this->extendWithBlueprint();
         }
 
+        // Enable multisite when parent uses translatable: sync (Scenario C)
+        if ($this->isParentMultisiteSync($parentModel, $fieldName)) {
+            $this->enableMultisite($parentModel->getMultisiteConfig('sync'));
+        }
+
         // Recursive implementation
         $this->bindEvent('model.newInstance', function($instance) use ($parentModel, $tableName, $fieldName, $fieldConfig, $useGroups) {
             $instance->setBlueprintFieldConfig($parentModel, $tableName, $fieldName, $fieldConfig, $useGroups);
         });
+    }
+
+    /**
+     * isParentMultisiteSync checks if the parent model has the multisiteSync
+     * flag set on this repeater's relation definition.
+     */
+    protected function isParentMultisiteSync($parentModel, string $fieldName): bool
+    {
+        if (!method_exists($parentModel, 'getRelationDefinition')) {
+            return false;
+        }
+
+        $definition = $parentModel->getRelationDefinition($fieldName);
+
+        return is_array($definition) && !empty($definition['multisiteSync']);
     }
 
     /**

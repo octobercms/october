@@ -1,0 +1,18 @@
+<div>
+    <backend-inspector-group
+        :group-name="control.title"
+        :group-description="control.description"
+        :obj="editedObject"
+        :controls="nestedControlProperties"
+        :splitter-data="splitterData"
+        :depth="depth"
+        :panel-update-data="panelUpdateData"
+        :group-value="groupValue"
+        :layout-update-data="layoutUpdateData"
+        :inspector-unique-id="inspectorUniqueId"
+        :inspector-preferences="inspectorPreferences"
+        :hide-bottom-border="true"
+        ref="group"
+    >
+    </backend-inspector-group>
+</div>

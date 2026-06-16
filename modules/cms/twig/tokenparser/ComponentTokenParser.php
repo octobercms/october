@@ -37,6 +37,14 @@ class ComponentTokenParser extends TwigTokenParser
 
             if ($current->test(TwigToken::NAME_TYPE)) {
                 $paramName = $current->getValue();
+
+                // Support hyphenated attribute names like `data-testid` and `aria-label`.
+                // Twig tokenizes them as NAME `-` NAME ..., so consume the pieces until `=`.
+                while ($stream->test(TwigToken::OPERATOR_TYPE, '-')) {
+                    $stream->next();
+                    $paramName .= '-' . $stream->expect(TwigToken::NAME_TYPE)->getValue();
+                }
+
                 $stream->expect(TwigToken::OPERATOR_TYPE, '=');
                 $nodes[$paramName] = $this->parser->parseExpression();
                 $paramNames[] = $paramName;

@@ -11,6 +11,10 @@ form: []
 # Model Class name
 modelClass: Tailor\Models\EntryRecord
 
+# Design
+design:
+    displayMode: document
+
 # Default redirect location
 defaultRedirect: tailor/entries
 

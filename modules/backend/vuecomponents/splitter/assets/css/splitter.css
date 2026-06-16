@@ -17,7 +17,7 @@
         }
     }
 
-    &.flex-layout-row {
+    &.splitter-vertical {
         /* Vertical splitter */
 
         > .splitter-handle {
@@ -40,7 +40,7 @@
         }
     }
 
-    &.flex-layout-column {
+    &.splitter-horizontal {
         /* Horizontal splitter */
 
         > .splitter-handle {

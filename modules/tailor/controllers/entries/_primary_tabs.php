@@ -1,4 +1,4 @@
-<div class="layout primary-tabs-container">
+<div class="flex-grow-1 d-flex flex-column primary-tabs-container">
     <?= $this->formRender([
         'section' => 'primary',
         'preview' => $initialState['isDeleted']

@@ -45,6 +45,7 @@ export default {
             type: Boolean
         },
         groupValue: String,
+        groupDescription: String,
         hideBottomBorder: Boolean
     },
     data: function () {

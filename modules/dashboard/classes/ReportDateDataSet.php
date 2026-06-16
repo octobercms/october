@@ -3,7 +3,7 @@
 use Dashboard\Classes\ReportDataSourceBase;
 use Carbon\CarbonPeriod;
 use Carbon\Carbon;
-use SystemException;
+use ApplicationException;
 use stdClass;
 
 /**
@@ -262,7 +262,7 @@ class ReportDateDataSet
             case ReportDataSourceBase::GROUP_INTERVAL_YEAR:
                 return $date->startOfYear()->toDateString();
             default:
-                throw new SystemException('Invalid interval: '.$interval);
+                throw new ApplicationException('Invalid interval: '.$interval);
         }
     }
 
@@ -288,7 +288,7 @@ class ReportDateDataSet
             $metricValue = $dataPoint->$columnName;
 
             if (!array_key_exists($columnName, $metricAggregateFunctions)) {
-                throw new SystemException('Invalid metric column name: '.$columnName);
+                throw new ApplicationException('Invalid metric column name: '.$columnName);
             }
 
             $aggregateFunction = $metricAggregateFunctions[$columnName];
@@ -308,7 +308,7 @@ class ReportDateDataSet
                         $aggregatedValue = $aggregatedValue === null ? $metricValue : $aggregatedValue + $metricValue;
                     break;
                 default:
-                    throw new SystemException('Invalid aggregate function: '.$aggregateFunction);
+                    throw new ApplicationException('Invalid aggregate function: '.$aggregateFunction);
             }
 
             $aggregationSet->$columnName = $aggregatedValue;

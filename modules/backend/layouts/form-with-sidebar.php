@@ -11,7 +11,7 @@
 
             <!-- Content -->
             <div class="flex-grow-1 position-relative">
-                <div class="padded-container layout">
+                <div class="padded-container h-100 d-flex flex-column">
                     <?= Block::placeholder('form-contents') ?>
                 </div>
             </div>

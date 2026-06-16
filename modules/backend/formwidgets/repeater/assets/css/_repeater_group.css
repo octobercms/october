@@ -1,0 +1,90 @@
+.field-repeater > .field-repeater-builder > .field-repeater-groups {
+    padding-top: 10px !important;
+}
+
+.field-repeater > .field-repeater-builder > ul > li.field-repeater-group {
+    position: relative;
+    min-height: 95px;
+    display: block;
+    background: var(--oc-repeater-item-bg);
+    border: 1px solid var(--bs-border-color);
+    border-radius: 4px;
+    box-shadow: none;
+    cursor: pointer;
+
+    &.is-placeholder {
+        padding: 15px 10px 0;
+    }
+
+    &.is-selected {
+        background: var(--oc-repeater-item-bg);
+    }
+
+    > .group-controls {
+        background: var(--oc-repeater-menu-bg);
+        padding: 5px;
+        padding-right: 3px;
+
+        display: flex;
+        flex-direction: column-reverse;
+        width: auto;
+        position: absolute;
+        right: 0;
+        top: 0;
+        bottom: 0;
+        border-bottom: none;
+        border-left: 1px solid var(--bs-border-color);
+        border-top-left-radius: 0;
+        border-top-right-radius: 4px;
+        border-bottom-right-radius: 4px;
+
+        .repeater-item-title {
+            display: none;
+        }
+
+        a.repeater-item-menu,
+        a.repeater-item-handle {
+            margin: 2px 0;
+        }
+
+        .repeater-item-checkbox {
+            flex-grow: 1;
+            .checkbox {
+                padding-left: 26px;
+            }
+        }
+    }
+
+    > .group-image > i {
+        position: absolute;
+        left: 11px;
+        top: 11px;
+        font-size: 20px;
+        color: var(--oc-toolbar-color);
+    }
+
+    > .group-title,
+    > .group-description {
+        display: block;
+        padding-left: 10px;
+        padding-right: 45px;
+    }
+
+    > .group-title {
+        padding-left: 40px;
+        padding-top: 10px;
+        color: var(--oc-toolbar-color);
+    }
+
+    > .group-description {
+        font-size: .875em;
+        padding-top: 10px;
+        padding-bottom: 10px;
+        color: #72809d;
+    }
+}
+
+/* Selected */
+.field-repeater > .field-repeater-builder > ul > li.field-repeater-group.is-selected {
+    border-color: var(--bs-primary);
+}

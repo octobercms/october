@@ -6,7 +6,7 @@
     data-thumbnail-height="<?= $imageHeight ?: '0' ?>"
     data-template="#<?= $this->getId('template') ?>"
     data-input-name="<?= $field->getName() ?>"
-    <?php if ($externalToolbarAppState): ?>data-external-toolbar-app-state="<?= e($externalToolbarAppState)?>"<?php endif ?>
+    <?php if ($externalToolbarBus): ?>data-external-toolbar-bus="<?= e($externalToolbarBus)?>"<?php endif ?>
     <?php if ($maxItems): ?>data-max-items="<?= $maxItems ?>"<?php endif ?>
     <?= $field->getAttributes() ?>
 >
@@ -14,7 +14,7 @@
         <img src="<?= Url::asset('/modules/backend/assets/images/no-files.svg') ?>"/>
     </div>
 
-    <div class="mediafinder-control-container <?= $externalToolbarAppState ? 'external-toolbar' : null ?>">
+    <div class="mediafinder-control-container <?= $externalToolbarBus ? 'external-toolbar' : null ?>">
         <div class="mediafinder-control-toolbar">
             <a href="javascript:;" class="backend-toolbar-button control-button toolbar-find-button">
                 <i class="icon-common-file-star"></i>

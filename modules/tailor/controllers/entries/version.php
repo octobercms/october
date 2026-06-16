@@ -10,11 +10,11 @@
 
         <?= $this->makePartial('form_history_links') ?>
 
-        <div class="layout-row min-size">
+        <div>
             <?= $this->formRenderOutsideFields() ?>
         </div>
 
-        <div class="layout-row" id="entryPrimaryTabs">
+        <div class="flex-grow-1" id="entryPrimaryTabs">
             <?= $this->formRenderPrimaryTabs() ?>
         </div>
 
@@ -36,7 +36,7 @@
     <?php Block::endPut() ?>
 
     <?php Block::put('body') ?>
-        <?= Form::open(['class'=>'layout stretch']) ?>
+        <?= Form::open(['class'=>'d-flex flex-column h-100']) ?>
             <?= $this->makeLayout('form-with-sidebar') ?>
         <?= Form::close() ?>
     <?php Block::endPut() ?>

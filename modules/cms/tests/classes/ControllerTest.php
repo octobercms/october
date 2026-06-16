@@ -129,6 +129,19 @@ class ControllerTest extends TestCase
         $this->assertEquals('<div>LAYOUT PARTIAL<p>Hey PAGE PARTIAL Homer Simpson The body value is "foobar" A partial</p></div>', $response);
     }
 
+    public function testPartialPropsHyphenatedAttributes()
+    {
+        // Hyphenated attribute names like `data-testid` and `aria-label` must be
+        // accepted at the partial call site and flow into the attributes bag.
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/with-props-attrs')->getContent();
+        $this->assertEquals(
+            '<div>LAYOUT PARTIAL<p><div class="card mt-4" data-testid="notice" aria-label="alert"><h2>Hi</h2>OK</div></p></div>',
+            $response
+        );
+    }
+
     public function testContent()
     {
         $theme = Theme::load('test');

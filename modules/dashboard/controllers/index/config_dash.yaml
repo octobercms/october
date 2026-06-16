@@ -125,37 +125,3 @@ system:
                     color: "#06b6d4"
                     displayTotals: true
                     displayRelativeBar: true
-
-# classic:
-#     name: Classic Dashboard
-#     icon: ph ph-airplane
-#     reports:
-#         welcome:
-#             row: 1
-#             width: 20
-#             title: Welcome
-#             type: Backend\ReportWidgets\Welcome
-
-#         system_status:
-#             row: 2
-#             width: 12
-#             title: System Status
-#             type: System\ReportWidgets\Status
-
-#         active_theme:
-#             row: 2
-#             width: 8
-#             title: Website
-#             type: Cms\ReportWidgets\ActiveTheme
-
-#         my_custom_vue_widget:
-#             title: My Custom Vue Widget
-#             row: 3
-#             width: 20
-#             type: October\Test\VueComponents\MyCustomWidget
-
-#         my_custom_widget:
-#             title: My Custom Widget
-#             row: 4
-#             width: 20
-#             type: October\Test\ReportWidgets\ClearCache

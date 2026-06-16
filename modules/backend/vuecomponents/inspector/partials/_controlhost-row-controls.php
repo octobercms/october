@@ -32,6 +32,7 @@
 <backend-inspector-control-autocomplete
     v-if="control.type == 'autocomplete'"
     :obj="obj"
+    :parent-obj="parentObj"
     :control="control"
     :control-id="controlEditorId"
     :inspector-preferences="inspectorPreferences"
@@ -45,6 +46,7 @@
 <backend-inspector-control-checkbox
     v-if="control.type == 'checkbox'"
     :obj="obj"
+    :parent-obj="parentObj"
     :control="control"
     :control-id="controlEditorId"
     :inspector-preferences="inspectorPreferences"
@@ -152,6 +154,40 @@
     @hidefullwidthlabel="controlLabelHidden = true"
     @hidebottomborder="bottomBorderHidden = true"
 ></backend-inspector-control-dictionary>
+
+<backend-inspector-control-stringlist
+    v-if="control.type == 'stringList'"
+    :obj="obj"
+    :parent-obj="parentObj"
+    :control="control"
+    :control-id="controlEditorId"
+    :inspector-preferences="inspectorPreferences"
+    :splitter-data="splitterData"
+    :inspector-unique-id="inspectorUniqueId"
+    :depth="depth"
+    :panel-update-data="panelUpdateData"
+    :layout-update-data="layoutUpdateData"
+    ref="editor"
+    @hidefullwidthlabel="controlLabelHidden = true"
+    @hidebottomborder="bottomBorderHidden = true"
+></backend-inspector-control-stringlist>
+
+<backend-inspector-control-stringlistautocomplete
+    v-if="control.type == 'stringListAutocomplete'"
+    :obj="obj"
+    :parent-obj="parentObj"
+    :control="control"
+    :control-id="controlEditorId"
+    :splitter-data="splitterData"
+    :panel-update-data="panelUpdateData"
+    :layout-update-data="layoutUpdateData"
+    :inspector-preferences="inspectorPreferences"
+    ref="editor"
+    @focus="onEditorFocus"
+    @blur="onEditorBlur"
+    @invalid="onEditorInvalid"
+    @valid="onEditorValid"
+></backend-inspector-control-stringlistautocomplete>
 
 <backend-inspector-control-mediafinder
     v-if="control.type == 'mediafinder'"

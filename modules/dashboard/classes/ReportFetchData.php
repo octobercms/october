@@ -195,8 +195,17 @@ class ReportFetchData
 
         switch ($widgetInterval) {
             case Dash::INTERVAL_TYPE_DASHBOARD:
-                $dateStart = Carbon::parse($dashboardDateStart);
-                $dateEnd = Carbon::parse($dashboardDateEnd);
+                $dateStart = $this->parseDashboardDate($dashboardDateStart);
+                $dateEnd = $this->parseDashboardDate($dashboardDateEnd);
+
+                if (!$dateStart || !$dateEnd) {
+                    $dateStart = Carbon::now()->startOfMonth();
+                    $dateEnd = Carbon::now();
+                }
+
+                if ($dateStart->greaterThan($dateEnd)) {
+                    [$dateStart, $dateEnd] = [$dateEnd, $dateStart];
+                }
                 break;
             case Dash::INTERVAL_TYPE_YEAR:
                 $dateStart = Carbon::now()->startOfYear();
@@ -229,6 +238,30 @@ class ReportFetchData
             $dateEnd,
             $startTimestamp
         ];
+    }
+
+    /**
+     * parseDashboardDate safely parses a dashboard date from the browser.
+     */
+    protected function parseDashboardDate(?string $value): ?Carbon
+    {
+        $value = trim((string) $value);
+        if ($value === '') {
+            return null;
+        }
+
+        try {
+            $date = Carbon::createFromFormat('!Y-m-d', $value);
+        }
+        catch (\Throwable $exception) {
+            return null;
+        }
+
+        if (!$date || $date->format('Y-m-d') !== $value) {
+            return null;
+        }
+
+        return $date;
     }
 
     /**
