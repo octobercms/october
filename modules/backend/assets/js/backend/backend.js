@@ -5,6 +5,7 @@
 // Security helper
 // Prevents front end service workers from leaking in to the backend
 //
+window.unregisterServiceWorkers = unregisterServiceWorkers;
 function unregisterServiceWorkers() {
     if (location.protocol === 'https:') {
         navigator.serviceWorker.getRegistrations().then(
@@ -15,6 +16,52 @@ function unregisterServiceWorkers() {
             }
         );
     }
+}
+
+// Service worker used to bust the ESM dependency graph cache,
+// A bump to the asset version invalidates every imported module
+//
+window.registerBackendServiceWorker = registerBackendServiceWorker;
+function registerBackendServiceWorker(workerUrl, scope) {
+    if (!('serviceWorker' in navigator)) {
+        return;
+    }
+
+    if (typeof window.isSecureContext === 'boolean' && !window.isSecureContext) {
+        return;
+    }
+
+    var workerOrigin = new URL(workerUrl, location.href).origin;
+    var workerPath = new URL(workerUrl, location.href).pathname;
+
+    navigator.serviceWorker.getRegistrations().then(function (registrations) {
+        var sweeps = [];
+        for (var i = 0; i < registrations.length; i++) {
+            var reg = registrations[i];
+            var regScope = new URL(reg.scope);
+
+            // Skip our own registration
+            var activeScript = (reg.active || reg.waiting || reg.installing || {}).scriptURL;
+            if (activeScript && new URL(activeScript).pathname === workerPath) {
+                continue;
+            }
+
+            // Skip workers on a different origin (shouldn't happen, but guard anyway)
+            if (regScope.origin !== workerOrigin) {
+                continue;
+            }
+
+            // Unregister any worker whose scope covers the backend scope
+            if (scope.indexOf(regScope.pathname) === 0) {
+                sweeps.push(reg.unregister({ immediate: true }));
+            }
+        }
+        return Promise.all(sweeps);
+    }).then(function () {
+        return navigator.serviceWorker.register(workerUrl, { scope: scope });
+    }).catch(function (err) {
+        console.warn('Backend service worker registration failed:', err);
+    });
 }
 
 

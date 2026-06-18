@@ -1,4 +1,4 @@
-<tr class="inspector-control-row" :class="{'has-errors': hasErrors, 'hide-bottom-border': bottomBorderHidden}" v-show="rowVisible">
+<tr class="inspector-control-row" :class="{'has-errors': hasErrors, 'hide-bottom-border': bottomBorderHidden}" v-show="isVisible">
     <th v-if="!isFullWidth && !controlLabelHidden" :style="titlePanelStyle">
         <div class="inspector-label-container" :class="{'has-description': control.description}">
             <label

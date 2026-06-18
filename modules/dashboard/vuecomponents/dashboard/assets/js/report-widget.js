@@ -23,6 +23,7 @@ export default {
             noData: false,
             menuItems: [],
             autoUpdateTimerId: null,
+            isInspecting: false,
 
             // Resizing
             columnsAvailableForWidget: null,
@@ -178,12 +179,18 @@ export default {
             const dataHolder = this.widget.configuration;
             const widgetImplementation = this.$refs.widgetImplementation;
 
-            dataHolder['_dash_definition'] = this.store.getCurrentDashboard().code;
+            const inspectorCopy = Vue.reactive(
+                Object.assign({}, Vue.toRaw(dataHolder), {
+                    _dash_definition: this.store.getCurrentDashboard().code
+                })
+            );
+
+            this.isInspecting = true;
 
             inspectorHost
                 .showModal(
                     oc.t("Configure"),
-                    dataHolder,
+                    inspectorCopy,
                     widgetImplementation.getSettingsConfiguration(),
                     'widget-configuration',
                     {
@@ -192,7 +199,17 @@ export default {
                         resizableWidth: true
                     }
                 )
-                .then($.noop, $.noop);
+                .then(
+                    () => {
+                        this.isInspecting = false;
+                        Object.assign(dataHolder, Vue.toRaw(inspectorCopy));
+                        delete dataHolder._dash_definition;
+                        this.load();
+                    },
+                    () => {
+                        this.isInspecting = false;
+                    }
+                );
         },
         isComponentRegistered: function(componentName) {
             return !!(window.oc && window.oc.vueComponents && window.oc.vueComponents[componentName]);
@@ -399,6 +416,10 @@ export default {
     watch: {
         configuration: {
             handler(newVal, oldVal) {
+                if (this.isInspecting) {
+                    return;
+                }
+
                 const widgetImplementation = this.$refs.widgetImplementation;
                 widgetImplementation.onConfigurationUpdated();
 

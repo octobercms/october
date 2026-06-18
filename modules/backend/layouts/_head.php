@@ -20,7 +20,6 @@
     <meta name="<?= $turboMeta['name'] ?>" content="<?= $turboMeta['content'] ?>" />
 <?php endforeach ?>
 <?php
-    $coreBuild = Backend::assetVersion();
     $vendorPath = Url::asset('modules/system/assets/vendor');
 ?>
 <script type="importmap">
@@ -38,18 +37,16 @@
     }
 }
 </script>
-<script src="<?= Url::asset('modules/system/assets/js/vendor.js') ?>?v<?= $coreBuild ?>"></script>
-<script src="<?= Url::asset('modules/system/assets/js/framework-bundle.min.js') ?>?v<?= $coreBuild ?>"></script>
-<script src="<?= Url::asset('modules/system/assets/js/foundation.js') ?>?v<?= $coreBuild ?>"></script>
-<script src="<?= Url::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js') ?>?v<?= $coreBuild ?>"></script>
-<script type="module" src="<?= Url::asset('modules/system/assets/js/main.js') ?>?v<?= $coreBuild ?>"></script>
-<script type="module" src="<?= Url::asset('modules/backend/assets/js/main.js') ?>?v<?= $coreBuild ?>"></script>
-<link href="<?= Url::asset('modules/system/assets/css/main.css') ?>?v<?= $coreBuild ?>" rel="stylesheet" />
-<link href="<?= Url::asset('modules/backend/assets/css/main.css') ?>?v<?= $coreBuild ?>" rel="stylesheet" />
+<script src="<?= Url::asset('modules/system/assets/js/vendor.js') ?>"></script>
+<script src="<?= Url::asset('modules/system/assets/js/framework-bundle.min.js') ?>"></script>
+<script src="<?= Url::asset('modules/system/assets/js/foundation.js') ?>"></script>
+<script src="<?= Url::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js') ?>"></script>
+<script type="module" src="<?= Url::asset('modules/system/assets/js/main.js') ?>"></script>
+<script type="module" src="<?= Url::asset('modules/backend/assets/js/main.js') ?>"></script>
+<link href="<?= Url::asset('modules/system/assets/css/main.css') ?>" rel="stylesheet" />
+<link href="<?= Url::asset('modules/backend/assets/css/main.css') ?>" rel="stylesheet" />
 
-<?php if (!Config::get('backend.enable_service_workers', false)): ?>
-    <script> oc.waitFor(() => window.unregisterServiceWorkers).then(() => unregisterServiceWorkers()) </script>
-<?php endif ?>
+<?= $this->makeLayoutPartial('service_worker') ?>
 
 <?= $this->makeAssets() ?>
 <?= Block::placeholder('head') ?>

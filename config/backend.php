@@ -224,4 +224,21 @@ return [
 
     'middleware_group' => 'web',
 
+    /*
+    |--------------------------------------------------------------------------
+    | Enable Service Workers
+    |--------------------------------------------------------------------------
+    |
+    | When enabled, the backend registers a service worker that propagates the
+    | current asset version across the entire ESM dependency graph, so a single
+    | version bump invalidates all imported modules (not just entry points).
+    |
+    | true  - service worker is registered
+    | false - service worker is unregistered (kill switch)
+    | null  - inverse of app.debug (off in dev, on in production)
+    |
+    */
+
+    'enable_service_workers' => null,
+
 ];

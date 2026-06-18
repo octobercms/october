@@ -164,6 +164,8 @@ export default {
             this.primaryButtonText = $(this.$el).attr('data-default-button-text');
         }
 
-        this.$refs.modal.show();
+        Vue.nextTick(() => {
+            this.$refs.modal.show();
+        });
     }
 };

@@ -19,6 +19,7 @@ use BadMethodCallException;
 abstract class ComponentBase extends Extendable implements ViewComponentInterface, CallsAnyMethod
 {
     use \System\Traits\AssetMaker;
+    use \System\Traits\DependencyMaker;
     use \System\Traits\EventEmitter;
     use \System\Traits\PropertyContainer;
     use \Larajax\Traits\ViewComponent;
@@ -226,7 +227,7 @@ abstract class ComponentBase extends Extendable implements ViewComponentInterfac
             return $event;
         }
 
-        $result = app()->call([$this, $handler]);
+        $result = $this->makeCallMethod($this, $handler);
 
         /**
          * @event cms.component.runAjaxHandler

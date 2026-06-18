@@ -89,6 +89,71 @@ function elementFromButton($button) {
 }
 
 /**
+ * elementFromDropdown converts an Ui::dropdownButton wrapper into a
+ * toolbar dropdown element. The wrapper is a `.dropdown` div containing
+ * the trigger button and a `<ul class="dropdown-menu">` of `<li><a>` items.
+ *
+ * Read attributes that the Ui::dropdownItem components emit:
+ *   data-request  → menuitem command: 'form:' + value
+ *   href          → menuitem href (for plain link items)
+ *   child <i>     → menuitem icon
+ */
+function elementFromDropdown($wrapper, $triggerButton) {
+    const element = {
+        type: 'dropdown',
+        menuitems: []
+    };
+
+    const label = $triggerButton.clone().children('i').remove().end().text().trim();
+    if (label) {
+        element.label = label;
+        element.tooltip = label;
+    }
+
+    const $triggerIcon = $triggerButton.find('i').first();
+    if ($triggerIcon.length) {
+        element.icon = $triggerIcon.attr('class');
+    }
+
+    $wrapper.find('.dropdown-menu li a').each(function () {
+        const $item = $(this);
+
+        const itemHandler = $item.attr('data-request');
+        const itemHref = $item.attr('href');
+        if (!itemHandler && (!itemHref || itemHref === 'javascript:;')) {
+            return;
+        }
+
+        const itemElement = {};
+        const itemLabel = $item.clone().children('i').remove().end().text().trim();
+        if (itemLabel) {
+            itemElement.label = itemLabel;
+        }
+
+        const $itemIcon = $item.find('i').first();
+        if ($itemIcon.length) {
+            itemElement.icon = $itemIcon.attr('class');
+        }
+
+        if (itemHandler) {
+            itemElement.command = 'form:' + itemHandler;
+        }
+
+        if (itemHref && itemHref !== 'javascript:;') {
+            itemElement.href = itemHref;
+            const target = $item.attr('target');
+            if (target) {
+                itemElement.target = target;
+            }
+        }
+
+        element.menuitems.push(itemElement);
+    });
+
+    return element.menuitems.length ? element : null;
+}
+
+/**
  * parseRequestDataString parses the framework's "key: value, key: value" syntax
  * (as emitted by Ui::ajaxButton's dataRequestData) into a plain object.
  * Falls back to JSON parse if the string looks like JSON.
@@ -231,10 +296,19 @@ class VueDocumentForm extends VueControlBase {
             return elements;
         }
 
-        const $children = $container.children();
+        // Walk descendants so wrapper <div>s emitted by partials don't hide
+        // sibling buttons. Order is document order, so toolbar layout follows
+        // the partial's source order regardless of nesting.
+        const $nodes = $container.find('button, a, .toolbar-divider, .button-separator');
 
-        $children.each(function () {
+        $nodes.each(function () {
             const $node = $(this);
+
+            // Skip nodes nested inside a dropdown menu — handled below when
+            // the dropdown trigger button is processed.
+            if ($node.closest('.dropdown-menu').length) {
+                return;
+            }
 
             if ($node.is('.toolbar-divider, .button-separator')) {
                 if (elements.length && elements[elements.length - 1].type !== 'separator') {
@@ -243,19 +317,27 @@ class VueDocumentForm extends VueControlBase {
                 return;
             }
 
-            const $button = $node.is('button, a') ? $node : $node.find('button, a').first();
-            if (!$button.length) {
+            // Detect an Ui::dropdownButton trigger and assemble its menuitems.
+            const $dropdownWrapper = $node.closest('.dropdown');
+            if ($dropdownWrapper.length && $node.attr('data-toggle') === 'dropdown') {
+                const dropdownElement = elementFromDropdown($dropdownWrapper, $node);
+                if (dropdownElement) {
+                    if ($node.hasClass('pull-right')) {
+                        dropdownElement.fixedRight = true;
+                    }
+                    elements.push(dropdownElement);
+                }
                 return;
             }
 
             // Cancel-style buttons have no handler and no href (or href="javascript:;") — skip.
-            const handler = $button.attr('data-request');
-            const href = $button.attr('href');
+            const handler = $node.attr('data-request');
+            const href = $node.attr('href');
             if (!handler && (!href || href === 'javascript:;')) {
                 return;
             }
 
-            const element = elementFromButton($button);
+            const element = elementFromButton($node);
             if (element) {
                 elements.push(element);
             }
