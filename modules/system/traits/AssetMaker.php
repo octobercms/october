@@ -1,11 +1,9 @@
 <?php namespace System\Traits;
 
-use App;
 use Html;
 use File;
 use Event;
 use Request;
-use Backend;
 use System\Classes\CombineAssets;
 
 /**
@@ -412,34 +410,12 @@ trait AssetMaker
     }
 
     /**
-     * Internal helper, attaches a build code to an asset path
-     * @param  array $asset Stored asset array
+     * getAssetEntryBuildPath is an internal marker that returns the asset path
      * @return string
      */
     protected function getAssetEntryBuildPath($asset)
     {
-        $path = $asset['path'];
-
-        // Has build and query string not already included
-        $useBuild = !empty($asset['attributes']['build']) &&
-            strpos($path, '?') === false;
-
-        if ($useBuild) {
-            $build = $asset['attributes']['build'];
-
-            if (!App::runningInBackend()) {
-                $build = '';
-            }
-            else {
-                $build = 'v' . Backend::assetVersion();
-            }
-
-            if (strlen($build)) {
-                $path .= '?' . $build;
-            }
-        }
-
-        return $path;
+        return $asset['path'];
     }
 
     /**
