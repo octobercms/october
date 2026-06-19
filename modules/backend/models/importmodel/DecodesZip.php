@@ -132,16 +132,14 @@ trait DecodesZip
 
         // ZIP import: paths starting with "files/" resolve from extracted ZIP
         if (str_starts_with($value, 'files/') && $this->importFilesPath) {
-            $path = $this->importFilesPath . '/' . $value;
-            if (file_exists($path)) {
+            if ($path = $this->safeResolvePath($this->importFilesPath, $value)) {
                 return $path;
             }
         }
 
         // Source prefix: theme seed context (e.g. "seeds/files/hero.jpg")
         if ($this->pathPrefix) {
-            $path = $this->pathPrefix . '/' . $value;
-            if (file_exists($path)) {
+            if ($path = $this->safeResolvePath($this->pathPrefix, $value)) {
                 return $path;
             }
         }
@@ -153,6 +151,31 @@ trait DecodesZip
         }
 
         return null;
+    }
+
+    /**
+     * safeResolvePath returns the resolved real path of $value joined to $base
+     * only if the result is contained within $base. Returns null otherwise.
+     * Prevents path traversal via .. segments or symlink escapes.
+     */
+    protected function safeResolvePath(string $base, string $value): ?string
+    {
+        $baseReal = realpath($base);
+        if ($baseReal === false) {
+            return null;
+        }
+
+        $pathReal = realpath($base . '/' . $value);
+        if ($pathReal === false) {
+            return null;
+        }
+
+        $baseReal = rtrim($baseReal, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR;
+        if (!str_starts_with($pathReal . DIRECTORY_SEPARATOR, $baseReal)) {
+            return null;
+        }
+
+        return $pathReal;
     }
 
     /**
