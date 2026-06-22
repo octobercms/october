@@ -12,11 +12,16 @@ forwarding_domain="${forwarding_domain#.}"
 # APP_URL from the environment or .env — it is often still http://localhost.
 if [[ -n "${CODESPACE_NAME:-}" ]]; then
     app_url="https://${CODESPACE_NAME}-80.${forwarding_domain}"
+    link_policy=force
 else
-    app_url="http://127.0.0.1"
+    # Local dev (Docker Desktop, OrbStack, Podman, etc.): generate URLs from the
+    # hostname you actually visit — localhost, *.orb.local, or a custom domain.
+    link_policy=detect
+    app_url="${DEVCONTAINER_PUBLIC_URL:-http://127.0.0.1}"
 fi
 
 sed -i "s|^APP_URL=.*|APP_URL=${app_url}|" .env
+sed -i "s|^LINK_POLICY=.*|LINK_POLICY=${link_policy}|" .env
 
 # Pick up the new APP_URL — config:cache avoids stale values on subsequent requests.
 php artisan config:clear --quiet 2>/dev/null || true
@@ -45,3 +50,7 @@ until curl -fsS http://127.0.0.1/_health >/dev/null 2>&1; do
 done
 
 echo "October CMS is running at ${app_url}"
+
+if [[ -z "${CODESPACE_NAME:-}" && "${app_url}" == "http://127.0.0.1" ]]; then
+    echo "Open http://localhost (port 80 is forwarded by the devcontainer)"
+fi
