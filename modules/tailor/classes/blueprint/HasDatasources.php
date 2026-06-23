@@ -109,7 +109,7 @@ trait HasDatasources
                         $path = $themes[$activeCode];
                         $theme = CmsTheme::load($activeCode);
                         $bpPath = $path . '/blueprints';
-                        if (file_exists($bpPath) || ($theme && ThemeBlueprints::usesDatabase($theme))) {
+                        if (file_exists($bpPath) || ($theme && ThemeBlueprints::usesDatabase($activeCode))) {
                             $result[$activeCode] = $bpPath;
                         }
                     }
@@ -142,7 +142,7 @@ trait HasDatasources
                 }
                 $theme = CmsTheme::load($code);
                 $bpPath = $path . '/blueprints';
-                if (file_exists($bpPath) || ($theme && ThemeBlueprints::usesDatabase($theme))) {
+                if (file_exists($bpPath) || ($theme && ThemeBlueprints::usesDatabase($code))) {
                     $result[$code] = $bpPath;
                 }
             }

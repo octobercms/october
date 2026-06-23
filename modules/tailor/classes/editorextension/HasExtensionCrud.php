@@ -165,10 +165,10 @@ trait HasExtensionCrud
         $newName = trim(ApiHelpers::assertGetKey($documentData, 'name'));
         $originalPath = trim(ApiHelpers::assertGetKey($documentData, 'originalPath'));
 
-        if ($this->themeBlueprintDatabaseEnabled()) {
+        if ($this->blueprintDatabaseEnabled()) {
             $parent = dirname($originalPath);
             $newPath = ($parent === '.' ? '' : $parent . '/') . $newName;
-            $this->renameDatabaseThemeBlueprint($originalPath, $newPath, $newName);
+            $this->renameDatabaseBlueprint($originalPath, $newPath, $newName);
             return;
         }
 
@@ -187,8 +187,8 @@ trait HasExtensionCrud
         $fileList = ApiHelpers::assertGetKey($documentData, 'files');
         ApiHelpers::assertIsArray($fileList);
 
-        if ($this->themeBlueprintDatabaseEnabled()) {
-            $this->deleteDatabaseThemeBlueprints($fileList);
+        if ($this->blueprintDatabaseEnabled()) {
+            $this->deleteDatabaseBlueprints($fileList);
             return;
         }
 
@@ -207,8 +207,8 @@ trait HasExtensionCrud
         $selectedList = ApiHelpers::assertGetKey($documentData, 'source');
         $destinationDir = ApiHelpers::assertGetKey($documentData, 'destination');
 
-        if ($this->themeBlueprintDatabaseEnabled()) {
-            $this->moveDatabaseThemeBlueprints($selectedList, $destinationDir);
+        if ($this->blueprintDatabaseEnabled()) {
+            $this->moveDatabaseBlueprints($selectedList, $destinationDir);
             return;
         }
 
@@ -223,19 +223,19 @@ trait HasExtensionCrud
         $this->assertBlueprintPermissions();
 
         $this->editorUploadFiles($this->getBlueprintsPath(), Blueprint::getAllowedExtensions());
-        $this->syncUploadedThemeBlueprint();
+        $this->syncUploadedBlueprint();
     }
 
     /**
-     * deleteDatabaseThemeBlueprints removes blueprints through the database layer
+     * deleteDatabaseBlueprints removes blueprints through the database layer
      */
-    protected function deleteDatabaseThemeBlueprints(array $fileList)
+    protected function deleteDatabaseBlueprints(array $fileList)
     {
         usort($fileList, function ($a, $b) {
             return strlen($b) - strlen($a);
         });
 
-        $theme = $this->getThemeForBlueprintCrud();
+        $source = $this->getBlueprintCrudSource();
 
         foreach ($fileList as $path) {
             if ($this->isBlueprintDirectory($path)) {
@@ -243,14 +243,14 @@ trait HasExtensionCrud
                 continue;
             }
 
-            ThemeBlueprints::delete($theme, $path);
+            ThemeBlueprints::delete($source, $path);
         }
     }
 
     /**
-     * renameDatabaseThemeBlueprint renames a blueprint through the database layer
+     * renameDatabaseBlueprint renames a blueprint through the database layer
      */
-    protected function renameDatabaseThemeBlueprint(string $originalPath, string $newPath, string $newName)
+    protected function renameDatabaseBlueprint(string $originalPath, string $newPath, string $newName)
     {
         if ($this->isBlueprintDirectory($originalPath)) {
             $this->renameBlueprintDirectory($originalPath, $newPath);
@@ -265,15 +265,15 @@ trait HasExtensionCrud
             ));
         }
 
-        ThemeBlueprints::rename($this->getThemeForBlueprintCrud(), $originalPath, $newPath);
+        ThemeBlueprints::rename($this->getBlueprintCrudSource(), $originalPath, $newPath);
     }
 
     /**
-     * moveDatabaseThemeBlueprints moves blueprints through the database layer
+     * moveDatabaseBlueprints moves blueprints through the database layer
      */
-    protected function moveDatabaseThemeBlueprints(array $selectedList, string $destinationDir)
+    protected function moveDatabaseBlueprints(array $selectedList, string $destinationDir)
     {
-        $theme = $this->getThemeForBlueprintCrud();
+        $source = $this->getBlueprintCrudSource();
 
         foreach ($selectedList as $path) {
             if ($this->isBlueprintDirectory($path)) {
@@ -281,7 +281,7 @@ trait HasExtensionCrud
                 continue;
             }
 
-            ThemeBlueprints::move($theme, $path, $destinationDir);
+            ThemeBlueprints::move($source, $path, $destinationDir);
         }
     }
 
@@ -300,12 +300,12 @@ trait HasExtensionCrud
      */
     protected function resolveBlueprintFilesystemPath(string $path): ?string
     {
-        $theme = $this->getThemeForBlueprintCrud();
-        if (!$theme) {
+        $root = $this->getBlueprintFilesystemRoot();
+        if (!$root) {
             return null;
         }
 
-        $fullPath = $theme->getPath() . '/blueprints/' . ltrim($path, '/');
+        $fullPath = $root . '/' . ltrim($path, '/');
 
         return File::exists($fullPath) ? $fullPath : null;
     }
@@ -342,8 +342,8 @@ trait HasExtensionCrud
     protected function renameBlueprintDirectory(string $originalPath, string $newPath)
     {
         $originalFullPath = $this->resolveBlueprintFilesystemPath($originalPath);
-        $theme = $this->getThemeForBlueprintCrud();
-        $newFullPath = $theme->getPath() . '/blueprints/' . ltrim($newPath, '/');
+        $root = $this->getBlueprintFilesystemRoot();
+        $newFullPath = $root . '/' . ltrim($newPath, '/');
 
         if (!$originalFullPath || !File::isDirectory($originalFullPath)) {
             return;
@@ -370,10 +370,10 @@ trait HasExtensionCrud
     protected function moveBlueprintDirectory(string $path, string $destinationDir)
     {
         $originalFullPath = $this->resolveBlueprintFilesystemPath($path);
-        $theme = $this->getThemeForBlueprintCrud();
+        $root = $this->getBlueprintFilesystemRoot();
         $destinationDir = trim($destinationDir, '/');
         $newPath = ($destinationDir === '' ? '' : $destinationDir . '/') . basename($path);
-        $newFullPath = $theme->getPath() . '/blueprints/' . $newPath;
+        $newFullPath = $root . '/' . $newPath;
 
         if (!$originalFullPath || !File::isDirectory($originalFullPath)) {
             return;
@@ -395,12 +395,12 @@ trait HasExtensionCrud
     }
 
     /**
-     * syncUploadedThemeBlueprint registers an uploaded blueprint in the database layer
+     * syncUploadedBlueprint registers an uploaded blueprint in the database layer
      */
-    protected function syncUploadedThemeBlueprint()
+    protected function syncUploadedBlueprint()
     {
-        $theme = $this->getThemeForBlueprintCrud();
-        if (!$theme || !ThemeBlueprints::usesDatabase($theme)) {
+        $source = $this->getBlueprintCrudSource();
+        if (!$source || !ThemeBlueprints::usesDatabase($source)) {
             return;
         }
 
@@ -412,36 +412,72 @@ trait HasExtensionCrud
         $destinationDir = trim(Request::input('destination'), '/');
         $fileName = $uploadedFile->getClientOriginalName();
         $blueprintPath = trim($destinationDir . '/' . $fileName, '/');
-        $diskPath = $theme->getPath() . '/blueprints/' . $blueprintPath;
+        $diskPath = $this->getBlueprintFilesystemRoot() . '/' . $blueprintPath;
 
         if (!File::isFile($diskPath)) {
             return;
         }
 
-        ThemeBlueprints::write($theme, $blueprintPath, File::get($diskPath));
+        ThemeBlueprints::write($source, $blueprintPath, File::get($diskPath));
         File::delete($diskPath);
     }
 
     /**
-     * themeBlueprintDatabaseEnabled checks if theme blueprint CRUD should use the database
+     * blueprintDatabaseEnabled checks if blueprint CRUD should use the database
      */
-    protected function themeBlueprintDatabaseEnabled(): bool
+    protected function blueprintDatabaseEnabled(): bool
     {
-        $theme = $this->getThemeForBlueprintCrud();
+        $source = $this->getBlueprintCrudSource();
 
-        return $theme && ThemeBlueprints::usesDatabase($theme);
+        return $source && ThemeBlueprints::usesDatabase($source);
     }
 
     /**
-     * getThemeForBlueprintCrud returns the theme for theme blueprint file operations
+     * getBlueprintCrudSource returns the database source for the current blueprint request
      */
-    protected function getThemeForBlueprintCrud(): ?Theme
+    protected function getBlueprintCrudSource(): ?string
     {
-        if (!System::hasModule('Cms') || !$this->isThemeBlueprintDocument()) {
-            return null;
+        if ($this->isThemeBlueprintDocument()) {
+            $theme = Theme::getEditTheme() ?: Theme::getActiveTheme();
+
+            return $theme?->getDirName();
         }
 
-        return Theme::getEditTheme() ?: Theme::getActiveTheme();
+        if ($this->isAppBlueprintDocument()) {
+            return ThemeBlueprints::APP_SOURCE;
+        }
+
+        return null;
+    }
+
+    /**
+     * getBlueprintFilesystemRoot returns the filesystem root for the current blueprint request
+     */
+    protected function getBlueprintFilesystemRoot(): ?string
+    {
+        $source = $this->getBlueprintCrudSource();
+
+        if ($source === ThemeBlueprints::APP_SOURCE) {
+            return base_path('app/blueprints');
+        }
+
+        if ($source && System::hasModule('Cms')) {
+            $theme = Theme::load($source);
+
+            return $theme ? $theme->getPath() . '/blueprints' : null;
+        }
+
+        return null;
+    }
+
+    /**
+     * isAppBlueprintDocument checks if the current request is for an app blueprint
+     */
+    protected function isAppBlueprintDocument(): bool
+    {
+        $type = post('documentType', post('documentMetadata[documentType]'));
+
+        return $type === EditorExtension::DOCUMENT_TYPE_BLUEPRINT;
     }
 
     /**

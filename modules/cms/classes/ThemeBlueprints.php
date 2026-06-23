@@ -3,13 +3,15 @@
 use App;
 use Db;
 use File;
+use Config;
 use October\Rain\Halcyon\Datasource\DbDatasource;
 
 /**
- * ThemeBlueprints provides database storage for theme blueprint YAML files
+ * ThemeBlueprints provides database storage for blueprint YAML files
  *
  * Blueprints are stored in the shared `cms_theme_files` table with content,
- * using paths prefixed with `blueprints/`. This is enabled by CMS_DB_FILES only.
+ * using paths prefixed with `blueprints/`. App blueprints use source `app`;
+ * theme blueprints use the theme directory name. Enabled by CMS_DB_FILES only.
  *
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
@@ -17,9 +19,9 @@ use October\Rain\Halcyon\Datasource\DbDatasource;
 class ThemeBlueprints
 {
     /**
-     * @var string TABLE for theme blueprint records
+     * @var string APP_SOURCE database source identifier for app blueprints
      */
-    const TABLE = 'cms_theme_files';
+    const APP_SOURCE = 'app';
 
     /**
      * @var string PREFIX for blueprint paths in the database
@@ -27,30 +29,40 @@ class ThemeBlueprints
     const PREFIX = 'blueprints';
 
     /**
-     * usesDatabase checks if theme blueprints should be stored in the database
+     * usesDatabase checks if blueprints for a source should be stored in the database
      */
-    public static function usesDatabase(Theme $theme): bool
+    public static function usesDatabase(string $source): bool
     {
-        return $theme->databaseFilesEnabled() && App::hasDatabase();
+        if (!App::hasDatabase()) {
+            return false;
+        }
+
+        if ($source === static::APP_SOURCE) {
+            return (bool) Config::get('cms.database_files', false);
+        }
+
+        $theme = Theme::load($source);
+
+        return $theme && $theme->databaseFilesEnabled();
     }
 
     /**
-     * has checks if a blueprint exists in any datasource layer
+     * has checks if a blueprint exists in the database layer
      */
-    public static function has(Theme $theme, string $fileName): bool
+    public static function has(string $source, string $fileName): bool
     {
         [$dirName, $name, $extension] = static::parseFileName($fileName);
 
-        return static::getDatasource($theme)->hasTemplate($dirName, $name, $extension);
+        return static::getDatasource($source)->hasTemplate($dirName, $name, $extension);
     }
 
     /**
      * read returns blueprint content and metadata
      */
-    public static function read(Theme $theme, string $fileName): ?array
+    public static function read(string $source, string $fileName): ?array
     {
         [$dirName, $name, $extension] = static::parseFileName($fileName);
-        $result = static::getDatasource($theme)->selectOne($dirName, $name, $extension);
+        $result = static::getDatasource($source)->selectOne($dirName, $name, $extension);
 
         return $result ?: null;
     }
@@ -58,10 +70,10 @@ class ThemeBlueprints
     /**
      * write stores blueprint content in the database layer
      */
-    public static function write(Theme $theme, string $fileName, string $content): void
+    public static function write(string $source, string $fileName, string $content): void
     {
         [$dirName, $name, $extension] = static::parseFileName($fileName);
-        $datasource = static::getDatasource($theme);
+        $datasource = static::getDatasource($source);
 
         if ($datasource->hasTemplate($dirName, $name, $extension)) {
             $datasource->update($dirName, $name, $extension, $content);
@@ -74,16 +86,16 @@ class ThemeBlueprints
     /**
      * delete removes a blueprint through the datasource
      */
-    public static function delete(Theme $theme, string $fileName): void
+    public static function delete(string $source, string $fileName): void
     {
         [$dirName, $name, $extension] = static::parseFileName($fileName);
-        static::getDatasource($theme)->delete($dirName, $name, $extension);
+        static::getDatasource($source)->delete($dirName, $name, $extension);
     }
 
     /**
      * rename moves a blueprint to a new file name
      */
-    public static function rename(Theme $theme, string $oldFileName, string $newFileName): void
+    public static function rename(string $source, string $oldFileName, string $newFileName): void
     {
         $oldFileName = ltrim(File::normalizePath($oldFileName), '/');
         $newFileName = ltrim(File::normalizePath($newFileName), '/');
@@ -94,7 +106,7 @@ class ThemeBlueprints
 
         [$oldDir, $oldName, $oldExt] = static::parseFileName($oldFileName);
         [$newDir, $newName, $newExt] = static::parseFileName($newFileName);
-        $datasource = static::getDatasource($theme);
+        $datasource = static::getDatasource($source);
 
         $result = $datasource->selectOne($oldDir, $oldName, $oldExt);
         if (!$result) {
@@ -116,29 +128,29 @@ class ThemeBlueprints
     /**
      * move moves a blueprint to a new directory
      */
-    public static function move(Theme $theme, string $oldFileName, string $destinationDir): void
+    public static function move(string $source, string $oldFileName, string $destinationDir): void
     {
         $oldFileName = ltrim(File::normalizePath($oldFileName), '/');
         $destinationDir = trim(File::normalizePath($destinationDir), '/');
         $fileName = basename($oldFileName);
         $newFileName = $destinationDir === '' ? $fileName : $destinationDir . '/' . $fileName;
 
-        static::rename($theme, $oldFileName, $newFileName);
+        static::rename($source, $oldFileName, $newFileName);
     }
 
     /**
      * isTrashed checks if a blueprint has been tombstoned in the database layer
      */
-    public static function isTrashed(Theme $theme, string $fileName): bool
+    public static function isTrashed(string $source, string $fileName): bool
     {
-        if (!static::usesDatabase($theme)) {
+        if (!static::usesDatabase($source)) {
             return false;
         }
 
         $path = static::PREFIX . '/' . ltrim(File::normalizePath($fileName), '/');
 
-        return Db::table(static::TABLE)
-            ->where('source', $theme->getDirName())
+        return Db::table('cms_theme_files')
+            ->where('source', $source)
             ->where('path', $path)
             ->whereNotNull('content')
             ->whereNotNull('deleted_at')
@@ -148,9 +160,9 @@ class ThemeBlueprints
     /**
      * listAtPath returns blueprint entries at a path for navigator merging
      */
-    public static function listAtPath(Theme $theme, string $filterPath = ''): array
+    public static function listAtPath(string $source, string $filterPath = ''): array
     {
-        if (!static::usesDatabase($theme)) {
+        if (!static::usesDatabase($source)) {
             return [];
         }
 
@@ -159,8 +171,8 @@ class ThemeBlueprints
             $prefix .= trim($filterPath, '/') . '/';
         }
 
-        $paths = Db::table(static::TABLE)
-            ->where('source', $theme->getDirName())
+        $paths = Db::table('cms_theme_files')
+            ->where('source', $source)
             ->whereNotNull('content')
             ->whereNull('deleted_at')
             ->where('path', 'like', $prefix . '%')
@@ -181,7 +193,7 @@ class ThemeBlueprints
                 $entries[$first] = [
                     'fileName' => $first,
                     'isFolder' => 0,
-                    'isEditable' => in_array(strtolower(pathinfo($first, PATHINFO_EXTENSION)), ['yaml', 'yml'], true),
+                    'isEditable' => strtolower(pathinfo($first, PATHINFO_EXTENSION)) === 'yaml',
                     'path' => $filterPath === '' ? $first : trim($filterPath, '/') . '/' . $first,
                 ];
             }
@@ -199,6 +211,24 @@ class ThemeBlueprints
     }
 
     /**
+     * getLatestMtime returns the latest updated_at timestamp for a blueprint source
+     */
+    public static function getLatestMtime(string $source): ?int
+    {
+        if (!static::usesDatabase($source)) {
+            return null;
+        }
+
+        $dbMtime = Db::table('cms_theme_files')
+            ->where('source', $source)
+            ->where('path', 'like', static::PREFIX . '/%')
+            ->whereNotNull('content')
+            ->max('updated_at');
+
+        return $dbMtime ? strtotime($dbMtime) : null;
+    }
+
+    /**
      * parseFileName splits a blueprint-relative file name into datasource segments
      */
     public static function parseFileName(string $fileName): array
@@ -207,15 +237,15 @@ class ThemeBlueprints
     }
 
     /**
-     * getDatasource returns the Halcyon datasource for theme blueprints
+     * getDatasource returns the Halcyon datasource for blueprints
      */
-    public static function getDatasource(Theme $theme)
+    public static function getDatasource(string $source)
     {
         $resolver = App::make('halcyon');
-        $key = $theme->getDirName() . '-blueprints';
+        $key = $source . '-blueprints';
 
         if (!$resolver->hasDatasource($key)) {
-            $resolver->addDatasource($key, new DbDatasource($theme->getDirName(), static::TABLE));
+            $resolver->addDatasource($key, new DbDatasource($source, 'cms_theme_files'));
         }
 
         return $resolver->datasource($key);

@@ -2,7 +2,6 @@
 
 use App;
 use File;
-use Db;
 use System;
 use Cms\Classes\Theme;
 use Cms\Classes\ThemeBlueprints;
@@ -202,13 +201,19 @@ class BlueprintIndexer
             return;
         }
 
-        if (!file_exists(app_path('blueprints'))) {
+        if (!file_exists(app_path('blueprints')) && !ThemeBlueprints::usesDatabase(ThemeBlueprints::APP_SOURCE)) {
             return;
         }
 
         // Checking recursive mtime of app directory
         $currentMtime = 0;
-        $mtime = File::lastModifiedRecursive(app_path('blueprints'));
+        $mtime = file_exists(app_path('blueprints'))
+            ? File::lastModifiedRecursive(app_path('blueprints'))
+            : 0;
+
+        if ($appDbMtime = ThemeBlueprints::getLatestMtime(ThemeBlueprints::APP_SOURCE)) {
+            $mtime = max($mtime, $appDbMtime);
+        }
 
         // Checking mtime of theme directory
         if (System::hasModule('Cms')) {
@@ -219,16 +224,8 @@ class BlueprintIndexer
                     $mtime = max($mtime, File::lastModifiedRecursive($themePath));
                 }
 
-                if (ThemeBlueprints::usesDatabase($theme)) {
-                    $dbMtime = Db::table(ThemeBlueprints::TABLE)
-                        ->where('source', $theme->getDirName())
-                        ->where('path', 'like', ThemeBlueprints::PREFIX . '/%')
-                        ->whereNotNull('content')
-                        ->max('updated_at');
-
-                    if ($dbMtime) {
-                        $mtime = max($mtime, strtotime($dbMtime));
-                    }
+                if ($themeDbMtime = ThemeBlueprints::getLatestMtime($theme->getDirName())) {
+                    $mtime = max($mtime, $themeDbMtime);
                 }
             }
         }
