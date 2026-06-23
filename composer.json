@@ -4,9 +4,15 @@
     "type": "project",
     "homepage": "https://octobercms.com",
     "license": "proprietary",
+    "repositories": [
+        {
+            "type": "git",
+            "url": "https://github.com/scottbedard/library.git"
+        }
+    ],
     "require": {
         "php": "^8.2",
-        "october/rain": "^4.3",
+        "october/rain": "dev-cms-db-files",
         "laravel/framework": "^12.0"
     },
     "require-dev": {
