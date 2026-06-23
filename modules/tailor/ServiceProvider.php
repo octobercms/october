@@ -120,7 +120,7 @@ class ServiceProvider extends ModuleServiceProvider
             return [
                 [
                     'uri' => Url::asset('modules/tailor/assets/js/blueprint-yaml-schema.json'),
-                    'fileMatch' => ['*-blueprint.yaml']
+                    'fileMatch' => ['*-blueprint.yaml', '*-blueprint.yml']
                 ]
             ];
         });

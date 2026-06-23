@@ -110,7 +110,10 @@ trait HasExtensionState
                 return;
             }
 
-            $blueprints = Blueprint::inDatasource($theme->getPath() . '/blueprints');
+            $blueprints = Blueprint::inDatasource(
+                $theme->getPath() . '/blueprints',
+                $theme->getDirName()
+            );
         }
 
         $blueprints = $blueprints->get([

@@ -18,16 +18,6 @@ use October\Rain\Halcyon\Datasource\AutoDatasource;
 class ThemeFiles
 {
     /**
-     * @var string TABLE for theme file metadata
-     */
-    const TABLE = 'cms_theme_files';
-
-    /**
-     * @var string ROUTE_PREFIX for serving stored theme files locally
-     */
-    const ROUTE_PREFIX = 'cms/theme-files';
-
-    /**
      * has checks if a theme-relative file path exists in any datasource layer
      */
     public static function has(Theme $theme, string $relativePath): bool
@@ -67,7 +57,7 @@ class ThemeFiles
 
         $relativePath = ltrim(File::normalizePath($relativePath), '/');
 
-        return Db::table(static::TABLE)
+        return Db::table('cms_theme_files')
             ->where('source', $theme->getDirName())
             ->where('path', $relativePath)
             ->whereNull('content')
@@ -100,7 +90,7 @@ class ThemeFiles
             return rtrim($publicBase, '/') . '/' . $theme->getDirName() . '/' . ltrim($relativePath, '/');
         }
 
-        return Url::to(static::ROUTE_PREFIX . '/' . $theme->getDirName() . '/' . ltrim($relativePath, '/'));
+        return Url::to('cms/theme-files/' . $theme->getDirName() . '/' . ltrim($relativePath, '/'));
     }
 
     /**
@@ -183,11 +173,10 @@ class ThemeFiles
     {
         $oldRelativePath = ltrim(File::normalizePath($oldRelativePath), '/');
         $destinationDir = trim(File::normalizePath($destinationDir), '/');
+        $topDir = strtok($oldRelativePath, '/');
         $fileName = basename($oldRelativePath);
-        $assetPath = $destinationDir === '' ? $fileName : $destinationDir . '/' . $fileName;
-        $newRelativePath = str_starts_with($assetPath, 'assets/')
-            ? $assetPath
-            : 'assets/' . $assetPath;
+        $newInner = $destinationDir === '' ? $fileName : $destinationDir . '/' . $fileName;
+        $newRelativePath = $topDir . '/' . $newInner;
 
         static::rename($theme, $oldRelativePath, $newRelativePath);
     }

@@ -395,7 +395,7 @@ class ThemeManager
             return;
         }
 
-        $templates = Db::table(ThemeFiles::TABLE)
+        $templates = Db::table('cms_theme_files')
             ->where('source', $srcDirName)
             ->whereNotNull('content')
             ->get();
@@ -416,7 +416,7 @@ class ThemeManager
      */
     public function purgeDatabaseTemplates(string $dirName)
     {
-        Db::table(ThemeFiles::TABLE)
+        Db::table('cms_theme_files')
             ->where('source', $dirName)
             ->whereNotNull('content')
             ->delete();
@@ -437,7 +437,7 @@ class ThemeManager
             return;
         }
 
-        $files = Db::table(ThemeFiles::TABLE)
+        $files = Db::table('cms_theme_files')
             ->where('source', $srcDirName)
             ->whereNull('content')
             ->get();
@@ -463,7 +463,7 @@ class ThemeManager
      */
     public function purgeDatabaseFiles(string $dirName)
     {
-        Db::table(ThemeFiles::TABLE)
+        Db::table('cms_theme_files')
             ->where('source', $dirName)
             ->whereNull('content')
             ->delete();

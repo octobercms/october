@@ -5,6 +5,9 @@ use Arr;
 use File;
 use Yaml;
 use Lang;
+use System;
+use Cms\Classes\Theme as CmsTheme;
+use Cms\Classes\ThemeBlueprints;
 use Cms\Helpers\File as FileHelper;
 use October\Rain\Extension\Extendable;
 use DirectoryIterator;
@@ -56,7 +59,7 @@ class Blueprint extends Extendable
     /**
      * @var array allowedExtensions for template files
      */
-    protected $allowedExtensions = ['yaml'];
+    protected $allowedExtensions = ['yaml', 'yml'];
 
     /**
      * @var bool exists indicates if the model exists.
@@ -112,12 +115,26 @@ class Blueprint extends Extendable
     }
 
     /**
+     * getAllowedExtensions returns allowed blueprint file extensions
+     */
+    public static function getAllowedExtensions(): array
+    {
+        return ['yaml', 'yml'];
+    }
+
+    /**
      * getMtimeByName
      */
     public static function getMtimeByName(string $fileName): ?int
     {
         $obj = new static;
         $obj->validateFileName($fileName);
+
+        if ($obj->usesThemeDatabaseBlueprints()) {
+            $result = ThemeBlueprints::read($obj->getThemeForDatabaseBlueprints(), $fileName);
+
+            return $result['mtime'] ?? null;
+        }
 
         $filePath = $obj->getFilePath($fileName);
         if (!file_exists($filePath)) {
@@ -233,11 +250,16 @@ class Blueprint extends Extendable
         ], $options));
 
         $pathSuffix = $filterPath ? '/'.$filterPath : '';
-        $path = $this->getBasePath().$pathSuffix;
-        $files = $this->getInternal($path);
+        $files = $this->datasourceTheme
+            ? $this->collectBlueprintsAtPath($pathSuffix)
+            : $this->getInternal($this->getBasePath().$pathSuffix);
 
         $templates = [];
         foreach ($files as $template) {
+            if ($this->usesThemeDatabaseBlueprints() && !$template['isFolder'] && $this->isBlueprintTrashed($template['path'])) {
+                continue;
+            }
+
             if ($recursive && $template['isFolder'] && $template['fileName']) {
                 $newFilter = $pathSuffix ? $pathSuffix.'/'.$template['fileName'] : $template['fileName'];
 
@@ -278,7 +300,7 @@ class Blueprint extends Extendable
     /**
      * getInternal helps the get method
      */
-    protected function getInternal(string $path): array
+    protected function getInternal(string $path, ?string $basePath = null): array
     {
         if (!file_exists($path)) {
             return [];
@@ -299,7 +321,7 @@ class Blueprint extends Extendable
 
             $fileName = $fileInfo->getFileName();
             $isFolder = $fileInfo->isDir();
-            $filePath = $this->getRelativePath($fileInfo->getPathname());
+            $filePath = $this->getRelativePath($fileInfo->getPathname(), $basePath);
             $isEditable = in_array(strtolower($fileInfo->getExtension()), $this->allowedExtensions);
 
             $template = [
@@ -316,20 +338,110 @@ class Blueprint extends Extendable
     }
 
     /**
+     * collectBlueprintsAtPath merges theme filesystem and database blueprint listings
+     */
+    protected function collectBlueprintsAtPath(string $pathSuffix): array
+    {
+        $theme = $this->getThemeForDatabaseBlueprints();
+        if (!$theme) {
+            return [];
+        }
+
+        $themeBpPath = $theme->getPath() . '/blueprints';
+        $files = $this->getInternal($themeBpPath.$pathSuffix, $themeBpPath);
+
+        if (ThemeBlueprints::usesDatabase($theme)) {
+            $filterPath = ltrim($pathSuffix, '/');
+            $databaseFiles = ThemeBlueprints::listAtPath($theme, $filterPath);
+            $files = $this->mergeBlueprintListings($files, $databaseFiles);
+        }
+
+        if ($parentTheme = $theme->getParentTheme()) {
+            $parentBpPath = $parentTheme->getPath() . '/blueprints';
+            $files = array_merge($files, $this->getInternal($parentBpPath.$pathSuffix, $parentBpPath));
+        }
+
+        return $files;
+    }
+
+    /**
+     * mergeBlueprintListings combines listings with the override winning on path conflicts
+     */
+    protected function mergeBlueprintListings(array $base, array $override): array
+    {
+        return collect($base)
+            ->keyBy('path')
+            ->merge(collect($override)->keyBy('path'))
+            ->values()
+            ->all();
+    }
+
+    /**
+     * usesThemeDatabaseBlueprints checks if theme blueprints are stored in the database
+     */
+    protected function usesThemeDatabaseBlueprints(): bool
+    {
+        if (!$this->datasourceTheme || !System::hasModule('Cms')) {
+            return false;
+        }
+
+        $theme = $this->getThemeForDatabaseBlueprints();
+
+        return $theme && ThemeBlueprints::usesDatabase($theme);
+    }
+
+    /**
+     * getThemeForDatabaseBlueprints returns the theme for database blueprint storage
+     */
+    protected function getThemeForDatabaseBlueprints(): ?CmsTheme
+    {
+        if (!$this->datasourceTheme || !System::hasModule('Cms')) {
+            return null;
+        }
+
+        return CmsTheme::load($this->datasourceTheme);
+    }
+
+    /**
+     * isBlueprintTrashed checks if a blueprint path is tombstoned in the database
+     */
+    protected function isBlueprintTrashed(string $blueprintPath): bool
+    {
+        $theme = $this->getThemeForDatabaseBlueprints();
+
+        return $theme && ThemeBlueprints::isTrashed($theme, $blueprintPath);
+    }
+
+    /**
      * find a single template by its file name.
      */
     public function find(string $fileName)
     {
         $this->validateFileName($fileName);
 
-        $filePath = $this->getFilePath($fileName);
-        if (($content = @File::get($filePath)) === false) {
-            return null;
+        $content = null;
+        $mtime = null;
+
+        if ($this->usesThemeDatabaseBlueprints()) {
+            $result = ThemeBlueprints::read($this->getThemeForDatabaseBlueprints(), $fileName);
+            if ($result) {
+                $content = $result['content'];
+                $mtime = $result['mtime'];
+            }
+        }
+
+        if ($content === null) {
+            $filePath = $this->getFilePath($fileName);
+            if (($content = @File::get($filePath)) === false) {
+                return null;
+            }
+
+            $mtime = File::lastModified($filePath);
         }
 
         $this->fileName = $fileName;
         $this->originalFileName = $fileName;
-        $this->mtime = File::lastModified($filePath);
+        $this->mtime = $mtime;
         $this->content = $content;
         $this->exists = true;
 
@@ -452,6 +564,37 @@ class Blueprint extends Extendable
             $this->validate();
         }
 
+        if ($this->usesThemeDatabaseBlueprints()) {
+            $theme = $this->getThemeForDatabaseBlueprints();
+
+            if ($this->originalFileName !== $fileName && ThemeBlueprints::has($theme, $fileName)) {
+                throw new ApplicationException(Lang::get(
+                    'cms::lang.cms_object.file_already_exists',
+                    ['name'=>$fileName]
+                ));
+            }
+
+            if (!$this->uuid) {
+                $this->uuid = Str::uuid()->toString();
+                $newContent = 'uuid: ' . $this->uuid . PHP_EOL;
+                $newContent .= $this->content;
+                $this->content = $newContent;
+            }
+
+            ThemeBlueprints::write($theme, $fileName, $this->content);
+
+            if (strlen($this->originalFileName) && $this->originalFileName !== $fileName) {
+                ThemeBlueprints::delete($theme, $this->originalFileName);
+            }
+
+            $result = ThemeBlueprints::read($theme, $fileName);
+            $this->mtime = $result['mtime'] ?? time();
+            $this->originalFileName = $fileName;
+            $this->exists = true;
+
+            return;
+        }
+
         if (File::isFile($fullPath) && $this->originalFileName !== $fileName) {
             throw new ApplicationException(Lang::get(
                 'cms::lang.cms_object.file_already_exists',
@@ -525,9 +668,16 @@ class Blueprint extends Extendable
     public function delete()
     {
         $fileName = $this->fileName;
-        $fullPath = $this->getFilePath($fileName);
 
         $this->validateFileName($fileName);
+
+        if ($this->usesThemeDatabaseBlueprints()) {
+            ThemeBlueprints::delete($this->getThemeForDatabaseBlueprints(), $fileName);
+
+            return;
+        }
+
+        $fullPath = $this->getFilePath($fileName);
 
         if (File::exists($fullPath)) {
             if (!@File::delete($fullPath)) {
@@ -718,9 +868,9 @@ class Blueprint extends Extendable
     /**
      * getRelativePath returns path relative to the theme template directory
      */
-    protected function getRelativePath(string $path): string
+    protected function getRelativePath(string $path, ?string $basePath = null): string
     {
-        $prefix = $this->getBasePath();
+        $prefix = rtrim($basePath ?? $this->getBasePath(), '/');
 
         if (substr($path, 0, strlen($prefix)) === $prefix) {
             $path = substr($path, strlen($prefix));

@@ -8,7 +8,6 @@ use BackendAuth;
 use Cms\Models\ThemeLog;
 use Cms\Models\ThemeData;
 use Cms\Classes\Theme;
-use Cms\Classes\ThemeFiles;
 use Cms\Classes\ThemeFileController;
 use Cms\Classes\CmsObject;
 use Cms\Classes\Page as CmsPage;
@@ -67,7 +66,7 @@ class ServiceProvider extends ModuleServiceProvider
     protected function bootThemeFileRoutes()
     {
         Event::listen('cms.beforeRoute', function () {
-            Route::get(ThemeFiles::ROUTE_PREFIX . '/{themeDir}/{filePath}', [ThemeFileController::class, 'show'])
+            Route::get('cms/theme-files/{themeDir}/{filePath}', [ThemeFileController::class, 'show'])
                 ->where('filePath', '.*')
                 ->middleware(Config::get('cms.middleware_group', 'web'));
         });

@@ -605,7 +605,7 @@ class Theme implements CallsMethods
         if ($this->databaseFilesEnabled()) {
             $datasources[] = new StorageFileDatasource(
                 $this->dirName,
-                ThemeFiles::TABLE,
+                'cms_theme_files',
                 ThemeFiles::getStoragePath($this),
                 App::make('files')
             );
@@ -654,7 +654,7 @@ class Theme implements CallsMethods
 
         // Database layer
         if ($this->databaseLayerEnabled()) {
-            $datasources[] = new DbDatasource($this->dirName, ThemeFiles::TABLE);
+            $datasources[] = new DbDatasource($this->dirName, 'cms_theme_files');
         }
 
         // Current / child theme

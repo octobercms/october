@@ -2,6 +2,7 @@
 
 use System;
 use Cms\Classes\Theme as CmsTheme;
+use Cms\Classes\ThemeBlueprints;
 use Cms\Classes\ThemeManager;
 use System\Classes\PluginManager;
 use Exception;
@@ -106,7 +107,9 @@ trait HasDatasources
                     $themes = ThemeManager::instance()->getThemePaths();
                     if (isset($themes[$activeCode])) {
                         $path = $themes[$activeCode];
-                        if (file_exists($bpPath = $path . '/blueprints')) {
+                        $theme = CmsTheme::load($activeCode);
+                        $bpPath = $path . '/blueprints';
+                        if (file_exists($bpPath) || ($theme && ThemeBlueprints::usesDatabase($theme))) {
                             $result[$activeCode] = $bpPath;
                         }
                     }
@@ -137,7 +140,9 @@ trait HasDatasources
                 if ($code === $activeCode) {
                     continue;
                 }
-                if (file_exists($bpPath = $path . '/blueprints')) {
+                $theme = CmsTheme::load($code);
+                $bpPath = $path . '/blueprints';
+                if (file_exists($bpPath) || ($theme && ThemeBlueprints::usesDatabase($theme))) {
                     $result[$code] = $bpPath;
                 }
             }

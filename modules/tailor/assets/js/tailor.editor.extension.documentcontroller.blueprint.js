@@ -165,7 +165,7 @@ export class DocumentControllerBlueprint extends DocumentControllerBase {
 
     onUploadDocument(cmd) {
         const fs = new FileSystemFunctions(this);
-        fs.uploadDocument(['.yaml'], 'onBlueprintUpload', cmd, {
+        fs.uploadDocument(['.yaml', '.yml'], 'onBlueprintUpload', cmd, {
             documentType: this.documentType
         });
     }
