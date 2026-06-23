@@ -9,8 +9,6 @@ cd /var/www/html
 sed -i 's/^DB_CONNECTION=.*/DB_CONNECTION=sqlite/' .env
 sed -i 's|^DB_DATABASE=.*|DB_DATABASE=/var/www/html/database/database.sqlite|' .env
 sed -i 's|^LINK_POLICY=.*|LINK_POLICY=force|' .env
-sed -i 's|^CMS_DB_FILES=.*|CMS_DB_FILES=true|' .env
-sed -i 's|^CMS_DB_TEMPLATES=.*|CMS_DB_TEMPLATES=false|' .env
 
 # Create directories not tracked by git
 mkdir -p \
