@@ -364,10 +364,10 @@ trait HasExtensionCrud
         }
 
         if ($this->blueprintDatabaseEnabled()) {
-            ThemeBlueprints::renamePathPrefix(
+            ThemeBlueprints::renameBlueprintPathPrefix(
                 $this->getBlueprintCrudSource(),
-                ThemeBlueprints::PREFIX . '/' . ltrim($originalPath, '/'),
-                ThemeBlueprints::PREFIX . '/' . ltrim($newPath, '/')
+                $originalPath,
+                $newPath
             );
         }
     }
@@ -404,10 +404,10 @@ trait HasExtensionCrud
         if ($this->blueprintDatabaseEnabled()) {
             $destinationPath = trim($destinationDir, '/');
             $newPrefix = ($destinationPath === '' ? '' : $destinationPath . '/') . basename($path);
-            ThemeBlueprints::renamePathPrefix(
+            ThemeBlueprints::renameBlueprintPathPrefix(
                 $this->getBlueprintCrudSource(),
-                ThemeBlueprints::PREFIX . '/' . ltrim($path, '/'),
-                ThemeBlueprints::PREFIX . '/' . $newPrefix
+                $path,
+                $newPrefix
             );
         }
     }

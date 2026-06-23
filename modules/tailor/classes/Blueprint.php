@@ -8,6 +8,7 @@ use Lang;
 use System;
 use Cms\Classes\Theme as CmsTheme;
 use Cms\Classes\ThemeBlueprints;
+use Cms\Classes\ThemeFiles;
 use Cms\Helpers\File as FileHelper;
 use October\Rain\Extension\Extendable;
 use DirectoryIterator;
@@ -251,10 +252,28 @@ class Blueprint extends Extendable
 
         $pathSuffix = $filterPath ? '/'.$filterPath : '';
         if ($this->datasourceTheme) {
-            $files = $this->collectThemeBlueprintsAtPath($pathSuffix);
+            $theme = CmsTheme::load($this->datasourceTheme);
+            if (!$theme) {
+                return [];
+            }
+
+            $files = $this->collectBlueprintsAtPath(
+                $pathSuffix,
+                $theme->getPath() . '/blueprints',
+                $theme->getDirName()
+            );
+
+            if ($parentTheme = $theme->getParentTheme()) {
+                $parentBpPath = $parentTheme->getPath() . '/blueprints';
+                $files = array_merge($files, $this->getInternal($parentBpPath.$pathSuffix, $parentBpPath));
+            }
         }
         elseif ($this->isAppBlueprintDatasource()) {
-            $files = $this->collectAppBlueprintsAtPath($pathSuffix);
+            $files = $this->collectBlueprintsAtPath(
+                $pathSuffix,
+                base_path('app/blueprints'),
+                ThemeBlueprints::APP_SOURCE
+            );
         }
         else {
             $files = $this->getInternal($this->getBasePath().$pathSuffix);
@@ -344,59 +363,20 @@ class Blueprint extends Extendable
     }
 
     /**
-     * collectThemeBlueprintsAtPath merges theme filesystem and database blueprint listings
+     * collectBlueprintsAtPath merges filesystem and database blueprint listings
      */
-    protected function collectThemeBlueprintsAtPath(string $pathSuffix): array
+    protected function collectBlueprintsAtPath(string $pathSuffix, string $fsRoot, string $dbSource): array
     {
-        $theme = CmsTheme::load($this->datasourceTheme);
-        if (!$theme) {
-            return [];
-        }
+        $files = $this->getInternal($fsRoot.$pathSuffix, $fsRoot);
 
-        $themeBpPath = $theme->getPath() . '/blueprints';
-        $files = $this->getInternal($themeBpPath.$pathSuffix, $themeBpPath);
-
-        if (ThemeBlueprints::usesDatabase($theme->getDirName())) {
-            $filterPath = ltrim($pathSuffix, '/');
-            $databaseFiles = ThemeBlueprints::listAtPath($theme->getDirName(), $filterPath);
-            $files = $this->mergeBlueprintListings($files, $databaseFiles);
-        }
-
-        if ($parentTheme = $theme->getParentTheme()) {
-            $parentBpPath = $parentTheme->getPath() . '/blueprints';
-            $files = array_merge($files, $this->getInternal($parentBpPath.$pathSuffix, $parentBpPath));
+        if (ThemeBlueprints::usesDatabase($dbSource)) {
+            $files = ThemeFiles::mergeListings(
+                $files,
+                ThemeBlueprints::listAtPath($dbSource, ltrim($pathSuffix, '/'))
+            );
         }
 
         return $files;
-    }
-
-    /**
-     * collectAppBlueprintsAtPath merges app filesystem and database blueprint listings
-     */
-    protected function collectAppBlueprintsAtPath(string $pathSuffix): array
-    {
-        $appBpPath = base_path('app/blueprints');
-        $files = $this->getInternal($appBpPath.$pathSuffix, $appBpPath);
-
-        if (ThemeBlueprints::usesDatabase(ThemeBlueprints::APP_SOURCE)) {
-            $filterPath = ltrim($pathSuffix, '/');
-            $databaseFiles = ThemeBlueprints::listAtPath(ThemeBlueprints::APP_SOURCE, $filterPath);
-            $files = $this->mergeBlueprintListings($files, $databaseFiles);
-        }
-
-        return $files;
-    }
-
-    /**
-     * mergeBlueprintListings combines listings with the override winning on path conflicts
-     */
-    protected function mergeBlueprintListings(array $base, array $override): array
-    {
-        return collect($base)
-            ->keyBy('path')
-            ->merge(collect($override)->keyBy('path'))
-            ->values()
-            ->all();
     }
 
     /**
@@ -464,10 +444,7 @@ class Blueprint extends Extendable
                 $content = $result['content'];
                 $mtime = $result['mtime'];
             }
-        }
-
-        if ($content === null && $this->usesDatabaseBlueprints()) {
-            if (ThemeBlueprints::isTrashed($this->getBlueprintSource(), $fileName)) {
+            elseif (ThemeBlueprints::isTrashed($source, $fileName)) {
                 return null;
             }
         }

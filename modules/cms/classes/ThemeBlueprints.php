@@ -75,14 +75,7 @@ class ThemeBlueprints
     public static function write(string $source, string $fileName, string $content): void
     {
         [$dirName, $name, $extension] = static::parseFileName($fileName);
-        $datasource = static::getDatasource($source);
-
-        if ($datasource->hasTemplate($dirName, $name, $extension)) {
-            $datasource->update($dirName, $name, $extension, $content);
-        }
-        else {
-            $datasource->insert($dirName, $name, $extension, $content);
-        }
+        ThemeFiles::upsert(static::getDatasource($source), $dirName, $name, $extension, $content);
     }
 
     /**
@@ -106,25 +99,11 @@ class ThemeBlueprints
             return;
         }
 
-        [$oldDir, $oldName, $oldExt] = static::parseFileName($oldFileName);
-        [$newDir, $newName, $newExt] = static::parseFileName($newFileName);
-        $datasource = static::getDatasource($source);
-
-        $result = $datasource->selectOne($oldDir, $oldName, $oldExt);
-        if (!$result) {
-            return;
-        }
-
-        $content = $result['content'];
-
-        if ($datasource->hasTemplate($newDir, $newName, $newExt)) {
-            $datasource->update($newDir, $newName, $newExt, $content);
-        }
-        else {
-            $datasource->insert($newDir, $newName, $newExt, $content);
-        }
-
-        $datasource->delete($oldDir, $oldName, $oldExt);
+        ThemeFiles::renameSegments(
+            static::getDatasource($source),
+            static::parseFileName($oldFileName),
+            static::parseFileName($newFileName)
+        );
     }
 
     /**
@@ -172,6 +151,18 @@ class ThemeBlueprints
     }
 
     /**
+     * renameBlueprintPathPrefix renames database paths for a blueprint-relative prefix
+     */
+    public static function renameBlueprintPathPrefix(string $source, string $oldRelative, string $newRelative): void
+    {
+        static::renamePathPrefix(
+            $source,
+            static::PREFIX . '/' . ltrim($oldRelative, '/'),
+            static::PREFIX . '/' . ltrim($newRelative, '/')
+        );
+    }
+
+    /**
      * isTrashed checks if a blueprint has been tombstoned in the database layer
      */
     public static function isTrashed(string $source, string $fileName): bool
@@ -185,6 +176,7 @@ class ThemeBlueprints
         return Db::table('cms_theme_files')
             ->where('source', $source)
             ->where('path', $path)
+            ->whereNotNull('content')
             ->whereNotNull('deleted_at')
             ->exists();
     }
@@ -220,23 +212,14 @@ class ThemeBlueprints
 
             $parts = explode('/', $remainder);
             $first = $parts[0];
+            $entryPath = $filterPath === '' ? $first : trim($filterPath, '/') . '/' . $first;
 
-            if (count($parts) === 1) {
-                $entries[$first] = [
-                    'fileName' => $first,
-                    'isFolder' => 0,
-                    'isEditable' => strtolower(pathinfo($first, PATHINFO_EXTENSION)) === 'yaml',
-                    'path' => $filterPath === '' ? $first : trim($filterPath, '/') . '/' . $first,
-                ];
-            }
-            else {
-                $entries[$first] = [
-                    'fileName' => $first,
-                    'isFolder' => 1,
-                    'isEditable' => 0,
-                    'path' => $filterPath === '' ? $first : trim($filterPath, '/') . '/' . $first,
-                ];
-            }
+            $entries[$first] = [
+                'fileName' => $first,
+                'isFolder' => count($parts) === 1 ? 0 : 1,
+                'isEditable' => count($parts) === 1 && strtolower(pathinfo($first, PATHINFO_EXTENSION)) === 'yaml',
+                'path' => $entryPath,
+            ];
         }
 
         return array_values($entries);

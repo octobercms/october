@@ -5,6 +5,7 @@ use File;
 use Config;
 use Db;
 use October\Rain\Halcyon\Datasource\AutoDatasource;
+use October\Rain\Halcyon\Datasource\DatasourceInterface;
 
 /**
  * ThemeFiles provides unified lookup and URL resolution for theme files
@@ -24,7 +25,7 @@ class ThemeFiles
     {
         [$dirName, $fileName, $extension] = static::parseRelativePath($relativePath);
 
-        return static::getDatasource($theme)->hasTemplate($dirName, $fileName, $extension);
+        return $theme->getFileDatasource()->hasTemplate($dirName, $fileName, $extension);
     }
 
     /**
@@ -37,7 +38,7 @@ class ThemeFiles
         }
 
         [$dirName, $fileName, $extension] = static::parseRelativePath($relativePath);
-        $datasource = static::getDatasource($theme);
+        $datasource = $theme->getFileDatasource();
 
         if (!$datasource instanceof AutoDatasource) {
             return false;
@@ -71,7 +72,7 @@ class ThemeFiles
     public static function getPublicUrl(Theme $theme, string $relativePath): string
     {
         [$dirName, $fileName, $extension] = static::parseRelativePath($relativePath);
-        $datasource = static::getDatasource($theme);
+        $datasource = $theme->getFileDatasource();
 
         $publicBase = Config::get('system.themes_asset_url');
         $context = [
@@ -99,7 +100,7 @@ class ThemeFiles
     public static function getLocalPath(Theme $theme, string $relativePath): ?string
     {
         [$dirName, $fileName, $extension] = static::parseRelativePath($relativePath);
-        $datasource = static::getDatasource($theme);
+        $datasource = $theme->getFileDatasource();
 
         if ($datasource instanceof AutoDatasource) {
             return $datasource->resolveLocalPath($dirName, $fileName, $extension);
@@ -114,14 +115,7 @@ class ThemeFiles
     public static function write(Theme $theme, string $relativePath, string $content): void
     {
         [$dirName, $fileName, $extension] = static::parseRelativePath($relativePath);
-        $datasource = static::getDatasource($theme);
-
-        if ($datasource->hasTemplate($dirName, $fileName, $extension)) {
-            $datasource->update($dirName, $fileName, $extension, $content);
-        }
-        else {
-            $datasource->insert($dirName, $fileName, $extension, $content);
-        }
+        static::upsert($theme->getFileDatasource(), $dirName, $fileName, $extension, $content);
     }
 
     /**
@@ -130,7 +124,7 @@ class ThemeFiles
     public static function delete(Theme $theme, string $relativePath): void
     {
         [$dirName, $fileName, $extension] = static::parseRelativePath($relativePath);
-        static::getDatasource($theme)->delete($dirName, $fileName, $extension);
+        $theme->getFileDatasource()->delete($dirName, $fileName, $extension);
     }
 
     /**
@@ -145,25 +139,11 @@ class ThemeFiles
             return;
         }
 
-        [$oldDir, $oldName, $oldExt] = static::parseRelativePath($oldRelativePath);
-        [$newDir, $newName, $newExt] = static::parseRelativePath($newRelativePath);
-        $datasource = static::getDatasource($theme);
-
-        $result = $datasource->selectOne($oldDir, $oldName, $oldExt);
-        if (!$result) {
-            return;
-        }
-
-        $content = $result['content'];
-
-        if ($datasource->hasTemplate($newDir, $newName, $newExt)) {
-            $datasource->update($newDir, $newName, $newExt, $content);
-        }
-        else {
-            $datasource->insert($newDir, $newName, $newExt, $content);
-        }
-
-        $datasource->delete($oldDir, $oldName, $oldExt);
+        static::renameSegments(
+            $theme->getFileDatasource(),
+            static::parseRelativePath($oldRelativePath),
+            static::parseRelativePath($newRelativePath)
+        );
     }
 
     /**
@@ -223,6 +203,56 @@ class ThemeFiles
     }
 
     /**
+     * upsert writes content through a Halcyon datasource
+     */
+    public static function upsert(
+        DatasourceInterface $datasource,
+        string $dirName,
+        string $fileName,
+        string $extension,
+        string $content
+    ): void {
+        if ($datasource->hasTemplate($dirName, $fileName, $extension)) {
+            $datasource->update($dirName, $fileName, $extension, $content);
+        }
+        else {
+            $datasource->insert($dirName, $fileName, $extension, $content);
+        }
+    }
+
+    /**
+     * renameSegments moves a file between datasource path segments
+     */
+    public static function renameSegments(
+        DatasourceInterface $datasource,
+        array $oldSegments,
+        array $newSegments
+    ): void {
+        [$oldDir, $oldName, $oldExt] = $oldSegments;
+        [$newDir, $newName, $newExt] = $newSegments;
+
+        $result = $datasource->selectOne($oldDir, $oldName, $oldExt);
+        if (!$result) {
+            return;
+        }
+
+        static::upsert($datasource, $newDir, $newName, $newExt, $result['content']);
+        $datasource->delete($oldDir, $oldName, $oldExt);
+    }
+
+    /**
+     * mergeListings combines path-keyed listings with override winning on conflicts
+     */
+    public static function mergeListings(array $base, array $override): array
+    {
+        return collect($base)
+            ->keyBy('path')
+            ->merge(collect($override)->keyBy('path'))
+            ->values()
+            ->all();
+    }
+
+    /**
      * parseRelativePath splits a theme-relative path into datasource segments
      */
     public static function parseRelativePath(string $relativePath): array
@@ -245,13 +275,5 @@ class ThemeFiles
     public static function getStoragePath(Theme $theme): string
     {
         return storage_path('themes/' . $theme->getDirName());
-    }
-
-    /**
-     * getDatasource returns the file datasource for a theme
-     */
-    public static function getDatasource(Theme $theme)
-    {
-        return $theme->getFileDatasource();
     }
 }

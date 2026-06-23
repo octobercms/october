@@ -172,7 +172,7 @@ class Asset extends Extendable
         if ($this->theme->databaseFilesEnabled()) {
             $storageAssetsPath = $this->theme->getAssetsPath();
             $storageFiles = $this->getInternal($storageAssetsPath.$pathSuffix, $storageAssetsPath);
-            $files = $this->mergeAssetListings($files, $storageFiles);
+            $files = ThemeFiles::mergeListings($files, $storageFiles);
         }
 
         if ($parentTheme = $this->theme->getParentTheme()) {
@@ -182,23 +182,11 @@ class Asset extends Extendable
             if ($parentTheme->databaseFilesEnabled()) {
                 $parentStoragePath = $parentTheme->getAssetsPath();
                 $parentStorageFiles = $this->getInternal($parentStoragePath.$pathSuffix, $parentStoragePath);
-                $files = $this->mergeAssetListings($files, $parentStorageFiles);
+                $files = ThemeFiles::mergeListings($files, $parentStorageFiles);
             }
         }
 
         return $files;
-    }
-
-    /**
-     * mergeAssetListings combines listings with the override winning on path conflicts
-     */
-    protected function mergeAssetListings(array $base, array $override): array
-    {
-        return collect($base)
-            ->keyBy('path')
-            ->merge(collect($override)->keyBy('path'))
-            ->values()
-            ->all();
     }
 
     /**
@@ -284,31 +272,35 @@ class Asset extends Extendable
         if ($this->theme->filesLayerEnabled()) {
             $relativePath = $this->dirName . '/' . $fileName;
 
-            if (ThemeFiles::has($this->theme, $relativePath)) {
-                $localPath = ThemeFiles::getLocalPath($this->theme, $relativePath);
-
-                if ($localPath && File::isFile($localPath)) {
-                    if (!FileHelper::validateInTheme($this->theme, $localPath)) {
-                        throw new ValidationException(['fileName' =>
-                            Lang::get('cms::lang.cms_object.invalid_file', [
-                                'name' => $fileName
-                            ])
-                        ]);
-                    }
-
-                    if (($content = @File::get($localPath)) === false) {
-                        return null;
-                    }
-
-                    $this->fileName = $fileName;
-                    $this->originalFileName = $fileName;
-                    $this->mtime = File::lastModified($localPath);
-                    $this->content = $content;
-                    $this->exists = true;
-
-                    return $this;
-                }
+            if (!ThemeFiles::has($this->theme, $relativePath)) {
+                return null;
             }
+
+            $localPath = ThemeFiles::getLocalPath($this->theme, $relativePath);
+
+            if (!$localPath || !File::isFile($localPath)) {
+                return null;
+            }
+
+            if (!FileHelper::validateInTheme($this->theme, $localPath)) {
+                throw new ValidationException(['fileName' =>
+                    Lang::get('cms::lang.cms_object.invalid_file', [
+                        'name' => $fileName
+                    ])
+                ]);
+            }
+
+            if (($content = @File::get($localPath)) === false) {
+                return null;
+            }
+
+            $this->fileName = $fileName;
+            $this->originalFileName = $fileName;
+            $this->mtime = File::lastModified($localPath);
+            $this->content = $content;
+            $this->exists = true;
+
+            return $this;
         }
 
         $filePath = $this->getFilePath($fileName);
@@ -457,14 +449,6 @@ class Asset extends Extendable
         }
 
         $fullPath = $this->getFilePath($fileName);
-
-        if (!FileHelper::validateInTheme($this->theme, $fullPath)) {
-            throw new ValidationException(['fileName' =>
-                Lang::get('cms::lang.cms_object.invalid_file', [
-                    'name' => $fileName
-                ])
-            ]);
-        }
 
         if (!FileHelper::validateInTheme($this->theme, $fullPath)) {
             throw new ValidationException(['fileName' =>
