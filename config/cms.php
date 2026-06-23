@@ -31,6 +31,23 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Database Theme Files
+    |--------------------------------------------------------------------------
+    |
+    | Globally forces theme file uploads to be stored in the storage directory
+    | and tracked in the database, instead of the theme filesystem. When a file
+    | is tracked in the database, the theme filter will resolve to the storage
+    | location. Files not found in the database fall back to the theme path.
+    |
+    | false - Theme files are sourced from the filesystem.
+    | true  - Store uploaded theme files in storage with database metadata.
+    |
+    */
+
+    'database_files' => env('CMS_DB_FILES', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Template Strictness
     |--------------------------------------------------------------------------
     |

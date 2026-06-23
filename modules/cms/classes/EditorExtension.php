@@ -414,7 +414,7 @@ class EditorExtension extends ExtensionBase
             $theme = Theme::getActiveTheme();
         }
 
-        return $theme->getPath() . '/assets';
+        return $theme->getAssetsPath();
     }
 
     /**

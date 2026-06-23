@@ -125,7 +125,7 @@ class Asset extends Extendable
         $assets = [];
 
         $pathSuffix = $filterPath ? '/'.$filterPath : '';
-        $path = $this->theme->getPath().'/'.$this->dirName.$pathSuffix;
+        $path = $this->theme->getAssetsPath().$pathSuffix;
         $files = $this->getInternal($path, $this->theme);
 
         // Splice in assets of parent theme
@@ -210,7 +210,7 @@ class Asset extends Extendable
      */
     protected function getRelativePath(string $path, Theme $theme): string
     {
-        $prefix = $theme->getPath().'/'.$this->dirName;
+        $prefix = $theme->getAssetsPath();
 
         if (substr($path, 0, strlen($prefix)) === $prefix) {
             $path = substr($path, strlen($prefix));
@@ -236,6 +236,36 @@ class Asset extends Extendable
      */
     public function find(string $fileName)
     {
+        if ($this->theme->filesLayerEnabled()) {
+            $relativePath = $this->dirName . '/' . $fileName;
+
+            if (ThemeFiles::has($this->theme, $relativePath)) {
+                $localPath = ThemeFiles::getLocalPath($this->theme, $relativePath);
+
+                if ($localPath && File::isFile($localPath)) {
+                    if (!FileHelper::validateInTheme($this->theme, $localPath)) {
+                        throw new ValidationException(['fileName' =>
+                            Lang::get('cms::lang.cms_object.invalid_file', [
+                                'name' => $fileName
+                            ])
+                        ]);
+                    }
+
+                    if (($content = @File::get($localPath)) === false) {
+                        return null;
+                    }
+
+                    $this->fileName = $fileName;
+                    $this->originalFileName = $fileName;
+                    $this->mtime = File::lastModified($localPath);
+                    $this->content = $content;
+                    $this->exists = true;
+
+                    return $this;
+                }
+            }
+        }
+
         $filePath = $this->getFilePath($fileName);
 
         $foundTheme = $this->theme;
@@ -301,6 +331,18 @@ class Asset extends Extendable
     {
         $this->validateFileName();
 
+        if ($this->theme->databaseFilesEnabled()) {
+            $relativePath = $this->dirName . '/' . $this->fileName;
+            ThemeFiles::write($this->theme, $relativePath, $this->content);
+
+            $localPath = ThemeFiles::getLocalPath($this->theme, $relativePath);
+            $this->mtime = $localPath ? @File::lastModified($localPath) : time();
+            $this->originalFileName = $this->fileName;
+            $this->exists = true;
+
+            return;
+        }
+
         $fullPath = $this->getFilePath();
 
         if (File::isFile($fullPath) && $this->originalFileName !== $this->fileName) {
@@ -360,9 +402,24 @@ class Asset extends Extendable
     public function delete()
     {
         $fileName = Request::input('fileName');
+        $this->validateFileName($fileName);
+
+        if ($this->theme->filesLayerEnabled()) {
+            $relativePath = $this->dirName . '/' . $fileName;
+            ThemeFiles::delete($this->theme, $relativePath);
+
+            return;
+        }
+
         $fullPath = $this->getFilePath($fileName);
 
-        $this->validateFileName($fileName);
+        if (!FileHelper::validateInTheme($this->theme, $fullPath)) {
+            throw new ValidationException(['fileName' =>
+                Lang::get('cms::lang.cms_object.invalid_file', [
+                    'name' => $fileName
+                ])
+            ]);
+        }
 
         if (!FileHelper::validateInTheme($this->theme, $fullPath)) {
             throw new ValidationException(['fileName' =>
@@ -445,6 +502,10 @@ class Asset extends Extendable
     {
         if ($fileName === null) {
             $fileName = $this->fileName;
+        }
+
+        if ($this->theme->databaseFilesEnabled()) {
+            return $this->theme->getAssetsPath() . '/' . $fileName;
         }
 
         return $this->theme->getPath().'/'.$this->dirName.'/'.$fileName;

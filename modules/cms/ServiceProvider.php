@@ -1,11 +1,15 @@
 <?php namespace Cms;
 
 use Event;
+use Route;
+use Config;
 use Backend;
 use BackendAuth;
 use Cms\Models\ThemeLog;
 use Cms\Models\ThemeData;
 use Cms\Classes\Theme;
+use Cms\Classes\ThemeFiles;
+use Cms\Classes\ThemeFileController;
 use Cms\Classes\CmsObject;
 use Cms\Classes\Page as CmsPage;
 use Cms\Classes\ThemeManager;
@@ -54,6 +58,19 @@ class ServiceProvider extends ModuleServiceProvider
 
         $this->bootEditorEvents();
         $this->bootPageLookupEvents();
+        $this->bootThemeFileRoutes();
+    }
+
+    /**
+     * bootThemeFileRoutes registers routes for serving stored theme files
+     */
+    protected function bootThemeFileRoutes()
+    {
+        Event::listen('cms.beforeRoute', function () {
+            Route::get(ThemeFiles::ROUTE_PREFIX . '/{themeDir}/{filePath}', [ThemeFileController::class, 'show'])
+                ->where('filePath', '.*')
+                ->middleware(Config::get('cms.middleware_group', 'web'));
+        });
     }
 
     /**

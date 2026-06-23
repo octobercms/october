@@ -1,7 +1,10 @@
 <?php namespace Cms\Classes\EditorExtension;
 
-use System;
+use File;
+use Input;
 use Request;
+use System;
+use Cms\Classes\ThemeFiles;
 use Editor\Classes\ApiHelpers;
 use Cms\Classes\EditorExtension;
 use October\Rain\Filesystem\Definitions as FileDefinitions;
@@ -43,6 +46,7 @@ trait HasExtensionAssetsCrud
         ApiHelpers::assertIsArray($fileList);
 
         $this->editorDeleteFileOrDirectory($this->getAssetsPath($this->getTheme()), $fileList);
+        $this->syncDeletedThemeFiles($fileList);
     }
 
     /**
@@ -61,6 +65,10 @@ trait HasExtensionAssetsCrud
         $assetExtensions = $this->getSafeAssetExtensions();
 
         $this->editorRenameFileOrDirectory($this->getAssetsPath($this->getTheme()), $newName, $originalPath, $assetExtensions);
+
+        $parent = dirname($originalPath);
+        $newPath = ($parent === '.' ? '' : $parent . '/') . $newName;
+        $this->syncRenamedThemeFile($originalPath, $newPath);
     }
 
     /**
@@ -77,6 +85,7 @@ trait HasExtensionAssetsCrud
         $selectedList = ApiHelpers::assertGetKey($documentData, 'source');
         $destinationDir = ApiHelpers::assertGetKey($documentData, 'destination');
         $this->editorMoveFilesOrDirectories($this->getAssetsPath($this->getTheme()), $selectedList, $destinationDir);
+        $this->syncMovedThemeFiles($selectedList, $destinationDir);
     }
 
     /**
@@ -93,6 +102,7 @@ trait HasExtensionAssetsCrud
 
         $assetExtensions = $this->getSafeAssetExtensions();
         $this->editorUploadFiles($this->getAssetsPath($this->getTheme()), $assetExtensions);
+        $this->syncUploadedThemeFile();
     }
 
     /**
@@ -117,5 +127,86 @@ trait HasExtensionAssetsCrud
         }
 
         return array_values($extensions);
+    }
+
+    /**
+     * syncUploadedThemeFile registers an uploaded file in the database layer
+     */
+    protected function syncUploadedThemeFile()
+    {
+        $theme = $this->getTheme();
+        if (!$theme->databaseFilesEnabled()) {
+            return;
+        }
+
+        $uploadedFile = Input::file('file');
+        if (!is_object($uploadedFile)) {
+            return;
+        }
+
+        $destinationDir = trim(Request::input('destination'));
+        $fileName = $uploadedFile->getClientOriginalName();
+        $assetPath = trim($destinationDir . '/' . $fileName, '/');
+        $fullPath = $this->getAssetFullPath($assetPath);
+
+        if (!File::isFile($fullPath)) {
+            return;
+        }
+
+        ThemeFiles::write($theme, 'assets/' . $assetPath, File::get($fullPath));
+    }
+
+    /**
+     * syncDeletedThemeFiles updates the database layer after filesystem deletes
+     */
+    protected function syncDeletedThemeFiles(array $fileList)
+    {
+        $theme = $this->getTheme();
+        if (!$theme->databaseFilesEnabled()) {
+            return;
+        }
+
+        foreach ($fileList as $path) {
+            $fullPath = $this->getAssetFullPath($path);
+            if (File::isDirectory($fullPath)) {
+                continue;
+            }
+
+            ThemeFiles::delete($theme, 'assets/' . $path);
+        }
+    }
+
+    /**
+     * syncRenamedThemeFile updates the database layer after a filesystem rename
+     */
+    protected function syncRenamedThemeFile(string $originalPath, string $newPath)
+    {
+        $theme = $this->getTheme();
+        if (!$theme->databaseFilesEnabled()) {
+            return;
+        }
+
+        ThemeFiles::rename($theme, 'assets/' . $originalPath, 'assets/' . $newPath);
+    }
+
+    /**
+     * syncMovedThemeFiles updates the database layer after filesystem moves
+     */
+    protected function syncMovedThemeFiles(array $selectedList, string $destinationDir)
+    {
+        $theme = $this->getTheme();
+        if (!$theme->databaseFilesEnabled()) {
+            return;
+        }
+
+        foreach ($selectedList as $path) {
+            $fullPath = $this->getAssetFullPath($path);
+            if (File::isDirectory($fullPath)) {
+                continue;
+            }
+
+            $newPath = trim($destinationDir . '/' . basename($path), '/');
+            ThemeFiles::rename($theme, 'assets/' . $path, 'assets/' . $newPath);
+        }
     }
 }

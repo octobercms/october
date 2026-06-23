@@ -66,3 +66,9 @@ tabs:
             comment: Save changes to this theme in the database instead of the filesystem
             type: checkbox
             tab: Advanced
+
+        files:
+            label: Database Files Mode
+            comment: Store uploaded theme files in storage and track them in the database
+            type: checkbox
+            tab: Advanced

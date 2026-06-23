@@ -18,6 +18,7 @@ use Backend\Models\UserPreference;
 use October\Rain\Halcyon\Datasource\DbDatasource;
 use October\Rain\Halcyon\Datasource\AutoDatasource;
 use October\Rain\Halcyon\Datasource\FileDatasource;
+use October\Rain\Halcyon\Datasource\StorageFileDatasource;
 use October\Rain\Halcyon\Datasource\DatasourceInterface;
 use October\Contracts\Twig\CallsMethods;
 
@@ -64,6 +65,7 @@ class Theme implements CallsMethods
         $theme->setDirName((string) $dirName);
 
         $theme->registerHalcyonDatasource();
+        $theme->registerThemeFileDatasource();
 
         return $theme;
     }
@@ -483,6 +485,20 @@ class Theme implements CallsMethods
     }
 
     /**
+     * databaseFilesEnabled checks global and local config
+     */
+    public function databaseFilesEnabled(): bool
+    {
+        $enableDbFiles = Config::get('cms.database_files', false);
+
+        if (!$enableDbFiles) {
+            $enableDbFiles = $this->getConfigValue('files', false);
+        }
+
+        return $enableDbFiles && App::hasDatabase();
+    }
+
+    /**
      * databaseLayerEnabled checks global and local config
      */
     public function databaseLayerEnabled(): bool
@@ -545,6 +561,84 @@ class Theme implements CallsMethods
     }
 
     /**
+     * filesLayerEnabled is true if the storage file layer is active
+     */
+    public function filesLayerEnabled(): bool
+    {
+        if ($this->databaseFilesEnabled()) {
+            return true;
+        }
+
+        if (($parent = $this->getParentTheme()) && $parent->databaseFilesEnabled()) {
+            return true;
+        }
+
+        return false;
+    }
+
+    /**
+     * getAssetsPath returns the writable assets path for this theme
+     */
+    public function getAssetsPath(): string
+    {
+        if ($this->databaseFilesEnabled()) {
+            return ThemeFiles::getStoragePath($this) . '/assets';
+        }
+
+        return $this->getPath() . '/assets';
+    }
+
+    /**
+     * registerThemeFileDatasource ensures this theme has a file datasource
+     */
+    public function registerThemeFileDatasource()
+    {
+        $resolver = App::make('halcyon');
+        $key = $this->getFileDatasourceKey();
+
+        if ($resolver->hasDatasource($key)) {
+            return;
+        }
+
+        $datasources = [];
+
+        if ($this->databaseFilesEnabled()) {
+            $datasources[] = new StorageFileDatasource(
+                $this->dirName,
+                ThemeFiles::TABLE,
+                ThemeFiles::getStoragePath($this),
+                App::make('files')
+            );
+        }
+
+        $datasources[] = new FileDatasource($this->getPath(), App::make('files'));
+
+        if ($parentTheme = $this->getParentTheme()) {
+            $datasources[] = new FileDatasource($parentTheme->getPath(), App::make('files'));
+        }
+
+        $resolver->addDatasource($key, new AutoDatasource($datasources));
+    }
+
+    /**
+     * getFileDatasourceKey returns the Halcyon datasource key for theme files
+     */
+    public function getFileDatasourceKey(): string
+    {
+        return $this->dirName . '-files';
+    }
+
+    /**
+     * getFileDatasource returns the theme's file datasource
+     */
+    public function getFileDatasource(): DatasourceInterface
+    {
+        $resolver = App::make('halcyon');
+
+        return $resolver->datasource($this->getFileDatasourceKey());
+    }
+
+    /**
      * registerHalcyonDatasource ensures this theme is registered as a Halcyon datasource
      */
     public function registerHalcyonDatasource()
@@ -560,7 +654,7 @@ class Theme implements CallsMethods
 
         // Database layer
         if ($this->databaseLayerEnabled()) {
-            $datasources[] = new DbDatasource($this->dirName, 'cms_theme_templates');
+            $datasources[] = new DbDatasource($this->dirName, ThemeFiles::TABLE);
         }
 
         // Current / child theme

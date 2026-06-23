@@ -395,7 +395,10 @@ class ThemeManager
             return;
         }
 
-        $templates = Db::table('cms_theme_templates')->where('source', $srcDirName)->get();
+        $templates = Db::table(ThemeFiles::TABLE)
+            ->where('source', $srcDirName)
+            ->whereNotNull('content')
+            ->get();
 
         foreach ($templates as $template) {
             $filePath = $themePath . '/' . $template->path;
@@ -413,7 +416,58 @@ class ThemeManager
      */
     public function purgeDatabaseTemplates(string $dirName)
     {
-        Db::table('cms_theme_templates')->where('source', $dirName)->delete();
+        Db::table(ThemeFiles::TABLE)
+            ->where('source', $dirName)
+            ->whereNotNull('content')
+            ->delete();
+    }
+
+    /**
+     * importDatabaseFiles
+     */
+    public function importDatabaseFiles(string $dirName, ?string $srcDirName = null)
+    {
+        if (!$srcDirName) {
+            $srcDirName = $dirName;
+        }
+
+        $theme = CmsTheme::load($dirName);
+        $themePath = $theme->getPath();
+        if (!$themePath) {
+            return;
+        }
+
+        $files = Db::table(ThemeFiles::TABLE)
+            ->where('source', $srcDirName)
+            ->whereNull('content')
+            ->get();
+
+        foreach ($files as $file) {
+            $storagePath = ThemeFiles::getStoragePath($theme) . '/' . $file->path;
+            if ($file->deleted_at) {
+                File::delete($storagePath);
+            }
+            elseif (File::isFile($storagePath)) {
+                $themeFilePath = $themePath . '/' . $file->path;
+                $dir = dirname($themeFilePath);
+                if (!File::isDirectory($dir)) {
+                    File::makeDirectory($dir, 0755, true, true);
+                }
+                File::copy($storagePath, $themeFilePath);
+            }
+        }
+    }
+
+    /**
+     * purgeDatabaseFiles
+     */
+    public function purgeDatabaseFiles(string $dirName)
+    {
+        Db::table(ThemeFiles::TABLE)
+            ->where('source', $dirName)
+            ->whereNull('content')
+            ->delete();
+        File::deleteDirectory(ThemeFiles::getStoragePath(CmsTheme::load($dirName)));
     }
 
     /**
