@@ -3,6 +3,7 @@
 use Url;
 use Lang;
 use Cms\Classes\Asset;
+use Cms\Classes\ThemeFiles;
 use Cms\Classes\EditorExtension;
 use Backend\VueComponents\TreeView\NodeDefinition;
 use Backend\VueComponents\DropdownMenu\ItemDefinition;
@@ -64,7 +65,13 @@ trait HasExtensionAssetsState
 
         foreach ($assets as $asset) {
             if (!$asset['isEditable'] && !$asset['isFolder']) {
-                $asset['url'] = Url::to('themes/'.$theme->getDirName().'/assets/'.$asset['path']);
+                $themeRelativePath = 'assets/'.$asset['path'];
+                if (ThemeFiles::isStoredFile($theme, $themeRelativePath)) {
+                    $asset['url'] = ThemeFiles::getPublicUrl($theme, $themeRelativePath);
+                }
+                else {
+                    $asset['url'] = Url::to('themes/'.$theme->getDirName().'/assets/'.$asset['path']);
+                }
             }
 
             $node = $parentNode

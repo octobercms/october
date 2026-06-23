@@ -3,6 +3,7 @@
 use Url;
 use File;
 use Config;
+use Db;
 use October\Rain\Halcyon\Datasource\AutoDatasource;
 
 /**
@@ -53,6 +54,25 @@ class ThemeFiles
         }
 
         return $datasource->hasTemplateAtIndex(0, $dirName, $fileName, $extension);
+    }
+
+    /**
+     * isTrashed checks if a theme file has been tombstoned in the database layer
+     */
+    public static function isTrashed(Theme $theme, string $relativePath): bool
+    {
+        if (!$theme->filesLayerEnabled()) {
+            return false;
+        }
+
+        $relativePath = ltrim(File::normalizePath($relativePath), '/');
+
+        return Db::table(static::TABLE)
+            ->where('source', $theme->getDirName())
+            ->where('path', $relativePath)
+            ->whereNull('content')
+            ->whereNotNull('deleted_at')
+            ->exists();
     }
 
     /**

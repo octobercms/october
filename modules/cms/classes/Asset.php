@@ -125,16 +125,13 @@ class Asset extends Extendable
         $assets = [];
 
         $pathSuffix = $filterPath ? '/'.$filterPath : '';
-        $path = $this->theme->getAssetsPath().$pathSuffix;
-        $files = $this->getInternal($path, $this->theme);
-
-        // Splice in assets of parent theme
-        if ($parentTheme = $this->theme->getParentTheme()) {
-            $parentPath = $parentTheme->getPath().'/'.$this->dirName.$pathSuffix;
-            $files = array_merge($files, $this->getInternal($parentPath, $parentTheme));
-        }
+        $files = $this->collectAssetsAtPath($pathSuffix);
 
         foreach ($files as $asset) {
+            if ($this->theme->filesLayerEnabled() && !$asset['isFolder'] && $this->isAssetTrashed($asset['path'])) {
+                continue;
+            }
+
             if ($recursive && $asset['isFolder'] && $asset['filename']) {
                 $newFilter = $pathSuffix ? $pathSuffix.'/'.$asset['filename'] : $asset['filename'];
 
@@ -165,9 +162,51 @@ class Asset extends Extendable
     }
 
     /**
+     * collectAssetsAtPath merges theme, storage, and parent theme asset listings
+     */
+    protected function collectAssetsAtPath(string $pathSuffix): array
+    {
+        $themeAssetsPath = $this->theme->getPath().'/'.$this->dirName;
+        $files = $this->getInternal($themeAssetsPath.$pathSuffix, $themeAssetsPath);
+
+        if ($this->theme->databaseFilesEnabled()) {
+            $storageAssetsPath = $this->theme->getAssetsPath();
+            $storageFiles = $this->getInternal($storageAssetsPath.$pathSuffix, $storageAssetsPath);
+            $files = $this->mergeAssetListings($files, $storageFiles);
+        }
+
+        if ($parentTheme = $this->theme->getParentTheme()) {
+            $parentAssetsPath = $parentTheme->getPath().'/'.$this->dirName;
+            $files = array_merge($files, $this->getInternal($parentAssetsPath.$pathSuffix, $parentAssetsPath));
+        }
+
+        return $files;
+    }
+
+    /**
+     * mergeAssetListings combines listings with the override winning on path conflicts
+     */
+    protected function mergeAssetListings(array $base, array $override): array
+    {
+        return collect($base)
+            ->keyBy('path')
+            ->merge(collect($override)->keyBy('path'))
+            ->values()
+            ->all();
+    }
+
+    /**
+     * isAssetTrashed checks if an asset path relative to the assets directory is tombstoned
+     */
+    protected function isAssetTrashed(string $assetPath): bool
+    {
+        return ThemeFiles::isTrashed($this->theme, $this->dirName.'/'.$assetPath);
+    }
+
+    /**
      * getInternal helps the get method
      */
-    protected function getInternal(string $path, Theme $theme): array
+    protected function getInternal(string $path, string $assetsBasePath): array
     {
         if (!file_exists($path)) {
             return [];
@@ -189,7 +228,7 @@ class Asset extends Extendable
 
             $fileName = $fileInfo->getFileName();
             $isFolder = $fileInfo->isDir();
-            $filePath = $this->getRelativePath($fileInfo->getPathname(), $theme);
+            $filePath = $this->getRelativePath($fileInfo->getPathname(), $assetsBasePath);
             $isEditable = in_array(strtolower($fileInfo->getExtension()), $editableAssetTypes);
 
             $asset = [
@@ -208,9 +247,9 @@ class Asset extends Extendable
     /**
      * getRelativePath returns path relative to the theme asset directory
      */
-    protected function getRelativePath(string $path, Theme $theme): string
+    protected function getRelativePath(string $path, string $assetsBasePath): string
     {
-        $prefix = $theme->getAssetsPath();
+        $prefix = rtrim($assetsBasePath, '/');
 
         if (substr($path, 0, strlen($prefix)) === $prefix) {
             $path = substr($path, strlen($prefix));
