@@ -182,6 +182,47 @@ class ThemeFiles
     }
 
     /**
+     * renamePathPrefix renames stored file metadata and disk paths under a directory
+     */
+    public static function renamePathPrefix(Theme $theme, string $oldPrefix, string $newPrefix): void
+    {
+        if (!$theme->databaseFilesEnabled()) {
+            return;
+        }
+
+        $oldPrefix = ltrim(File::normalizePath($oldPrefix), '/');
+        $newPrefix = ltrim(File::normalizePath($newPrefix), '/');
+
+        if ($oldPrefix === $newPrefix) {
+            return;
+        }
+
+        $rows = Db::table('cms_theme_files')
+            ->where('source', $theme->getDirName())
+            ->whereNull('content')
+            ->whereNull('deleted_at')
+            ->where('path', 'like', $oldPrefix . '/%')
+            ->get();
+
+        $storageRoot = static::getStoragePath($theme);
+
+        foreach ($rows as $row) {
+            $newPath = $newPrefix . substr($row->path, strlen($oldPrefix));
+            $oldDiskPath = $storageRoot . '/' . $row->path;
+            $newDiskPath = $storageRoot . '/' . $newPath;
+
+            if (File::isFile($oldDiskPath)) {
+                File::makeDirectory(dirname($newDiskPath), 0755, true, true);
+                rename($oldDiskPath, $newDiskPath);
+            }
+
+            Db::table('cms_theme_files')
+                ->where('id', $row->id)
+                ->update(['path' => $newPath]);
+        }
+    }
+
+    /**
      * parseRelativePath splits a theme-relative path into datasource segments
      */
     public static function parseRelativePath(string $relativePath): array

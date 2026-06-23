@@ -4,7 +4,9 @@ use App;
 use Db;
 use File;
 use Config;
+use October\Rain\Halcyon\Datasource\AutoDatasource;
 use October\Rain\Halcyon\Datasource\DbDatasource;
+use October\Rain\Halcyon\Datasource\FileDatasource;
 
 /**
  * ThemeBlueprints provides database storage for blueprint YAML files
@@ -139,6 +141,37 @@ class ThemeBlueprints
     }
 
     /**
+     * renamePathPrefix renames all database blueprint paths under a directory
+     */
+    public static function renamePathPrefix(string $source, string $oldPrefix, string $newPrefix): void
+    {
+        $oldPrefix = ltrim(File::normalizePath($oldPrefix), '/');
+        $newPrefix = ltrim(File::normalizePath($newPrefix), '/');
+
+        if ($oldPrefix === $newPrefix) {
+            return;
+        }
+
+        $rows = Db::table('cms_theme_files')
+            ->where('source', $source)
+            ->whereNotNull('content')
+            ->whereNull('deleted_at')
+            ->where('path', 'like', $oldPrefix . '/%')
+            ->get();
+
+        foreach ($rows as $row) {
+            $newPath = $newPrefix . substr($row->path, strlen($oldPrefix));
+
+            Db::table('cms_theme_files')
+                ->where('id', $row->id)
+                ->update([
+                    'path' => $newPath,
+                    'updated_at' => $row->updated_at,
+                ]);
+        }
+    }
+
+    /**
      * isTrashed checks if a blueprint has been tombstoned in the database layer
      */
     public static function isTrashed(string $source, string $fileName): bool
@@ -152,7 +185,6 @@ class ThemeBlueprints
         return Db::table('cms_theme_files')
             ->where('source', $source)
             ->where('path', $path)
-            ->whereNotNull('content')
             ->whereNotNull('deleted_at')
             ->exists();
     }
@@ -223,6 +255,7 @@ class ThemeBlueprints
             ->where('source', $source)
             ->where('path', 'like', static::PREFIX . '/%')
             ->whereNotNull('content')
+            ->whereNull('deleted_at')
             ->max('updated_at');
 
         return $dbMtime ? strtotime($dbMtime) : null;
@@ -245,9 +278,33 @@ class ThemeBlueprints
         $key = $source . '-blueprints';
 
         if (!$resolver->hasDatasource($key)) {
-            $resolver->addDatasource($key, new DbDatasource($source, 'cms_theme_files'));
+            $datasources = [
+                new DbDatasource($source, 'cms_theme_files'),
+                new FileDatasource(static::getFilesystemRoot($source), App::make('files')),
+            ];
+
+            if ($source !== static::APP_SOURCE) {
+                $theme = Theme::load($source);
+                if ($theme && ($parent = $theme->getParentTheme())) {
+                    $datasources[] = new FileDatasource($parent->getPath(), App::make('files'));
+                }
+            }
+
+            $resolver->addDatasource($key, new AutoDatasource($datasources));
         }
 
         return $resolver->datasource($key);
+    }
+
+    /**
+     * getFilesystemRoot returns the filesystem root for blueprint file lookups
+     */
+    protected static function getFilesystemRoot(string $source): string
+    {
+        if ($source === static::APP_SOURCE) {
+            return base_path('app');
+        }
+
+        return Theme::load($source)->getPath();
     }
 }

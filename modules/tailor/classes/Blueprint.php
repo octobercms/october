@@ -466,6 +466,12 @@ class Blueprint extends Extendable
             }
         }
 
+        if ($content === null && $this->usesDatabaseBlueprints()) {
+            if (ThemeBlueprints::isTrashed($this->getBlueprintSource(), $fileName)) {
+                return null;
+            }
+        }
+
         if ($content === null) {
             $filePath = $this->getFilePath($fileName);
             if (($content = @File::get($filePath)) === false) {
@@ -604,6 +610,13 @@ class Blueprint extends Extendable
             $source = $this->getBlueprintSource();
 
             if ($this->originalFileName !== $fileName && ThemeBlueprints::has($source, $fileName)) {
+                throw new ApplicationException(Lang::get(
+                    'cms::lang.cms_object.file_already_exists',
+                    ['name'=>$fileName]
+                ));
+            }
+
+            if ($this->originalFileName !== $fileName && File::isFile($this->getFilePath($fileName))) {
                 throw new ApplicationException(Lang::get(
                     'cms::lang.cms_object.file_already_exists',
                     ['name'=>$fileName]

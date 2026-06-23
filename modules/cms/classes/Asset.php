@@ -178,6 +178,12 @@ class Asset extends Extendable
         if ($parentTheme = $this->theme->getParentTheme()) {
             $parentAssetsPath = $parentTheme->getPath().'/'.$this->dirName;
             $files = array_merge($files, $this->getInternal($parentAssetsPath.$pathSuffix, $parentAssetsPath));
+
+            if ($parentTheme->databaseFilesEnabled()) {
+                $parentStoragePath = $parentTheme->getAssetsPath();
+                $parentStorageFiles = $this->getInternal($parentStoragePath.$pathSuffix, $parentStoragePath);
+                $files = $this->mergeAssetListings($files, $parentStorageFiles);
+            }
         }
 
         return $files;

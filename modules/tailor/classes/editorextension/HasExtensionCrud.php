@@ -362,6 +362,14 @@ trait HasExtensionCrud
                 ['name' => $originalPath]
             ));
         }
+
+        if ($this->blueprintDatabaseEnabled()) {
+            ThemeBlueprints::renamePathPrefix(
+                $this->getBlueprintCrudSource(),
+                ThemeBlueprints::PREFIX . '/' . ltrim($originalPath, '/'),
+                ThemeBlueprints::PREFIX . '/' . ltrim($newPath, '/')
+            );
+        }
     }
 
     /**
@@ -391,6 +399,16 @@ trait HasExtensionCrud
                 'editor::lang.filesystem.error_moving_dir',
                 ['dir' => basename($path)]
             ));
+        }
+
+        if ($this->blueprintDatabaseEnabled()) {
+            $destinationPath = trim($destinationDir, '/');
+            $newPrefix = ($destinationPath === '' ? '' : $destinationPath . '/') . basename($path);
+            ThemeBlueprints::renamePathPrefix(
+                $this->getBlueprintCrudSource(),
+                ThemeBlueprints::PREFIX . '/' . ltrim($path, '/'),
+                ThemeBlueprints::PREFIX . '/' . $newPrefix
+            );
         }
     }
 

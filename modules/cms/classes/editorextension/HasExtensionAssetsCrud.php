@@ -279,6 +279,14 @@ trait HasExtensionAssetsCrud
         if (!rename($originalFullPath, $newFullPath)) {
             throw new ApplicationException(Lang::get('editor::lang.filesystem.error_renaming'));
         }
+
+        if ($this->getTheme()->databaseFilesEnabled()) {
+            ThemeFiles::renamePathPrefix(
+                $this->getTheme(),
+                'assets/' . ltrim($originalPath, '/'),
+                'assets/' . ltrim($newPath, '/')
+            );
+        }
     }
 
     /**
@@ -317,6 +325,16 @@ trait HasExtensionAssetsCrud
                 'editor::lang.filesystem.error_deleting_directory',
                 ['dir' => basename($path)]
             ));
+        }
+
+        if ($this->getTheme()->databaseFilesEnabled()) {
+            $destinationPath = trim($destinationDir, '/');
+            $newPrefix = ($destinationPath === '' ? '' : $destinationPath . '/') . basename($path);
+            ThemeFiles::renamePathPrefix(
+                $this->getTheme(),
+                'assets/' . ltrim($path, '/'),
+                'assets/' . $newPrefix
+            );
         }
     }
 

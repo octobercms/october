@@ -7,6 +7,8 @@ use Yaml;
 use File;
 use System;
 use Cms\Classes\Theme as CmsTheme;
+use Cms\Classes\ThemeBlueprints;
+use Cms\Classes\ThemeFiles;
 use October\Rain\Composer\ComposerManager;
 use ApplicationException;
 use Exception;
@@ -398,6 +400,7 @@ class ThemeManager
         $templates = Db::table('cms_theme_files')
             ->where('source', $srcDirName)
             ->whereNotNull('content')
+            ->where('path', 'not like', ThemeBlueprints::PREFIX . '/%')
             ->get();
 
         foreach ($templates as $template) {
@@ -419,6 +422,65 @@ class ThemeManager
         Db::table('cms_theme_files')
             ->where('source', $dirName)
             ->whereNotNull('content')
+            ->where('path', 'not like', ThemeBlueprints::PREFIX . '/%')
+            ->delete();
+    }
+
+    /**
+     * importDatabaseBlueprints
+     */
+    public function importDatabaseBlueprints(string $dirName, ?string $srcDirName = null)
+    {
+        if (!$srcDirName) {
+            $srcDirName = $dirName;
+        }
+
+        $blueprints = Db::table('cms_theme_files')
+            ->where('source', $srcDirName)
+            ->whereNotNull('content')
+            ->where('path', 'like', ThemeBlueprints::PREFIX . '/%')
+            ->get();
+
+        foreach ($blueprints as $blueprint) {
+            if ($blueprint->deleted_at) {
+                Db::table('cms_theme_files')
+                    ->where('source', $dirName)
+                    ->where('path', $blueprint->path)
+                    ->delete();
+                continue;
+            }
+
+            $data = [
+                'source' => $dirName,
+                'path' => $blueprint->path,
+                'content' => $blueprint->content,
+                'file_size' => $blueprint->file_size,
+                'updated_at' => $blueprint->updated_at,
+                'deleted_at' => null,
+            ];
+
+            $query = Db::table('cms_theme_files')
+                ->where('source', $dirName)
+                ->where('path', $blueprint->path);
+
+            if ($query->exists()) {
+                $query->update($data);
+            }
+            else {
+                Db::table('cms_theme_files')->insert($data);
+            }
+        }
+    }
+
+    /**
+     * purgeDatabaseBlueprints
+     */
+    public function purgeDatabaseBlueprints(string $dirName)
+    {
+        Db::table('cms_theme_files')
+            ->where('source', $dirName)
+            ->whereNotNull('content')
+            ->where('path', 'like', ThemeBlueprints::PREFIX . '/%')
             ->delete();
     }
 
