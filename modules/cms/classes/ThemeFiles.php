@@ -144,18 +144,52 @@ class ThemeFiles
     }
 
     /**
-     * rename moves a stored theme file to a new relative path
+     * rename moves a theme file to a new relative path
      */
     public static function rename(Theme $theme, string $oldRelativePath, string $newRelativePath): void
     {
+        $oldRelativePath = ltrim(File::normalizePath($oldRelativePath), '/');
+        $newRelativePath = ltrim(File::normalizePath($newRelativePath), '/');
+
+        if ($oldRelativePath === $newRelativePath) {
+            return;
+        }
+
         [$oldDir, $oldName, $oldExt] = static::parseRelativePath($oldRelativePath);
         [$newDir, $newName, $newExt] = static::parseRelativePath($newRelativePath);
         $datasource = static::getDatasource($theme);
 
         $result = $datasource->selectOne($oldDir, $oldName, $oldExt);
-        $content = $result['content'] ?? '';
+        if (!$result) {
+            return;
+        }
 
-        $datasource->update($newDir, $newName, $newExt, $content, $oldName, $oldExt);
+        $content = $result['content'];
+
+        if ($datasource->hasTemplate($newDir, $newName, $newExt)) {
+            $datasource->update($newDir, $newName, $newExt, $content);
+        }
+        else {
+            $datasource->insert($newDir, $newName, $newExt, $content);
+        }
+
+        $datasource->delete($oldDir, $oldName, $oldExt);
+    }
+
+    /**
+     * move moves a theme file to a new directory
+     */
+    public static function move(Theme $theme, string $oldRelativePath, string $destinationDir): void
+    {
+        $oldRelativePath = ltrim(File::normalizePath($oldRelativePath), '/');
+        $destinationDir = trim(File::normalizePath($destinationDir), '/');
+        $fileName = basename($oldRelativePath);
+        $assetPath = $destinationDir === '' ? $fileName : $destinationDir . '/' . $fileName;
+        $newRelativePath = str_starts_with($assetPath, 'assets/')
+            ? $assetPath
+            : 'assets/' . $assetPath;
+
+        static::rename($theme, $oldRelativePath, $newRelativePath);
     }
 
     /**

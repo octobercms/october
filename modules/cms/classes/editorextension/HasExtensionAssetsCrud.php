@@ -2,11 +2,14 @@
 
 use File;
 use Input;
+use Lang;
 use Request;
 use System;
 use Cms\Classes\ThemeFiles;
+use Cms\Helpers\File as FileHelper;
 use Editor\Classes\ApiHelpers;
 use Cms\Classes\EditorExtension;
+use ApplicationException;
 use October\Rain\Filesystem\Definitions as FileDefinitions;
 
 /**
@@ -45,8 +48,12 @@ trait HasExtensionAssetsCrud
         $fileList = ApiHelpers::assertGetKey($documentData, 'files');
         ApiHelpers::assertIsArray($fileList);
 
+        if ($this->getTheme()->databaseFilesEnabled()) {
+            $this->deleteDatabaseThemeAssets($fileList);
+            return;
+        }
+
         $this->editorDeleteFileOrDirectory($this->getAssetsPath($this->getTheme()), $fileList);
-        $this->syncDeletedThemeFiles($fileList);
     }
 
     /**
@@ -62,13 +69,16 @@ trait HasExtensionAssetsCrud
 
         $newName = trim(ApiHelpers::assertGetKey($documentData, 'name'));
         $originalPath = trim(ApiHelpers::assertGetKey($documentData, 'originalPath'));
+
+        if ($this->getTheme()->databaseFilesEnabled()) {
+            $parent = dirname($originalPath);
+            $newPath = ($parent === '.' ? '' : $parent . '/') . $newName;
+            $this->renameDatabaseThemeAsset($originalPath, $newPath, $newName);
+            return;
+        }
+
         $assetExtensions = $this->getSafeAssetExtensions();
-
         $this->editorRenameFileOrDirectory($this->getAssetsPath($this->getTheme()), $newName, $originalPath, $assetExtensions);
-
-        $parent = dirname($originalPath);
-        $newPath = ($parent === '.' ? '' : $parent . '/') . $newName;
-        $this->syncRenamedThemeFile($originalPath, $newPath);
     }
 
     /**
@@ -84,8 +94,13 @@ trait HasExtensionAssetsCrud
 
         $selectedList = ApiHelpers::assertGetKey($documentData, 'source');
         $destinationDir = ApiHelpers::assertGetKey($documentData, 'destination');
+
+        if ($this->getTheme()->databaseFilesEnabled()) {
+            $this->moveDatabaseThemeAssets($selectedList, $destinationDir);
+            return;
+        }
+
         $this->editorMoveFilesOrDirectories($this->getAssetsPath($this->getTheme()), $selectedList, $destinationDir);
-        $this->syncMovedThemeFiles($selectedList, $destinationDir);
     }
 
     /**
@@ -130,6 +145,182 @@ trait HasExtensionAssetsCrud
     }
 
     /**
+     * deleteDatabaseThemeAssets removes assets through the unified file datasource
+     */
+    protected function deleteDatabaseThemeAssets(array $fileList)
+    {
+        usort($fileList, function ($a, $b) {
+            return strlen($b) - strlen($a);
+        });
+
+        $theme = $this->getTheme();
+
+        foreach ($fileList as $path) {
+            if ($this->isAssetDirectory($path)) {
+                $this->deleteAssetDirectory($path);
+                continue;
+            }
+
+            ThemeFiles::delete($theme, 'assets/' . $path);
+        }
+    }
+
+    /**
+     * renameDatabaseThemeAsset renames an asset through the unified file datasource
+     */
+    protected function renameDatabaseThemeAsset(string $originalPath, string $newPath, string $newName)
+    {
+        if ($this->isAssetDirectory($originalPath)) {
+            $this->renameAssetDirectory($originalPath, $newPath);
+            return;
+        }
+
+        $assetExtensions = $this->getSafeAssetExtensions();
+        if (!FileHelper::validateExtension($newName, $assetExtensions, false)) {
+            throw new ApplicationException(Lang::get(
+                'editor::lang.filesystem.type_not_allowed',
+                ['allowed_types' => implode(', ', $assetExtensions)]
+            ));
+        }
+
+        ThemeFiles::rename($this->getTheme(), 'assets/' . $originalPath, 'assets/' . $newPath);
+    }
+
+    /**
+     * moveDatabaseThemeAssets moves assets through the unified file datasource
+     */
+    protected function moveDatabaseThemeAssets(array $selectedList, string $destinationDir)
+    {
+        $theme = $this->getTheme();
+
+        foreach ($selectedList as $path) {
+            if ($this->isAssetDirectory($path)) {
+                $this->moveAssetDirectory($path, $destinationDir);
+                continue;
+            }
+
+            ThemeFiles::move($theme, 'assets/' . $path, $destinationDir);
+        }
+    }
+
+    /**
+     * isAssetDirectory checks if an asset path resolves to a directory
+     */
+    protected function isAssetDirectory(string $path): bool
+    {
+        $fullPath = $this->resolveAssetFilesystemPath($path);
+
+        return $fullPath && File::isDirectory($fullPath);
+    }
+
+    /**
+     * resolveAssetFilesystemPath returns the filesystem path for an asset
+     */
+    protected function resolveAssetFilesystemPath(string $path): ?string
+    {
+        $path = ltrim($path, '/');
+        $theme = $this->getTheme();
+        $storageFullPath = $theme->getAssetsPath().'/'.$path;
+
+        if (File::exists($storageFullPath)) {
+            return $storageFullPath;
+        }
+
+        $themeFullPath = $theme->getPath().'/assets/'.$path;
+
+        if (File::exists($themeFullPath)) {
+            return $themeFullPath;
+        }
+
+        return null;
+    }
+
+    /**
+     * deleteAssetDirectory removes an empty asset directory from disk
+     */
+    protected function deleteAssetDirectory(string $path)
+    {
+        $fullPath = $this->resolveAssetFilesystemPath($path);
+
+        if (!$fullPath || !File::isDirectory($fullPath)) {
+            return;
+        }
+
+        if (!File::isDirectoryEmpty($fullPath)) {
+            throw new ApplicationException(Lang::get(
+                'editor::lang.filesystem.error_deleting_dir_not_empty',
+                ['name' => $path]
+            ));
+        }
+
+        if (!rmdir($fullPath)) {
+            throw new ApplicationException(Lang::get(
+                'editor::lang.filesystem.error_deleting_dir',
+                ['name' => $path]
+            ));
+        }
+    }
+
+    /**
+     * renameAssetDirectory renames an asset directory on disk
+     */
+    protected function renameAssetDirectory(string $originalPath, string $newPath)
+    {
+        $originalFullPath = $this->resolveAssetFilesystemPath($originalPath);
+        if (!$originalFullPath) {
+            throw new ApplicationException(Lang::get('editor::lang.filesystem.original_not_found'));
+        }
+
+        $newFullPath = $this->getAssetsPath($this->getTheme()).'/'.ltrim($newPath, '/');
+        if (file_exists($newFullPath) && $newFullPath !== $originalFullPath) {
+            throw new ApplicationException(Lang::get('editor::lang.filesystem.already_exists'));
+        }
+
+        if (!rename($originalFullPath, $newFullPath)) {
+            throw new ApplicationException(Lang::get('editor::lang.filesystem.error_renaming'));
+        }
+    }
+
+    /**
+     * moveAssetDirectory moves an asset directory on disk
+     */
+    protected function moveAssetDirectory(string $path, string $destinationDir)
+    {
+        $originalFullPath = $this->resolveAssetFilesystemPath($path);
+        if (!$originalFullPath) {
+            throw new ApplicationException(Lang::get('editor::lang.filesystem.original_not_found'));
+        }
+
+        $destinationFullPath = rtrim($this->getAssetsPath($this->getTheme()).'/'.$destinationDir, '/');
+        $newFullPath = $destinationFullPath.'/'.basename($path);
+
+        if ($originalFullPath === $newFullPath) {
+            return;
+        }
+
+        if (File::exists($newFullPath)) {
+            throw new ApplicationException(Lang::get(
+                'editor::lang.filesystem.destination_exists',
+                ['name' => basename($path)]
+            ));
+        }
+
+        if (!File::copyDirectory($originalFullPath, $newFullPath)) {
+            throw new ApplicationException(Lang::get(
+                'editor::lang.filesystem.error_moving_directory',
+                ['dir' => basename($path)]
+            ));
+        }
+
+        if (!File::deleteDirectory($originalFullPath)) {
+            throw new ApplicationException(Lang::get(
+                'editor::lang.filesystem.error_deleting_directory',
+                ['dir' => basename($path)]
+            ));
+        }
+    }
+
+    /**
      * syncUploadedThemeFile registers an uploaded file in the database layer
      */
     protected function syncUploadedThemeFile()
@@ -154,59 +345,5 @@ trait HasExtensionAssetsCrud
         }
 
         ThemeFiles::write($theme, 'assets/' . $assetPath, File::get($fullPath));
-    }
-
-    /**
-     * syncDeletedThemeFiles updates the database layer after filesystem deletes
-     */
-    protected function syncDeletedThemeFiles(array $fileList)
-    {
-        $theme = $this->getTheme();
-        if (!$theme->databaseFilesEnabled()) {
-            return;
-        }
-
-        foreach ($fileList as $path) {
-            $fullPath = $this->getAssetFullPath($path);
-            if (File::isDirectory($fullPath)) {
-                continue;
-            }
-
-            ThemeFiles::delete($theme, 'assets/' . $path);
-        }
-    }
-
-    /**
-     * syncRenamedThemeFile updates the database layer after a filesystem rename
-     */
-    protected function syncRenamedThemeFile(string $originalPath, string $newPath)
-    {
-        $theme = $this->getTheme();
-        if (!$theme->databaseFilesEnabled()) {
-            return;
-        }
-
-        ThemeFiles::rename($theme, 'assets/' . $originalPath, 'assets/' . $newPath);
-    }
-
-    /**
-     * syncMovedThemeFiles updates the database layer after filesystem moves
-     */
-    protected function syncMovedThemeFiles(array $selectedList, string $destinationDir)
-    {
-        $theme = $this->getTheme();
-        if (!$theme->databaseFilesEnabled()) {
-            return;
-        }
-
-        foreach ($selectedList as $path) {
-            $fullPath = $this->getAssetFullPath($path);
-            if (File::isDirectory($fullPath)) {
-                continue;
-            }
-
-            $newPath = trim($destinationDir . '/' . basename($path), '/');
-            ThemeFiles::rename($theme, 'assets/' . $path, 'assets/' . $newPath);
-        }
     }
 }
