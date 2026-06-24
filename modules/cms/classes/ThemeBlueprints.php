@@ -3,7 +3,6 @@
 use App;
 use Db;
 use File;
-use Config;
 use October\Rain\Halcyon\Datasource\AutoDatasource;
 use October\Rain\Halcyon\Datasource\DbDatasource;
 use October\Rain\Halcyon\Datasource\FileDatasource;
