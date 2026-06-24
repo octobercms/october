@@ -93,12 +93,4 @@ class DiskStorageFileDatasource extends StorageFileDatasource implements ThemeFi
     {
         return ltrim($path, '/\\');
     }
-
-    /**
-     * flushStorageCache clears cached paths and mtimes for this datasource source
-     */
-    public function flushStorageCache(): void
-    {
-        $this->flushCache();
-    }
 }

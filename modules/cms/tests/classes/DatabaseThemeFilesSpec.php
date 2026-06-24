@@ -259,11 +259,6 @@ class DatabaseThemeFilesSpec extends TestCase
 
     protected function clearStorageFileDatasourceCache(): void
     {
-        $reflection = new ReflectionClass(StorageFileDatasource::class);
-
-        foreach (['pathCache', 'mtimeCache', 'trashedPathCache'] as $propertyName) {
-            $property = $reflection->getProperty($propertyName);
-            $property->setValue(null, []);
-        }
+        StorageFileDatasource::flushAllStorageCaches();
     }
 }

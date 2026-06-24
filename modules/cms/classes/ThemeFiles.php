@@ -429,11 +429,7 @@ class ThemeFiles
             return;
         }
 
-        $datasource = static::makeStorageDatasource($theme);
-
-        if ($datasource instanceof DiskStorageFileDatasource) {
-            $datasource->flushStorageCache();
-        }
+        static::makeStorageDatasource($theme)->flushStorageCache();
     }
 
     /**
