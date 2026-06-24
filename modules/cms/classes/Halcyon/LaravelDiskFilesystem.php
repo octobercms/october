@@ -81,7 +81,11 @@ class LaravelDiskFilesystem extends Filesystem
      */
     public function isDirectory($directory)
     {
-        return $this->disk->exists($this->qualify($directory));
+        if (!$this->disk->exists($this->qualify($directory))) {
+            return false;
+        }
+
+        return !$this->isFile($directory);
     }
 
     /**

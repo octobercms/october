@@ -8,6 +8,7 @@ use Storage;
 use Cms\Classes\Halcyon\DiskStorageFileDatasource;
 use October\Rain\Halcyon\Datasource\AutoDatasource;
 use October\Rain\Halcyon\Datasource\DatasourceInterface;
+use October\Rain\Halcyon\Datasource\SoftDeleteDatasourceInterface;
 use October\Rain\Halcyon\Datasource\StorageFileDatasource;
 
 /**
@@ -59,14 +60,14 @@ class ThemeFiles
             return false;
         }
 
-        $relativePath = ltrim(File::normalizePath($relativePath), '/');
+        [$dirName, $fileName, $extension] = static::parseRelativePath($relativePath);
+        $storage = static::getStorageSoftDeleteDatasource($theme);
 
-        return Db::table('cms_theme_files')
-            ->where('source', $theme->getDirName())
-            ->where('path', $relativePath)
-            ->whereNull('content')
-            ->whereNotNull('deleted_at')
-            ->exists();
+        if ($storage) {
+            return $storage->isTemplateTrashed($dirName, $fileName, $extension);
+        }
+
+        return false;
     }
 
     /**
@@ -112,6 +113,91 @@ class ThemeFiles
         }
 
         return null;
+    }
+
+    /**
+     * getCombinerPath returns a local filesystem path for asset combiner input
+     */
+    public static function getCombinerPath(Theme $theme, string $relativePath): ?string
+    {
+        if (!static::isStoredFile($theme, $relativePath)) {
+            return null;
+        }
+
+        $localPath = static::getLocalPath($theme, $relativePath);
+        if ($localPath && is_file($localPath)) {
+            return $localPath;
+        }
+
+        $diskPath = static::getDiskPath($theme, $relativePath);
+        $disk = static::disk();
+
+        if (!$disk->exists($diskPath)) {
+            return null;
+        }
+
+        $cacheDir = temp_path('cms-theme-files/' . $theme->getDirName());
+        File::makeDirectory($cacheDir, 0755, true, true);
+
+        $extension = pathinfo($relativePath, PATHINFO_EXTENSION);
+        $cachePath = $cacheDir . '/' . md5($relativePath) . '.' . $extension;
+
+        if (!File::isFile($cachePath) || File::lastModified($cachePath) < $disk->lastModified($diskPath)) {
+            File::put($cachePath, $disk->get($diskPath));
+        }
+
+        return $cachePath;
+    }
+
+    /**
+     * listAssetsAtPath returns asset navigator entries from database-tracked storage
+     */
+    public static function listAssetsAtPath(Theme $theme, string $filterPath = ''): array
+    {
+        if (!$theme->databaseFilesEnabled()) {
+            return [];
+        }
+
+        $filterPath = trim(File::normalizePath($filterPath), '/');
+        $prefix = 'assets' . ($filterPath !== '' ? '/' . $filterPath : '');
+
+        $paths = Db::table('cms_theme_files')
+            ->where('source', $theme->getDirName())
+            ->whereNull('content')
+            ->whereNull('deleted_at')
+            ->where('path', 'like', $prefix . '/%')
+            ->pluck('path');
+
+        $editableAssetTypes = Asset::getEditableExtensions();
+        $children = [];
+
+        foreach ($paths as $path) {
+            $remainder = substr($path, strlen($prefix) + 1);
+            if ($remainder === '' || $remainder === false) {
+                continue;
+            }
+
+            $parts = explode('/', $remainder);
+            $name = $parts[0];
+            $isFolder = count($parts) > 1;
+
+            if (!isset($children[$name])) {
+                $children[$name] = [
+                    'filename' => $name,
+                    'isFolder' => $isFolder ? 1 : 0,
+                    'isEditable' => !$isFolder && in_array(strtolower(pathinfo($name, PATHINFO_EXTENSION)), $editableAssetTypes),
+                    'path' => $name,
+                ];
+                continue;
+            }
+
+            if ($isFolder) {
+                $children[$name]['isFolder'] = 1;
+                $children[$name]['isEditable'] = 0;
+            }
+        }
+
+        return array_values($children);
     }
 
     /**
@@ -204,6 +290,8 @@ class ThemeFiles
                 ->where('id', $row->id)
                 ->update(['path' => $newPath]);
         }
+
+        static::flushStorageCache($theme);
     }
 
     /**
@@ -330,5 +418,41 @@ class ThemeFiles
         }
 
         File::deleteDirectory(static::getStoragePath($theme));
+    }
+
+    /**
+     * flushStorageCache clears cached metadata for a theme's storage datasource
+     */
+    public static function flushStorageCache(Theme $theme): void
+    {
+        if (!$theme->databaseFilesEnabled()) {
+            return;
+        }
+
+        $datasource = static::makeStorageDatasource($theme);
+
+        if ($datasource instanceof DiskStorageFileDatasource) {
+            $datasource->flushStorageCache();
+        }
+    }
+
+    /**
+     * getStorageSoftDeleteDatasource returns the storage layer for soft-delete checks
+     */
+    protected static function getStorageSoftDeleteDatasource(Theme $theme): ?SoftDeleteDatasourceInterface
+    {
+        if ($theme->databaseFilesEnabled()) {
+            $datasource = static::makeStorageDatasource($theme);
+
+            return $datasource instanceof SoftDeleteDatasourceInterface ? $datasource : null;
+        }
+
+        if (($parent = $theme->getParentTheme()) && $parent->databaseFilesEnabled()) {
+            $datasource = static::makeStorageDatasource($parent);
+
+            return $datasource instanceof SoftDeleteDatasourceInterface ? $datasource : null;
+        }
+
+        return null;
     }
 }

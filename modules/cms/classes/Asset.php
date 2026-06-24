@@ -170,8 +170,7 @@ class Asset extends Extendable
         $files = $this->getInternal($themeAssetsPath.$pathSuffix, $themeAssetsPath);
 
         if ($this->theme->databaseFilesEnabled()) {
-            $storageAssetsPath = $this->theme->getAssetsPath();
-            $storageFiles = $this->getInternal($storageAssetsPath.$pathSuffix, $storageAssetsPath);
+            $storageFiles = ThemeFiles::listAssetsAtPath($this->theme, ltrim($pathSuffix, '/'));
             $files = ThemeFiles::mergeListings($files, $storageFiles);
         }
 
@@ -180,8 +179,7 @@ class Asset extends Extendable
             $files = array_merge($files, $this->getInternal($parentAssetsPath.$pathSuffix, $parentAssetsPath));
 
             if ($parentTheme->databaseFilesEnabled()) {
-                $parentStoragePath = $parentTheme->getAssetsPath();
-                $parentStorageFiles = $this->getInternal($parentStoragePath.$pathSuffix, $parentStoragePath);
+                $parentStorageFiles = ThemeFiles::listAssetsAtPath($parentTheme, ltrim($pathSuffix, '/'));
                 $files = ThemeFiles::mergeListings($files, $parentStorageFiles);
             }
         }

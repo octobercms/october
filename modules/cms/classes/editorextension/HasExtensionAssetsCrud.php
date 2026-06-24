@@ -11,6 +11,7 @@ use Editor\Classes\ApiHelpers;
 use Cms\Classes\EditorExtension;
 use ApplicationException;
 use October\Rain\Filesystem\Definitions as FileDefinitions;
+use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
  * HasExtensionAssetsCrud implements Assets CRUD operations for the CMS Editor Extension
@@ -116,8 +117,66 @@ trait HasExtensionAssetsCrud
         $this->validateRequestTheme($metadata);
 
         $assetExtensions = $this->getSafeAssetExtensions();
+
+        if ($this->getTheme()->databaseFilesEnabled()) {
+            $this->uploadDatabaseThemeAsset($assetExtensions);
+            return;
+        }
+
         $this->editorUploadFiles($this->getAssetsPath($this->getTheme()), $assetExtensions);
-        $this->syncUploadedThemeFile();
+    }
+
+    /**
+     * uploadDatabaseThemeAsset stores an uploaded file through the theme file datasource
+     */
+    protected function uploadDatabaseThemeAsset(array $allowedExtensions): void
+    {
+        $uploadedFile = Input::file('file');
+        if (!is_object($uploadedFile)) {
+            return;
+        }
+
+        $fileName = $uploadedFile->getClientOriginalName();
+
+        if (!$uploadedFile->isValid()) {
+            throw new ApplicationException(Lang::get('editor::lang.filesystem.file_not_valid'));
+        }
+
+        $maxSize = UploadedFile::getMaxFilesize();
+        if ($uploadedFile->getSize() > $maxSize) {
+            throw new ApplicationException(Lang::get(
+                'editor::lang.filesystem.too_large',
+                ['max_size' => File::sizeToString($maxSize)]
+            ));
+        }
+
+        if (!FileHelper::validateExtension($fileName, $allowedExtensions, false)) {
+            throw new ApplicationException(Lang::get(
+                'editor::lang.filesystem.type_not_allowed',
+                ['allowed_types' => implode(', ', $allowedExtensions)]
+            ));
+        }
+
+        $destinationDir = trim(Request::input('destination'));
+        if (!strlen($destinationDir)) {
+            throw new ApplicationException(Lang::get('editor::lang.filesystem.select_destination_dir'));
+        }
+
+        if (!preg_match('/^[\@0-9a-z\.\s_\-\/]+$/i', $destinationDir)) {
+            throw new ApplicationException(Lang::get('editor::lang.filesystem.invalid_path'));
+        }
+
+        $assetPath = trim($destinationDir . '/' . $fileName, '/');
+        $theme = $this->getTheme();
+
+        if (strtolower(File::extension($fileName)) === 'svg') {
+            $content = \Html::cleanVector(file_get_contents($uploadedFile->getRealPath()));
+        }
+        else {
+            $content = File::get($uploadedFile->getRealPath());
+        }
+
+        ThemeFiles::write($theme, 'assets/' . $assetPath, $content);
     }
 
     /**
@@ -336,32 +395,5 @@ trait HasExtensionAssetsCrud
                 'assets/' . $newPrefix
             );
         }
-    }
-
-    /**
-     * syncUploadedThemeFile registers an uploaded file in the database layer
-     */
-    protected function syncUploadedThemeFile()
-    {
-        $theme = $this->getTheme();
-        if (!$theme->databaseFilesEnabled()) {
-            return;
-        }
-
-        $uploadedFile = Input::file('file');
-        if (!is_object($uploadedFile)) {
-            return;
-        }
-
-        $destinationDir = trim(Request::input('destination'));
-        $fileName = $uploadedFile->getClientOriginalName();
-        $assetPath = trim($destinationDir . '/' . $fileName, '/');
-        $fullPath = $this->getAssetFullPath($assetPath);
-
-        if (!File::isFile($fullPath)) {
-            return;
-        }
-
-        ThemeFiles::write($theme, 'assets/' . $assetPath, File::get($fullPath));
     }
 }

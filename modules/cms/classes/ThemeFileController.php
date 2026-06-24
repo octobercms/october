@@ -3,6 +3,7 @@
 use File;
 use Response;
 use Storage;
+use Cms\Helpers\File as FileHelper;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
 use Symfony\Component\HttpFoundation\StreamedResponse;
 
@@ -25,7 +26,11 @@ class ThemeFileController
             return Response::make('File not found', 404);
         }
 
-        $relativePath = File::normalizePath($filePath);
+        $relativePath = ltrim(File::normalizePath($filePath), '/');
+
+        if (!FileHelper::validatePath($relativePath, null)) {
+            return Response::make('File not found', 404);
+        }
 
         if (!ThemeFiles::isStoredFile($theme, $relativePath)) {
             return Response::make('File not found', 404);

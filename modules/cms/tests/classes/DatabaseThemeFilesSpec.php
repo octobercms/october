@@ -165,6 +165,46 @@ class DatabaseThemeFilesSpec extends TestCase
         $this->assertSame(['logo.png'], $names);
     }
 
+    /** @test */
+    public function asset_listing_includes_database_stored_files_without_disk_bytes(): void
+    {
+        $theme = Theme::load($this->themeDir);
+        $asset = new Asset($theme);
+        $asset->fileName = 'images/nested.png';
+        $asset->content = 'nested-bytes';
+        $asset->save();
+
+        $this->deleteStorageObject($theme, 'assets/images/nested.png');
+
+        $assets = Asset::listInTheme($theme, [
+            'recursive' => false,
+            'filterPath' => '',
+        ]);
+
+        $this->assertArrayHasKey('images', $assets);
+        $this->assertSame(1, $assets['images']['isFolder']);
+
+        $nestedAssets = Asset::listInTheme($theme, [
+            'recursive' => false,
+            'filterPath' => 'images',
+        ]);
+
+        $this->assertArrayHasKey('nested.png', $nestedAssets);
+    }
+
+    /** @test */
+    public function combiner_path_resolves_for_stored_files(): void
+    {
+        $theme = Theme::load($this->themeDir);
+        $this->writeStorageFile($theme, 'assets/logo.png', 'combiner-bytes');
+
+        $combinerPath = ThemeFiles::getCombinerPath($theme, 'assets/logo.png');
+
+        $this->assertNotNull($combinerPath);
+        $this->assertTrue(File::isFile($combinerPath));
+        $this->assertSame('combiner-bytes', File::get($combinerPath));
+    }
+
     /**
      * @test
      * @group s3

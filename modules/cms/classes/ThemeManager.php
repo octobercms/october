@@ -550,6 +550,11 @@ class ThemeManager
 
         $theme->removeCustomData();
 
+        $dirName = $theme->getDirName();
+        $this->purgeDatabaseTemplates($dirName);
+        $this->purgeDatabaseBlueprints($dirName);
+        $this->purgeDatabaseFiles($dirName);
+
         // Delete from file system
         $themePath = $theme->getPath();
         if (is_dir($themePath)) {

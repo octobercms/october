@@ -93,7 +93,7 @@ trait HasThemeAssetMaker
 
             // Storage file
             if ($theme->filesLayerEnabled() && ThemeFiles::isStoredFile($theme, $path)) {
-                $localPath = ThemeFiles::getLocalPath($theme, $path);
+                $localPath = ThemeFiles::getCombinerPath($theme, $path);
                 if ($localPath) {
                     $path = $localPath;
                 }
