@@ -44,7 +44,31 @@ return [
     |
     */
 
-    'database_files' => env('CMS_DB_FILES', false),
+    'database_files' => env('CMS_DB_FILES', env('CMS_DB_THEME_FILES', false)),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Database Theme Files (alias)
+    |--------------------------------------------------------------------------
+    |
+    | Alias for database_files. When true, theme asset files are stored in the
+    | configured storage disk with metadata in cms_theme_files.
+    |
+    */
+
+    'database_theme_files' => env('CMS_DB_THEME_FILES', env('CMS_DB_FILES', false)),
+
+    /*
+    |--------------------------------------------------------------------------
+    | Database Theme Files Disk
+    |--------------------------------------------------------------------------
+    |
+    | Filesystem disk for theme asset bytes. Must match a disk in
+    | config/filesystems.php (local, s3, etc.).
+    |
+    */
+
+    'theme_files_disk' => env('CMS_THEME_FILES_DISK', 'theme-files'),
 
     /*
     |--------------------------------------------------------------------------

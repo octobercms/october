@@ -6,6 +6,13 @@
     "license": "proprietary",
     "repositories": [
         {
+            "type": "path",
+            "url": "../library",
+            "options": {
+                "symlink": true
+            }
+        },
+        {
             "type": "git",
             "url": "https://github.com/scottbedard/library.git"
         }

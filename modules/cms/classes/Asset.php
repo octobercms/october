@@ -276,13 +276,16 @@ class Asset extends Extendable
                 return null;
             }
 
-            $localPath = ThemeFiles::getLocalPath($this->theme, $relativePath);
+            [$dirName, $baseName, $extension] = ThemeFiles::parseRelativePath($relativePath);
+            $result = $this->theme->getFileDatasource()->selectOne($dirName, $baseName, $extension);
 
-            if (!$localPath || !File::isFile($localPath)) {
+            if (!$result) {
                 return null;
             }
 
-            if (!FileHelper::validateInTheme($this->theme, $localPath)) {
+            $localPath = ThemeFiles::getLocalPath($this->theme, $relativePath);
+
+            if ($localPath && !FileHelper::validateInTheme($this->theme, $localPath)) {
                 throw new ValidationException(['fileName' =>
                     Lang::get('cms::lang.cms_object.invalid_file', [
                         'name' => $fileName
@@ -290,14 +293,10 @@ class Asset extends Extendable
                 ]);
             }
 
-            if (($content = @File::get($localPath)) === false) {
-                return null;
-            }
-
             $this->fileName = $fileName;
             $this->originalFileName = $fileName;
-            $this->mtime = File::lastModified($localPath);
-            $this->content = $content;
+            $this->mtime = $result['mtime'] ?? time();
+            $this->content = $result['content'];
             $this->exists = true;
 
             return $this;

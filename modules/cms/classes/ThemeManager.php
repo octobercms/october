@@ -505,17 +505,18 @@ class ThemeManager
             ->get();
 
         foreach ($files as $file) {
-            $storagePath = ThemeFiles::getStoragePath($theme) . '/' . $file->path;
+            $disk = ThemeFiles::disk();
+            $diskPath = ThemeFiles::getDiskPath($theme, $file->path);
             if ($file->deleted_at) {
-                File::delete($storagePath);
+                $disk->delete($diskPath);
             }
-            elseif (File::isFile($storagePath)) {
+            elseif ($disk->exists($diskPath)) {
                 $themeFilePath = $themePath . '/' . $file->path;
                 $dir = dirname($themeFilePath);
                 if (!File::isDirectory($dir)) {
                     File::makeDirectory($dir, 0755, true, true);
                 }
-                File::copy($storagePath, $themeFilePath);
+                File::put($themeFilePath, $disk->get($diskPath));
             }
         }
     }
@@ -529,7 +530,7 @@ class ThemeManager
             ->where('source', $dirName)
             ->whereNull('content')
             ->delete();
-        File::deleteDirectory(ThemeFiles::getStoragePath(CmsTheme::load($dirName)));
+        ThemeFiles::deleteThemeDirectory(CmsTheme::load($dirName));
     }
 
     /**

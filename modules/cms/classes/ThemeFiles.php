@@ -4,8 +4,11 @@ use Url;
 use File;
 use Config;
 use Db;
+use Storage;
+use Cms\Classes\Halcyon\DiskStorageFileDatasource;
 use October\Rain\Halcyon\Datasource\AutoDatasource;
 use October\Rain\Halcyon\Datasource\DatasourceInterface;
+use October\Rain\Halcyon\Datasource\StorageFileDatasource;
 
 /**
  * ThemeFiles provides unified lookup and URL resolution for theme files
@@ -74,9 +77,11 @@ class ThemeFiles
         [$dirName, $fileName, $extension] = static::parseRelativePath($relativePath);
         $datasource = $theme->getFileDatasource();
 
+        $disk = static::disk();
+        $diskUrl = method_exists($disk, 'url') ? rtrim($disk->url($theme->getDirName()), '/') : null;
         $publicBase = Config::get('system.themes_asset_url');
         $context = [
-            'publicUrl' => $publicBase ? rtrim($publicBase, '/') . '/' . $theme->getDirName() : null,
+            'publicUrl' => $diskUrl ?: ($publicBase ? rtrim($publicBase, '/') . '/' . $theme->getDirName() : null),
             'theme' => $theme,
         ];
 
@@ -184,16 +189,15 @@ class ThemeFiles
             ->where('path', 'like', $oldPrefix . '/%')
             ->get();
 
-        $storageRoot = static::getStoragePath($theme);
+        $disk = static::disk();
 
         foreach ($rows as $row) {
             $newPath = $newPrefix . substr($row->path, strlen($oldPrefix));
-            $oldDiskPath = $storageRoot . '/' . $row->path;
-            $newDiskPath = $storageRoot . '/' . $newPath;
+            $oldDiskPath = static::getDiskPath($theme, $row->path);
+            $newDiskPath = static::getDiskPath($theme, $newPath);
 
-            if (File::isFile($oldDiskPath)) {
-                File::makeDirectory(dirname($newDiskPath), 0755, true, true);
-                rename($oldDiskPath, $newDiskPath);
+            if ($disk->exists($oldDiskPath)) {
+                $disk->move($oldDiskPath, $newDiskPath);
             }
 
             Db::table('cms_theme_files')
@@ -270,10 +274,61 @@ class ThemeFiles
     }
 
     /**
-     * getStoragePath returns the storage root for a theme
+     * makeStorageDatasource builds the primary storage datasource for a theme
+     */
+    public static function makeStorageDatasource(Theme $theme): StorageFileDatasource
+    {
+        return new DiskStorageFileDatasource(
+            $theme->getDirName(),
+            'cms_theme_files',
+            static::disk(),
+            $theme->getDirName()
+        );
+    }
+
+    /**
+     * disk returns the configured theme files storage disk
+     */
+    public static function disk()
+    {
+        return Storage::disk(Config::get('cms.theme_files_disk', 'theme-files'));
+    }
+
+    /**
+     * getDiskPath returns the object key for a theme-relative path
+     */
+    public static function getDiskPath(Theme $theme, string $relativePath): string
+    {
+        return trim($theme->getDirName(), '/') . '/' . ltrim(File::normalizePath($relativePath), '/');
+    }
+
+    /**
+     * getStoragePath returns the local storage root for a theme, if available
      */
     public static function getStoragePath(Theme $theme): string
     {
-        return storage_path('themes/' . $theme->getDirName());
+        $disk = static::disk();
+
+        if (method_exists($disk, 'path')) {
+            return $disk->path($theme->getDirName());
+        }
+
+        return storage_path('app/theme-files/' . $theme->getDirName());
+    }
+
+    /**
+     * deleteThemeDirectory removes all stored files for a theme
+     */
+    public static function deleteThemeDirectory(Theme $theme): void
+    {
+        $disk = static::disk();
+        $prefix = $theme->getDirName();
+
+        if (method_exists($disk, 'deleteDirectory')) {
+            $disk->deleteDirectory($prefix);
+            return;
+        }
+
+        File::deleteDirectory(static::getStoragePath($theme));
     }
 }

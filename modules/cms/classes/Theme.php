@@ -18,7 +18,6 @@ use Backend\Models\UserPreference;
 use October\Rain\Halcyon\Datasource\DbDatasource;
 use October\Rain\Halcyon\Datasource\AutoDatasource;
 use October\Rain\Halcyon\Datasource\FileDatasource;
-use October\Rain\Halcyon\Datasource\StorageFileDatasource;
 use October\Rain\Halcyon\Datasource\DatasourceInterface;
 use October\Contracts\Twig\CallsMethods;
 
@@ -489,13 +488,25 @@ class Theme implements CallsMethods
      */
     public function databaseFilesEnabled(): bool
     {
-        $enableDbFiles = Config::get('cms.database_files', false);
+        $enableDbFiles = Config::get('cms.database_theme_files', false);
+
+        if (!$enableDbFiles) {
+            $enableDbFiles = Config::get('cms.database_files', false);
+        }
 
         if (!$enableDbFiles) {
             $enableDbFiles = $this->getConfigValue('files', false);
         }
 
         return $enableDbFiles && App::hasDatabase();
+    }
+
+    /**
+     * databaseThemeFilesEnabled is an alias for databaseFilesEnabled
+     */
+    public function databaseThemeFilesEnabled(): bool
+    {
+        return $this->databaseFilesEnabled();
     }
 
     /**
@@ -603,12 +614,7 @@ class Theme implements CallsMethods
         $datasources = [];
 
         if ($this->databaseFilesEnabled()) {
-            $datasources[] = new StorageFileDatasource(
-                $this->dirName,
-                'cms_theme_files',
-                ThemeFiles::getStoragePath($this),
-                App::make('files')
-            );
+            $datasources[] = ThemeFiles::makeStorageDatasource($this);
         }
 
         $datasources[] = new FileDatasource($this->getPath(), App::make('files'));

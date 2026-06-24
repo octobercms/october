@@ -2,7 +2,9 @@
 
 use File;
 use Response;
+use Storage;
 use Symfony\Component\HttpFoundation\BinaryFileResponse;
+use Symfony\Component\HttpFoundation\StreamedResponse;
 
 /**
  * ThemeFileController serves theme files stored in the storage layer
@@ -31,10 +33,21 @@ class ThemeFileController
 
         $localPath = ThemeFiles::getLocalPath($theme, $relativePath);
 
-        if (!$localPath || !is_file($localPath)) {
+        if ($localPath && is_file($localPath)) {
+            return new BinaryFileResponse($localPath);
+        }
+
+        $diskPath = ThemeFiles::getDiskPath($theme, $relativePath);
+        $disk = ThemeFiles::disk();
+
+        if (!$disk->exists($diskPath)) {
             return Response::make('File not found', 404);
         }
 
-        return new BinaryFileResponse($localPath);
+        return new StreamedResponse(function () use ($disk, $diskPath) {
+            echo $disk->get($diskPath);
+        }, 200, [
+            'Content-Type' => $disk->mimeType($diskPath) ?: 'application/octet-stream',
+        ]);
     }
 }

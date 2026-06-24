@@ -74,6 +74,15 @@ return [
             'report' => false,
         ],
 
+        'theme-files' => [
+            'driver' => env('CMS_THEME_FILES_DRIVER', 'local'),
+            'root' => storage_path('app/theme-files'),
+            'url' => '/storage/app/theme-files',
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+
         's3' => [
             'driver' => 's3',
             'key' => env('AWS_ACCESS_KEY_ID'),
