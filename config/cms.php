@@ -34,8 +34,9 @@ return [
     | Database Theme Files
     |--------------------------------------------------------------------------
     |
-    | Store theme asset bytes on the default filesystem disk (FILESYSTEM_DISK)
-    | and track them in the database instead of the theme directory.
+    | Store theme asset bytes and Tailor blueprint YAML on the default
+    | filesystem disk (FILESYSTEM_DISK) and track them in the database
+    | instead of the theme directory or app/blueprints/.
     |
     */
 

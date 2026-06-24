@@ -20,7 +20,7 @@ class ThemeBlueprint extends Blueprint
 
         if ($theme = Theme::getEditTheme() ?: Theme::getActiveTheme()) {
             $this->datasource = $theme->getPath() . '/blueprints';
-            $this->themeDatasource = $theme->getDirname();
+            $this->datasourceTheme = $theme->getDirName();
         }
     }
 }

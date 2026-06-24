@@ -8,7 +8,7 @@ use Storage;
 use Carbon\Carbon;
 
 /**
- * ThemeFiles stores theme asset bytes on the default filesystem disk
+ * ThemeFiles stores file bytes on the default filesystem disk
  * and tracks them in the cms_theme_storage table.
  */
 class ThemeFiles
@@ -22,13 +22,21 @@ class ThemeFiles
             return false;
         }
 
+        return static::isStoredForSource($theme->getDirName(), $relativePath);
+    }
+
+    /**
+     * isStoredForSource checks if a path is tracked for a source identifier
+     */
+    public static function isStoredForSource(string $source, string $relativePath): bool
+    {
         $relativePath = static::normalizeRelativePath($relativePath);
 
         return Db::table('cms_theme_storage')
-            ->where('source', $theme->getDirName())
+            ->where('source', $source)
             ->where('path', $relativePath)
             ->exists()
-            && static::disk()->exists(static::diskPath($theme, $relativePath));
+            && static::disk()->exists(static::diskPathForSource($source, $relativePath));
     }
 
     /**
@@ -40,10 +48,22 @@ class ThemeFiles
             return null;
         }
 
+        return static::getForSource($theme->getDirName(), $relativePath);
+    }
+
+    /**
+     * getForSource returns file content and metadata for a source path
+     */
+    public static function getForSource(string $source, string $relativePath): ?array
+    {
+        if (!static::isStoredForSource($source, $relativePath)) {
+            return null;
+        }
+
         $relativePath = static::normalizeRelativePath($relativePath);
-        $diskPath = static::diskPath($theme, $relativePath);
+        $diskPath = static::diskPathForSource($source, $relativePath);
         $row = Db::table('cms_theme_storage')
-            ->where('source', $theme->getDirName())
+            ->where('source', $source)
             ->where('path', $relativePath)
             ->first();
 
@@ -62,8 +82,16 @@ class ThemeFiles
      */
     public static function put(Theme $theme, string $relativePath, string $content): void
     {
+        static::putForSource($theme->getDirName(), $relativePath, $content);
+    }
+
+    /**
+     * putForSource writes bytes for a source path
+     */
+    public static function putForSource(string $source, string $relativePath, string $content): void
+    {
         $relativePath = static::normalizeRelativePath($relativePath);
-        $diskPath = static::diskPath($theme, $relativePath);
+        $diskPath = static::diskPathForSource($source, $relativePath);
 
         if (!static::disk()->put($diskPath, $content)) {
             throw new \ApplicationException('Unable to save theme file: '.$relativePath);
@@ -76,19 +104,19 @@ class ThemeFiles
         ];
 
         $exists = Db::table('cms_theme_storage')
-            ->where('source', $theme->getDirName())
+            ->where('source', $source)
             ->where('path', $relativePath)
             ->exists();
 
         if ($exists) {
             Db::table('cms_theme_storage')
-                ->where('source', $theme->getDirName())
+                ->where('source', $source)
                 ->where('path', $relativePath)
                 ->update($attributes);
         }
         else {
             Db::table('cms_theme_storage')->insert(array_merge($attributes, [
-                'source' => $theme->getDirName(),
+                'source' => $source,
                 'path' => $relativePath,
             ]));
         }
@@ -103,23 +131,39 @@ class ThemeFiles
             return;
         }
 
+        static::deleteForSource($theme->getDirName(), $relativePath);
+    }
+
+    /**
+     * deleteForSource removes metadata and disk bytes for a source path
+     */
+    public static function deleteForSource(string $source, string $relativePath): void
+    {
         $relativePath = static::normalizeRelativePath($relativePath);
-        $diskPath = static::diskPath($theme, $relativePath);
+        $diskPath = static::diskPathForSource($source, $relativePath);
 
         if (static::disk()->exists($diskPath)) {
             static::disk()->delete($diskPath);
         }
 
         Db::table('cms_theme_storage')
-            ->where('source', $theme->getDirName())
+            ->where('source', $source)
             ->where('path', $relativePath)
             ->delete();
     }
 
     /**
-     * rename moves a stored file to a new theme-relative path
+     * rename moves a stored file to a new path
      */
     public static function rename(Theme $theme, string $oldPath, string $newPath): void
+    {
+        static::renameForSource($theme->getDirName(), $oldPath, $newPath);
+    }
+
+    /**
+     * renameForSource moves a stored file to a new path for a source
+     */
+    public static function renameForSource(string $source, string $oldPath, string $newPath): void
     {
         $oldPath = static::normalizeRelativePath($oldPath);
         $newPath = static::normalizeRelativePath($newPath);
@@ -128,14 +172,37 @@ class ThemeFiles
             return;
         }
 
-        $data = static::get($theme, $oldPath);
+        $data = static::getForSource($source, $oldPath);
 
         if ($data === null) {
             return;
         }
 
-        static::put($theme, $newPath, $data['content']);
-        static::delete($theme, $oldPath);
+        static::putForSource($source, $newPath, $data['content']);
+        static::deleteForSource($source, $oldPath);
+    }
+
+    /**
+     * renamePathPrefixForSource renames all stored paths under a directory prefix
+     */
+    public static function renamePathPrefixForSource(string $source, string $oldPrefix, string $newPrefix): void
+    {
+        $oldPrefix = static::normalizeRelativePath($oldPrefix);
+        $newPrefix = static::normalizeRelativePath($newPrefix);
+
+        if ($oldPrefix === $newPrefix) {
+            return;
+        }
+
+        $rows = Db::table('cms_theme_storage')
+            ->where('source', $source)
+            ->where('path', 'like', $oldPrefix.'/%')
+            ->get();
+
+        foreach ($rows as $row) {
+            $newPath = $newPrefix.substr($row->path, strlen($oldPrefix));
+            static::renameForSource($source, $row->path, $newPath);
+        }
     }
 
     /**
@@ -168,16 +235,34 @@ class ThemeFiles
         $filterPath = trim(File::normalizePath($filterPath), '/');
         $prefix = 'assets'.($filterPath !== '' ? '/'.$filterPath : '');
 
+        return static::listAtPathForSource(
+            $theme->getDirName(),
+            $prefix,
+            $filterPath,
+            Asset::getEditableExtensions(),
+            'filename'
+        );
+    }
+
+    /**
+     * listAtPathForSource returns navigator entries from stored paths under a prefix
+     */
+    public static function listAtPathForSource(
+        string $source,
+        string $prefix,
+        string $filterPath,
+        array $editableExtensions,
+        string $nameKey = 'fileName'
+    ): array {
         $paths = Db::table('cms_theme_storage')
-            ->where('source', $theme->getDirName())
+            ->where('source', $source)
             ->where('path', 'like', $prefix.'/%')
             ->pluck('path');
 
-        $editableAssetTypes = Asset::getEditableExtensions();
         $children = [];
 
         foreach ($paths as $path) {
-            if (!static::disk()->exists(static::diskPath($theme, $path))) {
+            if (!static::disk()->exists(static::diskPathForSource($source, $path))) {
                 continue;
             }
 
@@ -189,13 +274,14 @@ class ThemeFiles
             $parts = explode('/', $remainder);
             $name = $parts[0];
             $isFolder = count($parts) > 1;
+            $entryPath = $filterPath === '' ? $name : trim($filterPath, '/').'/'.$name;
 
             if (!isset($children[$name])) {
                 $children[$name] = [
-                    'filename' => $name,
+                    $nameKey => $name,
                     'isFolder' => $isFolder ? 1 : 0,
-                    'isEditable' => !$isFolder && in_array(strtolower(pathinfo($name, PATHINFO_EXTENSION)), $editableAssetTypes),
-                    'path' => $name,
+                    'isEditable' => !$isFolder && in_array(strtolower(pathinfo($name, PATHINFO_EXTENSION)), $editableExtensions),
+                    'path' => $entryPath,
                 ];
                 continue;
             }
@@ -219,6 +305,22 @@ class ThemeFiles
             ->merge(collect($stored)->keyBy('path'))
             ->values()
             ->all();
+    }
+
+    /**
+     * getLatestMtime returns the latest updated_at timestamp for a source
+     */
+    public static function getLatestMtime(string $source, ?string $pathPrefix = null): ?int
+    {
+        $query = Db::table('cms_theme_storage')->where('source', $source);
+
+        if ($pathPrefix !== null) {
+            $query->where('path', 'like', static::normalizeRelativePath($pathPrefix).'/%');
+        }
+
+        $dbMtime = $query->max('updated_at');
+
+        return $dbMtime ? strtotime($dbMtime) : null;
     }
 
     /**
@@ -284,11 +386,19 @@ class ThemeFiles
             return;
         }
 
+        static::purgeSource($theme->getDirName());
+    }
+
+    /**
+     * purgeSource removes all stored files for a source identifier
+     */
+    public static function purgeSource(string $source): void
+    {
         Db::table('cms_theme_storage')
-            ->where('source', $theme->getDirName())
+            ->where('source', $source)
             ->delete();
 
-        static::disk()->deleteDirectory(static::diskPrefix($theme));
+        static::disk()->deleteDirectory(trim($source, '/'));
     }
 
     /**
@@ -312,7 +422,15 @@ class ThemeFiles
      */
     public static function diskPath(Theme $theme, string $relativePath): string
     {
-        return static::diskPrefix($theme).'/'.ltrim(static::normalizeRelativePath($relativePath), '/');
+        return static::diskPathForSource($theme->getDirName(), $relativePath);
+    }
+
+    /**
+     * diskPathForSource returns the object key for a source-relative path
+     */
+    public static function diskPathForSource(string $source, string $relativePath): string
+    {
+        return trim($source, '/').'/'.ltrim(static::normalizeRelativePath($relativePath), '/');
     }
 
     /**

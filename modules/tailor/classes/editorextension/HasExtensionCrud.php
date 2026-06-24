@@ -3,9 +3,15 @@
 use Lang;
 use Config;
 use Request;
+use Input;
+use File;
 use BackendAuth;
+use System;
 use SystemException;
 use ApplicationException;
+use Cms\Classes\Theme;
+use Cms\Classes\ThemeBlueprints;
+use Cms\Helpers\File as FileHelper;
 use Tailor\Classes\EditorExtension;
 use Tailor\Classes\Blueprint;
 use Tailor\Classes\ThemeBlueprint;
@@ -158,8 +164,15 @@ trait HasExtensionCrud
 
         $newName = trim(ApiHelpers::assertGetKey($documentData, 'name'));
         $originalPath = trim(ApiHelpers::assertGetKey($documentData, 'originalPath'));
-        $blueprintExtensions = ['yaml'];
 
+        if ($this->blueprintDatabaseEnabled()) {
+            $parent = dirname($originalPath);
+            $newPath = ($parent === '.' ? '' : $parent.'/').$newName;
+            $this->renameDatabaseBlueprint($originalPath, $newPath, $newName);
+            return;
+        }
+
+        $blueprintExtensions = Blueprint::getAllowedExtensions();
         $this->editorRenameFileOrDirectory($this->getBlueprintsPath(), $newName, $originalPath, $blueprintExtensions);
     }
 
@@ -173,6 +186,11 @@ trait HasExtensionCrud
         $documentData = $this->getRequestDocumentData();
         $fileList = ApiHelpers::assertGetKey($documentData, 'files');
         ApiHelpers::assertIsArray($fileList);
+
+        if ($this->blueprintDatabaseEnabled()) {
+            $this->deleteDatabaseBlueprints($fileList);
+            return;
+        }
 
         $this->editorDeleteFileOrDirectory($this->getBlueprintsPath(), $fileList);
     }
@@ -188,6 +206,12 @@ trait HasExtensionCrud
 
         $selectedList = ApiHelpers::assertGetKey($documentData, 'source');
         $destinationDir = ApiHelpers::assertGetKey($documentData, 'destination');
+
+        if ($this->blueprintDatabaseEnabled()) {
+            $this->moveDatabaseBlueprints($selectedList, $destinationDir);
+            return;
+        }
+
         $this->editorMoveFilesOrDirectories($this->getBlueprintsPath(), $selectedList, $destinationDir);
     }
 
@@ -198,7 +222,324 @@ trait HasExtensionCrud
     {
         $this->assertBlueprintPermissions();
 
-        $this->editorUploadFiles($this->getBlueprintsPath(), ['yaml']);
+        if ($this->blueprintDatabaseEnabled()) {
+            $this->uploadStoredBlueprint();
+            return;
+        }
+
+        $this->editorUploadFiles($this->getBlueprintsPath(), Blueprint::getAllowedExtensions());
+    }
+
+    /**
+     * deleteDatabaseBlueprints removes blueprints from storage
+     */
+    protected function deleteDatabaseBlueprints(array $fileList)
+    {
+        usort($fileList, function ($a, $b) {
+            return strlen($b) - strlen($a);
+        });
+
+        $source = $this->getBlueprintCrudSource();
+
+        foreach ($fileList as $path) {
+            if ($this->isBlueprintDirectory($path)) {
+                $this->deleteBlueprintDirectory($path);
+                continue;
+            }
+
+            ThemeBlueprints::delete($source, $path);
+        }
+    }
+
+    /**
+     * renameDatabaseBlueprint renames a blueprint in storage
+     */
+    protected function renameDatabaseBlueprint(string $originalPath, string $newPath, string $newName)
+    {
+        if ($this->isBlueprintDirectory($originalPath)) {
+            $this->renameBlueprintDirectory($originalPath, $newPath);
+            return;
+        }
+
+        $extensions = Blueprint::getAllowedExtensions();
+        if (!FileHelper::validateExtension($newName, $extensions, false)) {
+            throw new ApplicationException(Lang::get(
+                'editor::lang.filesystem.type_not_allowed',
+                ['allowed_types' => implode(', ', $extensions)]
+            ));
+        }
+
+        ThemeBlueprints::rename($this->getBlueprintCrudSource(), $originalPath, $newPath);
+    }
+
+    /**
+     * moveDatabaseBlueprints moves blueprints in storage
+     */
+    protected function moveDatabaseBlueprints(array $selectedList, string $destinationDir)
+    {
+        $source = $this->getBlueprintCrudSource();
+
+        foreach ($selectedList as $path) {
+            if ($this->isBlueprintDirectory($path)) {
+                $this->moveBlueprintDirectory($path, $destinationDir);
+                continue;
+            }
+
+            ThemeBlueprints::move($source, $path, $destinationDir);
+        }
+    }
+
+    /**
+     * uploadStoredBlueprint stores an uploaded blueprint YAML on the configured disk
+     */
+    protected function uploadStoredBlueprint(): void
+    {
+        $uploadedFile = Input::file('file');
+        if (!is_object($uploadedFile)) {
+            return;
+        }
+
+        $fileName = $uploadedFile->getClientOriginalName();
+        $extensions = Blueprint::getAllowedExtensions();
+
+        if (!$uploadedFile->isValid()) {
+            throw new ApplicationException(Lang::get('editor::lang.filesystem.file_not_valid'));
+        }
+
+        if (!FileHelper::validateExtension($fileName, $extensions, false)) {
+            throw new ApplicationException(Lang::get(
+                'editor::lang.filesystem.type_not_allowed',
+                ['allowed_types' => implode(', ', $extensions)]
+            ));
+        }
+
+        $destinationDir = trim(Request::input('destination'), '/');
+        if (!strlen($destinationDir)) {
+            throw new ApplicationException(Lang::get('editor::lang.filesystem.select_destination_dir'));
+        }
+
+        if (!preg_match('/^[\@0-9a-z\.\s_\-\/]+$/i', $destinationDir)) {
+            throw new ApplicationException(Lang::get('editor::lang.filesystem.invalid_path'));
+        }
+
+        $blueprintPath = trim($destinationDir.'/'.$fileName, '/');
+        ThemeBlueprints::write(
+            $this->getBlueprintCrudSource(),
+            $blueprintPath,
+            File::get($uploadedFile->getRealPath())
+        );
+    }
+
+    /**
+     * isBlueprintDirectory checks if a blueprint path is a directory
+     */
+    protected function isBlueprintDirectory(string $path): bool
+    {
+        if ($this->blueprintDatabaseEnabled()) {
+            $source = $this->getBlueprintCrudSource();
+            if (ThemeBlueprints::hasStoredChildren($source, $path)) {
+                return true;
+            }
+        }
+
+        $fullPath = $this->resolveBlueprintFilesystemPath($path);
+
+        return $fullPath && File::isDirectory($fullPath);
+    }
+
+    /**
+     * resolveBlueprintFilesystemPath returns the filesystem path for a blueprint
+     */
+    protected function resolveBlueprintFilesystemPath(string $path): ?string
+    {
+        $root = $this->getBlueprintFilesystemRoot();
+        if (!$root) {
+            return null;
+        }
+
+        $fullPath = $root.'/'.ltrim($path, '/');
+
+        return File::exists($fullPath) ? $fullPath : null;
+    }
+
+    /**
+     * deleteBlueprintDirectory removes a blueprint directory
+     */
+    protected function deleteBlueprintDirectory(string $path)
+    {
+        if ($this->blueprintDatabaseEnabled()) {
+            ThemeBlueprints::deleteDirectory($this->getBlueprintCrudSource(), $path);
+
+            $fullPath = $this->resolveBlueprintFilesystemPath($path);
+            if ($fullPath && File::isDirectory($fullPath) && File::isDirectoryEmpty($fullPath)) {
+                @rmdir($fullPath);
+            }
+
+            return;
+        }
+
+        $fullPath = $this->resolveBlueprintFilesystemPath($path);
+
+        if (!$fullPath || !File::isDirectory($fullPath)) {
+            return;
+        }
+
+        if (!File::isDirectoryEmpty($fullPath)) {
+            throw new ApplicationException(Lang::get(
+                'editor::lang.filesystem.error_deleting_dir_not_empty',
+                ['name' => $path]
+            ));
+        }
+
+        if (!rmdir($fullPath)) {
+            throw new ApplicationException(Lang::get(
+                'editor::lang.filesystem.error_deleting_dir',
+                ['name' => $path]
+            ));
+        }
+    }
+
+    /**
+     * renameBlueprintDirectory renames a blueprint directory
+     */
+    protected function renameBlueprintDirectory(string $originalPath, string $newPath)
+    {
+        if ($this->blueprintDatabaseEnabled()) {
+            ThemeBlueprints::renamePathPrefix(
+                $this->getBlueprintCrudSource(),
+                $originalPath,
+                $newPath
+            );
+        }
+
+        $originalFullPath = $this->resolveBlueprintFilesystemPath($originalPath);
+        $root = $this->getBlueprintFilesystemRoot();
+        $newFullPath = $root.'/'.ltrim($newPath, '/');
+
+        if (!$originalFullPath || !File::isDirectory($originalFullPath)) {
+            return;
+        }
+
+        if (File::exists($newFullPath)) {
+            throw new ApplicationException(Lang::get(
+                'editor::lang.filesystem.error_renaming_dir',
+                ['name' => $originalPath]
+            ));
+        }
+
+        if (!rename($originalFullPath, $newFullPath)) {
+            throw new ApplicationException(Lang::get(
+                'editor::lang.filesystem.error_renaming_dir',
+                ['name' => $originalPath]
+            ));
+        }
+    }
+
+    /**
+     * moveBlueprintDirectory moves a blueprint directory
+     */
+    protected function moveBlueprintDirectory(string $path, string $destinationDir)
+    {
+        $destinationDir = trim($destinationDir, '/');
+        $newPrefix = ($destinationDir === '' ? '' : $destinationDir.'/').basename($path);
+
+        if ($this->blueprintDatabaseEnabled()) {
+            ThemeBlueprints::renamePathPrefix(
+                $this->getBlueprintCrudSource(),
+                $path,
+                $newPrefix
+            );
+        }
+
+        $originalFullPath = $this->resolveBlueprintFilesystemPath($path);
+        $root = $this->getBlueprintFilesystemRoot();
+        $newFullPath = $root.'/'.$newPrefix;
+
+        if (!$originalFullPath || !File::isDirectory($originalFullPath)) {
+            return;
+        }
+
+        if (File::exists($newFullPath)) {
+            throw new ApplicationException(Lang::get(
+                'editor::lang.filesystem.error_moving_dir',
+                ['dir' => basename($path)]
+            ));
+        }
+
+        if (!rename($originalFullPath, $newFullPath)) {
+            throw new ApplicationException(Lang::get(
+                'editor::lang.filesystem.error_moving_dir',
+                ['dir' => basename($path)]
+            ));
+        }
+    }
+
+    /**
+     * blueprintDatabaseEnabled checks if blueprint CRUD should use storage
+     */
+    protected function blueprintDatabaseEnabled(): bool
+    {
+        $source = $this->getBlueprintCrudSource();
+
+        return $source && ThemeBlueprints::usesDatabase($source);
+    }
+
+    /**
+     * getBlueprintCrudSource returns the storage source for the current blueprint request
+     */
+    protected function getBlueprintCrudSource(): ?string
+    {
+        if ($this->isThemeBlueprintDocument()) {
+            $theme = Theme::getEditTheme() ?: Theme::getActiveTheme();
+
+            return $theme?->getDirName();
+        }
+
+        if ($this->isAppBlueprintDocument()) {
+            return 'app';
+        }
+
+        return null;
+    }
+
+    /**
+     * getBlueprintFilesystemRoot returns the filesystem root for the current blueprint request
+     */
+    protected function getBlueprintFilesystemRoot(): ?string
+    {
+        $source = $this->getBlueprintCrudSource();
+
+        if ($source === 'app') {
+            return base_path('app/blueprints');
+        }
+
+        if ($source && System::hasModule('Cms')) {
+            $theme = Theme::load($source);
+
+            return $theme ? $theme->getPath().'/blueprints' : null;
+        }
+
+        return null;
+    }
+
+    /**
+     * isAppBlueprintDocument checks if the current request is for an app blueprint
+     */
+    protected function isAppBlueprintDocument(): bool
+    {
+        $type = post('documentType', post('documentMetadata[documentType]'));
+
+        return $type === EditorExtension::DOCUMENT_TYPE_BLUEPRINT;
+    }
+
+    /**
+     * isThemeBlueprintDocument checks if the current request is for a theme blueprint
+     */
+    protected function isThemeBlueprintDocument(): bool
+    {
+        $type = post('documentType', post('documentMetadata[documentType]'));
+
+        return $type === EditorExtension::DOCUMENT_TYPE_THEME_BLUEPRINT;
     }
 
     /**

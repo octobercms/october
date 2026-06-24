@@ -4,6 +4,7 @@ use App;
 use File;
 use System;
 use Cms\Classes\Theme;
+use Cms\Classes\ThemeBlueprints;
 use Tailor\Classes\Blueprint;
 use Tailor\Classes\Blueprint\EntryBlueprint;
 use System\Helpers\Cache as CacheHelper;
@@ -200,19 +201,32 @@ class BlueprintIndexer
             return;
         }
 
-        if (!file_exists(app_path('blueprints'))) {
+        if (!file_exists(app_path('blueprints')) && !ThemeBlueprints::usesDatabase('app')) {
             return;
         }
 
         // Checking recursive mtime of app directory
         $currentMtime = 0;
-        $mtime = File::lastModifiedRecursive(app_path('blueprints'));
+        $mtime = file_exists(app_path('blueprints'))
+            ? File::lastModifiedRecursive(app_path('blueprints'))
+            : 0;
+
+        if ($appDbMtime = ThemeBlueprints::getLatestMtime('app')) {
+            $mtime = max($mtime, $appDbMtime);
+        }
 
         // Checking mtime of theme directory
         if (System::hasModule('Cms')) {
             $theme = Theme::getEditTheme() ?: Theme::getActiveTheme();
-            if ($theme && file_exists($themePath = $theme->getPath() . '/blueprints')) {
-                $mtime = max($mtime, File::lastModifiedRecursive($themePath));
+            if ($theme) {
+                $themePath = $theme->getPath().'/blueprints';
+                if (file_exists($themePath)) {
+                    $mtime = max($mtime, File::lastModifiedRecursive($themePath));
+                }
+
+                if ($themeDbMtime = ThemeBlueprints::getLatestMtime($theme->getDirName())) {
+                    $mtime = max($mtime, $themeDbMtime);
+                }
             }
         }
 
