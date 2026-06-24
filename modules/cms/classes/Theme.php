@@ -499,6 +499,22 @@ class Theme implements CallsMethods
     }
 
     /**
+     * databaseFilesEnabled checks if theme assets should use disk storage
+     */
+    public function databaseFilesEnabled(): bool
+    {
+        if (!App::hasDatabase()) {
+            return false;
+        }
+
+        if (Config::get('cms.database_files', false)) {
+            return true;
+        }
+
+        return (bool) $this->getConfigValue('files', false);
+    }
+
+    /**
      * hasParentTheme checks if a parent theme is defined
      */
     public function hasParentTheme(): bool

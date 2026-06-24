@@ -128,6 +128,13 @@ class Asset extends Extendable
         $path = $this->theme->getPath().'/'.$this->dirName.$pathSuffix;
         $files = $this->getInternal($path, $this->theme);
 
+        if ($this->theme->databaseFilesEnabled()) {
+            $files = ThemeFiles::mergeListings(
+                $files,
+                ThemeFiles::listAssets($this->theme, ltrim($pathSuffix, '/'))
+            );
+        }
+
         // Splice in assets of parent theme
         if ($parentTheme = $this->theme->getParentTheme()) {
             $parentPath = $parentTheme->getPath().'/'.$this->dirName.$pathSuffix;
@@ -236,6 +243,21 @@ class Asset extends Extendable
      */
     public function find(string $fileName)
     {
+        if ($this->theme->databaseFilesEnabled()) {
+            $relativePath = $this->dirName.'/'.$fileName;
+            $stored = ThemeFiles::get($this->theme, $relativePath);
+
+            if ($stored !== null) {
+                $this->fileName = $fileName;
+                $this->originalFileName = $fileName;
+                $this->mtime = $stored['mtime'];
+                $this->content = $stored['content'];
+                $this->exists = true;
+
+                return $this;
+            }
+        }
+
         $filePath = $this->getFilePath($fileName);
 
         $foundTheme = $this->theme;
@@ -301,6 +323,26 @@ class Asset extends Extendable
     {
         $this->validateFileName();
 
+        if ($this->theme->databaseFilesEnabled()) {
+            $originalPath = strlen($this->originalFileName)
+                ? $this->dirName.'/'.$this->originalFileName
+                : null;
+            $newPath = $this->dirName.'/'.$this->fileName;
+
+            if ($originalPath && $originalPath !== $newPath && ThemeFiles::isStored($this->theme, $originalPath)) {
+                ThemeFiles::rename($this->theme, $originalPath, $newPath);
+            }
+            else {
+                ThemeFiles::put($this->theme, $newPath, $this->content);
+            }
+
+            $this->mtime = time();
+            $this->originalFileName = $this->fileName;
+            $this->exists = true;
+
+            return;
+        }
+
         $fullPath = $this->getFilePath();
 
         if (File::isFile($fullPath) && $this->originalFileName !== $this->fileName) {
@@ -360,9 +402,14 @@ class Asset extends Extendable
     public function delete()
     {
         $fileName = Request::input('fileName');
-        $fullPath = $this->getFilePath($fileName);
-
         $this->validateFileName($fileName);
+
+        if ($this->theme->databaseFilesEnabled()) {
+            ThemeFiles::delete($this->theme, $this->dirName.'/'.$fileName);
+            return;
+        }
+
+        $fullPath = $this->getFilePath($fileName);
 
         if (!FileHelper::validateInTheme($this->theme, $fullPath)) {
             throw new ValidationException(['fileName' =>

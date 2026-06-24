@@ -31,6 +31,18 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Database Theme Files
+    |--------------------------------------------------------------------------
+    |
+    | Store theme asset bytes on the default filesystem disk (FILESYSTEM_DISK)
+    | and track them in the database instead of the theme directory.
+    |
+    */
+
+    'database_files' => env('CMS_DB_FILES', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Template Strictness
     |--------------------------------------------------------------------------
     |

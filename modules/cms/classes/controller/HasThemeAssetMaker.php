@@ -3,6 +3,7 @@
 use Url;
 use File;
 use Config;
+use Cms\Classes\ThemeFiles;
 use System\Classes\CombineAssets;
 
 /**
@@ -90,6 +91,15 @@ trait HasThemeAssetMaker
                 continue;
             }
 
+            // Stored asset
+            if ($theme->databaseFilesEnabled() && ThemeFiles::isStored($theme, $path)) {
+                $localPath = ThemeFiles::getCombinerPath($theme, $path);
+                if ($localPath) {
+                    $path = $localPath;
+                    continue;
+                }
+            }
+
             // Parent asset
             if ($theme->useParentAsset($path)) {
                 $path = $theme->getParentTheme()->getPath().'/'.$path;
@@ -120,8 +130,13 @@ trait HasThemeAssetMaker
      */
     protected function getThemeAssetUrl(?string $relativePath = null): string
     {
-        // Determine directory name for asset
         $theme = $this->getTheme();
+
+        if ($relativePath !== null && $theme->databaseFilesEnabled() && ThemeFiles::isStored($theme, $relativePath)) {
+            return ThemeFiles::getPublicUrl($theme, $relativePath);
+        }
+
+        // Determine directory name for asset
         $dirName = $theme->getDirName();
 
         if (

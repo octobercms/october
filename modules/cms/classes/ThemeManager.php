@@ -7,6 +7,7 @@ use Yaml;
 use File;
 use System;
 use Cms\Classes\Theme as CmsTheme;
+use Cms\Classes\ThemeFiles;
 use October\Rain\Composer\ComposerManager;
 use ApplicationException;
 use Exception;
@@ -438,6 +439,8 @@ class ThemeManager
         if (is_dir($themePath)) {
             File::deleteDirectory($themePath);
         }
+
+        ThemeFiles::purgeTheme($theme);
     }
 
     /**
