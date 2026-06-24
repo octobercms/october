@@ -32,6 +32,11 @@ trait HasExtensionAssetsCrud
         $newName = trim(ApiHelpers::assertGetKey($documentData, 'name'));
         $parent = ApiHelpers::assertGetKey($documentData, 'parent');
 
+        if ($this->getTheme()->databaseFilesEnabled()) {
+            $this->createDatabaseThemeAssetDirectory($newName, $parent);
+            return;
+        }
+
         $this->editorCreateDirectory($this->getAssetsPath($this->getTheme()), $newName, $parent);
     }
 
@@ -206,12 +211,45 @@ trait HasExtensionAssetsCrud
         $theme = $this->getTheme();
 
         foreach ($fileList as $path) {
+            if (!$this->validateFileSystemPath($path)) {
+                throw new ApplicationException(Lang::get('editor::lang.filesystem.invalid_path'));
+            }
+
             if ($this->isAssetDirectory($path)) {
                 $this->deleteAssetDirectory($path);
                 continue;
             }
 
             ThemeFiles::delete($theme, 'assets/' . $path);
+        }
+    }
+
+    /**
+     * createDatabaseThemeAssetDirectory validates a new virtual asset directory
+     */
+    protected function createDatabaseThemeAssetDirectory(string $newName, $parent): void
+    {
+        if (!strlen($newName)) {
+            throw new ApplicationException(Lang::get('editor::lang.filesystem.directory_name_cant_be_empty'));
+        }
+
+        if (!$this->validateFileSystemPath($newName)) {
+            throw new ApplicationException(Lang::get('editor::lang.filesystem.invalid_path'));
+        }
+
+        if (strlen($parent) && !$this->validateFileSystemPath($parent)) {
+            throw new ApplicationException(Lang::get('editor::lang.filesystem.invalid_path'));
+        }
+
+        if (!$this->validateFileSystemName($newName)) {
+            throw new ApplicationException(Lang::get('editor::lang.filesystem.invalid_name'));
+        }
+
+        $parent = trim((string) $parent, '/');
+        $path = ($parent !== '' ? $parent . '/' : '') . $newName;
+
+        if (ThemeFiles::hasAssetDirectory($this->getTheme(), $path)) {
+            throw new ApplicationException(Lang::get('editor::lang.filesystem.already_exists'));
         }
     }
 
@@ -258,6 +296,10 @@ trait HasExtensionAssetsCrud
      */
     protected function isAssetDirectory(string $path): bool
     {
+        if ($this->getTheme()->databaseFilesEnabled() && ThemeFiles::hasAssetDirectory($this->getTheme(), $path)) {
+            return true;
+        }
+
         $fullPath = $this->resolveAssetFilesystemPath($path);
 
         return $fullPath && File::isDirectory($fullPath);
@@ -290,6 +332,15 @@ trait HasExtensionAssetsCrud
      */
     protected function deleteAssetDirectory(string $path)
     {
+        if ($this->getTheme()->databaseFilesEnabled()) {
+            if (!ThemeFiles::hasAssetDirectory($this->getTheme(), $path)) {
+                return;
+            }
+
+            ThemeFiles::deleteAssetsUnderPrefix($this->getTheme(), $path);
+            return;
+        }
+
         $fullPath = $this->resolveAssetFilesystemPath($path);
 
         if (!$fullPath || !File::isDirectory($fullPath)) {
@@ -316,6 +367,20 @@ trait HasExtensionAssetsCrud
      */
     protected function renameAssetDirectory(string $originalPath, string $newPath)
     {
+        if ($this->getTheme()->databaseFilesEnabled()) {
+            if (!ThemeFiles::hasAssetDirectory($this->getTheme(), $originalPath)) {
+                throw new ApplicationException(Lang::get('editor::lang.filesystem.original_not_found'));
+            }
+
+            ThemeFiles::renamePathPrefix(
+                $this->getTheme(),
+                'assets/' . ltrim($originalPath, '/'),
+                'assets/' . ltrim($newPath, '/')
+            );
+
+            return;
+        }
+
         $originalFullPath = $this->resolveAssetFilesystemPath($originalPath);
         if (!$originalFullPath) {
             throw new ApplicationException(Lang::get('editor::lang.filesystem.original_not_found'));
@@ -329,14 +394,6 @@ trait HasExtensionAssetsCrud
         if (!rename($originalFullPath, $newFullPath)) {
             throw new ApplicationException(Lang::get('editor::lang.filesystem.error_renaming'));
         }
-
-        if ($this->getTheme()->databaseFilesEnabled()) {
-            ThemeFiles::renamePathPrefix(
-                $this->getTheme(),
-                'assets/' . ltrim($originalPath, '/'),
-                'assets/' . ltrim($newPath, '/')
-            );
-        }
     }
 
     /**
@@ -344,6 +401,23 @@ trait HasExtensionAssetsCrud
      */
     protected function moveAssetDirectory(string $path, string $destinationDir)
     {
+        if ($this->getTheme()->databaseFilesEnabled()) {
+            if (!ThemeFiles::hasAssetDirectory($this->getTheme(), $path)) {
+                throw new ApplicationException(Lang::get('editor::lang.filesystem.original_not_found'));
+            }
+
+            $destinationPath = trim($destinationDir, '/');
+            $newPrefix = ($destinationPath === '' ? '' : $destinationPath . '/') . basename($path);
+
+            ThemeFiles::renamePathPrefix(
+                $this->getTheme(),
+                'assets/' . ltrim($path, '/'),
+                'assets/' . $newPrefix
+            );
+
+            return;
+        }
+
         $originalFullPath = $this->resolveAssetFilesystemPath($path);
         if (!$originalFullPath) {
             throw new ApplicationException(Lang::get('editor::lang.filesystem.original_not_found'));
@@ -375,16 +449,6 @@ trait HasExtensionAssetsCrud
                 'editor::lang.filesystem.error_deleting_directory',
                 ['dir' => basename($path)]
             ));
-        }
-
-        if ($this->getTheme()->databaseFilesEnabled()) {
-            $destinationPath = trim($destinationDir, '/');
-            $newPrefix = ($destinationPath === '' ? '' : $destinationPath . '/') . basename($path);
-            ThemeFiles::renamePathPrefix(
-                $this->getTheme(),
-                'assets/' . ltrim($path, '/'),
-                'assets/' . $newPrefix
-            );
         }
     }
 }

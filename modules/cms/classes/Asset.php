@@ -283,7 +283,11 @@ class Asset extends Extendable
 
             $localPath = ThemeFiles::getLocalPath($this->theme, $relativePath);
 
-            if ($localPath && !FileHelper::validateInTheme($this->theme, $localPath)) {
+            if (
+                $localPath &&
+                !ThemeFiles::isStoredFile($this->theme, $relativePath) &&
+                !FileHelper::validateInTheme($this->theme, $localPath)
+            ) {
                 throw new ValidationException(['fileName' =>
                     Lang::get('cms::lang.cms_object.invalid_file', [
                         'name' => $fileName

@@ -36,13 +36,15 @@ class ThemeFileController
             return Response::make('File not found', 404);
         }
 
+        $storageTheme = ThemeFiles::resolveStorageTheme($theme, $relativePath) ?: $theme;
+
         $localPath = ThemeFiles::getLocalPath($theme, $relativePath);
 
         if ($localPath && is_file($localPath)) {
             return new BinaryFileResponse($localPath);
         }
 
-        $diskPath = ThemeFiles::getDiskPath($theme, $relativePath);
+        $diskPath = ThemeFiles::getDiskPath($storageTheme, $relativePath);
         $disk = ThemeFiles::disk();
 
         if (!$disk->exists($diskPath)) {

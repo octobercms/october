@@ -222,6 +222,76 @@ class DatabaseThemeFilesSpec extends TestCase
         $this->assertFalse($disk->exists($this->themeDir . '/assets/cloud.png'));
     }
 
+    /** @test */
+    public function child_theme_resolves_parent_storage_only_assets(): void
+    {
+        $parentDir = 'dbfiles-parent';
+        $childDir = 'dbfiles-child';
+
+        $this->createTheme($parentDir, "name: Parent\n");
+        $this->createTheme($childDir, "name: Child\nparent: {$parentDir}\n");
+
+        Theme::resetCache();
+
+        $parent = Theme::load($parentDir);
+        $child = Theme::load($childDir);
+
+        $this->writeStorageFile($parent, 'assets/logo.png', 'parent-bytes');
+
+        $this->assertTrue(ThemeFiles::has($child, 'assets/logo.png'));
+        $this->assertTrue(ThemeFiles::isStoredFile($child, 'assets/logo.png'));
+        $this->assertSame($parentDir, ThemeFiles::resolveStorageTheme($child, 'assets/logo.png')->getDirName());
+
+        $asset = Asset::inTheme($child)->find('logo.png');
+        $this->assertNotNull($asset);
+        $this->assertSame('parent-bytes', $asset->content);
+
+        $url = ThemeFiles::getPublicUrl($child, 'assets/logo.png');
+        $this->assertStringContainsString('assets/logo.png', $url);
+
+        $combinerPath = ThemeFiles::getCombinerPath($child, 'assets/logo.png');
+        $this->assertNotNull($combinerPath);
+        $this->assertSame('parent-bytes', File::get($combinerPath));
+    }
+
+    /** @test */
+    public function virtual_folder_delete_removes_stored_files(): void
+    {
+        $theme = Theme::load($this->themeDir);
+        $this->writeStorageFile($theme, 'assets/images/a.png', 'a');
+        $this->writeStorageFile($theme, 'assets/images/b.png', 'b');
+
+        $this->assertTrue(ThemeFiles::hasAssetDirectory($theme, 'images'));
+
+        ThemeFiles::deleteAssetsUnderPrefix($theme, 'images');
+
+        $this->assertFalse(ThemeFiles::hasAssetDirectory($theme, 'images'));
+        $this->assertFalse(ThemeFiles::has($theme, 'assets/images/a.png'));
+        $this->assertFalse(ThemeFiles::has($theme, 'assets/images/b.png'));
+    }
+
+    /** @test */
+    public function virtual_folder_rename_moves_stored_files(): void
+    {
+        $theme = Theme::load($this->themeDir);
+        $this->writeStorageFile($theme, 'assets/images/a.png', 'a');
+
+        ThemeFiles::renamePathPrefix($theme, 'assets/images', 'assets/photos');
+
+        $this->assertFalse(ThemeFiles::has($theme, 'assets/images/a.png'));
+        $this->assertTrue(ThemeFiles::has($theme, 'assets/photos/a.png'));
+        $this->assertTrue(ThemeFiles::hasAssetDirectory($theme, 'photos'));
+    }
+
+    protected function createTheme(string $dirName, string $yaml): void
+    {
+        $path = themes_path($dirName);
+        File::makeDirectory($path . '/assets', 0755, true, true);
+        File::put($path . '/theme.yaml', $yaml);
+
+        Db::table('cms_theme_files')->where('source', $dirName)->delete();
+    }
+
     protected function getPrimaryStorageDatasource(AutoDatasource $auto): StorageFileDatasource
     {
         return $this->callProtectedMethod($auto, 'getSoftDeleteDatasource');

@@ -622,6 +622,10 @@ class Theme implements CallsMethods
         $datasources[] = new FileDatasource($this->getPath(), App::make('files'));
 
         if ($parentTheme = $this->getParentTheme()) {
+            if ($parentTheme->databaseFilesEnabled()) {
+                $datasources[] = ThemeFiles::makeStorageDatasource($parentTheme);
+            }
+
             $datasources[] = new FileDatasource($parentTheme->getPath(), App::make('files'));
         }
 

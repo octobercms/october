@@ -33,22 +33,41 @@ class ThemeFiles
     }
 
     /**
-     * isStoredFile checks if a file is tracked by the storage datasource
+     * isStoredFile checks if a file is tracked by a storage datasource layer
      */
     public static function isStoredFile(Theme $theme, string $relativePath): bool
     {
-        if (!$theme->databaseFilesEnabled()) {
-            return false;
+        return static::resolveStorageTheme($theme, $relativePath) !== null;
+    }
+
+    /**
+     * resolveStorageTheme returns the theme whose storage layer owns a file
+     */
+    public static function resolveStorageTheme(Theme $theme, string $relativePath): ?Theme
+    {
+        if (!$theme->filesLayerEnabled()) {
+            return null;
         }
 
         [$dirName, $fileName, $extension] = static::parseRelativePath($relativePath);
-        $datasource = $theme->getFileDatasource();
 
-        if (!$datasource instanceof AutoDatasource) {
-            return false;
+        if ($theme->databaseFilesEnabled()) {
+            $datasource = static::makeStorageDatasource($theme);
+
+            if ($datasource->hasTemplate($dirName, $fileName, $extension)) {
+                return $theme;
+            }
         }
 
-        return $datasource->hasTemplateAtIndex(0, $dirName, $fileName, $extension);
+        if (($parent = $theme->getParentTheme()) && $parent->databaseFilesEnabled()) {
+            $datasource = static::makeStorageDatasource($parent);
+
+            if ($datasource->hasTemplate($dirName, $fileName, $extension)) {
+                return $parent;
+            }
+        }
+
+        return null;
     }
 
     /**
@@ -77,12 +96,9 @@ class ThemeFiles
     {
         [$dirName, $fileName, $extension] = static::parseRelativePath($relativePath);
         $datasource = $theme->getFileDatasource();
-
-        $disk = static::disk();
-        $diskUrl = method_exists($disk, 'url') ? rtrim($disk->url($theme->getDirName()), '/') : null;
+        $storageTheme = static::resolveStorageTheme($theme, $relativePath) ?: $theme;
         $publicBase = Config::get('system.themes_asset_url');
         $context = [
-            'publicUrl' => $diskUrl ?: ($publicBase ? rtrim($publicBase, '/') . '/' . $theme->getDirName() : null),
             'theme' => $theme,
         ];
 
@@ -94,10 +110,10 @@ class ThemeFiles
         }
 
         if ($publicBase) {
-            return rtrim($publicBase, '/') . '/' . $theme->getDirName() . '/' . ltrim($relativePath, '/');
+            return rtrim($publicBase, '/') . '/' . $storageTheme->getDirName() . '/' . ltrim($relativePath, '/');
         }
 
-        return Url::to('cms/theme-files/' . $theme->getDirName() . '/' . ltrim($relativePath, '/'));
+        return Url::to('cms/theme-files/' . $storageTheme->getDirName() . '/' . ltrim($relativePath, '/'));
     }
 
     /**
@@ -120,7 +136,9 @@ class ThemeFiles
      */
     public static function getCombinerPath(Theme $theme, string $relativePath): ?string
     {
-        if (!static::isStoredFile($theme, $relativePath)) {
+        $storageTheme = static::resolveStorageTheme($theme, $relativePath);
+
+        if (!$storageTheme) {
             return null;
         }
 
@@ -129,14 +147,14 @@ class ThemeFiles
             return $localPath;
         }
 
-        $diskPath = static::getDiskPath($theme, $relativePath);
+        $diskPath = static::getDiskPath($storageTheme, $relativePath);
         $disk = static::disk();
 
         if (!$disk->exists($diskPath)) {
             return null;
         }
 
-        $cacheDir = temp_path('cms-theme-files/' . $theme->getDirName());
+        $cacheDir = temp_path('cms-theme-files/' . $storageTheme->getDirName());
         File::makeDirectory($cacheDir, 0755, true, true);
 
         $extension = pathinfo($relativePath, PATHINFO_EXTENSION);
@@ -198,6 +216,51 @@ class ThemeFiles
         }
 
         return array_values($children);
+    }
+
+    /**
+     * hasAssetDirectory checks if a virtual asset directory contains stored files
+     */
+    public static function hasAssetDirectory(Theme $theme, string $assetPath): bool
+    {
+        if (!$theme->databaseFilesEnabled()) {
+            return false;
+        }
+
+        $assetPath = trim(File::normalizePath($assetPath), '/');
+        $prefix = 'assets' . ($assetPath !== '' ? '/' . $assetPath : '');
+
+        return Db::table('cms_theme_files')
+            ->where('source', $theme->getDirName())
+            ->whereNull('content')
+            ->whereNull('deleted_at')
+            ->where('path', 'like', $prefix . '/%')
+            ->exists();
+    }
+
+    /**
+     * deleteAssetsUnderPrefix removes all stored files under an asset directory prefix
+     */
+    public static function deleteAssetsUnderPrefix(Theme $theme, string $assetPath): void
+    {
+        if (!$theme->databaseFilesEnabled()) {
+            return;
+        }
+
+        $assetPath = trim(File::normalizePath($assetPath), '/');
+        $prefix = 'assets' . ($assetPath !== '' ? '/' . $assetPath : '');
+
+        $paths = Db::table('cms_theme_files')
+            ->where('source', $theme->getDirName())
+            ->whereNull('content')
+            ->whereNull('deleted_at')
+            ->where('path', 'like', $prefix . '/%')
+            ->orderByDesc('path')
+            ->pluck('path');
+
+        foreach ($paths as $path) {
+            static::delete($theme, $path);
+        }
     }
 
     /**
