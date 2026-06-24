@@ -40,13 +40,7 @@ class ThemeBlueprints
         }
 
         if ($source === static::APP_SOURCE) {
-            $enableDbFiles = Config::get('cms.database_theme_files', false);
-
-            if (!$enableDbFiles) {
-                $enableDbFiles = Config::get('cms.database_files', false);
-            }
-
-            return (bool) $enableDbFiles && App::hasDatabase();
+            return Theme::databaseFilesGloballyEnabled();
         }
 
         $theme = Theme::load($source);

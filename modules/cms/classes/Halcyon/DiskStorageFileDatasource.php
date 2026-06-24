@@ -1,13 +1,12 @@
 <?php namespace Cms\Classes\Halcyon;
 
-use Cms\Classes\Contracts\ThemeFilesDiskAdapter;
 use Illuminate\Contracts\Filesystem\Filesystem as FilesystemContract;
 use October\Rain\Halcyon\Datasource\StorageFileDatasource;
 
 /**
  * DiskStorageFileDatasource stores theme file bytes on a Laravel filesystem disk.
  */
-class DiskStorageFileDatasource extends StorageFileDatasource implements ThemeFilesDiskAdapter
+class DiskStorageFileDatasource extends StorageFileDatasource
 {
     /**
      * @var FilesystemContract

@@ -180,15 +180,6 @@ trait HasExtensionAssetsCrud
     }
 
     /**
-     * getAssetFullPath returns the full path for the current theme
-     * @param $path string
-     */
-    protected function getAssetFullPath($path): string
-    {
-        return $this->getAssetsPath($this->getTheme()).'/'.ltrim($path, '/');
-    }
-
-    /**
      * getSafeAssetExtensions returns asset extensions with preprocessor
      * types removed when safe mode is enabled.
      */

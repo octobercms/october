@@ -3,7 +3,6 @@
 use Cms\Classes\Asset;
 use Cms\Classes\Theme;
 use Cms\Classes\ThemeFiles;
-use Cms\Classes\Contracts\ThemeFilesDiskAdapter;
 use Cms\Classes\Halcyon\DiskStorageFileDatasource;
 use October\Rain\Halcyon\Datasource\AutoDatasource;
 use October\Rain\Halcyon\Datasource\StorageFileDatasource;
@@ -27,15 +26,9 @@ class DatabaseThemeFilesSpec extends TestCase
         parent::setUp();
 
         $this->migrateModules();
-        $this->clearStorageFileDatasourceCache();
 
-        Config::set('cms.database_theme_files', true);
         Config::set('cms.database_files', true);
         Config::set('cms.theme_files_disk', env('CMS_THEME_FILES_DISK', 'theme-files'));
-
-        if (!$this->themeFilesDiskSupportsExternalStorage()) {
-            $this->markTestSkipped('External storage adapter not implemented');
-        }
 
         if (Config::get('cms.theme_files_disk') === 'theme-files') {
             Storage::fake('theme-files');
@@ -227,11 +220,6 @@ class DatabaseThemeFilesSpec extends TestCase
 
         $asset->delete();
         $this->assertFalse($disk->exists($this->themeDir . '/assets/cloud.png'));
-    }
-
-    protected function themeFilesDiskSupportsExternalStorage(): bool
-    {
-        return interface_exists(ThemeFilesDiskAdapter::class);
     }
 
     protected function getPrimaryStorageDatasource(AutoDatasource $auto): StorageFileDatasource

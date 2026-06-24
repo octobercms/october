@@ -488,25 +488,33 @@ class Theme implements CallsMethods
      */
     public function databaseFilesEnabled(): bool
     {
+        if (!App::hasDatabase()) {
+            return false;
+        }
+
+        if (static::databaseFilesGloballyEnabled()) {
+            return true;
+        }
+
+        return (bool) $this->getConfigValue('files', false);
+    }
+
+    /**
+     * databaseFilesGloballyEnabled checks global CMS_DB_FILES config
+     */
+    public static function databaseFilesGloballyEnabled(): bool
+    {
+        if (!App::hasDatabase()) {
+            return false;
+        }
+
         $enableDbFiles = Config::get('cms.database_theme_files', false);
 
         if (!$enableDbFiles) {
             $enableDbFiles = Config::get('cms.database_files', false);
         }
 
-        if (!$enableDbFiles) {
-            $enableDbFiles = $this->getConfigValue('files', false);
-        }
-
-        return $enableDbFiles && App::hasDatabase();
-    }
-
-    /**
-     * databaseThemeFilesEnabled is an alias for databaseFilesEnabled
-     */
-    public function databaseThemeFilesEnabled(): bool
-    {
-        return $this->databaseFilesEnabled();
+        return (bool) $enableDbFiles;
     }
 
     /**
