@@ -8,7 +8,6 @@ use Storage;
 use Cms\Classes\Halcyon\DiskStorageFileDatasource;
 use October\Rain\Halcyon\Datasource\AutoDatasource;
 use October\Rain\Halcyon\Datasource\DatasourceInterface;
-use October\Rain\Halcyon\Datasource\SoftDeleteDatasourceInterface;
 use October\Rain\Halcyon\Datasource\StorageFileDatasource;
 
 /**
@@ -80,10 +79,13 @@ class ThemeFiles
         }
 
         [$dirName, $fileName, $extension] = static::parseRelativePath($relativePath);
-        $storage = static::getStorageSoftDeleteDatasource($theme);
 
-        if ($storage) {
-            return $storage->isTemplateTrashed($dirName, $fileName, $extension);
+        if (static::makeStorageDatasource($theme)->isTemplateTrashed($dirName, $fileName, $extension)) {
+            return true;
+        }
+
+        if (($parent = $theme->getParentTheme()) && $parent->databaseFilesEnabled()) {
+            return static::makeStorageDatasource($parent)->isTemplateTrashed($dirName, $fileName, $extension);
         }
 
         return false;
@@ -223,19 +225,57 @@ class ThemeFiles
      */
     public static function hasAssetDirectory(Theme $theme, string $assetPath): bool
     {
-        if (!$theme->databaseFilesEnabled()) {
+        if (!$theme->filesLayerEnabled()) {
+            return false;
+        }
+
+        return static::resolveAssetDirectoryOwner($theme, $assetPath) !== null;
+    }
+
+    /**
+     * resolveAssetDirectoryOwner returns the theme that owns stored files under a directory
+     */
+    public static function resolveAssetDirectoryOwner(Theme $theme, string $assetPath): ?Theme
+    {
+        if (static::themeHasAssetDirectory($theme, $assetPath, $theme)) {
+            return $theme;
+        }
+
+        if (($parent = $theme->getParentTheme()) && $parent->databaseFilesEnabled()) {
+            if (static::themeHasAssetDirectory($parent, $assetPath, $theme)) {
+                return $parent;
+            }
+        }
+
+        return null;
+    }
+
+    /**
+     * themeHasAssetDirectory checks stored files under a directory for a specific theme
+     */
+    protected static function themeHasAssetDirectory(Theme $owner, string $assetPath, Theme $context): bool
+    {
+        if (!$owner->databaseFilesEnabled()) {
             return false;
         }
 
         $assetPath = trim(File::normalizePath($assetPath), '/');
         $prefix = 'assets' . ($assetPath !== '' ? '/' . $assetPath : '');
 
-        return Db::table('cms_theme_files')
-            ->where('source', $theme->getDirName())
+        $paths = Db::table('cms_theme_files')
+            ->where('source', $owner->getDirName())
             ->whereNull('content')
             ->whereNull('deleted_at')
             ->where('path', 'like', $prefix . '/%')
-            ->exists();
+            ->pluck('path');
+
+        foreach ($paths as $path) {
+            if (!static::isTrashed($context, $path)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**
@@ -243,7 +283,9 @@ class ThemeFiles
      */
     public static function deleteAssetsUnderPrefix(Theme $theme, string $assetPath): void
     {
-        if (!$theme->databaseFilesEnabled()) {
+        $owner = static::resolveAssetDirectoryOwner($theme, $assetPath);
+
+        if (!$owner) {
             return;
         }
 
@@ -251,7 +293,7 @@ class ThemeFiles
         $prefix = 'assets' . ($assetPath !== '' ? '/' . $assetPath : '');
 
         $paths = Db::table('cms_theme_files')
-            ->where('source', $theme->getDirName())
+            ->where('source', $owner->getDirName())
             ->whereNull('content')
             ->whereNull('deleted_at')
             ->where('path', 'like', $prefix . '/%')
@@ -259,6 +301,10 @@ class ThemeFiles
             ->pluck('path');
 
         foreach ($paths as $path) {
+            if (static::isTrashed($theme, $path)) {
+                continue;
+            }
+
             static::delete($theme, $path);
         }
     }
@@ -278,7 +324,29 @@ class ThemeFiles
     public static function delete(Theme $theme, string $relativePath): void
     {
         [$dirName, $fileName, $extension] = static::parseRelativePath($relativePath);
-        $theme->getFileDatasource()->delete($dirName, $fileName, $extension);
+        $storageTheme = static::resolveStorageTheme($theme, $relativePath);
+
+        if (
+            $storageTheme &&
+            $storageTheme->getDirName() !== $theme->getDirName() &&
+            !$theme->databaseFilesEnabled()
+        ) {
+            static::makeStorageDatasource($theme)->tombstone($dirName, $fileName, $extension);
+            return;
+        }
+
+        $datasource = $theme->getFileDatasource();
+
+        if ($datasource->hasTemplate($dirName, $fileName, $extension)) {
+            $datasource->delete($dirName, $fileName, $extension);
+            return;
+        }
+
+        static::purgeOrphanMetadata($theme, $relativePath);
+
+        if (($parent = $theme->getParentTheme()) && $parent->databaseFilesEnabled()) {
+            static::purgeOrphanMetadata($parent, $relativePath);
+        }
     }
 
     /**
@@ -345,8 +413,8 @@ class ThemeFiles
             $oldDiskPath = static::getDiskPath($theme, $row->path);
             $newDiskPath = static::getDiskPath($theme, $newPath);
 
-            if ($disk->exists($oldDiskPath)) {
-                $disk->move($oldDiskPath, $newDiskPath);
+            if ($disk->exists($oldDiskPath) && !$disk->move($oldDiskPath, $newDiskPath)) {
+                continue;
             }
 
             Db::table('cms_theme_files')
@@ -479,6 +547,29 @@ class ThemeFiles
     }
 
     /**
+     * purgeOrphanMetadata removes metadata rows that no longer have loadable file bytes
+     */
+    protected static function purgeOrphanMetadata(Theme $theme, string $relativePath): void
+    {
+        if (!$theme->databaseFilesEnabled()) {
+            return;
+        }
+
+        $path = ltrim(File::normalizePath($relativePath), '/');
+
+        $deleted = Db::table('cms_theme_files')
+            ->where('source', $theme->getDirName())
+            ->where('path', $path)
+            ->whereNull('content')
+            ->whereNull('deleted_at')
+            ->delete();
+
+        if ($deleted) {
+            static::flushStorageCache($theme);
+        }
+    }
+
+    /**
      * flushStorageCache clears cached metadata for a theme's storage datasource
      */
     public static function flushStorageCache(Theme $theme): void
@@ -488,25 +579,5 @@ class ThemeFiles
         }
 
         static::makeStorageDatasource($theme)->flushStorageCache();
-    }
-
-    /**
-     * getStorageSoftDeleteDatasource returns the storage layer for soft-delete checks
-     */
-    protected static function getStorageSoftDeleteDatasource(Theme $theme): ?SoftDeleteDatasourceInterface
-    {
-        if ($theme->databaseFilesEnabled()) {
-            $datasource = static::makeStorageDatasource($theme);
-
-            return $datasource instanceof SoftDeleteDatasourceInterface ? $datasource : null;
-        }
-
-        if (($parent = $theme->getParentTheme()) && $parent->databaseFilesEnabled()) {
-            $datasource = static::makeStorageDatasource($parent);
-
-            return $datasource instanceof SoftDeleteDatasourceInterface ? $datasource : null;
-        }
-
-        return null;
     }
 }

@@ -283,6 +283,56 @@ class DatabaseThemeFilesSpec extends TestCase
         $this->assertTrue(ThemeFiles::hasAssetDirectory($theme, 'photos'));
     }
 
+    /** @test */
+    public function child_can_delete_parent_virtual_folder(): void
+    {
+        $parentDir = 'dbfiles-parent';
+        $childDir = 'dbfiles-child';
+
+        $this->createTheme($parentDir, "name: Parent\n");
+        $this->createTheme($childDir, "name: Child\nparent: {$parentDir}\n");
+
+        Theme::resetCache();
+
+        $parent = Theme::load($parentDir);
+        $child = Theme::load($childDir);
+
+        $this->writeStorageFile($parent, 'assets/images/a.png', 'a');
+        $this->writeStorageFile($parent, 'assets/images/b.png', 'b');
+
+        $this->assertTrue(ThemeFiles::hasAssetDirectory($child, 'images'));
+        $this->assertSame($parentDir, ThemeFiles::resolveAssetDirectoryOwner($child, 'images')->getDirName());
+
+        ThemeFiles::deleteAssetsUnderPrefix($child, 'images');
+
+        $this->assertFalse(ThemeFiles::hasAssetDirectory($child, 'images'));
+        $this->assertFalse(ThemeFiles::has($child, 'assets/images/a.png'));
+        $this->assertTrue(ThemeFiles::isTrashed($child, 'assets/images/a.png'));
+        $this->assertTrue($this->storageExists($parent, 'assets/images/a.png'));
+    }
+
+    /** @test */
+    public function orphan_metadata_can_be_purged_without_disk_bytes(): void
+    {
+        $theme = Theme::load($this->themeDir);
+        $asset = new Asset($theme);
+        $asset->fileName = 'orphan.png';
+        $asset->content = 'orphan-bytes';
+        $asset->save();
+
+        $this->deleteStorageObject($theme, 'assets/orphan.png');
+
+        $this->assertNull(Asset::inTheme($theme)->find('orphan.png'));
+
+        ThemeFiles::delete($theme, 'assets/orphan.png');
+
+        $this->assertSame(0, Db::table('cms_theme_files')
+            ->where('source', $this->themeDir)
+            ->where('path', 'assets/orphan.png')
+            ->whereNull('content')
+            ->count());
+    }
+
     protected function createTheme(string $dirName, string $yaml): void
     {
         $path = themes_path($dirName);

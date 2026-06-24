@@ -54,7 +54,7 @@ trait HasExtensionAssetsCrud
         $fileList = ApiHelpers::assertGetKey($documentData, 'files');
         ApiHelpers::assertIsArray($fileList);
 
-        if ($this->getTheme()->databaseFilesEnabled()) {
+        if ($this->getTheme()->filesLayerEnabled()) {
             $this->deleteDatabaseThemeAssets($fileList);
             return;
         }
@@ -76,7 +76,7 @@ trait HasExtensionAssetsCrud
         $newName = trim(ApiHelpers::assertGetKey($documentData, 'name'));
         $originalPath = trim(ApiHelpers::assertGetKey($documentData, 'originalPath'));
 
-        if ($this->getTheme()->databaseFilesEnabled()) {
+        if ($this->getTheme()->filesLayerEnabled()) {
             $parent = dirname($originalPath);
             $newPath = ($parent === '.' ? '' : $parent . '/') . $newName;
             $this->renameDatabaseThemeAsset($originalPath, $newPath, $newName);
@@ -101,7 +101,7 @@ trait HasExtensionAssetsCrud
         $selectedList = ApiHelpers::assertGetKey($documentData, 'source');
         $destinationDir = ApiHelpers::assertGetKey($documentData, 'destination');
 
-        if ($this->getTheme()->databaseFilesEnabled()) {
+        if ($this->getTheme()->filesLayerEnabled()) {
             $this->moveDatabaseThemeAssets($selectedList, $destinationDir);
             return;
         }
@@ -296,7 +296,7 @@ trait HasExtensionAssetsCrud
      */
     protected function isAssetDirectory(string $path): bool
     {
-        if ($this->getTheme()->databaseFilesEnabled() && ThemeFiles::hasAssetDirectory($this->getTheme(), $path)) {
+        if ($this->getTheme()->filesLayerEnabled() && ThemeFiles::hasAssetDirectory($this->getTheme(), $path)) {
             return true;
         }
 
@@ -332,7 +332,7 @@ trait HasExtensionAssetsCrud
      */
     protected function deleteAssetDirectory(string $path)
     {
-        if ($this->getTheme()->databaseFilesEnabled()) {
+        if ($this->getTheme()->filesLayerEnabled()) {
             if (!ThemeFiles::hasAssetDirectory($this->getTheme(), $path)) {
                 return;
             }
@@ -367,13 +367,15 @@ trait HasExtensionAssetsCrud
      */
     protected function renameAssetDirectory(string $originalPath, string $newPath)
     {
-        if ($this->getTheme()->databaseFilesEnabled()) {
-            if (!ThemeFiles::hasAssetDirectory($this->getTheme(), $originalPath)) {
+        if ($this->getTheme()->filesLayerEnabled()) {
+            $owner = ThemeFiles::resolveAssetDirectoryOwner($this->getTheme(), $originalPath);
+
+            if (!$owner) {
                 throw new ApplicationException(Lang::get('editor::lang.filesystem.original_not_found'));
             }
 
             ThemeFiles::renamePathPrefix(
-                $this->getTheme(),
+                $owner,
                 'assets/' . ltrim($originalPath, '/'),
                 'assets/' . ltrim($newPath, '/')
             );
@@ -401,8 +403,10 @@ trait HasExtensionAssetsCrud
      */
     protected function moveAssetDirectory(string $path, string $destinationDir)
     {
-        if ($this->getTheme()->databaseFilesEnabled()) {
-            if (!ThemeFiles::hasAssetDirectory($this->getTheme(), $path)) {
+        if ($this->getTheme()->filesLayerEnabled()) {
+            $owner = ThemeFiles::resolveAssetDirectoryOwner($this->getTheme(), $path);
+
+            if (!$owner) {
                 throw new ApplicationException(Lang::get('editor::lang.filesystem.original_not_found'));
             }
 
@@ -410,7 +414,7 @@ trait HasExtensionAssetsCrud
             $newPrefix = ($destinationPath === '' ? '' : $destinationPath . '/') . basename($path);
 
             ThemeFiles::renamePathPrefix(
-                $this->getTheme(),
+                $owner,
                 'assets/' . ltrim($path, '/'),
                 'assets/' . $newPrefix
             );

@@ -274,6 +274,10 @@ class Asset extends Extendable
                 return null;
             }
 
+            if (ThemeFiles::isTrashed($this->theme, $relativePath)) {
+                return null;
+            }
+
             [$dirName, $baseName, $extension] = ThemeFiles::parseRelativePath($relativePath);
             $result = $this->theme->getFileDatasource()->selectOne($dirName, $baseName, $extension);
 
