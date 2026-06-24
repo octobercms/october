@@ -34,10 +34,11 @@ return [
     | Database Theme Files
     |--------------------------------------------------------------------------
     |
-    | Globally forces theme file uploads to be stored in the storage directory
-    | and tracked in the database, instead of the theme filesystem. When a file
-    | is tracked in the database, the theme filter will resolve to the storage
-    | location. Files not found in the database fall back to the theme path.
+    | Globally forces theme file uploads to be stored on the default filesystem
+    | disk and tracked in the database, instead of the theme filesystem. When a
+    | file is tracked in the database, the theme filter will resolve to the
+    | storage location. Files not found in the database fall back to the theme
+    | path. Set FILESYSTEM_DISK=s3 to store asset bytes remotely.
     |
     | false - Theme files are sourced from the filesystem.
     | true  - Store uploaded theme files in storage with database metadata.
@@ -45,18 +46,6 @@ return [
     */
 
     'database_files' => env('CMS_DB_FILES', false),
-
-    /*
-    |--------------------------------------------------------------------------
-    | Database Theme Files Disk
-    |--------------------------------------------------------------------------
-    |
-    | Filesystem disk for theme asset bytes. Defaults to the local theme-files
-    | disk; set to s3 (or another disk name) to store assets remotely.
-    |
-    */
-
-    'theme_files_disk' => env('CMS_THEME_FILES_DISK', 'theme-files'),
 
     /*
     |--------------------------------------------------------------------------

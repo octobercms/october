@@ -375,11 +375,11 @@ class ThemeFiles
     }
 
     /**
-     * disk returns the configured theme files storage disk
+     * disk returns the default Laravel filesystem disk for theme file bytes
      */
     public static function disk()
     {
-        return Storage::disk(Config::get('cms.theme_files_disk', 'theme-files'));
+        return Storage::disk();
     }
 
     /**
@@ -401,7 +401,10 @@ class ThemeFiles
             return $disk->path($theme->getDirName());
         }
 
-        return storage_path('app/theme-files/' . $theme->getDirName());
+        $diskName = Config::get('filesystems.default', 'local');
+        $root = Config::get('filesystems.disks.' . $diskName . '.root');
+
+        return rtrim($root, '/') . '/' . $theme->getDirName();
     }
 
     /**
@@ -409,15 +412,7 @@ class ThemeFiles
      */
     public static function deleteThemeDirectory(Theme $theme): void
     {
-        $disk = static::disk();
-        $prefix = $theme->getDirName();
-
-        if (method_exists($disk, 'deleteDirectory')) {
-            $disk->deleteDirectory($prefix);
-            return;
-        }
-
-        File::deleteDirectory(static::getStoragePath($theme));
+        static::disk()->deleteDirectory($theme->getDirName());
     }
 
     /**

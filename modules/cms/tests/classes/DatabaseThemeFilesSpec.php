@@ -11,7 +11,6 @@ use October\Tests\Concerns\PerformsMigrations;
 
 /**
  * @group cms-database-files
- * @group s3
  *
  * Integration spec for database-backed theme files + external storage.
  */
@@ -28,10 +27,10 @@ class DatabaseThemeFilesSpec extends TestCase
         $this->migrateModules();
 
         Config::set('cms.database_files', true);
-        Config::set('cms.theme_files_disk', env('CMS_THEME_FILES_DISK', 'theme-files'));
 
-        if (Config::get('cms.theme_files_disk') === 'theme-files') {
-            Storage::fake('theme-files');
+        $diskName = Config::get('filesystems.default', 'local');
+        if ($diskName !== 's3') {
+            Storage::fake($diskName);
         }
 
         Config::set('cms.editable_asset_types', ['css', 'js', 'less', 'sass', 'scss', 'png']);
@@ -118,7 +117,7 @@ class DatabaseThemeFilesSpec extends TestCase
         $theme = Theme::load($this->themeDir);
         $this->writeStorageFile($theme, 'assets/logo.png', 'content');
 
-        $disk = Storage::disk(config('cms.theme_files_disk'));
+        $disk = ThemeFiles::disk();
         $url = $theme->getFileDatasource()->resolvePublicUrl(
             'assets',
             'logo',
@@ -204,8 +203,8 @@ class DatabaseThemeFilesSpec extends TestCase
      */
     public function s3_upload_and_delete_round_trip(): void
     {
-        if (config('cms.theme_files_disk') !== 's3') {
-            $this->markTestSkipped('Set CMS_THEME_FILES_DISK=s3');
+        if (config('filesystems.default') !== 's3') {
+            $this->markTestSkipped('Set FILESYSTEM_DISK=s3');
         }
 
         $theme = Theme::load($this->themeDir);
@@ -214,9 +213,10 @@ class DatabaseThemeFilesSpec extends TestCase
         $asset->content = 'cloud-bytes';
         $asset->save();
 
-        $disk = Storage::disk('s3');
+        $disk = ThemeFiles::disk();
         $this->assertTrue($disk->exists($this->themeDir . '/assets/cloud.png'));
-        $this->assertFalse(File::exists(storage_path('app/theme-files/' . $this->themeDir . '/assets/cloud.png')));
+        $localRoot = config('filesystems.disks.local.root');
+        $this->assertFalse(File::exists($localRoot . '/' . $this->themeDir . '/assets/cloud.png'));
 
         $asset->delete();
         $this->assertFalse($disk->exists($this->themeDir . '/assets/cloud.png'));
@@ -237,12 +237,12 @@ class DatabaseThemeFilesSpec extends TestCase
 
     protected function storageExists(Theme $theme, string $path): bool
     {
-        return Storage::disk(config('cms.theme_files_disk'))->exists($theme->getDirName() . '/' . $path);
+        return ThemeFiles::disk()->exists($theme->getDirName() . '/' . $path);
     }
 
     protected function deleteStorageObject(Theme $theme, string $path): void
     {
-        Storage::disk(config('cms.theme_files_disk'))->delete($theme->getDirName() . '/' . $path);
+        ThemeFiles::disk()->delete($theme->getDirName() . '/' . $path);
     }
 
     protected function clearStorageFileDatasourceCache(): void
