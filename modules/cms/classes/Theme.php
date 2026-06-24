@@ -508,13 +508,7 @@ class Theme implements CallsMethods
             return false;
         }
 
-        $enableDbFiles = Config::get('cms.database_theme_files', false);
-
-        if (!$enableDbFiles) {
-            $enableDbFiles = Config::get('cms.database_files', false);
-        }
-
-        return (bool) $enableDbFiles;
+        return (bool) Config::get('cms.database_files', false);
     }
 
     /**

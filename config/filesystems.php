@@ -75,7 +75,7 @@ return [
         ],
 
         'theme-files' => [
-            'driver' => env('CMS_THEME_FILES_DRIVER', 'local'),
+            'driver' => 'local',
             'root' => storage_path('app/theme-files'),
             'url' => '/storage/app/theme-files',
             'visibility' => 'public',
