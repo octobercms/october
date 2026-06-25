@@ -201,12 +201,11 @@ return [
     |--------------------------------------------------------------------------
     |
     | If safe mode is enabled, the PHP code section is disabled in the CMS
-    | for security reasons. If set to null, safe mode is enabled when
-    | debug mode (app.debug) is disabled.
+    | for security reasons. Defaults to false.
     |
     */
 
-    'safe_mode' => env('CMS_SAFE_MODE', null),
+    'safe_mode' => env('CMS_SAFE_MODE', false),
 
     /*
     |--------------------------------------------------------------------------
