@@ -80,7 +80,6 @@ trait HasTranslatable
             if ($this->controller->methodExists('formAfterSave')) {
                 $this->controller->formAfterSave($model);
             }
-
         });
     }
 

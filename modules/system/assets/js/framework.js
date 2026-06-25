@@ -1866,7 +1866,8 @@ window['${id}']();`;
       return dispatch("ajax:error-message", { target: window, detail: { message } });
     }
     notifyApplicationCustomEvent(name, data) {
-      return dispatch(name, { target: this.el, detail: data });
+      const target = this.el instanceof Node && document.contains(this.el) ? this.el : document;
+      return dispatch(name, { target, detail: data });
     }
     // HTTP request delegate
     requestStarted() {

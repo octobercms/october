@@ -1885,7 +1885,8 @@ window['${id}']();`;
       return dispatch("ajax:error-message", { target: window, detail: { message } });
     }
     notifyApplicationCustomEvent(name, data) {
-      return dispatch(name, { target: this.el, detail: data });
+      const target = this.el instanceof Node && document.contains(this.el) ? this.el : document;
+      return dispatch(name, { target, detail: data });
     }
     // HTTP request delegate
     requestStarted() {
@@ -5325,10 +5326,15 @@ window['${id}']();`;
         this.scrollManager.start();
         this.started = true;
         this.enabled = this.documentIsEnabled();
-        if ("scrollRestoration" in history) {
-          this.previousScrollRestoration = history.scrollRestoration;
-          history.scrollRestoration = "manual";
-        }
+      }
+    }
+    // Defer taking over scrollRestoration until the first SPA visit, so that
+    // a plain reload of the initial page still restores native scroll position.
+    takeOverScrollRestoration() {
+      if ("scrollRestoration" in history && !this.scrollRestorationTakenOver) {
+        this.previousScrollRestoration = history.scrollRestoration;
+        history.scrollRestoration = "manual";
+        this.scrollRestorationTakenOver = true;
       }
     }
     disable() {
@@ -5342,8 +5348,9 @@ window['${id}']();`;
         this.scrollManager.stop();
         this.stopHistory();
         this.started = false;
-        if ("scrollRestoration" in history && this.previousScrollRestoration) {
+        if ("scrollRestoration" in history && this.scrollRestorationTakenOver && this.previousScrollRestoration) {
           history.scrollRestoration = this.previousScrollRestoration;
+          this.scrollRestorationTakenOver = false;
         }
       }
     }
@@ -5365,6 +5372,7 @@ window['${id}']();`;
       if (this.applicationAllowsVisitingLocation(location2, action)) {
         if (this.locationIsVisitable(location2)) {
           this.useScroll = options.scroll !== false;
+          this.takeOverScrollRestoration();
           this.adapter.visitProposedToLocationWithAction(location2, action);
         } else {
           window.location.href = location2.toString();
@@ -5416,6 +5424,7 @@ window['${id}']();`;
       if (this.enabled) {
         this.location = location2;
         this.restorationIdentifier = restorationIdentifier;
+        this.takeOverScrollRestoration();
         const restorationData = this.getRestorationDataForIdentifier(restorationIdentifier);
         this.startVisit(location2, "restore", { restorationIdentifier, restorationData, historyChanged: true, direction });
       } else {

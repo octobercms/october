@@ -195,9 +195,16 @@
         background: var(--oc-form-control-bg);
     }
 
+    tr td,
+    tr td.htDimmed {
+        background: var(--oc-form-control-bg);
+        color: var(--bs-body-color);
+    }
+
     tr td.current,
     tr:hover td {
         background: var(--bs-tertiary-bg);
+        color: var(--bs-body-color);
     }
 }
 
