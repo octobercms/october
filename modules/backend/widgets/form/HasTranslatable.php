@@ -67,14 +67,20 @@ trait HasTranslatable
             $siteModel = $this->getTranslatableSiteModel($model, $site);
             $formWidget = $this->makeTranslateFormWidget($field, $siteModel, $site);
             $saveData = $formWidget->getSaveData();
-            $this->controller->formBeforeSave($model);
+
+            if ($this->controller->methodExists('formBeforeSave')) {
+                $this->controller->formBeforeSave($model);
+            }
 
             $formWidget->performSaveOnModel($siteModel, $saveData, [
                 'sessionKey' => $formWidget->getSessionKey(),
                 'force' => true
             ]);
 
-            $this->controller->formAfterSave($model);
+            if ($this->controller->methodExists('formAfterSave')) {
+                $this->controller->formAfterSave($model);
+            }
+
         });
     }
 
