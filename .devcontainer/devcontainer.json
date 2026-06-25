@@ -1,6 +1,7 @@
 {
   "name": "October CMS",
   "image": "ghcr.io/octobercms/runtime-dev:latest",
+  "initializeCommand": "docker pull ghcr.io/octobercms/runtime-dev:latest",
   "workspaceMount": "source=${localWorkspaceFolder},target=/var/www/html,type=bind,consistency=cached",
   "workspaceFolder": "/var/www/html",
   "overrideCommand": true,
