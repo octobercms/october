@@ -33,9 +33,7 @@
         <link href="<?= Url::asset('modules/system/assets/css/main.css') ?>?v<?= $coreBuild ?>" rel="stylesheet" />
         <link href="<?= Url::asset('modules/backend/assets/css/main.css') ?>?v<?= $coreBuild ?>" rel="stylesheet" />
 
-        <?php if (!Config::get('backend.enable_service_workers', false)): ?>
-            <script> oc.waitFor(() => window.unregisterServiceWorkers).then(() => unregisterServiceWorkers()) </script>
-        <?php endif ?>
+        <?= $this->makeLayoutPartial('service_worker', ['forceUnregister' => true]) ?>
 
         <?= $this->makeAssets() ?>
         <?= Block::placeholder('head') ?>

@@ -22,6 +22,14 @@ class DocumentDesign extends FormDesignBase
     }
 
     /**
+     * formRenderDesignButtons renders document-specific buttons
+     */
+    public function formRenderDesignButtons(): string
+    {
+        return $this->makePartial('buttons');
+    }
+
+    /**
      * getDesignBodyClass returns `compact-container` for the document layout
      */
     public function getDesignBodyClass(): ?string

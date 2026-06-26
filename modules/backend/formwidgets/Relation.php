@@ -359,7 +359,7 @@ class Relation extends FormWidgetBase
      */
     protected function defineRelationControllerConfig()
     {
-        if (!$this->useController || !$this->useControllerConfig) {
+        if (!$this->useController) {
             return;
         }
 
@@ -368,21 +368,29 @@ class Relation extends FormWidgetBase
             $this->controller->asExtension('RelationController')->beforeDisplay();
         }
 
-        $controllerConfig = $this->useControllerConfig;
+        if ($this->useControllerConfig) {
+            $controllerConfig = $this->useControllerConfig;
 
-        if (!isset($controllerConfig['readOnly']) && $this->readOnly === true) {
-            $controllerConfig['readOnly'] = $this->readOnly;
+            if (!isset($controllerConfig['readOnly']) && $this->readOnly === true) {
+                $controllerConfig['readOnly'] = $this->readOnly;
+            }
+
+            if (!isset($controllerConfig['externalToolbarBus']) && isset($this->config->externalToolbarBus)) {
+                $controllerConfig['externalToolbarBus'] = $this->config->externalToolbarBus;
+            }
+
+            if (!isset($controllerConfig['sessionKey'])) {
+                $controllerConfig['sessionKey'] = $this->getParentForm()?->getSessionKeyWithSuffix();
+            }
+
+            $this->controller->relationRegisterField($this->getRelationControllerFieldName(), $controllerConfig);
         }
 
-        if (!isset($controllerConfig['externalToolbarBus']) && isset($this->config->externalToolbarBus)) {
-            $controllerConfig['externalToolbarBus'] = $this->config->externalToolbarBus;
+        if ($this->formField->span === 'adaptive') {
+            $this->controller->relationApplyConfigDefaults($this->getRelationControllerFieldName(), [
+                'externalToolbarBus' => 'document',
+            ]);
         }
-
-        if (!isset($controllerConfig['sessionKey'])) {
-            $controllerConfig['sessionKey'] = $this->getParentForm()?->getSessionKeyWithSuffix();
-        }
-
-        $this->controller->relationRegisterField($this->getRelationControllerFieldName(), $controllerConfig);
     }
 
     /**

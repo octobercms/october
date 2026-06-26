@@ -51,12 +51,12 @@ class RelationController extends ControllerBehavior
     const PARAM_EXTRA_CONFIG = '_relation_extra_config';
 
     /**
-     * @var Backend\Widgets\Search searchWidget
+     * @var \Backend\Widgets\Search searchWidget
      */
     protected $searchWidget;
 
     /**
-     * @var Backend\Widgets\Toolbar toolbarWidget
+     * @var \Backend\Widgets\Toolbar toolbarWidget
      */
     protected $toolbarWidget;
 
@@ -210,7 +210,7 @@ class RelationController extends ControllerBehavior
 
     /**
      * __construct the behavior
-     * @param Backend\Classes\Controller $controller
+     * @param \Backend\Classes\Controller $controller
      */
     public function __construct($controller)
     {
@@ -484,6 +484,27 @@ class RelationController extends ControllerBehavior
     {
         if ($this->originalConfig === null) {
             $this->config = $this->originalConfig = $this->controller->relationGetConfig();
+        }
+
+        $this->originalConfig->{$relationName} = $config;
+    }
+
+    /**
+     * relationApplyConfigDefaults merges default values into a relation's config,
+     * without overwriting values already set in YAML or via relationRegisterField.
+     */
+    public function relationApplyConfigDefaults(string $relationName, array $defaults)
+    {
+        if ($this->originalConfig === null) {
+            $this->config = $this->originalConfig = $this->controller->relationGetConfig();
+        }
+
+        $config = (array) ($this->originalConfig->{$relationName} ?? []);
+
+        foreach ($defaults as $key => $value) {
+            if (!array_key_exists($key, $config)) {
+                $config[$key] = $value;
+            }
         }
 
         $this->originalConfig->{$relationName} = $config;

@@ -132,13 +132,7 @@ class System
      */
     public function checkSafeMode(): bool
     {
-        $safeMode = Config::get('cms.safe_mode', null);
-
-        if ($safeMode === null) {
-            $safeMode = !Config::get('app.debug', false);
-        }
-
-        return $safeMode;
+        return (bool) Config::get('cms.safe_mode', false);
     }
 
     /**

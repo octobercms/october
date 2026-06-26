@@ -67,7 +67,8 @@ class Backend
     public function skinAsset($path = null)
     {
         $skinPath = Skin::getActive()->getPath($path, true);
-        return Url::asset($skinPath);
+
+        return Url::assetRelative($skinPath);
     }
 
     /**

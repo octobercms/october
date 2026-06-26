@@ -29,5 +29,6 @@ nbproject
 
 # Project
 /bootstrap/compiled.php
+/database/database.sqlite
 /vendor
 /vendor_drm

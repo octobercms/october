@@ -18,6 +18,11 @@ App::before(function ($request) {
     Event::fire('backend.beforeRoute');
 
     /*
+     * Service worker
+     */
+    Route::get(Backend::uri() . '/service-worker.js', [\Backend\Classes\ServiceWorkerController::class, 'index']);
+
+    /*
      * Other pages
      */
     Route::group([
