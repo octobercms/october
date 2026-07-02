@@ -16,11 +16,12 @@ class FormWidget {
                         textarea: element,
                         useMediaManager: options.useMediaManager,
                         sideBySide: options.sideBySide,
+                        safeMode: options.safeMode !== false,
                         options: options,
                         lang: $(element).closest('.field-markdowneditor').data()
                     };
                 },
-                template: '<backend-document-markdowneditor-formwidgetconnector ref="connector" :textarea="textarea" :use-media-manager="useMediaManager" :side-by-side="sideBySide" :options="options" :lang="lang" @change="onChange" @focus="onFocus" @blur="onBlur" />',
+                template: '<backend-document-markdowneditor-formwidgetconnector ref="connector" :textarea="textarea" :use-media-manager="useMediaManager" :side-by-side="sideBySide" :safe-mode="safeMode" :options="options" :lang="lang" @change="onChange" @focus="onFocus" @blur="onBlur" />',
                 methods: {
                     onChange() {
                         if (self.changeCallback) {

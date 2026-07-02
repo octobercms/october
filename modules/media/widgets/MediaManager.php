@@ -1936,6 +1936,10 @@ class MediaManager extends WidgetBase
             throw new SystemException('The image is not found on the disk.');
         }
 
+        if (!$this->validateFileType($originalFileName)) {
+            throw new ApplicationException(Lang::get('backend::lang.media.type_blocked'));
+        }
+
         $extension = pathinfo($originalFileName, PATHINFO_EXTENSION);
 
         $targetImageName = basename($originalFileName, '.'.$extension).'-'

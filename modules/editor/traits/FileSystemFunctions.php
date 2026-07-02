@@ -3,6 +3,7 @@
 use Lang;
 use File;
 use Input;
+use Config;
 use Request;
 use SystemException;
 use ApplicationException;
@@ -83,6 +84,19 @@ trait FileSystemFunctions
             throw new ApplicationException(Lang::get(
                 'editor::lang.filesystem.type_not_allowed',
                 ['allowed_types' => implode(', ', $allowedFileExtensions)]
+            ));
+        }
+
+        // Block renaming to a .svg target
+        if (
+            !is_dir($originalFullPath) &&
+            Config::get('media.clean_vectors', true) &&
+            strtolower(File::extension($newName)) === 'svg' &&
+            strtolower(File::extension($originalPath)) !== 'svg'
+        ) {
+            throw new ApplicationException(Lang::get(
+                'editor::lang.filesystem.type_not_allowed',
+                ['allowed_types' => implode(', ', array_diff($allowedFileExtensions, ['svg']))]
             ));
         }
 

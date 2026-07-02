@@ -8,6 +8,7 @@
         data-refresh-handler="<?= $this->getEventHandler('onRefresh') ?>"
         data-view-mode="<?= $mode ?>"
         data-legacy-mode="<?= $legacyMode ? 1 : 0 ?>"
+        data-safe-mode="<?= $safeMode ? 1 : 0 ?>"
         data-lang-fullscreen="<?= e(trans('backend::lang.form.toggle_full_screen')) ?>"
         <?php if ($externalToolbarBus): ?>data-external-toolbar-bus="<?= e($externalToolbarBus)?>"<?php endif ?>
         <?php if ($useMediaManager): ?>data-use-media-manager="true"<?php endif ?>
