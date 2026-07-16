@@ -26,12 +26,17 @@ return [
         'italic' => 'Cursiva',
         'unorderedlist' => 'Llista desordenada',
         'orderedlist' => 'Llista ordenada',
+        'snippet' => 'Snippet',
         'video' => 'Vídeo',
         'image' => 'Imatge',
         'link' => 'Enllaç',
         'horizontalrule' => 'Inserir línia horitzontal',
         'fullscreen' => 'Pantalla completa',
         'preview' => 'Previsualitzar',
+        'strikethrough' => 'Ratllat',
+        'cleanblock' => 'Bloc net',
+        'table' => 'Taula',
+        'sidebyside' => 'Costat amb costat'
     ],
     'mediamanager' => [
         'insert_link' => 'Inserir enllaç a mèdia',
@@ -45,9 +50,13 @@ return [
         'invalid_audio_empty_insert' => "Si us plau selecciona un arxiu d'àudio per inserir.",
     ],
     'alert' => [
+        'error' => 'Error',
+        'confirm' => 'Confirmar',
+        'dismiss' => 'Descartar',
         'confirm_button_text' => 'OK',
         'cancel_button_text' => 'Cancel·lar',
-        'widget_remove_confirm' => 'Eliminar aquest widget?'
+        'widget_remove_confirm' => 'Eliminar aquest widget?',
+        'reload' => 'Recarregar',
     ],
     'datepicker' => [
         'previousMonth' => 'Mes anterior',
@@ -61,7 +70,11 @@ return [
     ],
     'filter' => [
         'group' => [
-            'all' => 'tots'
+            'all' => 'tots',
+        ],
+        'scopes' => [
+            'apply_button_text' => 'Aplicar',
+            'clear_button_text' => 'Netejar',
         ],
         'dates' => [
             'all' => 'tots',
@@ -69,16 +82,15 @@ return [
             'reset_button_text'  => 'Reiniciar',
             'date_placeholder' => 'Data',
             'after_placeholder' => 'Després',
-            'before_placeholder' => 'Abans'
+            'before_placeholder' => 'Abans',
         ],
         'numbers' => [
             'all' => 'tots',
             'filter_button_text' => 'Filtrar',
             'reset_button_text'  => 'Reiniciar',
             'min_placeholder' => 'Mín',
-            'max_placeholder' => 'Màx'
-        ]
-
+            'max_placeholder' => 'Màx',
+        ],
     ],
     'eventlog' => [
         'show_stacktrace' => "Mostrar l'stacktrace",
@@ -93,7 +105,23 @@ return [
             'openWith' => 'Obrir amb',
             'remember_choice' => "Recordar l'opció seleccionada durant aquesta sessió",
             'open' => 'Obrir',
-            'cancel' => 'Cancel·lar'
-        ]
-    ]
+            'cancel' => 'Cancel·lar',
+        ],
+    ],
+    'upload' => [
+        'max_files' => 'No es poden pujar més fitxers.',
+        'invalid_file_type' => 'No es poden pujar fitxers d’aquest tipus.',
+        'file_too_big' => 'El fitxer és massa gran ({{filesize}}MB). Mida màxima: {{maxFilesize}}MB.',
+        'response_error' => 'El servidor ha respost amb el codi {{statusCode}}.',
+        'remove_file' => 'Elimina el fitxer',
+    ],
+    'inspector' => [
+        'add' => 'Afegir',
+        'remove' => 'Eliminar',
+        'key' => 'Clau',
+        'value' => 'Valor',
+        'ok' => 'D’acord',
+        'cancel' => 'Cancel·lar',
+        'items' => 'Elements',
+    ],
 ];
