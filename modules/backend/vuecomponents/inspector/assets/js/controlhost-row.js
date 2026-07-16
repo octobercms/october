@@ -118,7 +118,7 @@ export default {
                 return false;
             }
 
-            var unsupportedTypes = ['object', 'objectList', 'objectListRecords', 'dictionary', 'set', 'table', 'stringList', 'stringListAutocomplete'];
+            var unsupportedTypes = ['object', 'objectList', 'objectListRecords', 'dictionary', 'set', 'table', 'stringList', 'stringListAutocomplete', 'mediafinder'];
             if (unsupportedTypes.indexOf(this.control.type) !== -1) {
                 return false;
             }

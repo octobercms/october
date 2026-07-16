@@ -8149,7 +8149,7 @@ API.txt for details.
                 </div>                                              \
                 <form autocomplete="off" onsubmit="return false">   \
                     <div data-surface-container></div>              \
-                <form>'
+                </form>'
     }
 
     InspectorPopup.prototype.showPopover = function() {
@@ -12388,8 +12388,13 @@ API.txt for details.
         container.appendChild(editor);
         this.containerCell.appendChild(container);
 
-        if (this.propertyDefinition.items !== undefined) {
-            this.buildAutoComplete(this.propertyDefinition.items);
+        // `items` is the deprecated key, `options` is preferred and matches docs
+        var staticItems = this.propertyDefinition.options !== undefined
+            ? this.propertyDefinition.options
+            : this.propertyDefinition.items;
+
+        if (staticItems !== undefined) {
+            this.buildAutoComplete(staticItems);
         }
         else {
             this.loadDynamicItems();

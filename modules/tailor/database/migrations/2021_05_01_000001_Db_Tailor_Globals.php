@@ -35,6 +35,7 @@ return new class extends Migration
             $table->integer('host_id')->nullable();
             $table->string('host_field')->nullable();
             $table->integer('site_id')->nullable()->index();
+            $table->integer('site_root_id')->nullable()->index();
             $table->string('content_group')->nullable();
             $table->mediumText('content_value')->nullable();
             $table->text('content_spawn_path')->nullable();
