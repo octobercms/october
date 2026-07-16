@@ -84,7 +84,7 @@
   "Model column the records should be ordered by": "Modelo de columna por la que se deben ordenar los registros",
   "Direction": "Dirección",
   "Update :name Entries": "Actualizar Entradas :name",
-  "Update :name": "Actualizar: name",
+  "Update :name": "Actualizar: :name",
   ":name Entry": "Entrada :name",
   "All :name Items": "Todas las entradas de :name",
   "Update Existing Records": "Actualizar registros existentes",
@@ -96,9 +96,5 @@
   "Theme Blueprint": "Plano temático",
   "Reset Structure": "Restablecer estructura",
   "Structure has been reset": "La estructura se ha restablecido",
-  "Content": "Contenido",
-  "Global": "Global",
-  "Used as default entry point when previewing the record.": "Se utiliza como punto de entrada predeterminado al obtener una vista previa del registro.",
-  "Unnamed draft": "Borrador sin nombre",
-  "Top level": "Nivel superior"
+  "Content": "Contenido"
 }
