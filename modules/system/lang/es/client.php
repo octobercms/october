@@ -26,27 +26,37 @@ return [
         'italic' => 'Cursiva',
         'unorderedlist' => 'Lista Desordenada',
         'orderedlist' => 'Lista Ordenada',
+        'snippet' => 'Snippet',
         'video' => 'Video',
         'image' => 'Imagen',
         'link' => 'Vínculo',
         'horizontalrule' => 'Insertar Regla Horizontal',
         'fullscreen' => 'Pantalla completa',
-        'preview' => 'Previsualizar'
+        'preview' => 'Previsualizar',
+        'strikethrough' => 'Tachado',
+        'cleanblock' => 'Bloque Limpio',
+        'table' => 'Tabla',
+        'sidebyside' => 'Lado a Lado'
     ],
     'mediamanager' => [
-        'insert_link' => "Insertar Media Vínculo",
-        'insert_image' => "Insertar Media Imagen",
-        'insert_video' => "Insertar Media Video",
-        'insert_audio' => "Insertar Media Audio",
-        'invalid_file_empty_insert' => "Por favor seleccione archivo para insertar vínculo.",
+        'insert_link' => "Insertar enlace de media",
+        'insert_image' => "Insertar imagen de media",
+        'insert_video' => "Insertar video de media",
+        'insert_audio' => "Insertar audio de media",
+        'invalid_file_empty_insert' => "Por favor seleccione archivo para insertar enlace.",
         'invalid_file_single_insert' => "Por favor seleccione un solo archivo.",
-        'invalid_image_empty_insert' => "Por favor seleccione una imagen(es) para insertar.",
+        'invalid_image_empty_insert' => "Por favor seleccione imagen(es) para insertar.",
         'invalid_video_empty_insert' => "Por favor seleccione un archivo de video para insertar.",
         'invalid_audio_empty_insert' => "Por favor seleccione un archivo de audio para insertar.",
     ],
     'alert' => [
+        'error' => 'Error',
+        'confirm' => 'Confirmar',
+        'dismiss' => 'Descartar',
         'confirm_button_text' => 'OK',
-        'cancel_button_text' => 'Cancelar'
+        'cancel_button_text' => 'Cancelar',
+        'widget_remove_confirm' => '¿Eliminar este widget?',
+        'reload' => 'Recargar',
     ],
     'datepicker' => [
         'previousMonth' => 'Mes Anterior',
@@ -55,9 +65,12 @@ return [
         'weekdays' => ['Domingo', 'Lunes', 'Martes', 'Miercoles', 'Jueves', 'Viernes', 'Sabado'],
         'weekdaysShort' => ['Dom', 'Lun', 'Mar', 'Mie', 'Jue', 'Vie', 'Sab']
     ],
+    'colorpicker' => [
+        'choose' => 'OK',
+    ],
     'filter' => [
         'group' => [
-            'all' => 'todos'
+            'all' => 'todos',
         ],
         'scopes' => [
             'apply_button_text' => 'Aplicar',
@@ -69,7 +82,7 @@ return [
             'reset_button_text' => 'Restablecer',
             'date_placeholder' => 'Fecha',
             'after_placeholder' => 'Desde',
-            'before_placeholder' => 'Hasta'
+            'before_placeholder' => 'Hasta',
         ],
         'numbers' => [
             'all' => 'todos',
@@ -77,7 +90,6 @@ return [
             'reset_button_text' => 'Restablecer',
             'min_placeholder' => 'Mínimo',
             'max_placeholder' => 'Máximo',
-            'number_placeholder' => 'Número'
         ],
     ],
     'eventlog' => [
@@ -93,7 +105,23 @@ return [
             'openWith' => 'Abrir con',
             'rememberChoice' => 'Recuerde la opción seleccionada para esta sesión del navegador',
             'open' => 'Abrir',
-            'cancel' => 'Cancelar'
-        ]
-    ]
+            'cancel' => 'Cancelar',
+        ],
+    ],
+    'upload' => [
+        'max_files' => 'No se pueden subir más archivos.',
+        'invalid_file_type' => 'No se pueden subir archivos de este tipo.',
+        'file_too_big' => 'El archivo es demasiado grande ({{filesize}}MB). Tamaño máximo: {{maxFilesize}}MB.',
+        'response_error' => 'El servidor respondió con el código {{statusCode}}.',
+        'remove_file' => 'Eliminar archivo',
+    ],
+    'inspector' => [
+        'add' => 'Agregar',
+        'remove' => 'Eliminar',
+        'key' => 'Clave',
+        'value' => 'Valor',
+        'ok' => 'Aceptar',
+        'cancel' => 'Cancelar',
+        'items' => 'Elementos',
+    ],
 ];
