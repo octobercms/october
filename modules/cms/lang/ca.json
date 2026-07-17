@@ -112,6 +112,7 @@
   "Component aliases are required and can contain only Latin symbols, digits, and underscores. The aliases should start with a Latin symbol.": "Els àlies de components són obligatoris i només poden contenir lletres llatines, números i subratllats. Han de començar amb una lletra.",
   "Unnamed": "Sense nom",
   "No description provided": "No s'ha proveït una descripció",
+  "Insert Snippet": "Insereix fragment",
   "No snippets found": "No s'ha trobat cap fragment",
   "Search...": "Cerca...",
   "Snippet with the requested code :code was not found in the theme.": "No s'ha trobat el fragment amb el codi sol·licitat :code al tema.",
@@ -137,5 +138,18 @@
   "Define a Snippet Partial": "Definiu un fragment parcial",
   "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Clau d'opció desplegable no vàlida: :key. Les tecles d'opció només poden contenir dígits, lletres llatines i caràcters _ i -",
   "The description is displayed in the snippet list in the editor when a snippet is added.": "La descripció es mostra a la llista de fragments de l'editor quan s'afegeix un fragment.",
-  "Details": "Detalls"
+  "Details": "Detalls",
+  "City": "Ciutat",
+  "Country": "País",
+  "Page Path": "Ruta de la pàgina",
+  "Referral Domain": "Domini de referència",
+  "Pageviews": "Visualitzacions de pàgina",
+  "Unique Visitors": "Visitants únics",
+  "Traffic Information": "Informació del trànsit",
+  "Website Status": "Estat del lloc web",
+  "Website status information": "Informació sobre l'estat del lloc web",
+  "Manage status": "Gestionar estat",
+  "Maintenance": "Manteniment",
+  "Online": "En línia",
+  "Frontend Theme": "Tema del frontend"
 }
