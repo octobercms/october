@@ -188,7 +188,9 @@ class FileUpload extends FormWidgetBase
         $record = false;
 
         if ($fileId = post('file_id')) {
-            $record = $this->getRelationObject()->find($fileId) ?: false;
+            $record = $this->getRelationObject()
+                ->withDeferred($this->getSessionKey())
+                ->find($fileId) ?: false;
         }
 
         return $record;
@@ -361,9 +363,21 @@ class FileUpload extends FormWidgetBase
      */
     public function onRemoveAttachment()
     {
-        if (($fileId = post('file_id')) && ($file = $this->getRelationObject()->find($fileId))) {
-            $this->getRelationObject()->remove($file, $this->getSessionKey());
+        $fileId = post('file_id');
+        if (!$fileId) {
+            return;
         }
+
+        $file = $this->getRelationObject()
+            ->withDeferred($this->getSessionKey())
+            ->find($fileId)
+        ;
+
+        if (!$file) {
+            return;
+        }
+
+        $this->getRelationObject()->remove($file, $this->getSessionKey());
     }
 
     /**
@@ -377,7 +391,12 @@ class FileUpload extends FormWidgetBase
             $orders = array_values($sortData);
 
             // Validate IDs against existing ones
-            $relationIds = $this->getRelationObject()->pluck('id')->all();
+            $relationIds = $this->getRelationObject()
+                ->withDeferred($this->getSessionKey())
+                ->pluck('id')
+                ->all()
+            ;
+
             $ids = array_intersect($ids, $relationIds);
 
             if ($ids) {

@@ -168,7 +168,29 @@ class Dash extends WidgetBase
     public function bindToController()
     {
         $this->defineDashReports();
+        $this->bindPendingReportWidget();
         parent::bindToController();
+    }
+
+    /**
+     * bindPendingReportWidget binds a report widget that exists in the browser's
+     * unsaved dashboard state but not in the persisted definition, using the
+     * widget_config posted via the widget's data-request-data scope. Enables
+     * AJAX handlers on legacy report widgets prior to saving the dashboard.
+     */
+    protected function bindPendingReportWidget(): void
+    {
+        $widgetConfig = (array) post('widget_config');
+        $reportName = $widgetConfig['reportName'] ?? null;
+        $widgetClass = $widgetConfig['widgetClass'] ?? null;
+
+        if (!$reportName || !$widgetClass || isset($this->reportWidgets[$reportName])) {
+            return;
+        }
+
+        $this->makeDashReportWidget(new DashReport([
+            'reportName' => $reportName,
+        ] + $widgetConfig))->bindToController();
     }
 
     /**
