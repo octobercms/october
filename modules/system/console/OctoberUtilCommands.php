@@ -5,6 +5,7 @@ use Lang;
 use File;
 use Config;
 use System;
+use Cms\Models\MaintenanceSetting;
 use System\Classes\CombineAssets;
 use System\Models\File as FileModel;
 
@@ -352,6 +353,37 @@ trait OctoberUtilCommands
         \October\Rain\Database\Models\DeferredBinding::cleanUp(-1);
 
         $this->comment('Cleared all deferred bindings.');
+    }
+
+    /**
+     * utilMaintenanceOn turns on CMS maintenance mode, backend users with the
+     * "general.view_offline" permission continue to see the site normally.
+     */
+    protected function utilMaintenanceOn()
+    {
+        if (!System::hasDatabase()) {
+            $this->error('A database connection is required to toggle maintenance mode.');
+            return;
+        }
+
+        MaintenanceSetting::set('is_enabled', true);
+
+        $this->comment('Maintenance mode enabled.');
+    }
+
+    /**
+     * utilMaintenanceOff turns off CMS maintenance mode.
+     */
+    protected function utilMaintenanceOff()
+    {
+        if (!System::hasDatabase()) {
+            $this->error('A database connection is required to toggle maintenance mode.');
+            return;
+        }
+
+        MaintenanceSetting::set('is_enabled', false);
+
+        $this->comment('Maintenance mode disabled.');
     }
 
     /**
