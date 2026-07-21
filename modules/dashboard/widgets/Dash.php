@@ -10,6 +10,7 @@ use Dashboard\Classes\ReportDimension;
 use Dashboard\Classes\ReportMetric;
 use Dashboard\Models\Dashboard as DashboardModel;
 use October\Rain\Element\ElementHolder;
+use ForbiddenException;
 use SystemException;
 
 /**
@@ -504,6 +505,10 @@ class Dash extends WidgetBase
      */
     public function onSaveDashboard()
     {
+        if (!$this->canCreateAndEdit) {
+            throw new ForbiddenException;
+        }
+
         $definition = json_decode(post('definition'), true);
         if (!$definition) {
             return;
@@ -523,6 +528,10 @@ class Dash extends WidgetBase
      */
     public function onResetDashboard()
     {
+        if (!$this->canCreateAndEdit) {
+            throw new ForbiddenException;
+        }
+
         (new DashboardModel)->resetDashboardPreference(
             $this->controller,
             $this->code,
@@ -544,6 +553,10 @@ class Dash extends WidgetBase
      */
     public function onCommitDashboard()
     {
+        if (!$this->canCreateAndEdit || !$this->canMakeDefault) {
+            throw new ForbiddenException;
+        }
+
         $definition = json_decode(post('definition'), true);
         if (!$definition) {
             return;

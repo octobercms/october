@@ -72,6 +72,12 @@ class Dashboards extends Controller
         if ($model->owner_field) {
             $model->code = $model->owner_field;
         }
+
+        // Sharing dashboards with other users requires an elevated permission
+        if (!$this->user->hasAccess('dashboard.manage_global')) {
+            $model->is_global = false;
+            $model->roles = [];
+        }
     }
 
     /**
@@ -107,6 +113,11 @@ class Dashboards extends Controller
         else {
             $form->getField('_system_definition_hint')->hidden();
         }
+
+        if (!$this->user->hasAccess('dashboard.manage_global')) {
+            $form->getField('is_global')->hidden();
+            $form->getField('roles')->hidden();
+        }
     }
 
     /**
@@ -114,7 +125,15 @@ class Dashboards extends Controller
      */
     public function listExtendQuery($query)
     {
-        $query->applyOwner(Index::class)->applyCreatedUserOrSystem();
+        $query->applyOwner(Index::class);
+
+        // Without elevated permissions, users may only manage their own dashboards
+        if ($this->user->hasAccess('dashboard.manage_global')) {
+            $query->applyCreatedUserOrSystem();
+        }
+        else {
+            $query->where('created_user_id', $this->user->id);
+        }
     }
 
     /**
@@ -122,7 +141,7 @@ class Dashboards extends Controller
      */
     public function formExtendQuery($query)
     {
-        $query->applyOwner(Index::class)->applyCreatedUserOrSystem();
+        $this->listExtendQuery($query);
     }
 
     /**

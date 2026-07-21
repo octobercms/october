@@ -82,6 +82,12 @@ class ServiceProvider extends ModuleServiceProvider
                 'tab' => "Dashboard",
                 'order' => 600
             ],
+            'dashboard.manage_global' => [
+                'label' => "Manage Global Dashboards",
+                'comment' => 'backend::lang.permissions.manage_global_dashboards',
+                'tab' => "Dashboard",
+                'order' => 600
+            ],
             'dashboard.internal_traffic_statistics' => [
                 'label' => "Manage Traffic Settings and Data",
                 'tab' => "Internal Traffic Statistics",

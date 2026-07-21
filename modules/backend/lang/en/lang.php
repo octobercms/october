@@ -334,6 +334,7 @@
   'permissions' => [
     'manage_media' => 'Upload and manage media contents - images, videos, sounds, documents',
     'create_edit_dashboards' => 'Create and manage dashboards. Note that users granted this permission can access data from any dashboards and report widgets available in the system.',
+    'manage_global_dashboards' => 'Commit shared layouts and manage dashboards visible to other users, including global and role-based dashboards. Requires the Manage Dashboards permission.',
     'access_dashboard' => 'Dashboards a user can access are determined by individual dashboard access settings.',
   ],
   'mediafinder' => [
