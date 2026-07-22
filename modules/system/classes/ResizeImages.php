@@ -178,7 +178,7 @@ class ResizeImages
 
         // Eagerly cache remote exists call
         if ($success && !$this->isLocalStorage()) {
-            Cache::forever($this->getExistsCacheKey($filePath), true);
+            Cache::memo()->forever($this->getExistsCacheKey($filePath), true);
         }
     }
 
@@ -433,7 +433,7 @@ class ResizeImages
 
         $this->putCacheIndex($cacheKey);
 
-        Cache::forever($cacheKey, base64_encode(json_encode($cacheInfo)));
+        Cache::memo()->forever($cacheKey, base64_encode(json_encode($cacheInfo)));
 
         return true;
     }
@@ -510,7 +510,7 @@ class ResizeImages
 
         $index[] = $cacheKey;
 
-        Cache::forever('resizer.index', base64_encode(json_encode($index)));
+        Cache::memo()->forever('resizer.index', base64_encode(json_encode($index)));
 
         return true;
     }
