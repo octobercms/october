@@ -6,6 +6,7 @@ use BackendMenu;
 use Backend\Classes\Controller;
 use System\Models\MailTemplate;
 use System\Classes\SettingsManager;
+use System\Classes\MailManager;
 use ApplicationException;
 use Throwable;
 
@@ -65,6 +66,34 @@ class MailTemplates extends Controller
         $this->bodyClass = 'compact-container';
 
         $this->vars['activeTab'] = $tab ?: 'templates';
+    }
+
+    /**
+     * update
+     */
+    public function update($recordId = null)
+    {
+        $this->addJs('/modules/system/assets/js/pages/mailformpreview.js');
+        return $this->asExtension('FormController')->update($recordId);
+    }
+
+    /**
+     * onPreviewTemplate
+     */
+    public function onPreviewTemplate($recordId = null)
+    {
+        $model = $this->formFindModelObject($recordId);
+        $this->asExtension('FormController')->initForm($model);
+        $this->formGetWidget()->setFormValues();
+
+        $saveData = $this->formGetWidget()->getSaveData();
+        $model->fill($saveData);
+
+        if (isset($saveData['layout_id'])) {
+            $model->setRelation('layout', \System\Models\MailLayout::find($saveData['layout_id']));
+        }
+
+        return ['previewHtml' => MailManager::instance()->renderTemplate($model, [])];
     }
 
     /**

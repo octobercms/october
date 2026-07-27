@@ -49,3 +49,8 @@ secondaryTabs:
             type: checkbox
             tab: "Options"
             default: false
+
+        _preview:
+            type: partial
+            path: ~/modules/system/models/maillayout/_field_preview.php
+            tab: "Preview"

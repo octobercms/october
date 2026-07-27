@@ -41,3 +41,8 @@ secondaryTabs:
             size: giant
             tab: "Plaintext"
             stretch: true
+
+        _preview:
+            type: partial
+            path: ~/modules/system/models/mailtemplate/_field_preview.php
+            tab: "Preview"
