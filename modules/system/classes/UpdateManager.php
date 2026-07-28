@@ -84,6 +84,29 @@ class UpdateManager
     }
 
     /**
+     * fireBeforeUpdate triggers the before update event.
+     */
+    public function fireBeforeUpdate(): mixed
+    {
+        /**
+         * @event system.updater.beforeUpdate
+         * Called before the software update process begins from the backend.
+         *
+         * A non-null return value stops the update and is used as the AJAX
+         * response. Throwing an exception will halt the update with an error.
+         *
+         * Example usage:
+         *
+         *     Event::listen('system.updater.beforeUpdate', function () {
+         *         Flash::success('Update started');
+         *         return Redirect::refresh();
+         *     });
+         *
+         */
+        return Event::fire('system.updater.beforeUpdate', [], true);
+    }
+
+    /**
      * update creates the migration table and updates.
      */
     public function update()

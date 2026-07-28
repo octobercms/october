@@ -207,6 +207,12 @@ class Updater extends WidgetBase
     public function onApplyUpdates()
     {
         try {
+            $beforeUpdate = UpdateManager::instance()->fireBeforeUpdate();
+
+            if ($beforeUpdate !== null) {
+                return $beforeUpdate;
+            }
+
             $updateSteps = [
                 [
                     'code' => 'updateComposer',
