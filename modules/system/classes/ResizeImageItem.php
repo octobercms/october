@@ -15,6 +15,7 @@ use October\Rain\Element\ElementBase;
  * @method ResizeImageItem path(string $path) path is the local location
  * @method ResizeImageItem extension(string $extension) extension for the file
  * @method ResizeImageItem source(string $source) source can be model, local, url
+ * @method ResizeImageItem mtime(?int $mtime) mtime is the source file modification time, local sources only
  * @method ResizeImageItem options(array $mode) options
  * @method ResizeImageItem width(int $width) width
  * @method ResizeImageItem height(int $height) height
@@ -267,6 +268,7 @@ class ResizeImageItem extends ElementBase
                 $result['path'] = $path;
                 $result['extension'] = File::extension($path);
                 $result['source'] = 'local';
+                $result['mtime'] = @filemtime($path) ?: null;
             }
             // URL
             elseif (strpos($image, '://') !== false) {

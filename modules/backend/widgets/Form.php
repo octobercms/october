@@ -1034,6 +1034,11 @@ class Form extends WidgetBase implements FormElement
             $field = $this->allFields[$field];
         }
 
+        // Field opts out of value population, e.g. a paginated relation controller
+        if (!$field->valuePopulate) {
+            return null;
+        }
+
         $defaultValue = $this->useDefaultValues()
             ? $field->getDefaultFromData($data)
             : null;

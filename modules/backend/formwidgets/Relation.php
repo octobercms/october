@@ -114,6 +114,12 @@ class Relation extends FormWidgetBase
 
         $this->useController = $this->evalUseController($this->config->useController ?? true);
 
+        // Value population is not needed when the relation controller renders the field
+        // and it can be expensive with larger datasets
+        if ($this->useController) {
+            $this->formField->valuePopulate(false);
+        }
+
         $this->initQuickCreate();
     }
 

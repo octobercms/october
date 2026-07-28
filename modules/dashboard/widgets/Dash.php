@@ -104,6 +104,12 @@ class Dash extends WidgetBase
      */
     public $isCustom = false;
 
+    /**
+     * @var bool isPersonalized is true when the reports configuration has come from
+     * the user preferences instead of the shared dashboard definition.
+     */
+    public $isPersonalized = false;
+
     //
     // Object Properties
     //
@@ -485,6 +491,7 @@ class Dash extends WidgetBase
                 'name' => Lang::get($this->name),
                 'code' => $this->code,
                 'rows' => $this->translateRows($this->allRows),
+                'isPersonalized' => $this->isPersonalized,
             ],
             'manageUrl' => $this->manageUrl,
             'showInterval' => $this->showInterval,

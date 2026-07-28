@@ -1,5 +1,13 @@
 <div class="dashboard-selector">
-    <h2 v-text="currentDashboard.name"></h2>
+    <div class="dashboard-title">
+        <h2 v-text="currentDashboard.name"></h2>
+        <div
+            v-if="currentDashboard.isPersonalized"
+            class="dashboard-personalized-marker"
+            data-tooltip-text="<?= __("Personalized dashboard") ?>"
+            data-tooltip-position="top"
+        ><i class="ph ph-user"></i></div>
+    </div>
     <div v-if="canCreateAndEdit" class="dashboard-button-set">
         <button
             v-if="embeddedInDashboard"

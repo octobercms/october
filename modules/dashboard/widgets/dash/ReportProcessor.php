@@ -18,6 +18,7 @@ trait ReportProcessor
         // enabled and allowed i.e not a static dash
 
         $this->isCustom = false;
+        $this->isPersonalized = false;
         $this->allRows = null;
 
         $savedDash = (new DashboardModel)->fetchDashboard(
@@ -28,6 +29,7 @@ trait ReportProcessor
         if ($savedDash && $savedDash->definition) {
             $this->reports = $this->allRows = $savedDash->definition;
             $this->isCustom = true;
+            $this->isPersonalized = (bool) $savedDash->is_personalized;
         }
 
         if ($savedDash) {
