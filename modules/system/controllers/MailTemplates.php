@@ -82,15 +82,19 @@ class MailTemplates extends Controller
      */
     public function onPreviewTemplate($recordId = null)
     {
+        $data = post('MailTemplate', []);
+
         $model = $this->formFindModelObject($recordId);
-        $this->asExtension('FormController')->initForm($model);
-        $this->formGetWidget()->setFormValues();
 
-        $saveData = $this->formGetWidget()->getSaveData();
-        $model->fill($saveData);
+        $model->fill([
+            'subject' => $data['subject'] ?? null,
+            'description' => $data['description'] ?? null,
+            'content_html' => $data['content_html'] ?? null,
+            'content_text' => $data['content_text'] ?? null,
+        ]);
 
-        if (isset($saveData['layout_id'])) {
-            $model->setRelation('layout', \System\Models\MailLayout::find($saveData['layout_id']));
+        if (!empty($data['layout'])) {
+            $model->setRelation('layout', \System\Models\MailLayout::find($data['layout']));
         }
 
         return ['previewHtml' => MailManager::instance()->renderTemplate($model, [])];

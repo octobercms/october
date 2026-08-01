@@ -38,14 +38,20 @@ window.oc.lang = (function(lang, messages) {
         var result = lang.loadedMessages,
             defaultValue = (typeof params === "string") ? params : name;
 
-        $.each(name.split('.'), function(index, value) {
-            if (result[value] === undefined) {
-                result = defaultValue;
-                return false;
-            }
+        // Prefer a flat key match so exported strings containing periods resolve directly
+        if (result[name] !== undefined) {
+            result = result[name];
+        }
+        else {
+            $.each(name.split('.'), function(index, value) {
+                if (result[value] === undefined) {
+                    result = defaultValue;
+                    return false;
+                }
 
-            result = result[value];
-        });
+                result = result[value];
+            });
+        }
 
         if (params && typeof params === "object") {
             Object.keys(params).forEach(function(key) {

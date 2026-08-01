@@ -508,8 +508,7 @@ class FileUpload extends FormWidgetBase
             // Check and clean vector files
             // @deprecated v4 this should be moved to a post processing method on the file model
             $extension = strtolower($uploadedFile->getClientOriginalExtension());
-            // @deprecated media.clean_vectors set default to true in v4
-            if ($extension === 'svg' && \Config::get('media.clean_vectors', false)) {
+            if ($extension === 'svg' && \Config::get('media.clean_vectors', true)) {
                 // getRealPath() can be empty for some environments (IIS)
                 $realPath = empty(trim($uploadedFile->getRealPath()))
                     ? $uploadedFile->getPath() . DIRECTORY_SEPARATOR . $uploadedFile->getFileName()

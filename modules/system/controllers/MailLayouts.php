@@ -60,12 +60,15 @@ class MailLayouts extends Controller
      */
     public function onPreviewLayout($recordId = null): array
     {
-        $layout = $this->formFindModelObject($recordId);
-        $this->asExtension('FormController')->initForm($layout);
-        $this->formGetWidget()->setFormValues();
+        $postData = post('MailLayout', []);
 
-        $saveData = $this->formGetWidget()->getSaveData();
-        $layout->fill($saveData);
+        $layout = $this->formFindModelObject($recordId);
+        $layout->fill([
+            'content_html' => $postData['content_html'] ?? null,
+            'content_css' => $postData['content_css'] ?? null,
+            'content_text' => $postData['content_text'] ?? null,
+            'options' => $postData['options'] ?? [],
+        ]);
 
         $template = new MailTemplate;
         $template->layout = $layout;
