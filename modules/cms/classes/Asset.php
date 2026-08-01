@@ -2,10 +2,13 @@
 
 use File;
 use Lang;
+use Event;
 use Config;
 use System;
 use Request;
+use Storage;
 use Cms\Helpers\File as FileHelper;
+use Cms\Models\SourceFile;
 use October\Rain\Extension\Extendable;
 use ApplicationException;
 use ValidationException;
@@ -19,6 +22,8 @@ use DirectoryIterator;
  */
 class Asset extends Extendable
 {
+    use \Cms\Classes\Asset\HasOperations;
+
     /**
      * @var \Cms\Classes\Theme A reference to the CMS theme containing the object.
      */
@@ -165,41 +170,119 @@ class Asset extends Extendable
     }
 
     /**
-     * getInternal helps the get method
+     * getInternal helps the get method. When the theme has the asset database
+     * layer enabled, results are merged with active SourceFile rows scoped to
+     * the listed directory level and any filesystem entries whose paths are
+     * tombstoned in the database are suppressed.
      */
     protected function getInternal(string $path, Theme $theme): array
     {
-        if (!file_exists($path)) {
-            return [];
+        $dbLayerEnabled = $theme->assetDatabaseLayerEnabled();
+        $tombstoned = [];
+        $dbPaths = [];
+
+        if ($dbLayerEnabled) {
+            $source = $this->getSourceIdentifier($theme);
+
+            $tombstoned = SourceFile::onlyTrashed()
+                ->bySource($source)
+                ->pluck('path')
+                ->all();
+            $tombstoned = array_flip($tombstoned);
+
+            $dbPaths = SourceFile::query()
+                ->bySource($source)
+                ->pluck('path')
+                ->all();
         }
 
         $result = [];
-        $iterator = new DirectoryIterator($path);
+        $seen = [];
         $editableAssetTypes = Asset::getEditableExtensions();
 
-        foreach ($iterator as $fileInfo) {
-            $fileName = $fileInfo->getFileName();
-            if (substr($fileName, 0, 1) === '.') {
-                continue;
+        if (file_exists($path)) {
+            $iterator = new DirectoryIterator($path);
+
+            foreach ($iterator as $fileInfo) {
+                $fileName = $fileInfo->getFileName();
+                if (substr($fileName, 0, 1) === '.') {
+                    continue;
+                }
+
+                if (!$fileInfo->isDir() && !$fileInfo->isFile()) {
+                    continue;
+                }
+
+                $fileName = $fileInfo->getFileName();
+                $isFolder = $fileInfo->isDir();
+                $filePath = $this->getRelativePath($fileInfo->getPathname(), $theme);
+                $isEditable = in_array(strtolower($fileInfo->getExtension()), $editableAssetTypes);
+                $normalizedPath = ltrim(File::normalizePath($filePath), '/');
+
+                if (!$isFolder && isset($tombstoned[$normalizedPath])) {
+                    continue;
+                }
+
+                $result[] = [
+                    'filename' => $fileName,
+                    'isFolder' => $isFolder ? 1 : 0,
+                    'isEditable' => $isEditable,
+                    'path' => $normalizedPath
+                ];
+                $seen[$normalizedPath] = true;
             }
+        }
 
-            if (!$fileInfo->isDir() && !$fileInfo->isFile()) {
-                continue;
+        // Merge database rows scoped to this directory level, synthesizing
+        // folder entries for rows nested beneath it
+        if ($dbLayerEnabled) {
+            $relativePrefix = trim(ltrim(File::normalizePath($this->getRelativePath($path, $theme)), '/'), '/');
+            $prefix = strlen($relativePrefix) ? $relativePrefix.'/' : '';
+
+            foreach ($dbPaths as $rowPath) {
+                if (strlen($prefix) && strpos($rowPath, $prefix) !== 0) {
+                    continue;
+                }
+
+                $remainder = strlen($prefix) ? substr($rowPath, strlen($prefix)) : $rowPath;
+                if (!strlen($remainder)) {
+                    continue;
+                }
+
+                $slashPos = strpos($remainder, '/');
+
+                // File directly at this level, dotfiles stay hidden
+                if ($slashPos === false) {
+                    if (isset($seen[$rowPath]) || substr($remainder, 0, 1) === '.') {
+                        continue;
+                    }
+
+                    $result[] = [
+                        'filename' => $remainder,
+                        'isFolder' => 0,
+                        'isEditable' => in_array(strtolower(pathinfo($remainder, PATHINFO_EXTENSION)), $editableAssetTypes),
+                        'path' => $rowPath
+                    ];
+                    $seen[$rowPath] = true;
+                    continue;
+                }
+
+                // Synthesize a folder entry for the first segment beneath this level
+                $folderName = substr($remainder, 0, $slashPos);
+                $folderPath = $prefix.$folderName;
+
+                if (isset($seen[$folderPath])) {
+                    continue;
+                }
+
+                $result[] = [
+                    'filename' => $folderName,
+                    'isFolder' => 1,
+                    'isEditable' => false,
+                    'path' => $folderPath
+                ];
+                $seen[$folderPath] = true;
             }
-
-            $fileName = $fileInfo->getFileName();
-            $isFolder = $fileInfo->isDir();
-            $filePath = $this->getRelativePath($fileInfo->getPathname(), $theme);
-            $isEditable = in_array(strtolower($fileInfo->getExtension()), $editableAssetTypes);
-
-            $asset = [
-                'filename' => $fileName,
-                'isFolder' => $isFolder ? 1 : 0,
-                'isEditable' => $isEditable,
-                'path' => ltrim(File::normalizePath($filePath), '/')
-            ];
-
-            $result[] = $asset;
         }
 
         return $result;
@@ -232,30 +315,45 @@ class Asset extends Extendable
     }
 
     /**
-     * find a single template by its file name.
+     * find a single template by its file name, resolving against the theme's
+     * database layer and filesystem before falling back to its parent theme.
      */
     public function find(string $fileName)
     {
-        $filePath = $this->getFilePath($fileName);
+        if ($result = $this->findInTheme($this->theme, $fileName)) {
+            return $result;
+        }
 
-        $foundTheme = $this->theme;
+        if ($parentTheme = $this->theme->getParentTheme()) {
+            return $this->findInTheme($parentTheme, $fileName);
+        }
 
-        if (!File::isFile($filePath)) {
-            // Look at parent
-            if ($parentTheme = $this->theme->getParentTheme()) {
-                $foundTheme = $parentTheme;
-                $filePath = $parentTheme->getPath().'/'.$this->dirName.'/'.$fileName;
+        return null;
+    }
 
-                if (!File::isFile($filePath)) {
-                    return null;
-                }
-            }
-            else {
+    /**
+     * findInTheme resolves an asset against a single theme, checking its
+     * database layer first and falling back to its filesystem copy.
+     */
+    protected function findInTheme(Theme $theme, string $fileName)
+    {
+        if ($theme->assetDatabaseLayerEnabled()) {
+            if ($this->isTombstoned($theme, $fileName)) {
                 return null;
+            }
+
+            if ($row = $this->findSourceFile($theme, $fileName)) {
+                return $this->hydrateFromSourceFile($fileName, $row);
             }
         }
 
-        if (!FileHelper::validateInTheme($foundTheme, $filePath)) {
+        $filePath = $theme->getPath().'/'.$this->dirName.'/'.$fileName;
+
+        if (!File::isFile($filePath)) {
+            return null;
+        }
+
+        if (!FileHelper::validateInTheme($theme, $filePath)) {
             throw new ValidationException(['fileName' =>
                 Lang::get('cms::lang.cms_object.invalid_file', [
                     'name' => $fileName
@@ -295,11 +393,17 @@ class Asset extends Extendable
     }
 
     /**
-     * save the object to the disk
+     * save the object to the disk, or to the assets disk with database row
+     * tracking when the asset database layer is enabled.
      */
     public function save()
     {
         $this->validateFileName();
+
+        if ($this->theme->assetDatabaseLayerEnabled()) {
+            $this->saveToDatabase();
+            return;
+        }
 
         $fullPath = $this->getFilePath();
 
@@ -355,7 +459,8 @@ class Asset extends Extendable
     }
 
     /**
-     * delete the object from disk
+     * delete the object from disk, or tombstone its database row and remove
+     * the assets disk object when the asset database layer is enabled.
      */
     public function delete()
     {
@@ -363,6 +468,16 @@ class Asset extends Extendable
         $fullPath = $this->getFilePath($fileName);
 
         $this->validateFileName($fileName);
+
+        if ($this->theme->assetDatabaseLayerEnabled()) {
+            SourceFile::tombstoneAt($this->getSourceIdentifier($this->theme), $fileName);
+
+            $diskPath = $this->getDiskPath($this->theme, $fileName);
+            Storage::disk($this->getDiskName())->delete($diskPath);
+
+            $this->fireInvalidationEvent([$diskPath]);
+            return;
+        }
 
         if (!FileHelper::validateInTheme($this->theme, $fullPath)) {
             throw new ValidationException(['fileName' =>
@@ -469,5 +584,139 @@ class Asset extends Extendable
         }
 
         return array_values($defaultTypes);
+    }
+
+    /**
+     * getSourceIdentifier returns the SourceFile source identifier for the
+     * given theme's assets. Format: theme.{themeDir}.asset
+     */
+    protected function getSourceIdentifier(Theme $theme): string
+    {
+        return 'theme.'.$theme->getDirName().'.asset';
+    }
+
+    /**
+     * getDiskName returns the Storage disk name used for published assets.
+     */
+    protected function getDiskName(): string
+    {
+        return 'assets';
+    }
+
+    /**
+     * getDiskPath returns the assets disk key for a theme asset, mirroring
+     * the repo-relative path so it matches the public URL built by asset().
+     */
+    protected function getDiskPath(Theme $theme, string $fileName): string
+    {
+        return 'themes/'.$theme->getDirName().'/'.$this->dirName.'/'.ltrim($fileName, '/');
+    }
+
+    /**
+     * isTombstoned returns true if a soft-deleted SourceFile row exists for
+     * the given theme and filename, meaning the file should be reported as
+     * not existing even when the filesystem still has a copy.
+     */
+    protected function isTombstoned(Theme $theme, string $fileName): bool
+    {
+        return SourceFile::onlyTrashed()
+            ->bySource($this->getSourceIdentifier($theme))
+            ->byPath($fileName)
+            ->exists();
+    }
+
+    /**
+     * findSourceFile returns an active SourceFile row for the given theme
+     * and filename, or null if none exists.
+     */
+    protected function findSourceFile(Theme $theme, string $fileName): ?SourceFile
+    {
+        return SourceFile::findByPath($this->getSourceIdentifier($theme), $fileName);
+    }
+
+    /**
+     * hydrateFromSourceFile populates this instance from a SourceFile row,
+     * using the row's updated_at as the mtime so concurrent-edit detection
+     * compares like for like.
+     */
+    protected function hydrateFromSourceFile(string $fileName, SourceFile $row): static
+    {
+        $this->fileName = $fileName;
+        $this->originalFileName = $fileName;
+        $this->mtime = $row->updated_at ? $row->updated_at->timestamp : null;
+        $this->content = $row->getContents();
+        $this->exists = true;
+
+        return $this;
+    }
+
+    /**
+     * saveToDatabase writes the current content to the assets disk and upserts
+     * a disk-backed SourceFile row for this theme and filename
+     */
+    protected function saveToDatabase(): void
+    {
+        $source = $this->getSourceIdentifier($this->theme);
+
+        // Reject collisions when creating or renaming, mirroring the
+        // filesystem branch's "file already exists" check
+        if ($this->originalFileName !== $this->fileName) {
+            $targetTaken = SourceFile::existsAt($source, $this->fileName)
+                || (File::isFile($this->getFilePath()) && !$this->isTombstoned($this->theme, $this->fileName));
+
+            if ($targetTaken) {
+                throw new ApplicationException(Lang::get(
+                    'cms::lang.cms_object.file_already_exists',
+                    ['name' => $this->fileName]
+                ));
+            }
+        }
+
+        $diskPath = $this->getDiskPath($this->theme, $this->fileName);
+        $invalidatePaths = [$diskPath];
+
+        $row = SourceFile::upsertOnDiskAt(
+            $source,
+            $this->fileName,
+            $this->getDiskName(),
+            $diskPath,
+            (string) $this->content
+        );
+
+        // Renames tombstone the old row and remove its disk object
+        if (strlen($this->originalFileName) && $this->originalFileName !== $this->fileName) {
+            SourceFile::tombstoneAt($source, $this->originalFileName);
+
+            $oldDiskPath = $this->getDiskPath($this->theme, $this->originalFileName);
+            Storage::disk($this->getDiskName())->delete($oldDiskPath);
+            $invalidatePaths[] = $oldDiskPath;
+        }
+
+        $this->fireInvalidationEvent($invalidatePaths);
+
+        $this->mtime = $row->updated_at ? $row->updated_at->timestamp : null;
+        $this->originalFileName = $this->fileName;
+        $this->exists = true;
+    }
+
+    /**
+     * fireInvalidationEvent notifies listeners that asset bytes changed on
+     * the assets disk so CDN caches can be purged.
+     */
+    protected function fireInvalidationEvent(array $diskPaths): void
+    {
+        /**
+         * @event cms.asset.invalidate
+         * Fires after asset bytes change on the assets disk so CDN caches can
+         * be purged. Receives the theme and the changed disk keys.
+         *
+         * Example usage:
+         *
+         *     Event::listen('cms.asset.invalidate', function ($theme, $diskPaths) {
+         *         MyCdn::invalidate($diskPaths);
+         *     });
+         *
+         */
+        Event::fire('cms.asset.invalidate', [$this->theme, $diskPaths]);
     }
 }

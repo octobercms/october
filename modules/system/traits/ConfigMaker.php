@@ -4,7 +4,6 @@ use Yaml;
 use File;
 use Lang;
 use Event;
-use System;
 use stdClass;
 use SystemException;
 use October\Rain\Html\Helper as HtmlHelper;
@@ -142,7 +141,7 @@ trait ConfigMaker
 
         $fileName = File::symbolizePath($fileName);
 
-        if (System::checkBaseDir($fileName)) {
+        if (File::checkBaseDir($fileName)) {
             return $fileName;
         }
 

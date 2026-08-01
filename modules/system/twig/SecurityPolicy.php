@@ -53,6 +53,10 @@ final class SecurityPolicy implements SecurityPolicyInterface
             'save', 'saveQuietly', 'saveOrFail',
             'push', 'pushQuietly',
             'fill', 'forceFill',
+            'setTable',
+        ],
+        \Illuminate\Pagination\AbstractPaginator::class => [
+            'through', 'setCollection', 'getCollection',
         ],
     ];
 

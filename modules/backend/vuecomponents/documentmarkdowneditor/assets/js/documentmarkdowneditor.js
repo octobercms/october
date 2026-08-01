@@ -20,6 +20,10 @@ export default {
             type: Boolean,
             default: true
         },
+        safeMode: {
+            type: Boolean,
+            default: true
+        },
         builtInMode: {
             type: Boolean,
             default: false
@@ -481,6 +485,7 @@ export default {
     },
     mounted: function onMounted() {
         this.editorId = $.oc.domIdManager.generate('markdowneditor');
+        const safeMode = this.safeMode;
         this.editor = Vue.markRaw(new EasyMDE({
             element: this.$refs.textarea,
             toolbar: this.defaultButtons,
@@ -490,9 +495,6 @@ export default {
             syncSideBySidePreviewScroll: true,
             initialValue: this.modelValue,
             status: true,
-            sanitizerFunction: function(htmlText) {
-                return DOMPurify.sanitize(htmlText);
-            },
             previewRender: function(plainText) {
                 // Optimization: prevent rendering same thing twice
                 if (this.lastCachedPreview == plainText) {
@@ -517,7 +519,8 @@ export default {
 
                 // Inherit default logic, includes logic processing
                 // anchors so links open in a new window
-                return this.parent.markdown(plainText);
+                const html = this.parent.markdown(plainText);
+                return safeMode ? DOMPurify.sanitize(html) : html;
             }
         }));
 

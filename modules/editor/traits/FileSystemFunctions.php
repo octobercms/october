@@ -3,13 +3,22 @@
 use Lang;
 use File;
 use Input;
+use Config;
 use Request;
 use SystemException;
 use ApplicationException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * FileSystemFunctions implements common file and directory management functions for Tailor extensions.
+ * FileSystemFunctions implements common file and directory management functions
+ * for editor extensions.
+ *
+ * @deprecated Editor CRUD logic has moved to domain-specific traits. CMS asset
+ * operations live on {@see \Cms\Classes\Asset} via the
+ * {@see \Cms\Classes\Asset\HasOperations} trait. Tailor blueprint operations
+ * live on {@see \Tailor\Classes\Blueprint} via the
+ * {@see \Tailor\Classes\Blueprint\HasOperations} trait. New code should call
+ * those operations through the model classes rather than these helpers.
  */
 trait FileSystemFunctions
 {
@@ -83,6 +92,19 @@ trait FileSystemFunctions
             throw new ApplicationException(Lang::get(
                 'editor::lang.filesystem.type_not_allowed',
                 ['allowed_types' => implode(', ', $allowedFileExtensions)]
+            ));
+        }
+
+        // Block renaming to a .svg target
+        if (
+            !is_dir($originalFullPath) &&
+            Config::get('media.clean_vectors', true) &&
+            strtolower(File::extension($newName)) === 'svg' &&
+            strtolower(File::extension($originalPath)) !== 'svg'
+        ) {
+            throw new ApplicationException(Lang::get(
+                'editor::lang.filesystem.type_not_allowed',
+                ['allowed_types' => implode(', ', array_diff($allowedFileExtensions, ['svg']))]
             ));
         }
 

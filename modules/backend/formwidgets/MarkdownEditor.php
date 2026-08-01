@@ -22,9 +22,10 @@ class MarkdownEditor extends FormWidgetBase
     public $mode = 'tab';
 
     /**
-     * @var bool Render preview with safe markdown.
+     * @var bool safeMode runs the rendered preview HTML through DOMPurify
+     * before it is shown in the editor. Defaults to true.
      */
-    public $safe = false;
+    public $safeMode = true;
 
     /**
      * @var bool The Legacy mode disables the Vue integration.
@@ -62,11 +63,16 @@ class MarkdownEditor extends FormWidgetBase
     {
         $this->fillFromConfig([
             'mode',
-            'safe',
+            'safeMode',
             'legacyMode',
             'sideBySide',
             'externalToolbarBus'
         ]);
+
+        // @deprecated API
+        if ($this->getConfig('safe', false)) {
+            $this->safeMode = true;
+        }
 
         if (!$this->legacyMode) {
             $this->controller->registerVueComponent(\Backend\VueComponents\DocumentMarkdownEditor::class);
@@ -89,6 +95,7 @@ class MarkdownEditor extends FormWidgetBase
     {
         $this->vars['mode'] = $this->mode;
         $this->vars['legacyMode'] = $this->legacyMode;
+        $this->vars['safeMode'] = $this->safeMode;
         $this->vars['sideBySide'] = $this->sideBySide;
         $this->vars['stretch'] = $this->formField->stretch;
         $this->vars['size'] = $this->formField->size;
@@ -111,8 +118,8 @@ class MarkdownEditor extends FormWidgetBase
     public function onRefresh()
     {
         $value = (string) post($this->getFieldName());
-        $previewHtml = $this->safe
-            ? Markdown::parseIndent($value)
+        $previewHtml = $this->safeMode
+            ? Markdown::parseClean($value)
             : Markdown::parse($value);
 
         return [

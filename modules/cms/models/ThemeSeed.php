@@ -88,7 +88,25 @@ class ThemeSeed extends Model
         $this->attributes['themeName'] = $theme->getConfigValue('name', $theme->getDirName());
         $this->attributes['dirName'] = $theme->getDirName();
         $this->attributes['themePath'] = $theme->getPath();
+        $this->attributes['seedPath'] = $this->findSeedPath($theme);
         $this->attributes['theme'] = $theme;
+    }
+
+    /**
+     * findSeedPath returns the theme path containing seed content, falling back
+     * to the parent theme when the child theme has none.
+     */
+    protected function findSeedPath(CmsTheme $theme): string
+    {
+        $path = $theme->getPath();
+
+        if (!File::exists($path . '/seeds') && ($parentTheme = $theme->getParentTheme())) {
+            if (File::exists($parentTheme->getPath() . '/seeds')) {
+                $path = $parentTheme->getPath();
+            }
+        }
+
+        return $path;
     }
 
     /**
@@ -122,7 +140,7 @@ class ThemeSeed extends Model
             : app_path('blueprints/' . $this->dirName);
 
         // Import and migrate blueprints
-        $themeBpPath = $this->themePath . '/seeds/blueprints';
+        $themeBpPath = $this->seedPath . '/seeds/blueprints';
         if (File::isDirectory($themeBpPath)) {
             $this->note('Importing Blueprints');
             File::copyDirectory($themeBpPath, $appBpPath);
@@ -137,7 +155,7 @@ class ThemeSeed extends Model
     protected function importSeedData()
     {
         // Importing seed data
-        $importFile = $this->themePath . '/seeds/data.yaml';
+        $importFile = $this->seedPath . '/seeds/data.yaml';
         if (File::isFile($importFile)) {
             $this->note('Importing Data');
             $instructions = Yaml::parseFile($importFile);
@@ -157,7 +175,7 @@ class ThemeSeed extends Model
     protected function importSeedLang()
     {
         // Import language files
-        $themeLangPath = $this->themePath . '/seeds/lang';
+        $themeLangPath = $this->seedPath . '/seeds/lang';
         $appLangPath = app_path('lang');
         if (File::isDirectory($themeLangPath)) {
             $this->note('Importing Translations');
@@ -224,7 +242,7 @@ class ThemeSeed extends Model
             throw new SystemException("Import class '{$className}' does not exist.");
         }
 
-        $importFile = $this->themePath . '/' . $fileName;
+        $importFile = $this->seedPath . '/' . $fileName;
         if (!File::exists($importFile)) {
             throw new SystemException("Import file '{$fileName}' does not exist.");
         }
@@ -233,7 +251,7 @@ class ThemeSeed extends Model
         $importModel->forceFill($attributes);
 
         if (method_exists($importModel, 'setSourcePrefix')) {
-            $importModel->setSourcePrefix($this->themePath);
+            $importModel->setSourcePrefix($this->seedPath);
         }
 
         $importModel->importFile($importFile, ['matches' => $matches, 'sessionKey' => str_random(40)]);

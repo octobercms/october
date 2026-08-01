@@ -1,6 +1,7 @@
 <?php namespace Tailor\Classes\EditorExtension;
 
 use Lang;
+use Input;
 use Config;
 use Request;
 use BackendAuth;
@@ -144,7 +145,7 @@ trait HasExtensionCrud
         $newName = trim(ApiHelpers::assertGetKey($documentData, 'name'));
         $parent = ApiHelpers::assertGetKey($documentData, 'parent');
 
-        $this->editorCreateDirectory($this->getBlueprintsPath(), $newName, $parent);
+        $this->resolveBlueprintInstance()->createDirectory($newName, $parent);
     }
 
     /**
@@ -158,9 +159,8 @@ trait HasExtensionCrud
 
         $newName = trim(ApiHelpers::assertGetKey($documentData, 'name'));
         $originalPath = trim(ApiHelpers::assertGetKey($documentData, 'originalPath'));
-        $blueprintExtensions = ['yaml'];
 
-        $this->editorRenameFileOrDirectory($this->getBlueprintsPath(), $newName, $originalPath, $blueprintExtensions);
+        $this->resolveBlueprintInstance()->rename($newName, $originalPath);
     }
 
     /**
@@ -174,7 +174,7 @@ trait HasExtensionCrud
         $fileList = ApiHelpers::assertGetKey($documentData, 'files');
         ApiHelpers::assertIsArray($fileList);
 
-        $this->editorDeleteFileOrDirectory($this->getBlueprintsPath(), $fileList);
+        $this->resolveBlueprintInstance()->deletePaths($fileList);
     }
 
     /**
@@ -188,7 +188,8 @@ trait HasExtensionCrud
 
         $selectedList = ApiHelpers::assertGetKey($documentData, 'source');
         $destinationDir = ApiHelpers::assertGetKey($documentData, 'destination');
-        $this->editorMoveFilesOrDirectories($this->getBlueprintsPath(), $selectedList, $destinationDir);
+
+        $this->resolveBlueprintInstance()->move($selectedList, $destinationDir);
     }
 
     /**
@@ -198,7 +199,14 @@ trait HasExtensionCrud
     {
         $this->assertBlueprintPermissions();
 
-        $this->editorUploadFiles($this->getBlueprintsPath(), ['yaml']);
+        $uploadedFile = Input::file('file');
+        if (!is_object($uploadedFile)) {
+            return;
+        }
+
+        $destinationDir = trim(Request::input('destination'));
+
+        $this->resolveBlueprintInstance()->upload($uploadedFile, $destinationDir);
     }
 
     /**
@@ -463,16 +471,18 @@ trait HasExtensionCrud
     }
 
     /**
-     * getBlueprintsPath
+     * resolveBlueprintInstance returns a Blueprint (or subclass) instance whose
+     * base path matches the document type in the current request. The instance
+     * is used to dispatch HasOperations methods against the correct datasource.
      */
-    private function getBlueprintsPath()
+    private function resolveBlueprintInstance(): Blueprint
     {
         if ($type = post('documentType', post('documentMetadata[documentType]'))) {
             $className = $this->resolveTypeClassName($type);
-            return (new $className)->getBasePath();
+            return new $className;
         }
 
-        return (new Blueprint)->getBasePath();
+        return new Blueprint;
     }
 
     /**

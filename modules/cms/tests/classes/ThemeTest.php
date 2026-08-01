@@ -38,6 +38,18 @@ class ThemeTest extends TestCase
         $this->assertEquals(base_path('modules/cms/tests/fixtures/themes/test'), $theme->getPath());
     }
 
+    public function testHasSeedContentFromParentTheme()
+    {
+        $parentTheme = Theme::load('parenttest');
+        $this->assertTrue($parentTheme->hasSeedContent());
+
+        $childTheme = Theme::load('childtest');
+        $this->assertTrue($childTheme->hasSeedContent());
+
+        $theme = Theme::load('test');
+        $this->assertFalse($theme->hasSeedContent());
+    }
+
     public function testListPages()
     {
         $theme = Theme::load('test');

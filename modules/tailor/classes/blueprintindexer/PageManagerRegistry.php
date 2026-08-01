@@ -21,13 +21,11 @@ trait PageManagerRegistry
     public function listPageManagerTypes(): array
     {
         $types = [];
-        $themeDatasource = $this->getActiveThemeDatasource();
 
         // Sections
         foreach (EntryBlueprint::listInProject() as $blueprint) {
             // Skip blueprints from inactive themes
-            $themeCode = $blueprint->getDatasourceTheme();
-            if ($themeCode !== null && $themeDatasource && $themeCode !== $themeDatasource) {
+            if (!$this->isActiveThemeDatasource($blueprint->getDatasourceTheme())) {
                 continue;
             }
 

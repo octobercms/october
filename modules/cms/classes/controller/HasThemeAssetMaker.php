@@ -133,7 +133,7 @@ trait HasThemeAssetMaker
         }
 
         // Configuration for theme asset location, default to relative path
-        $assetUrl = (string) Config::get('system.themes_asset_url') ?: '/themes';
+        $assetUrl = rtrim((string) Config::get('system.themes_asset_url') ?: '/themes', '/');
 
         // Build path
         $path = $assetUrl . '/' . $dirName;

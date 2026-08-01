@@ -8149,7 +8149,7 @@ API.txt for details.
                 </div>                                              \
                 <form autocomplete="off" onsubmit="return false">   \
                     <div data-surface-container></div>              \
-                <form>'
+                </form>'
     }
 
     InspectorPopup.prototype.showPopover = function() {

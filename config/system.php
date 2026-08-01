@@ -69,11 +69,11 @@ return [
 
     'plugins_path' => env('PLUGINS_PATH'),
 
-    'plugins_asset_url' => env('PLUGINS_ASSET_URL'),
+    'plugins_asset_url' => env('PLUGINS_ASSET_URL', env('ASSET_URL') ? rtrim(env('ASSET_URL'), '/') . '/plugins' : null),
 
     'themes_path' => env('THEMES_PATH'),
 
-    'themes_asset_url' => env('THEMES_ASSET_URL'),
+    'themes_asset_url' => env('THEMES_ASSET_URL', env('ASSET_URL') ? rtrim(env('ASSET_URL'), '/') . '/themes' : null),
 
     'storage_path' => env('STORAGE_PATH'),
 

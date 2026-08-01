@@ -1,11 +1,16 @@
 <?php namespace Tailor\Classes;
 
+use App;
 use Str;
 use Arr;
 use File;
 use Yaml;
 use Lang;
+use Config;
+use System;
 use Cms\Helpers\File as FileHelper;
+use Cms\Models\SourceFile;
+use System\Classes\PluginManager;
 use October\Rain\Extension\Extendable;
 use DirectoryIterator;
 use ApplicationException;
@@ -22,6 +27,7 @@ use Exception;
 class Blueprint extends Extendable
 {
     use \Tailor\Classes\Blueprint\HasDatasources;
+    use \Tailor\Classes\Blueprint\HasOperations;
 
     /**
      * @var array attributes for the template, taken from the config
@@ -112,12 +118,25 @@ class Blueprint extends Extendable
     }
 
     /**
-     * getMtimeByName
+     * getMtimeByName returns the last modified time using the same resolution
+     * order as find, or null when the blueprint is missing or tombstoned.
      */
     public static function getMtimeByName(string $fileName): ?int
     {
         $obj = new static;
         $obj->validateFileName($fileName);
+
+        if ($obj->databaseLayerEnabled()) {
+            $source = $obj->getSourceIdentifier();
+
+            if (SourceFile::onlyTrashed()->bySource($source)->byPath($fileName)->exists()) {
+                return null;
+            }
+
+            if ($row = SourceFile::findByPath($source, $fileName)) {
+                return $row->updated_at ? $row->updated_at->timestamp : null;
+            }
+        }
 
         $filePath = $obj->getFilePath($fileName);
         if (!file_exists($filePath)) {
@@ -276,60 +295,156 @@ class Blueprint extends Extendable
     }
 
     /**
-     * getInternal helps the get method
+     * getInternal helps the get method. When the resolved datasource has the
+     * database layer enabled, results are merged with active SourceFile rows
+     * and filesystem entries whose paths are tombstoned in the database are
+     * suppressed.
      */
     protected function getInternal(string $path): array
     {
-        if (!file_exists($path)) {
-            return [];
+        $dbLayerEnabled = $this->databaseLayerEnabled();
+        $tombstoned = [];
+        $dbRows = [];
+
+        // Directory prefix relative to the base path, '' at the root
+        $dirPrefix = ltrim(File::normalizePath($this->getRelativePath($path)), '/');
+
+        if ($dbLayerEnabled) {
+            $source = $this->getSourceIdentifier();
+
+            $tombstoned = SourceFile::onlyTrashed()
+                ->bySource($source)
+                ->pluck('path')
+                ->all();
+            $tombstoned = array_flip($tombstoned);
+
+            $dbRows = SourceFile::query()
+                ->bySource($source)
+                ->get()
+                ->keyBy('path')
+                ->all();
         }
 
         $result = [];
-        $iterator = new DirectoryIterator($path);
+        $seen = [];
 
-        foreach ($iterator as $fileInfo) {
-            $fileName = $fileInfo->getFileName();
-            if (substr($fileName, 0, 1) === '.') {
+        if (file_exists($path)) {
+            $iterator = new DirectoryIterator($path);
+
+            foreach ($iterator as $fileInfo) {
+                $fileName = $fileInfo->getFileName();
+                if (substr($fileName, 0, 1) === '.') {
+                    continue;
+                }
+
+                if (!$fileInfo->isDir() && !$fileInfo->isFile()) {
+                    continue;
+                }
+
+                $isFolder = $fileInfo->isDir();
+                $filePath = $this->getRelativePath($fileInfo->getPathname());
+                $normalizedPath = ltrim(File::normalizePath($filePath), '/');
+                $isEditable = in_array(strtolower($fileInfo->getExtension()), $this->allowedExtensions);
+
+                if (!$isFolder && isset($tombstoned[$normalizedPath])) {
+                    continue;
+                }
+
+                $result[] = [
+                    'fileName' => $fileName,
+                    'isFolder' => $isFolder ? 1 : 0,
+                    'isEditable' => $isEditable,
+                    'path' => $normalizedPath
+                ];
+                $seen[$normalizedPath] = true;
+            }
+        }
+
+        foreach ($dbRows as $rowPath => $row) {
+            // Scope rows to the directory being listed
+            if ($dirPrefix !== '') {
+                if (!str_starts_with($rowPath, $dirPrefix.'/')) {
+                    continue;
+                }
+                $localPath = substr($rowPath, strlen($dirPrefix) + 1);
+            }
+            else {
+                $localPath = $rowPath;
+            }
+
+            // Rows in deeper directories surface as a folder entry for their
+            // next path segment, unless the filesystem already provides it
+            if (($slashPos = strpos($localPath, '/')) !== false) {
+                $folderName = substr($localPath, 0, $slashPos);
+                $folderPath = $dirPrefix !== '' ? $dirPrefix.'/'.$folderName : $folderName;
+
+                if (isset($seen[$folderPath])) {
+                    continue;
+                }
+
+                $result[] = [
+                    'fileName' => $folderName,
+                    'isFolder' => 1,
+                    'isEditable' => false,
+                    'path' => $folderPath
+                ];
+                $seen[$folderPath] = true;
                 continue;
             }
 
-            if (!$fileInfo->isDir() && !$fileInfo->isFile()) {
+            if (isset($seen[$rowPath])) {
                 continue;
             }
 
-            $fileName = $fileInfo->getFileName();
-            $isFolder = $fileInfo->isDir();
-            $filePath = $this->getRelativePath($fileInfo->getPathname());
-            $isEditable = in_array(strtolower($fileInfo->getExtension()), $this->allowedExtensions);
+            $extension = strtolower(pathinfo($rowPath, PATHINFO_EXTENSION));
+            $isEditable = in_array($extension, $this->allowedExtensions);
 
-            $template = [
-                'fileName' => $fileName,
-                'isFolder' => $isFolder ? 1 : 0,
+            $result[] = [
+                'fileName' => basename($rowPath),
+                'isFolder' => 0,
                 'isEditable' => $isEditable,
-                'path' => ltrim(File::normalizePath($filePath), '/')
+                'path' => $rowPath
             ];
-
-            $result[] = $template;
         }
 
         return $result;
     }
 
     /**
-     * find a single template by its file name.
+     * find a single template by its file name. When the resolved datasource
+     * has the database layer enabled, a matching SourceFile row overrides the
+     * filesystem copy and a soft-deleted row acts as a tombstone (the file is
+     * reported as missing even when a filesystem copy exists).
      */
     public function find(string $fileName)
     {
         $this->validateFileName($fileName);
 
-        $filePath = $this->getFilePath($fileName);
-        if (($content = @File::get($filePath)) === false) {
-            return null;
+        $content = null;
+
+        if ($this->databaseLayerEnabled()) {
+            $source = $this->getSourceIdentifier();
+
+            if (SourceFile::onlyTrashed()->bySource($source)->byPath($fileName)->exists()) {
+                return null;
+            }
+
+            if ($row = SourceFile::findByPath($source, $fileName)) {
+                $content = (string) $row->getContents();
+                $this->mtime = $row->updated_at ? $row->updated_at->timestamp : null;
+            }
+        }
+
+        if ($content === null) {
+            $filePath = $this->getFilePath($fileName);
+            if (($content = @File::get($filePath)) === false) {
+                return null;
+            }
+            $this->mtime = File::lastModified($filePath);
         }
 
         $this->fileName = $fileName;
         $this->originalFileName = $fileName;
-        $this->mtime = File::lastModified($filePath);
         $this->content = $content;
         $this->exists = true;
 
@@ -436,12 +551,12 @@ class Blueprint extends Extendable
     }
 
     /**
-     * save the object to the disk
+     * save the object to the disk, or to the cms_source_files table when the
+     * resolved datasource has the database layer enabled.
      */
     public function save(?array $options = null)
     {
         $fileName = $this->fileName;
-        $fullPath = $this->getFilePath();
 
         // Validate
         $forceSave = Arr::get($options, 'force', false);
@@ -451,6 +566,21 @@ class Blueprint extends Extendable
         else {
             $this->validate();
         }
+
+        // Ensure blueprint has uuid (applies regardless of storage layer)
+        if (!$this->uuid) {
+            $this->uuid = Str::uuid()->toString();
+            $newContent = 'uuid: ' . $this->uuid . PHP_EOL;
+            $newContent .= $this->content;
+            $this->content = $newContent;
+        }
+
+        if ($this->databaseLayerEnabled()) {
+            $this->saveToDatabase($fileName);
+            return;
+        }
+
+        $fullPath = $this->getFilePath();
 
         if (File::isFile($fullPath) && $this->originalFileName !== $fileName) {
             throw new ApplicationException(Lang::get(
@@ -480,14 +610,6 @@ class Blueprint extends Extendable
             }
         }
 
-        // Ensure blueprint has uuid
-        if (!$this->uuid) {
-            $this->uuid = Str::uuid()->toString();
-            $newContent = 'uuid: ' . $this->uuid . PHP_EOL;
-            $newContent .= $this->content;
-            $this->content = $newContent;
-        }
-
         $newFullPath = $fullPath;
         if (@File::put($fullPath, $this->content) === false) {
             throw new ApplicationException(Lang::get(
@@ -512,6 +634,43 @@ class Blueprint extends Extendable
     }
 
     /**
+     * saveToDatabase upserts the current content into a SourceFile row for
+     * this blueprint's resolved datasource. When the filename has changed,
+     * the old path is tombstoned so the rename propagates across instances.
+     */
+    protected function saveToDatabase(string $fileName): void
+    {
+        $source = $this->getSourceIdentifier();
+
+        // Reject collisions when creating or renaming, mirroring the
+        // filesystem branch's "file already exists" check
+        if ($this->originalFileName !== $fileName) {
+            $targetTaken = SourceFile::existsAt($source, $fileName)
+                || (
+                    File::isFile($this->getFilePath($fileName))
+                    && !SourceFile::onlyTrashed()->bySource($source)->byPath($fileName)->exists()
+                );
+
+            if ($targetTaken) {
+                throw new ApplicationException(Lang::get(
+                    'cms::lang.cms_object.file_already_exists',
+                    ['name' => $fileName]
+                ));
+            }
+        }
+
+        $row = SourceFile::upsertAt($source, $fileName, (string) $this->content);
+
+        if (strlen($this->originalFileName) && $this->originalFileName !== $fileName) {
+            SourceFile::tombstoneAt($source, $this->originalFileName);
+        }
+
+        $this->mtime = $row->updated_at ? $row->updated_at->timestamp : null;
+        $this->originalFileName = $fileName;
+        $this->exists = true;
+    }
+
+    /**
      * forceSave
      */
     public function forceSave()
@@ -520,14 +679,23 @@ class Blueprint extends Extendable
     }
 
     /**
-     * delete template
+     * delete template. When the resolved datasource has the database layer
+     * enabled, a tombstone row is written and the filesystem is left alone so
+     * the deletion propagates across instances even when the on-disk copy
+     * cannot be removed.
      */
     public function delete()
     {
         $fileName = $this->fileName;
-        $fullPath = $this->getFilePath($fileName);
 
         $this->validateFileName($fileName);
+
+        if ($this->databaseLayerEnabled()) {
+            SourceFile::tombstoneAt($this->getSourceIdentifier(), $fileName);
+            return;
+        }
+
+        $fullPath = $this->getFilePath($fileName);
 
         if (File::exists($fullPath)) {
             if (!@File::delete($fullPath)) {
@@ -759,6 +927,65 @@ class Blueprint extends Extendable
     public static function setDefaultDatasource(string $path)
     {
         static::$defaultDatasource = $path;
+    }
+
+    /**
+     * databaseLayerEnabled returns true when DB-layered blueprints should be
+     * consulted for this instance. For theme-scoped blueprints the theme's own
+     * databaseLayerEnabled() flag is honored; for app and plugin blueprints
+     * the global cms.database_templates config governs.
+     */
+    public function databaseLayerEnabled(): bool
+    {
+        // Theme flag includes the App::hasDatabase() check
+        if ($this->datasourceTheme && System::hasModule('Cms')) {
+            $theme = \Cms\Classes\Theme::load($this->datasourceTheme);
+            return $theme ? $theme->databaseLayerEnabled() : false;
+        }
+
+        // Config first so a disabled feature never attempts a database connection
+        return (bool) Config::get('cms.database_templates', false) && App::hasDatabase();
+    }
+
+    /**
+     * getSourceIdentifier returns the cms_source_files source identifier for
+     * this instance's resolved datasource. Encodes the origin so app, plugin
+     * and theme blueprints can coexist in the same table without colliding.
+     */
+    public function getSourceIdentifier(): string
+    {
+        if ($this->datasourceTheme) {
+            return 'theme.'.$this->datasourceTheme.'.blueprint';
+        }
+
+        if ($this->datasource) {
+            if ($code = $this->resolvePluginCodeForDatasource($this->datasource)) {
+                return 'plugin.'.$code.'.blueprint';
+            }
+        }
+
+        return 'app.blueprint';
+    }
+
+    /**
+     * resolvePluginCodeForDatasource walks the registered plugin paths to
+     * find the one whose blueprints directory matches the given datasource
+     * path. Returns null when the datasource is not a plugin path.
+     */
+    protected function resolvePluginCodeForDatasource(string $path): ?string
+    {
+        try {
+            $plugins = PluginManager::instance()->getPluginPaths();
+            foreach ($plugins as $code => $pluginPath) {
+                if (rtrim($path, '/\\') === rtrim($pluginPath.'/blueprints', '/\\')) {
+                    return $code;
+                }
+            }
+        }
+        catch (Exception $ex) {
+        }
+
+        return null;
     }
 
     /**

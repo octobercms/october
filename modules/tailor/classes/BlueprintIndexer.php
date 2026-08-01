@@ -2,8 +2,10 @@
 
 use App;
 use File;
+use Config;
 use System;
 use Cms\Classes\Theme;
+use Cms\Models\SourceFile;
 use Tailor\Classes\Blueprint;
 use Tailor\Classes\Blueprint\EntryBlueprint;
 use System\Helpers\Cache as CacheHelper;
@@ -208,13 +210,20 @@ class BlueprintIndexer
         $currentMtime = 0;
         $mtime = File::lastModifiedRecursive(app_path('blueprints'));
 
-        // Checking mtime of theme directory
+        // Checking mtime of theme directory, including the parent theme
+        $theme = null;
         if (System::hasModule('Cms')) {
             $theme = Theme::getEditTheme() ?: Theme::getActiveTheme();
             if ($theme && file_exists($themePath = $theme->getPath() . '/blueprints')) {
                 $mtime = max($mtime, File::lastModifiedRecursive($themePath));
             }
+            if ($theme && ($parentTheme = $theme->getParentTheme()) && file_exists($parentPath = $parentTheme->getPath() . '/blueprints')) {
+                $mtime = max($mtime, File::lastModifiedRecursive($parentPath));
+            }
         }
+
+        // Checking mtime of database layer rows
+        $mtime = max($mtime, $this->lastBlueprintSourceFileMtime($theme));
 
         // Store and compare mtime to clear cache
         $debugFile = $this->makeCacheFile('debug');
@@ -241,6 +250,41 @@ class BlueprintIndexer
         }
 
         $this->debugChecked = true;
+    }
+
+    /**
+     * lastBlueprintSourceFileMtime returns the newest blueprint SourceFile
+     * change, or 0 when the database layer is inactive or unavailable.
+     */
+    protected function lastBlueprintSourceFileMtime($theme = null): int
+    {
+        $enabled = Config::get('cms.database_templates', false)
+            || ($theme && $theme->databaseLayerEnabled())
+            || ($theme && ($parentTheme = $theme->getParentTheme()) && $parentTheme->databaseLayerEnabled());
+
+        if (!$enabled) {
+            return 0;
+        }
+
+        if (!App::hasDatabase()) {
+            return 0;
+        }
+
+        try {
+            $row = SourceFile::withTrashed()
+                ->where('source', 'like', '%.blueprint')
+                ->orderBy('updated_at', 'desc')
+                ->first(['updated_at']);
+
+            if (!$row || !$row->updated_at) {
+                return 0;
+            }
+
+            return $row->updated_at->timestamp;
+        }
+        catch (Exception $ex) {
+            return 0;
+        }
     }
 
     /**
@@ -279,17 +323,44 @@ class BlueprintIndexer
     }
 
     /**
-     * getActiveThemeDatasource returns the dirname for the active theme, used
-     * to filter blueprint lookups when multiple themes define the same handle.
+     * getActiveThemeDatasources returns dirnames for the active theme and its parent,
+     * used to filter blueprint lookups when multiple themes define the same handle.
      */
-    protected function getActiveThemeDatasource(): ?string
+    protected function getActiveThemeDatasources(): array
     {
         if (!System::hasModule('Cms')) {
-            return null;
+            return [];
         }
 
         $theme = Theme::getEditTheme() ?: Theme::getActiveTheme();
+        if (!$theme) {
+            return [];
+        }
 
-        return $theme ? $theme->getDirName() : null;
+        $result = [$theme->getDirName()];
+
+        if ($parentTheme = $theme->getParentTheme()) {
+            $result[] = $parentTheme->getDirName();
+        }
+
+        return $result;
+    }
+
+    /**
+     * isActiveThemeDatasource returns true when a theme code belongs to the active theme,
+     * its parent theme, or a non-theme datasource.
+     */
+    protected function isActiveThemeDatasource(?string $themeCode): bool
+    {
+        if ($themeCode === null) {
+            return true;
+        }
+
+        $datasources = $this->getActiveThemeDatasources();
+        if (!$datasources) {
+            return true;
+        }
+
+        return in_array($themeCode, $datasources);
     }
 }

@@ -499,6 +499,17 @@ class Theme implements CallsMethods
     }
 
     /**
+     * assetDatabaseLayerEnabled checks if theme asset edits persist to the
+     * assets disk with database row tracking. Global-only since the assets
+     * disk and ASSET_URL are global infrastructure, unlike the per-theme
+     * template layer.
+     */
+    public function assetDatabaseLayerEnabled(): bool
+    {
+        return Config::get('cms.database_assets', false) && App::hasDatabase();
+    }
+
+    /**
      * hasParentTheme checks if a parent theme is defined
      */
     public function hasParentTheme(): bool
@@ -612,11 +623,20 @@ class Theme implements CallsMethods
     }
 
     /**
-     * hasSeedContent returns true if some seed content is available
+     * hasSeedContent returns true if some seed content is available,
+     * checking the parent theme as a fallback
      */
     public function hasSeedContent()
     {
-        return File::exists($this->getPath() . '/seeds');
+        if (File::exists($this->getPath() . '/seeds')) {
+            return true;
+        }
+
+        if ($parentTheme = $this->getParentTheme()) {
+            return File::exists($parentTheme->getPath() . '/seeds');
+        }
+
+        return false;
     }
 
     /**

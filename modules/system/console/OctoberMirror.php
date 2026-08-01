@@ -4,6 +4,7 @@ use File;
 use Event;
 use System;
 use Config;
+use Storage;
 use stdClass;
 use Illuminate\Console\Command;
 use Exception;
@@ -12,7 +13,9 @@ use Exception;
  * OctoberMirror command to implement a "public" folder.
  *
  * This command will create symbolic links to files and directories
- * that are commonly required to be publicly available.
+ * that are commonly required to be publicly available. When the --disk
+ * option is given, asset directories are uploaded to that filesystem disk
+ * instead, additively, for serving assets from a shared origin.
  *
  * @package october\system
  * @author Alexey Bobkov, Samuel Georges
@@ -25,7 +28,11 @@ class OctoberMirror extends Command
     protected $signature = 'october:mirror
         {destination? : The destination path relative to the current directory. Eg: public}
         {--composer : Command triggered from composer.}
-        {--relative : Create symlinks relative to the public directory.}';
+        {--relative : Create symlinks relative to the public directory.}
+        {--disk= : Upload asset directories to this filesystem disk instead of symlinking.}
+        {--force : Disk mode: upload every file, even when unchanged.}
+        {--checksum : Disk mode: compare content hashes instead of file sizes.}
+        {--dry-run : Disk mode: list what would be uploaded without uploading.}';
 
     /**
      * @var string description of the console command
@@ -111,6 +118,15 @@ class OctoberMirror extends Command
             return;
         }
 
+        if ($diskName = $this->option('disk')) {
+            if ($this->option('relative')) {
+                $this->output->error('The --relative option only applies to symlink mode.');
+                return 1;
+            }
+
+            return $this->handleDiskMode($diskName);
+        }
+
         $this->getDestinationPath();
 
         $this->line(sprintf('<info>Mirror Path:</info> [%s]', $this->destinationPath));
@@ -146,6 +162,186 @@ class OctoberMirror extends Command
         foreach ($paths->files as $file) {
             $this->mirrorFile($file);
         }
+    }
+
+    /**
+     * handleDiskMode uploads asset directories to a filesystem disk. Uploads
+     * are additive only: files are created or overwritten, never deleted, so
+     * a mirror run can never take down a live asset.
+     */
+    protected function handleDiskMode(string $diskName)
+    {
+        if (!Config::get("filesystems.disks.{$diskName}")) {
+            $this->output->error("Disk [{$diskName}] is not configured in config/filesystems.php");
+            return 1;
+        }
+
+        $this->line(sprintf('<info>Mirror Disk:</info> [%s]', $diskName));
+
+        $paths = new stdClass;
+        $paths->files = $this->files;
+        $paths->directories = $this->directories;
+        $paths->wildcards = $this->wildcards;
+
+        // See the symlink-mode handler for event documentation
+        Event::fire('system.console.mirror.extendPaths', [$paths]);
+
+        // Disk mode publishes code-shipped asset directories only, never
+        // storage paths or root files
+        $directories = [];
+        foreach ($this->expandWildcards(array_merge($paths->directories, $paths->wildcards)) as $directory) {
+            if (strpos($directory, 'storage/') === 0) {
+                continue;
+            }
+
+            $directories[] = $directory;
+        }
+
+        $disk = Storage::disk($diskName);
+        $useChecksum = (bool) $this->option('checksum');
+        $isDryRun = (bool) $this->option('dry-run');
+
+        // Build a remote index once so unchanged files can be skipped without
+        // a request per file
+        $remoteSizes = null;
+        if (!$this->option('force')) {
+            $remoteSizes = $this->buildRemoteSizeIndex($disk);
+        }
+
+        $uploaded = $skipped = 0;
+        $seenKeys = [];
+
+        foreach (array_unique($directories) as $directory) {
+            $fullDir = base_path($directory);
+            if (!File::isDirectory($fullDir)) {
+                continue;
+            }
+
+            foreach (File::allFiles($fullDir) as $fileInfo) {
+                if (in_array($fileInfo->getFilename(), ['Thumbs.db', 'desktop.ini'])) {
+                    continue;
+                }
+
+                $key = $directory.'/'.str_replace('\\', '/', $fileInfo->getRelativePathname());
+                if (isset($seenKeys[$key])) {
+                    continue;
+                }
+                $seenKeys[$key] = true;
+
+                if ($remoteSizes !== null && $this->isRemoteUnchanged($disk, $key, $fileInfo->getPathname(), $remoteSizes, $useChecksum)) {
+                    $skipped++;
+                    continue;
+                }
+
+                if ($isDryRun) {
+                    $this->info(" - Would upload: {$key}");
+                    $uploaded++;
+                    continue;
+                }
+
+                $stream = fopen($fileInfo->getPathname(), 'r');
+                $result = $disk->put($key, $stream);
+                if (is_resource($stream)) {
+                    fclose($stream);
+                }
+
+                if ($result === false) {
+                    $this->output->error("Could not upload file to {$key}");
+                    return 1;
+                }
+
+                $this->info(" - Uploaded: {$key}");
+                $uploaded++;
+            }
+        }
+
+        $verb = $isDryRun ? 'would upload' : 'uploaded';
+        $this->line(sprintf('<info>Mirror complete:</info> %d %s, %d unchanged', $uploaded, $verb, $skipped));
+    }
+
+    /**
+     * expandWildcards resolves wildcard path patterns into concrete
+     * directories relative to the base path.
+     */
+    protected function expandWildcards(array $wildcards): array
+    {
+        $result = [];
+
+        foreach ($wildcards as $wildcard) {
+            if (strpos($wildcard, '*') === false) {
+                $result[] = $wildcard;
+                continue;
+            }
+
+            [$start, $end] = explode('*', $wildcard, 2);
+
+            $startDir = base_path().'/'.$start;
+
+            if (!File::isDirectory($startDir)) {
+                continue;
+            }
+
+            foreach (File::directories($startDir) as $directory) {
+                $result = array_merge($result, $this->expandWildcards([$start.basename($directory).$end]));
+            }
+        }
+
+        return $result;
+    }
+
+    /**
+     * buildRemoteSizeIndex lists the disk once and returns file sizes keyed
+     * by path. A null size means the adapter's listing is lazy and the size
+     * must be fetched per file.
+     */
+    protected function buildRemoteSizeIndex($disk): array
+    {
+        $index = [];
+
+        try {
+            foreach ($disk->getDriver()->listContents('', true) as $attributes) {
+                if ($attributes->isFile()) {
+                    $index[$attributes->path()] = $attributes->fileSize();
+                }
+            }
+        }
+        catch (Exception $ex) {
+            $this->warn('Could not list disk contents, all files will be uploaded: '.$ex->getMessage());
+        }
+
+        return $index;
+    }
+
+    /**
+     * isRemoteUnchanged compares a local file against the remote index by
+     * size, or by content hash when checksum mode is enabled.
+     */
+    protected function isRemoteUnchanged($disk, string $key, string $localPath, array $remoteSizes, bool $useChecksum): bool
+    {
+        if (!array_key_exists($key, $remoteSizes)) {
+            return false;
+        }
+
+        if ($useChecksum) {
+            try {
+                return $disk->checksum($key) === md5_file($localPath);
+            }
+            catch (Exception $ex) {
+                return false;
+            }
+        }
+
+        $remoteSize = $remoteSizes[$key];
+        if ($remoteSize === null) {
+            try {
+                $remoteSize = $disk->size($key);
+            }
+            catch (Exception $ex) {
+                return false;
+            }
+        }
+
+        return (int) $remoteSize === (int) filesize($localPath);
     }
 
     /**

@@ -21,8 +21,7 @@ trait IsFilterElement
             'scopeName' => $scopeName,
             'label' => $label,
             'arrayName' => $this->arrayName,
-            // @deprecated v4 this should be uncommented
-            // 'idPrefix' => $this->getId()
+            'idPrefix' => $this->getId()
         ]);
 
         $this->allScopes[$scopeName] = $scopeObj;

@@ -31,7 +31,7 @@ class System
     protected $hasDatabaseCache = null;
 
     /**
-     * listModulesCache helps multiple calls to listModules()
+     * @var array|null listModulesCache helps multiple calls to listModules()
      */
     protected $listModulesCache = null;
 
@@ -136,21 +136,11 @@ class System
     }
 
     /**
-     * checkBaseDir returns true if a file path is inside the base directory
+     * @deprecated use `File::checkBaseDir()`
      */
     public function checkBaseDir($filePath): bool
     {
-        $restrictBaseDir = Config::get('system.restrict_base_dir', true);
-
-        if ($restrictBaseDir && !File::isLocalPath($filePath)) {
-            return false;
-        }
-
-        if (!$restrictBaseDir && realpath($filePath) === false) {
-            return false;
-        }
-
-        return true;
+        return File::checkBaseDir($filePath);
     }
 
     /**

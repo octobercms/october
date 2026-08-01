@@ -24,6 +24,7 @@
                     :external-toolbar-bus="externalToolbarBus"
                     :use-media-manager="useMediaManager"
                     :side-by-side="sideBySide"
+                    :safe-mode="safeMode"
                     @focus="onFocus"
                     @blur="onBlur"
                 >

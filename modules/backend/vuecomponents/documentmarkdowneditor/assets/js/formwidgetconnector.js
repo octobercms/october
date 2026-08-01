@@ -10,6 +10,10 @@ export default {
             type: Boolean,
             default: true
         },
+        safeMode: {
+            type: Boolean,
+            default: true
+        },
         options: Object
     },
     data: function () {

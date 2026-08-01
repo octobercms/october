@@ -1,0 +1,9 @@
+uuid: 3328c303-6b62-4a2c-8a5b-84e69b56e708
+handle: Webinar
+type: entry
+name: Webinar
+
+fields:
+    title:
+        label: Title
+        type: text

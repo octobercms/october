@@ -1,0 +1,5 @@
+name: Parent Test
+description: 'Parent theme fixture for child theme inheritance tests.'
+author: October CMS
+homepage: 'https://octobercms.com'
+code: ''

@@ -38,7 +38,8 @@ registerControl('markdowneditor', class extends ControlBase {
             viewMode: 'tab',
             sideBySide: true,
             useMediaManager: false,
-            legacyMode: false
+            legacyMode: false,
+            safeMode: true
         }, this.config);
 
         // Control must have an identifier
