@@ -18,6 +18,7 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
         this.$el = $(this.element);
         this.instanceNumber = this.constructor.instanceCounter;
 
+        
         if (this.config.isMulti === undefined) {
             this.config.isMulti = this.$el.hasClass('is-multi');
         }
@@ -41,6 +42,7 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
         this.previewTemplate = $(this.config.template).html();
         this.$filesContainer = $('.mediafinder-files-container:first', this.$el);
         this.$dataLocker = $('[data-data-locker]', this.$el);
+        this.$navigationClipboard = this.initNavigationClipboard();
     }
 
     connect() {
@@ -57,6 +59,12 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
         this.listen('click', 'input[data-record-selector]', this.onClickCheckbox);
         this.listen('change', 'input[data-record-selector]', this.onSelectionChanged);
 
+        if(this.config.isMulti) {
+            this.listen('click', '.toolbar-select-all', this.onSelectAllClick);
+            this.listen('click', '.toolbar-copy-selected', this.onCopySelectedClick);
+            this.listen('click', '.toolbar-paste-items', this.onPasteItemsClick);
+        }
+
         if (this.config.isSortable) {
             this.bindSortable();
         }
@@ -65,6 +73,7 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
         setTimeout(() => {
             this.initToolbarExtensionPoint();
             this.mountExternalToolbarEventBusEvents();
+            this.updateButtonsState();
             this.extendExternalToolbar();
         }, 0);
     }
@@ -175,6 +184,7 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
         this.evalIsPopulated();
         this.evalIsMaxReached();
         this.updateDeleteSelectedState();
+        this.updateButtonsState();
         this.extendExternalToolbar();
 
         ev.stopPropagation();
@@ -187,6 +197,7 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
         $object.toggleClass('selected', ev.target.checked);
 
         this.updateDeleteSelectedState();
+        this.updateButtonsState();
         this.extendExternalToolbar();
     }
 
@@ -324,6 +335,52 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
         this.extendExternalToolbar();
     }
 
+    updateButtonsState() {
+        var selectAllButton = this.$el.find('.toolbar-select-all');
+        var copySelectedButton = this.$el.find('.toolbar-copy-selected');
+        var pasteItemsButton = this.$el.find('.toolbar-paste-items');
+        
+        // remove focus
+        selectAllButton.blur();
+        copySelectedButton.blur();
+        pasteItemsButton.blur();
+
+        var hasItems = this.$el.find('.item-object').length > 0;
+        var selectedCount = this.$el.find('input[data-record-selector]:checked').length;
+        var hasSelection = selectedCount > 0;
+
+        // unselect button if no items
+        selectAllButton.prop('disabled', !hasItems);
+
+        // change text if all items are selected
+        var checkboxes = this.$el.find('input[data-record-selector]');
+        var allChecked = hasItems && checkboxes.filter(':checked').length === checkboxes.length;
+
+        selectAllButton.find('.button-label').text(allChecked ? oc.lang.get('mediafinder.deselect_all') : oc.lang.get('mediafinder.select_all'));
+        selectAllButton.find('i').attr('class', allChecked ? 'icon-square-o' : 'icon-check-square');
+
+        // Copy button : enabled if there is a selection
+        copySelectedButton.prop('disabled', !hasSelection);
+        copySelectedButton.find('.button-label > span').text(hasSelection ? '(' + selectedCount + ')' : '');
+
+        // Paste button : enabled if there are items in the clipboard
+        var canPaste = this.$navigationClipboard.hasItems('mediafinder');
+
+        if (canPaste && this.config.maxItems !== null && this.config.maxItems !== undefined) {
+            var currentCount = this.$el.find('.item-object').length;
+            var totalAfterPaste = currentCount + this.$navigationClipboard.count('mediafinder');
+            canPaste = totalAfterPaste <= this.config.maxItems;
+        }
+        
+        pasteItemsButton.prop('disabled', !canPaste);
+
+        if (this.$navigationClipboard.hasItems('mediafinder')) {
+            pasteItemsButton.find('.button-label > span').text('(' + this.$navigationClipboard.count('mediafinder') + ')');
+        }        else {
+            pasteItemsButton.find('.button-label > span').text('');
+        }
+    }
+
     onClickRemoveButton(ev) {
         if (!this.$filesContainer) {
             return;
@@ -390,9 +447,131 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
         });
     }
 
+    onSelectAllClick(ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+
+        var checkboxes = this.$el.find('input[data-record-selector]');
+        var allChecked = checkboxes.filter(':checked').length === checkboxes.length;
+
+        checkboxes.prop('checked', !allChecked).each(function() {
+            $(this).closest('.item-object').toggleClass('selected', !allChecked);
+        });
+
+        this.updateDeleteSelectedState();
+        this.updateButtonsState();
+
+        if (this.extendExternalToolbar){
+            this.extendExternalToolbar();
+        }
+    }
+
+    onCopySelectedClick(ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+
+        var items = [];
+        var selectedObjects = this.$el.find('.item-object:has(input[data-record-selector]:checked)');
+
+        selectedObjects.each(function() {
+            var item = $(this);
+
+            var itemData = {
+                path: item.attr('data-path'),
+                folder: item.attr('data-folder') || ''
+            };
+
+            var publicUrlEl = item.find('[data-public-url]');
+            var thumbUrlEl = item.find('[data-thumb-url]');
+            var titleEl = item.find('[data-title]');
+
+            if(publicUrlEl.length) {
+                itemData.publicUrl = publicUrlEl.attr('src') || publicUrlEl.attr('data-public-url');
+            }
+
+            if(thumbUrlEl.length) {
+                itemData.thumbUrl = thumbUrlEl.attr('src') || thumbUrlEl.attr('data-thumb-url');
+            }
+
+            if(titleEl.length) {
+                itemData.title = titleEl.text() || titleEl.attr('data-title');
+            } else {
+                itemData.title = itemData.path ? itemData.path.split('/').pop() : '';
+            }
+            
+            var docType = item.find('[data-document-type]');
+            if(docType.length) {
+                itemData.documentType = docType.attr('data-document-type');
+            }
+
+            items.push(itemData);
+        });
+
+        if (items.length === 0) {
+            return;
+        }
+
+        this.$navigationClipboard.copy(items, 'mediafinder');
+        
+        $.oc.flashMsg({
+            text: items.length + oc.lang.get('mediafinder.items_copied_to_clipboard'),
+            class: 'success',
+            interval: 3
+        });
+
+        this.evalIsPopulated();
+        this.evalIsMaxReached();
+        this.updateButtonsState();
+
+        if (this.extendExternalToolbar){
+            this.extendExternalToolbar();
+        }
+    }
+
+    onPasteItemsClick(ev) {
+        ev.preventDefault();
+        ev.stopPropagation();
+
+        if(!this.$navigationClipboard.hasItems('mediafinder')) {
+            return;
+        }
+
+        var items = this.$navigationClipboard.paste('mediafinder');
+
+        if (this.config.maxItems !== null && this.config.maxItems !== undefined) {
+            var currentCount = this.$el.find('.item-object').length;
+            var totalAfterPaste = currentCount + items.length;
+
+            if (totalAfterPaste > this.config.maxItems) {
+                $.oc.flashMsg({
+                    text: oc.lang.get('mediafinder.cannot_paste_items_maximum_limit_exceeded', { maxItems: this.config.maxItems }),
+                    class: 'error',
+                    interval: 5
+                });
+                return;
+            }
+        }
+
+        var self = this;
+
+        this.addItems(items);
+
+        this.setValue();
+        this.evalIsPopulated();
+        this.evalIsMaxReached();
+        this.updateButtonsState();
+
+        $.oc.flashMsg({
+            text: itemsToAdd.length + oc.lang.get('mediafinder.items_pasted_successfully'),
+            class: 'success',
+            interval: 3
+        });
+    }
+
     evalIsPopulated() {
         var isPopulated = !!$('>.item-object', this.$filesContainer).length;
         this.$el.toggleClass('is-populated', isPopulated);
+        this.updateButtonsState();
         this.extendExternalToolbar();
     }
 
@@ -404,6 +583,7 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
         }
 
         this.$el.toggleClass('is-max-reached', isMaxReached);
+        this.updateButtonsState();
         this.extendExternalToolbar();
     }
 
@@ -446,5 +626,75 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
 
     onSortAttachments() {
         this.setValue();
+    }
+
+    initNavigationClipboard() {
+        var $clipboard = {
+            storageKey: 'oc.mediafinder.navigationClipboard',
+            // Load from localStorage
+            load: function() {
+                try {
+                    var data = localStorage.getItem(this.storageKey);
+                    if (data) {
+                        return JSON.parse(data);
+                    }
+                } catch (e) {
+                    console.error('Error loading clipboard from localStorage:', e);
+                }
+                return { items: [], type: null };
+            },
+
+            // Save to localStorage
+            save: function(items, type) {
+                try {
+                    localStorage.setItem(this.storageKey, JSON.stringify({
+                        items: items,
+                        type: type
+                    }));
+                } catch (e) {
+                    console.error('Error saving clipboard to localStorage:', e);
+                }
+            },
+
+            copy: function(items, type) {
+                this.save(items.slice(), type || null);
+            },
+
+            paste: function(type) {
+                var data = this.load();
+                // If type is specified, only return items if they match the type
+                if (type && data.type !== type) {
+                    return [];
+                }
+                return data.items.slice();
+            },
+
+            hasItems: function(type) {
+                var data = this.load();
+                // If type is specified, check if clipboard has items of that type
+                if (type) {
+                    return data.items.length > 0 && data.type === type;
+                }
+                return data.items.length > 0;
+            },
+
+            clear: function() {
+                try {
+                    localStorage.removeItem(this.storageKey);
+                } catch (e) {
+                    console.error('Error clearing clipboard from localStorage:', e);
+                }
+            },
+
+            count: function(type) {
+                var data = this.load();
+                // If type is specified, only count if items match the type
+                if (type && data.type !== type) {
+                    return 0;
+                }
+                return data.items.length;
+            }
+        };
+        return $clipboard;
     }
 });
