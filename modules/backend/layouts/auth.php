@@ -10,6 +10,7 @@
         <meta name="backend-base-path" content="<?= Backend::baseUrl() ?>">
         <meta name="csrf-token" content="<?= csrf_token() ?>">
         <meta name="turbo-visit-control" content="disable">
+        <?= Block::placeholder('head-before') ?>
         <?php
             $coreBuild = Backend::assetVersion();
             $vendorPath = Url::asset('modules/system/assets/vendor');

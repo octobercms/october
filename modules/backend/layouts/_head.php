@@ -19,6 +19,7 @@
 <?php foreach ($this->getTurboMetaTags() as $turboMeta): ?>
     <meta name="<?= $turboMeta['name'] ?>" content="<?= $turboMeta['content'] ?>" />
 <?php endforeach ?>
+<?= Block::placeholder('head-before') ?>
 <?php
     $vendorPath = Url::asset('modules/system/assets/vendor');
 ?>
