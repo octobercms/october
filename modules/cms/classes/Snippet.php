@@ -43,6 +43,11 @@ class Snippet
     protected $useAjax = null;
 
     /**
+     * @var bool inline determines if the snippet renders inline rather than as a block.
+     */
+    protected $inline = null;
+
+    /**
      * @var array pageSnippetMap is an internal cache of snippet declarations defined on a page.
      */
     protected static $pageSnippetMap = [];
@@ -65,6 +70,7 @@ class Snippet
         $this->name = $viewBag->property('snippetName');
         $this->properties = $viewBag->property('snippetProperties', []);
         $this->useAjax = $viewBag->property('snippetAjax', false);
+        $this->inline = (bool) $viewBag->property('snippetInline', false);
     }
 
     /**
@@ -135,6 +141,25 @@ class Snippet
         $component = $this->getComponent();
 
         return $this->useAjax = ComponentHelpers::getComponentSnippetAjax($component);
+    }
+
+    /**
+     * isInline determines if the snippet should render inline rather than as a block.
+     * @return bool
+     */
+    public function isInline()
+    {
+        if ($this->inline !== null) {
+            return $this->inline;
+        }
+
+        if ($this->componentClass === null) {
+            return false;
+        }
+
+        $component = $this->getComponent();
+
+        return $this->inline = ComponentHelpers::getComponentSnippetInline($component);
     }
 
     /**

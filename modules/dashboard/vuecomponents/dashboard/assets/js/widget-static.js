@@ -10,6 +10,17 @@ export default {
         loadedValue: function () {
             return this.fullWidgetData ? this.fullWidgetData : undefined;
         },
+        pendingRequestData: function () {
+            const config = this.widget.configuration;
+            if (!config.reportName || !config.widgetClass) {
+                return null;
+            }
+
+            return 'widget_config: ' + JSON.stringify({
+                reportName: config.reportName,
+                widgetClass: config.widgetClass
+            });
+        },
     },
     methods: {
         getRequestDimension: function () {

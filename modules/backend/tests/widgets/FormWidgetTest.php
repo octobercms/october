@@ -140,6 +140,31 @@ class FormWidgetTest extends PluginTestCase
         $this->assertNotNull($form->getField('testRestricted'));
     }
 
+    public function testValuePopulateOptOut()
+    {
+        $model = new FormTestModel;
+        $model->name = 'Acme Author';
+
+        $form = new Form(null, [
+            'model' => $model,
+            'fields' => [
+                'name' => [
+                    'label' => 'Author Name'
+                ],
+                'nameCopy' => [
+                    'label' => 'Author Name Copy',
+                    'valueFrom' => 'name',
+                    'valuePopulate' => false
+                ]
+            ]
+        ]);
+
+        self::callProtectedMethod($form, 'defineFormFields');
+
+        $this->assertEquals('Acme Author', $form->getField('name')->value);
+        $this->assertNull($form->getField('nameCopy')->value);
+    }
+
     public function testCheckboxlistTrigger()
     {
         $form = new Form(null, [

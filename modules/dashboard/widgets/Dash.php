@@ -10,6 +10,7 @@ use Dashboard\Classes\ReportDimension;
 use Dashboard\Classes\ReportMetric;
 use Dashboard\Models\Dashboard as DashboardModel;
 use October\Rain\Element\ElementHolder;
+use ForbiddenException;
 use SystemException;
 
 /**
@@ -103,6 +104,12 @@ class Dash extends WidgetBase
      */
     public $isCustom = false;
 
+    /**
+     * @var bool isPersonalized is true when the reports configuration has come from
+     * the user preferences instead of the shared dashboard definition.
+     */
+    public $isPersonalized = false;
+
     //
     // Object Properties
     //
@@ -168,7 +175,29 @@ class Dash extends WidgetBase
     public function bindToController()
     {
         $this->defineDashReports();
+        $this->bindPendingReportWidget();
         parent::bindToController();
+    }
+
+    /**
+     * bindPendingReportWidget binds a report widget that exists in the browser's
+     * unsaved dashboard state but not in the persisted definition, using the
+     * widget_config posted via the widget's data-request-data scope. Enables
+     * AJAX handlers on legacy report widgets prior to saving the dashboard.
+     */
+    protected function bindPendingReportWidget(): void
+    {
+        $widgetConfig = (array) post('widget_config');
+        $reportName = $widgetConfig['reportName'] ?? null;
+        $widgetClass = $widgetConfig['widgetClass'] ?? null;
+
+        if (!$reportName || !$widgetClass || isset($this->reportWidgets[$reportName])) {
+            return;
+        }
+
+        $this->makeDashReportWidget(new DashReport([
+            'reportName' => $reportName,
+        ] + $widgetConfig))->bindToController();
     }
 
     /**
@@ -462,6 +491,7 @@ class Dash extends WidgetBase
                 'name' => Lang::get($this->name),
                 'code' => $this->code,
                 'rows' => $this->translateRows($this->allRows),
+                'isPersonalized' => $this->isPersonalized,
             ],
             'manageUrl' => $this->manageUrl,
             'showInterval' => $this->showInterval,
@@ -482,6 +512,10 @@ class Dash extends WidgetBase
      */
     public function onSaveDashboard()
     {
+        if (!$this->canCreateAndEdit) {
+            throw new ForbiddenException;
+        }
+
         $definition = json_decode(post('definition'), true);
         if (!$definition) {
             return;
@@ -501,6 +535,10 @@ class Dash extends WidgetBase
      */
     public function onResetDashboard()
     {
+        if (!$this->canCreateAndEdit) {
+            throw new ForbiddenException;
+        }
+
         (new DashboardModel)->resetDashboardPreference(
             $this->controller,
             $this->code,
@@ -522,6 +560,10 @@ class Dash extends WidgetBase
      */
     public function onCommitDashboard()
     {
+        if (!$this->canCreateAndEdit || !$this->canMakeDefault) {
+            throw new ForbiddenException;
+        }
+
         $definition = json_decode(post('definition'), true);
         if (!$definition) {
             return;

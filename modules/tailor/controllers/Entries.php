@@ -564,7 +564,8 @@ class Entries extends WildcardController
                 $model->setBlueprintGroup($entryType);
             }
             elseif (!$model->exists) {
-                $model->setDefaultContentGroup();
+                // Ignore the parent form value when opening the child form (see _edit_popup.php)
+                $model->setDefaultContentGroup(post('_form_session_key') ? post('_content_group_value') : null);
             }
         }
 
@@ -776,6 +777,10 @@ class Entries extends WildcardController
         // Entry type switching
         if ($entryType = post('_content_group_switch')) {
             $model->setBlueprintGroup($entryType);
+        }
+        // Preserve the unsaved entry type during AJAX requests
+        elseif ($entryType = post('_content_group_value')) {
+            $model->setDefaultContentGroup($entryType);
         }
     }
 

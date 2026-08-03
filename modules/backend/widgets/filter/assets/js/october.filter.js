@@ -296,7 +296,7 @@
     }
 
     FilterWidget.prototype.switchToggle = function($el) {
-        var switchValue = $el.data('checked'),
+        var switchValue = parseInt($el.attr('data-checked')) || 0,
             $scope = $el.closest('.filter-scope');
 
         this.submitUpdate(this.$el, $scope, {

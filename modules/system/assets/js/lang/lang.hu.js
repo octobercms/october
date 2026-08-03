@@ -49,6 +49,14 @@ window.oc.langMessages['hu'] = Object.assign(
         "invalid_video_empty_insert": "V\u00e1lasszon ki legal\u00e1bb egy vide\u00f3t a besz\u00far\u00e1shoz.",
         "invalid_audio_empty_insert": "V\u00e1lasszon ki legal\u00e1bb egy audi\u00f3t a besz\u00far\u00e1shoz."
     },
+    "mediafinder": {
+        "select_all": "Select All",
+        "deselect_all": "Deselect All",
+        "items_copied_to_clipboard": " item(s) copied to clipboard.",
+        "cannot_paste_items_maximum_limit_exceeded": "Cannot paste items: maximum item (:maxItems) limit will be exceeded.",
+        "no_new_items_to_paste": "No new items to paste.",
+        "items_pasted_successfully": " item(s) pasted successfully."
+    },
     "alert": {
         "error": "Hiba",
         "confirm": "Elfogad\u00e1s",

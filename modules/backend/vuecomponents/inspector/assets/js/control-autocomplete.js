@@ -14,7 +14,9 @@ export default {
     },
     computed: {
         items: function computeItems() {
-            var items = this.control.items ? this.control.items : this.dynamicItems;
+            // `items` is the deprecated key, `options` is preferred and matches docs
+            var staticItems = this.control.options || this.control.items;
+            var items = staticItems ? staticItems : this.dynamicItems;
 
             return items;
         },
@@ -105,7 +107,7 @@ export default {
         }
     },
     mounted: function () {
-        if (!this.control.items) {
+        if (!this.control.options && !this.control.items) {
             this.loadDynamicOptions();
         }
     }

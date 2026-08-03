@@ -25,6 +25,7 @@ export default {
                 });
 
                 this.store.state.editMode = false;
+                this.currentDashboard.isPersonalized = true;
                 oc.snackbar.show(oc.t("The dashboard was successfully updated."));
             }
             catch (err) {

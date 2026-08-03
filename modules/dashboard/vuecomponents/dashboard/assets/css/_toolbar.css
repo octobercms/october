@@ -158,6 +158,29 @@
             margin: 0;
             line-height: 1.4;
         }
+
+        .dashboard-title {
+            display: flex;
+            align-items: center;
+            gap: 15px;
+            min-width: 0;
+        }
+
+        .dashboard-personalized-marker {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+            width: 32px;
+            height: 32px;
+            border-radius: 100px;
+            background-color: var(--bs-secondary-bg);
+            color: var(--bs-secondary-color);
+
+            i {
+                font-size: 18px;
+            }
+        }
     }
 
     @media (max-width: 768px) {

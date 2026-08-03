@@ -447,8 +447,8 @@
       return promise;
     }
     async loadCollection(collection = {}) {
-      const jsList = (collection.js ?? []).map(normalizeAsset).filter((asset) => asset.inline || !document.querySelector(`head script[src="${htmlEscape(asset.url)}"]`));
-      const cssList = (collection.css ?? []).map(normalizeAsset).filter((asset) => !document.querySelector(`head link[href="${htmlEscape(asset.url)}"]`));
+      const jsList = (collection.js ?? []).map(normalizeAsset).filter((asset) => asset.inline || !jsInDom(asset.url));
+      const cssList = (collection.css ?? []).map(normalizeAsset).filter((asset) => !cssInDom(asset.url));
       const imgList = (collection.img ?? []).map(normalizeAsset);
       if (!jsList.length && !cssList.length && !imgList.length) {
         return;
@@ -462,6 +462,10 @@
     loadStyleSheet(asset) {
       const { url, attributes = {} } = asset;
       return new Promise((resolve, reject) => {
+        if (cssInDom(url)) {
+          resolve(null);
+          return;
+        }
         const el = document.createElement("link");
         el.rel = "stylesheet";
         el.type = "text/css";
@@ -512,6 +516,10 @@ window['${id}']();`;
         }
         const { url, attributes = {} } = asset;
         return p.then(() => new Promise((resolve, reject) => {
+          if (jsInDom(url)) {
+            resolve(null);
+            return;
+          }
           const el = document.createElement("script");
           if (attributes.type) {
             el.type = attributes.type;
@@ -545,6 +553,12 @@ window['${id}']();`;
     }
   };
   var inlineModuleId = 0;
+  function jsInDom(url) {
+    return !!document.querySelector(`head script[src="${htmlEscape(url)}"]`);
+  }
+  function cssInDom(url) {
+    return !!document.querySelector(`head link[href="${htmlEscape(url)}"]`);
+  }
   function normalizeAsset(asset) {
     return typeof asset === "string" ? { url: asset } : asset;
   }

@@ -2,6 +2,7 @@
 
 use Ui;
 use Log;
+use Event;
 use Flash;
 use System;
 use Backend;
@@ -207,6 +208,25 @@ class Updater extends WidgetBase
     public function onApplyUpdates()
     {
         try {
+            /**
+             * @event system.updater.beforeUpdate
+             * Called before the software update process begins from the backend.
+             *
+             * A non-null return value stops the update and is used as the AJAX
+             * response. Throwing an exception will halt the update with an error.
+             *
+             * Example usage:
+             *
+             *     Event::listen('system.updater.beforeUpdate', function () {
+             *         Flash::success('Update started');
+             *         return Redirect::refresh();
+             *     });
+             *
+             */
+            if (($beforeUpdate = Event::fire('system.updater.beforeUpdate', [], true)) !== null) {
+                return $beforeUpdate;
+            }
+
             $updateSteps = [
                 [
                     'code' => 'updateComposer',

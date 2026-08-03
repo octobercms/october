@@ -49,6 +49,14 @@ window.oc.langMessages['zh-tw'] = Object.assign(
         "invalid_video_empty_insert": "\u8acb\u9078\u64c7\u63d2\u5165\u7684\u5f71\u7247\u3002",
         "invalid_audio_empty_insert": "\u8acb\u9078\u64c7\u63d2\u5165\u7684\u97f3\u8a0a\u3002"
     },
+    "mediafinder": {
+        "select_all": "Select All",
+        "deselect_all": "Deselect All",
+        "items_copied_to_clipboard": " item(s) copied to clipboard.",
+        "cannot_paste_items_maximum_limit_exceeded": "Cannot paste items: maximum item (:maxItems) limit will be exceeded.",
+        "no_new_items_to_paste": "No new items to paste.",
+        "items_pasted_successfully": " item(s) pasted successfully."
+    },
     "alert": {
         "error": "Error",
         "confirm": "Confirm",

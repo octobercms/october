@@ -12388,8 +12388,13 @@ API.txt for details.
         container.appendChild(editor);
         this.containerCell.appendChild(container);
 
-        if (this.propertyDefinition.items !== undefined) {
-            this.buildAutoComplete(this.propertyDefinition.items);
+        // `items` is the deprecated key, `options` is preferred and matches docs
+        var staticItems = this.propertyDefinition.options !== undefined
+            ? this.propertyDefinition.options
+            : this.propertyDefinition.items;
+
+        if (staticItems !== undefined) {
+            this.buildAutoComplete(staticItems);
         }
         else {
             this.loadDynamicItems();

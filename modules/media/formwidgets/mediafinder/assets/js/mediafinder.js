@@ -18,7 +18,6 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
         this.$el = $(this.element);
         this.instanceNumber = this.constructor.instanceCounter;
 
-        
         if (this.config.isMulti === undefined) {
             this.config.isMulti = this.$el.hasClass('is-multi');
         }
@@ -59,7 +58,7 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
         this.listen('click', 'input[data-record-selector]', this.onClickCheckbox);
         this.listen('change', 'input[data-record-selector]', this.onSelectionChanged);
 
-        if(this.config.isMulti) {
+        if (this.config.isMulti && this.config.useCopyPaste) {
             this.listen('click', '.toolbar-select-all', this.onSelectAllClick);
             this.listen('click', '.toolbar-copy-selected', this.onCopySelectedClick);
             this.listen('click', '.toolbar-paste-items', this.onPasteItemsClick);
@@ -336,10 +335,14 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
     }
 
     updateButtonsState() {
+        if (!this.config.useCopyPaste) {
+            return;
+        }
+
         var selectAllButton = this.$el.find('.toolbar-select-all');
         var copySelectedButton = this.$el.find('.toolbar-copy-selected');
         var pasteItemsButton = this.$el.find('.toolbar-paste-items');
-        
+
         // remove focus
         selectAllButton.blur();
         copySelectedButton.blur();
@@ -363,22 +366,24 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
         copySelectedButton.prop('disabled', !hasSelection);
         copySelectedButton.find('.button-label > span').text(hasSelection ? '(' + selectedCount + ')' : '');
 
-        // Paste button : enabled if there are items in the clipboard
-        var canPaste = this.$navigationClipboard.hasItems('mediafinder');
+        // Paste button : enabled if the clipboard holds items not already present here
+        var existingPaths = this.$el.find('.item-object').map(function() {
+            return $(this).attr('data-path');
+        }).get();
+
+        var newItemCount = this.$navigationClipboard.paste('mediafinder').filter(function(item) {
+            return existingPaths.indexOf(item.path) === -1;
+        }).length;
+
+        var canPaste = newItemCount > 0;
 
         if (canPaste && this.config.maxItems !== null && this.config.maxItems !== undefined) {
-            var currentCount = this.$el.find('.item-object').length;
-            var totalAfterPaste = currentCount + this.$navigationClipboard.count('mediafinder');
+            var totalAfterPaste = existingPaths.length + newItemCount;
             canPaste = totalAfterPaste <= this.config.maxItems;
         }
-        
-        pasteItemsButton.prop('disabled', !canPaste);
 
-        if (this.$navigationClipboard.hasItems('mediafinder')) {
-            pasteItemsButton.find('.button-label > span').text('(' + this.$navigationClipboard.count('mediafinder') + ')');
-        }        else {
-            pasteItemsButton.find('.button-label > span').text('');
-        }
+        pasteItemsButton.prop('disabled', !canPaste);
+        pasteItemsButton.find('.button-label > span').text(newItemCount > 0 ? '(' + newItemCount + ')' : '');
     }
 
     onClickRemoveButton(ev) {
@@ -498,7 +503,7 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
             } else {
                 itemData.title = itemData.path ? itemData.path.split('/').pop() : '';
             }
-            
+
             var docType = item.find('[data-document-type]');
             if(docType.length) {
                 itemData.documentType = docType.attr('data-document-type');
@@ -512,7 +517,7 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
         }
 
         this.$navigationClipboard.copy(items, 'mediafinder');
-        
+
         $.oc.flashMsg({
             text: items.length + oc.lang.get('mediafinder.items_copied_to_clipboard'),
             class: 'success',
@@ -538,6 +543,24 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
 
         var items = this.$navigationClipboard.paste('mediafinder');
 
+        // Skip items already present in this widget, matching on path
+        var existingPaths = this.$el.find('.item-object').map(function() {
+            return $(this).attr('data-path');
+        }).get();
+
+        items = items.filter(function(item) {
+            return existingPaths.indexOf(item.path) === -1;
+        });
+
+        if (items.length === 0) {
+            $.oc.flashMsg({
+                text: oc.lang.get('mediafinder.no_new_items_to_paste'),
+                class: 'warning',
+                interval: 3
+            });
+            return;
+        }
+
         if (this.config.maxItems !== null && this.config.maxItems !== undefined) {
             var currentCount = this.$el.find('.item-object').length;
             var totalAfterPaste = currentCount + items.length;
@@ -552,8 +575,6 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
             }
         }
 
-        var self = this;
-
         this.addItems(items);
 
         this.setValue();
@@ -562,7 +583,7 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
         this.updateButtonsState();
 
         $.oc.flashMsg({
-            text: itemsToAdd.length + oc.lang.get('mediafinder.items_pasted_successfully'),
+            text: items.length + oc.lang.get('mediafinder.items_pasted_successfully'),
             class: 'success',
             interval: 3
         });
@@ -638,9 +659,7 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
                     if (data) {
                         return JSON.parse(data);
                     }
-                } catch (e) {
-                    console.error('Error loading clipboard from localStorage:', e);
-                }
+                } catch (e) { }
                 return { items: [], type: null };
             },
 
@@ -651,9 +670,7 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
                         items: items,
                         type: type
                     }));
-                } catch (e) {
-                    console.error('Error saving clipboard to localStorage:', e);
-                }
+                } catch (e) { }
             },
 
             copy: function(items, type) {
@@ -681,9 +698,7 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
             clear: function() {
                 try {
                     localStorage.removeItem(this.storageKey);
-                } catch (e) {
-                    console.error('Error clearing clipboard from localStorage:', e);
-                }
+                } catch (e) { }
             },
 
             count: function(type) {
@@ -695,6 +710,7 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
                 return data.items.length;
             }
         };
+
         return $clipboard;
     }
 });

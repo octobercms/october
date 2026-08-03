@@ -176,9 +176,10 @@ class ResizeImages
             File::delete($tempSourcePath);
         }
 
-        // Eagerly cache remote exists call
+        // Eagerly cache remote exists and modified calls
         if ($success && !$this->isLocalStorage()) {
-            Cache::forever($this->getExistsCacheKey($filePath), true);
+            Cache::memo()->forever($this->getExistsCacheKey($filePath), true);
+            Cache::memo()->forever($this->getModifiedCacheKey($filePath), time());
         }
     }
 
@@ -324,7 +325,7 @@ class ResizeImages
     }
 
     /**
-     * hasFile checks file exists on storage device
+     * hasFile checks the file exists on the storage device and is newer than the source
      */
     protected function hasFile($imageItem): bool
     {
@@ -332,7 +333,7 @@ class ResizeImages
 
         $disk = Storage::disk('resources');
         if ($this->isLocalStorage()) {
-            return $disk->exists($filePath);
+            return $disk->exists($filePath) && !$this->isStaleFile($imageItem, $filePath);
         }
 
         // Cache remote storage results for performance increase
@@ -340,7 +341,37 @@ class ResizeImages
             return $disk->exists($filePath);
         });
 
-        return $result;
+        return $result && !$this->isStaleFile($imageItem, $filePath);
+    }
+
+    /**
+     * isStaleFile returns true when the source file was modified after the resized image
+     * was generated, detecting files replaced in-place under the same name
+     */
+    protected function isStaleFile($imageItem, string $filePath): bool
+    {
+        if (!$imageItem->mtime) {
+            return false;
+        }
+
+        $disk = Storage::disk('resources');
+
+        try {
+            if ($this->isLocalStorage()) {
+                $resizedTime = $disk->lastModified($filePath);
+            }
+            else {
+                // Cache remote storage results for performance increase
+                $resizedTime = Cache::memo()->remember($this->getModifiedCacheKey($filePath), now()->addDays(30), function() use ($disk, $filePath) {
+                    return $disk->lastModified($filePath);
+                });
+            }
+        }
+        catch (Exception $ex) {
+            return true;
+        }
+
+        return $imageItem->mtime > $resizedTime;
     }
 
     /**
@@ -433,7 +464,7 @@ class ResizeImages
 
         $this->putCacheIndex($cacheKey);
 
-        Cache::forever($cacheKey, base64_encode(json_encode($cacheInfo)));
+        Cache::memo()->forever($cacheKey, base64_encode(json_encode($cacheInfo)));
 
         return true;
     }
@@ -463,6 +494,17 @@ class ResizeImages
     {
         return md5(json_encode([
             'type' => 'resizer-file',
+            'path' => $filePath
+        ]));
+    }
+
+    /**
+     * getModifiedCacheKey builds a key for caching the last modified check
+     */
+    protected function getModifiedCacheKey(string $filePath): string
+    {
+        return md5(json_encode([
+            'type' => 'resizer-modified',
             'path' => $filePath
         ]));
     }
@@ -510,7 +552,7 @@ class ResizeImages
 
         $index[] = $cacheKey;
 
-        Cache::forever('resizer.index', base64_encode(json_encode($index)));
+        Cache::memo()->forever('resizer.index', base64_encode(json_encode($index)));
 
         return true;
     }

@@ -79,6 +79,13 @@ class Fields
                 'default' => false,
                 'tab' => "Details"
             ],
+            'snippetInline' => [
+                'title' => "Inline Snippet",
+                'description' => "Check this box to insert this snippet inline within the content instead of as a block.",
+                'type' => 'checkbox',
+                'default' => false,
+                'tab' => "Details"
+            ],
             'snippetProperties' => [
                 'title' => '',
                 'type' => 'table',

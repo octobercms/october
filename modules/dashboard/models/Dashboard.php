@@ -99,6 +99,7 @@ class Dashboard extends Model
 
         if ($userPref = $this->fetchDashboardPreference($owner, $field)) {
             $dashboard->definition = $userPref;
+            $dashboard->is_personalized = true;
         }
 
         return $dashboard;

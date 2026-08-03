@@ -130,8 +130,8 @@ class GetAttrNode extends GetAttrExpression implements SupportDefinedTestInterfa
             }
         }
 
-        // In sandbox mode, cast objects to safer versions when calling methods
-        if ($sandboxed && $type === Template::METHOD_CALL && $env->hasExtension(SandboxExtension::class)) {
+        // In sandbox mode, cast objects to safer versions before property or method access
+        if ($sandboxed && $env->hasExtension(SandboxExtension::class)) {
             $policy = $env->getExtension(SandboxExtension::class)->getSecurityPolicy();
             if ($policy instanceof \System\Twig\SecurityPolicy) {
                 $object = $policy->castMethodObjectToSafeObject($object);

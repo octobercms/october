@@ -202,7 +202,7 @@ trait HasTranslatable
                 'type' => $field->config['widget'] ?? ($field->config['type'] ?? null),
                 'required' => false,
                 'span' => 'full'
-            ]), ['value', 'arrayName'])
+            ]), ['value', 'arrayName', 'stretch', 'trigger'])
         ];
 
         $widget = $this->makeWidget(FormWidget::class, $config);

@@ -184,6 +184,17 @@
             content: "\f082";
         }
     }
+
+    span[data-ui-block-inline] {
+        display: inline-block;
+        vertical-align: middle;
+        cursor: pointer;
+        user-select: none;
+
+        &:focus {
+            outline: none;
+        }
+    }
 }
 
 /*

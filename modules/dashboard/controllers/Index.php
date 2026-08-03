@@ -130,7 +130,7 @@ class Index extends WildcardController
 
             // Allow personalization of global and role-based dashboards
             if ($dashboard->is_global || $dashboard->roles->isNotEmpty()) {
-                $config->$code['canMakeDefault'] = true;
+                $config->$code['canMakeDefault'] = BackendAuth::userHasAccess('dashboard.manage_global');
                 $config->$code['canResetLayout'] = true;
             }
         }

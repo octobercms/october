@@ -57,6 +57,12 @@ class MediaFinder extends FormWidgetBase
      */
     public $externalToolbarBus = null;
 
+    /**
+     * @var bool useCopyPaste enables the select all, copy and paste toolbar
+     * buttons for multiple selection mode.
+     */
+    public $useCopyPaste = false;
+
     //
     // Object Properties
     //
@@ -77,7 +83,8 @@ class MediaFinder extends FormWidgetBase
             'imageHeight',
             'maxItems',
             'thumbOptions',
-            'externalToolbarBus'
+            'externalToolbarBus',
+            'useCopyPaste'
         ]);
 
         if ($this->formField->disabled || $this->formField->readOnly) {
@@ -124,6 +131,7 @@ class MediaFinder extends FormWidgetBase
         $this->vars['imageWidth'] = $this->imageWidth;
         $this->vars['imageHeight'] = $this->imageHeight;
         $this->vars['externalToolbarBus'] = $this->externalToolbarBus;
+        $this->vars['useCopyPaste'] = $this->useCopyPaste;
     }
 
     /**

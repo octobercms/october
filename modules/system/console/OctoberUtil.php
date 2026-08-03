@@ -23,6 +23,8 @@ use ApplicationException;
  * - compile lang: Compile registered Language files only.
  * - compile docs: Compile complex documentation file for a theme or plugin.
  * - set build: Pull the latest stable build number from the update gateway and set it as the current build number.
+ * - maintenance on: Turn on CMS maintenance mode (backend admins keep access).
+ * - maintenance off: Turn off CMS maintenance mode.
  *
  * Available patch versions:
  *
