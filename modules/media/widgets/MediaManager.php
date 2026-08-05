@@ -1595,7 +1595,7 @@ class MediaManager extends WidgetBase
             $extension = strtolower($uploadedFile->getClientOriginalExtension());
             $fileName = File::name($fileName).'.'.$extension;
 
-            // File name contains non-latin characters, attempt to slug the value
+            // File name is invalid or auto rename is enabled, slug the value
             $autoRename = Config::get('media.auto_rename') === 'slug';
             if ($autoRename || !$this->validateFileName($fileName)) {
                 $fileNameClean = $this->slugFileName(File::name($fileName));
@@ -1717,11 +1717,18 @@ class MediaManager extends WidgetBase
      */
     protected function validateFileName(string $name): bool
     {
-        if (!preg_match('/^[\w@.\s_\-]+$/iu', $name)) {
+        // Reject invalid encoding, path separators and reserved characters
+        if (!preg_match('/^[^\/\\\\<>:"|?*]+$/u', $name)) {
             return false;
         }
 
-        if (str_contains($name, '..')) {
+        // Reject control, format and other invisible characters
+        if (preg_match('/[\p{C}]/u', $name)) {
+            return false;
+        }
+
+        // Reject names consisting entirely of dots
+        if (preg_match('/^\.+$/', $name)) {
             return false;
         }
 

@@ -490,26 +490,18 @@ class MediaLibrary
             return $path;
         }
 
-        // Validate folder names
-        $regexAllowlist = [
-            '\w', // any word character
-            preg_quote('@', '/'),
-            preg_quote('.', '/'),
-            '\s', // whitespace character
-            preg_quote('-', '/'),
-            preg_quote('_', '/'),
-            preg_quote('/', '/'),
-            preg_quote('(', '/'),
-            preg_quote(')', '/'),
-            preg_quote('[', '/'),
-            preg_quote(']', '/'),
-            preg_quote(',', '/'),
-            preg_quote('=', '/'),
-            preg_quote("'", '/'),
-            preg_quote('&', '/'),
-        ];
+        // Reject paths that are not valid UTF-8
+        if (!mb_check_encoding($path, 'UTF-8')) {
+            throw new ApplicationException(Lang::get('system::lang.media.invalid_path_encoding', ['path' => mb_scrub($path)]));
+        }
 
-        if (!preg_match('/^[' . implode('', $regexAllowlist) . ']+$/iu', $path)) {
+        // Reject control, format and other invisible characters
+        if (preg_match('/[\p{C}]/u', $path)) {
+            throw new ApplicationException(Lang::get('system::lang.media.invalid_path', compact('path')));
+        }
+
+        // Reject characters reserved by file systems and URLs
+        if (preg_match('/[<>:"|?*]/', $path)) {
             throw new ApplicationException(Lang::get('system::lang.media.invalid_path', compact('path')));
         }
 
@@ -628,7 +620,7 @@ class MediaLibrary
      */
     protected function initLibraryItem($path, $itemType): ?MediaLibraryItem
     {
-        $path = self::validatePath($path, true);
+        $path = self::validatePath($path);
 
         if (!$this->isVisible($path)) {
             return null;

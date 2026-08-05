@@ -315,6 +315,7 @@
   'log' => [],
   'media' => [
     'invalid_path' => 'Invalid file path specified: \':path\'.',
+    'invalid_path_encoding' => 'The file or folder \':path\' uses an unsupported filename encoding. Rename it on the server using UTF-8 characters.',
     'folder_size_items' => 'item(s)',
   ],
   'page' => [
