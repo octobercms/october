@@ -1,9 +1,10 @@
 <?php namespace Backend\Controllers;
 
+use Config;
 use Backend;
 use BackendAuth;
+use Backend\Models\UserRole;
 use Backend\Classes\SettingsController;
-use Config;
 use ForbiddenException;
 
 /**
@@ -69,6 +70,31 @@ class UserRoles extends SettingsController
     public function formExtendQuery($query)
     {
         $this->applyRankPermissionsToQuery($query);
+    }
+
+    /**
+     * listBeforeReorderStructure blocks reorder posts that reference roles the
+     * caller is not authorized to manage
+     */
+    public function listBeforeReorderStructure($record)
+    {
+        $ids = array_filter(array_merge(
+            [$record->getKey()],
+            (array) post('sort_orders', []),
+            (array) post('root_sort_orders', [])
+        ));
+
+        if (!$ids) {
+            return;
+        }
+
+        $query = UserRole::whereIn('id', $ids);
+        $this->applyRankPermissionsToQuery($query);
+
+        $authorizedIds = $query->pluck('id')->all();
+        if (array_diff(array_unique($ids), $authorizedIds)) {
+            throw new ForbiddenException;
+        }
     }
 
     /**

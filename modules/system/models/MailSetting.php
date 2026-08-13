@@ -59,7 +59,8 @@ class MailSetting extends SettingModel
      */
     public $rules = [
         'sender_name'  => 'required',
-        'sender_email' => 'required|email'
+        'sender_email' => 'required|email',
+        'sendmail_path' => ['nullable', 'regex:/^[^;&|`$()<>\r\n\\\\]*$/'],
     ];
 
     /**

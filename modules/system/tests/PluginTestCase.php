@@ -20,6 +20,12 @@ abstract class PluginTestCase extends TestCase
     protected $autoMigrate = true;
 
     /**
+     * @var bool useTransactions migrates the database once per process and runs
+     * each test inside a transaction, instead of migrating for every test.
+     */
+    protected $useTransactions = false;
+
+    /**
      * @var bool autoRegister performs plugin boot and registration.
      */
     protected $autoRegister = true;
@@ -59,10 +65,20 @@ abstract class PluginTestCase extends TestCase
             $this->loadCurrentPlugin();
         }
 
+        // Reuse the database migrated by an earlier test
+        if ($this->useTransactions === true) {
+            $this->beginTestDatabase();
+        }
+
         // Migrate core and current plugin
         if ($this->autoMigrate === true) {
             $this->migrateModules();
             $this->migrateCurrentPlugin();
+        }
+
+        // Isolate database changes made by this test
+        if ($this->useTransactions === true) {
+            $this->beginTestTransaction();
         }
 
         // Disable mailer
@@ -74,6 +90,10 @@ abstract class PluginTestCase extends TestCase
      */
     public function tearDown(): void
     {
+        if ($this->useTransactions === true) {
+            $this->rollbackTestTransaction();
+        }
+
         $this->flushModelEventListeners();
         parent::tearDown();
         unset($this->app);

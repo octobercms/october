@@ -118,8 +118,7 @@ window.oc.langMessages['fi'] = Object.assign(
             "filter_button_text": "Suodata",
             "reset_button_text": "Palauta",
             "min_placeholder": "V\u00e4h.",
-            "max_placeholder": "Enint.",
-            "number_placeholder": "N\u00famero"
+            "max_placeholder": "Enint."
         }
     },
     "eventlog": {
@@ -135,8 +134,7 @@ window.oc.langMessages['fi'] = Object.assign(
             "openWith": "Avaa sovelluksessa",
             "remember_choice": "Muista valittu vaihtoehto istunnon ajan",
             "open": "Avaa",
-            "cancel": "Peruuta",
-            "rememberChoice": "Recuerde la opci\u00f3n seleccionada para esta sesi\u00f3n del navegador"
+            "cancel": "Peruuta"
         }
     },
     "upload": {

@@ -118,8 +118,7 @@ window.oc.langMessages['nb-no'] = Object.assign(
             "filter_button_text": "Filter",
             "reset_button_text": "Reset",
             "min_placeholder": "Min",
-            "max_placeholder": "Max",
-            "number_placeholder": "N\u00famero"
+            "max_placeholder": "Max"
         }
     },
     "eventlog": {
@@ -135,8 +134,7 @@ window.oc.langMessages['nb-no'] = Object.assign(
             "openWith": "\u00c5pne med",
             "remember_choice": "Husk valget for denne sesjonen",
             "open": "\u00c5pne",
-            "cancel": "Avbryt",
-            "rememberChoice": "Recuerde la opci\u00f3n seleccionada para esta sesi\u00f3n del navegador"
+            "cancel": "Avbryt"
         }
     },
     "upload": {

@@ -24,7 +24,7 @@ class SecurityPolicyRawSqlBlocklistTest extends TestCase
     public function rawSqlMethods(): array
     {
         return [
-            'selectRaw', 'whereRaw', 'orWhereRaw',
+            'selectRaw', 'selectSub', 'whereRaw', 'orWhereRaw',
             'havingRaw', 'orHavingRaw',
             'orderByRaw', 'groupByRaw',
             'fromRaw', 'fromSub',

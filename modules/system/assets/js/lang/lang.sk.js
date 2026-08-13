@@ -118,8 +118,7 @@ window.oc.langMessages['sk'] = Object.assign(
             "filter_button_text": "Filter",
             "reset_button_text": "Zru\u0161i\u0165",
             "min_placeholder": "Min",
-            "max_placeholder": "Max",
-            "number_placeholder": "N\u00famero"
+            "max_placeholder": "Max"
         }
     },
     "eventlog": {
@@ -135,8 +134,7 @@ window.oc.langMessages['sk'] = Object.assign(
             "openWith": "Otvori\u0165 v",
             "remember_choice": "Zapam\u00e4ta\u0165 si vybran\u00fa vo\u013ebu pre t\u00fato rel\u00e1ciu",
             "open": "Otvori\u0165",
-            "cancel": "Zru\u0161i\u0165",
-            "rememberChoice": "Recuerde la opci\u00f3n seleccionada para esta sesi\u00f3n del navegador"
+            "cancel": "Zru\u0161i\u0165"
         }
     },
     "upload": {

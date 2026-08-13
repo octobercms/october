@@ -195,9 +195,16 @@ class Dash extends WidgetBase
             return;
         }
 
+        // isReportWidget() enforces the required base class so we never construct
+        // arbitrary autoloadable classes from posted input
+        if (!$this->isReportWidget((string) $widgetClass)) {
+            return;
+        }
+
         $this->makeDashReportWidget(new DashReport([
             'reportName' => $reportName,
-        ] + $widgetConfig))->bindToController();
+            'widgetClass' => $widgetClass,
+        ]))->bindToController();
     }
 
     /**

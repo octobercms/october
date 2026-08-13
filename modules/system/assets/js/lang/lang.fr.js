@@ -118,8 +118,7 @@ window.oc.langMessages['fr'] = Object.assign(
             "filter_button_text": "Filtres",
             "reset_button_text": "R\u00e9initialiser",
             "min_placeholder": "Min",
-            "max_placeholder": "Max",
-            "number_placeholder": "N\u00famero"
+            "max_placeholder": "Max"
         }
     },
     "eventlog": {
@@ -135,8 +134,7 @@ window.oc.langMessages['fr'] = Object.assign(
             "openWith": "Ouvrir avec",
             "remember_choice": "Se souvenir de la s\u00e9lection pour la dur\u00e9e de la session dans ce navigateur",
             "open": "Ouvrir",
-            "cancel": "Annuler",
-            "rememberChoice": "Recuerde la opci\u00f3n seleccionada para esta sesi\u00f3n del navegador"
+            "cancel": "Annuler"
         }
     },
     "upload": {
@@ -678,7 +676,7 @@ $.FE_LANGUAGE['fr'] = {
     "Clear Formatting": "Effacer le formatage",
 
     // Save
-    "Save": "sauvegarder",
+    "Save": "Sauvegarder",
 
     // Undo, redo
     "Undo": "Annuler",

@@ -33,10 +33,10 @@ window.oc.langMessages['ca'] = Object.assign(
         "horizontalrule": "Inserir l\u00ednia horitzontal",
         "fullscreen": "Pantalla completa",
         "preview": "Previsualitzar",
-        "strikethrough": "Strikethrough",
-        "cleanblock": "Clean Block",
-        "table": "Table",
-        "sidebyside": "Side by Side"
+        "strikethrough": "Ratllat",
+        "cleanblock": "Bloc net",
+        "table": "Taula",
+        "sidebyside": "Costat amb costat"
     },
     "mediamanager": {
         "insert_link": "Inserir enlla\u00e7 a m\u00e8dia",
@@ -51,12 +51,12 @@ window.oc.langMessages['ca'] = Object.assign(
     },
     "alert": {
         "error": "Error",
-        "confirm": "Confirm",
-        "dismiss": "Dismiss",
+        "confirm": "Confirmar",
+        "dismiss": "Descartar",
         "confirm_button_text": "OK",
         "cancel_button_text": "Cancel\u00b7lar",
         "widget_remove_confirm": "Eliminar aquest widget?",
-        "reload": "Reload"
+        "reload": "Recarregar"
     },
     "datepicker": {
         "previousMonth": "Mes anterior",
@@ -102,8 +102,8 @@ window.oc.langMessages['ca'] = Object.assign(
             "all": "tots"
         },
         "scopes": {
-            "apply_button_text": "Apply",
-            "clear_button_text": "Clear"
+            "apply_button_text": "Aplicar",
+            "clear_button_text": "Netejar"
         },
         "dates": {
             "all": "tots",
@@ -138,27 +138,27 @@ window.oc.langMessages['ca'] = Object.assign(
         }
     },
     "upload": {
-        "max_files": "You can not upload any more files.",
-        "invalid_file_type": "You can't upload files of this type.",
-        "file_too_big": "File is too big ({{filesize}}MB). Max filesize: {{maxFilesize}}MB.",
-        "response_error": "Server responded with {{statusCode}} code.",
-        "remove_file": "Remove file"
+        "max_files": "No es poden pujar m\u00e9s fitxers.",
+        "invalid_file_type": "No es poden pujar fitxers d\u2019aquest tipus.",
+        "file_too_big": "El fitxer \u00e9s massa gran ({{filesize}}MB). Mida m\u00e0xima: {{maxFilesize}}MB.",
+        "response_error": "El servidor ha respost amb el codi {{statusCode}}.",
+        "remove_file": "Elimina el fitxer"
     },
     "inspector": {
-        "add": "Add",
-        "remove": "Remove",
-        "key": "Key",
-        "value": "Value",
-        "ok": "OK",
-        "cancel": "Cancel",
-        "items": "Items"
+        "add": "Afegir",
+        "remove": "Eliminar",
+        "key": "Clau",
+        "value": "Valor",
+        "ok": "D\u2019acord",
+        "cancel": "Cancel\u00b7lar",
+        "items": "Elements"
     },
     "[not set]": "[no definit]",
     "1 day (today) if not set": "1 dia (avui) si no s'ha definit",
     "Apply": "Aplica",
     "Ascending": "Ascendent",
     "Attribute": "Atribut",
-    "Bar": "Bar",
+    "Bar": "Barra",
     "Cancel": "Cancel\u00b7la",
     "Chart": "Gr\u00e0fic",
     "Chart type": "Tipus de gr\u00e0fic",
@@ -177,7 +177,7 @@ window.oc.langMessages['ca'] = Object.assign(
     "Descending": "Descendent",
     "Dimension": "Dimensi\u00f3",
     "Direction": "Direcci\u00f3",
-    "Disabled": "Discapacitat",
+    "Disabled": "Desactivat",
     "Display": "Pantalla",
     "Display [not set]": "Pantalla [no configurada]",
     "Display all records": "Mostra tots els registres",

@@ -118,8 +118,7 @@ window.oc.langMessages['hu'] = Object.assign(
             "filter_button_text": "Sz\u0171r\u00e9s",
             "reset_button_text": "Alaphelyzet",
             "min_placeholder": "Minimum",
-            "max_placeholder": "Maximum",
-            "number_placeholder": "N\u00famero"
+            "max_placeholder": "Maximum"
         }
     },
     "eventlog": {
@@ -135,8 +134,7 @@ window.oc.langMessages['hu'] = Object.assign(
             "openWith": "Megnyit\u00e1s mint",
             "remember_choice": "Kiv\u00e1lasztott be\u00e1ll\u00edt\u00e1sok megjegyz\u00e9se ebben a munkamenetben",
             "open": "Megnyit\u00e1s",
-            "cancel": "M\u00e9gsem",
-            "rememberChoice": "Recuerde la opci\u00f3n seleccionada para esta sesi\u00f3n del navegador"
+            "cancel": "M\u00e9gsem"
         }
     },
     "upload": {

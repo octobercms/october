@@ -118,8 +118,7 @@ window.oc.langMessages['zh-tw'] = Object.assign(
             "filter_button_text": "\u7be9\u9078",
             "reset_button_text": "\u91cd\u7f6e",
             "min_placeholder": "\u6700\u5c0f\u503c",
-            "max_placeholder": "\u6700\u5927\u503c",
-            "number_placeholder": "N\u00famero"
+            "max_placeholder": "\u6700\u5927\u503c"
         }
     },
     "eventlog": {
@@ -135,8 +134,7 @@ window.oc.langMessages['zh-tw'] = Object.assign(
             "openWith": "Open with",
             "remember_choice": "Remember selected option for this session",
             "open": "Open",
-            "cancel": "Cancel",
-            "rememberChoice": "Recuerde la opci\u00f3n seleccionada para esta sesi\u00f3n del navegador"
+            "cancel": "Cancel"
         }
     },
     "upload": {

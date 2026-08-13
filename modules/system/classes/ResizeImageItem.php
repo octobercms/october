@@ -271,7 +271,7 @@ class ResizeImageItem extends ElementBase
                 $result['mtime'] = @filemtime($path) ?: null;
             }
             // URL
-            elseif (strpos($image, '://') !== false) {
+            elseif (preg_match('#^https?://#i', $image)) {
                 $result['url'] = $result['path'] = $image;
                 $result['extension'] = explode('?', File::extension($image))[0];
                 $result['source'] = 'url';

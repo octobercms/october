@@ -118,8 +118,7 @@ window.oc.langMessages['zh-cn'] = Object.assign(
             "filter_button_text": "\u8fc7\u6ee4\u5668",
             "reset_button_text": "\u91cd\u7f6e",
             "min_placeholder": "\u6700\u5c0f",
-            "max_placeholder": "\u6700\u5927",
-            "number_placeholder": "N\u00famero"
+            "max_placeholder": "\u6700\u5927"
         }
     },
     "eventlog": {
@@ -135,8 +134,7 @@ window.oc.langMessages['zh-cn'] = Object.assign(
             "openWith": "\u6253\u5f00\u65b9\u5f0f",
             "remember_choice": "\u8bb0\u4f4f\u672c\u6b21\u4f1a\u8bdd\u9009\u62e9\u7684\u9009\u9879",
             "open": "\u6253\u5f00",
-            "cancel": "\u53d6\u6d88",
-            "rememberChoice": "Recuerde la opci\u00f3n seleccionada para esta sesi\u00f3n del navegador"
+            "cancel": "\u53d6\u6d88"
         }
     },
     "upload": {

@@ -269,7 +269,7 @@ $.FE_LANGUAGE['fr'] = {
     "Clear Formatting": "Effacer le formatage",
 
     // Save
-    "Save": "sauvegarder",
+    "Save": "Sauvegarder",
 
     // Undo, redo
     "Undo": "Annuler",

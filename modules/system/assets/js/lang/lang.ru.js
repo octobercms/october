@@ -118,8 +118,7 @@ window.oc.langMessages['ru'] = Object.assign(
             "filter_button_text": "\u0424\u0438\u043b\u044c\u0442\u0440",
             "reset_button_text": "\u0421\u0431\u0440\u043e\u0441",
             "min_placeholder": "Min",
-            "max_placeholder": "Max",
-            "number_placeholder": "N\u00famero"
+            "max_placeholder": "Max"
         }
     },
     "eventlog": {
@@ -135,8 +134,7 @@ window.oc.langMessages['ru'] = Object.assign(
             "openWith": "\u041e\u0442\u043a\u0440\u044b\u0442\u044c \u0441 \u043f\u043e\u043c\u043e\u0449\u044c\u044e",
             "remember_choice": "\u0417\u0430\u043f\u043e\u043c\u043d\u0438\u0442\u044c \u0432\u044b\u0431\u0440\u0430\u043d\u043d\u044b\u0439 \u0432\u0430\u0440\u0438\u0430\u043d\u0442 \u0434\u043b\u044f \u044d\u0442\u043e\u0439 \u0441\u0435\u0441\u0441\u0438\u0438",
             "open": "\u041e\u0442\u043a\u0440\u044b\u0442\u044c",
-            "cancel": "\u041e\u0442\u043c\u0435\u043d\u0430",
-            "rememberChoice": "Recuerde la opci\u00f3n seleccionada para esta sesi\u00f3n del navegador"
+            "cancel": "\u041e\u0442\u043c\u0435\u043d\u0430"
         }
     },
     "upload": {

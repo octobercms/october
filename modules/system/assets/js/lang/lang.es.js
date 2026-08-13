@@ -33,30 +33,30 @@ window.oc.langMessages['es'] = Object.assign(
         "horizontalrule": "Insertar Regla Horizontal",
         "fullscreen": "Pantalla completa",
         "preview": "Previsualizar",
-        "strikethrough": "Strikethrough",
-        "cleanblock": "Clean Block",
-        "table": "Table",
-        "sidebyside": "Side by Side"
+        "strikethrough": "Tachado",
+        "cleanblock": "Bloque Limpio",
+        "table": "Tabla",
+        "sidebyside": "Lado a Lado"
     },
     "mediamanager": {
-        "insert_link": "Insertar Media V\u00ednculo",
-        "insert_image": "Insertar Media Imagen",
-        "insert_video": "Insertar Media Video",
-        "insert_audio": "Insertar Media Audio",
-        "invalid_file_empty_insert": "Por favor seleccione archivo para insertar v\u00ednculo.",
+        "insert_link": "Insertar enlace de media",
+        "insert_image": "Insertar imagen de media",
+        "insert_video": "Insertar video de media",
+        "insert_audio": "Insertar audio de media",
+        "invalid_file_empty_insert": "Por favor seleccione archivo para insertar enlace.",
         "invalid_file_single_insert": "Por favor seleccione un solo archivo.",
-        "invalid_image_empty_insert": "Por favor seleccione una imagen(es) para insertar.",
+        "invalid_image_empty_insert": "Por favor seleccione imagen(es) para insertar.",
         "invalid_video_empty_insert": "Por favor seleccione un archivo de video para insertar.",
         "invalid_audio_empty_insert": "Por favor seleccione un archivo de audio para insertar."
     },
     "alert": {
         "error": "Error",
-        "confirm": "Confirm",
-        "dismiss": "Dismiss",
+        "confirm": "Confirmar",
+        "dismiss": "Descartar",
         "confirm_button_text": "OK",
         "cancel_button_text": "Cancelar",
-        "widget_remove_confirm": "Remove this widget?",
-        "reload": "Reload"
+        "widget_remove_confirm": "\u00bfEliminar este widget?",
+        "reload": "Recargar"
     },
     "datepicker": {
         "previousMonth": "Mes Anterior",
@@ -118,8 +118,7 @@ window.oc.langMessages['es'] = Object.assign(
             "filter_button_text": "Filtrar",
             "reset_button_text": "Restablecer",
             "min_placeholder": "M\u00ednimo",
-            "max_placeholder": "M\u00e1ximo",
-            "number_placeholder": "N\u00famero"
+            "max_placeholder": "M\u00e1ximo"
         }
     },
     "eventlog": {
@@ -140,27 +139,27 @@ window.oc.langMessages['es'] = Object.assign(
         }
     },
     "upload": {
-        "max_files": "You can not upload any more files.",
-        "invalid_file_type": "You can't upload files of this type.",
-        "file_too_big": "File is too big ({{filesize}}MB). Max filesize: {{maxFilesize}}MB.",
-        "response_error": "Server responded with {{statusCode}} code.",
-        "remove_file": "Remove file"
+        "max_files": "No se pueden subir m\u00e1s archivos.",
+        "invalid_file_type": "No se pueden subir archivos de este tipo.",
+        "file_too_big": "El archivo es demasiado grande ({{filesize}}MB). Tama\u00f1o m\u00e1ximo: {{maxFilesize}}MB.",
+        "response_error": "El servidor respondi\u00f3 con el c\u00f3digo {{statusCode}}.",
+        "remove_file": "Eliminar archivo"
     },
     "inspector": {
-        "add": "Add",
-        "remove": "Remove",
-        "key": "Key",
-        "value": "Value",
-        "ok": "OK",
-        "cancel": "Cancel",
-        "items": "Items"
+        "add": "Agregar",
+        "remove": "Eliminar",
+        "key": "Clave",
+        "value": "Valor",
+        "ok": "Aceptar",
+        "cancel": "Cancelar",
+        "items": "Elementos"
     },
     "[not set]": "[no establecido]",
     "1 day (today) if not set": "1 d\u00eda (hoy) si no se establece",
     "Apply": "Aplicar",
     "Ascending": "Ascendente",
     "Attribute": "Atributo",
-    "Bar": "Bar",
+    "Bar": "Barra",
     "Cancel": "Cancelar",
     "Chart": "Cuadro",
     "Chart type": "Tipo de gr\u00e1fico",

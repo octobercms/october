@@ -118,8 +118,7 @@ window.oc.langMessages['vn'] = Object.assign(
             "filter_button_text": "L\u1ecdc",
             "reset_button_text": "Kh\u00f4i ph\u1ee5c",
             "min_placeholder": "T\u1ed1i thi\u1ec3u",
-            "max_placeholder": "T\u1ed1i \u0111a",
-            "number_placeholder": "N\u00famero"
+            "max_placeholder": "T\u1ed1i \u0111a"
         }
     },
     "eventlog": {
@@ -135,8 +134,7 @@ window.oc.langMessages['vn'] = Object.assign(
             "openWith": "M\u1edf b\u1eb1ng",
             "remember_choice": "Ghi nh\u1edb l\u1ef1a ch\u1ecdn cho phi\u00ean n\u00e0y",
             "open": "M\u1edf",
-            "cancel": "H\u1ee7y b\u1ecf",
-            "rememberChoice": "Recuerde la opci\u00f3n seleccionada para esta sesi\u00f3n del navegador"
+            "cancel": "H\u1ee7y b\u1ecf"
         }
     },
     "upload": {

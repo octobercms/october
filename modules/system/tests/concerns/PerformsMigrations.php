@@ -1,5 +1,6 @@
 <?php namespace October\Tests\Concerns;
 
+use Db;
 use System\Classes\UpdateManager;
 use System\Classes\PluginManager;
 use Tailor\Classes\BlueprintIndexer;
@@ -11,6 +12,65 @@ trait PerformsMigrations
      * which plugins have been migrated.
      */
     protected $pluginTestCaseMigratedPlugins = [];
+
+    /**
+     * @var array pluginTestCaseDatabasePdos are migrated database connections by key.
+     */
+    protected static $pluginTestCaseDatabasePdos = [];
+
+    /**
+     * @var bool pluginTestCaseDatabaseReused is true when a database migrated by
+     * an earlier test has been attached.
+     */
+    protected $pluginTestCaseDatabaseReused = false;
+
+    /**
+     * beginTestDatabase attaches the database migrated earlier in this process,
+     * keeping an in-memory database alive across application rebuilds
+     */
+    protected function beginTestDatabase()
+    {
+        $pdo = static::$pluginTestCaseDatabasePdos[$this->getTestDatabaseKey()] ?? null;
+        if ($pdo === null) {
+            return;
+        }
+
+        if ($pdo->inTransaction()) {
+            $pdo->rollBack();
+        }
+
+        Db::connection()->setPdo($pdo);
+
+        $this->pluginTestCaseDatabaseReused = true;
+    }
+
+    /**
+     * beginTestTransaction isolates database changes made by the test inside a transaction
+     */
+    protected function beginTestTransaction()
+    {
+        static::$pluginTestCaseDatabasePdos[$this->getTestDatabaseKey()] ??= Db::connection()->getPdo();
+
+        Db::beginTransaction();
+    }
+
+    /**
+     * rollbackTestTransaction discards database changes made by the test
+     */
+    protected function rollbackTestTransaction()
+    {
+        while (Db::transactionLevel() > 0) {
+            Db::rollBack();
+        }
+    }
+
+    /**
+     * getTestDatabaseKey returns the cache key for the migrated database
+     */
+    protected function getTestDatabaseKey(): string
+    {
+        return $this->guessPluginCodeFromTest() ?: $this->isAppCodeFromTest() ?: 'default';
+    }
 
     /**
      * migrateDatabase
@@ -37,7 +97,10 @@ trait PerformsMigrations
     {
         $manager = UpdateManager::instance();
 
-        $manager->rollbackApp();
+        // Rollback app, unless reusing an already migrated database
+        if (!$this->pluginTestCaseDatabaseReused) {
+            $manager->rollbackApp();
+        }
 
         $manager->migrateApp();
     }
@@ -108,8 +171,10 @@ trait PerformsMigrations
 
         $manager = UpdateManager::instance();
 
-        // Rollback plugin
-        $manager->rollbackPlugin($code);
+        // Rollback plugin, unless reusing an already migrated database
+        if (!$this->pluginTestCaseDatabaseReused) {
+            $manager->rollbackPlugin($code);
+        }
 
         // Migrate plugin
         $manager->migratePlugin($code);

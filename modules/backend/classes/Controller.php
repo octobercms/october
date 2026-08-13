@@ -328,10 +328,17 @@ class Controller extends Extendable implements AjaxControllerInterface
         $ownMethod = method_exists($this, $name);
         if ($ownMethod) {
             $methodInfo = new \ReflectionMethod($this, $name);
+            if (strtolower($methodInfo->getName()) !== $methodInfo->getName()) {
+                return false;
+            }
+
             $public = $methodInfo->isPublic();
             if ($public) {
                 return true;
             }
+        }
+        elseif (strtolower($name) !== $name) {
+            return false;
         }
 
         if ($internal && (($ownMethod && $methodInfo->isProtected()) || !$ownMethod)) {

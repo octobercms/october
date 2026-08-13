@@ -118,8 +118,7 @@ window.oc.langMessages['tr'] = Object.assign(
             "filter_button_text": "Filtrele",
             "reset_button_text": "S\u0131f\u0131rla",
             "min_placeholder": "Min",
-            "max_placeholder": "Max",
-            "number_placeholder": "N\u00famero"
+            "max_placeholder": "Max"
         }
     },
     "eventlog": {
@@ -135,8 +134,7 @@ window.oc.langMessages['tr'] = Object.assign(
             "openWith": "Birlikte a\u00e7",
             "remember_choice": "Bu oturum i\u00e7in se\u00e7enekleri hat\u0131rla",
             "open": "A\u00e7",
-            "cancel": "\u0130ptal",
-            "rememberChoice": "Recuerde la opci\u00f3n seleccionada para esta sesi\u00f3n del navegador"
+            "cancel": "\u0130ptal"
         }
     },
     "upload": {

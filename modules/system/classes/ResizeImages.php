@@ -12,9 +12,7 @@ use Resizer;
 use Storage;
 use Redirect;
 use Exception;
-use October\Rain\Filesystem\Definitions as FileDefinitions;
 use ApplicationException;
-use finfo;
 
 /**
  * ResizeImages is used for resizing image files
@@ -24,6 +22,8 @@ use finfo;
  */
 class ResizeImages
 {
+    use \System\Classes\ResizeImages\ValidatesExternalImages;
+
     /**
      * @var array availableSources to get image paths
      */
@@ -188,7 +188,14 @@ class ResizeImages
      */
     protected function getSourcePathForResize($realSourcePath, $tempSourcePath)
     {
-        $isExternal = strpos($realSourcePath, 'http') === 0;
+        $isExternal = (bool) preg_match('#^https?://#i', $realSourcePath);
+
+        // Reject any other stream wrapper or scheme
+        if (!$isExternal && preg_match('#^[a-z][a-z0-9+.\-]*://#i', $realSourcePath)) {
+            Log::warning("Blocked resize source with unsupported scheme: {$realSourcePath}");
+            return $tempSourcePath;
+        }
+
         $sourcePath = $isExternal ? $tempSourcePath : $realSourcePath;
 
         if ($isExternal) {
@@ -235,93 +242,6 @@ class ResizeImages
         }
 
         return $sourcePath;
-    }
-
-    /**
-     * validateExternalImageUrl checks if an external URL has a valid image extension
-     */
-    protected function validateExternalImageUrl(string $url): bool
-    {
-        $path = parse_url($url, PHP_URL_PATH);
-        if (!$path) {
-            return false;
-        }
-
-        $extension = strtolower(pathinfo($path, PATHINFO_EXTENSION));
-        if (!$extension) {
-            return false;
-        }
-
-        $allowedExtensions = FileDefinitions::get('image_extensions');
-
-        return in_array($extension, $allowedExtensions);
-    }
-
-    /**
-     * validateExternalImageHost rejects URLs whose scheme is not http(s) or whose
-     * host resolves to a loopback, private, link-local, or reserved address. This
-     * is a defense-in-depth check against SSRF via the external image fetcher.
-     */
-    protected function validateExternalImageHost(string $url): bool
-    {
-        $parts = parse_url($url);
-        if (!$parts || !isset($parts['scheme'], $parts['host'])) {
-            return false;
-        }
-
-        if (!in_array(strtolower($parts['scheme']), ['http', 'https'], true)) {
-            return false;
-        }
-
-        // parse_url returns IPv6 literals wrapped in brackets, e.g. [::1]
-        $host = trim($parts['host'], '[]');
-
-        // Resolve host to IP addresses and reject any that fall in a reserved range.
-        $ips = [];
-        if (filter_var($host, FILTER_VALIDATE_IP)) {
-            // Host is already an IP literal
-            $ips[] = $host;
-        }
-        else {
-            $records = @dns_get_record($host, DNS_A | DNS_AAAA);
-            if (is_array($records)) {
-                foreach ($records as $record) {
-                    $ips[] = $record['ip'] ?? $record['ipv6'] ?? null;
-                }
-            }
-        }
-
-        $ips = array_filter($ips);
-        if (empty($ips)) {
-            return false;
-        }
-
-        foreach ($ips as $ip) {
-            if (!filter_var(
-                $ip,
-                FILTER_VALIDATE_IP,
-                FILTER_FLAG_NO_PRIV_RANGE | FILTER_FLAG_NO_RES_RANGE
-            )) {
-                return false;
-            }
-        }
-
-        return true;
-    }
-
-    /**
-     * validateImageContents checks if the content is actually an image based on MIME type
-     */
-    protected function validateImageContents(string $contents): bool
-    {
-        if (empty($contents)) {
-            return false;
-        }
-
-        $finfo = new finfo(FILEINFO_MIME_TYPE);
-        $mimeType = $finfo->buffer($contents);
-
-        return str_starts_with($mimeType, 'image/');
     }
 
     /**
