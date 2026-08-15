@@ -16,10 +16,6 @@ import MarkdownFormWidget from '../../../../vuecomponents/documentmarkdowneditor
 registerControl('markdowneditor', class extends ControlBase {
     init() {
         this.$el = $(this.element);
-        this.$textarea = $('textarea:first', this.$el);
-        this.$toolbar = $('.editor-toolbar:first', this.$el);
-        this.$write = $('.editor-write:first', this.$el);
-        this.$preview = $('.editor-preview:first', this.$el);
         this.$code = null;
         this.editor = null;
         this.$form = null;
@@ -49,6 +45,11 @@ registerControl('markdowneditor', class extends ControlBase {
     }
 
     connect() {
+        this.$el = $(this.element);
+        this.$textarea = $('textarea:first', this.$el);
+        this.$toolbar = $('.editor-toolbar:first', this.$el);
+        this.$write = $('.editor-write:first', this.$el);
+        this.$preview = $('.editor-preview:first', this.$el);
         this.$form = this.$el.closest('form');
 
         if (!this.config.legacyMode) {
@@ -96,8 +97,7 @@ registerControl('markdowneditor', class extends ControlBase {
         this.$buttons = null;
         this.$fixedButtons = null;
         this.$indicator = null;
-        this.editorPadding = null;
-        this.updatesPaused = null;
+        this.updatesPaused = false;
 
         this.isSplitMode = null;
         this.isPreview = null;

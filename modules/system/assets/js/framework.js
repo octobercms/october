@@ -1050,11 +1050,13 @@ window['${id}']();`;
       if (isTurboEnabled()) {
         turboVisit(href);
       } else {
+        this.delegate.isNavigating = true;
         location.assign(href);
       }
     }
     // Custom function, reload the browser
     handleReloadResponse() {
+      this.delegate.isNavigating = true;
       location.reload();
     }
     // Mark known elements as being updated
@@ -1460,8 +1462,9 @@ window['${id}']();`;
       if (this.options.htmlOnly && !contentTypeIsHTML(contentType)) {
         this.failed = true;
         this.notifyApplicationAfterRequestEnd();
-        this.delegate.requestFailedWithStatusCode(SystemStatusCode.contentTypeMismatch);
-        this.destroy();
+        await this.settleWithDelegate(
+          () => this.delegate.requestFailedWithStatusCode(SystemStatusCode.contentTypeMismatch)
+        );
         return;
       }
       let responseData;
@@ -1474,16 +1477,27 @@ window['${id}']();`;
       }
       if (response.status >= 200 && response.status < 300) {
         this.notifyApplicationAfterRequestEnd();
-        this.delegate.requestCompletedWithResponse(
-          responseData,
-          response.status,
-          this.getRedirectLocation(response)
+        await this.settleWithDelegate(
+          () => this.delegate.requestCompletedWithResponse(
+            responseData,
+            response.status,
+            this.getRedirectLocation(response)
+          )
         );
-        this.destroy();
       } else {
         this.failed = true;
         this.notifyApplicationAfterRequestEnd();
-        this.delegate.requestFailedWithStatusCode(response.status, responseData);
+        await this.settleWithDelegate(
+          () => this.delegate.requestFailedWithStatusCode(response.status, responseData)
+        );
+      }
+    }
+    async settleWithDelegate(callback) {
+      try {
+        await callback();
+      } catch (error) {
+        Promise.reject(error);
+      } finally {
         this.destroy();
       }
     }
@@ -1704,6 +1718,7 @@ window['${id}']();`;
       this.handler = handler;
       this.options = { ...this.constructor.DEFAULTS, ...options || {} };
       this.context = { el: element, handler, options: this.options };
+      this.isNavigating = false;
       this.progressBar = new ProgressBar();
       this.showProgressBar = () => {
         this.progressBar.show({ cssClass: "is-ajax" });
@@ -1911,6 +1926,13 @@ window['${id}']();`;
       this.promise.reject(data);
     }
     requestFinished() {
+      if (this.isNavigating) {
+        window.addEventListener("pageshow", () => {
+          this.isNavigating = false;
+          this.requestFinished();
+        }, { once: true });
+        return;
+      }
       this.markAsProgress(false);
       this.toggleLoadingElement(false);
       if (this.options.progressBar) {

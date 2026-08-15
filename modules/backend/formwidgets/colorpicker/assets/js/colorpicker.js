@@ -16,16 +16,14 @@
 'use strict';
 
 oc.registerControl('colorpicker', class extends oc.ControlBase {
-    init() {
+    connect() {
         this.$el = $(this.element);
         this.$dataLocker  = $(this.config.dataLocker, this.$el);
         this.$colorList = $('> ul', this.$el);
         this.$customColor = $('[data-custom-color]', this.$el);
         this.$customColorSpan = $('> span', this.$customColor);
         this.originalColor = this.$customColor.data('hexColor');
-    }
 
-    connect() {
         if (!this.config.disabled) {
             this.$colorList.on('click', '> li', this.proxy(this.onSelectColor));
         }

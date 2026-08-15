@@ -39,11 +39,13 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
         }
 
         this.previewTemplate = $(this.config.template).html();
-        this.$filesContainer = $('.mediafinder-files-container:first', this.$el);
-        this.$dataLocker = $('[data-data-locker]', this.$el);
     }
 
     connect() {
+        this.$el = $(this.element);
+        this.$filesContainer = $('.mediafinder-files-container:first', this.$el);
+        this.$dataLocker = $('[data-data-locker]', this.$el);
+
         this.loadExistingFiles();
 
         // Stop here for preview mode

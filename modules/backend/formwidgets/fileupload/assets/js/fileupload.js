@@ -36,12 +36,14 @@ oc.registerControl('fileupload', class extends oc.ControlBase {
             this.config.isSortable = this.$el.hasClass('is-sortable');
         }
 
-        this.$uploadButton = $('.toolbar-upload-button', this.$el);
-        this.$filesContainer = $('.upload-files-container', this.$el);
         this.uploaderOptions = {};
     }
 
     connect() {
+        this.$el = $(this.element);
+        this.$uploadButton = $('.toolbar-upload-button', this.$el);
+        this.$filesContainer = $('.upload-files-container', this.$el);
+
         this.listen('click', '.upload-object.is-success .file-data-container-inner', this.onClickSuccessObject);
         this.listen('click', '.upload-object.is-error', this.onClickErrorObject);
         this.listen('click', '.toolbar-clear-file', this.onClearFileClick);

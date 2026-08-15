@@ -10,11 +10,9 @@ import { ControlBase } from 'larajax';
 
 export default class CheckboxControl extends ControlBase
 {
-    init() {
-        this.$input = this.element.querySelector('input[type=checkbox]');
-    }
-
     connect() {
+        this.$input = this.element.querySelector('input[type=checkbox]');
+
         if (this.$input) {
             this.initIndeterminateState();
             this.listen('click', this.$input, this.onClickCycleState);

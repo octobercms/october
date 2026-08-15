@@ -16,12 +16,10 @@ import { ControlBase } from 'larajax';
 const $ = window.jQuery;
 
 export default class ToolbarControl extends ControlBase {
-    init() {
+    connect() {
         this.$toolbar = this.element.closest('.control-toolbar');
         this.scrollClassContainer = this.element.parentNode;
-    }
 
-    connect() {
         var noDragSupport = this.config.noDragSupport !== undefined && this.config.noDragSupport;
 
         if (this.config.useNativeDrag) {

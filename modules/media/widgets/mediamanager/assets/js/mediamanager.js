@@ -19,9 +19,6 @@ if (oc.mediaManager === undefined) {
 
 registerControl('media-manager', class extends ControlBase {
     init() {
-        this.$el = $(this.element);
-        this.$form = this.$el.closest('form');
-
         // State properties
         this.selectTimer = null;
         this.sidebarPreviewElement = null;
@@ -55,6 +52,11 @@ registerControl('media-manager', class extends ControlBase {
             cropAndInsertButton: false,
             readOnly: false
         }, this.config);
+    }
+
+    connect() {
+        this.$el = $(this.element);
+        this.$form = this.$el.closest('form');
 
         this.itemListElement = this.$el.find('[data-media-item-list]').get(0);
         if (this.itemListElement) {
@@ -68,9 +70,7 @@ registerControl('media-manager', class extends ControlBase {
                 this.$el.find('[data-popup-command="crop-and-insert"]').removeClass('oc-hide');
             }
         }
-    }
 
-    connect() {
         this.registerHandlers();
 
         this.updateSidebarPreview();
