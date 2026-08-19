@@ -1050,13 +1050,13 @@ window['${id}']();`;
       if (isTurboEnabled()) {
         turboVisit(href);
       } else {
-        this.delegate.isNavigating = true;
+        this.delegate.markNavigating();
         location.assign(href);
       }
     }
     // Custom function, reload the browser
     handleReloadResponse() {
-      this.delegate.isNavigating = true;
+      this.delegate.markNavigating();
       location.reload();
     }
     // Mark known elements as being updated
@@ -1712,13 +1712,13 @@ window['${id}']();`;
   }
 
   // ../../vendor/larajax/larajax/resources/src/request/request.js
+  var appNavigating = false;
   var Request = class _Request {
     constructor(element, handler, options) {
       this.el = element;
       this.handler = handler;
       this.options = { ...this.constructor.DEFAULTS, ...options || {} };
       this.context = { el: element, handler, options: this.options };
-      this.isNavigating = false;
       this.progressBar = new ProgressBar();
       this.showProgressBar = () => {
         this.progressBar.show({ cssClass: "is-ajax" });
@@ -1802,6 +1802,12 @@ window['${id}']();`;
         element = document.querySelector(element);
       }
       return new _Request(element, handler, options).start();
+    }
+    static markNavigating() {
+      appNavigating = true;
+    }
+    markNavigating() {
+      appNavigating = true;
     }
     toggleRedirect(redirectUrl) {
       if (!redirectUrl) {
@@ -1926,9 +1932,9 @@ window['${id}']();`;
       this.promise.reject(data);
     }
     requestFinished() {
-      if (this.isNavigating) {
+      if (appNavigating) {
         window.addEventListener("pageshow", () => {
-          this.isNavigating = false;
+          appNavigating = false;
           this.requestFinished();
         }, { once: true });
         return;
@@ -2887,6 +2893,7 @@ window['${id}']();`;
       AjaxRequest,
       AssetManager: AssetManager2,
       ajax: AjaxRequest.send,
+      markNavigating: AjaxRequest.markNavigating,
       // Core
       AjaxFramework,
       request: AjaxFramework.requestElement,

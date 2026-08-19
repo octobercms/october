@@ -1069,13 +1069,13 @@ window['${id}']();`;
       if (isTurboEnabled()) {
         turboVisit(href);
       } else {
-        this.delegate.isNavigating = true;
+        this.delegate.markNavigating();
         location.assign(href);
       }
     }
     // Custom function, reload the browser
     handleReloadResponse() {
-      this.delegate.isNavigating = true;
+      this.delegate.markNavigating();
       location.reload();
     }
     // Mark known elements as being updated
@@ -1731,13 +1731,13 @@ window['${id}']();`;
   }
 
   // ../../vendor/larajax/larajax/resources/src/request/request.js
+  var appNavigating = false;
   var Request = class _Request {
     constructor(element, handler, options) {
       this.el = element;
       this.handler = handler;
       this.options = { ...this.constructor.DEFAULTS, ...options || {} };
       this.context = { el: element, handler, options: this.options };
-      this.isNavigating = false;
       this.progressBar = new ProgressBar();
       this.showProgressBar = () => {
         this.progressBar.show({ cssClass: "is-ajax" });
@@ -1821,6 +1821,12 @@ window['${id}']();`;
         element = document.querySelector(element);
       }
       return new _Request(element, handler, options).start();
+    }
+    static markNavigating() {
+      appNavigating = true;
+    }
+    markNavigating() {
+      appNavigating = true;
     }
     toggleRedirect(redirectUrl) {
       if (!redirectUrl) {
@@ -1945,9 +1951,9 @@ window['${id}']();`;
       this.promise.reject(data);
     }
     requestFinished() {
-      if (this.isNavigating) {
+      if (appNavigating) {
         window.addEventListener("pageshow", () => {
-          this.isNavigating = false;
+          appNavigating = false;
           this.requestFinished();
         }, { once: true });
         return;
@@ -3354,8 +3360,10 @@ window['${id}']();`;
       this.hideAttachLoader = (event) => {
         this.attachLoader.hideForm(event.target);
       };
-      this.hideAllAttachLoaders = (event) => {
-        this.attachLoader.hideAll();
+      this.handlePageRestore = (event) => {
+        if (event.persisted) {
+          this.attachLoader.hideAll();
+        }
       };
       this.validatorSubmit = (event) => {
         this.validator.submit(event.target);
@@ -3425,6 +3433,7 @@ window['${id}']();`;
         Events.on(document, "ajax:promise", "form, [data-attach-loading]", this.showAttachLoader);
         Events.on(document, "ajax:fail", "form, [data-attach-loading]", this.hideAttachLoader);
         Events.on(document, "ajax:done", "form, [data-attach-loading]", this.hideAttachLoader);
+        addEventListener("pageshow", this.handlePageRestore);
         this.validator = new Validator();
         Events.on(document, "ajax:before-validate", "[data-request-validate]", this.validatorValidate);
         Events.on(document, "ajax:promise", "[data-request-validate]", this.validatorSubmit);
@@ -3442,6 +3451,7 @@ window['${id}']();`;
         Events.off(document, "ajax:promise", "form, [data-attach-loading]", this.showAttachLoader);
         Events.off(document, "ajax:fail", "form, [data-attach-loading]", this.hideAttachLoader);
         Events.off(document, "ajax:done", "form, [data-attach-loading]", this.hideAttachLoader);
+        removeEventListener("pageshow", this.handlePageRestore);
         this.validator = null;
         Events.off(document, "ajax:before-validate", "[data-request-validate]", this.validatorValidate);
         Events.off(document, "ajax:promise", "[data-request-validate]", this.validatorSubmit);
@@ -5876,6 +5886,7 @@ window['${id}']();`;
       AjaxRequest,
       AssetManager: AssetManager2,
       ajax: AjaxRequest.send,
+      markNavigating: AjaxRequest.markNavigating,
       // Core
       AjaxFramework,
       request: AjaxFramework.requestElement,
