@@ -509,6 +509,8 @@ class Entries extends WildcardController
             throw new ForbiddenException;
         }
 
+        $this->checkSourcePermission('publish');
+
         $model = $this->listGetWidget()->getModel();
         $model->resetTreeNesting();
         $model->resetTreeOrphans();
@@ -797,6 +799,37 @@ class Entries extends WildcardController
     }
 
     /**
+     * checkSourcePermission
+     */
+    public function checkSourcePermission($names = null, $throwException = true)
+    {
+        if ($names) {
+            $permissionNames = array_map(function($name) {
+                return $this->activeSource->getPermissionCodeName($name);
+            }, (array) $names);
+        }
+        else {
+            $permissionNames = [$this->activeSource->getPermissionCodeName()];
+        }
+
+        $hasPermission = $this->user->hasAnyAccess($permissionNames);
+
+        if (!$hasPermission && $throwException) {
+            throw new ForbiddenException;
+        }
+
+        return $hasPermission;
+    }
+
+    /**
+     * hasSourcePermission
+     */
+    public function hasSourcePermission(...$names)
+    {
+        return $this->checkSourcePermission($names, false);
+    }
+
+    /**
      * isSectionActive
      */
     protected function isSectionActive(Blueprint $section): bool
@@ -852,37 +885,6 @@ class Entries extends WildcardController
         $this->activeSource = $activeSource
             ? BlueprintIndexer::instance()->findSectionByHandle($activeSource)
             : null;
-    }
-
-    /**
-     * checkSourcePermission
-     */
-    protected function checkSourcePermission($names = null, $throwException = true)
-    {
-        if ($names) {
-            $permissionNames = array_map(function($name) {
-                return $this->activeSource->getPermissionCodeName($name);
-            }, (array) $names);
-        }
-        else {
-            $permissionNames = [$this->activeSource->getPermissionCodeName()];
-        }
-
-        $hasPermission = $this->user->hasAnyAccess($permissionNames);
-
-        if (!$hasPermission && $throwException) {
-            throw new ForbiddenException;
-        }
-
-        return $hasPermission;
-    }
-
-    /**
-     * hasSourcePermission
-     */
-    protected function hasSourcePermission(...$names)
-    {
-        return $this->checkSourcePermission($names, false);
     }
 
     /**

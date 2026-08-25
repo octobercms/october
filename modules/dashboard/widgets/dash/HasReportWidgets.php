@@ -43,13 +43,14 @@ trait HasReportWidgets
         $widgetProps['alias'] = $this->alias . studly_case($this->nameToId($report->reportName));
 
         $widgetClass = $widgetProps['widget'] ?? ($widgetProps['widgetClass'] ?? null);
-        $widgetClass = $this->dashManager->resolveReportWidget($widgetClass);
-        if (!class_exists($widgetClass)) {
+        if (!$this->isReportWidget((string) $widgetClass)) {
             throw new SystemException(Lang::get(
                 'backend::lang.widget.not_registered',
                 ['name' => $widgetClass]
             ));
         }
+
+        $widgetClass = $this->dashManager->resolveReportWidget($widgetClass);
 
         $widget = new $widgetClass($this->controller, $report, $widgetProps);
 
@@ -57,7 +58,10 @@ trait HasReportWidgets
     }
 
     /**
-     * isReportWidget checks if a report type is a widget or not
+     * isReportWidget checks the input resolves to a class extending
+     * ReportWidgetBase or VueReportWidgetBase; runs the base-class check for
+     * both aliases and fully-qualified names so posted class names cannot
+     * skip verification just by containing a backslash
      */
     protected function isReportWidget(string $reportType): bool
     {
@@ -65,23 +69,13 @@ trait HasReportWidgets
             return false;
         }
 
-        if (strpos($reportType, '\\')) {
-            return true;
-        }
-
         $widgetClass = $this->dashManager->resolveReportWidget($reportType);
         if (!class_exists($widgetClass)) {
             return false;
         }
 
-        if (
-            is_subclass_of($widgetClass, \Dashboard\Classes\ReportWidgetBase::class) ||
-            is_subclass_of($widgetClass, \Dashboard\Classes\VueReportWidgetBase::class)
-        ) {
-            return true;
-        }
-
-        return false;
+        return is_subclass_of($widgetClass, \Dashboard\Classes\ReportWidgetBase::class)
+            || is_subclass_of($widgetClass, \Dashboard\Classes\VueReportWidgetBase::class);
     }
 
     /**

@@ -80,9 +80,11 @@ trait ReportProcessor
                 continue;
             }
 
-            // Check widget class permissions against registered widgets
+            // Check widget class permissions against registered widgets;
+            // resolve both widget and widgetClass keys so a stored definition
+            // cannot dodge the permission filter by choosing the alias key
             $widgetClass = $this->isCustom
-                ? ($report->configuration['widgetClass'] ?? null)
+                ? ($report->configuration['widget'] ?? $report->configuration['widgetClass'] ?? null)
                 : ($report->type ?? null);
 
             if ($widgetClass && $this->isReportWidget($widgetClass)) {

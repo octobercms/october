@@ -80,6 +80,8 @@ class VersionController extends ControllerBehavior
      */
     public function onRestoreVersion($recordId = null)
     {
+        $this->controller->checkSourcePermission('publish');
+
         $model = $this->controller->formFindModelObject($recordId);
 
         $this->initVersion($model);
