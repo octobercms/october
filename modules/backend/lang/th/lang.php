@@ -206,7 +206,6 @@
     'reset_default' => 'ตั้งค่าเริ่มต้น',
     'resetting' => 'กำลังตั้งค่าเริ่มต้น',
     'resetting_name' => 'กำลังตั้งค่าเริ่มต้น :name',
-    'undefined_tab' => 'อื่นๆ',
     'field_off' => 'ปิด',
     'field_on' => 'เปิด',
     'add' => 'เพิ่ม',

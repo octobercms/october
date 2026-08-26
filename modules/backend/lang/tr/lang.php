@@ -203,7 +203,6 @@
     'reset_default' => 'Ön Tanımlı Ayarlara Dön!',
     'resetting' => 'İşleniyor',
     'resetting_name' => ':name İşleniyor',
-    'undefined_tab' => 'Çeşitli',
     'field_off' => 'Kapalı',
     'field_on' => 'Açık',
     'add' => 'Ekle',

@@ -1,7 +1,7 @@
 <?php namespace Backend\VueComponents;
 
 use Url;
-use Backend\Classes\VueComponentBase;
+use System\Classes\VueComponentBase;
 
 /**
  * Rich Editor Document connector Vue component

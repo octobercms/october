@@ -109,9 +109,10 @@ trait OctoberUtilCommands
         $locales = array_keys($locales);
         $stub = base_path('modules/system/assets/js/lang/lang.stub');
 
-        $messages = [];
-
         foreach ($locales as $locale) {
+            // Reset messages so translations do not leak between locales
+            $messages = [];
+
             // Generate messages
             foreach (System::listModules() as $module) {
                 $module = strtolower($module);

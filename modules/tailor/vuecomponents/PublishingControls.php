@@ -1,6 +1,6 @@
 <?php namespace Tailor\VueComponents;
 
-use Backend\Classes\VueComponentBase;
+use System\Classes\VueComponentBase;
 
 /**
  * PublishingControls for Tailor entry as a Vue component.

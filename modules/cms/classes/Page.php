@@ -18,6 +18,7 @@ use ValidationException;
 class Page extends CmsCompoundObject
 {
     use \Cms\Traits\ParsableAttributes;
+    use \Cms\Classes\Page\HasTranslatableBag;
 
     /**
      * @var string dirName associated with the model, eg: pages.

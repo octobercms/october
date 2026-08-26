@@ -48,4 +48,28 @@ return [
         'responsiv_campaign_message' => false,
     ],
 
+    /*
+    |--------------------------------------------------------------------------
+    | Translation Features
+    |--------------------------------------------------------------------------
+    |
+    | Controls how content is translated for sites configured with different
+    | locales. These features activate when matching translations exist.
+    | Be sure to clear the application cache after modifying these settings.
+    |
+    |  - cms_pages - translated page URLs and properties via the translatable component
+    |  - cms_content - content files resolve from locale subdirectories (content/fr/)
+    |  - cms_page_url_redirect - status code used when redirecting a default URL to
+    |    its translated URL, use false to disable the redirect and respond 404 instead
+    |  - system_mail_templates - mail templates translate via attributes and locale view directories
+    |
+    */
+
+    'translate' => [
+        'cms_pages' => true,
+        'cms_content' => true,
+        'cms_page_url_redirect' => 301,
+        'system_mail_templates' => true,
+    ],
+
 ];

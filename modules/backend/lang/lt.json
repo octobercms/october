@@ -327,5 +327,6 @@
   "File not found": "Failas nerastas",
   "There was no data supplied to export": "Nėra pateiktų duomenų eksportavimui",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "PHP priedas :name nėra įdiegtas. Prašome įdiegti ir aktyvuoti šį priedą.",
-  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "Direktorija :name arba jos subdirektorijos nėra įrašomos naudojant PHP. Prašome nustatyti rašymo prieigą serveryje šiai direktorijai."
+  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "Direktorija :name arba jos subdirektorijos nėra įrašomos naudojant PHP. Prašome nustatyti rašymo prieigą serveryje šiai direktorijai.",
+  "Misc": "Įvairus"
 }

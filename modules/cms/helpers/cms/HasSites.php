@@ -36,7 +36,7 @@ trait HasSites
      */
     protected function getPatternFromPage(Page $page, SiteDefinition $site): string
     {
-        $pattern = $page->url;
+        $pattern = $page->getTranslatableUrl($site) ?: $page->url;
 
         /**
          * @event cms.sitePicker.overridePattern

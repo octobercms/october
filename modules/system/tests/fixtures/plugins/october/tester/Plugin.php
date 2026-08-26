@@ -21,6 +21,7 @@ class Plugin extends PluginBase
             'October\Tester\Components\MainMenu' => 'testMainMenu',
             'October\Tester\Components\ContentBlock' => 'testContentBlock',
             'October\Tester\Components\Comments' => 'testComments',
+            'October\Tester\Components\VueBlock' => 'testVueBlock',
         ];
     }
 

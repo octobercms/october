@@ -178,7 +178,6 @@
     'reset_default' => 'Lähtesta vaikeväärtus',
     'resetting' => 'Lähtestan',
     'resetting_name' => 'Lähtestan objekti :name',
-    'undefined_tab' => 'Muu',
     'field_off' => 'Ei',
     'field_on' => 'Jah',
     'add' => 'Lisa',

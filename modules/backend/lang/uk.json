@@ -352,5 +352,6 @@
   "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "Директорія :name та її субдиректорії не мають дозволу для запису для PHP. Будь ласка, встановіть відповідні дозволи для веб-серверу для цієї директорії.",
   "Manage Roles": "Керування ролями",
   "Manage Groups": "Групи",
-  "Customize Backend": "Налаштування адмін панелі"
+  "Customize Backend": "Налаштування адмін панелі",
+  "Misc": "Різне"
 }

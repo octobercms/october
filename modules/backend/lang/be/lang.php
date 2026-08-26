@@ -174,7 +174,6 @@
     'reset_default' => 'Скінуць да стану па змаўчанні',
     'resetting' => 'Скіданне',
     'resetting_name' => 'Скіданне :name',
-    'undefined_tab' => 'Рознае',
     'field_off' => 'Выкл',
     'field_on' => 'Укл',
     'add' => 'Дадаць',

@@ -17,11 +17,20 @@ use Exception;
 class MailPartial extends Model
 {
     use \October\Rain\Database\Traits\Validation;
+    use \October\Rain\Database\Traits\Translatable;
 
     /**
      * @var string table associated with the model
      */
     protected $table = 'system_mail_partials';
+
+    /**
+     * @var array translatable attribute names
+     */
+    public $translatable = [
+        'content_html',
+        'content_text',
+    ];
 
     /**
      * @var array Guarded fields

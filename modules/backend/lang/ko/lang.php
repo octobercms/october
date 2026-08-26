@@ -177,7 +177,6 @@
     'reset_default' => '초기값으로 재설정',
     'resetting' => '재설정중',
     'resetting_name' => '재설정 :name',
-    'undefined_tab' => '기타',
     'field_off' => '끔',
     'field_on' => '켬',
     'add' => '추가',

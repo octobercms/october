@@ -798,7 +798,7 @@ table.table.data {
         background-color: var(--oc-form-control-bg);
         border-top: none;
 
-        > .filter-group > .filter-scope {
+        .filter-group > .filter-scope {
             padding: 10px;
         }
     }

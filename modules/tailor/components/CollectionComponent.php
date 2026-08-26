@@ -11,9 +11,11 @@ use Cms\Classes\ComponentModuleBase;
 class CollectionComponent extends ComponentModuleBase
 {
     /**
-     * @var array primaryRecordCache
+     * @var array implement extensions
      */
-    protected $primaryRecordCache = false;
+    public $implement = [
+        \Cms\Behaviors\ListComponent::class,
+    ];
 
     /**
      * componentDetails
@@ -96,26 +98,25 @@ class CollectionComponent extends ComponentModuleBase
     }
 
     /**
-     * getPrimaryRecord
+     * listCreateQuery returns the base query for the ListComponent behavior
      */
-    public function getPrimaryRecord()
+    public function listCreateQuery()
     {
-        if ($this->primaryRecordCache !== false) {
-            return $this->primaryRecordCache;
-        }
+        $handle = $this->property('handle');
 
-        return $this->primaryRecordCache = $this->getPrimaryRecordResult();
+        return EntryRecord::inSection($handle)->applyVisibleFrontend();
     }
 
     /**
-     * getPrimaryRecordResult
+     * getPrimaryRecordResult extends the behavior to support structure (nested tree)
      */
     public function getPrimaryRecordResult()
     {
         $query = $this->getPrimaryRecordQuery();
+        $sortColumn = $this->property('sortColumn');
 
-        if ($sortColumn = $this->property('sortColumn')) {
-            $query = $query->orderBy($sortColumn, $this->property('sortDirection', 'desc'));
+        if ($sortColumn) {
+            $query = $query->orderBy($sortColumn, $this->property('sortDirection') ?: 'desc');
         }
 
         // Return pagination
@@ -130,17 +131,5 @@ class CollectionComponent extends ComponentModuleBase
 
         // Return collection
         return $query->get();
-    }
-
-    /**
-     * getPrimaryRecordQuery
-     */
-    public function getPrimaryRecordQuery()
-    {
-        $handle = $this->property('handle');
-
-        $model = EntryRecord::inSection($handle)->applyVisibleFrontend();
-
-        return $model;
     }
 }

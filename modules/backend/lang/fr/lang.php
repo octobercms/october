@@ -184,7 +184,6 @@
     'reset_default' => 'Restaurer les valeurs par défaut',
     'resetting' => 'Restauration',
     'resetting_name' => 'Restauration d\'un(e) :name',
-    'undefined_tab' => 'Divers',
     'field_off' => 'Off',
     'field_on' => 'On',
     'add' => 'Ajouter',

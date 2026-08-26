@@ -173,7 +173,6 @@
     'reset_default' => 'Tilbakestill',
     'resetting' => 'Tilbakestiller',
     'resetting_name' => 'Tilbakestiller :name',
-    'undefined_tab' => 'Div.',
     'field_off' => 'Av',
     'field_on' => 'På',
     'add' => 'Legg til',

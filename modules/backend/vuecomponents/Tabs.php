@@ -1,6 +1,6 @@
 <?php namespace Backend\VueComponents;
 
-use Backend\Classes\VueComponentBase;
+use System\Classes\VueComponentBase;
 
 /**
  * Tabs Vue component

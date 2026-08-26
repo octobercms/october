@@ -141,7 +141,6 @@
     'reset_default' => 'Atiestatīt uz noklusējumu',
     'resetting' => 'Atiestatam',
     'resetting_name' => 'Atiestatam :name',
-    'undefined_tab' => 'Izvēles',
     'field_off' => 'Izsl.',
     'field_on' => 'Iesl.',
     'add' => 'Pievienot',

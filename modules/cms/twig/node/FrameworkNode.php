@@ -28,6 +28,7 @@ class FrameworkNode extends TwigNode
         $options = $this->getAttribute('options');
         $includeExtras = in_array('extras', $options, true);
         $includeTurbo = in_array('turbo', $options, true);
+        $includeVue = in_array('vue', $options, true);
 
         $compiler
             ->addDebugInfo($this)
@@ -47,6 +48,10 @@ class FrameworkNode extends TwigNode
 
         if ($cssFile) {
             $compiler->write("yield '<link rel=\"stylesheet\" property=\"stylesheet\" href=\"' . Request::getBasePath() .'/modules/system/assets/css/".$cssFile.".css\">' . PHP_EOL;\n");
+        }
+
+        if ($includeVue) {
+            $compiler->write("yield '<script type=\"module\">import * as Vue from \"' . Request::getBasePath() . '/modules/system/assets/vendor/vue/vue.esm' . (Config::get('app.debug') ? '' : '.prod') . '.js\"; window.Vue = Vue;</script>' . PHP_EOL;\n");
         }
 
         $compiler->write("unset(\$_minify);\n");

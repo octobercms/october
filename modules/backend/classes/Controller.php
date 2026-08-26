@@ -40,7 +40,7 @@ class Controller extends Extendable implements AjaxControllerInterface
     use \System\Traits\ResponseMaker;
     use \System\Traits\DependencyMaker;
     use \System\Traits\SecurityController;
-    use \Backend\Traits\VueMaker;
+    use \System\Traits\VueMaker;
     use \Backend\Traits\ErrorMaker;
     use \Backend\Traits\WidgetMaker;
     use \Larajax\Traits\AjaxController;
@@ -328,10 +328,17 @@ class Controller extends Extendable implements AjaxControllerInterface
         $ownMethod = method_exists($this, $name);
         if ($ownMethod) {
             $methodInfo = new \ReflectionMethod($this, $name);
+            if (strtolower($methodInfo->getName()) !== $methodInfo->getName()) {
+                return false;
+            }
+
             $public = $methodInfo->isPublic();
             if ($public) {
                 return true;
             }
+        }
+        elseif (strtolower($name) !== $name) {
+            return false;
         }
 
         if ($internal && (($ownMethod && $methodInfo->isProtected()) || !$ownMethod)) {

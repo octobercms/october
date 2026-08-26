@@ -31,7 +31,9 @@ class CodeParser
     protected static $cache = [];
 
     /**
-     * @var string dataCacheKey is the key for the parsed PHP file information cache.
+     * @var string dataCacheKey is the key for this file's parsed PHP information.
+     * Each file caches under its own key so reading and writing never touches
+     * the information of other templates.
      */
     protected $dataCacheKey = '';
 
@@ -43,7 +45,7 @@ class CodeParser
     {
         $this->object = $object;
         $this->filePath = $object->getFilePath();
-        $this->dataCacheKey = 'cms_code_parser_'.$object->theme->getDirName();
+        $this->dataCacheKey = 'cms_code_parser_'.$object->theme->getDirName().'_'.md5($this->filePath);
     }
 
     /**
@@ -228,10 +230,7 @@ class CodeParser
         $cacheItem = $result;
         $cacheItem['mtime'] = $this->object->mtime;
 
-        $cached = $this->getCachedInfo() ?: [];
-        $cached[$this->filePath] = $cacheItem;
-
-        $toStore = base64_encode(serialize($cached));
+        $toStore = base64_encode(serialize($cacheItem));
 
         $minutes = Config::get('cms.template_cache_ttl', 1440);
         if ($minutes < 0) {
@@ -262,33 +261,19 @@ class CodeParser
     }
 
     /**
-     * getCachedInfo returns information about all cached files.
-     * @return mixed Returns an array representing the cached data or NULL.
+     * getCachedFileInfo returns information about a cached file
+     * @return array|null
      */
-    protected function getCachedInfo()
+    protected function getCachedFileInfo()
     {
         $cached = Cache::get($this->dataCacheKey, false);
 
         if (
             $cached !== false &&
-            ($cached = @unserialize(@base64_decode($cached), ['allowed_classes' => false])) !== false
+            ($cached = @unserialize(@base64_decode($cached), ['allowed_classes' => false])) !== false &&
+            is_array($cached)
         ) {
             return $cached;
-        }
-
-        return null;
-    }
-
-    /**
-     * getCachedFileInfo returns information about a cached file
-     * @return integer
-     */
-    protected function getCachedFileInfo()
-    {
-        $cached = $this->getCachedInfo();
-
-        if ($cached !== null && array_key_exists($this->filePath, $cached)) {
-            return $cached[$this->filePath];
         }
 
         return null;

@@ -239,7 +239,6 @@
     'reset_default' => 'Palauta oletukseksi',
     'resetting' => 'Palautetaan',
     'resetting_name' => 'Palautetaan :name',
-    'undefined_tab' => 'Muuta',
     'field_off' => 'Pois',
     'field_on' => 'Päällä',
     'add' => 'Lisää',

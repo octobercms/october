@@ -128,9 +128,9 @@ return [
     | Time to live for the URL map.
     |--------------------------------------------------------------------------
     |
-    | The URL map used in the CMS page routing process. By default
-    | the map is updated every time when a page is saved in the backend or when the
-    | interval, in minutes, specified with the url_cache_ttl parameter expires.
+    | The page URL map used in the CMS page routing process. By default
+    | the map is rebuilt every time a page is saved in the backend or when the
+    | interval, in minutes, specified by this parameter expires.
     |
     */
 

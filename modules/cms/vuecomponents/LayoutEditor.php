@@ -1,6 +1,6 @@
 <?php namespace Cms\VueComponents;
 
-use Backend\Classes\VueComponentBase;
+use System\Classes\VueComponentBase;
 
 /**
  * CMS layout editor Vue component

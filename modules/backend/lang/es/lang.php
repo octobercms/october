@@ -165,7 +165,6 @@
     'reset_default' => 'Restablecer por defecto',
     'resetting' => 'Restableciendo',
     'resetting_name' => 'Restableciendo :name',
-    'undefined_tab' => 'Varios',
     'field_off' => 'Apagar',
     'field_on' => 'Encender',
     'add' => 'Agregar',

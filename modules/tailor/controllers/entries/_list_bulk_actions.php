@@ -1,7 +1,8 @@
 <?php
     $statusCode = $this->listGetFilterWidget()->getScope('status_code')->value;
+    $isSubmission = $this->isSectionSubmission();
 ?>
-<?php if ($statusCode === 'deleted'): ?>
+<?php if ($statusCode === 'deleted' || ($isSubmission && $statusCode === 'rejected')): ?>
     <?php if ($this->hasSourcePermission('delete')): ?>
         <?= Ui::ajaxButton(
             label: __("Restore"),
@@ -22,6 +23,45 @@
             secondary: true,
             dataRequestData: "action: 'forceDelete'",
             dataRequestConfirm: __("Are you sure?"),
+            dataListCheckedTrigger: true,
+            dataListCheckedRequest: true,
+            dataStripeLoadIndicator: true
+        ) ?>
+    <?php endif ?>
+<?php elseif ($isSubmission): ?>
+    <?php if ($this->hasSourcePermission('publish')): ?>
+        <?= Ui::ajaxButton(
+            label: __("Approve"),
+            handler: 'onBulkAction',
+            icon: 'icon-check',
+            secondary: true,
+            dataRequestData: "action: 'approve'",
+            dataRequestConfirm: __("Are you sure?"),
+            dataListCheckedTrigger: true,
+            dataListCheckedRequest: true,
+            dataStripeLoadIndicator: true
+        ) ?>
+    <?php endif ?>
+    <?php if ($this->hasSourcePermission('delete')): ?>
+        <?= Ui::ajaxButton(
+            label: __("Reject"),
+            handler: 'onBulkAction',
+            icon: 'icon-ban',
+            secondary: true,
+            dataRequestData: "action: 'reject'",
+            dataRequestConfirm: __("Are you sure?"),
+            dataListCheckedTrigger: true,
+            dataListCheckedRequest: true,
+            dataStripeLoadIndicator: true
+        ) ?>
+
+        <?= Ui::ajaxButton(
+            label: __("Spam"),
+            handler: 'onBulkAction',
+            icon: 'icon-flag',
+            secondary: true,
+            dataRequestData: "action: 'spam'",
+            dataRequestConfirm: __("This will also reject other pending submissions from the same IP address. Are you sure?"),
             dataListCheckedTrigger: true,
             dataListCheckedRequest: true,
             dataStripeLoadIndicator: true

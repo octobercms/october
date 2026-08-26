@@ -1,5 +1,6 @@
 <?php namespace Cms\Classes;
 
+use Site;
 use Lang;
 use Date;
 use File;
@@ -69,6 +70,11 @@ class Router
     protected $routerObj;
 
     /**
+     * October\Rain\Router\Router Router object with default URLs that have translated overrides.
+     */
+    protected $aliasRouterObj;
+
+    /**
      * __construct the router instance.
      * @param \Cms\Classes\Theme $theme Specifies the theme being processed.
      */
@@ -78,12 +84,23 @@ class Router
     }
 
     /**
-     * build builds a rain router based on the theme
+     * build builds a rain router based on the theme, with translated URLs for a site.
+     * @param \System\Models\SiteDefinition|null $site
      * @return RainRouter
      */
-    public function build()
+    public function build($site = null)
     {
-        return $this->buildRouterObject();
+        return $this->buildRouterObject($site);
+    }
+
+    /**
+     * buildAlias builds a rain router of default URLs that are translated for a site.
+     * @param \System\Models\SiteDefinition|null $site
+     * @return RainRouter
+     */
+    public function buildAlias($site = null)
+    {
+        return $this->buildAliasRouterObject($site);
     }
 
     /**
@@ -112,36 +129,21 @@ class Router
         }
 
         for ($pass = 1; $pass <= 2; $pass++) {
-            $fileName = null;
-            $urlList = [];
-
-            $cacheable = Config::get('cms.enable_route_cache');
-            if ($cacheable) {
-                $fileName = $this->getUrlRouteCache($url, $urlList);
-                if (is_array($fileName)) {
-                    [$fileName, $this->parameters] = $fileName;
-                }
-            }
-
-            // Find the page by URL and cache the route
+            // Find the page by URL, matching is compiled and bounded by the
+            // number of pages, visited URLs are not cached individually
             //
-            if (!$fileName) {
-                $router = $this->getRouterObject();
-                if ($router->match($url)) {
-                    $this->parameters = $router->getParameters();
-                    $fileName = $router->matchedRoute();
-
-                    if ($cacheable) {
-                        $this->putUrlRouteCache($fileName, $url, $urlList);
-                    }
-                }
+            $fileName = null;
+            $router = $this->getRouterObject();
+            if ($router->match($url)) {
+                $this->parameters = $router->getParameters();
+                $fileName = $router->matchedRoute();
             }
 
             // Return the page
             //
             if ($fileName) {
                 if (($page = Page::loadCached($this->theme, $fileName)) === null) {
-                    // If the page was not found on the disk, clear the URL cache
+                    // If the page was not found on the disk, clear the route cache
                     // and repeat the routing process.
                     if ($pass === 1) {
                         $this->clearCache();
@@ -174,6 +176,34 @@ class Router
         $router = $this->getRouterObject();
 
         return $router->url($fileName, $parameters);
+    }
+
+    /**
+     * findAliasRedirect matches a URL against default page URLs that have been replaced
+     * by a translated URL, returning the translated path to redirect to.
+     * @param string $url
+     * @return string|null
+     */
+    public function findAliasRedirect($url)
+    {
+        $url = RouterHelper::normalizeUrl($url);
+
+        $router = $this->getAliasRouterObject();
+        if (!$router->match($url)) {
+            return null;
+        }
+
+        $page = Page::loadCached($this->theme, $router->matchedRoute());
+        if (!$page) {
+            return null;
+        }
+
+        $pattern = $page->getTranslatableUrl();
+        if (!$pattern) {
+            return null;
+        }
+
+        return (new RainRouter)->urlFromPattern($pattern, $router->getParameters());
     }
 
     /**
@@ -234,19 +264,88 @@ class Router
     }
 
     /**
-     * buildRouterObject
+     * buildRouterObject builds the URL map, substituting translated URLs for a site.
      */
-    protected function buildRouterObject()
+    protected function buildRouterObject($site = null)
     {
         $router = new RainRouter;
 
         foreach ($this->theme->listPages() as $page) {
-            if ($page->url) {
+            $pattern = ($site ? $page->getTranslatableUrl($site) : null) ?: $page->url;
+            if ($pattern) {
+                $router->route($page->getFileName(), $pattern);
+            }
+        }
+
+        $router->sortRules();
+
+        return $router;
+    }
+
+    /**
+     * getAliasRouterObject autoloads the alias URL map only allowing a single execution.
+     * @return October\Rain\Router\Router
+     */
+    protected function getAliasRouterObject()
+    {
+        if ($this->aliasRouterObj !== null) {
+            return $this->aliasRouterObj;
+        }
+
+        return $this->aliasRouterObj = $this->buildCachedAliasRouterObject();
+    }
+
+    /**
+     * buildAliasRouterObject builds a map of default URLs for pages with a translated URL.
+     */
+    protected function buildAliasRouterObject($site = null)
+    {
+        $router = new RainRouter;
+
+        if (!$site) {
+            return $router;
+        }
+
+        foreach ($this->theme->listPages() as $page) {
+            if (!$page->url) {
+                continue;
+            }
+
+            $pattern = $page->getTranslatableUrl($site);
+            if ($pattern && $pattern !== $page->url) {
                 $router->route($page->getFileName(), $page->url);
             }
         }
 
         $router->sortRules();
+
+        return $router;
+    }
+
+    /**
+     * buildCachedAliasRouterObject
+     */
+    protected function buildCachedAliasRouterObject()
+    {
+        $router = new RainRouter;
+
+        // Use manifest cache, only when the primary manifest routes are usable
+        if ($this->theme->themeIsCached() && $this->getManifestRouteCache()) {
+            $router->fromArray($this->getManifestAliasRouteCache());
+            return $router;
+        }
+
+        // Use dynamic cache
+        if (($cachedArr = $this->getAliasRouteCache()) !== null) {
+            $router->fromArray($cachedArr);
+            return $router;
+        }
+
+        // No cache
+        $router = $this->buildAliasRouterObject(Site::getActiveSite());
+
+        // Store dynamic cache
+        $this->putAliasRouteCache($router->toArray());
 
         return $router;
     }
@@ -258,9 +357,9 @@ class Router
     {
         $router = new RainRouter;
 
-        // Use manifest cache
-        if ($this->theme->themeIsCached()) {
-            $router->fromArray($this->getManifestRouteCache());
+        // Use manifest cache, an empty manifest falls through to a fresh build
+        if ($this->theme->themeIsCached() && ($manifestArr = $this->getManifestRouteCache())) {
+            $router->fromArray($manifestArr);
             return $router;
         }
 
@@ -271,7 +370,7 @@ class Router
         }
 
         // No cache
-        $router = $this->buildRouterObject();
+        $router = $this->buildRouterObject(Site::getActiveSite());
 
         // Store dynamic cache
         $this->putMapRouteCache($router->toArray());
@@ -280,12 +379,16 @@ class Router
     }
 
     /**
-     * clearCache clears the router cache.
+     * clearCache invalidates the router cache for every locale by bumping the cache generation.
      */
     public function clearCache()
     {
-        Cache::forget($this->getMapRouteCacheKey());
-        Cache::forget($this->getUrlRouteCacheKey());
+        $generation = (int) Cache::get('cms.router.generation', 1);
+
+        Cache::memo()->forever('cms.router.generation', $generation + 1);
+
+        $this->routerObj = null;
+        $this->aliasRouterObj = null;
     }
 
     /**
@@ -295,7 +398,15 @@ class Router
      */
     protected function getCacheKey($keyName)
     {
-        return md5($this->theme->getPath()).$keyName.Lang::getLocale();
+        return md5($this->theme->getPath()).$keyName.Lang::getLocale().'.'.$this->getCacheGeneration();
+    }
+
+    /**
+     * getCacheGeneration returns the current router cache generation number.
+     */
+    protected function getCacheGeneration(): int
+    {
+        return (int) Cache::memo()->get('cms.router.generation', 1);
     }
 
     /**
@@ -305,6 +416,58 @@ class Router
     protected function getMapRouteCacheKey()
     {
         return $this->getCacheKey('page-url-map');
+    }
+
+    /**
+     * getAliasRouteCacheKey returns the cache key name for the alias URL list.
+     * @return string
+     */
+    protected function getAliasRouteCacheKey()
+    {
+        return $this->getCacheKey('page-url-alias-map');
+    }
+
+    /**
+     * putAliasRouteCache
+     */
+    protected function putAliasRouteCache($urlMap)
+    {
+        $cacheKey = $this->getAliasRouteCacheKey();
+        $cacheable = Config::get('cms.enable_route_cache');
+        if (!$cacheable) {
+            return;
+        }
+
+        Cache::put(
+            $cacheKey,
+            base64_encode(serialize($urlMap)),
+            Date::now()->addMinutes(Config::get('cms.url_cache_ttl', 60))
+        );
+    }
+
+    /**
+     * getAliasRouteCache returns the cached alias map, or null when not cached.
+     */
+    protected function getAliasRouteCache()
+    {
+        // Cache preferences
+        $cacheKey = $this->getAliasRouteCacheKey();
+        $cacheable = Config::get('cms.enable_route_cache');
+        if (!$cacheable) {
+            return null;
+        }
+
+        $cached = Cache::get($cacheKey, false);
+        if (!$cached) {
+            return null;
+        }
+
+        $unserialized = @unserialize(@base64_decode($cached), ['allowed_classes' => false]);
+        if (!is_array($unserialized)) {
+            return null;
+        }
+
+        return $unserialized;
     }
 
     /**
@@ -351,65 +514,43 @@ class Router
     }
 
     /**
-     * getUrlRouteCacheKey returns the cache key name for the URL list.
-     * @return string
-     */
-    protected function getUrlRouteCacheKey()
-    {
-        return $this->getCacheKey('cms-url-list');
-    }
-
-    /**
-     * getUrlRouteCache tries to load a page file name corresponding to a specified URL
-     * from the cache. Working with the URL list loaded from the cache. Returns the page
-     * file name if the URL exists in the cache. Otherwise returns null.
-     * @param string $url
-     * @param array &$urlList
-     * @return mixed
-     */
-    protected function getUrlRouteCache($url, &$urlList)
-    {
-        $key = $this->getUrlRouteCacheKey();
-        $urlList = Cache::get($key, false);
-
-        if (!$urlList) {
-            return null;
-        }
-
-        $urlList = @unserialize(@base64_decode($urlList), ['allowed_classes' => false]);
-        if (!is_array($urlList)) {
-            return null;
-        }
-
-        return $urlList[$url] ?? null;
-    }
-
-    /**
-     * putUrlRouteCache stored in cache
-     * @param string $url
-     * @param array $urlList
-     */
-    protected function putUrlRouteCache($fileName, $url, $urlList)
-    {
-        if (!$urlList || !is_array($urlList)) {
-            $urlList = [];
-        }
-
-        $urlList[$url] = !empty($this->parameters)
-            ? [$fileName, $this->parameters]
-            : $fileName;
-
-        Cache::put(
-            $this->getUrlRouteCacheKey(),
-            base64_encode(serialize($urlList)),
-            Date::now()->addMinutes(Config::get('cms.url_cache_ttl', 60))
-        );
-    }
-
-    /**
      * getManifestRouteCache returns the cached route map from the theme
      */
     protected function getManifestRouteCache(): array
+    {
+        $manifest = $this->getManifestArray();
+
+        if ($site = Site::getActiveSite()) {
+            $routes = $manifest['siteRoutes'][$site->hard_locale] ?? null;
+            if (is_array($routes)) {
+                return $routes;
+            }
+        }
+
+        return $manifest['routes'] ?? [];
+    }
+
+    /**
+     * getManifestAliasRouteCache returns the cached alias route map from the theme
+     */
+    protected function getManifestAliasRouteCache(): array
+    {
+        $manifest = $this->getManifestArray();
+
+        if ($site = Site::getActiveSite()) {
+            $routes = $manifest['siteAliasRoutes'][$site->hard_locale] ?? null;
+            if (is_array($routes)) {
+                return $routes;
+            }
+        }
+
+        return [];
+    }
+
+    /**
+     * getManifestArray returns the theme cache manifest contents.
+     */
+    protected function getManifestArray(): array
     {
         $manifestPath = $this->theme->getCachedThemePath();
 
@@ -419,7 +560,7 @@ class Router
 
         try {
             if (is_array($manifest = File::getRequire($manifestPath))) {
-                return $manifest['routes'] ?? [];
+                return $manifest;
             }
         }
         catch (Throwable $ex) {

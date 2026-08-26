@@ -328,5 +328,6 @@
   "There was no data supplied to export": "Dışarı aktarılacak veri bulunamadı",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": ":name PHP eklentisi sistemde yüklü değil. Lütfen kütüphaneyi kurun ve eklentiyi aktifleştirin.",
   "The plugin :name is a dependency but is not installed. Please install this plugin.": ":name isimli eklenti gerekli, fakat yüklenmemiş. Lütfen bu eklentiyi yükleyin.",
-  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": ":name dizini ve alt dizinleri PHP tarafından yazılabilir değil. Lütfen bu dizindeki webserver için gerekli yazma izinlerini verin."
+  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": ":name dizini ve alt dizinleri PHP tarafından yazılabilir değil. Lütfen bu dizindeki webserver için gerekli yazma izinlerini verin.",
+  "Misc": "Çeşitli"
 }

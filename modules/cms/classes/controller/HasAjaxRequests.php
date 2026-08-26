@@ -173,6 +173,8 @@ trait HasAjaxRequests
             }
         }
 
+        $response = $this->outputVueComponentsForAjax($response);
+
         // Look for any flash messages, only if response is not redirecting
         if ($this->ajaxRequest->wantsFlash && !$response->isRedirect() && Flash::check()) {
             foreach (Flash::all() as $level => $text) {

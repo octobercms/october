@@ -19,7 +19,7 @@ export default {
             return 'widget_config: ' + JSON.stringify({
                 reportName: config.reportName,
                 widgetClass: config.widgetClass
-            });
+            }) + ', _dash_definition: ' + JSON.stringify(this.store.getCurrentDashboard().code);
         },
     },
     methods: {

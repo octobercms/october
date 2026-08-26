@@ -126,8 +126,7 @@ window.oc.langMessages['ko'] = Object.assign(
             "filter_button_text": "Filter",
             "reset_button_text": "Reset",
             "min_placeholder": "Min",
-            "max_placeholder": "Max",
-            "number_placeholder": "N\u00famero"
+            "max_placeholder": "Max"
         }
     },
     "eventlog": {
@@ -143,8 +142,7 @@ window.oc.langMessages['ko'] = Object.assign(
             "openWith": "\uac19\uc774 \uc5f4\uae30",
             "remember_choice": "\uc774 \uc138\uc158\uc758 \uc635\uc158\uc744 \uae30\uc5b5",
             "open": "\uc5f4\uae30",
-            "cancel": "\ucde8\uc18c",
-            "rememberChoice": "Recuerde la opci\u00f3n seleccionada para esta sesi\u00f3n del navegador"
+            "cancel": "\ucde8\uc18c"
         }
     },
     "upload": {

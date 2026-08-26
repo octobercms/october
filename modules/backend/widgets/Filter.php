@@ -118,7 +118,7 @@ class Filter extends WidgetBase implements FilterElement
      */
     protected function loadAssets()
     {
-        $this->addJs('js/october.filter.js');
+        $this->addJs('js/october.filter.js', ['type' => 'module']);
     }
 
     /**

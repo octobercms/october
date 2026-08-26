@@ -1,6 +1,6 @@
 <?php namespace Backend\VueComponents;
 
-use Backend\Classes\VueComponentBase;
+use System\Classes\VueComponentBase;
 
 /**
  * Spreadsheet is a Handsontable-based Vue component for key-value editing

@@ -13,6 +13,7 @@ use Cms\Twig\Node\FrameworkNode;
  *     {% framework extras %}
  *     {% framework turbo %}
  *     {% framework extras turbo %}
+ *     {% framework vue %}
  *
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges

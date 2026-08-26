@@ -191,7 +191,13 @@ class DataTable extends FormWidgetBase
     {
         switch ($type) {
             case 'checkbox':
-                return ['type' => 'checkbox'];
+                // Templates are set to 1/0 to match the legacy Table widget's
+                // integer checkbox format, keeping both modes interchangeable.
+                return [
+                    'type' => 'checkbox',
+                    'checkedTemplate' => 1,
+                    'uncheckedTemplate' => 0,
+                ];
 
             case 'dropdown':
                 // Strict picker: full list always shown, must pick one option.

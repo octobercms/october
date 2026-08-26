@@ -19,6 +19,7 @@
         <env name="APP_ENV" value="testing" />
         <env name="APP_LOCALE" value="en" />
         <env name="CACHE_DRIVER" value="array" />
+        <env name="CACHE_STORE" value="array" />
         <env name="SESSION_DRIVER" value="array" />
         <env name="ACTIVE_THEME" value="test" />
         <env name="CONVERT_LINE_ENDINGS" value="true" />

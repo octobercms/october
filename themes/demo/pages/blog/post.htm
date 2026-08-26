@@ -12,6 +12,12 @@ isDefault = 1
 [collection blogCategories]
 handle = "Blog\Category"
 
+[collection comments]
+handle = "Blog\Comment"
+
+[submission commentForm]
+handle = "Blog\Comment"
+
 [resources]
 vars[activeNavLink] = 'blog'
 ==
@@ -81,6 +87,6 @@ vars[activeNavLink] = 'blog'
     </div>
     <div class="card-divider"></div>
     <div class="card-body card-lg">
-        {% partial 'blog/comment-form' %}
+        {% ajaxPartial 'blog/comment-form' %}
     </div>
 </article>

@@ -292,6 +292,10 @@ class BlueprintIndexer
      */
     protected function putCache($name, array $contents): void
     {
+        if (App::runningUnitTests()) {
+            return;
+        }
+
         File::put(
             $this->makeCacheFile($name),
             '<?php return '.var_export($contents, true).';'

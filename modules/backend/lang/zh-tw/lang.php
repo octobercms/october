@@ -131,7 +131,6 @@
     'reset_default' => '重置到預設',
     'resetting' => '重置',
     'resetting_name' => '重置 :name',
-    'undefined_tab' => '雜項',
     'field_off' => '關',
     'field_on' => '開',
     'add' => '增加',

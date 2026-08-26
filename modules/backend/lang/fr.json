@@ -399,5 +399,6 @@
   "Excludes": "Exclut",
   "Manage Roles": "Gérer les rôles",
   "Manage Groups": "Groupes",
-  "Customize Backend": "Personnaliser l’interface d’administration"
+  "Customize Backend": "Personnaliser l’interface d’administration",
+  "Misc": "Divers"
 }

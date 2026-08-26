@@ -355,5 +355,6 @@
   "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "Hakemisto :name tai sen alihakemistot ei ole PHP:n kirjoitettavissa. Aseta vastaavat oikeudet tälle hakemistolle verkkopalvelimella.",
   "Manage Roles": "Hallinnoi Rooleja",
   "Manage Groups": "Hallinnoi ryhmiä",
-  "Customize Backend": "Kustomoi ylläpito"
+  "Customize Backend": "Kustomoi ylläpito",
+  "Misc": "Muuta"
 }

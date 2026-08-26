@@ -184,7 +184,6 @@
     'reset_default' => 'Terug naar standaard instellingen',
     'resetting' => 'Bezig met terugzetten',
     'resetting_name' => ':name terugzetten',
-    'undefined_tab' => 'Overig',
     'field_off' => 'Uit',
     'field_on' => 'Aan',
     'add' => 'Toevoegen',

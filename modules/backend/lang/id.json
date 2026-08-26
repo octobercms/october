@@ -300,5 +300,6 @@
   "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Pilih jumlah data per halaman untuk ditampilkan. Mohon diingat, jumlah data yang banyak dalam satu halaman dapat menurunkan performa.",
   "Add Selected": "Tambah terpilih",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "Ekstensi PHP :name tidak terpasang. Silakan instalasi modul ini dan aktifkan ekstensi.",
-  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "Direktori :name atau direktori di bawahnya tidak dapat ditulis oleh PHP. Silakan atur hak akses webserver yang sesuai pada direktori ini."
+  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "Direktori :name atau direktori di bawahnya tidak dapat ditulis oleh PHP. Silakan atur hak akses webserver yang sesuai pada direktori ini.",
+  "Misc": "Lain-lain"
 }

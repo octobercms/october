@@ -2,7 +2,7 @@
 
 use Url;
 use Event;
-use Backend\Classes\VueComponentBase;
+use System\Classes\VueComponentBase;
 use Backend\Models\Preference as BackendPreference;
 
 /**

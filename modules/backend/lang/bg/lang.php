@@ -140,7 +140,6 @@
     'reset_default' => 'Възстанови по подразбиране',
     'resetting' => 'Възстановяване',
     'resetting_name' => 'Възстановяване :name',
-    'undefined_tab' => 'Разни',
     'field_off' => 'Изключен',
     'field_on' => 'Включен',
     'add' => 'Добави',

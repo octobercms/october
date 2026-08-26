@@ -197,7 +197,6 @@
     'reset_default' => 'Reiniciar als valors per defecte',
     'resetting' => 'Reiniciant',
     'resetting_name' => 'Reiniciant :name',
-    'undefined_tab' => 'Misc',
     'field_off' => 'Off',
     'field_on' => 'On',
     'add' => 'Afegir',

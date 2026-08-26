@@ -9,7 +9,7 @@
             <div class="file-upload-modal-image-header">
                 <button type="button" class="btn-close" data-dismiss="popup"></button>
                 <img
-                    src="<?= $file->thumbUrl ?>"
+                    src="<?= e($file->thumbUrl) ?>"
                     class="img-fluid center-block"
                     alt=""
                     title="<?= __("Attachment") ?>: <?= e($file->file_name) ?>"
@@ -42,7 +42,7 @@
                     <?= __("Cancel") ?>
                 </a>
             </span>
-            <a href="<?= $file->pathUrl ?>" class="pull-right btn btn-link fileupload-url-button" target="_blank">
+            <a href="<?= e($file->pathUrl) ?>" class="pull-right btn btn-link fileupload-url-button" target="_blank">
                 <i class="oc-icon-link"></i><?= __("Attachment URL") ?>
             </a>
         </div>

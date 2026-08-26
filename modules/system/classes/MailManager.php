@@ -18,6 +18,8 @@ use TijsVerkoyen\CssToInlineStyles\CssToInlineStyles;
  */
 class MailManager
 {
+    use \System\Classes\MailManager\HasMailLocale;
+
     /**
      * @var array A cache of customized mail templates.
      */
@@ -122,20 +124,35 @@ class MailManager
             return false;
         }
 
-        if (isset($this->templateCache[$code])) {
-            $template = $this->templateCache[$code];
-        }
-        else {
-            $this->templateCache[$code] = $template = MailTemplate::findOrMakeTemplate($code);
-        }
+        $locale = $this->getMailLocale($data);
 
-        if (!$template) {
-            return false;
-        }
+        return $this->withLocale($locale, function () use ($message, $code, $data, $plainOnly, $locale) {
+            $cacheKey = $locale ? "{$code}:{$locale}" : $code;
 
-        $this->addContentToMailerInternal($message, $template, $data, $plainOnly);
+            if (isset($this->templateCache[$cacheKey])) {
+                $template = $this->templateCache[$cacheKey];
+            }
+            else {
+                $this->templateCache[$cacheKey] = $template = MailTemplate::findOrMakeTemplate($code);
+                $this->localizeMailTemplate($template, $code, $locale);
+            }
 
-        return true;
+            if (!$template) {
+                return false;
+            }
+
+            $lastRenderLocale = $this->renderLocale;
+
+            try {
+                $this->renderLocale = $locale;
+                $this->addContentToMailerInternal($message, $template, $data, $plainOnly);
+            }
+            finally {
+                $this->renderLocale = $lastRenderLocale;
+            }
+
+            return true;
+        });
     }
 
     /**
@@ -290,6 +307,8 @@ class MailManager
         if (!$partial = MailPartial::findOrMakePartial($code)) {
             return '<!-- Missing partial: '.$code.' -->';
         }
+
+        $this->localizeMailPartial($partial, $code, $this->renderLocale);
 
         if ($this->isHtmlRenderMode) {
             $content = $partial->content_html;

@@ -200,5 +200,6 @@
   "Debug mode is enabled. This is not recommended for production installations.": "Uključen je mod za ispravljanje grešaka što nije preporučljivo.",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "Produžetak za PHP :name nije instaliran. Instaliraj ovu biblioteku i produžetak.",
   "The plugin :name is a dependency but is not installed. Please install this plugin.": "Produžetak :name je obavezan ali nije instaliran. Instaliraj ovaj produžetak.",
-  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "PHP ne može pristupiti direktorijumu :name ili njegovim poddirektorijuma zarad upisivanja. Promeni RWX dozvole na serveru za ovaj direktorijum."
+  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "PHP ne može pristupiti direktorijumu :name ili njegovim poddirektorijuma zarad upisivanja. Promeni RWX dozvole na serveru za ovaj direktorijum.",
+  "Misc": "Razno"
 }

@@ -352,5 +352,6 @@
   "An account with a generic login :name was found. Please rename this administrator account.": "Uma conta com e login genérica :name foi encontrada. Por favor, renomeie esta conta de administrador.",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "A extensão PHP :name não está instalada. Por favor, instale esta biblioteca para ativar a extensão.",
   "The plugin :name is a dependency but is not installed. Please install this plugin.": "O plugin :name é uma dependência, mas não está instalado. Por favor, instale este plugin.",
-  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "Diretório :name ou seus subdiretórios não são graváveis pelo PHP. Por favor, defina permissões de escrita para o servidor neste diretório."
+  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "Diretório :name ou seus subdiretórios não são graváveis pelo PHP. Por favor, defina permissões de escrita para o servidor neste diretório.",
+  "Misc": "Outros"
 }

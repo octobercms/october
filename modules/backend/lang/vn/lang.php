@@ -184,7 +184,6 @@
     'reset_default' => 'Khôi phục Mặc định',
     'resetting' => 'Đang khôi phục',
     'resetting_name' => 'Đang khôi phục :name',
-    'undefined_tab' => 'Khác',
     'field_off' => 'Tắt',
     'field_on' => 'Bật',
     'add' => 'Thêm',

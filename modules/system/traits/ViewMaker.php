@@ -314,7 +314,7 @@ trait ViewMaker
     public function guessViewPathFrom($class, $suffix = '', $isPublic = false)
     {
         // Pass to the controller to share the cache
-        if (isset($this->controller)) {
+        if (isset($this->controller) && method_exists($this->controller, 'guessViewPathFrom')) {
             return $this->controller->guessViewPathFrom($class, $suffix, $isPublic);
         }
 

@@ -124,7 +124,6 @@
     'reset_default' => '初期値にリセット',
     'resetting' => 'リセット',
     'resetting_name' => ':name を初期値にリセット中...',
-    'undefined_tab' => 'その他',
     'field_off' => '無効',
     'field_on' => '',
     'add' => 'Add',

@@ -230,7 +230,6 @@
     'reset_default' => 'Redefinir para o padrão',
     'resetting' => 'Redefinindo',
     'resetting_name' => 'Redefinindo :name',
-    'undefined_tab' => 'Outros',
     'field_off' => 'Desl',
     'field_on' => 'Lig',
     'add' => 'Adicionar',

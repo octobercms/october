@@ -303,5 +303,6 @@
   "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Välj antalet poster som ska visas per sida. Observera att högt antal poster per sida kan påverka prestandan.",
   "Add Selected": "Lägg till vald",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "PHP-tillägget: Namnet är inte installerat. Vänligen installera och aktivera det biblioteket.",
-  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "Katalogen :name eller dess underkataloger är inte skrivbara av PHP. Väligen ändra dess motsvarande behörigheter för web-servern i denna katalogen."
+  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "Katalogen :name eller dess underkataloger är inte skrivbara av PHP. Väligen ändra dess motsvarande behörigheter för web-servern i denna katalogen.",
+  "Misc": "Övrigt"
 }

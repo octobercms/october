@@ -1,5 +1,5 @@
 .control-filter {
-    > .filter-group > .filter-scope.scope-dropdown {
+    .filter-group > .filter-scope.scope-dropdown {
         padding: 8px 0 4px;
 
         &:after {
@@ -37,11 +37,6 @@
                 }
             }
 
-            &.select2-container--open {
-                border-radius: 0;
-                border: none;
-            }
-
             .select2-selection__arrow {
                 font-size: 14px;
                 top: 1px;
@@ -52,6 +47,14 @@
                 padding: 0 28px 0 0;
                 font-size: 14px;
                 color: var(--oc-filter-text);
+            }
+
+            &.select2-container--open {
+                border-radius: 0;
+                border: none;
+                .select2-selection__rendered {
+                    color: var(--oc-filter-text-active);
+                }
             }
         }
 

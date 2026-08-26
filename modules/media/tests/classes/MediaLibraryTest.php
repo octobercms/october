@@ -34,6 +34,16 @@ class MediaLibraryTest extends TestCase
             ['file/..'],
             ['......./secret'],
             ['./file'],
+            ["file\0.jpg"],
+            ["file\x1F.jpg"],
+            ["file\u{202E}gpj.exe"],
+            ["\xC3\x28file.jpg"],
+            ['file:alt.jpg'],
+            ['file?.jpg'],
+            ['file*.jpg'],
+            ['file"quote".jpg'],
+            ['<script>.jpg'],
+            ['file|pipe.jpg'],
         ];
     }
 
@@ -68,6 +78,14 @@ class MediaLibraryTest extends TestCase
             ['one=(two)[].ext'],
             ['one_(two)[].ext'],
             ['BG中国通讯期刊(Blend\'r)创刊号.pdf'],
+            ['файл-тест.jpg'],
+            ['Caldeirões/água.png'],
+            ["Caldeiro\u{0303}es.jpg"],
+            ['ملف.jpg'],
+            ['קובץ.jpg'],
+            ['photo #1.jpg'],
+            ['a+b 100%.jpg'],
+            ['tom & jerry!.jpg'],
         ];
     }
 

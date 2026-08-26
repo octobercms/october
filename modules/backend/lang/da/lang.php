@@ -169,7 +169,6 @@
     'reset_default' => 'Nulstil til standard',
     'resetting' => 'Nulstiller',
     'resetting_name' => 'Nulstiller :name',
-    'undefined_tab' => 'Andet',
     'field_off' => 'Fra',
     'field_on' => 'Til',
     'add' => 'Tilføj',

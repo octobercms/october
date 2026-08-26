@@ -355,5 +355,6 @@
   "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "Каталог :name или его подкаталоги недоступны для записи. Укажите соответствующие разрешения для веб-сервера.",
   "Manage Roles": "Управление ролями",
   "Manage Groups": "Управление группами",
-  "Customize Backend": "Персонализация панели управления"
+  "Customize Backend": "Персонализация панели управления",
+  "Misc": "Разное"
 }

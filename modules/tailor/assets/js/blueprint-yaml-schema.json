@@ -11966,6 +11966,23 @@
         "structure": {
             "$ref": "#/definitions/ListStructure"
         },
+        "submission": {
+            "properties": {
+                "purgeRejectedDays": {
+                    "description": "Days to keep rejected submissions before they are permanently deleted, defaults to 30. Use 0 to disable purging.",
+                    "type": "integer"
+                },
+                "spamSweepDays": {
+                    "description": "Lookback window in days for rejecting other pending submissions from the same IP address when marking spam, defaults to 30. Use 0 to disable the sweep.",
+                    "type": "integer"
+                },
+                "titleTemplate": {
+                    "description": "Twig template used to build the record title, eg: {{ author_name }}. Use the record variable to access relations, eg: {{ record.post.title }}.",
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
         "type": {
             "enum": [
                 "entry",
@@ -11973,7 +11990,8 @@
                 "mixin",
                 "single",
                 "stream",
-                "structure"
+                "structure",
+                "submission"
             ],
             "type": "string"
         },

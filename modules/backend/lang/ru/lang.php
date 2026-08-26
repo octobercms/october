@@ -244,7 +244,6 @@
     'reset_default' => 'Сбросить настройки',
     'resetting' => 'Сброс',
     'resetting_name' => 'Сброс :name',
-    'undefined_tab' => 'Разное',
     'field_off' => 'Выкл',
     'field_on' => 'Вкл',
     'add' => 'Добавить',

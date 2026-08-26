@@ -224,7 +224,6 @@
     'reset_default' => 'Ponastavi na privzeto',
     'resetting' => 'Ponastavljanje',
     'resetting_name' => 'Ponastavljanje :name',
-    'undefined_tab' => 'Razno',
     'field_off' => 'Ne',
     'field_on' => 'Da',
     'add' => 'Dodaj',

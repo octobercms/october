@@ -10,6 +10,7 @@ use Config;
 use System;
 use Session;
 use Request;
+use Redirect;
 use Response;
 use BackendAuth;
 use Twig\Environment as TwigEnvironment;
@@ -39,6 +40,7 @@ class Controller implements AjaxControllerInterface
     use \System\Traits\EventEmitter;
     use \System\Traits\ResponseMaker;
     use \System\Traits\SecurityController;
+    use \System\Traits\VueMaker;
 
     /**
      * @var \Cms\Classes\Theme theme reference to the CMS theme processed by the controller.
@@ -159,6 +161,13 @@ class Controller implements AjaxControllerInterface
         $page = $this->router->findByUrl($url);
         if ($page && $page->is_hidden && !BackendAuth::getUser()) {
             $page = null;
+        }
+
+        // Redirect the default URL to its translated URL for the active site
+        if (!$page && ($redirectCode = (int) Config::get('multisite.translate.cms_page_url_redirect', 301))) {
+            if (($aliasUrl = $this->router->findAliasRedirect($url)) !== null) {
+                return Redirect::to(Cms::url($aliasUrl), $redirectCode);
+            }
         }
 
         $originalPageFound = !!$page;
@@ -305,6 +314,9 @@ class Controller implements AjaxControllerInterface
         ], (array) $options));
 
         $useAjax = !($capture || $render);
+
+        // Apply translated page properties for the active site
+        $page->applyTranslatableContext();
 
         // If the page doesn't refer any layout, create the fallback layout.
         // Otherwise load the layout specified in the page.

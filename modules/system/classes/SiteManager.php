@@ -218,6 +218,21 @@ class SiteManager extends Extendable
     }
 
     /**
+     * getLocaleKeyChain returns locale lookup keys in priority order, where a regional
+     * locale (fr-CA) degrades to its base language (fr).
+     */
+    public function getLocaleKeyChain(string $locale): array
+    {
+        $keys = [$locale];
+
+        if ($position = strpos($locale, '-')) {
+            $keys[] = substr($locale, 0, $position);
+        }
+
+        return array_unique(array_filter($keys));
+    }
+
+    /**
      * listSitesFromManifest
      */
     protected function listSitesFromManifest($sites)

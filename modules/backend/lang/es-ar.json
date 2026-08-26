@@ -68,5 +68,6 @@
   "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Seleccione el número de registros por página para mostrar. Tenga en cuenta que un alto número de registros en una sola página puede reducir el rendimiento.",
   "Add Selected": "Agregar seleccionado",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "La extensión PHP :name no está instalada. Por favor instale esta librería y active la extensión.",
-  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "El directorio :name o los subdirectorios no se puede escribir por PHP. Por favor establezca los permisos correctos para el servidor web en este directorio."
+  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "El directorio :name o los subdirectorios no se puede escribir por PHP. Por favor establezca los permisos correctos para el servidor web en este directorio.",
+  "Misc": "Misc"
 }

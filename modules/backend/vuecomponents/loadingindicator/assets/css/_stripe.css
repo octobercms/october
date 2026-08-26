@@ -3,7 +3,6 @@ div.component-backend-loading-indicator {
     &.style-bar {
         width: 100%;
         /* z-index for spreadsheet */
-        position: relative;
         z-index: 200;
 
         .stripe-indicator {

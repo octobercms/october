@@ -36,7 +36,7 @@ class FormTabs extends FieldsetDefinition
 
         $this
             ->section(self::SECTION_OUTSIDE)
-            ->defaultTab('backend::lang.form.undefined_tab')
+            ->defaultTab("Misc")
             ->linkable()
             ->icons([])
             ->lazy([])

@@ -169,7 +169,6 @@
     'reset_default' => 'Επαναφορά στο προκαθορισμένο',
     'resetting' => 'Επαναφορά',
     'resetting_name' => 'Επαναφορά :name',
-    'undefined_tab' => 'Διάφορα',
     'field_off' => 'Όχι',
     'field_on' => 'Ναι',
     'add' => 'Προσθήκη',

@@ -220,7 +220,6 @@
     'reset_default' => 'Resetuj do domyślnych',
     'resetting' => 'Resetowanie',
     'resetting_name' => 'Resetowanie :name',
-    'undefined_tab' => 'Różne',
     'field_off' => 'Wył.',
     'field_on' => 'Wł.',
     'add' => 'Dodaj',

@@ -126,7 +126,7 @@ export default class DragScroll {
                 }
 
                 // Don't prevent clicking inputs in the toolbar
-                if (event.target && event.target.tagName === 'INPUT') {
+                if (event.target && ['INPUT', 'SELECT', 'TEXTAREA'].includes(event.target.tagName)) {
                     return;
                 }
 

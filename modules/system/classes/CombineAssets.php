@@ -646,15 +646,13 @@ class CombineAssets
      */
     protected function putCache($cacheKey, array $cacheInfo)
     {
-        $cacheKey = 'combiner.'.$cacheKey;
+        $cacheKey = $this->makeCacheKey($cacheKey);
 
         if (Cache::memo()->has($cacheKey)) {
             return false;
         }
 
-        $this->putCacheIndex($cacheKey);
-
-        Cache::forever($cacheKey, base64_encode(json_encode($cacheInfo)));
+        Cache::memo()->forever($cacheKey, base64_encode(json_encode($cacheInfo)));
 
         return true;
     }
@@ -666,11 +664,11 @@ class CombineAssets
      */
     protected function getCache($cacheKey)
     {
-        $cacheKey = 'combiner.'.$cacheKey;
+        $cacheKey = $this->makeCacheKey($cacheKey);
 
         if ($cache = Cache::memo()->get($cacheKey)) {
             $decoded = base64_decode($cache);
-            // @deprecated unserialize can be removed in v4.4
+            // @deprecated unserialize can be removed in v4.5
             return json_decode($decoded, true) ?: @unserialize($decoded, ['allowed_classes' => false]);
         }
 
@@ -712,13 +710,32 @@ class CombineAssets
     }
 
     /**
+     * makeCacheKey prefixes an identifier with the current cache generation.
+     * Resetting the cache bumps the generation instead of enumerating and
+     * deleting every stored identifier.
+     */
+    protected function makeCacheKey($cacheKey): string
+    {
+        $generation = (int) Cache::memo()->get('combiner.generation', 1);
+
+        return 'combiner.'.$generation.'.'.$cacheKey;
+    }
+
+    /**
      * resetCache resets the combiner cache
      */
     public static function resetCache()
     {
+        $generation = (int) Cache::get('combiner.generation', 1);
+
+        // Write through the memo store so the bump is visible to reads
+        // within this request too
+        Cache::memo()->forever('combiner.generation', $generation + 1);
+
+        // Purge the index used by previous versions
+        // @deprecated this block can be removed in v4.5
         if ($cache = Cache::get('combiner.index')) {
             $decoded = base64_decode($cache);
-            // @deprecated unserialize can be removed in v4.4
             $index = (array) (json_decode($decoded, true) ?: @unserialize($decoded, ['allowed_classes' => false])) ?: [];
 
             foreach ($index as $cacheKey) {
@@ -729,31 +746,5 @@ class CombineAssets
         }
 
         CacheHelper::instance()->clearCombiner();
-    }
-
-    /**
-     * putCacheIndex adds a cache identifier to the index store used for
-     * performing a reset of the cache. Returns false if identifier is already in store
-     * @param string $cacheKey Cache identifier
-     */
-    protected function putCacheIndex($cacheKey): bool
-    {
-        $index = [];
-
-        if ($cache = Cache::memo()->get('combiner.index')) {
-            $decoded = base64_decode($cache);
-            // @deprecated unserialize can be removed in v4.4
-            $index = (array) (json_decode($decoded, true) ?: @unserialize($decoded, ['allowed_classes' => false])) ?: [];
-        }
-
-        if (in_array($cacheKey, $index)) {
-            return false;
-        }
-
-        $index[] = $cacheKey;
-
-        Cache::forever('combiner.index', base64_encode(json_encode($index)));
-
-        return true;
     }
 }

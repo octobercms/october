@@ -530,6 +530,9 @@ class Blueprint extends Extendable
             case 'structure':
                 $className = Blueprint\StructureBlueprint::class;
                 break;
+            case 'submission':
+                $className = Blueprint\SubmissionBlueprint::class;
+                break;
         }
 
         if ($className === null) {

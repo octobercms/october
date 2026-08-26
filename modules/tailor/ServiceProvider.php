@@ -45,6 +45,7 @@ class ServiceProvider extends ModuleServiceProvider
            \Tailor\Components\GlobalComponent::class => 'global',
            \Tailor\Components\SectionComponent::class => 'section',
            \Tailor\Components\CollectionComponent::class => 'collection',
+           \Tailor\Components\SubmissionComponent::class => 'submission',
         ];
     }
 

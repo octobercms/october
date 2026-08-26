@@ -46,7 +46,7 @@
                 <div class="server-file"
                     data-id="<?= $file->id ?>"
                     data-path="<?= $file->pathUrl ?>"
-                    data-thumb="<?= $file->thumbUrl ?>"
+                    data-thumb="<?= e($file->thumbUrl) ?>"
                     data-name="<?= e($file->title ?: $file->file_name) ?>"
                     data-description="<?= e($file->description) ?>"
                     data-size="<?= e($file->file_size) ?>"

@@ -193,7 +193,6 @@
     'reset_default' => 'Obnovit výchozí',
     'resetting' => 'Obnovování',
     'resetting_name' => 'Obnovování :name',
-    'undefined_tab' => 'Ostatní',
     'field_off' => 'Vyp',
     'field_on' => 'Zap',
     'add' => 'Přidat',

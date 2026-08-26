@@ -146,6 +146,48 @@ class CodeParserTest extends TestCase
         $this->assertEquals($expectedContent, file_get_contents($info['filePath']));
     }
 
+    public function testTemplatesCacheUnderIndependentKeys()
+    {
+        $theme = Theme::load('test');
+        $layout = Layout::load($theme, 'php-parser-test.htm');
+        $page = Page::load($theme, 'cycle-test.htm');
+
+        // Start from a fresh request-wide cache
+        $requestCache = self::getProperty('cache');
+        $requestCache->setAccessible(true);
+        $requestCache->setValue(null, []);
+
+        $parserA = new CodeParser($layout);
+        $parserB = new CodeParser($page);
+
+        // Every template caches under its own key
+        $keyProperty = self::getProperty('dataCacheKey');
+        $keyProperty->setAccessible(true);
+        $keyA = $keyProperty->getValue($parserA);
+        $keyB = $keyProperty->getValue($parserB);
+        $this->assertNotEquals($keyA, $keyB);
+
+        $parserA->parse();
+        $storedA = Cache::get($keyA);
+        $this->assertNotNull($storedA);
+
+        // Storing another template, as a concurrent request on another
+        // server would, never rewrites this template's entry
+        $parserB->parse();
+        $this->assertEquals($storedA, Cache::get($keyA));
+        $this->assertNotNull(Cache::get($keyB));
+
+        // Both entries resolve for fresh parsers, as on a later request
+        $requestCache->setValue(null, []);
+
+        foreach ([[$layout, 'layout'], [$page, 'page']] as [$template, $label]) {
+            $info = self::callProtectedMethod(new CodeParser($template), 'getCachedFileInfo', []);
+            $this->assertIsArray($info, "No cached info for {$label}");
+            $this->assertArrayHasKey('className', $info);
+            $this->assertArrayHasKey('mtime', $info);
+        }
+    }
+
     public function testParsePage()
     {
         $theme = Theme::load('test');

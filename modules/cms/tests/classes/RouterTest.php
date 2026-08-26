@@ -28,37 +28,95 @@ class RouterTest extends TestCase
         return $property;
     }
 
-    public function testUrlListCaching()
+    public function testRouteMapCaching()
     {
         $router = new Router(self::$theme);
-        $method = self::getMethod('getUrlRouteCache');
-        $urlList = [];
+        $method = self::getMethod('getMapRouteCache');
 
         /*
-         * The first time the page should be loaded from the disk.
+         * The first time the map should be built from the disk.
          */
-        $result = $method->invokeArgs($router, ['/', &$urlList]);
-        $this->assertNull($result);
+        $router->clearCache();
+        $this->assertNull($method->invoke($router));
 
         /*
-         * Resolve the page to initialize the cache
+         * Resolve a page to initialize the cache
          */
         $page = $router->findByUrl('/');
         $this->assertNotEmpty($page);
         $this->assertEquals('index.htm', $page->getFileName());
 
         /*
-         * The second time the page should be loaded from the cache.
+         * The route map is cached, visited URLs are not cached individually
          */
-        $result = $method->invokeArgs($router, ['/', &$urlList]);
-        $this->assertEquals('index.htm', $result);
+        $this->assertIsArray($method->invoke($router));
 
         /*
-         * Clear the cache
+         * A fresh router resolves from the cached map
+         */
+        $router = new Router(self::$theme);
+        $page = $router->findByUrl('/');
+        $this->assertNotEmpty($page);
+        $this->assertEquals('index.htm', $page->getFileName());
+
+        /*
+         * Clearing the cache still resolves pages
          */
         $router->clearCache();
-        $result = $method->invokeArgs($router, ['/', &$urlList]);
-        $this->assertNull($result);
+        $this->assertNull($method->invoke($router));
+        $page = $router->findByUrl('/');
+        $this->assertNotEmpty($page);
+        $this->assertEquals('index.htm', $page->getFileName());
+    }
+
+    public function testStaleSharedCacheRetriesFromDisk()
+    {
+        $router = new Router(self::$theme);
+        $router->clearCache();
+
+        /*
+         * Another server instance cached a route map that points to a page
+         * no longer present on the disk
+         */
+        $staleSource = new October\Rain\Router\Router;
+        $staleSource->route('deleted-page.htm', '/');
+        self::getMethod('putMapRouteCache')->invokeArgs($router, [$staleSource->toArray()]);
+        $this->assertIsArray(self::getMethod('getMapRouteCache')->invoke($router));
+
+        /*
+         * The stale entry resolves to a missing page, the router must clear
+         * the shared cache and rebuild from the disk on the second pass
+         */
+        $page = $router->findByUrl('/');
+        $this->assertNotEmpty($page);
+        $this->assertEquals('index.htm', $page->getFileName());
+
+        /*
+         * The rebuilt map is cached for the other instances, without the
+         * stale rule
+         */
+        $cached = self::getMethod('getMapRouteCache')->invoke($router);
+        $rules = $cached['rules'] ?? $cached;
+        $ruleNames = array_column($rules, 'ruleName');
+        $this->assertNotContains('deleted-page.htm', $ruleNames);
+        $this->assertContains('index.htm', $ruleNames);
+    }
+
+    public function testCorruptedSharedCacheRebuilds()
+    {
+        $router = new Router(self::$theme);
+        $router->clearCache();
+
+        /*
+         * A torn or corrupted cache write from another instance must never
+         * break routing
+         */
+        $cacheKey = self::getMethod('getMapRouteCacheKey')->invoke($router);
+        Cache::put($cacheKey, 'corrupted-by-torn-write', now()->addMinutes(5));
+
+        $page = $router->findByUrl('/');
+        $this->assertNotEmpty($page);
+        $this->assertEquals('index.htm', $page->getFileName());
     }
 
     public function testFindPageByUrl()

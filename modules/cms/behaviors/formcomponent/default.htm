@@ -1,0 +1,155 @@
+{% set fields = __SELF__.formGetFields() %}
+
+<form
+    data-request="{{ __SELF__ }}::onFormSubmit"
+    data-request-update="{ _self: true }"
+    data-request-flash
+    {% if __SELF__.formHasFileFields %}data-request-files{% endif %}>
+
+    {% if formSubmitted %}
+        <div class="alert alert-success">
+            {{ formSuccessMessage|default('Thank you for your submission!') }}
+        </div>
+    {% else %}
+        {% for field in fields %}
+            {% if field.htmlType == 'textarea' %}
+                <div class="mb-3">
+                    <label for="formField_{{ field.name }}" class="form-label">
+                        {{ field.label }}
+                    </label>
+                    <textarea
+                        name="{{ field.name }}"
+                        id="formField_{{ field.name }}"
+                        class="form-control"
+                        placeholder="{{ field.placeholder }}"
+                        {% if field.required %}required{% endif %}
+                    ></textarea>
+                    {% if field.comment %}
+                        <div class="form-text">
+                            {{ field.comment }}
+                        </div>
+                    {% endif %}
+                </div>
+
+            {% elseif field.htmlType == 'select' %}
+                <div class="mb-3">
+                    <label for="formField_{{ field.name }}" class="form-label">
+                        {{ field.label }}
+                    </label>
+                    <select
+                        name="{{ field.name }}"
+                        id="formField_{{ field.name }}"
+                        class="form-select"
+                        {% if field.required %}required{% endif %}
+                    >
+                        <option value="">
+                            {{ field.placeholder|default('— Select —') }}
+                        </option>
+                        {% for value, label in field.options %}
+                            <option value="{{ value }}">
+                                {{ label }}
+                            </option>
+                        {% endfor %}
+                    </select>
+                    {% if field.comment %}
+                        <div class="form-text">
+                            {{ field.comment }}
+                        </div>
+                    {% endif %}
+                </div>
+
+            {% elseif field.htmlType == 'radio' %}
+                <div class="mb-3">
+                    <label class="form-label">
+                        {{ field.label }}
+                    </label>
+                    {% for value, label in field.options %}
+                        <div class="form-check">
+                            <input
+                                type="radio"
+                                name="{{ field.name }}"
+                                id="formField_{{ field.name }}_{{ value }}"
+                                value="{{ value }}"
+                                class="form-check-input"
+                                {% if field.required %}required{% endif %}
+                            >
+                            <label class="form-check-label" for="formField_{{ field.name }}_{{ value }}">
+                                {{ label }}
+                            </label>
+                        </div>
+                    {% endfor %}
+                    {% if field.comment %}
+                        <div class="form-text">
+                            {{ field.comment }}
+                        </div>
+                    {% endif %}
+                </div>
+
+            {% elseif field.htmlType == 'checkbox' %}
+                <div class="mb-3">
+                    <div class="form-check">
+                        <input
+                            type="checkbox"
+                            name="{{ field.name }}"
+                            id="formField_{{ field.name }}"
+                            value="1"
+                            class="form-check-input"
+                        >
+                        <label class="form-check-label" for="formField_{{ field.name }}">
+                            {{ field.label }}
+                        </label>
+                    </div>
+                    {% if field.comment %}
+                        <div class="form-text">
+                            {{ field.comment }}
+                        </div>
+                    {% endif %}
+                </div>
+
+            {% elseif field.htmlType == 'file' %}
+                <div class="mb-3">
+                    <label for="formField_{{ field.name }}" class="form-label">
+                        {{ field.label }}
+                    </label>
+                    <input
+                        type="file"
+                        name="{{ field.name }}{% if field.multiple %}[]{% endif %}"
+                        id="formField_{{ field.name }}"
+                        class="form-control"
+                        {% if field.multiple %}multiple{% endif %}
+                        {% if field.required %}required{% endif %}
+                    >
+                    {% if field.comment %}
+                        <div class="form-text">
+                            {{ field.comment }}
+                        </div>
+                    {% endif %}
+                </div>
+
+            {% else %}
+                <div class="mb-3">
+                    <label for="formField_{{ field.name }}" class="form-label">
+                        {{ field.label }}
+                    </label>
+                    <input
+                        type="{{ field.htmlType }}"
+                        name="{{ field.name }}"
+                        id="formField_{{ field.name }}"
+                        class="form-control"
+                        placeholder="{{ field.placeholder }}"
+                        {% if field.required %}required{% endif %}
+                    >
+                    {% if field.comment %}
+                        <div class="form-text">
+                            {{ field.comment }}
+                        </div>
+                    {% endif %}
+                </div>
+            {% endif %}
+        {% endfor %}
+
+        <button type="submit" data-attach-loading class="btn btn-primary">
+            {{ formSubmitLabel|default('Submit') }}
+        </button>
+    {% endif %}
+</form>
