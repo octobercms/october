@@ -113,7 +113,14 @@ class SubmissionComponent extends ComponentModuleBase
             throw new ApplicationException('Submission blocked.');
         }
 
-        return $this->asExtension('FormComponent')->onFormSubmit();
+        $result = $this->asExtension('FormComponent')->onFormSubmit();
+
+        $model = $this->controller->vars['formModel'] ?? null;
+        if ($model instanceof SubmissionRecord) {
+            $model->sendSubmissionNotifications();
+        }
+
+        return $result;
     }
 
     /**

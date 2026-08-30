@@ -163,6 +163,8 @@ class DraftController extends ControllerBehavior
      */
     public function onPublishDraft($recordId = null, $context = null)
     {
+        $this->controller->checkSourcePermission('publish');
+
         $model = $this->controller->formFindModelObject($recordId);
 
         $isFirstDraft = $model->isFirstDraftStatus();

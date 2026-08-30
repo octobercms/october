@@ -66,6 +66,11 @@ class PreviewController extends ControllerBehavior
         // Get model from page action
         $model = $this->controller->formGetModel();
 
+        // Writing preview data to a non-draft record is a live publish, gate on publish
+        if (!$model->isDraftStatus()) {
+            $this->controller->checkSourcePermission('publish');
+        }
+
         // Update the record for preview
         $this->performSaveOnModel(
             $model,

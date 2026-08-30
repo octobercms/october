@@ -219,6 +219,21 @@ class RouterTranslatableTest extends TestCase
         $this->assertEquals('/contact', $page->url);
     }
 
+    public function testTranslatableContextCannotOverrideTemplateSections()
+    {
+        $this->applyActiveSite('fr');
+
+        $page = Page::load(self::$theme, 'reserved.htm');
+        $page->applyTranslatableContext();
+
+        // Translated properties apply as normal
+        $this->assertEquals('Réservé', $page->title);
+
+        // Structural keys and template sections keep their original values
+        $this->assertStringContainsString('onStart', $page->code);
+        $this->assertStringContainsString('<p>Reserved</p>', $page->markup);
+    }
+
     public function testAliasRedirectResponse()
     {
         $this->applyActiveSite('fr');

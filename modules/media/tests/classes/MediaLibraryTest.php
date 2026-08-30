@@ -138,4 +138,95 @@ class MediaLibraryTest extends TestCase
             );
         }
     }
+
+    /**
+     * testFoldersCacheUnderIndependentKeys checks that listing one folder never
+     * rewrites the cached contents of another, which a shared blob allowed
+     * concurrent requests to do.
+     */
+    public function testFoldersCacheUnderIndependentKeys()
+    {
+        $instance = $this->makeFixtureLibrary();
+
+        $rootKey = self::callProtectedMethod($instance, 'makeFolderCacheKey', ['/']);
+        $imagesKey = self::callProtectedMethod($instance, 'makeFolderCacheKey', ['/images']);
+        $this->assertNotEquals($rootKey, $imagesKey);
+
+        $instance->listFolderContents('/');
+        $storedRoot = Cache::get($rootKey);
+        $this->assertNotNull($storedRoot);
+
+        $instance->listFolderContents('/images');
+        $this->assertEquals($storedRoot, Cache::get($rootKey));
+        $this->assertNotNull(Cache::get($imagesKey));
+    }
+
+    /**
+     * testResetCacheInvalidatesForAllInstances
+     */
+    public function testResetCacheInvalidatesForAllInstances()
+    {
+        $instance = $this->makeFixtureLibrary();
+
+        $instance->listFolderContents('/images');
+        $key = self::callProtectedMethod($instance, 'makeFolderCacheKey', ['/images']);
+        $this->assertNotNull(Cache::get($key));
+
+        // Any instance resets the cache, the generation bump makes old entries
+        // unreachable everywhere, including this request
+        $instance->resetCache();
+
+        $newKey = self::callProtectedMethod($instance, 'makeFolderCacheKey', ['/images']);
+        $this->assertNotEquals($key, $newKey);
+        $this->assertNull(Cache::get($newKey));
+
+        // Contents still resolve, rescanned under the new generation
+        $this->assertNotEmpty($instance->listFolderContents('/images'));
+        $this->assertNotNull(Cache::get($newKey));
+    }
+
+    /**
+     * testRepeatListingsInOneRequestScanOnce checks the cache write clears the
+     * memoized miss, otherwise every repeat listing rescans the disk.
+     */
+    public function testRepeatListingsInOneRequestScanOnce()
+    {
+        $this->app['config']->set('filesystems.disks.media.root', base_path('modules/media/tests/fixtures/media'));
+
+        $instance = $this->getMockBuilder(MediaLibrary::class)
+            ->onlyMethods(['scanFolderContents'])
+            ->getMock();
+
+        $instance->expects($this->once())
+            ->method('scanFolderContents')
+            ->willReturn(['files' => [], 'folders' => []]);
+
+        $instance->listFolderContents('/');
+        $instance->listFolderContents('/');
+    }
+
+    /**
+     * testResetCachePurgesLegacyContents
+     */
+    public function testResetCachePurgesLegacyContents()
+    {
+        $instance = $this->makeFixtureLibrary();
+        $legacyKey = $instance->getCacheKey();
+
+        Cache::forever($legacyKey, base64_encode(serialize(['/' => []])));
+
+        $instance->resetCache();
+
+        $this->assertNull(Cache::get($legacyKey));
+    }
+
+    /**
+     * makeFixtureLibrary points the media disk at the test fixtures.
+     */
+    protected function makeFixtureLibrary(): MediaLibrary
+    {
+        $this->app['config']->set('filesystems.disks.media.root', base_path('modules/media/tests/fixtures/media'));
+
+        return new MediaLibrary;
+    }
 }

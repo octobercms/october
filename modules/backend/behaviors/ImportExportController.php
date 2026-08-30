@@ -81,6 +81,8 @@ class ImportExportController extends ControllerBehavior
      */
     public function beforeDisplayImport()
     {
+        $this->checkPermissionsForType('import');
+
         if ($this->importUploadFormWidget = $this->makeImportUploadFormWidget()) {
             $this->importUploadFormWidget->bindToController();
         }
@@ -95,6 +97,8 @@ class ImportExportController extends ControllerBehavior
      */
     public function beforeDisplayExport()
     {
+        $this->checkPermissionsForType('export');
+
         if ($this->exportFormatFormWidget = $this->makeExportFormatFormWidget()) {
             $this->exportFormatFormWidget->bindToController();
         }
@@ -113,10 +117,6 @@ class ImportExportController extends ControllerBehavior
      */
     public function import()
     {
-        if ($response = $this->checkPermissionsForType('import')) {
-            return $response;
-        }
-
         $this->addJs('js/october.import.js');
         $this->addCss('css/import.css');
 
@@ -183,10 +183,6 @@ class ImportExportController extends ControllerBehavior
      */
     public function export()
     {
-        if ($response = $this->checkPermissionsForType('export')) {
-            return $response;
-        }
-
         if ($response = $this->checkUseListExportMode()) {
             return $response;
         }
@@ -205,6 +201,8 @@ class ImportExportController extends ControllerBehavior
      */
     public function download($name, $outputName = null)
     {
+        $this->checkPermissionsForType('export');
+
         $this->controller->pageTitle = $this->controller->pageTitle
             ?: Lang::get($this->getConfig('export[title]', 'Export Records'));
 

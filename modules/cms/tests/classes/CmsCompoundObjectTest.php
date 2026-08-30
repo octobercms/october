@@ -1,6 +1,8 @@
 <?php
 
+use Cms\Classes\Page;
 use Cms\Classes\Theme;
+use Cms\Classes\Layout;
 use Cms\Classes\CmsObject;
 use Cms\Classes\CmsCompoundObject;
 use October\Rain\Halcyon\Model;
@@ -115,6 +117,130 @@ class CmsCompoundObjectTest extends TestCase
         $this->assertCount(1, $properties);
         $this->assertCount(0, $emptyProperties);
         $this->assertCount(0, $notExistingProperties);
+    }
+
+    public function testComponentPropertiesCacheUnderIndependentKeys()
+    {
+        $theme = Theme::load('test');
+
+        $this->resetComponentPropertyRequestCache();
+
+        $objA = TestCmsCompoundObject::load($theme, 'components.htm');
+        $objB = TestCmsCompoundObject::load($theme, 'component.htm');
+
+        // Every object caches under its own key
+        $keyA = self::callProtectedMethod($objA, 'makeComponentPropertyCacheKey', [$theme]);
+        $keyB = self::callProtectedMethod($objB, 'makeComponentPropertyCacheKey', [$theme]);
+        $this->assertNotEquals($keyA, $keyB);
+
+        $objA->getComponentProperties('October\Tester\Components\Post');
+        $storedA = Cache::get($keyA);
+        $this->assertNotNull($storedA);
+
+        // Reading another object, as a concurrent request on another server
+        // would, never rewrites this object's entry
+        $objB->getComponentProperties('testArchive');
+        $this->assertEquals($storedA, Cache::get($keyA));
+        $this->assertNotNull(Cache::get($keyB));
+
+        // Both entries resolve for fresh objects, as on a later request
+        $this->resetComponentPropertyRequestCache();
+
+        $properties = TestCmsCompoundObject::load($theme, 'components.htm')
+            ->getComponentProperties('October\Tester\Components\Post');
+        $this->assertEquals('true', $properties['show-featured'] ?? null);
+
+        $properties = TestCmsCompoundObject::load($theme, 'component.htm')
+            ->getComponentProperties('testArchive');
+        $this->assertEquals(10, $properties['posts-per-page'] ?? null);
+    }
+
+    public function testClearCacheInvalidatesComponentPropertiesForAllInstances()
+    {
+        $theme = Theme::load('test');
+
+        $this->resetComponentPropertyRequestCache();
+
+        $obj = TestCmsCompoundObject::load($theme, 'components.htm');
+        $obj->getComponentProperties('October\Tester\Components\Post');
+
+        $key = self::callProtectedMethod($obj, 'makeComponentPropertyCacheKey', [$theme]);
+        $this->assertNotNull(Cache::get($key));
+
+        // Any instance clears the cache, the generation bump makes old entries
+        // unreachable everywhere, including this request
+        CmsCompoundObject::clearCache($theme);
+
+        $newKey = self::callProtectedMethod($obj, 'makeComponentPropertyCacheKey', [$theme]);
+        $this->assertNotEquals($key, $newKey);
+        $this->assertNull(Cache::get($newKey));
+
+        // Properties still resolve, rebuilt under the new generation
+        $properties = $obj->getComponentProperties('October\Tester\Components\Post');
+        $this->assertEquals('true', $properties['show-featured'] ?? null);
+        $this->assertNotNull(Cache::get($newKey));
+    }
+
+    public function testSameBaseFileNameObjectsDoNotShareCacheEntries()
+    {
+        $theme = Theme::load('test');
+
+        $this->resetComponentPropertyRequestCache();
+
+        // A page and a layout sharing a base file name collided in the old
+        // blob keyed by getBaseFileName()
+        $page = Page::load($theme, 'ajax-test.htm');
+        $layout = Layout::load($theme, 'ajax-test.htm');
+        $this->assertEquals($page->getBaseFileName(), $layout->getBaseFileName());
+
+        $pageKey = self::callProtectedMethod($page, 'makeComponentPropertyCacheKey', [$theme]);
+        $layoutKey = self::callProtectedMethod($layout, 'makeComponentPropertyCacheKey', [$theme]);
+        $this->assertNotEquals($pageKey, $layoutKey);
+    }
+
+    public function testClearCacheIsScopedToTheme()
+    {
+        $theme = Theme::load('test');
+        $otherTheme = Theme::load('apitest');
+
+        $this->resetComponentPropertyRequestCache();
+
+        $obj = TestCmsCompoundObject::load($theme, 'components.htm');
+        $obj->getComponentProperties('October\Tester\Components\Post');
+
+        $key = self::callProtectedMethod($obj, 'makeComponentPropertyCacheKey', [$theme]);
+        $this->assertNotNull(Cache::get($key));
+
+        // Clearing another theme leaves this theme's generation and entries intact
+        CmsCompoundObject::clearCache($otherTheme);
+
+        $this->assertEquals($key, self::callProtectedMethod($obj, 'makeComponentPropertyCacheKey', [$theme]));
+        $this->assertNotNull(Cache::get($key));
+    }
+
+    public function testClearCachePurgesLegacyComponentPropertyMap()
+    {
+        $theme = Theme::load('test');
+        $legacyKey = 'cms_component_props_' . md5($theme->getPath());
+
+        Cache::forever($legacyKey, base64_encode(serialize(['components' => []])));
+
+        CmsCompoundObject::clearCache($theme);
+
+        $this->assertNull(Cache::get($legacyKey));
+    }
+
+    /**
+     * resetComponentPropertyRequestCache empties the request level map so the next
+     * lookup goes to the cache store, as it would on a fresh request.
+     */
+    protected function resetComponentPropertyRequestCache(): void
+    {
+        $property = (new ReflectionClass(CmsCompoundObject::class))
+            ->getProperty('objectComponentPropertyMap');
+
+        $property->setAccessible(true);
+        $property->setValue(null, []);
     }
 
     public function testCache()

@@ -148,7 +148,10 @@ class MailBrandSetting extends SettingModel
             // panel_bg -> panel-bg
             $cssVar = str_replace('_', '-', $var);
 
-            $result[$cssVar] = self::get($var, $default);
+            // Strip @import so a stored color value
+            $cssValue = str_ireplace('@import', 'import', (string) self::get($var, $default));
+
+            $result[$cssVar] = $cssValue;
         }
 
         return $result;

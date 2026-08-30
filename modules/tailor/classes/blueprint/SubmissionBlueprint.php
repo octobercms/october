@@ -30,6 +30,30 @@ class SubmissionBlueprint extends EntryBlueprint
     }
 
     /**
+     * getNotifyGroup returns the admin user group code to notify, null disables notifications
+     */
+    public function getNotifyGroup(): ?string
+    {
+        return $this->submission['notifyGroup'] ?? null;
+    }
+
+    /**
+     * getNotifyTemplate returns the mail template used for the notification
+     */
+    public function getNotifyTemplate(): string
+    {
+        return $this->submission['notifyTemplate'] ?? 'tailor:submission-notification';
+    }
+
+    /**
+     * getNotifyReplyTo returns the field name used as the reply-to address
+     */
+    public function getNotifyReplyTo(): string
+    {
+        return $this->submission['notifyReplyTo'] ?? 'email';
+    }
+
+    /**
      * getSpamSweepDays returns the lookback window for rejecting spam by IP, zero disables the sweep
      */
     public function getSpamSweepDays(): int

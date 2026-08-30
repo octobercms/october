@@ -106,7 +106,16 @@ trait HasTranslatableBag
         }
 
         $values = $this->getTranslatableBag()->siteProperties($site);
-        unset($values['url']);
+
+        // Structural keys and template sections are never translatable overrides
+        unset(
+            $values['url'],
+            $values['locale'],
+            $values['code'],
+            $values['markup'],
+            $values['settings'],
+            $values['components']
+        );
 
         // Legacy viewBag values act as a fallback for known properties
         foreach (['title', 'description', 'meta_title', 'meta_description'] as $name) {

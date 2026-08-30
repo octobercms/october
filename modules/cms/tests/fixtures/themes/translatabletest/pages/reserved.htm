@@ -1,0 +1,16 @@
+url = "/reserved"
+title = "Reserved"
+
+[translatable]
+locales[fr][url] = "/reserve"
+locales[fr][title] = "Réservé"
+locales[fr][locale] = "fr"
+locales[fr][code] = "fr"
+locales[fr][markup] = "<p>overridden</p>"
+==
+function onStart()
+{
+    $this['ok'] = true;
+}
+==
+<p>Reserved</p>

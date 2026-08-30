@@ -11968,6 +11968,18 @@
         },
         "submission": {
             "properties": {
+                "notifyGroup": {
+                    "description": "Admin user group code to notify by email when a submission is received, eg: contact-team. Omit to disable notifications.",
+                    "type": "string"
+                },
+                "notifyReplyTo": {
+                    "description": "Field name whose value is used as the reply-to address for the notification, defaults to email.",
+                    "type": "string"
+                },
+                "notifyTemplate": {
+                    "description": "Mail template code used for the notification, defaults to tailor:submission-notification.",
+                    "type": "string"
+                },
                 "purgeRejectedDays": {
                     "description": "Days to keep rejected submissions before they are permanently deleted, defaults to 30. Use 0 to disable purging.",
                     "type": "integer"

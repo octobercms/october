@@ -50,6 +50,16 @@ class ServiceProvider extends ModuleServiceProvider
     }
 
     /**
+     * registerMailTemplates
+     */
+    public function registerMailTemplates()
+    {
+        return [
+            'tailor:submission-notification' => 'tailor::mail.submission-notification',
+        ];
+    }
+
+    /**
      * registerNavigation
      */
     public function registerNavigation()

@@ -2,8 +2,11 @@
 
 use App;
 use Str;
+use Mail;
 use Cache;
+use Backend;
 use Request;
+use Backend\Models\UserGroup;
 use October\Contracts\Element\ListElement;
 use October\Contracts\Element\FormElement;
 use October\Contracts\Element\FilterElement;
@@ -104,6 +107,81 @@ class SubmissionRecord extends EntryRecord
         foreach ($others as $other) {
             $other->delete();
         }
+    }
+
+    /**
+     * sendSubmissionNotifications emails the configured admin user group about this
+     * submission, failing softly since the record is already saved.
+     */
+    public function sendSubmissionNotifications(): void
+    {
+        try {
+            $blueprint = $this->getBlueprintDefinition();
+            if (!$groupCode = $blueprint->getNotifyGroup()) {
+                return;
+            }
+
+            $group = UserGroup::where('code', $groupCode)->first();
+            $recipients = $group ? $group->users->pluck('full_name', 'email')->all() : [];
+            if (!$recipients) {
+                trace_log("Submission notification group [{$groupCode}] not found or has no users.");
+                return;
+            }
+
+            $replyTo = $this->findSubmissionReplyToAddress();
+
+            Mail::sendTo($recipients, $blueprint->getNotifyTemplate(), $this->makeSubmissionNotifyVars(), function ($message) use ($replyTo) {
+                if ($replyTo) {
+                    $message->replyTo($replyTo);
+                }
+            });
+        }
+        catch (\Throwable $ex) {
+            trace_log($ex);
+        }
+    }
+
+    /**
+     * makeSubmissionNotifyVars builds mail template variables from the submitted field values
+     */
+    protected function makeSubmissionNotifyVars(): array
+    {
+        $vars = $fields = [];
+
+        foreach ($this->getContentFieldsetDefinition()->getAllFields() as $name => $field) {
+            $value = $this->getAttribute($name);
+            if (is_array($value)) {
+                $value = implode(', ', array_filter($value, 'is_scalar'));
+            }
+
+            if (!is_scalar($value) || $value === '') {
+                continue;
+            }
+
+            $vars[$name] = $value;
+            $fields[] = ['label' => __($field->label ?? $name), 'value' => (string) $value];
+        }
+
+        $blueprint = $this->getBlueprintDefinition();
+
+        return $vars + [
+            'fields' => $fields,
+            'record' => $this,
+            'title' => $this->title,
+            'blueprintName' => $blueprint->name,
+            'recordUrl' => Backend::url('tailor/entries/'.$blueprint->handleSlug.'/'.$this->getKey()),
+        ];
+    }
+
+    /**
+     * findSubmissionReplyToAddress returns a valid email from the configured reply-to field
+     */
+    protected function findSubmissionReplyToAddress(): ?string
+    {
+        $field = $this->getBlueprintDefinition()->getNotifyReplyTo();
+        $address = $field ? $this->getAttribute($field) : null;
+
+        return is_string($address) && filter_var($address, FILTER_VALIDATE_EMAIL) ? $address : null;
     }
 
     /**

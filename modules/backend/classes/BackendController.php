@@ -7,6 +7,7 @@ use View;
 use System;
 use Request;
 use Response;
+use BackendAuth;
 use Illuminate\Routing\Controller as ControllerBase;
 use October\Rain\Router\Helper as RouterHelper;
 use System\Classes\PluginManager;
@@ -162,13 +163,16 @@ class BackendController extends ControllerBase
             return;
         }
 
-        if ($id = get('_site_id')) {
-            Site::applyEditSiteId($id);
+        $id = get('_site_id') ?: Request::header('X_SITE_ID');
+
+        if ($id) {
+            $site = Site::getSiteFromId($id);
         }
-        elseif ($id = Request::header('X_SITE_ID')) {
-            Site::applyEditSiteId($id);
+        else {
+            $site = Site::getEditSiteFromRequest();
         }
-        elseif ($site = Site::getEditSiteFromRequest()) {
+
+        if ($site && $site->matchesRole(BackendAuth::getUser())) {
             Site::applyEditSite($site);
         }
     }
@@ -180,7 +184,7 @@ class BackendController extends ControllerBase
      */
     protected function runPageNotFound()
     {
-        if (System::hasModule('Cms') && !\BackendAuth::getUser()) {
+        if (System::hasModule('Cms') && !BackendAuth::getUser()) {
             return \Cms::pageNotFound();
         }
 

@@ -104,24 +104,20 @@ class MediaLibrary
 
         // Try to load the contents from cache. MediaLibraryItem is allowlisted because
         // scanFolderContents() stores instances of it directly in the cached structure.
-        $cached = Cache::memo()->get($this->cacheKey, false);
-        $cached = $cached ? @unserialize(@base64_decode($cached), ['allowed_classes' => [MediaLibraryItem::class]]) : [];
+        $folderKey = $this->makeFolderCacheKey($folder);
+        $cached = Cache::memo()->get($folderKey, false);
+        $cached = $cached ? @unserialize(@base64_decode($cached), ['allowed_classes' => [MediaLibraryItem::class]]) : false;
 
-        if (!is_array($cached)) {
-            $cached = [];
-        }
-
-        if (array_key_exists($folder, $cached)) {
-            $folderContents = $cached[$folder];
+        if (is_array($cached)) {
+            $folderContents = $cached;
         }
         else {
             $folderContents = $this->scanFolderContents($folder);
 
-            $cached[$folder] = $folderContents;
             $expiresAt = now()->addMinutes(Config::get('media.item_cache_ttl', 10));
-            Cache::put(
-                $this->cacheKey,
-                base64_encode(serialize($cached)),
+            Cache::memo()->put(
+                $folderKey,
+                base64_encode(serialize($folderContents)),
                 $expiresAt
             );
         }
@@ -470,7 +466,27 @@ class MediaLibrary
      */
     public function resetCache()
     {
+        $generationKey = $this->cacheKey . '.generation';
+
+        // Write through the memo store so the bump is visible to reads
+        // within this request too
+        Cache::memo()->forever($generationKey, (int) Cache::get($generationKey, 1) + 1);
+
+        // Purge the table of contents used by previous versions
+        // @deprecated this line can be removed in v4.4
         Cache::forget($this->cacheKey);
+    }
+
+    /**
+     * makeFolderCacheKey for a single folder. Each folder caches under its own key so
+     * listing one never rewrites the contents of another, and the generation number
+     * lets the whole library be invalidated in a single write.
+     */
+    protected function makeFolderCacheKey(string $folder): string
+    {
+        $generation = (int) Cache::memo()->get($this->cacheKey . '.generation', 1);
+
+        return $this->cacheKey . '.' . $generation . '.' . md5($folder);
     }
 
     /**
