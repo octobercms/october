@@ -188,7 +188,7 @@ class PermissionEditor extends FormWidgetBase
         $tabs = [];
 
         foreach ($permissions as $permission) {
-            $tab = $permission->tab ?? 'backend::lang.form.undefined_tab';
+            $tab = $permission->tab ?? "Misc";
 
             if (!array_key_exists($tab, $tabs)) {
                 $tabs[$tab] = [];

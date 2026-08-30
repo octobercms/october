@@ -1,0 +1,35 @@
+uuid: 0218c51b-e7ce-4371-bf02-8450176bfa7f
+handle: Blog\Comment
+type: submission
+name: Comment
+
+submission:
+    titleTemplate: '{{ str_limit(content, 60) }}'
+
+navigation:
+    label: Comments
+    parent: Blog\Post
+    icon: octo-icon-comment
+    order: 150
+
+fields:
+    author_name:
+        label: Name
+        type: text
+        validation: required|min:2|max:100
+
+    author_email:
+        label: Email Address
+        type: email
+        validation: required|email
+
+    content:
+        label: Comment
+        type: textarea
+        validation: required|min:5|max:2000
+
+    post:
+        label: Post
+        type: entries
+        source: Blog\Post
+        maxItems: 1

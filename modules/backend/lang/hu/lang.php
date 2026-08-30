@@ -224,7 +224,6 @@
     'reset_default' => 'Alaphelyzet',
     'resetting' => 'Visszaállítás',
     'resetting_name' => 'A(z) :name visszaállítása',
-    'undefined_tab' => 'Egyebek',
     'field_off' => 'Ki',
     'field_on' => 'Be',
     'add' => 'Hozzáadás',

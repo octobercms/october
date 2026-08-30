@@ -49,6 +49,14 @@ window.oc.langMessages['fi'] = Object.assign(
         "invalid_video_empty_insert": "Valitse linkitett\u00e4v\u00e4 videotiedosto.",
         "invalid_audio_empty_insert": "Valitse linkitett\u00e4v\u00e4 \u00e4\u00e4nitiedosto."
     },
+    "mediafinder": {
+        "select_all": "Select All",
+        "deselect_all": "Deselect All",
+        "items_copied_to_clipboard": " item(s) copied to clipboard.",
+        "cannot_paste_items_maximum_limit_exceeded": "Cannot paste items: maximum item (:maxItems) limit will be exceeded.",
+        "no_new_items_to_paste": "No new items to paste.",
+        "items_pasted_successfully": " item(s) pasted successfully."
+    },
     "alert": {
         "error": "Virhe",
         "confirm": "Vahvista",

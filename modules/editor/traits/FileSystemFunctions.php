@@ -10,7 +10,15 @@ use ApplicationException;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
 
 /**
- * FileSystemFunctions implements common file and directory management functions for Tailor extensions.
+ * FileSystemFunctions implements common file and directory management functions
+ * for editor extensions.
+ *
+ * @deprecated Editor CRUD logic has moved to domain-specific traits. CMS asset
+ * operations live on {@see \Cms\Classes\Asset} via the
+ * {@see \Cms\Classes\Asset\HasOperations} trait. Tailor blueprint operations
+ * live on {@see \Tailor\Classes\Blueprint} via the
+ * {@see \Tailor\Classes\Blueprint\HasOperations} trait. New code should call
+ * those operations through the model classes rather than these helpers.
  */
 trait FileSystemFunctions
 {

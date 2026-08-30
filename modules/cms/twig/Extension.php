@@ -123,6 +123,7 @@ class Extension extends TwigExtension
             new \Cms\Twig\TokenParser\FlashTokenParser,
             new \Cms\Twig\TokenParser\ScriptsTokenParser,
             new \Cms\Twig\TokenParser\StylesTokenParser,
+            new \Cms\Twig\TokenParser\VueComponentsTokenParser,
             new \Cms\Twig\TokenParser\MetaTokenParser,
             new \Cms\Twig\TokenParser\CacheTokenParser,
             new \Cms\Twig\TokenParser\PropsTokenParser,
@@ -215,6 +216,19 @@ class Extension extends TwigExtension
         $result = $this->controller->makeAssets($type);
 
         Event::fire('cms.assets.render', [$type, &$result]);
+
+        return $result;
+    }
+
+    /**
+     * vueComponentsFunction renders the Vue client and any registered Vue component templates
+     * @return string
+     */
+    public function vueComponentsFunction()
+    {
+        $result = '<script type="module" src="' . Request::getBasePath() . '/modules/system/assets/js/vue.factory.js"></script>' . PHP_EOL;
+
+        $result .= $this->controller->outputVueComponentTemplates();
 
         return $result;
     }

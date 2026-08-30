@@ -127,6 +127,13 @@ class ComponentManager
             ));
         }
 
+        if ($code === 'translatable' && $className !== \Cms\Components\TranslatableBag::class) {
+            throw new SystemException(sprintf(
+                'The component code translatable is reserved. Please use another code for the component class %s.',
+                $className
+            ));
+        }
+
         $className = Str::normalizeClassName($className);
         $this->codeMap[$code] = $className;
         $this->classMap[$className] = $code;

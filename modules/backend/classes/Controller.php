@@ -40,7 +40,7 @@ class Controller extends Extendable implements AjaxControllerInterface
     use \System\Traits\ResponseMaker;
     use \System\Traits\DependencyMaker;
     use \System\Traits\SecurityController;
-    use \Backend\Traits\VueMaker;
+    use \System\Traits\VueMaker;
     use \Backend\Traits\ErrorMaker;
     use \Backend\Traits\WidgetMaker;
     use \Larajax\Traits\AjaxController;

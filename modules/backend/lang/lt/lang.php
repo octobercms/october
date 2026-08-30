@@ -178,7 +178,6 @@
     'reset_default' => 'Atstatyti į pradžią',
     'resetting' => 'Atstatome',
     'resetting_name' => 'Atstatome :name',
-    'undefined_tab' => 'Įvairus',
     'field_off' => 'Išjungta',
     'field_on' => 'Įjungta',
     'add' => 'Pridėti',

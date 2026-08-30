@@ -194,7 +194,6 @@
     'reset_default' => 'بازگشت به پیش فرض',
     'resetting' => 'بازنشانی',
     'resetting_name' => 'بازنشانی name:',
-    'undefined_tab' => 'متفرقه',
     'field_off' => 'بله',
     'field_on' => 'خیر',
     'add' => 'افزودن',

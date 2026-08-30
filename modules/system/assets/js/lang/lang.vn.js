@@ -49,6 +49,14 @@ window.oc.langMessages['vn'] = Object.assign(
         "invalid_video_empty_insert": "Vui l\u00f2ng ch\u1ecdn m\u1ed9t t\u1ec7p video \u0111\u1ec3 ch\u00e8n.",
         "invalid_audio_empty_insert": "Vui l\u00f2ng ch\u1ecdn m\u1ed9t t\u1ec7p \u00e2m thanh \u0111\u1ec3 ch\u00e8n."
     },
+    "mediafinder": {
+        "select_all": "Select All",
+        "deselect_all": "Deselect All",
+        "items_copied_to_clipboard": " item(s) copied to clipboard.",
+        "cannot_paste_items_maximum_limit_exceeded": "Cannot paste items: maximum item (:maxItems) limit will be exceeded.",
+        "no_new_items_to_paste": "No new items to paste.",
+        "items_pasted_successfully": " item(s) pasted successfully."
+    },
     "alert": {
         "error": "L\u1ed7i",
         "confirm": "X\u00e1c nh\u1eadn",

@@ -87,6 +87,41 @@ class ResizeImagesTest extends TestCase
         }
     }
 
+    public function testResetCacheInvalidatesForAllInstances()
+    {
+        $info = ['version' => 'abc-1', 'path' => '/tmp/source.jpg', 'extension' => 'jpg'];
+
+        self::callProtectedMethod($this->resizer, 'putCache', ['abc', $info]);
+        $this->assertEquals($info, self::callProtectedMethod($this->resizer, 'getCache', ['abc']));
+
+        // Another instance sees the entry through the shared store
+        $otherInstance = new ResizeImages();
+        $this->assertEquals($info, self::callProtectedMethod($otherInstance, 'getCache', ['abc']));
+
+        // Any instance resets the cache, the generation bump makes old
+        // entries invisible everywhere, including this request
+        ResizeImages::resetCache();
+
+        $this->assertFalse(self::callProtectedMethod($this->resizer, 'getCache', ['abc']));
+        $this->assertFalse(self::callProtectedMethod($otherInstance, 'getCache', ['abc']));
+
+        // New entries store and read under the new generation
+        self::callProtectedMethod($this->resizer, 'putCache', ['abc', $info]);
+        $this->assertEquals($info, self::callProtectedMethod($otherInstance, 'getCache', ['abc']));
+    }
+
+    public function testResetCachePurgesLegacyIndex()
+    {
+        $legacyKey = 'resizer.' . md5('legacy-item');
+        Cache::forever($legacyKey, base64_encode(json_encode(['version' => 'x'])));
+        Cache::forever('resizer.index', base64_encode(json_encode([$legacyKey])));
+
+        ResizeImages::resetCache();
+
+        $this->assertNull(Cache::get($legacyKey));
+        $this->assertNull(Cache::get('resizer.index'));
+    }
+
     /**
      * callValidate invokes the protected validateExternalImageHost method.
      */

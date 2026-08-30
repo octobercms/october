@@ -49,6 +49,14 @@ window.oc.langMessages['ko'] = Object.assign(
         "invalid_video_empty_insert": "\uc0bd\uc785\ud560 \ub3d9\uc601\uc0c1\uc744 \uc120\ud0dd\ud574 \uc8fc\uc138\uc694.",
         "invalid_audio_empty_insert": "\uc0bd\uc785\ud560 \uc18c\ub9ac\ud30c\uc77c\uc744 \uc120\ud0dd\ud574 \uc8fc\uc138\uc694."
     },
+    "mediafinder": {
+        "select_all": "Select All",
+        "deselect_all": "Deselect All",
+        "items_copied_to_clipboard": " item(s) copied to clipboard.",
+        "cannot_paste_items_maximum_limit_exceeded": "Cannot paste items: maximum item (:maxItems) limit will be exceeded.",
+        "no_new_items_to_paste": "No new items to paste.",
+        "items_pasted_successfully": " item(s) pasted successfully."
+    },
     "alert": {
         "error": "Error",
         "confirm": "Confirm",

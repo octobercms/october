@@ -303,5 +303,6 @@
   "Updated": "อัพเดทแล้ว",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "ส่วนต่อเติม PHP :name ไม่ถูกติดตั้ง กรุณาติดตั้งส่วนต่อเติมนี้และเปิดการใช้งานส่วนต่อเติม",
   "The plugin :name is a dependency but is not installed. Please install this plugin.": "ปลั๊กอิน :name เป็น dependency แต่ไม่ถูกติดตั้ง กรุณาติดตั้งปลั๊กอินนี้",
-  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "โฟลเดอร์ :name หรือโฟลเดอร์ย่อยของมัน ไม่สามารถเขียนได้โดย PHP กรุณาตั้งสิทธิ์ที่สอดคล้องกับเว็บเซิร์ฟเวอร์ที่โฟลเดอร์นี้"
+  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "โฟลเดอร์ :name หรือโฟลเดอร์ย่อยของมัน ไม่สามารถเขียนได้โดย PHP กรุณาตั้งสิทธิ์ที่สอดคล้องกับเว็บเซิร์ฟเวอร์ที่โฟลเดอร์นี้",
+  "Misc": "อื่นๆ"
 }

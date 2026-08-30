@@ -350,5 +350,6 @@
   "Debug mode is enabled. This is not recommended for production installations.": "O modo de depuração está activo. Isto não é recomendado em abientes de produção.",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "A extensão PHP :name não está instalada. Por favor, instale esta biblioteca para activar a extensão.",
   "The plugin :name is a dependency but is not installed. Please install this plugin.": "A extensão :name é uma dependência mas não está instalada. Por favor instale esta extensão.",
-  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "Diretoria :name ou suas subdiretorias não são graváveis pelo PHP. Por favor, defina permissões de escrita para o servidor nesta diretoria."
+  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "Diretoria :name ou suas subdiretorias não são graváveis pelo PHP. Por favor, defina permissões de escrita para o servidor nesta diretoria.",
+  "Misc": "Outros"
 }

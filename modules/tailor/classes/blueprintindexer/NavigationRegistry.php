@@ -55,17 +55,14 @@ trait NavigationRegistry
     {
         $records = $this->listNavigationRaw();
 
-        $themeDatasource = $this->getActiveThemeDatasource();
-        if (!$themeDatasource) {
+        if (!$this->getActiveThemeDatasources()) {
             return $records;
         }
 
         foreach ($records as &$collection) {
             foreach ($collection as $key => $attributes) {
-                if ($themeCode = $attributes['_theme'] ?? false) {
-                    if ($themeCode === false || $themeCode !== $themeDatasource) {
-                        unset($collection[$key]);
-                    }
+                if (!$this->isActiveThemeDatasource($attributes['_theme'] ?? null)) {
+                    unset($collection[$key]);
                 }
             }
         }

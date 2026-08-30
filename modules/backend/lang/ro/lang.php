@@ -107,7 +107,6 @@
     'saving' => 'Se salveaza...',
     'delete' => 'Stergere',
     'deleting' => 'Se sterge...',
-    'undefined_tab' => 'Altele',
     'field_off' => 'Dezactivat',
     'field_on' => 'Activat',
     'add' => 'Adaugare',

@@ -7,6 +7,7 @@ use Yaml;
 use File;
 use System;
 use Cms\Classes\Theme as CmsTheme;
+use Cms\Models\SourceFile;
 use October\Rain\Composer\ComposerManager;
 use ApplicationException;
 use Exception;
@@ -86,7 +87,54 @@ class ThemeManager
             }
         }
 
+        $this->injectDatabaseLangLines($theme);
+
         $this->bootedThemes[] = $themeId;
+    }
+
+    /**
+     * injectDatabaseLangLines registers any DB-backed lang strings for the
+     * theme directly with the translator. Each locale that has either an
+     * active row or a tombstone becomes authoritative through the database
+     * layer; the corresponding on-disk JSON file is skipped for that locale
+     * (an empty array is registered for tombstoned locales so the disk file
+     * does not leak through). Only runs when database_templates is active
+     * for the theme.
+     */
+    protected function injectDatabaseLangLines(CmsTheme $theme): void
+    {
+        if (!$theme->databaseLayerEnabled()) {
+            return;
+        }
+
+        $loader = App::make('translation.loader');
+        if (!method_exists($loader, 'addJsonLines')) {
+            return;
+        }
+
+        $source = 'theme.'.$theme->getDirName().'.lang';
+
+        try {
+            $rows = SourceFile::withTrashed()->bySource($source)->get();
+        }
+        catch (Exception $ex) {
+            return;
+        }
+
+        foreach ($rows as $row) {
+            $locale = pathinfo($row->path, PATHINFO_FILENAME);
+            if (!$locale) {
+                continue;
+            }
+
+            if ($row->trashed()) {
+                $loader->addJsonLines($locale, []);
+                continue;
+            }
+
+            $decoded = json_decode((string) $row->getContents(), true);
+            $loader->addJsonLines($locale, is_array($decoded) ? $decoded : []);
+        }
     }
 
     /**
@@ -400,11 +448,18 @@ class ThemeManager
         foreach ($templates as $template) {
             $filePath = $themePath . '/' . $template->path;
             if ($template->deleted_at) {
-                File::delete($filePath);
+                if (File::isFile($filePath)) {
+                    File::delete($filePath);
+                }
+                continue;
             }
-            else {
-                File::put($filePath, $template->content);
+
+            $dir = dirname($filePath);
+            if (!File::isDirectory($dir)) {
+                File::makeDirectory($dir, 0755, true, true);
             }
+
+            File::put($filePath, $template->content);
         }
     }
 
@@ -414,6 +469,192 @@ class ThemeManager
     public function purgeDatabaseTemplates(string $dirName)
     {
         Db::table('cms_theme_templates')->where('source', $dirName)->delete();
+    }
+
+    /**
+     * importDatabaseLangs copies lang SourceFile rows for a theme onto the
+     * filesystem, mirroring the importDatabaseTemplates behaviour. Active
+     * rows have their content written; tombstoned (soft-deleted) rows
+     * trigger a filesystem delete so the on-disk state matches the
+     * database's view of the theme.
+     */
+    public function importDatabaseLangs(string $dirName, ?string $srcDirName = null)
+    {
+        if (!$srcDirName) {
+            $srcDirName = $dirName;
+        }
+
+        $theme = CmsTheme::load($dirName);
+        $themePath = $theme->getPath();
+        if (!$themePath) {
+            return;
+        }
+
+        $source = 'theme.'.$srcDirName.'.lang';
+        $langDir = $themePath.'/lang';
+
+        $rows = SourceFile::withTrashed()->bySource($source)->get();
+
+        foreach ($rows as $row) {
+            $filePath = $langDir.'/'.$row->path;
+
+            if ($row->trashed()) {
+                if (File::isFile($filePath)) {
+                    File::delete($filePath);
+                }
+                continue;
+            }
+
+            $dir = dirname($filePath);
+            if (!File::isDirectory($dir)) {
+                File::makeDirectory($dir, 0755, true, true);
+            }
+
+            File::put($filePath, (string) $row->getContents());
+        }
+    }
+
+    /**
+     * purgeDatabaseLangs removes every lang SourceFile row for a theme,
+     * including tombstones. Used by theme:copy --purge-db after a successful
+     * --import-db so the database state is cleared once the filesystem has
+     * been brought up to date.
+     */
+    public function purgeDatabaseLangs(string $dirName)
+    {
+        $source = 'theme.'.$dirName.'.lang';
+
+        SourceFile::withTrashed()->bySource($source)->forceDelete();
+    }
+
+    /**
+     * importDatabaseAssets copies asset SourceFile rows for a theme onto the
+     * filesystem, mirroring the importDatabaseLangs behaviour. Active rows
+     * have their bytes written, streamed from the assets disk for disk-backed
+     * rows; tombstoned (soft-deleted) rows trigger a filesystem delete so the
+     * on-disk state matches the database's view of the theme.
+     */
+    public function importDatabaseAssets(string $dirName, ?string $srcDirName = null)
+    {
+        if (!$srcDirName) {
+            $srcDirName = $dirName;
+        }
+
+        $theme = CmsTheme::load($dirName);
+        $themePath = $theme->getPath();
+        if (!$themePath) {
+            return;
+        }
+
+        $source = 'theme.'.$srcDirName.'.asset';
+        $assetsDir = $themePath.'/assets';
+
+        $rows = SourceFile::withTrashed()->bySource($source)->get();
+
+        foreach ($rows as $row) {
+            $filePath = $assetsDir.'/'.$row->path;
+
+            if ($row->trashed()) {
+                if (File::isFile($filePath)) {
+                    File::delete($filePath);
+                }
+                continue;
+            }
+
+            $dir = dirname($filePath);
+            if (!File::isDirectory($dir)) {
+                File::makeDirectory($dir, 0755, true, true);
+            }
+
+            File::put($filePath, (string) $row->getContents());
+        }
+    }
+
+    /**
+     * purgeDatabaseAssets removes every asset SourceFile row for a theme,
+     * including tombstones. The query-level delete bypasses model events so
+     * assets disk objects are left in place, matching the imported state.
+     */
+    public function purgeDatabaseAssets(string $dirName)
+    {
+        $source = 'theme.'.$dirName.'.asset';
+
+        SourceFile::withTrashed()->bySource($source)->forceDelete();
+    }
+
+    /**
+     * importDatabaseBlueprints copies blueprint SourceFile rows back to the
+     * filesystem for every blueprint datasource (app, plugins, and the named
+     * theme). Active rows have their content written; tombstoned rows trigger
+     * a filesystem delete. The named theme acts as both source and target so
+     * `theme:copy demo` imports rows that were originally under `demo`.
+     */
+    public function importDatabaseBlueprints(string $dirName, ?string $srcDirName = null)
+    {
+        if (!$srcDirName) {
+            $srcDirName = $dirName;
+        }
+
+        // App blueprints
+        $this->importBlueprintSource('app.blueprint', app_path('blueprints'));
+
+        // Plugin blueprints
+        foreach (\System\Classes\PluginManager::instance()->getPluginPaths() as $code => $pluginPath) {
+            $this->importBlueprintSource('plugin.'.$code.'.blueprint', $pluginPath.'/blueprints');
+        }
+
+        // Theme blueprints — write into the target theme directory using rows
+        // originally captured against the source theme.
+        $theme = CmsTheme::load($dirName);
+        $themePath = $theme ? $theme->getPath() : null;
+        if ($themePath) {
+            $this->importBlueprintSource('theme.'.$srcDirName.'.blueprint', $themePath.'/blueprints');
+        }
+    }
+
+    /**
+     * purgeDatabaseBlueprints removes blueprint SourceFile rows for every
+     * blueprint datasource, including tombstones. Used by theme:copy
+     * --purge-db after a successful --import-db.
+     */
+    public function purgeDatabaseBlueprints(string $dirName)
+    {
+        SourceFile::withTrashed()->where('source', 'app.blueprint')->forceDelete();
+
+        foreach (\System\Classes\PluginManager::instance()->getPluginPaths() as $code => $pluginPath) {
+            SourceFile::withTrashed()->where('source', 'plugin.'.$code.'.blueprint')->forceDelete();
+        }
+
+        SourceFile::withTrashed()->where('source', 'theme.'.$dirName.'.blueprint')->forceDelete();
+    }
+
+    /**
+     * importBlueprintSource writes every active row for the given source to
+     * its corresponding path under $targetDir, and deletes the filesystem
+     * file for every tombstoned row. Shared between the app, plugin and
+     * theme blueprint import paths.
+     */
+    protected function importBlueprintSource(string $source, string $targetDir): void
+    {
+        $rows = SourceFile::withTrashed()->bySource($source)->get();
+
+        foreach ($rows as $row) {
+            $filePath = $targetDir.'/'.$row->path;
+
+            if ($row->trashed()) {
+                if (File::isFile($filePath)) {
+                    File::delete($filePath);
+                }
+                continue;
+            }
+
+            $dir = dirname($filePath);
+            if (!File::isDirectory($dir)) {
+                File::makeDirectory($dir, 0755, true, true);
+            }
+
+            File::put($filePath, (string) $row->getContents());
+        }
     }
 
     /**

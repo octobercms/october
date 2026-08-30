@@ -1,32 +1,54 @@
 <div class="blog-post-comment-form">
-    <h3 class="mb-4">Tell us what you think!</h3>
+    <h3 class="mb-4">
+        Tell us what you think!
+    </h3>
 
-    <form>
-        <div class="row">
-            <div class="col-md-6">
-                <div class="form-floating mb-3">
-                    <input type="text" class="form-control" id="commentNameInput">
-                    <label for="commentNameInput">Name</label>
+    {% if formSubmitted %}
+        <div class="alert alert-success">
+            Thank you for your comment! It will appear here once it has been approved.
+        </div>
+    {% else %}
+        <form
+            data-request="commentForm::onFormSubmit"
+            data-request-update="{ _self: true }"
+            data-request-flash>
+
+            <input type="hidden" name="post" value="{{ post.id }}">
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input type="text" name="author_name" class="form-control" id="commentNameInput" required>
+                        <label for="commentNameInput">
+                            Name
+                        </label>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input type="email" name="author_email" class="form-control" id="commentEmailInput" required>
+                        <label for="commentEmailInput">
+                            Email address
+                        </label>
+                    </div>
                 </div>
             </div>
-            <div class="col-md-6">
-                <div class="form-floating mb-3">
-                    <input type="email" class="form-control" id="commentEmailInput">
-                    <label for="commentEmailInput">Email address</label>
+            <div class="mb-3 form-floating">
+                <textarea style="height:125px" name="content" class="form-control" id="commentContentTextarea" required></textarea>
+                <label for="commentContentTextarea">
+                    Comment
+                </label>
+            </div>
+            <div style="display:none">
+                <input type="text" name="_oc_hp" value="" autocomplete="off" tabindex="-1">
+            </div>
+            <div class="form-buttons d-flex pt-2">
+                <div>
+                    <button type="submit" data-attach-loading class="btn btn-primary btn-pill">
+                        Submit
+                    </button>
                 </div>
             </div>
-        </div>
-        <div class="mb-3 form-floating">
-            <textarea style="height:125px" class="form-control" id="commentContentTextarea"></textarea>
-            <label for="commentContentTextarea">Comment</label>
-        </div>
-        <div class="form-buttons d-flex pt-2">
-            <div>
-                <button type="submit" class="btn btn-primary btn-pill">Submit</button>
-            </div>
-            <p class="text-muted ms-3 mt-1">
-                <small>You are replying to Mary Williams. You can <a href="#">post a new comment instead</a>.</small>
-            </p>
-        </div>
-    </form>
+        </form>
+    {% endif %}
 </div>

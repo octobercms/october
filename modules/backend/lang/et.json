@@ -349,5 +349,6 @@
   "There was no data supplied to export": "There was no data supplied to export",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "PHP laiendus :name ei ole paigaldatud. Süsteemi toimiseks on vajalik selle paigaldamine.",
   "The plugin :name is a dependency but is not installed. Please install this plugin.": "Plugin :name on vajalik süsteemi toimimiseks, kuid seda pole paigaldatud. Palun paigalda see plugin.",
-  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "PHP-l ei ole õigust kirjutada katallogi :name või selle alamkataloogidesse. Palun paranda kataloogide juurdepääsuõigused serveris."
+  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "PHP-l ei ole õigust kirjutada katallogi :name või selle alamkataloogidesse. Palun paranda kataloogide juurdepääsuõigused serveris.",
+  "Misc": "Muu"
 }

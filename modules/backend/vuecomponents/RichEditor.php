@@ -3,7 +3,7 @@
 use App;
 use BackendAuth;
 use Backend\Models\EditorSetting;
-use Backend\Classes\VueComponentBase;
+use System\Classes\VueComponentBase;
 
 /**
  * RichEditor Vue component.

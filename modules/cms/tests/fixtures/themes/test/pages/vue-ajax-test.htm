@@ -1,0 +1,10 @@
+url = "/vue-ajax-test"
+==
+function onVueRegister()
+{
+    $this->controller->registerVueComponent(\October\Tester\VueComponents\TestButton::class);
+    return ['success' => true];
+}
+==
+{% framework vue %}
+{% vuecomponents %}

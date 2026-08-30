@@ -49,6 +49,14 @@ window.oc.langMessages['sl'] = Object.assign(
         "invalid_video_empty_insert": "Izberite video posnetek za vstavljanje.",
         "invalid_audio_empty_insert": "Izberite zvo\u010dni posnetek za vstavljanje."
     },
+    "mediafinder": {
+        "select_all": "Select All",
+        "deselect_all": "Deselect All",
+        "items_copied_to_clipboard": " item(s) copied to clipboard.",
+        "cannot_paste_items_maximum_limit_exceeded": "Cannot paste items: maximum item (:maxItems) limit will be exceeded.",
+        "no_new_items_to_paste": "No new items to paste.",
+        "items_pasted_successfully": " item(s) pasted successfully."
+    },
     "alert": {
         "error": "Error",
         "confirm": "Confirm",

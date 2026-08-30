@@ -18,16 +18,26 @@ return [
     | Database Themes
     |--------------------------------------------------------------------------
     |
-    | Globally forces all themes to store template changes in the database,
-    | instead of the file system. If this feature is enabled, changes will
-    | not be stored in the file system.
+    | Persists theme changes across instances by storing them outside the
+    | local filesystem, so edits made in the CMS editor are immediately
+    | visible everywhere.
     |
-    | false - All theme templates are sourced from the filesystem.
-    | true  - Source theme templates from the database with fallback to the filesystem.
+    | database_templates - When enabled, template changes (pages, layouts,
+    |   partials, content) are stored in the database with fallback to the
+    |   filesystem. When disabled, all templates are sourced from the
+    |   filesystem.
+    |
+    | database_assets - When enabled, theme asset edits write to the 'assets'
+    |   filesystem disk and are tracked via database rows. Requires the
+    |   'assets' disk to be configured and ASSET_URL to point at the same
+    |   origin. When disabled, asset edits write to the local filesystem
+    |   only.
     |
     */
 
     'database_templates' => env('CMS_DB_TEMPLATES', false),
+
+    'database_assets' => env('CMS_DB_ASSETS', false),
 
     /*
     |--------------------------------------------------------------------------
@@ -118,9 +128,9 @@ return [
     | Time to live for the URL map.
     |--------------------------------------------------------------------------
     |
-    | The URL map used in the CMS page routing process. By default
-    | the map is updated every time when a page is saved in the backend or when the
-    | interval, in minutes, specified with the url_cache_ttl parameter expires.
+    | The page URL map used in the CMS page routing process. By default
+    | the map is rebuilt every time a page is saved in the backend or when the
+    | interval, in minutes, specified by this parameter expires.
     |
     */
 

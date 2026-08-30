@@ -10,9 +10,9 @@
         }
     }
 
-    > .filter-group > .filter-scope.scope-checkbox,
+    .filter-group > .filter-scope.scope-checkbox,
     /* @deprecated */
-    > .filter-group > .filter-scope {
+    .filter-group > .filter-scope {
         &.form-check {
             padding-left: 29px;
 

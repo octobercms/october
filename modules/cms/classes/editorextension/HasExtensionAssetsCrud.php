@@ -1,13 +1,15 @@
 <?php namespace Cms\Classes\EditorExtension;
 
-use System;
+use Input;
 use Request;
-use Editor\Classes\ApiHelpers;
+use Cms\Classes\Asset;
 use Cms\Classes\EditorExtension;
-use October\Rain\Filesystem\Definitions as FileDefinitions;
+use Editor\Classes\ApiHelpers;
 
 /**
- * HasExtensionAssetsCrud implements Assets CRUD operations for the CMS Editor Extension
+ * HasExtensionAssetsCrud implements Assets CRUD operations for the CMS Editor
+ * Extension. The actual filesystem work is delegated to the Asset class via
+ * its HasOperations trait so any cross-cutting concerns have a single seam.
  */
 trait HasExtensionAssetsCrud
 {
@@ -25,7 +27,7 @@ trait HasExtensionAssetsCrud
         $newName = trim(ApiHelpers::assertGetKey($documentData, 'name'));
         $parent = ApiHelpers::assertGetKey($documentData, 'parent');
 
-        $this->editorCreateDirectory($this->getAssetsPath($this->getTheme()), $newName, $parent);
+        Asset::inTheme($this->getTheme())->createDirectory($newName, $parent);
     }
 
     /**
@@ -42,7 +44,7 @@ trait HasExtensionAssetsCrud
         $fileList = ApiHelpers::assertGetKey($documentData, 'files');
         ApiHelpers::assertIsArray($fileList);
 
-        $this->editorDeleteFileOrDirectory($this->getAssetsPath($this->getTheme()), $fileList);
+        Asset::inTheme($this->getTheme())->deletePaths($fileList);
     }
 
     /**
@@ -58,9 +60,8 @@ trait HasExtensionAssetsCrud
 
         $newName = trim(ApiHelpers::assertGetKey($documentData, 'name'));
         $originalPath = trim(ApiHelpers::assertGetKey($documentData, 'originalPath'));
-        $assetExtensions = $this->getSafeAssetExtensions();
 
-        $this->editorRenameFileOrDirectory($this->getAssetsPath($this->getTheme()), $newName, $originalPath, $assetExtensions);
+        Asset::inTheme($this->getTheme())->rename($newName, $originalPath);
     }
 
     /**
@@ -76,7 +77,8 @@ trait HasExtensionAssetsCrud
 
         $selectedList = ApiHelpers::assertGetKey($documentData, 'source');
         $destinationDir = ApiHelpers::assertGetKey($documentData, 'destination');
-        $this->editorMoveFilesOrDirectories($this->getAssetsPath($this->getTheme()), $selectedList, $destinationDir);
+
+        Asset::inTheme($this->getTheme())->move($selectedList, $destinationDir);
     }
 
     /**
@@ -91,31 +93,13 @@ trait HasExtensionAssetsCrud
         ];
         $this->validateRequestTheme($metadata);
 
-        $assetExtensions = $this->getSafeAssetExtensions();
-        $this->editorUploadFiles($this->getAssetsPath($this->getTheme()), $assetExtensions);
-    }
-
-    /**
-     * getAssetFullPath returns the full path for the current theme
-     * @param $path string
-     */
-    protected function getAssetFullPath($path): string
-    {
-        return $this->getAssetsPath($this->getTheme()).'/'.ltrim($path, '/');
-    }
-
-    /**
-     * getSafeAssetExtensions returns asset extensions with preprocessor
-     * types removed when safe mode is enabled.
-     */
-    protected function getSafeAssetExtensions(): array
-    {
-        $extensions = FileDefinitions::get('asset_extensions');
-
-        if (System::checkSafeMode()) {
-            $extensions = array_diff($extensions, ['less', 'sass', 'scss']);
+        $uploadedFile = Input::file('file');
+        if (!is_object($uploadedFile)) {
+            return;
         }
 
-        return array_values($extensions);
+        $destinationDir = trim(Request::input('destination'));
+
+        Asset::inTheme($this->getTheme())->upload($uploadedFile, $destinationDir);
     }
 }

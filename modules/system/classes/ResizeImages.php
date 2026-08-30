@@ -376,13 +376,11 @@ class ResizeImages
      */
     protected function putCache($cacheKey, array $cacheInfo)
     {
-        $cacheKey = 'resizer.'.$cacheKey;
+        $cacheKey = $this->makeCacheKey($cacheKey);
 
         if (Cache::memo()->has($cacheKey)) {
             return false;
         }
-
-        $this->putCacheIndex($cacheKey);
 
         Cache::memo()->forever($cacheKey, base64_encode(json_encode($cacheInfo)));
 
@@ -396,11 +394,11 @@ class ResizeImages
      */
     protected function getCache($cacheKey)
     {
-        $cacheKey = 'resizer.'.$cacheKey;
+        $cacheKey = $this->makeCacheKey($cacheKey);
 
         if ($cache = Cache::memo()->get($cacheKey)) {
             $decoded = base64_decode($cache);
-            // @deprecated unserialize can be removed in v4.4
+            // @deprecated unserialize can be removed in v4.5
             return json_decode($decoded, true) ?: @unserialize($decoded, ['allowed_classes' => false]);
         }
 
@@ -430,14 +428,33 @@ class ResizeImages
     }
 
     /**
+     * makeCacheKey prefixes an identifier with the current cache generation.
+     * Resetting the cache bumps the generation instead of enumerating and
+     * deleting every stored identifier.
+     */
+    protected function makeCacheKey($cacheKey): string
+    {
+        $generation = (int) Cache::memo()->get('resizer.generation', 1);
+
+        return 'resizer.'.$generation.'.'.$cacheKey;
+    }
+
+    /**
      * resetCache resets the resizer cache
      * @return void
      */
     public static function resetCache()
     {
+        $generation = (int) Cache::get('resizer.generation', 1);
+
+        // Write through the memo store so the bump is visible to reads
+        // within this request too
+        Cache::memo()->forever('resizer.generation', $generation + 1);
+
+        // Purge the index used by previous versions
+        // @deprecated this block can be removed in v4.5
         if ($cache = Cache::get('resizer.index')) {
             $decoded = base64_decode($cache);
-            // @deprecated unserialize can be removed in v4.4
             $index = (array) (json_decode($decoded, true) ?: @unserialize($decoded, ['allowed_classes' => false])) ?: [];
 
             foreach ($index as $cacheKey) {
@@ -446,34 +463,5 @@ class ResizeImages
 
             Cache::forget('resizer.index');
         }
-
-        // CacheHelper::instance()->clearCombiner();
-    }
-
-    /**
-     * putCacheIndex adds a cache identifier to the index store used for
-     * performing a reset of the cache.
-     * @param string $cacheKey Cache identifier
-     * @return bool Returns false if identifier is already in store
-     */
-    protected function putCacheIndex($cacheKey)
-    {
-        $index = [];
-
-        if ($cache = Cache::memo()->get('resizer.index')) {
-            $decoded = base64_decode($cache);
-            // @deprecated unserialize can be removed in v4.4
-            $index = (array) (json_decode($decoded, true) ?: @unserialize($decoded, ['allowed_classes' => false])) ?: [];
-        }
-
-        if (in_array($cacheKey, $index)) {
-            return false;
-        }
-
-        $index[] = $cacheKey;
-
-        Cache::memo()->forever('resizer.index', base64_encode(json_encode($index)));
-
-        return true;
     }
 }

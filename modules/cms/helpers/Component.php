@@ -113,4 +113,15 @@ class Component
     {
         return (bool) array_get($component->componentDetails(), 'snippetAjax', false);
     }
+
+    /**
+     * getComponentSnippetInline returns if a component snippet should render inline
+     * only applies when a component is used as a snippet
+     * @param mixed $component The component object
+     * @return bool
+     */
+    public static function getComponentSnippetInline($component)
+    {
+        return (bool) array_get($component->componentDetails(), 'snippetInline', false);
+    }
 }

@@ -224,7 +224,6 @@
     'reset_default' => '重置为默认值',
     'resetting' => '重置',
     'resetting_name' => '重置:name',
-    'undefined_tab' => '杂项',
     'field_off' => '关闭',
     'field_on' => '开启',
     'add' => '添加',

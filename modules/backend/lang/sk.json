@@ -352,5 +352,6 @@
   "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "Do adresára :name alebo jeho podadresárov sa nedá zapisovať z PHP. Prosím nastavte správne oprávnenia tomuto adresáru.",
   "Manage Roles": "Spravovať roly",
   "Manage Groups": "Spravovať skupiny",
-  "Customize Backend": "Nastavenia administrácie"
+  "Customize Backend": "Nastavenia administrácie",
+  "Misc": "Ostatné"
 }

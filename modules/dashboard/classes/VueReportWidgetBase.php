@@ -1,6 +1,6 @@
 <?php namespace Dashboard\Classes;
 
-use Backend\Classes\VueComponentBase;
+use System\Classes\VueComponentBase;
 use Dashboard\Classes\ReportFetchData;
 use SystemException;
 

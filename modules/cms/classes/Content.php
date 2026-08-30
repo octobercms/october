@@ -1,6 +1,8 @@
 <?php namespace Cms\Classes;
 
+use Site;
 use File;
+use Config;
 use Markdown;
 use Cms\Classes\PageManager;
 
@@ -26,6 +28,29 @@ class Content extends CmsCompoundObject
      * @var array purgeable attribute names which are not considered "settings".
      */
     protected $purgeable = ['parsedMarkup'];
+
+    /**
+     * findLocalized returns a content file from a locale subdirectory, falling back
+     * to the base file when no translation exists.
+     * @param \Cms\Classes\Theme $theme
+     * @param string $fileName
+     * @param string|null $locale
+     * @return static|null
+     */
+    public static function findLocalized($theme, $fileName, $locale = null)
+    {
+        if (Config::get('multisite.translate.cms_content', true)) {
+            $locale = $locale ?: Site::getActiveSite()?->hard_locale;
+
+            foreach ($locale ? Site::getLocaleKeyChain($locale) : [] as $localeKey) {
+                if ($content = static::loadCached($theme, $localeKey.'/'.$fileName)) {
+                    return $content;
+                }
+            }
+        }
+
+        return static::loadCached($theme, $fileName);
+    }
 
     /**
      * initCacheItem initializes the object properties from the cached data. The extra

@@ -206,7 +206,6 @@
     'reset_default' => 'Obnoviť predvolené',
     'resetting' => 'Obnova',
     'resetting_name' => 'Obnova :name',
-    'undefined_tab' => 'Ostatné',
     'field_off' => 'Vyp',
     'field_on' => 'Zap',
     'add' => 'Pridať',

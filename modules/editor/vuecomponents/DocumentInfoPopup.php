@@ -1,6 +1,6 @@
 <?php namespace Editor\VueComponents;
 
-use Backend\Classes\VueComponentBase;
+use System\Classes\VueComponentBase;
 
 /**
  * Editor document information popup component

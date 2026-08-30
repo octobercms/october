@@ -132,7 +132,6 @@
     'reset_default' => 'Äterställ till utgångsläge',
     'resetting' => 'Återställer',
     'resetting_name' => 'Återställer :name',
-    'undefined_tab' => 'Övrigt',
     'field_off' => 'Av',
     'field_on' => 'På',
     'add' => 'Lägg till',

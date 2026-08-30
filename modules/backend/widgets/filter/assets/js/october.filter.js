@@ -1,64 +1,87 @@
+import { ControlBase, registerControl } from 'larajax';
+
 /*
- * Filter Widget
+ * Filter Widget control
  *
  * Data attributes:
- * - data-behavior="filter" - enables the filter plugin
+ * - data-control="filterwidget" - enables the control on an element
  *
  * Dependencies:
- * - October Popover (october.popover.js)
+ * - October Popover (popover-control.js)
  *
+ * JavaScript API:
+ * oc.fetchControl(element, 'filterwidget')
  */
-+function ($) { "use strict";
-    var Base = $.oc.foundation.base,
-        BaseProto = Base.prototype;
+registerControl('filterwidget', class extends ControlBase {
+    init() {
+        this.config = Object.assign({
+            popoverTemplate: null,
+            optionsHandler: null,
+            updateHandler: null,
+            loadHandler: null,
+            pageName: null
+        }, this.config);
+    }
 
-    var FilterWidget = function (element, options) {
-        this.$el = $(element);
-        this.options = options || {};
+    connect() {
+        this.$el = $(this.element);
         this.popoverContent = {};
         this.$activeScope = null;
 
-        $.oc.foundation.controlUtils.markDisposable(element);
-        Base.call(this);
-        this.init();
-    }
+        this.listen('change', '.filter-scope select', this.onToggleDropdown);
+        this.listen('change', '.filter-scope input[type="checkbox"]', this.onToggleCheckbox);
+        this.listen('click', 'a.filter-scope', this.onClickScopePopover);
+        this.listen('click', '.filter-scope [data-filter-action="apply"]', this.onClickInlineScopeApply);
+        this.listen('click', '.filter-scope [data-filter-action="clear"]', this.onClickInlineScopeClear);
+        this.listen('ajax:update', this.onContainerUpdate);
 
-    FilterWidget.prototype = Object.create(BaseProto);
-    FilterWidget.prototype.constructor = FilterWidget;
-
-    FilterWidget.prototype.init = function() {
-        oc.Events.on(this.$el.get(0), 'change', '.filter-scope select', this.proxy(this.onToggleDropdown));
-        this.$el.on('change', '.filter-scope input[type="checkbox"]', this.proxy(this.onToggleCheckbox));
-        this.$el.on('click', 'a.filter-scope', this.proxy(this.onClickScopePopover));
+        // Popover events are triggered with jQuery
         this.$el.on('hide.oc.popover', 'a.filter-scope', this.proxy(this.onHideScopePopover));
-        this.$el.on('click', '.filter-scope [data-filter-action="apply"]', this.proxy(this.onClickInlineScopeApply));
-        this.$el.on('click', '.filter-scope [data-filter-action="clear"]', this.proxy(this.onClickInlineScopeClear));
 
+        this.bindScrollable();
         this.bindCheckboxes();
         this.preloadContent();
     }
 
-    FilterWidget.prototype.dispose = function() {
-        oc.Events.off(this.$el.get(0), 'change', '.filter-scope select', this.proxy(this.onToggleDropdown));
-        this.$el.off('change', '.filter-scope input[type="checkbox"]', this.proxy(this.onToggleCheckbox));
-        this.$el.off('click', 'a.filter-scope', this.proxy(this.onClickScopePopover));
+    disconnect() {
         this.$el.off('hide.oc.popover', 'a.filter-scope', this.proxy(this.onHideScopePopover));
-        this.$el.off('click', '.filter-scope [data-filter-action="apply"]', this.proxy(this.onClickInlineScopeApply));
-        this.$el.off('click', '.filter-scope [data-filter-action="clear"]', this.proxy(this.onClickInlineScopeClear));
 
-        this.$el.off('dispose-control', this.proxy(this.dispose));
-        this.$el.removeData('oc.filterwidget');
+        this.unbindScrollable();
 
         this.$el = null;
-        this.options = null;
-
-        BaseProto.dispose.call(this);
+        this.$activeScope = null;
+        this.popoverContent = null;
     }
 
-    FilterWidget.prototype.preloadContent = function() {
+    bindScrollable() {
+        this.$scrollable = $('.filter-scopes:first', this.$el);
+        if (this.$scrollable.length) {
+            this.$scrollable.dragScroll({
+                scrollClassContainer: this.$scrollable.parent()
+            });
+        }
+    }
+
+    unbindScrollable() {
+        if (this.$scrollable && this.$scrollable.length) {
+            this.$scrollable.dragScroll('dispose');
+        }
+
+        this.$scrollable = null;
+    }
+
+    onContainerUpdate(ev) {
+        // Rebind the scrollable area when the entire container is replaced
+        if (ev.target === this.element) {
+            this.unbindScrollable();
+            this.bindScrollable();
+        }
+    }
+
+    preloadContent() {
         try {
             var self = this;
-            this.$el.request(this.options.updateHandler, {
+            this.$el.request(this.config.updateHandler, {
                 data: {
                     preload: true
                 },
@@ -75,17 +98,17 @@
     // Popover Scope
     //
 
-    FilterWidget.prototype.initContainer = function(el) {
+    initContainer(el) {
         $(el).on('click', '[data-filter-action="apply"]', this.proxy(this.onClickScopeApply));
         $(el).on('click', '[data-filter-action="clear"]', this.proxy(this.onClickScopeClear));
     }
 
-    FilterWidget.prototype.disposeContainer = function(el) {
+    disposeContainer(el) {
         $(el).off('click', '[data-filter-action="apply"]', this.proxy(this.onClickScopeApply));
         $(el).off('click', '[data-filter-action="clear"]', this.proxy(this.onClickScopeClear));
     }
 
-    FilterWidget.prototype.onClickScopePopover = function(ev) {
+    onClickScopePopover(ev) {
         var $el = $(ev.target),
             $scope = $el.closest('.filter-scope');
 
@@ -106,7 +129,7 @@
         this.showPopover($scope);
     }
 
-    FilterWidget.prototype.onClickScopeApply = function(ev) {
+    onClickScopeApply(ev) {
         ev.preventDefault();
 
         var $el = $(ev.target),
@@ -117,7 +140,7 @@
         this.hidePopover(this.$activeScope);
     }
 
-    FilterWidget.prototype.onClickScopeClear = function(ev) {
+    onClickScopeClear(ev) {
         ev.preventDefault();
 
         var $el = $(ev.target),
@@ -130,7 +153,7 @@
         this.hidePopover(this.$activeScope);
     }
 
-    FilterWidget.prototype.onHideScopePopover = function(ev) {
+    onHideScopePopover(ev) {
         var $el = $(ev.target),
             $scope = $el.closest('.filter-scope');
 
@@ -141,14 +164,14 @@
         }, 200);
     }
 
-    FilterWidget.prototype.hidePopover = function($scope) {
+    hidePopover($scope) {
         var scopeName = $scope.data('scope-name');
         this.popoverContent[scopeName] = null;
 
         $scope.ocPopover('hide');
     }
 
-    FilterWidget.prototype.showPopover = function($scope) {
+    showPopover($scope) {
         var self = this,
             scopeName = $scope.data('scope-name'),
             container = false;
@@ -190,7 +213,7 @@
             oc.Events.dispatch('render');
         }
         else {
-            $form.request(this.options.loadHandler, {
+            $form.request(this.config.loadHandler, {
                 success: function(data) {
                     this.success(data);
                     self.setPopoverContent($container, data.result);
@@ -203,7 +226,7 @@
         this.initContainer($container);
     }
 
-    FilterWidget.prototype.setPopoverContent = function($container, html) {
+    setPopoverContent($container, html) {
         $('.control-filter-popover', $container).html(html);
     }
 
@@ -211,7 +234,7 @@
     // Inline Scope
     //
 
-    FilterWidget.prototype.onClickInlineScopeApply = function(ev) {
+    onClickInlineScopeApply(ev) {
         ev.preventDefault();
 
         var $el = $(ev.target),
@@ -224,7 +247,7 @@
         }
     }
 
-    FilterWidget.prototype.onClickInlineScopeClear = function(ev) {
+    onClickInlineScopeClear(ev) {
         ev.preventDefault();
 
         var $el = $(ev.target),
@@ -243,7 +266,7 @@
     // Dropdowns
     //
 
-    FilterWidget.prototype.onToggleDropdown = function(ev) {
+    onToggleDropdown(ev) {
         var $el = $(ev.target),
             $scope = $el.closest('.filter-scope');
 
@@ -261,13 +284,13 @@
     // Checkboxes
     //
 
-    FilterWidget.prototype.bindCheckboxes = function() {
+    bindCheckboxes() {
         $('.filter-scope input[type="checkbox"]', this.$el).each(function() {
             $(this).closest('.filter-scope').toggleClass('active', $(this).is(':checked'));
         });
     }
 
-    FilterWidget.prototype.onToggleCheckbox = function(ev) {
+    onToggleCheckbox(ev) {
         var $el = $(ev.target),
             $scope = $el.closest('.filter-scope');
 
@@ -284,7 +307,7 @@
         }
     }
 
-    FilterWidget.prototype.checkboxToggle = function($el) {
+    checkboxToggle($el) {
         var isChecked = $el.is(':checked'),
             $scope = $el.closest('.filter-scope');
 
@@ -295,7 +318,7 @@
         $scope.toggleClass('active', isChecked);
     }
 
-    FilterWidget.prototype.switchToggle = function($el) {
+    switchToggle($el) {
         var switchValue = parseInt($el.attr('data-checked')) || 0,
             $scope = $el.closest('.filter-scope');
 
@@ -310,8 +333,8 @@
     // AJAX
     //
 
-    FilterWidget.prototype.submitUpdate = function($el, $scope, data) {
-        if (!this.options.updateHandler) {
+    submitUpdate($el, $scope, data) {
+        if (!this.config.updateHandler) {
             return;
         }
 
@@ -329,37 +352,41 @@
             data: data,
         };
 
-        if (this.options.pageName) {
+        if (this.config.pageName) {
             submitData.query = {
-                [this.options.pageName]: null
+                [this.config.pageName]: null
             };
         }
 
         // Submit request
-        $el.request(this.options.updateHandler, submitData)
+        $el.request(this.config.updateHandler, submitData)
             .always(() => {
-                this.$el.removeClass('is-loading');
+                if (this.$el) {
+                    this.$el.removeClass('is-loading');
+                }
             })
             .done((data) => {
                 // Trigger dependsOn updates on successful requests
-                this.$el
-                    .find('[data-scope-name="'+scopeName+'"]')
-                    .trigger('change.oc.filterScope');
+                if (this.$el) {
+                    this.$el
+                        .find('[data-scope-name="'+scopeName+'"]')
+                        .trigger('change.oc.filterScope');
+                }
             });
     }
 
-    FilterWidget.prototype.updatePopoverContent = function(content) {
+    updatePopoverContent(content) {
         var self = this;
         $.each(content, function(key, val) {
             self.popoverContent[key] = val;
         });
     }
 
-    FilterWidget.prototype.getPopoverTemplate = function() {
-        return $(this.options.popoverTemplate).html();
+    getPopoverTemplate() {
+        return $(this.config.popoverTemplate).html();
     }
 
-    FilterWidget.prototype.onCheckDocumentClickTargetDatePicker = function (target) {
+    onCheckDocumentClickTargetDatePicker(target) {
         var $target = $(target);
 
         // If the click happens on a pikaday element, do not close the popover
@@ -370,51 +397,4 @@
             $target.parents('.pika-table').length ||
             $target.parents('.pika-title').length;
     }
-
-    FilterWidget.DEFAULTS = {
-        popoverTemplate: null,
-        optionsHandler: null,
-        updateHandler: null,
-        loadHandler: null,
-        pageName: null
-    }
-
-    // FILTER WIDGET PLUGIN DEFINITION
-    // ============================
-
-    var old = $.fn.filterWidget
-
-    $.fn.filterWidget = function (option) {
-        var args = arguments,
-            result;
-
-        this.each(function () {
-            var $this   = $(this);
-            var data    = $this.data('oc.filterwidget');
-            var options = $.extend({}, FilterWidget.DEFAULTS, $this.data(), typeof option == 'object' && option);
-            if (!data) $this.data('oc.filterwidget', (data = new FilterWidget(this, options)));
-            if (typeof option == 'string') result = data[option].call($this);
-            if (typeof result != 'undefined') return false;
-        })
-
-        return result ? result : this;
-    }
-
-    $.fn.filterWidget.Constructor = FilterWidget;
-
-    // FILTER WIDGET NO CONFLICT
-    // =================
-
-    $.fn.filterWidget.noConflict = function () {
-        $.fn.filterWidget = old;
-        return this;
-    }
-
-    // FILTER WIDGET DATA-API
-    // ==============
-
-    $(document).render(function(){
-        $('[data-control="filterwidget"]').filterWidget();
-    });
-
-}(window.jQuery);
+});

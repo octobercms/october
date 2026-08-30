@@ -49,6 +49,14 @@ window.oc.langMessages['el'] = Object.assign(
         "invalid_video_empty_insert": "\u03a0\u03b1\u03c1\u03b1\u03ba\u03b1\u03bb\u03bf\u03cd\u03bc\u03b5 \u03b5\u03c0\u03b9\u03bb\u03ad\u03be\u03c4\u03b5 \u03ad\u03bd\u03b1 \u03b1\u03c1\u03c7\u03b5\u03af\u03bf \u03b2\u03af\u03bd\u03c4\u03b5\u03bf \u03b3\u03b9\u03b1 \u03b5\u03b9\u03c3\u03b1\u03b3\u03c9\u03b3\u03ae.",
         "invalid_audio_empty_insert": "\u03a0\u03b1\u03c1\u03b1\u03ba\u03b1\u03bb\u03bf\u03cd\u03bc\u03b5 \u03b5\u03c0\u03b9\u03bb\u03ad\u03be\u03c4\u03b5 \u03ad\u03bd\u03b1 \u03b1\u03c1\u03c7\u03b5\u03af\u03bf \u03ae\u03c7\u03bf\u03c5 \u03b3\u03b9\u03b1 \u03b5\u03b9\u03c3\u03b1\u03b3\u03c9\u03b3\u03ae."
     },
+    "mediafinder": {
+        "select_all": "Select All",
+        "deselect_all": "Deselect All",
+        "items_copied_to_clipboard": " item(s) copied to clipboard.",
+        "cannot_paste_items_maximum_limit_exceeded": "Cannot paste items: maximum item (:maxItems) limit will be exceeded.",
+        "no_new_items_to_paste": "No new items to paste.",
+        "items_pasted_successfully": " item(s) pasted successfully."
+    },
     "alert": {
         "error": "Error",
         "confirm": "Confirm",

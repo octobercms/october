@@ -524,6 +524,17 @@ trait HasExtensionCrud
             unset($settings['viewBag']);
         }
 
+        // Drop empty translatable values and remove the section when nothing remains
+        if (isset($settings['translatable']) && is_array($settings['translatable'])) {
+            $settings['translatable'] = array_filter($settings['translatable'], function ($value) {
+                return $value !== null && $value !== '' && $value !== [];
+            });
+
+            if (count($settings['translatable']) === 0) {
+                unset($settings['translatable']);
+            }
+        }
+
         // This fixes a problem where a partial with PHP code and Twig markup is saved without
         // any section data. This creates a template with the PHP code defined in the first
         // section, which is expected to be INI.

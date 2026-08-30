@@ -2,7 +2,6 @@
 
 use File;
 use Lang;
-use Cache;
 use Config;
 use SystemException;
 use Exception;
@@ -31,11 +30,6 @@ class CodeParser
     protected static $cache = [];
 
     /**
-     * @var string dataCacheKey is the key for the parsed PHP file information cache.
-     */
-    protected $dataCacheKey = '';
-
-    /**
      * __construct
      * @param \Cms\Classes\CmsCompoundObject A reference to a CMS object to parse.
      */
@@ -43,7 +37,6 @@ class CodeParser
     {
         $this->object = $object;
         $this->filePath = $object->getFilePath();
-        $this->dataCacheKey = 'cms_code_parser_'.$object->theme->getDirName();
     }
 
     /**
@@ -72,39 +65,20 @@ class CodeParser
             'offset' => 0
         ];
 
-        // There are two types of possible caching scenarios, either stored
-        // in the cache itself, or stored as a cache file. In both cases,
-        // make sure the cache is not stale and use it.
-        if (is_file($path)) {
-            $cachedInfo = $this->getCachedFileInfo();
-            $hasCache = $cachedInfo !== null;
+        // The cache file is authoritative. It is newer than the template it was
+        // built from, and the class it declares is derived from its own path, so
+        // both facts are known without consulting the cache store.
+        if (is_file($path) && filemtime($path) >= $this->object->mtime) {
+            $result['className'] = static::makeClassName($path);
+            $result['source'] = 'cache';
 
-            // Valid cache, return result
-            if ($hasCache && $cachedInfo['mtime'] == $this->object->mtime) {
-                $result['className'] = $cachedInfo['className'];
-                $result['source'] = 'cache';
-
-                return self::$cache[$this->filePath] = $result;
-            }
-
-            // Cache expired, cache file not stale, refresh cache and return result
-            if (!$hasCache && filemtime($path) >= $this->object->mtime) {
-                $className = $this->extractClassFromFile($path);
-                if ($className) {
-                    $result['className'] = $className;
-                    $result['source'] = 'file-cache';
-
-                    $this->storeCachedInfo($result);
-                    return $result;
-                }
-            }
+            return self::$cache[$this->filePath] = $result;
         }
 
         $result['className'] = $this->rebuild($path);
         $result['source'] = 'parser';
 
-        $this->storeCachedInfo($result);
-        return $result;
+        return self::$cache[$this->filePath] = $result;
     }
 
    /**
@@ -113,11 +87,11 @@ class CodeParser
     */
     protected function rebuild($path)
     {
-        $className = 'Cms'.hash('sha256', $path).'Class';
+        $className = static::makeClassName($path);
 
         $count = 0;
         while (class_exists($className)) {
-            $className = 'Cms'.hash('sha256', $path.$count).'Class';
+            $className = static::makeClassName($path.$count);
             if ($count++ > 100) {
                 throw new SystemException('Maximum call stack exceeded for Cms\Classes\CodeParser class name generation.');
             }
@@ -203,7 +177,7 @@ class CodeParser
         if (is_file($path)) {
             if (($className = $this->extractClassFromFile($path)) && class_exists($className)) {
                 $data['className'] = $className;
-                return $data;
+                return self::$cache[$this->filePath] = $data;
             }
 
             @unlink($path);
@@ -217,33 +191,6 @@ class CodeParser
     //
     // Cache
     //
-
-    /**
-     * storeCachedInfo stores result data inside cache.
-     * @param array $result
-     * @return void
-     */
-    protected function storeCachedInfo($result)
-    {
-        $cacheItem = $result;
-        $cacheItem['mtime'] = $this->object->mtime;
-
-        $cached = $this->getCachedInfo() ?: [];
-        $cached[$this->filePath] = $cacheItem;
-
-        $toStore = base64_encode(serialize($cached));
-
-        $minutes = Config::get('cms.template_cache_ttl', 1440);
-        if ($minutes < 0) {
-            Cache::forever($this->dataCacheKey, $toStore);
-        }
-        else {
-            $expiresAt = now()->addMinutes($minutes);
-            Cache::put($this->dataCacheKey, $toStore, $expiresAt);
-        }
-
-        self::$cache[$this->filePath] = $result;
-    }
 
     /**
      * getCacheFilePath returns path to the cached parsed file
@@ -262,36 +209,14 @@ class CodeParser
     }
 
     /**
-     * getCachedInfo returns information about all cached files.
-     * @return mixed Returns an array representing the cached data or NULL.
+     * makeClassName for the class declared by a cache file. The name follows from
+     * the path alone, so a cache file that exists is enough to know it.
+     * @param string $path
+     * @return string
      */
-    protected function getCachedInfo()
+    protected static function makeClassName($path)
     {
-        $cached = Cache::get($this->dataCacheKey, false);
-
-        if (
-            $cached !== false &&
-            ($cached = @unserialize(@base64_decode($cached), ['allowed_classes' => false])) !== false
-        ) {
-            return $cached;
-        }
-
-        return null;
-    }
-
-    /**
-     * getCachedFileInfo returns information about a cached file
-     * @return integer
-     */
-    protected function getCachedFileInfo()
-    {
-        $cached = $this->getCachedInfo();
-
-        if ($cached !== null && array_key_exists($this->filePath, $cached)) {
-            return $cached[$this->filePath];
-        }
-
-        return null;
+        return 'Cms'.hash('sha256', $path).'Class';
     }
 
     //
@@ -316,7 +241,7 @@ class CodeParser
         try {
             $fileContent = File::sharedGet($path);
             $matches = [];
-            $pattern = '/Cms\S+_\S+Class/';
+            $pattern = '/\bCms[0-9a-f]{64}Class\b/';
             preg_match($pattern, $fileContent, $matches);
 
             if (!empty($matches[0])) {
@@ -351,6 +276,19 @@ class CodeParser
         }
 
         File::chmod($path);
+
+        // Stamp the cache file with the modification time of the template it was
+        // built from, so parse() can tell the two apart down to the second
+        // without asking the cache store. A rebuild only happens once the
+        // template is newer than its cache file, so the stamp always moves
+        // forward and the bytecode cache still sees the file change. Where the
+        // filesystem refuses this, or the datasource reports no modification
+        // time, the file keeps its write time and remains newer either way.
+        $mtime = (int) $this->object->mtime;
+        if ($mtime > 0) {
+            @touch($path, $mtime);
+            clearstatcache(true, $path);
+        }
 
         /*
          * Compile cached file into bytecode cache

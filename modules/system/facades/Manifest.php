@@ -6,7 +6,7 @@ use October\Rain\Support\Facade;
  * Manifest facade
  *
  * @method static bool has(string $name)
- * @method static void get(string $key, mixed $default)
+ * @method static mixed get(string $key, mixed $default = null)
  * @method static void put(string $key, mixed $value)
  * @method static void forget(string $name)
  * @method static void build()

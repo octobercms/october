@@ -283,8 +283,8 @@ trait HasRenderers
      */
     public function loadContentObject($name)
     {
-        // Load content from theme
-        if (($content = Content::loadCached($this->theme, $name)) === null) {
+        // Load content from theme, matched to the site locale
+        if (($content = Content::findLocalized($this->theme, $name)) === null) {
             return false;
         }
 

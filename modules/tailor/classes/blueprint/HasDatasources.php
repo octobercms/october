@@ -1,6 +1,7 @@
 <?php namespace Tailor\Classes\Blueprint;
 
 use System;
+use Cms\Models\SourceFile;
 use Cms\Classes\Theme as CmsTheme;
 use Cms\Classes\ThemeManager;
 use System\Classes\PluginManager;
@@ -89,7 +90,8 @@ trait HasDatasources
     }
 
     /**
-     * getDefaultActiveTheme returns the active theme as a datasource
+     * getDefaultActiveTheme returns the active theme and its parent as datasources,
+     * where the child theme takes priority over the parent.
      */
     protected static function getDefaultActiveTheme()
     {
@@ -100,16 +102,14 @@ trait HasDatasources
         $result = [];
 
         try {
-            if (System::hasModule('Cms')) {
-                $activeCode = CmsTheme::getActiveThemeCode();
-                if ($activeCode) {
-                    $themes = ThemeManager::instance()->getThemePaths();
-                    if (isset($themes[$activeCode])) {
-                        $path = $themes[$activeCode];
-                        if (file_exists($bpPath = $path . '/blueprints')) {
-                            $result[$activeCode] = $bpPath;
-                        }
-                    }
+            $themes = System::hasModule('Cms') ? ThemeManager::instance()->getThemePaths() : [];
+            foreach (self::getActiveThemeCodes() as $code) {
+                if (!isset($themes[$code])) {
+                    continue;
+                }
+                $bpPath = $themes[$code] . '/blueprints';
+                if (file_exists($bpPath) || static::themeHasDbBlueprints($code)) {
+                    $result[$code] = $bpPath;
                 }
             }
         }
@@ -131,13 +131,14 @@ trait HasDatasources
         $result = [];
 
         try {
-            $activeCode = System::hasModule('Cms') ? CmsTheme::getActiveThemeCode() : null;
+            $activeCodes = self::getActiveThemeCodes();
             $themes = System::hasModule('Cms') ? ThemeManager::instance()->getThemePaths() : [];
             foreach ($themes as $code => $path) {
-                if ($code === $activeCode) {
+                if (in_array($code, $activeCodes)) {
                     continue;
                 }
-                if (file_exists($bpPath = $path . '/blueprints')) {
+                $bpPath = $path . '/blueprints';
+                if (file_exists($bpPath) || static::themeHasDbBlueprints($code)) {
                     $result[$code] = $bpPath;
                 }
             }
@@ -146,5 +147,60 @@ trait HasDatasources
         }
 
         return self::$resolvedThemes = $result;
+    }
+
+    /**
+     * getActiveThemeCodes returns the active theme code with its parent theme code, if any
+     */
+    protected static function getActiveThemeCodes(): array
+    {
+        $result = [];
+
+        if (!System::hasModule('Cms')) {
+            return $result;
+        }
+
+        $theme = CmsTheme::getActiveTheme();
+        if (!$theme) {
+            return $result;
+        }
+
+        $result[] = $theme->getDirName();
+
+        if ($parentTheme = $theme->getParentTheme()) {
+            $result[] = $parentTheme->getDirName();
+        }
+
+        return $result;
+    }
+
+    /**
+     * themeHasDbBlueprints returns true when the theme has its database layer
+     * enabled and active SourceFile rows exist for its blueprint source.
+     */
+    protected static function themeHasDbBlueprints(string $themeCode): bool
+    {
+        try {
+            $theme = CmsTheme::load($themeCode);
+            if (!$theme || !$theme->databaseLayerEnabled()) {
+                return false;
+            }
+
+            return SourceFile::query()->bySource('theme.'.$themeCode.'.blueprint')->exists();
+        }
+        catch (Exception $ex) {
+            return false;
+        }
+    }
+
+    /**
+     * resetDatasourceCache clears the memoized datasource discovery results,
+     * forcing the next listInProject call to resolve plugins and themes again.
+     */
+    public static function resetDatasourceCache(): void
+    {
+        self::$resolvedPlugins = null;
+        self::$resolvedActiveTheme = null;
+        self::$resolvedThemes = null;
     }
 }

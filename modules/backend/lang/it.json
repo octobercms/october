@@ -327,5 +327,6 @@
   "File not found": "File non trovato",
   "There was no data supplied to export": "Nessun dato fornito per l'esportazione.",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "L'estensione di PHP :name non è installata. Installa questa libreria ed attiva l'estensione.",
-  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "La cartella :name o le sue sottocartelle non sono scrivibili da PHP. Imposta le corrette autorizzazioni per il server web su questa cartella."
+  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "La cartella :name o le sue sottocartelle non sono scrivibili da PHP. Imposta le corrette autorizzazioni per il server web su questa cartella.",
+  "Misc": "Varie"
 }

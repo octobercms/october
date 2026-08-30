@@ -49,6 +49,14 @@ window.oc.langMessages['fa'] = Object.assign(
         "invalid_video_empty_insert": "\u0644\u0637\u0641\u0627 \u0648\u06cc\u062f\u06cc\u0648 \u0631\u0627 \u062c\u0647\u062a \u062f\u0631\u062c \u0627\u0646\u062a\u062e\u0627\u0628 \u0646\u0645\u0627\u06cc\u06cc\u062f.",
         "invalid_audio_empty_insert": "\u0644\u0637\u0641\u0627 \u0641\u0627\u06cc\u0644 \u0635\u0648\u062a\u06cc \u0631\u0627 \u062c\u0647\u062a \u062f\u0631\u062c \u0627\u0646\u062a\u062e\u0627\u0628 \u0646\u0645\u0627\u06cc\u06cc\u062f"
     },
+    "mediafinder": {
+        "select_all": "Select All",
+        "deselect_all": "Deselect All",
+        "items_copied_to_clipboard": " item(s) copied to clipboard.",
+        "cannot_paste_items_maximum_limit_exceeded": "Cannot paste items: maximum item (:maxItems) limit will be exceeded.",
+        "no_new_items_to_paste": "No new items to paste.",
+        "items_pasted_successfully": " item(s) pasted successfully."
+    },
     "alert": {
         "error": "Error",
         "confirm": "Confirm",

@@ -1,49 +1,37 @@
+import { ControlBase, registerControl } from 'larajax';
+
 /*
- * DateFilter plugin
+ * DateFilter control
  *
  * Data attributes:
- * - data-control="datefilter" - enables the plugin on an element
- * - data-data-locker="input#locker" - Input element to store and restore the chosen color
+ * - data-control="datefilter" - enables the control on an element
+ * - data-scope-data="{...}" - scope configuration for the date pickers
  *
  * JavaScript API:
- * $('div#someElement').dateFilter({ dataLocker: 'input#locker' })
- *
- * Dependencies:
- * - Some other plugin (filename.js)
+ * oc.fetchControl(element, 'datefilter')
  */
-
-+function ($) { "use strict";
-    var Base = $.oc.foundation.base,
-        BaseProto = Base.prototype;
-
-    var DateFilter = function(element, options) {
-        this.options = options;
-        this.$el = $(element);
-        this.$pickers = $('[data-datepicker]', this.$el);
-
-        $.oc.foundation.controlUtils.markDisposable(element);
-        Base.call(this);
-        this.init();
-    }
-
-    DateFilter.prototype = Object.create(BaseProto);
-    DateFilter.prototype.constructor = DateFilter;
-
-    DateFilter.DEFAULTS = {
-
-    }
-
-    DateFilter.prototype.init = function() {
+registerControl('datefilter', class extends ControlBase {
+    init() {
         this.dbDateTimeFormat = 'YYYY-MM-DD HH:mm:ss';
         this.dbDateFormat = 'YYYY-MM-DD';
+    }
+
+    connect() {
+        this.$el = $(this.element);
+        this.$pickers = $('[data-datepicker]', this.$el);
 
         this.initRegion();
         this.initDatePickers();
     }
 
-    DateFilter.prototype.initDatePickers = function() {
+    disconnect() {
+        this.$el = null;
+        this.$pickers = null;
+    }
+
+    initDatePickers() {
         var self = this,
-            scopeData = this.$el.data('scope-data');
+            scopeData = this.config.scopeData;
 
         this.$pickers.each(function(index, datepicker) {
             var $datepicker = $(datepicker),
@@ -71,7 +59,7 @@
         });
     }
 
-    DateFilter.prototype.onSelectDatePicker = function(datepicker, $input) {
+    onSelectDatePicker(datepicker, $input) {
         var pickerMoment = datepicker.getMoment(),
             pickerValue = pickerMoment.format(this.dbDateTimeFormat);
 
@@ -85,7 +73,7 @@
         this.setDataLocker($input, lockerValue);
     }
 
-    DateFilter.prototype.getDatePickerValue = function($datepicker) {
+    getDatePickerValue($datepicker) {
         var rawValue = $datepicker.val();
         if (rawValue !== '') {
             rawValue = this.makeMoment(rawValue, this.getDateFormat());
@@ -102,7 +90,7 @@
         return rawValue;
     }
 
-    DateFilter.prototype.makeMoment = function(value, format) {
+    makeMoment(value, format) {
         if (value === 'now') {
             return moment();
         }
@@ -110,21 +98,21 @@
         return moment(value, format);
     }
 
-    DateFilter.prototype.getDataLocker = function(picker) {
+    getDataLocker(picker) {
         var $picker = $(picker),
             $locker = $('#' + $picker.data('datepicker-target'));
 
         return $locker.val();
     }
 
-    DateFilter.prototype.setDataLocker = function(picker, value) {
+    setDataLocker(picker, value) {
         var $picker = $(picker),
             $locker = $('#' + $picker.data('datepicker-target'));
 
         $locker.val(value);
     }
 
-    DateFilter.prototype.initRegion = function() {
+    initRegion() {
         this.locale = $('meta[name="backend-locale"]').attr('content');
         this.timezone = $('meta[name="backend-timezone"]').attr('content');
         this.appTimezone = $('meta[name="app-timezone"]').attr('content');
@@ -138,24 +126,13 @@
         }
 
         // Set both timezones to UTC to disable converting between them
-        var scopeData = this.$el.data('scope-data');
-        if (!scopeData.useTimezone) {
+        if (!this.config.scopeData.useTimezone) {
             this.appTimezone = 'UTC';
             this.timezone = 'UTC';
         }
     }
 
-    DateFilter.prototype.dispose = function() {
-        this.$el.off('dispose-control', this.proxy(this.dispose));
-        this.$el.removeData('oc.datefilter');
-
-        this.$el = null;
-        this.options = null;
-
-        BaseProto.dispose.call(this);
-    }
-
-    DateFilter.prototype.getDateFormat = function () {
+    getDateFormat() {
         if (this.locale) {
             return moment()
                 .locale(this.locale)
@@ -166,48 +143,11 @@
         return this.dbDateFormat;
     }
 
-    DateFilter.prototype.getLang = function(name, defaultValue) {
+    getLang(name, defaultValue) {
         if ($.oc === undefined || $.oc.lang === undefined) {
             return defaultValue;
         }
 
         return $.oc.lang.get(name, defaultValue);
     }
-
-    // DATEFILTER PLUGIN DEFINITION
-    // ============================
-
-    var old = $.fn.dateFilter;
-
-    $.fn.dateFilter = function (option) {
-        var args = Array.prototype.slice.call(arguments, 1), result
-        this.each(function () {
-            var $this = $(this);
-            var data = $this.data('oc.datefilter');
-            var options = $.extend({}, DateFilter.DEFAULTS, $this.data(), typeof option == 'object' && option);
-            if (!data) $this.data('oc.datefilter', (data = new DateFilter(this, options)));
-            if (typeof option == 'string') result = data[option].apply(data, args);
-            if (typeof result != 'undefined') return false;
-        });
-
-        return result ? result : this;
-    }
-
-    $.fn.dateFilter.Constructor = DateFilter;
-
-    // DATEFILTER NO CONFLICT
-    // =================
-
-    $.fn.dateFilter.noConflict = function () {
-        $.fn.dateFilter = old;
-        return this;
-    }
-
-    // DATEFILTER DATA-API
-    // ===============
-
-    $(document).render(function() {
-        $('[data-control="datefilter"]').dateFilter();
-    });
-
-}(window.jQuery);
+});

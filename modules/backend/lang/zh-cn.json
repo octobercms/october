@@ -352,5 +352,6 @@
   "An account with a generic login :name was found. Please rename this administrator account.": "找到具有通用登录名：name 的帐户。请重命名此管理员帐户。",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "PHP 扩展名 :name 未安装。 请安装这个库并激活扩展。",
   "The plugin :name is a dependency but is not installed. Please install this plugin.": "插件 :name 是一个依赖项，但尚未安装。 请安装这个插件。",
-  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "目录 :name 或其子目录对于 PHP 不可写。 请为该目录的网络服务器设置相应的权限。"
+  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "目录 :name 或其子目录对于 PHP 不可写。 请为该目录的网络服务器设置相应的权限。",
+  "Misc": "杂项"
 }

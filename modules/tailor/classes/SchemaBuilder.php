@@ -8,6 +8,7 @@ use Tailor\Classes\Blueprint;
 use Tailor\Models\ContentSchema;
 use Tailor\Classes\Blueprint\StreamBlueprint;
 use Tailor\Classes\Blueprint\StructureBlueprint;
+use Tailor\Classes\Blueprint\SubmissionBlueprint;
 use October\Rain\Database\Schema\Blueprint as DbBlueprint;
 
 /**
@@ -23,6 +24,7 @@ class SchemaBuilder
     use \Tailor\Classes\SchemaBuilder\HasCommonColumns;
     use \Tailor\Classes\SchemaBuilder\HasStreamColumns;
     use \Tailor\Classes\SchemaBuilder\HasStructureColumns;
+    use \Tailor\Classes\SchemaBuilder\HasSubmissionColumns;
     use \Tailor\Classes\SchemaBuilder\HasTablePatches;
 
     /**
@@ -101,6 +103,8 @@ class SchemaBuilder
         'draft_mode',
         'published_at',
         'expired_at',
+        'submitted_ip',
+        'submitted_user_agent',
 
         // Relations
         'primaryRecord',
@@ -176,6 +180,10 @@ class SchemaBuilder
 
             if ($this->blueprint instanceof StreamBlueprint) {
                 $this->defineStreamColumns($table);
+            }
+
+            if ($this->blueprint instanceof SubmissionBlueprint) {
+                $this->defineSubmissionColumns($table);
             }
 
             $this->defineFieldColumns($table);

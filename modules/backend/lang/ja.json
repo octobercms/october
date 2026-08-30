@@ -300,5 +300,6 @@
   "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "ページあたりの表示レコード数を選択してください。1ページにたくさん表示するとパフォーマンスに影響があるので留意してください。",
   "Add Selected": "追加は選択されています",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "PHP拡張\":name\"はインストールされていません。PHP拡張をインストールして有効にしてください。",
-  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "ディレクトリ\":name\"またはそのサブディレクトリは、PHPから書き込みできません。このディレクトリのパーミッションを設定してください。"
+  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "ディレクトリ\":name\"またはそのサブディレクトリは、PHPから書き込みできません。このディレクトリのパーミッションを設定してください。",
+  "Misc": "その他"
 }

@@ -1,6 +1,7 @@
 <?php namespace Cms\Console;
 
 use File;
+use Site;
 use Cms\Classes\Router as CmsRouter;
 use Cms\Classes\Theme as CmsTheme;
 use Illuminate\Console\Command;
@@ -42,31 +43,38 @@ class ThemeCache extends Command
      */
     public function handleTheme(CmsTheme $theme)
     {
-        $router = $this->getFreshThemeRouter($theme);
-
         File::put(
             $theme->getCachedThemePath(),
-            $this->buildThemeCacheFile($router)
+            $this->buildThemeCacheFile($theme)
         );
     }
 
     /**
-     * buildThemeCacheFile
+     * buildThemeCacheFile stores the default route map and a map per translated site locale.
      */
-    protected function buildThemeCacheFile($router)
+    protected function buildThemeCacheFile(CmsTheme $theme)
     {
+        $router = new CmsRouter($theme);
+
         $manifest = [
-            'routes' => $router->toArray()
+            'routes' => $router->build()->toArray()
         ];
 
-        return '<?php return '.var_export($manifest, true).';';
-    }
+        foreach (Site::listEnabled() as $site) {
+            $locale = $site->hard_locale;
+            if (isset($manifest['siteRoutes'][$locale])) {
+                continue;
+            }
 
-    /**
-     * getFreshThemeRoutes
-     */
-    protected function getFreshThemeRouter(CmsTheme $theme)
-    {
-        return (new CmsRouter($theme))->build();
+            $siteRoutes = $router->build($site)->toArray();
+            if ($siteRoutes == $manifest['routes']) {
+                continue;
+            }
+
+            $manifest['siteRoutes'][$locale] = $siteRoutes;
+            $manifest['siteAliasRoutes'][$locale] = $router->buildAlias($site)->toArray();
+        }
+
+        return '<?php return '.var_export($manifest, true).';';
     }
 }

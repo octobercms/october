@@ -1,6 +1,7 @@
 <?php
 
 use System\Classes\CombineAssets;
+use Illuminate\Support\Facades\Cache;
 
 class ThemeCombineAssetsTest extends TestCase
 {
@@ -99,5 +100,41 @@ class ThemeCombineAssetsTest extends TestCase
     {
         $combiner = CombineAssets::instance();
         $this->assertNull($combiner->resetCache());
+    }
+
+    public function testResetCacheInvalidatesForAllInstances()
+    {
+        $info = ['version' => 'abc-1'];
+
+        $combiner = CombineAssets::instance();
+        self::callProtectedMethod($combiner, 'putCache', ['abc', $info]);
+        $this->assertEquals($info, self::callProtectedMethod($combiner, 'getCache', ['abc']));
+
+        // Another instance sees the entry through the shared store
+        $otherInstance = new CombineAssets();
+        $this->assertEquals($info, self::callProtectedMethod($otherInstance, 'getCache', ['abc']));
+
+        // Any instance resets the cache, the generation bump makes old
+        // entries invisible everywhere, including this request
+        CombineAssets::resetCache();
+
+        $this->assertFalse(self::callProtectedMethod($combiner, 'getCache', ['abc']));
+        $this->assertFalse(self::callProtectedMethod($otherInstance, 'getCache', ['abc']));
+
+        // New entries store and read under the new generation
+        self::callProtectedMethod($combiner, 'putCache', ['abc', $info]);
+        $this->assertEquals($info, self::callProtectedMethod($otherInstance, 'getCache', ['abc']));
+    }
+
+    public function testResetCachePurgesLegacyIndex()
+    {
+        $legacyKey = 'combiner.' . md5('legacy-item');
+        Cache::forever($legacyKey, base64_encode(json_encode(['version' => 'x'])));
+        Cache::forever('combiner.index', base64_encode(json_encode([$legacyKey])));
+
+        CombineAssets::resetCache();
+
+        $this->assertNull(Cache::get($legacyKey));
+        $this->assertNull(Cache::get('combiner.index'));
     }
 }

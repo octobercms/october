@@ -49,6 +49,14 @@ window.oc.langMessages['uk'] = Object.assign(
         "invalid_video_empty_insert": "\u0411\u0443\u0434\u044c \u043b\u0430\u0441\u043a\u0430, \u043e\u0431\u0435\u0440\u0456\u0442\u044c \u0432\u0456\u0434\u0435\u043e \u0434\u043b\u044f \u0432\u0441\u0442\u0430\u0432\u043a\u0438.",
         "invalid_audio_empty_insert": "\u0411\u0443\u0434\u044c \u043b\u0430\u0441\u043a\u0430, \u043e\u0431\u0435\u0440\u0456\u0442\u044c \u0430\u0443\u0434\u0456\u043e \u0434\u043b\u044f \u0432\u0441\u0442\u0430\u0432\u043a\u0438."
     },
+    "mediafinder": {
+        "select_all": "Select All",
+        "deselect_all": "Deselect All",
+        "items_copied_to_clipboard": " item(s) copied to clipboard.",
+        "cannot_paste_items_maximum_limit_exceeded": "Cannot paste items: maximum item (:maxItems) limit will be exceeded.",
+        "no_new_items_to_paste": "No new items to paste.",
+        "items_pasted_successfully": " item(s) pasted successfully."
+    },
     "alert": {
         "error": "Error",
         "confirm": "Confirm",

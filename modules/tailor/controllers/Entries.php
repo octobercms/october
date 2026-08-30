@@ -9,9 +9,11 @@ use BackendMenu;
 use Tailor\Classes\RecordIndexer;
 use Tailor\Classes\Blueprint;
 use Tailor\Classes\BlueprintIndexer;
+use Tailor\Models\SubmissionRecord;
 use Backend\Classes\WildcardController;
 use Tailor\Classes\Blueprint\SingleBlueprint;
 use Tailor\Classes\Blueprint\StructureBlueprint;
+use Tailor\Classes\Blueprint\SubmissionBlueprint;
 use ApplicationException;
 use ForbiddenException;
 use NotFoundException;
@@ -144,6 +146,10 @@ class Entries extends WildcardController
             return $this->{$this->actionMethod}(...$this->params);
         }
 
+        if ($this->isSectionSubmission()) {
+            SubmissionRecord::purgeRejectedRecords($this->activeSource->uuid);
+        }
+
         $this->asExtension('ListController')->index();
 
         $this->setPageTitleFromMessage('titleIndexList', "Manage Entries");
@@ -206,6 +212,26 @@ class Entries extends WildcardController
                         $this->checkSourcePermission('create');
                         $model->duplicateRecord()->save(['propagate' => true]);
                         Flash::success(__('Entries have been duplicated'));
+                        break;
+
+                    case 'approve':
+                        $this->checkSourcePermission('publish');
+                        $model->is_enabled = true;
+                        $model->save();
+                        Flash::success(__('Submissions have been approved'));
+                        break;
+
+                    case 'reject':
+                        $this->checkSourcePermission('delete');
+                        $model->delete();
+                        Flash::success(__('Submissions have been rejected'));
+                        break;
+
+                    case 'spam':
+                        $this->checkSourcePermission('delete');
+                        $model->rejectOtherSpamSubmissions();
+                        $model->delete();
+                        Flash::success(__('Submissions have been marked as spam'));
                         break;
                 }
             }
@@ -875,6 +901,14 @@ class Entries extends WildcardController
     protected function isSectionStructured(): bool
     {
         return $this->activeSource && $this->activeSource instanceof StructureBlueprint;
+    }
+
+    /**
+     * isSectionSubmission
+     */
+    protected function isSectionSubmission(): bool
+    {
+        return $this->activeSource && $this->activeSource instanceof SubmissionBlueprint;
     }
 
     /**

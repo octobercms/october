@@ -398,7 +398,7 @@ abstract class ComponentBase extends Extendable implements ViewComponentInterfac
     protected function getComponentAssetUrlPath(): string
     {
         // Configuration for theme asset location, default to relative path
-        $assetUrl = (string) Config::get('system.plugins_asset_url') ?: '/plugins';
+        $assetUrl = rtrim((string) Config::get('system.plugins_asset_url') ?: '/plugins', '/');
 
         // Build path
         $dirName = dirname(dirname($this->dirName));

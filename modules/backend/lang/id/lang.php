@@ -128,7 +128,6 @@
     'reset_default' => 'Reset kembali ke awal',
     'resetting' => 'Pengaturan ulang',
     'resetting_name' => 'Pengaturan ulang :name',
-    'undefined_tab' => 'Lain-lain',
     'field_off' => 'Off',
     'field_on' => 'On',
     'add' => 'Tambah',

@@ -187,5 +187,6 @@
   "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "選擇每頁想顯示的記錄數量. 請注意一頁中太多記錄可能會降低性能",
   "Add Selected": "增加選取的",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "PHP外掛 :name 沒安裝. 請安裝這個庫並且啟用外掛",
-  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "目錄 :name 或子目錄對PHP不可寫. 請對這個目錄上的webserver設定正確的權限"
+  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "目錄 :name 或子目錄對PHP不可寫. 請對這個目錄上的webserver設定正確的權限",
+  "Misc": "雜項"
 }

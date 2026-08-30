@@ -56,12 +56,10 @@ trait SectionIndex
         }
 
         // Handle found
-        $themeDatasource = $this->getActiveThemeDatasource();
         foreach ($index as $attributes) {
             if (isset($attributes['handle']) && $attributes['handle'] === $handleOrUuid) {
                 // Skip blueprints from inactive themes
-                $themeCode = $attributes['_theme'] ?? null;
-                if ($themeCode !== null && $themeDatasource && $themeCode !== $themeDatasource) {
+                if (!$this->isActiveThemeDatasource($attributes['_theme'] ?? null)) {
                     continue;
                 }
 
@@ -91,7 +89,6 @@ trait SectionIndex
      */
     public function findSectionByHandle(string $handle): ?EntryBlueprint
     {
-        $themeDatasource = $this->getActiveThemeDatasource();
         $result = null;
 
         foreach ($this->listSectionsRaw() as $attributes) {
@@ -100,8 +97,7 @@ trait SectionIndex
                 (isset($attributes['handleSlug']) && $attributes['handleSlug'] === $handle)
             ) {
                 // Skip blueprints from inactive themes
-                $themeCode = $attributes['_theme'] ?? null;
-                if ($themeCode !== null && $themeDatasource && $themeCode !== $themeDatasource) {
+                if (!$this->isActiveThemeDatasource($attributes['_theme'] ?? null)) {
                     continue;
                 }
 

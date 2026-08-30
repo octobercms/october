@@ -3,7 +3,6 @@
 use File;
 use Lang;
 use Block;
-use System;
 use SystemException;
 use Throwable;
 
@@ -228,7 +227,7 @@ trait ViewMaker
         if (strpos($fileName, '/') !== false) {
             foreach ($viewExtensions as $extension) {
                 $_fileName = $fileName . '.' . $extension;
-                if (System::checkBaseDir($_fileName)) {
+                if (File::checkBaseDir($_fileName)) {
                     return $_fileName;
                 }
             }
@@ -245,7 +244,7 @@ trait ViewMaker
      */
     public function makeFileContents($filePath, $extraParams = [])
     {
-        if (!strlen($filePath) || !File::isFile($filePath) || !System::checkBaseDir($filePath)) {
+        if (!strlen($filePath) || !File::isFile($filePath) || !File::checkBaseDir($filePath)) {
             return '';
         }
 
@@ -315,7 +314,7 @@ trait ViewMaker
     public function guessViewPathFrom($class, $suffix = '', $isPublic = false)
     {
         // Pass to the controller to share the cache
-        if (isset($this->controller)) {
+        if (isset($this->controller) && method_exists($this->controller, 'guessViewPathFrom')) {
             return $this->controller->guessViewPathFrom($class, $suffix, $isPublic);
         }
 

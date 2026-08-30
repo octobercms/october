@@ -210,7 +210,7 @@ class SnippetManager
             $viewBag = $partial->getViewBag();
 
             $snippetCode = $viewBag->property('snippetCode');
-            if (!strlen($snippetCode)) {
+            if (!strlen((string) $snippetCode)) {
                 continue;
             }
 
@@ -236,7 +236,7 @@ class SnippetManager
         foreach ($partials as $partial) {
             $viewBag = $partial->getViewBag();
 
-            if (strlen($viewBag->property('snippetCode'))) {
+            if (strlen((string) $viewBag->property('snippetCode'))) {
                 $snippet = new Snippet;
                 $snippet->initFromPartial($partial);
                 $result[] = $snippet;

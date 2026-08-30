@@ -1,0 +1,17 @@
+subject = "New submission: {{ title }}"
+layout = "system"
+description = "Notify the admins that a new submission has been received"
+==
+Hello
+
+A new **{{ blueprintName }}** submission has been received via **{{ appName }}**.
+
+{% partial 'panel' body %}
+{% for field in fields %}
+- {{ field.label }}: {{ field.value }}
+{% endfor %}
+{% endpartial %}
+
+{% partial 'button' url=recordUrl body %}
+View Submission
+{% endpartial %}

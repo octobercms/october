@@ -1,5 +1,6 @@
 <?php namespace System\Traits;
 
+use Url;
 use Html;
 use File;
 use Event;
@@ -432,7 +433,7 @@ trait AssetMaker
         }
 
         if (substr($asset, 0, 1) === '/') {
-            $asset = Request::getBasePath() . $asset;
+            $asset = Url::assetRelative($asset);
         }
 
         return $asset;

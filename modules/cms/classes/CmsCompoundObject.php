@@ -72,9 +72,10 @@ class CmsCompoundObject extends CmsObject
     protected $isCompoundObject = true;
 
     /**
-     * @var array|null objectComponentPropertyMap cache for component properties.
+     * @var array objectComponentPropertyMap is a request level cache for component
+     * properties, keyed by the cache key of the object they belong to.
      */
-    protected static $objectComponentPropertyMap;
+    protected static $objectComponentPropertyMap = [];
 
     /**
      * @var mixed viewBagCache store for the getViewBag method.
@@ -265,73 +266,80 @@ class CmsCompoundObject extends CmsObject
      */
     public function getComponentProperties($componentName)
     {
-        $key = self::makeComponentPropertyCacheKey($this->theme);
+        $key = $this->makeComponentPropertyCacheKey($this->theme);
 
-        if (self::$objectComponentPropertyMap !== null) {
-            $objectComponentMap = self::$objectComponentPropertyMap;
+        // Already resolved in this request
+        if (array_key_exists($key, self::$objectComponentPropertyMap)) {
+            return self::$objectComponentPropertyMap[$key][$componentName] ?? [];
         }
-        else {
-            $cached = Cache::memo()->get($key, false);
-            $unserialized = $cached ? @unserialize(@base64_decode($cached), ['allowed_classes' => false]) : false;
-            $objectComponentMap = $unserialized ?: [];
-            if ($objectComponentMap) {
-                self::$objectComponentPropertyMap = $objectComponentMap;
+
+        // Stored by an earlier request
+        $cached = Cache::memo()->get($key, false);
+        $cached = $cached ? @unserialize(@base64_decode($cached), ['allowed_classes' => false]) : false;
+
+        if (is_array($cached)) {
+            self::$objectComponentPropertyMap[$key] = $cached;
+
+            return $cached[$componentName] ?? [];
+        }
+
+        $objectProperties = [];
+
+        foreach ($this->settings['components'] ?? [] as $name => $settings) {
+            $nameParts = explode(' ', $name);
+            if (count($nameParts) > 1) {
+                $name = trim($nameParts[0]);
             }
-        }
 
-        $objectCode = $this->getBaseFileName();
-
-        if (array_key_exists($objectCode, $objectComponentMap)) {
-            if (array_key_exists($componentName, $objectComponentMap[$objectCode])) {
-                return $objectComponentMap[$objectCode][$componentName];
+            $component = $this->getComponent($name);
+            if (!$component) {
+                continue;
             }
 
-            return [];
-        }
-
-        if (!isset($this->settings['components'])) {
-            $objectComponentMap[$objectCode] = [];
-        }
-        else {
-            foreach ($this->settings['components'] as $name => $settings) {
-                $nameParts = explode(' ', $name);
-                if (count($nameParts) > 1) {
-                    $name = trim($nameParts[0]);
-                }
-
-                $component = $this->getComponent($name);
-                if (!$component) {
-                    continue;
-                }
-
-                $componentProperties = [];
-                $propertyDefinitions = $component->defineProperties();
-                foreach ($propertyDefinitions as $propertyName => $propertyInfo) {
-                    $componentProperties[$propertyName] = $component->property($propertyName);
-                }
-
-                $objectComponentMap[$objectCode][$name] = $componentProperties;
+            $componentProperties = [];
+            $propertyDefinitions = $component->defineProperties();
+            foreach ($propertyDefinitions as $propertyName => $propertyInfo) {
+                $componentProperties[$propertyName] = $component->property($propertyName);
             }
+
+            $objectProperties[$name] = $componentProperties;
         }
 
-        self::$objectComponentPropertyMap = $objectComponentMap;
+        self::$objectComponentPropertyMap[$key] = $objectProperties;
 
         $expiresAt = now()->addMinutes(Config::get('cms.template_cache_ttl', 1440));
-        Cache::put($key, base64_encode(serialize($objectComponentMap)), $expiresAt);
+        Cache::memo()->put($key, base64_encode(serialize($objectProperties)), $expiresAt);
 
-        if (array_key_exists($componentName, $objectComponentMap[$objectCode])) {
-            return $objectComponentMap[$objectCode][$componentName];
-        }
-
-        return [];
+        return $objectProperties[$componentName] ?? [];
     }
 
     /**
-     * makeComponentPropertyCacheKey
+     * makeComponentPropertyCacheKey for this object. Each object caches under its
+     * own key so storing one never rewrites the properties of another, and the
+     * generation number lets the whole theme be invalidated in a single write.
      */
-    protected static function makeComponentPropertyCacheKey($theme): string
+    protected function makeComponentPropertyCacheKey($theme): string
     {
-        return 'cms_component_props_' . md5($theme->getPath());
+        return 'cms_component_props_'
+            . self::getComponentPropertyGeneration($theme)
+            . '_' . md5($theme->getPath())
+            . '_' . md5($this->getFilePath());
+    }
+
+    /**
+     * getComponentPropertyGeneration returns the current cache generation for a theme
+     */
+    protected static function getComponentPropertyGeneration($theme): int
+    {
+        return (int) Cache::memo()->get(self::makeComponentPropertyGenerationKey($theme), 1);
+    }
+
+    /**
+     * makeComponentPropertyGenerationKey
+     */
+    protected static function makeComponentPropertyGenerationKey($theme): string
+    {
+        return 'cms_component_props_gen_' . md5($theme->getPath());
     }
 
     /**
@@ -341,7 +349,17 @@ class CmsCompoundObject extends CmsObject
      */
     public static function clearCache($theme)
     {
-        Cache::forget(self::makeComponentPropertyCacheKey($theme));
+        $generationKey = self::makeComponentPropertyGenerationKey($theme);
+
+        // Write through the memo store so the bump is visible to reads
+        // within this request too
+        Cache::memo()->forever($generationKey, (int) Cache::get($generationKey, 1) + 1);
+
+        self::$objectComponentPropertyMap = [];
+
+        // Purge the map used by previous versions
+        // @deprecated this line can be removed in v4.4
+        Cache::forget('cms_component_props_' . md5($theme->getPath()));
     }
 
     //

@@ -328,5 +328,6 @@
   "There was no data supplied to export": "내보내기 위한 데이터가 없습니다",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "\":name\" PHP 익스텐션이 설치되어있지 않습니다. 설치후 활성화해주세요.",
   "The plugin :name is a dependency but is not installed. Please install this plugin.": ":name 플러그인에 의존성이 해결되지 않았습니다. 이 플러그인을 설치해주세요.",
-  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "\":name\" 디렉토리 또는 서브디렉토리는 PHP에서 쓸 수 없습니다. 이 디렉토리의 퍼미션을 설정해주세요."
+  "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "\":name\" 디렉토리 또는 서브디렉토리는 PHP에서 쓸 수 없습니다. 이 디렉토리의 퍼미션을 설정해주세요.",
+  "Misc": "기타"
 }

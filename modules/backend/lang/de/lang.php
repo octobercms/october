@@ -211,7 +211,6 @@
     'reset_default' => 'Zurücksetzen',
     'resetting' => 'Setze zurück...',
     'resetting_name' => 'Setze :name zurück...',
-    'undefined_tab' => 'Verschiedenes',
     'field_off' => 'Aus',
     'field_on' => 'An',
     'add' => 'Hinzufügen',

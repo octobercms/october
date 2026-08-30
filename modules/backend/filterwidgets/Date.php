@@ -63,7 +63,7 @@ class Date extends FilterWidgetBase
      */
     protected function loadAssets()
     {
-        $this->addJs('js/datefilter.js');
+        $this->addJs('js/datefilter.js', ['type' => 'module']);
     }
 
     /**

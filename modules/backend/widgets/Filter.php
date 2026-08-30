@@ -118,7 +118,7 @@ class Filter extends WidgetBase implements FilterElement
      */
     protected function loadAssets()
     {
-        $this->addJs('js/october.filter.js');
+        $this->addJs('js/october.filter.js', ['type' => 'module']);
     }
 
     /**
@@ -281,8 +281,7 @@ class Filter extends WidgetBase implements FilterElement
         $scope = new FilterScope([
             'scopeName' => $scopeName,
             'arrayName' => $this->arrayName,
-            // @deprecated v4 this should be uncommented
-            // 'idPrefix' => $this->getId()
+            'idPrefix' => $this->getId()
         ]);
 
         $scope->useConfig($config);

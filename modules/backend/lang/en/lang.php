@@ -184,7 +184,6 @@
     'reset_default' => 'Reset to Default',
     'resetting' => 'Resetting',
     'resetting_name' => 'Resetting :name',
-    'undefined_tab' => 'Misc',
     'field_off' => 'Off',
     'field_on' => 'On',
     'add' => 'Add',

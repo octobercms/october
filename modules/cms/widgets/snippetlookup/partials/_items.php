@@ -12,6 +12,7 @@
                 data-description="<?= e($item->getDescription()) ?>"
                 data-component-class="<?= e($item->getComponentClass()) ?>"
                 data-use-ajax="<?= $item->useAjaxPartial() ? 'true' : 'false' ?>"
+                data-inline="<?= $item->isInline() ? 'true' : 'false' ?>"
             >
                 <a href="javascript:;">
                     <span class="title"><?= e($item->getName()) ?></span>

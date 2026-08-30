@@ -19,12 +19,13 @@
 }
 
 .control-filter {
-    padding: 0 10px;
     color: var(--oc-filter-text);
     background-color: var(--oc-filter-bg);
     border-top: 1px solid var(--oc-filter-border);
     border-bottom: 1px solid var(--oc-filter-border);
     font-size: 14px;
+    display: flex;
+    align-items: center;
 
     a {
         text-decoration: none;
@@ -32,7 +33,8 @@
     }
 
     > .filter-setup {
-        padding: 6px 0;
+        padding: 6px 10px;
+        flex-shrink: 0;
 
         > a {
             > span {
@@ -58,12 +60,58 @@
         }
     }
 
-    > .filter-group {
+    /* Scroll wrapper with edge shadows */
+    > .filter-scroll {
+        position: relative;
+        flex: 1 1 auto;
+        min-width: 0;
+
+        &::before,
+        &::after {
+            content: '';
+            position: absolute;
+            top: 0;
+            bottom: 0;
+            width: 10px;
+            z-index: 2;
+            opacity: 0;
+            transition: opacity 0.1s ease-out;
+            pointer-events: none;
+        }
+
+        &::before {
+            background: transparent linear-gradient(90deg, #000 0%, rgba(0, 0, 0, 0) 100%);
+            left: -3px;
+        }
+
+        &::after {
+            background: transparent linear-gradient(270deg, #000 0%, rgba(0, 0, 0, 0) 100%);
+            right: -3px;
+        }
+
+        &.scroll-before::before {
+            opacity: .15;
+        }
+
+        &.scroll-after::after {
+            opacity: .15;
+        }
+
+        > .filter-scopes {
+            white-space: nowrap;
+            width: 100%;
+            overflow: hidden;
+            padding: .3rem;
+            margin: -.3rem;
+        }
+    }
+
+    .filter-group {
         display: inline-block;
         vertical-align: middle;
     }
 
-    > .filter-group > .filter-scope {
+    .filter-group > .filter-scope {
         padding: 8px;
         display: block;
 
@@ -123,7 +171,7 @@
             }
         }
 
-        &:hover, &.active {
+        &.popover-highlight, &:hover, &.active {
             color: var(--oc-filter-text-active);
 
             .filter-label {
@@ -136,7 +184,7 @@
         }
     }
 
-    > .filter-group > .filter-has-popover {
+    .filter-group > .filter-has-popover {
         display: inline-block;
         padding: 10px;
         .filter-setting {
@@ -184,7 +232,7 @@
 .control-filter.is-loading {
     cursor: wait;
 
-    > .filter-group {
+    .filter-group {
         pointer-events: none;
         opacity: .7;
     }

@@ -25,7 +25,7 @@ class Group extends FilterWidgetBase
      */
     protected function loadAssets()
     {
-        $this->addJs('js/groupfilter.js');
+        $this->addJs('js/groupfilter.js', ['type' => 'module']);
     }
 
     /**

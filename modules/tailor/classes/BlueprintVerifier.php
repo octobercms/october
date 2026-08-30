@@ -54,6 +54,8 @@ class BlueprintVerifier
         'primary_id',
         'primary_attrs',
         'content_group',
+        'submitted_ip',
+        'submitted_user_agent',
 
         // Relations
         'primaryRecord',
@@ -150,7 +152,7 @@ class BlueprintVerifier
      */
     protected function validateSupportedTypes(Blueprint $blueprint)
     {
-        $supportedTypes = ['entry', 'stream', 'structure', 'single', 'mixin', 'global'];
+        $supportedTypes = ['entry', 'stream', 'structure', 'single', 'mixin', 'global', 'submission'];
 
         if (in_array($blueprint->type, $supportedTypes)) {
             return;

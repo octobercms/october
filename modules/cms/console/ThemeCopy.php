@@ -98,6 +98,9 @@ class ThemeCopy extends Command
         $this->info("Importing database contents from '{$sourceDir}' to '{$dirName}'");
 
         $this->themeManager->importDatabaseTemplates($dirName, $sourceDir);
+        $this->themeManager->importDatabaseLangs($dirName, $sourceDir);
+        $this->themeManager->importDatabaseAssets($dirName, $sourceDir);
+        $this->themeManager->importDatabaseBlueprints($dirName, $sourceDir);
     }
 
     /**
@@ -119,6 +122,9 @@ class ThemeCopy extends Command
         $this->info("Deleting database contents from '{$dirName}'");
 
         $this->themeManager->purgeDatabaseTemplates($dirName);
+        $this->themeManager->purgeDatabaseLangs($dirName);
+        $this->themeManager->purgeDatabaseAssets($dirName);
+        $this->themeManager->purgeDatabaseBlueprints($dirName);
     }
 
     /**

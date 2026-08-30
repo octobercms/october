@@ -191,7 +191,7 @@ class PageManager
                 : $value;
         };
 
-        if (preg_match_all('/\<figure\s+[^\>]+\>[^<]*\<\/figure\>/i', $markup, $matches)) {
+        if (preg_match_all('/\<(figure|span)\s+[^\>]+\>[^<]*\<\/\1\>/i', $markup, $matches)) {
             foreach ($matches[0] as $snippetDeclaration) {
                 $nameMatch = [];
                 if (!preg_match('/data\-snippet\s*=\s*"([^"]+)"/', $snippetDeclaration, $nameMatch)) {

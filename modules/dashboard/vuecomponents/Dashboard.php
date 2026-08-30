@@ -1,6 +1,6 @@
 <?php namespace Dashboard\VueComponents;
 
-use Backend\Classes\VueComponentBase;
+use System\Classes\VueComponentBase;
 
 /**
  * Dashboard top-level component

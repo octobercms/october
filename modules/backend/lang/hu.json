@@ -353,5 +353,6 @@
   "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "A(z) :name könyvtár vagy alkönyvtárai a PHP számára nem írhatóak. Adjon megfelelő engedélyeket a kiszolgálónak erre a könyvtárra.",
   "Manage Roles": "Szerepkörök Menedzselése",
   "Manage Groups": "Csoportok Menedzselése",
-  "Customize Backend": "Admin Felület Testreszabása"
+  "Customize Backend": "Admin Felület Testreszabása",
+  "Misc": "Egyebek"
 }

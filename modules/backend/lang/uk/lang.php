@@ -193,7 +193,6 @@
     'reset_default' => 'Скинути за замовчуванням',
     'resetting' => 'Скидання',
     'resetting_name' => 'Скидання :name',
-    'undefined_tab' => 'Різне',
     'field_off' => 'Викл',
     'field_on' => 'Вкл',
     'add' => 'Додати',

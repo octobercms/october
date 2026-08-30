@@ -1,7 +1,7 @@
 <?php namespace Backend\VueComponents;
 
 use App;
-use Backend\Classes\VueComponentBase;
+use System\Classes\VueComponentBase;
 
 /**
  * Markdown editor for the Document UI Vue component.

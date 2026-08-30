@@ -1,6 +1,6 @@
 <?php namespace Backend\VueComponents;
 
-use Backend\Classes\VueComponentBase;
+use System\Classes\VueComponentBase;
 
 /**
  * InfoTable is a read-only information table Vue component

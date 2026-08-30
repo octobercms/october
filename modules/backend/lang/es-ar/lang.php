@@ -112,7 +112,6 @@
     'saving' => 'Guardando...',
     'delete' => 'Borrar',
     'deleting' => 'Borrando...',
-    'undefined_tab' => 'Misc',
     'field_off' => 'Off',
     'field_on' => 'On',
     'add' => 'Agregar',

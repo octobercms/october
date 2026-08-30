@@ -49,6 +49,14 @@ window.oc.langMessages['fr'] = Object.assign(
         "invalid_video_empty_insert": "Veuillez s\u00e9lectionner une vid\u00e9o \u00e0 ins\u00e9rer.",
         "invalid_audio_empty_insert": "Veuillez s\u00e9lectionner un document audio \u00e0 ins\u00e9rer."
     },
+    "mediafinder": {
+        "select_all": "Tout s\u00e9lectionner",
+        "deselect_all": "Tout d\u00e9s\u00e9lectionner",
+        "items_copied_to_clipboard": " \u00e9l\u00e9ment(s) copi\u00e9(s) dans le presse-papier.",
+        "cannot_paste_items_maximum_limit_exceeded": "Impossible de coller les \u00e9l\u00e9ments : la limite maximale d'\u00e9l\u00e9ments (:maxItems) sera d\u00e9pass\u00e9e.",
+        "no_new_items_to_paste": "Aucun nouvel \u00e9l\u00e9ment \u00e0 coller.",
+        "items_pasted_successfully": " \u00e9l\u00e9ment(s) coll\u00e9(s) avec succ\u00e8s."
+    },
     "alert": {
         "error": "Erreur",
         "confirm": "Confirmer",

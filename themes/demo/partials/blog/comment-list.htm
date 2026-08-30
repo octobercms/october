@@ -1,10 +1,38 @@
-<div class="blog-post-comments">
-    <h2 class="mb-5">2 comments</h2>
+{% set postComments = comments.where('post_id', post.id).orderBy('created_at', 'asc').get() %}
 
-    <div class="post-comment pb-5">
-        {% partial 'elements/user-panel' user={ title:'Andy Anderson', role:'', slug:'', avatar:null } %}
-    </div>
-    <div class="post-comment">
-        {% partial 'elements/user-panel' user={ title:'Mary Williams', role:'', slug:'', avatar:null } %}
-    </div>
+<div class="blog-post-comments">
+    <h2 class="mb-5">
+        {{ postComments.count }} {{ postComments.count == 1 ? 'comment' : 'comments' }}
+    </h2>
+
+    {% for comment in postComments %}
+        <div class="post-comment {{ not loop.last ? 'pb-5' }}">
+            <div class="element-user-panel">
+                <div class="row">
+                    <div class="col-md-8 d-flex">
+                        <div class="user-avatar">
+                            <img src="{{ partial('site/helpers/random-avatar-image') }}" alt="{{ comment.author_name }}" />
+                        </div>
+                        <div class="user-details">
+                            <h3 class="mb-0">
+                                {{ comment.author_name }}
+                            </h3>
+                            <p class="text-icon text-icon-date">
+                                {{ comment.created_at|date('j M Y') }}
+                            </p>
+                        </div>
+                    </div>
+                </div>
+                <div class="user-profile">
+                    <p>
+                        {{ comment.content|nl2br }}
+                    </p>
+                </div>
+            </div>
+        </div>
+    {% else %}
+        <p class="text-muted">
+            Be the first to share your thoughts on this post.
+        </p>
+    {% endfor %}
 </div>

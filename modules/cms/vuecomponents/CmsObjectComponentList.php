@@ -1,6 +1,6 @@
 <?php namespace Cms\VueComponents;
 
-use Backend\Classes\VueComponentBase;
+use System\Classes\VueComponentBase;
 
 /**
  * CmsObjectComponentList is a Vue component

@@ -165,7 +165,6 @@
     'reset_default' => 'Ripristina predefiniti',
     'resetting' => 'Ripristino in corso',
     'resetting_name' => 'Ripristino :name in corso',
-    'undefined_tab' => 'Varie',
     'field_off' => 'Off',
     'field_on' => 'On',
     'add' => 'Aggiungi',

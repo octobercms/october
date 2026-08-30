@@ -30,23 +30,13 @@ return [
 
     'disks' => [
 
-        'local' => [
-            'driver' => 'local',
-            'root' => storage_path('app/private'),
-            'serve' => true,
-            'throw' => false,
-            'report' => false,
-        ],
-
-        'public' => [
-            'driver' => 'local',
-            'root' => storage_path('app/public'),
-            'url' => rtrim(env('APP_URL', ''), '/').'/storage/app/public',
-            'visibility' => 'public',
-            'throw' => false,
-            'report' => false,
-        ],
-
+        // October CMS Disks
+        //
+        // - uploads   : files created via System\Models\File attachments
+        // - media     : files created using the media module
+        // - resources : automatically generated assets (thumbs, combined JS/CSS)
+        // - assets    : asset files created the cms editor, used with ASSET_PATH
+        //
         'uploads' => [
             'driver' => 'local',
             'root' => storage_path('app/uploads'),
@@ -69,6 +59,34 @@ return [
             'driver' => 'local',
             'root' => storage_path('app/resources'),
             'url' => '/storage/app/resources',
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+
+        'assets' => [
+            'driver' => 'local',
+            'root' => storage_path('app/assets'),
+            'url' => '/storage/app/assets',
+            'visibility' => 'public',
+            'throw' => false,
+            'report' => false,
+        ],
+
+        // Standard Laravel Disks
+        //
+        'local' => [
+            'driver' => 'local',
+            'root' => storage_path('app/private'),
+            'serve' => true,
+            'throw' => false,
+            'report' => false,
+        ],
+
+        'public' => [
+            'driver' => 'local',
+            'root' => storage_path('app/public'),
+            'url' => rtrim(env('APP_URL', ''), '/').'/storage/app/public',
             'visibility' => 'public',
             'throw' => false,
             'report' => false,

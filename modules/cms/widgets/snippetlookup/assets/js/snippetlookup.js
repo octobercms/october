@@ -24,24 +24,30 @@ class SnippetLookup
     static generateSnippetHtml(snippet) {
         let snippetCode = snippet.snippet,
             componentClass = snippet.componentClass,
-            useAjax = snippet.useAjax === 'true';
+            useAjax = snippet.useAjax === 'true',
+            isInline = snippet.inline === 'true';
 
-        var template = [];
+        var tag = isInline ? 'span' : 'figure',
+            template = [];
 
         if (componentClass) {
             snippetCode = this._generateUniqueComponentSnippetCode(snippetCode);
-            template.push('<figure data-snippet="'+snippetCode+'"');
+            template.push('<' + tag + ' data-snippet="'+snippetCode+'"');
             template.push(' data-component="'+componentClass+'"');
         }
         else {
-            template.push('<figure data-snippet="'+snippetCode+'"');
+            template.push('<' + tag + ' data-snippet="'+snippetCode+'"');
         }
 
         if (useAjax) {
             template.push(' data-ajax="true"');
         }
 
-        template.push('>&nbsp;</figure>');
+        if (isInline) {
+            template.push(' data-ui-block-inline="true"');
+        }
+
+        template.push('>&nbsp;</' + tag + '>');
 
         return template.join('');
     }
@@ -75,7 +81,7 @@ class SnippetLookup
 
     // Used by markdown editor to attach snippet controls
     static processSnippets(content) {
-        const figures = content.match(/\<figure[^\>]+data-snippet[^\>]+\>[^<]*\<\/figure\>/g);
+        const figures = content.match(/\<(figure|span)[^\>]+data-snippet[^\>]+\>[^<]*\<\/\1\>/g);
 
         if (figures != null && figures.length > 0) {
             for (const figure of figures) {

@@ -83,7 +83,8 @@ class ServiceProvider extends ModuleServiceProvider
         return [
            \Cms\Components\ViewBag::class => 'viewBag',
            \Cms\Components\Resources::class => 'resources',
-           \Cms\Components\SitePicker::class => 'sitePicker'
+           \Cms\Components\SitePicker::class => 'sitePicker',
+           \Cms\Components\TranslatableBag::class => 'translatable'
         ];
     }
 

@@ -6,6 +6,7 @@
     data-input-name="<?= $field->getName() ?>"
     <?php if ($maxItems): ?>data-max-items="<?= $maxItems ?>"<?php endif ?>
     <?php if ($externalToolbarBus): ?>data-external-toolbar-bus="<?= e($externalToolbarBus)?>"<?php endif ?>
+    <?php if ($useCopyPaste): ?>data-use-copy-paste="1"<?php endif ?>
     <?= $field->getAttributes() ?>
 >
     <div class="empty-state">
@@ -14,19 +15,47 @@
 
     <div class="mediafinder-control-container <?= $externalToolbarBus ? 'external-toolbar' : null ?>">
         <div class="mediafinder-control-toolbar">
-            <a href="javascript:;" class="backend-toolbar-button control-button toolbar-find-button">
-                <i class="icon-common-file-star"></i>
-                <span class="button-label"><?= __("Select") ?></span>
-            </a>
+            <div data-control="toolbar">
+                <a href="javascript:;" class="backend-toolbar-button control-button toolbar-find-button">
+                    <i class="icon-common-file-star"></i>
+                    <span class="button-label"><?= __("Select") ?></span>
+                </a>
 
-            <button
-                type="button"
-                class="backend-toolbar-button control-button toolbar-delete-selected populated-only"
-                disabled
-            >
-                <i class="icon-common-file-remove"></i>
-                <span class="button-label"><?= __("Delete Selected") ?> <span></span></span>
-            </button>
+                <button
+                    type="button"
+                    class="backend-toolbar-button control-button toolbar-delete-selected populated-only"
+                    disabled
+                >
+                    <i class="icon-common-file-remove"></i>
+                    <span class="button-label"><?= __("Delete Selected") ?> <span></span></span>
+                </button>
+
+                <?php if ($useCopyPaste): ?>
+                    <button
+                        class="backend-toolbar-button control-button toolbar-select-all populated-only"
+                        disabled
+                    >
+                        <i class="icon-check-square"></i>
+                        <span class="button-label"><?= __("Select All") ?> <span></span></span>
+                    </button>
+
+                    <button
+                        class="backend-toolbar-button control-button toolbar-copy-selected populated-only"
+                        disabled
+                    >
+                        <i class="icon-copy"></i>
+                        <span class="button-label"><?= __("Copy Selected") ?> <span></span></span>
+                    </button>
+
+                    <button
+                        class="backend-toolbar-button control-button toolbar-paste-items"
+                        disabled
+                    >
+                        <i class="icon-paste"></i>
+                        <span class="button-label"><?= __("Paste") ?> <span></span></span>
+                    </button>
+                <?php endif ?>
+            </div>
         </div>
 
         <!-- Existing file -->

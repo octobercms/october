@@ -223,7 +223,6 @@
     'reset_default' => 'Resetuj na osnovno',
     'resetting' => 'Resetovanje',
     'resetting_name' => 'Resetovanje :name',
-    'undefined_tab' => 'Razno',
     'field_off' => 'Isključi',
     'field_on' => 'Uključi',
     'add' => 'Dodaj',

@@ -15,11 +15,21 @@ use File as FileHelper;
 class MailTemplate extends Model
 {
     use \October\Rain\Database\Traits\Validation;
+    use \October\Rain\Database\Traits\Translatable;
 
     /**
      * @var string table associated with the model
      */
     protected $table = 'system_mail_templates';
+
+    /**
+     * @var array translatable attribute names
+     */
+    public $translatable = [
+        'subject',
+        'content_html',
+        'content_text',
+    ];
 
     /**
      * @var array guarded fields
