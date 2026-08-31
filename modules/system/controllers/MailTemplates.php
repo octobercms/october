@@ -1,7 +1,9 @@
 <?php namespace System\Controllers;
 
 use Mail;
+use Lang;
 use Flash;
+use Redirect;
 use BackendMenu;
 use Backend\Classes\Controller;
 use System\Models\MailTemplate;
@@ -106,6 +108,20 @@ class MailTemplates extends Controller
     public function formBeforeSave($model)
     {
         $model->is_custom = true;
+    }
+
+    /**
+     * update_onResetDefault reverts a system-provided template to its default content.
+     */
+    public function update_onResetDefault($recordId)
+    {
+        $model = $this->formFindModelObject($recordId);
+
+        $model->resetToDefault();
+
+        Flash::success(Lang::get('backend::lang.form.reset_success'));
+
+        return Redirect::refresh();
     }
 
     /**

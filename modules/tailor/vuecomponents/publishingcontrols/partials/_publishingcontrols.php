@@ -24,7 +24,7 @@
             <span class="js-link" @click="$emit('restorerecordclick', $event)"><?= e(__('Restore this Record')) ?></span>.
         </p>
 
-        <div class="enabled-controls" v-show="state.current.enabled">
+        <div class="enabled-controls" v-show="state.current.enabled && hasDateControls">
             <div class="date-section">
                 <p v-show="!showPublishDate">
                     <i class="icon-calendar-check"></i>

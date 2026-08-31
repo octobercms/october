@@ -21,6 +21,7 @@
     'stream' => '스트림',
     'structure' => '구조',
     'single' => '단일',
+    'submission' => '제출',
     'global' => '글로벌 / 설정',
   ],
   'editor' => [

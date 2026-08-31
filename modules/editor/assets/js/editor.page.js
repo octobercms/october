@@ -55,13 +55,37 @@ class EditorPage {
     }
 
     showAjaxErrorAlert(error, title) {
-        let responseText = error.responseText || error.message;
+        modalUtils.showAlert(title, this.getAjaxErrorMessage(error) || title);
+    }
 
-        if (!responseText && error.status === 0) {
-            responseText = 'Error connecting to the server.';
+    getAjaxErrorMessage(error) {
+        if (!error) {
+            return null;
         }
 
-        modalUtils.showAlert(title, responseText);
+        // The larajax exception response carries its message on the $env envelope,
+        // which may live on the error itself or on the responseJSON of a wrapped xhr.
+        const envelope = error.$env || (error.responseJSON && error.responseJSON.$env);
+        if (envelope && envelope.getMessage()) {
+            return envelope.getMessage();
+        }
+
+        // Fall back to the raw ajax response body message
+        const ajaxBody = error.__ajax || (error.responseJSON && error.responseJSON.__ajax);
+        if (ajaxBody && ajaxBody.message) {
+            return ajaxBody.message;
+        }
+
+        // Finally, jQuery-style error fields
+        if (error.responseText || error.message) {
+            return error.responseText || error.message;
+        }
+
+        if (error.status === 0 || error.$status === 0) {
+            return 'Error connecting to the server.';
+        }
+
+        return null;
     }
 }
 

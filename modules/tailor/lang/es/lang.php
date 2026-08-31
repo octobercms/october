@@ -21,6 +21,7 @@
     'stream' => 'Flujo',
     'structure' => 'Estructura',
     'single' => 'Único',
+    'submission' => 'Envío',
     'global' => 'Global / Configuración',
   ],
   'editor' => [

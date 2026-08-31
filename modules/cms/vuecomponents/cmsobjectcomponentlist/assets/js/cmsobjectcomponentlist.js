@@ -1,3 +1,5 @@
+let componentKeyCounter = 0;
+
 export default {
     props: {
         components: Array
@@ -13,6 +15,20 @@ export default {
         }
     },
     methods: {
+        // Stable v-for key so that editing a component alias
+        componentKey: function componentKey(component) {
+            if (component.__inspectorKey === undefined) {
+                Object.defineProperty(component, '__inspectorKey', {
+                    value: ++componentKeyCounter,
+                    enumerable: false,
+                    writable: false,
+                    configurable: true
+                });
+            }
+
+            return component.__inspectorKey;
+        },
+
         onToggleCollapse: function onToggleCollapse() {
             this.expanded = !this.expanded;
 
@@ -27,6 +43,10 @@ export default {
         onRemoveComponentClick: function onRemoveComponentClick(index) {
             this.$emit('remove', this.components[index]);
             this.components.splice(index, 1);
+        },
+
+        onComponentRename: function onComponentRename(prevAlias, newAlias) {
+            this.$emit('rename', prevAlias, newAlias);
         },
 
         onInspectorHiding: function(eventData, componentIndex) {

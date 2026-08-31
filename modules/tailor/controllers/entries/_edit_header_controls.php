@@ -18,6 +18,17 @@
             ></tailor-component-publishbutton>
         </div>
 
+<?php if ($initialState['isSubmission']): ?>
+        <tailor-component-submissioncontrols
+            :entry-state="state"
+            model-name="<?= class_basename($formModel) ?>"
+            ref="publishingControls"
+            @statechanged="onPublishingStateChanged"
+            @submissionrejectclick="onSubmissionRejectClick"
+            @submissionspamclick="onSubmissionSpamClick"
+            @submissionrestoreclick="onRestoreRecordClick"
+        ></tailor-component-submissioncontrols>
+<?php else: ?>
         <tailor-component-publishingcontrols
             :lang="state.lang"
             :entry-state="state"
@@ -27,5 +38,6 @@
             @publishdraftclick="onPublishDraftClick"
             @restorerecordclick="onRestoreRecordClick"
         ></tailor-component-publishingcontrols>
+<?php endif ?>
     </div>
 </div>

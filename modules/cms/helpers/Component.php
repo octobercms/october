@@ -124,4 +124,15 @@ class Component
     {
         return (bool) array_get($component->componentDetails(), 'snippetInline', false);
     }
+
+    /**
+     * getComponentAjaxPartial returns if a component should be wrapped in an AJAX partial
+     * so its markup can be targeted by `_self` partial updates
+     * @param mixed $component The component object
+     * @return bool
+     */
+    public static function getComponentAjaxPartial($component)
+    {
+        return (bool) array_get($component->componentDetails(), 'ajaxPartial', false);
+    }
 }

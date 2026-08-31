@@ -164,9 +164,9 @@ class Controller implements AjaxControllerInterface
         }
 
         // Redirect the default URL to its translated URL for the active site
-        if (!$page && ($redirectCode = (int) Config::get('multisite.translate.cms_page_url_redirect', 301))) {
+        if (!$page) {
             if (($aliasUrl = $this->router->findAliasRedirect($url)) !== null) {
-                return Redirect::to(Cms::url($aliasUrl), $redirectCode);
+                return Redirect::to(Cms::url($aliasUrl), 301);
             }
         }
 

@@ -9,7 +9,7 @@ class SubmissionBlueprintTest extends TestCase
         $blueprint = new SubmissionBlueprint;
 
         $this->assertNull($blueprint->getNotifyGroup());
-        $this->assertEquals('tailor:submission-notification', $blueprint->getNotifyTemplate());
+        $this->assertEquals('tailor:submission', $blueprint->getNotifyTemplate());
         $this->assertEquals('email', $blueprint->getNotifyReplyTo());
     }
 

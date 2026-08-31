@@ -2,6 +2,7 @@
 
 use View;
 use Model;
+use Config;
 use System\Classes\MailManager;
 use October\Rain\Mail\MailParser;
 use ApplicationException;
@@ -63,13 +64,31 @@ class MailLayout extends Model
     public static $codeCache;
 
     /**
+     * isTranslatableEnabled gates the Translatable trait on the multisite config flag
+     * so backend forms only show translation markers when mail translation is enabled.
+     */
+    public function isTranslatableEnabled()
+    {
+        return (bool) Config::get('multisite.features.backend_mail_template', false);
+    }
+
+    /**
      * beforeDelete
      */
     public function beforeDelete()
     {
-        if ($this->is_locked) {
+        if ($this->isLocked()) {
             throw new ApplicationException('Cannot delete this template because it is locked');
         }
+    }
+
+    /**
+     * isLocked returns true when the layout is provided by the system and can be
+     * reset to its default content instead of deleted.
+     */
+    public function isLocked(): bool
+    {
+        return (bool) $this->is_locked;
     }
 
     /**

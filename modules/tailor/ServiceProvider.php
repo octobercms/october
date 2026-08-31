@@ -55,7 +55,7 @@ class ServiceProvider extends ModuleServiceProvider
     public function registerMailTemplates()
     {
         return [
-            'tailor:submission-notification' => 'tailor::mail.submission-notification',
+            'tailor:submission' => 'tailor::mail.submission',
         ];
     }
 

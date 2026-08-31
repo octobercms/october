@@ -42,7 +42,7 @@ class SubmissionBlueprint extends EntryBlueprint
      */
     public function getNotifyTemplate(): string
     {
-        return $this->submission['notifyTemplate'] ?? 'tailor:submission-notification';
+        return $this->submission['notifyTemplate'] ?? 'tailor:submission';
     }
 
     /**

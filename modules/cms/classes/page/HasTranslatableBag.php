@@ -1,7 +1,6 @@
 <?php namespace Cms\Classes\Page;
 
 use Site;
-use Config;
 use Cms\Components\TranslatableBag;
 
 /**
@@ -140,6 +139,6 @@ trait HasTranslatableBag
      */
     protected function isTranslatableEnabled(): bool
     {
-        return (bool) Config::get('multisite.translate.cms_pages', true);
+        return true;
     }
 }

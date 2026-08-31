@@ -29,7 +29,8 @@ class SubmissionComponent extends ComponentModuleBase
         return [
             'name' => 'Submission',
             'description' => 'Displays a submission form for user content.',
-            'icon' => 'icon-inbox'
+            'icon' => 'icon-inbox',
+            'ajaxPartial' => true
         ];
     }
 

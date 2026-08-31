@@ -24,6 +24,7 @@
     'stream' => 'Stream',
     'structure' => 'Struktur',
     'single' => 'Single',
+    'submission' => 'Einsendung',
     'global' => 'Global / Konfiguration',
   ],
   'editor' => [

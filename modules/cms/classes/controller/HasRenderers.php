@@ -9,6 +9,7 @@ use Cms\Classes\PartialStack;
 use Cms\Classes\CmsException;
 use Cms\Classes\ComponentPartial;
 use Cms\Classes\ComponentManager;
+use Cms\Helpers\Component as ComponentHelpers;
 use System\Helpers\View as ViewHelper;
 use October\Rain\Parse\Bracket as TextParser;
 use Exception;
@@ -219,19 +220,19 @@ trait HasRenderers
             $partial->runComponents();
             $partialObj->onEnd();
             CmsException::unmask();
+        }
 
-            // This call intentionally placed after the lifecycle events to mimic
-            // the page action call found in backend ajax. Often we will want the
-            // state accessible after everything runs, instead of reverting state
-            if ($this->partialWatcher && $this->partialWatcher->isWatchingHandler($name)) {
-                try {
-                    if ($result = $this->runAjaxHandler($this->getAjaxHandler())) {
-                        $this->partialWatcher->setHandlerResponse($result);
-                    }
+        // This call intentionally placed after the lifecycle events to mimic
+        // the page action call found in backend ajax. Often we will want the
+        // state accessible after everything runs, instead of reverting state
+        if ($this->partialWatcher && $this->partialWatcher->isWatchingHandler($name)) {
+            try {
+                if ($result = $this->runAjaxHandler($this->getAjaxHandler())) {
+                    $this->partialWatcher->setHandlerResponse($result);
                 }
-                catch (Exception $ex) {
-                    $this->partialWatcher->setHandlerException($ex);
-                }
+            }
+            catch (Exception $ex) {
+                $this->partialWatcher->setHandlerException($ex);
             }
         }
 
@@ -378,17 +379,23 @@ trait HasRenderers
     public function renderComponent($name, $parameters = [])
     {
         $result = null;
+        $useAjax = false;
         $previousContext = $this->componentContext;
 
         if ($componentObj = $this->findComponentByName($name)) {
             $componentObj->id = uniqid($name);
             $componentObj->setProperties(array_merge($componentObj->getProperties(), $parameters));
             $this->componentContext = $componentObj;
+            $useAjax = ComponentHelpers::getComponentAjaxPartial($componentObj);
             $result = $componentObj->onRender();
         }
 
         if (!$result) {
             $result = $this->renderPartial($name.'::default', [], false);
+        }
+
+        if ($useAjax) {
+            $result = '<div data-ajax-partial="'.e($name).'::default">'.$result.'</div>';
         }
 
         $this->componentContext = $previousContext;

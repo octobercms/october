@@ -99,7 +99,8 @@
                 transition: 0.3s width, 0.3s height, 0.3s left, 0.3s top, 0.3s background-color;
             }
 
-            &.status-published {
+            &.status-published,
+            &.status-approved {
                 span, &:after {
                     color: white;
                 }
@@ -163,12 +164,14 @@
 }
 
 .record-management-controls .record-management-button.record-status-button.status-published,
+.record-management-controls .record-management-button.record-status-button.status-approved,
 .record-management-controls .record-management-button.record-status-button.status-draft {
     border-color: rgba(255, 255, 255, 0.01);
 }
 
 [data-bs-theme="dark"] {
     .record-management-controls .record-management-button.record-status-button.status-published,
+    .record-management-controls .record-management-button.record-status-button.status-approved,
     .record-management-controls .record-management-button.record-status-button.status-draft {
         border-color: rgba(0, 0, 0, 0.6);
     }

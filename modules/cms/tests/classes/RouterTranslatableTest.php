@@ -187,26 +187,6 @@ class RouterTranslatableTest extends TestCase
         $this->assertNull($router->findAliasRedirect('/contactez'));
     }
 
-    public function testPagesFeatureDisabled()
-    {
-        Config::set('multisite.translate.cms_pages', false);
-
-        $this->applyActiveSite('fr');
-
-        $router = $this->makeRouter();
-
-        $page = $router->findByUrl('/contact');
-        $this->assertNotEmpty($page);
-        $this->assertEquals('contact.htm', $page->getFileName());
-
-        $this->assertEmpty($router->findByUrl('/contactez'));
-        $this->assertNull($router->findAliasRedirect('/contact'));
-
-        $page = Page::load(self::$theme, 'contact.htm');
-        $page->applyTranslatableContext();
-        $this->assertEquals('Contact', $page->title);
-    }
-
     public function testAppliesTranslatableContext()
     {
         $this->applyActiveSite('fr');
@@ -243,16 +223,6 @@ class RouterTranslatableTest extends TestCase
         $this->assertInstanceOf(\Illuminate\Http\RedirectResponse::class, $response);
         $this->assertEquals(301, $response->getStatusCode());
         $this->assertStringEndsWith('/contactez', $response->getTargetUrl());
-
-        Config::set('multisite.translate.cms_page_url_redirect', 302);
-        $controller = new Cms\Classes\Controller(self::$theme);
-        $response = $controller->run('/contact');
-        $this->assertEquals(302, $response->getStatusCode());
-
-        Config::set('multisite.translate.cms_page_url_redirect', false);
-        $controller = new Cms\Classes\Controller(self::$theme);
-        $response = $controller->run('/contact');
-        $this->assertEquals(404, $response->getStatusCode());
     }
 
     public function testSiteUrlUsesTranslatedPattern()

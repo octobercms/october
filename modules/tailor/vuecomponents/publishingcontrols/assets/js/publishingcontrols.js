@@ -17,6 +17,7 @@ export default {
             showPublishDate: false,
             showExpiryDate: false,
             showFullSlug: false,
+            hasDateControls: false,
 
             state: {
                 saved: {},
@@ -97,18 +98,13 @@ export default {
             return result;
         },
 
-        hasDateControls() {
-            return this.domTools.findFormGroup('published_at') &&
-                this.domTools.findFormGroup('expired_at');
-        },
-
         synchStateFromDom(isInit, ev) {
             let state = this.getStateFromDom();
 
             if (isInit) {
                 this.state.saved = $.oc.vueUtils.getCleanObject(state);
 
-                if (this.hasDateControls()) {
+                if (this.hasDateControls) {
                     this.showPublishDate = this.state.saved.publishDate.length > 0;
                     this.showExpiryDate = this.state.saved.expiryDate.length > 0;
                 }
@@ -124,6 +120,8 @@ export default {
         moveDateControls() {
             let publishedEl = this.domTools.findFormGroup('published_at');
             let expiredEl = this.domTools.findFormGroup('expired_at');
+
+            this.hasDateControls = !!(publishedEl && expiredEl);
 
             if (expiredEl && publishedEl) {
                 $(this.$refs.publishDate).append(publishedEl);

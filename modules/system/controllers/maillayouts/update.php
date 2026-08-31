@@ -42,7 +42,7 @@
                     dataRequestData: "close: true",
                     dataRequestMessage: __("Saving :name...", ['name' => $formRecordName])
                 ) ?>
-                <?php if ($formModel->is_locked): ?>
+                <?php if ($formModel->isLocked()): ?>
                     <?= Ui::ajaxButton(
                         label: __("Reset to Default"),
                         handler: 'onResetDefault',

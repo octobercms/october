@@ -49,15 +49,25 @@
                     dataRequestConfirm: __("Send a test message to :email?", ['email' => BackendAuth::getUser()->email]),
                     dataRequestMessage: __("Sending...")
                 ) ?>
-                <?= Ui::iconButton(
-                    label: __("Delete"),
-                    icon: 'oc-icon-delete',
-                    handler: 'onDelete',
-                    danger: true,
-                    class: 'pull-right',
-                    dataRequestConfirm: __("Are you sure?"),
-                    dataRequestMessage: __("Deleting :name...", ['name' => $formRecordName])
-                ) ?>
+                <?php if ($formModel->isLocked()): ?>
+                    <?= Ui::ajaxButton(
+                        label: __("Reset to Default"),
+                        handler: 'onResetDefault',
+                        class: 'btn-danger pull-right',
+                        dataRequestConfirm: __("Are you sure?"),
+                        dataRequestMessage: __("Resetting...")
+                    ) ?>
+                <?php else: ?>
+                    <?= Ui::iconButton(
+                        label: __("Delete"),
+                        icon: 'oc-icon-delete',
+                        handler: 'onDelete',
+                        danger: true,
+                        class: 'pull-right',
+                        dataRequestConfirm: __("Are you sure?"),
+                        dataRequestMessage: __("Deleting :name...", ['name' => $formRecordName])
+                    ) ?>
+                <?php endif ?>
                 <span class="btn-text">
                     <span class="button-separator"><?= __("or") ?></span>
                     <?= Ui::button(

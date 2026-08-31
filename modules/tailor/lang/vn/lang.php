@@ -21,6 +21,7 @@
     'stream' => 'Luồng (Stream)',
     'structure' => 'Cấu trúc (Structure)',
     'single' => 'Trang đơn (Single)',
+    'submission' => 'Bài gửi (Submission)',
     'global' => 'Toàn cục / Cấu hình',
   ],
   'editor' => [

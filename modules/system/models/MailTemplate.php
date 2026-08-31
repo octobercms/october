@@ -2,8 +2,10 @@
 
 use View;
 use Model;
+use Config;
 use System\Classes\MailManager;
 use October\Rain\Mail\MailParser;
+use ApplicationException;
 use File as FileHelper;
 
 /**
@@ -54,6 +56,41 @@ class MailTemplate extends Model
     public $belongsTo = [
         'layout' => MailLayout::class
     ];
+
+    /**
+     * isTranslatableEnabled gates the Translatable trait on the multisite config flag
+     * so backend forms only show translation markers when mail translation is enabled.
+     */
+    public function isTranslatableEnabled()
+    {
+        return (bool) Config::get('multisite.features.backend_mail_template', false);
+    }
+
+    /**
+     * isLocked returns true when the template is provided by the system, backed
+     * by a registered view, and can be reset to its default content instead of deleted.
+     */
+    public function isLocked(): bool
+    {
+        return MailManager::instance()->getViewPathForTemplate($this->code) !== null;
+    }
+
+    /**
+     * resetToDefault reverts a customized template back to its registered view content.
+     */
+    public function resetToDefault(): void
+    {
+        $viewPath = MailManager::instance()->getViewPathForTemplate($this->code);
+        if ($viewPath === null) {
+            throw new ApplicationException('Unable to find a registered template with code: '.$this->code);
+        }
+
+        $sections = self::getTemplateSections($viewPath);
+        $this->fillFromSections($sections);
+        $this->description = array_get($sections, 'settings.description', $this->description);
+        $this->is_custom = false;
+        $this->save();
+    }
 
     /**
      * listAllTemplates returns an array of template codes and descriptions.

@@ -26,7 +26,7 @@ oc.registerControl('mailformpreview', class extends oc.ControlBase {
         this.iframe.style.border = '0';
         this.iframe.style.minHeight = '400px';
         this.iframe.setAttribute('frameborder', 0);
-        this.iframe.setAttribute('sandbox', '');
+        this.iframe.setAttribute('sandbox', 'allow-same-origin');
         this.iframe.onload = this.proxy(this.adjustHeight);
         this.element.appendChild(this.iframe);
     }

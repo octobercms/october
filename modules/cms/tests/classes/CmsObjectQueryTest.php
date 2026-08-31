@@ -86,6 +86,7 @@ class CmsObjectQueryTest extends TestCase
             "vue-ajax-test",
             "vue-empty",
             "vue-test",
+            "with-ajax-component",
             "with-component",
             "with-components",
             "with-content",

@@ -2,6 +2,7 @@
 
 use View;
 use Model;
+use Config;
 use System\Classes\MailManager;
 use October\Rain\Mail\MailParser;
 use ApplicationException;
@@ -52,6 +53,15 @@ class MailPartial extends Model
     ];
 
     /**
+     * isTranslatableEnabled gates the Translatable trait on the multisite config flag
+     * so backend forms only show translation markers when mail translation is enabled.
+     */
+    public function isTranslatableEnabled()
+    {
+        return (bool) Config::get('multisite.features.backend_mail_template', false);
+    }
+
+    /**
      * afterFetch
      */
     public function afterFetch()
@@ -64,6 +74,25 @@ class MailPartial extends Model
                 return null;
             }
         }
+    }
+
+    /**
+     * isLocked returns true when the partial is provided by the system, backed
+     * by a registered view, and can be reset to its default content instead of deleted.
+     */
+    public function isLocked(): bool
+    {
+        return array_key_exists($this->code, (array) MailManager::instance()->listRegisteredPartials());
+    }
+
+    /**
+     * resetToDefault reverts a customized partial back to its registered view content.
+     */
+    public function resetToDefault(): void
+    {
+        $this->fillFromCode();
+        $this->is_custom = false;
+        $this->save();
     }
 
     /**

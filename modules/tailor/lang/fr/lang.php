@@ -21,6 +21,7 @@
         'stream' => 'Flux',
         'structure' => 'Structure',
         'single' => 'Unique',
+        'submission' => 'Soumission',
         'global' => 'Global / Configuration',
     ],
     'editor' => [

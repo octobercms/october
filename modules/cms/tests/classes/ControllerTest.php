@@ -17,6 +17,7 @@ class ControllerTest extends TestCase
         include_once base_path() . '/modules/system/tests/fixtures/plugins/october/tester/components/Post.php';
         include_once base_path() . '/modules/system/tests/fixtures/plugins/october/tester/components/MainMenu.php';
         include_once base_path() . '/modules/system/tests/fixtures/plugins/october/tester/components/ContentBlock.php';
+        include_once base_path() . '/modules/system/tests/fixtures/plugins/october/tester/components/AjaxBlock.php';
         include_once base_path() . '/modules/system/tests/fixtures/plugins/october/tester/components/Comments.php';
         include_once base_path() . '/modules/system/tests/fixtures/plugins/october/tester/classes/Users.php';
     }
@@ -184,7 +185,7 @@ class ControllerTest extends TestCase
         $this->assertEquals('12345', $response);
     }
 
-    protected function configAjaxRequestMock($handler, $partials = false)
+    protected function configAjaxRequestMock($handler, $partials = false, $selfPartial = null)
     {
         // Create a partial mock that initializes properly for PHP 8.5+ typed properties
         $requestMock = $this->getMockBuilder(\Illuminate\Http\Request::class)
@@ -198,12 +199,12 @@ class ControllerTest extends TestCase
 
         $requestMock->expects($this->any())
             ->method('header')
-            ->willReturnCallback(function ($key, $default = null) use ($handler, $partials) {
+            ->willReturnCallback(function ($key, $default = null) use ($handler, $partials, $selfPartial) {
                 return match ($key) {
                     'X-AJAX-HANDLER' => $handler,
                     'X-AJAX-PARTIALS' => $partials ?: '',
                     'X-AJAX-FLASH' => null,
-                    'X-AJAX-PARTIAL' => null,
+                    'X-AJAX-PARTIAL' => $selfPartial,
                     default => $default,
                 };
             });
@@ -368,6 +369,47 @@ ESC;
         $this->assertEquals(69, $component->property('posts-per-page'));
         $this->assertEquals('Blog Archive Dummy Component', $details['name']);
         $this->assertEquals('Displays an archive of blog posts.', $details['description']);
+    }
+
+    public function testAjaxPartialComponent()
+    {
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/with-ajax-component')->getContent();
+
+        $this->assertStringContainsString(
+            '<div data-ajax-partial="testAjaxBlock::default">',
+            $response
+        );
+        $this->assertStringContainsString('NOT SUBMITTED', $response);
+    }
+
+    public function testAjaxPartialComponentReflectsHandlerVars()
+    {
+        Request::swap($this->configAjaxRequestMock(
+            'testAjaxBlock::onTest',
+            'testAjaxBlock::default',
+            'testAjaxBlock::default'
+        ));
+
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/with-ajax-component');
+
+        $this->assertInstanceOf(\Larajax\Classes\AjaxResponse::class, $response);
+        $content = $response->toResponse(request())->getOriginalContent();
+
+        $partialHtml = null;
+        foreach ($content['__ajax']['ops'] as $op) {
+            if ($op['op'] === 'partial' && $op['name'] === 'testAjaxBlock::default') {
+                $partialHtml = $op['html'];
+            }
+        }
+
+        // The default partial is re-rendered after the handler runs, so the var it set is visible
+        $this->assertNotNull($partialHtml);
+        $this->assertStringContainsString('SUBMITTED', $partialHtml);
+        $this->assertStringNotContainsString('NOT SUBMITTED', $partialHtml);
     }
 
     public function testComponentAliases()

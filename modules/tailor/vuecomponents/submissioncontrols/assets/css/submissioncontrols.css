@@ -1,0 +1,54 @@
+div.submission-controls {
+    width: 260px;
+
+    .submission-controls-popover-body {
+        padding: 15px 20px 0;
+    }
+
+    p.submission-notice {
+        margin-bottom: 0;
+        padding-bottom: 15px;
+    }
+
+    .form-group {
+        padding-bottom: 15px;
+    }
+
+    .action-section {
+        margin-left: -20px;
+        margin-right: -20px;
+        padding: 15px 20px;
+        border-top: 1px solid rgba(149, 165, 166, 0.2);
+    }
+
+    .action-item {
+        margin-bottom: 10px;
+
+        &:last-child {
+            margin-bottom: 0;
+        }
+
+        p {
+            white-space: nowrap;
+            margin-bottom: 0;
+
+            i {
+                position: relative;
+                top: 1px;
+                display: inline-block;
+                margin-right: 6px;
+            }
+
+            span {
+                text-decoration: underline;
+                cursor: pointer;
+            }
+        }
+    }
+
+    span.js-link {
+        cursor: pointer;
+        color: inherit;
+        text-decoration: underline;
+    }
+}

@@ -21,6 +21,7 @@
     'stream' => 'Stream',
     'structure' => 'Structure',
     'single' => 'Single',
+    'submission' => 'Submission',
     'global' => 'Global / Configuration',
   ],
   'editor' => [

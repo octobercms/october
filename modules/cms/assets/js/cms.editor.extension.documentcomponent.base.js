@@ -262,9 +262,9 @@ export const CmsDocumentComponentBase = {
                 this.$refs.editor.replaceAsSnippet(payload.model, payload.range, data.content.trim());
             } catch (error) {
                 this.processing = false;
-                modalUtils.showAlert(
-                    $.oc.editor.getLangStr('editor::lang.common.error'),
-                    error.responseText
+                $.oc.editor.page.showAjaxErrorAlert(
+                    error,
+                    $.oc.editor.getLangStr('editor::lang.common.error')
                 );
             }
         },
@@ -340,6 +340,21 @@ export const CmsDocumentComponentBase = {
             if (this.documentData.markup && this.defMarkup) {
                 const componentStr = "{% component '" + component.alias + "' %}";
                 this.$refs.editor.replaceText(componentStr, '', this.defMarkup);
+            }
+        },
+
+        onComponentRename: function onComponentRename(prevAlias, newAlias) {
+            if (this.documentData.markup && this.defMarkup) {
+                this.$refs.editor.replaceText(
+                    "{% component '" + prevAlias + "' %}",
+                    "{% component '" + newAlias + "' %}",
+                    this.defMarkup
+                );
+                this.$refs.editor.replaceText(
+                    '{% component "' + prevAlias + '" %}',
+                    '{% component "' + newAlias + '" %}',
+                    this.defMarkup
+                );
             }
         },
 

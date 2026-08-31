@@ -2,7 +2,6 @@
 
 use Site;
 use File;
-use Config;
 use Markdown;
 use Cms\Classes\PageManager;
 
@@ -39,13 +38,11 @@ class Content extends CmsCompoundObject
      */
     public static function findLocalized($theme, $fileName, $locale = null)
     {
-        if (Config::get('multisite.translate.cms_content', true)) {
-            $locale = $locale ?: Site::getActiveSite()?->hard_locale;
+        $locale = $locale ?: Site::getActiveSite()?->hard_locale;
 
-            foreach ($locale ? Site::getLocaleKeyChain($locale) : [] as $localeKey) {
-                if ($content = static::loadCached($theme, $localeKey.'/'.$fileName)) {
-                    return $content;
-                }
+        foreach ($locale ? Site::getLocaleKeyChain($locale) : [] as $localeKey) {
+            if ($content = static::loadCached($theme, $localeKey.'/'.$fileName)) {
+                return $content;
             }
         }
 

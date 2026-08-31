@@ -2,16 +2,16 @@
 ==
 {% if this.page.id == 'blog-category' %}
     {% set howItsMadeCmsTemplate = 'cms:cms-page:blog/category.htm' %}
-    {% set howItsMadeTailorBlueprint = 'tailor:tailor-blueprint:blog/category.yaml' %}
-    {% set howItsMadeTailorContent = 'entries/blog_category/' ~ category.id %}
+    {% set howItsMadeTailorBlueprint = 'tailor:tailor-theme-blueprint:blog/category.yaml' %}
+    {% set howItsMadeTailorContent = 'entries/blog-category/' ~ category.id %}
 {% elseif this.page.id == '404' %}
     {% set howItsMadeCmsTemplate = 'cms:cms-page:404.htm' %}
 {% elseif this.page.id == 'error' %}
     {% set howItsMadeCmsTemplate = 'cms:cms-page:error.htm' %}
 {% elseif this.page.id == 'about' %}
     {% set howItsMadeCmsTemplate = 'cms:cms-page:about.htm' %}
-    {% set howItsMadeTailorBlueprint = 'tailor:tailor-blueprint:landing/landing-page.yaml' %}
-    {% set howItsMadeTailorContent = 'entries/page_about' %}
+    {% set howItsMadeTailorBlueprint = 'tailor:tailor-theme-blueprint:pages/about.yaml' %}
+    {% set howItsMadeTailorContent = 'entries/page-about' %}
 {% elseif this.page.id == 'ajax' %}
     {% set howItsMadeCmsTemplate = 'cms:cms-page:ajax.htm' %}
 {% elseif this.page.id == 'components' %}
@@ -22,36 +22,36 @@
     {% set howItsMadeCmsTemplate = 'cms:cms-page:index.htm' %}
 {% elseif this.page.id == 'blog-archive' %}
     {% set howItsMadeCmsTemplate = 'cms:cms-page:blog/archive.htm' %}
-    {% set howItsMadeTailorBlueprint = 'tailor:tailor-blueprint:blog/post.yaml' %}
-    {% set howItsMadeTailorContent = 'entries/blog_post' %}
+    {% set howItsMadeTailorBlueprint = 'tailor:tailor-theme-blueprint:blog/post.yaml' %}
+    {% set howItsMadeTailorContent = 'entries/blog-post' %}
 {% elseif this.page.id == 'blog-author' %}
     {% set howItsMadeCmsTemplate = 'cms:cms-page:blog/author.htm' %}
-    {% set howItsMadeTailorBlueprint = 'tailor:tailor-blueprint:blog/author.yaml' %}
-    {% set howItsMadeTailorContent = 'entries/blog_author/' ~ author.id %}
+    {% set howItsMadeTailorBlueprint = 'tailor:tailor-theme-blueprint:blog/author.yaml' %}
+    {% set howItsMadeTailorContent = 'entries/blog-author/' ~ author.id %}
 {% elseif this.page.id == 'blog-index' %}
     {% set howItsMadeCmsTemplate = 'cms:cms-page:blog/index.htm' %}
-    {% set howItsMadeTailorBlueprint = 'tailor:tailor-blueprint:blog/post.yaml' %}
-    {% set howItsMadeTailorContent = 'entries/blog_post' %}
+    {% set howItsMadeTailorBlueprint = 'tailor:tailor-theme-blueprint:blog/post.yaml' %}
+    {% set howItsMadeTailorContent = 'entries/blog-post' %}
 {% elseif this.page.id == 'blog-post' %}
     {% set howItsMadeCmsTemplate = 'cms:cms-page:blog/post.htm' %}
-    {% set howItsMadeTailorBlueprint = 'tailor:tailor-blueprint:blog/post.yaml' %}
-    {% set howItsMadeTailorContent = 'entries/blog_post/' ~ blog.id %}
+    {% set howItsMadeTailorBlueprint = 'tailor:tailor-theme-blueprint:blog/post.yaml' %}
+    {% set howItsMadeTailorContent = 'entries/blog-post/' ~ blog.id %}
 {% elseif this.page.id == 'blog-search' %}
     {% set howItsMadeCmsTemplate = 'cms:cms-page:blog/search.htm' %}
-    {% set howItsMadeTailorBlueprint = 'tailor:tailor-blueprint:blog/post.yaml' %}
-    {% set howItsMadeTailorContent = 'entries/blog_post' %}
+    {% set howItsMadeTailorBlueprint = 'tailor:tailor-theme-blueprint:blog/post.yaml' %}
+    {% set howItsMadeTailorContent = 'entries/blog-post' %}
 {% elseif this.page.id == 'wiki-article' %}
     {% set howItsMadeCmsTemplate = 'cms:cms-page:wiki/article.htm' %}
-    {% set howItsMadeTailorBlueprint = 'tailor:tailor-blueprint:wiki/article.yaml' %}
-    {% set howItsMadeTailorContent = 'entries/page_article/' ~ wiki.id %}
+    {% set howItsMadeTailorBlueprint = 'tailor:tailor-theme-blueprint:pages/article.yaml' %}
+    {% set howItsMadeTailorContent = 'entries/page-article/' ~ wiki.id %}
 {% elseif this.page.id == 'wiki-index' %}
     {% set howItsMadeCmsTemplate = 'cms:cms-page:wiki/index.htm' %}
-    {% set howItsMadeTailorBlueprint = 'tailor:tailor-blueprint:wiki/article.yaml' %}
-    {% set howItsMadeTailorContent = 'entries/page_article' %}
+    {% set howItsMadeTailorBlueprint = 'tailor:tailor-theme-blueprint:pages/article.yaml' %}
+    {% set howItsMadeTailorContent = 'entries/page-article' %}
 {% elseif this.page.id == 'wiki-search' %}
     {% set howItsMadeCmsTemplate = 'cms:cms-page:wiki/search.htm' %}
-    {% set howItsMadeTailorBlueprint = 'tailor:tailor-blueprint:wiki/article.yaml' %}
-    {% set howItsMadeTailorContent = 'entries/page_article' %}
+    {% set howItsMadeTailorBlueprint = 'tailor:tailor-theme-blueprint:pages/article.yaml' %}
+    {% set howItsMadeTailorContent = 'entries/page-article' %}
 {% endif %}
 
 {% if backendUrl and howItsMadeCmsTemplate %}

@@ -1,0 +1,31 @@
+handle: MySubmission
+type: submission
+name: Submissions
+
+primaryNavigation:
+    label: Submissions
+    icon: icon-envelope
+    order: 140
+
+navigation:
+    icon: icon-envelope
+    parent: MySubmission
+    order: 10
+
+submission:
+    titleTemplate: '{{ name }}'
+    notifyReplyTo: email
+
+fields:
+    name:
+        label: Name
+        type: text
+        span: left
+    email:
+        label: Email
+        type: text
+        span: right
+    message:
+        label: Message
+        type: textarea
+        size: small

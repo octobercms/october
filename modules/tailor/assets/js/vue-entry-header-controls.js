@@ -11,6 +11,8 @@ class VueEntryHeaderControls extends VueControlBase {
         this.registerMethod('onSetEntryType', this.onSetEntryType);
         this.registerMethod('onPublishDraftClick', this.onPublishDraftClick);
         this.registerMethod('onRestoreRecordClick', this.onRestoreRecordClick);
+        this.registerMethod('onSubmissionRejectClick', this.onSubmissionRejectClick);
+        this.registerMethod('onSubmissionSpamClick', this.onSubmissionSpamClick);
         this.registerMethod('onPublishingControlsBtnClick', this.onPublishingControlsBtnClick);
         this.registerMethod('onPublishingStateChanged', this.onPublishingStateChanged);
     }
@@ -90,6 +92,42 @@ class VueEntryHeaderControls extends VueControlBase {
         catch (error) {
             this.containers.vueEntryHeaderControls.$refs.publishingControls.hide();
         }
+    }
+
+    async onSubmissionRejectClick(ev) {
+        const target = ev.currentTarget;
+        this.containers.vueEntryHeaderControls.$refs.publishingControls.hide();
+
+        try {
+            await modalUtils.showConfirm(
+                oc.lang.get('submission_reject_confirm_title', 'Reject Submission'),
+                oc.lang.get('submission_reject_confirm', 'Are you sure you want to reject this submission?'),
+                { isDanger: true }
+            );
+        }
+        catch (cancelled) {
+            return;
+        }
+
+        await this.onCommand('form:onSubmissionReject', false, ev, target, {}, true);
+    }
+
+    async onSubmissionSpamClick(ev) {
+        const target = ev.currentTarget;
+        this.containers.vueEntryHeaderControls.$refs.publishingControls.hide();
+
+        try {
+            await modalUtils.showConfirm(
+                oc.lang.get('submission_spam_confirm_title', 'Mark as Spam'),
+                oc.lang.get('submission_spam_confirm', 'This will also reject other pending submissions from the same IP address. Are you sure?'),
+                { isDanger: true }
+            );
+        }
+        catch (cancelled) {
+            return;
+        }
+
+        await this.onCommand('form:onSubmissionSpam', false, ev, target, {}, true);
     }
 
     onPublishingControlsBtnClick(ev) {

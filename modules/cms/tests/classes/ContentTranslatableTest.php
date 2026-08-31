@@ -84,17 +84,6 @@ class ContentTranslatableTest extends TestCase
         $this->assertEquals('fr/welcome.htm', $content->getFileName());
     }
 
-    public function testContentFeatureDisabled()
-    {
-        Config::set('multisite.translate.cms_content', false);
-
-        $this->applyActiveSite('fr');
-
-        $content = Content::findLocalized(self::$theme, 'welcome.htm');
-        $this->assertNotNull($content);
-        $this->assertEquals('welcome.htm', $content->getFileName());
-    }
-
     public function testRenderContentUsesLocalizedFile()
     {
         $this->applyActiveSite('fr');

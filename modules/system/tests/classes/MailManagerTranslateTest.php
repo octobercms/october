@@ -11,6 +11,9 @@ class MailManagerTranslateTest extends PluginTestCase
     {
         parent::setUp();
 
+        // Enable the mail template translation feature for these tests
+        Config::set('multisite.features.backend_mail_template', true);
+
         // Give the primary site a concrete locale so the default locale does not
         // track the active app locale
         \System\Models\SiteDefinition::query()->update(['locale' => 'en']);
@@ -65,7 +68,7 @@ class MailManagerTranslateTest extends PluginTestCase
         $this->assertNull($manager->findLocalizedView('mailtest::welcome', 'de'));
 
         // Feature disabled
-        Config::set('multisite.translate.system_mail_templates', false);
+        Config::set('multisite.features.backend_mail_template', false);
         $this->assertNull($manager->findLocalizedView('mailtest::welcome', 'fr'));
     }
 
@@ -158,7 +161,7 @@ class MailManagerTranslateTest extends PluginTestCase
 
     public function testFeatureDisabledUsesBaseTemplate()
     {
-        Config::set('multisite.translate.system_mail_templates', false);
+        Config::set('multisite.features.backend_mail_template', false);
 
         $message = $this->makeMessage();
         MailManager::instance()->addContentToMailer($message, 'mail.test.welcome', [

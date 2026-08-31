@@ -80,7 +80,8 @@ class EditorExtension extends ExtensionBase
             'tailor::lang.blueprint.global',
             'tailor::lang.blueprint.stream',
             'tailor::lang.blueprint.single',
-            'tailor::lang.blueprint.structure'
+            'tailor::lang.blueprint.structure',
+            'tailor::lang.blueprint.submission'
         ];
     }
 
@@ -164,6 +165,7 @@ class EditorExtension extends ExtensionBase
                 'structure' => $this->getBlueprintTemplate('structure'),
                 'mixin' => $this->getBlueprintTemplate('mixin'),
                 'global' => $this->getBlueprintTemplate('global'),
+                'submission' => $this->getBlueprintTemplate('submission'),
             ]
         ];
     }

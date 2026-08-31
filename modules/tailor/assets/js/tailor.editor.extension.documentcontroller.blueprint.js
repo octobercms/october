@@ -51,7 +51,7 @@ export class DocumentControllerBlueprint extends DocumentControllerBase {
             return;
         }
 
-        const blueprintTypes = ['entry', 'single', 'stream', 'structure', 'mixin', 'global'];
+        const blueprintTypes = ['entry', 'single', 'stream', 'structure', 'submission', 'mixin', 'global'];
         const blueprintItems = [];
 
         blueprintTypes.forEach(type => {

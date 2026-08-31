@@ -66,8 +66,15 @@ export default {
         },
 
         onInspectorApplied: function onInspectorApplied(updatedObj) {
+            const prevAlias = this.component.alias;
+            const newAlias = updatedObj['oc.alias'];
+
             this.component.propertyValues = JSON.stringify(updatedObj);
-            this.component.alias = updatedObj['oc.alias'];
+            this.component.alias = newAlias;
+
+            if (newAlias !== prevAlias) {
+                this.$emit('rename', prevAlias, newAlias);
+            }
         }
     }
 };

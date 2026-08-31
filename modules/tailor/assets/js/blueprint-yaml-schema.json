@@ -11977,7 +11977,7 @@
                     "type": "string"
                 },
                 "notifyTemplate": {
-                    "description": "Mail template code used for the notification, defaults to tailor:submission-notification.",
+                    "description": "Mail template code used for the notification, defaults to tailor:submission.",
                     "type": "string"
                 },
                 "purgeRejectedDays": {

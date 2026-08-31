@@ -139,9 +139,15 @@ class Entries extends WildcardController
             $this->addJs('/modules/tailor/assets/js/vue-entry-document.js', ['type' => 'module']);
 
             $this->registerVueComponent(\Backend\VueComponents\DropdownMenuButton::class);
-            $this->registerVueComponent(\Tailor\VueComponents\PublishingControls::class);
             $this->registerVueComponent(\Tailor\VueComponents\PublishButton::class);
             $this->registerVueComponent(\Tailor\VueComponents\DraftNotes::class);
+
+            if ($this->isSectionSubmission()) {
+                $this->registerVueComponent(\Tailor\VueComponents\SubmissionControls::class);
+            }
+            else {
+                $this->registerVueComponent(\Tailor\VueComponents\PublishingControls::class);
+            }
 
             return $this->{$this->actionMethod}(...$this->params);
         }
@@ -340,6 +346,7 @@ class Entries extends WildcardController
             'canDelete' => $this->hasSourcePermission('delete'),
             'canPublish' => $this->hasSourcePermission('publish'),
             'canRestore' => $model->trashed(),
+            'isSubmission' => $this->isSectionSubmission(),
         ];
 
         if ($initialState['isDraft']) {
@@ -390,6 +397,10 @@ class Entries extends WildcardController
             'confirm_create_draft' => __("The document has unsaved changes. Do you want to discard them and proceed with creating a new draft?"),
             'preview' => __("Preview"),
             'unnamed_draft' => __("Unnamed Draft"),
+            'submission_reject_confirm_title' => __("Reject Submission"),
+            'submission_reject_confirm' => __("Are you sure you want to reject this submission?"),
+            'submission_spam_confirm_title' => __("Mark as Spam"),
+            'submission_spam_confirm' => __("This will also reject other pending submissions from the same IP address. Are you sure?"),
         ];
     }
 
@@ -504,6 +515,39 @@ class Entries extends WildcardController
             if ($redirect = $this->makeRedirect('delete', $model)) {
                 return $redirect;
             }
+        }
+    }
+
+    /**
+     * onSubmissionReject rejects a single submission from the edit page
+     */
+    public function onSubmissionReject($recordId = null)
+    {
+        $this->checkSourcePermission('delete');
+
+        if ($model = $this->formFindModelObject($recordId)) {
+            $model->delete();
+
+            Flash::success(__('Submission has been rejected'));
+
+            return $this->makeRedirect('delete', $model) ?: Redirect::refresh();
+        }
+    }
+
+    /**
+     * onSubmissionSpam rejects a submission and other pending submissions from the same IP
+     */
+    public function onSubmissionSpam($recordId = null)
+    {
+        $this->checkSourcePermission('delete');
+
+        if ($model = $this->formFindModelObject($recordId)) {
+            $model->rejectOtherSpamSubmissions();
+            $model->delete();
+
+            Flash::success(__('Submission has been marked as spam'));
+
+            return $this->makeRedirect('delete', $model) ?: Redirect::refresh();
         }
     }
 

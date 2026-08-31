@@ -4,11 +4,12 @@
 >
     <div class="components-scrollable flex-fill" ref="scrollable">
         <transition-group name="cms-transition-component-list" class="d-flex flex-row" tag="ul">
-            <template v-for="(component, index) in components" :key="component.alias">
+            <template v-for="(component, index) in components" :key="componentKey(component)">
                 <cms-component-cmsobjectcomponentlist-component
                     v-if="!component.isHidden"
                     :component="component"
                     @removecomponent="onRemoveComponentClick(index)"
+                    @rename="onComponentRename"
                     @inspectorhiding="onInspectorHiding($event, index)"
                     @inspectorhidden="$emit('inspectorhidden')"
                     @inspectorshowed="$emit('inspectorshowed')"

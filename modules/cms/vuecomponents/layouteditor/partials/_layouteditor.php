@@ -37,6 +37,7 @@
                     v-if="hasVisibleComponents"
                     :components="documentData.components"
                     @remove="onComponentRemove"
+                    @rename="onComponentRename"
                     @inspectorshowed="onInspectorShowed"
                     @inspectorhidden="onInspectorHidden"
                 ></cms-component-cmsobjectcomponentlist>

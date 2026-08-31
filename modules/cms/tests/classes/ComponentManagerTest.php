@@ -17,6 +17,7 @@ class ComponentManagerTest extends TestCase
         include_once base_path() . '/modules/system/tests/fixtures/plugins/october/tester/components/Post.php';
         include_once base_path() . '/modules/system/tests/fixtures/plugins/october/tester/components/MainMenu.php';
         include_once base_path() . '/modules/system/tests/fixtures/plugins/october/tester/components/ContentBlock.php';
+        include_once base_path() . '/modules/system/tests/fixtures/plugins/october/tester/components/AjaxBlock.php';
         include_once base_path() . '/modules/system/tests/fixtures/plugins/october/tester/components/Comments.php';
         include_once base_path() . '/modules/system/tests/fixtures/plugins/october/tester/components/VueBlock.php';
         include_once base_path() . '/modules/system/tests/fixtures/plugins/october/tester/classes/Users.php';

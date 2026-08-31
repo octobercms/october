@@ -29,7 +29,7 @@ trait HasMailLocale
      */
     protected function getMailLocale($data): ?string
     {
-        if (!Config::get('multisite.translate.system_mail_templates', true)) {
+        if (!Config::get('multisite.features.backend_mail_template', false)) {
             return null;
         }
 
@@ -99,7 +99,7 @@ trait HasMailLocale
      */
     public function findLocalizedView(string $view, ?string $locale = null): ?string
     {
-        if (!Config::get('multisite.translate.system_mail_templates', true)) {
+        if (!Config::get('multisite.features.backend_mail_template', false)) {
             return null;
         }
 
