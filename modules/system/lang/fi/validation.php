@@ -41,7 +41,6 @@ return [
     'exists'               => 'Valittu :attribute on virheellinen.',
     'file'                 => ':Attribute on oltava tiedosto.',
     'filled'               => ':Attribute-kenttä on täytettävä arvolla.',
-    'exists'           => 'Valittu kenttä :attribute ei ole kelvollinen.',
     'image'            => 'Kentän :attribute on oltava kuva.',
     'in'               => 'Valittu kenttä :attribute ei ole kelvollinen.',
     'integer'          => 'Kentän :attribute on oltava kokonaisluku.',
