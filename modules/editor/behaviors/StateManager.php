@@ -2,6 +2,7 @@
 
 use Lang;
 use BackendAuth;
+use Editor\Classes\ExtensionBase;
 use Editor\Classes\ExtensionManager;
 use Backend\Classes\ControllerBehavior;
 use Backend\VueComponents\TreeView\SectionList;
@@ -14,6 +15,18 @@ use Backend\VueComponents\TreeView\SectionList;
  */
 class StateManager extends ControllerBehavior
 {
+    /**
+     * __construct scopes the extension manager to this host's editor context
+     */
+    public function __construct($controller)
+    {
+        parent::__construct($controller);
+
+        ExtensionManager::instance()->setContext(
+            $controller->editorContext ?? ExtensionBase::CONTEXT_EDITOR
+        );
+    }
+
     /**
      * makeInitialState
      */

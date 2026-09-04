@@ -15,6 +15,11 @@ abstract class ExtensionBase
     use \Editor\Traits\FileSystemFunctions;
 
     /**
+     * @var string CONTEXT_EDITOR
+     */
+    const CONTEXT_EDITOR = 'editor';
+
+    /**
      * getNamespace returns unique extension namespace, for example 'cms'.
      * Plugins extending Editor must also define a client-side state
      * controller class in $.oc.editor.extension[namespace].
@@ -119,6 +124,14 @@ abstract class ExtensionBase
     public function getExtensionSortOrder()
     {
         return 10;
+    }
+
+    /**
+     * getEditorContext returns the editor context this extension appears in
+     */
+    public function getEditorContext(): string
+    {
+        return self::CONTEXT_EDITOR;
     }
 
     /**

@@ -1,6 +1,7 @@
 <?php
 
 use Dashboard\Widgets\Dash;
+use Dashboard\Classes\DashReport;
 
 class DashTest extends TestCase
 {
@@ -52,5 +53,28 @@ class DashTest extends TestCase
     public function testCommitDashboardAllowedWithMakeDefaultCapability()
     {
         $this->assertNull($this->makeDashWidget(true, true)->onCommitDashboard());
+    }
+
+    public function testCustomDashboardSkipsUnregisteredWidgets()
+    {
+        $widget = $this->makeDashWidget(true);
+
+        $initMethod = new ReflectionMethod($widget, 'initReportWidgetsConcern');
+        $initMethod->setAccessible(true);
+        $initMethod->invoke($widget);
+
+        $report = new DashReport([
+            'reportName' => 'stale_widget',
+            'type' => 'widget',
+            'configuration' => [
+                'widget' => \October\Test\VueComponents\MissingWidget::class
+            ]
+        ]);
+
+        $processMethod = new ReflectionMethod($widget, 'processDashWidgetReportsFromCustomData');
+        $processMethod->setAccessible(true);
+        $processMethod->invoke($widget, [$report]);
+
+        $this->assertSame([], $widget->getReportWidgets());
     }
 }

@@ -1,0 +1,41 @@
+/*
+ * Primary tabs: mirrors the backend FormController primary tabs as used inside
+ * .form-document-layout (.control-tabs.primary-tabs). Flat text tabs separated by
+ * vertical dividers, with the active label in the brand primary colour. Suited to a
+ * secondary tab strip inside an editor document.
+ */
+.component-backend-tabs.style-primary {
+    > .tablist-container {
+        border-bottom: 1px solid var(--oc-primary-border);
+        background: var(--oc-document-tabs-bg);
+
+        .tablist {
+            padding: 11px 0 12px;
+
+            button {
+                padding: 2px 12px 0;
+                height: 24px;
+                border: none;
+                border-right: 1px solid var(--oc-primary-border);
+                color: var(--oc-editor-tab-color);
+                font-weight: 500;
+
+                &:first-child {
+                    margin-left: 12px;
+                }
+
+                &:last-child {
+                    border-right: none;
+                }
+
+                &.active {
+                    color: var(--bs-primary);
+                }
+
+                &:focus {
+                    color: var(--bs-primary);
+                }
+            }
+        }
+    }
+}

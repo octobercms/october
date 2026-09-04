@@ -23,6 +23,11 @@ class ExtensionManager
     protected $extensions = [];
 
     /**
+     * @var string context is the editor context extensions are listed for
+     */
+    protected $context = ExtensionBase::CONTEXT_EDITOR;
+
+    /**
      * __construct this class
      */
     public function __construct()
@@ -39,14 +44,31 @@ class ExtensionManager
     }
 
     /**
-     * listVueComponents
+     * setContext scopes subsequent list calls to a single editor context, so a host
+     * page shows only the extensions registered in it
+     */
+    public function setContext(string $context)
+    {
+        $this->context = $context;
+
+        return $this;
+    }
+
+    /**
+     * getContext returns the current editor context.
+     */
+    public function getContext(): string
+    {
+        return $this->context;
+    }
+
+    /**
+     * listVueComponents returns the Vue components for extensions in the current context.
      */
     public function listVueComponents()
     {
-        $extensions = $this->listExtensions();
-
         $result = [];
-        foreach ($extensions as $extension) {
+        foreach ($this->listExtensions() as $extension) {
             $result = array_merge($result, $extension->listVueComponents());
         }
 
@@ -54,14 +76,12 @@ class ExtensionManager
     }
 
     /**
-     * listJsFiles
+     * listJsFiles returns the JS files for extensions in the current context.
      */
     public function listJsFiles()
     {
-        $extensions = $this->listExtensions();
-
         $result = [];
-        foreach ($extensions as $extension) {
+        foreach ($this->listExtensions() as $extension) {
             $result = array_merge($result, $extension->listJsFiles());
         }
 
@@ -69,13 +89,19 @@ class ExtensionManager
     }
 
     /**
-     * listExtensions returns a collection of registered extension objects
+     * listExtensions returns the registered extensions belonging to the current context
      */
     public function listExtensions()
     {
         $result = [];
         foreach ($this->extensionClassNames as $className) {
-            $result[] = $this->getExtension($className);
+            $extension = $this->getExtension($className);
+
+            if ($extension->getEditorContext() !== $this->context) {
+                continue;
+            }
+
+            $result[] = $extension;
         }
 
         usort($result, function($a, $b) {
@@ -100,12 +126,13 @@ class ExtensionManager
     }
 
     /**
-     * getExtensionByNamespace
+     * getExtensionByNamespace looks up an extension by namespace across ALL registered
+     * extensions, regardless of the current context
      */
     public function getExtensionByNamespace($namespace)
     {
-        $extensions = $this->listExtensions();
-        foreach ($extensions as $extension) {
+        foreach ($this->extensionClassNames as $className) {
+            $extension = $this->getExtension($className);
             if ($extension->getNamespaceNormalized() == $namespace) {
                 return $extension;
             }

@@ -17,6 +17,7 @@ class BlueprintIndexerTest extends TestCase
 
     public function tearDown(): void
     {
+        BlueprintIndexer::instance()->setThemeContext(null);
         Config::set('cms.active_theme', 'test');
         Theme::resetCache();
         Blueprint::resetDatasourceCache();
@@ -78,5 +79,34 @@ class BlueprintIndexerTest extends TestCase
 
         $blueprint = BlueprintIndexer::instance()->findSectionByHandle('Webinar');
         $this->assertNull($blueprint);
+    }
+
+    /**
+     * testThemeContextResolvesInactiveThemeBlueprint checks a theme context lets
+     * an inactive theme's blueprint resolve, as needed when seeding that theme.
+     */
+    public function testThemeContextResolvesInactiveThemeBlueprint()
+    {
+        Config::set('cms.active_theme', 'test');
+        Theme::resetCache();
+        Blueprint::resetDatasourceCache();
+
+        $indexer = BlueprintIndexer::instance();
+
+        // Filtered out while the unrelated theme is active
+        $this->assertNull($indexer->findSectionByHandle('Webinar'));
+        $this->assertSame('', $indexer->hasSection('Webinar'));
+
+        // The theme context makes the parent theme count as active
+        $indexer->setThemeContext('parenttest');
+
+        $blueprint = $indexer->findSectionByHandle('Webinar');
+        $this->assertNotNull($blueprint);
+        $this->assertEquals('3328c303-6b62-4a2c-8a5b-84e69b56e708', $blueprint->uuid);
+        $this->assertSame('3328c303-6b62-4a2c-8a5b-84e69b56e708', $indexer->hasSection('Webinar'));
+
+        // Clearing the context restores the active theme filtering
+        $indexer->setThemeContext(null);
+        $this->assertNull($indexer->findSectionByHandle('Webinar'));
     }
 }

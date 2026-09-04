@@ -1,0 +1,31 @@
+url = "/"
+layout = "default"
+==
+<h1>
+    {{ 'Welcome Message'|_ }}
+</h1>
+<p>
+    {{ "Read More"|trans }}
+</p>
+<p>
+    {{ 'You have :count items'|__(itemCount) }}
+</p>
+{% set contact = __('Contact Us') %}
+<span>
+    {{ contact }}
+</span>
+<p>
+    {{ 'Apple|Apples'|trans_choice(2) }}
+</p>
+<p>
+    {{ 'Styled Message'|_|upper }}
+</p>
+<p>
+    {{ notAString|_ }}
+</p>
+<p>
+    {{ helper('Decoy One')|raw }}
+</p>
+<p>
+    {{ ['Decoy A', 'Decoy B']|join(', ') }}
+</p>

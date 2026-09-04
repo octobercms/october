@@ -126,6 +126,13 @@ trait ReportProcessor
                 continue;
             }
 
+            // Skip unregistered widgets, e.g. from a removed plugin, so a stale
+            // saved definition cannot crash the entire dashboard
+            $widgetClass = $report->config['widget'] ?? $report->config['widgetClass'] ?? null;
+            if (!$this->isReportWidget((string) $widgetClass)) {
+                continue;
+            }
+
             // Create form widget instance and bind to controller
             $this->makeDashReportWidget($report)->bindToController();
         }

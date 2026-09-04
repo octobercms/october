@@ -44,6 +44,13 @@ class BlueprintIndexer
     protected $debugChecked = false;
 
     /**
+     * @var string|null themeContext overrides the active theme used to filter
+     * blueprint lookups, so a specific theme can be indexed and seeded even when
+     * it is not the active theme.
+     */
+    protected $themeContext = null;
+
+    /**
      * instance creates a new instance of this singleton
      */
     public static function instance(): static
@@ -327,6 +334,17 @@ class BlueprintIndexer
     }
 
     /**
+     * setThemeContext overrides the active theme used to filter blueprint lookups
+     * for the duration of an indexing or seeding operation. Pass null to clear.
+     */
+    public function setThemeContext(?string $themeCode): static
+    {
+        $this->themeContext = $themeCode;
+
+        return $this;
+    }
+
+    /**
      * getActiveThemeDatasources returns dirnames for the active theme and its parent,
      * used to filter blueprint lookups when multiple themes define the same handle.
      */
@@ -336,8 +354,11 @@ class BlueprintIndexer
             return [];
         }
 
-        $theme = Theme::getEditTheme() ?: Theme::getActiveTheme();
-        if (!$theme) {
+        $theme = $this->themeContext
+            ? Theme::load($this->themeContext)
+            : (Theme::getEditTheme() ?: Theme::getActiveTheme());
+
+        if (!$theme || !$theme->isValid()) {
             return [];
         }
 

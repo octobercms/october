@@ -1,6 +1,7 @@
 @import "_style-form.css";
 @import "_style-document.css";
 @import "_style-inspector.css";
+@import "_style-primary.css";
 
 .component-backend-tabs {
     display: flex;

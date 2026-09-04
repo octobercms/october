@@ -164,6 +164,16 @@ export default {
             }
         },
 
+        getData: function() {
+            if (!this.hot) {
+                return [];
+            }
+
+            var data = this.hot.getSourceData();
+
+            return Array.isArray(data) ? data : [];
+        },
+
         captureColumnRatios: function() {
             var colCount = this.hot.countCols();
             var totalWidth = 0;

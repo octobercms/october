@@ -590,10 +590,22 @@ export class TreeviewDragAndDrop {
         dropData.droppedNodes.forEach(function(droppedNodeData) {
             var originalNode = droppedNodeData.nodeData;
 
-            targetNodeList.splice(targetIndex, 0, originalNode);
-
+            // Remove the node from its old position BEFORE inserting. Inserting first
+            // breaks moves within the same list: when moving a node up
             var indexToDelete = droppedNodeData.parentArray.indexOf(originalNode);
-            droppedNodeData.parentArray.splice(indexToDelete, 1);
+            var insertIndex = targetIndex;
+
+            // If the node is removed from earlier in the SAME list than the insertion
+            // point, everything after it shifts left by one, so drop the target index
+            if (droppedNodeData.parentArray === targetNodeList && indexToDelete !== -1 && indexToDelete < insertIndex) {
+                insertIndex--;
+            }
+
+            if (indexToDelete !== -1) {
+                droppedNodeData.parentArray.splice(indexToDelete, 1);
+            }
+
+            targetNodeList.splice(insertIndex, 0, originalNode);
         });
     }
 

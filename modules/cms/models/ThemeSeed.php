@@ -119,13 +119,20 @@ class ThemeSeed extends Model
         $this->theme = $theme;
         $this->fill($data);
 
-        foreach ($this->folders as $folder) {
-            if (!array_key_exists($folder, $this->getFoldersOptions())) {
-                continue;
-            }
+        BlueprintIndexer::instance()->setThemeContext($this->dirName);
 
-            $methodName = 'importSeed'.ucfirst($folder);
-            $this->$methodName();
+        try {
+            foreach ($this->folders as $folder) {
+                if (!array_key_exists($folder, $this->getFoldersOptions())) {
+                    continue;
+                }
+
+                $methodName = 'importSeed'.ucfirst($folder);
+                $this->$methodName();
+            }
+        }
+        finally {
+            BlueprintIndexer::instance()->setThemeContext(null);
         }
     }
 

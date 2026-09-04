@@ -77,6 +77,13 @@ export default {
                     },
                     {
                         type: 'button',
+                        icon: 'icon-magic-wand',
+                        label: this.trans('cms::lang.lang.scan_messages'),
+                        command: 'scan-messages',
+                        tooltip: this.trans('cms::lang.lang.scan_messages')
+                    },
+                    {
+                        type: 'button',
                         icon: 'icon-search',
                         label: this.trans('backend::lang.list.search_prompt'),
                         command: 'toggle-search',
@@ -154,6 +161,57 @@ export default {
             });
         },
 
+        scanMessages: function scanMessages() {
+            var self = this;
+            this.ajaxRequest('onCommand', {
+                extension: this.namespace,
+                command: 'onScanLangMessages',
+                documentMetadata: this.documentMetadata
+            }).then(function(data) {
+                var keys = data.keys || [];
+                var rows = self.$refs.spreadsheet
+                    ? self.$refs.spreadsheet.getData()
+                    : self.spreadsheetData;
+
+                rows = rows.filter(function(row) {
+                    var key = row.key && typeof row.key === 'string' ? row.key.trim() : '';
+                    var value = typeof row.value === 'string' ? row.value.trim() : '';
+
+                    return key.length > 0 || value.length > 0;
+                });
+
+                var existingKeys = {};
+                rows.forEach(function(row) {
+                    if (row.key && typeof row.key === 'string') {
+                        existingKeys[row.key.trim()] = true;
+                    }
+                });
+
+                var addedCount = 0;
+                keys.forEach(function(key) {
+                    if (!existingKeys[key]) {
+                        rows.push({ key: key, value: '' });
+                        addedCount++;
+                    }
+                });
+
+                self.spreadsheetData = rows;
+
+                if (self.$refs.spreadsheet) {
+                    self.$refs.spreadsheet.loadData(rows);
+                }
+
+                if (addedCount > 0) {
+                    oc.snackbar.show(
+                        self.trans('cms::lang.lang.scan_messages_success').replace(':count', addedCount)
+                    );
+                }
+                else {
+                    oc.snackbar.show(self.trans('cms::lang.lang.scan_messages_empty'));
+                }
+            });
+        },
+
         contentToSpreadsheet: function contentToSpreadsheet(content) {
             var rows = [];
 
@@ -187,6 +245,10 @@ export default {
 
             if (command === 'delete-row') {
                 this.$refs.spreadsheet.deleteRow();
+            }
+
+            if (command === 'scan-messages') {
+                this.scanMessages();
             }
 
             if (command === 'toggle-search') {

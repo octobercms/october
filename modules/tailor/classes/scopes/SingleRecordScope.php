@@ -9,7 +9,7 @@ use Illuminate\Database\Eloquent\Builder as BuilderBase;
  * @package october\database
  * @author Alexey Bobkov, Samuel Georges
  */
-class SingleRecordScope implements EntryRecordScope
+class SingleRecordScope extends EntryRecordScope
 {
     /**
      * apply the scope to a given Eloquent query builder.

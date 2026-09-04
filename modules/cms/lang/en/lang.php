@@ -227,6 +227,9 @@
     'error_deleting_file' => 'Error deleting file :name.',
     'key_column' => 'Key',
     'value_column' => 'Translation',
+    'scan_messages' => 'Scan for Messages',
+    'scan_messages_success' => ':count new messages found',
+    'scan_messages_empty' => 'No new messages found',
   ],
   'component' => [
     'menu_label' => 'Components',

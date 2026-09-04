@@ -14,6 +14,7 @@ use Cms\Classes\Partial;
 use Cms\Classes\Snippet;
 use Cms\Classes\Content;
 use Cms\Classes\Lang as CmsLang;
+use Cms\Classes\LangScanner;
 use Cms\Classes\Router;
 use Cms\Classes\SnippetManager;
 use Cms\Classes\CmsCompoundObject;
@@ -792,10 +793,6 @@ trait HasExtensionCrud
     }
 
     /**
-     * mergeLangContentWithDefaultKeys merges the default locale's keys into the
-     * lang file content so translators see all available keys prepopulated.
-     */
-    /**
      * command_onGetLangDefaultKeys returns the default language keys for
      * prepopulating a new or existing lang file.
      */
@@ -811,6 +808,21 @@ trait HasExtensionCrud
         $keys = CmsLang::getDefaultKeys($theme, $excludeFileName ?: null);
 
         return ['keys' => $keys ?: []];
+    }
+
+    /**
+     * command_onScanLangMessages scans the theme templates for translatable
+     * strings and returns the found message keys.
+     */
+    protected function command_onScanLangMessages()
+    {
+        $metadata = $this->getRequestMetadata();
+        $this->validateRequestTheme($metadata);
+        $this->assertDocumentTypePermissions(EditorExtension::DOCUMENT_TYPE_LANG);
+
+        $keys = LangScanner::scan($this->getTheme());
+
+        return ['keys' => $keys];
     }
 
     /**
