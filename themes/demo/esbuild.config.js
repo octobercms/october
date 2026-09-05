@@ -21,7 +21,7 @@ await esbuild.build({
     minify: isProduction,
     sourcemap: false,
     target: ['es2020'],
-    external: ['jquery'],
+    alias: { jquery: './assets/vendor/jquery-global-shim.js' },
 });
 
 await esbuild.build({
@@ -32,7 +32,7 @@ await esbuild.build({
     minify: isProduction,
     sourcemap: false,
     target: ['es2020'],
-    external: ['jquery'],
+    alias: { jquery: './assets/vendor/jquery-global-shim.js' },
 });
 
 // SCSS Compilation

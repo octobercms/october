@@ -1,0 +1,32 @@
+uuid: unittest-contact-9a41d27e
+handle: UnitTest\Contact
+type: submission
+name: Contact
+
+navigation:
+    icon: icon-envelope
+    order: 110
+
+fields:
+    name:
+        label: Name
+        type: text
+        validation: required|min:2
+        tags: [step1]
+
+    email:
+        label: Email Address
+        type: email
+        validation: required|email
+        tags: [step1, step3]
+
+    phone:
+        label: Phone
+        type: text
+        tags: step1
+
+    needs:
+        label: Client Needs
+        type: textarea
+        validation: nullable|min:5
+        tags: [step2]

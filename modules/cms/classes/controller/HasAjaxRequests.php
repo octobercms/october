@@ -163,7 +163,6 @@ trait HasAjaxRequests
             }
         }
         catch (Throwable $ex) {
-            report($ex);
             $response = ajax()->exception($ex);
         }
 

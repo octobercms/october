@@ -2,6 +2,9 @@
 
 use System\Models\File as FileModel;
 use Database\Tester\Models\User;
+use Database\Tester\Models\UserWithPhotosValidation;
+use October\Rain\Database\ModelException;
+use Illuminate\Http\UploadedFile;
 
 class AttachManyModelTest extends PluginTestCase
 {
@@ -52,6 +55,51 @@ class AttachManyModelTest extends PluginTestCase
         $this->assertNull(FileModel::find($photoId));
     }
 
+    public function testRequiredValidationWithNewUpload()
+    {
+        $user = new UserWithPhotosValidation(['name' => 'Stevie', 'email' => 'stevie@email.tld']);
+
+        // Saving without photos fails the required rule
+        try {
+            $user->save();
+            $this->fail('Expected validation to fail without photos');
+        }
+        catch (ModelException $ex) {
+            $this->assertArrayHasKey('photos', $ex->getErrors()->messages());
+        }
+
+        // A pending upload satisfies the required rule before the file exists
+        $user->photos = $this->makeUploadedFile();
+        $user->save();
+
+        $user->unsetRelations();
+        $this->assertCount(1, $user->photos);
+    }
+
+    public function testRequiredValidationAppendsToExistingFiles()
+    {
+        Model::unguard();
+        $user = UserWithPhotosValidation::make(['name' => 'Jerry', 'email' => 'jerry@email.tld']);
+        Model::reguard();
+
+        $user->photos = $this->makeUploadedFile();
+        $user->save();
+
+        // Append a standalone File model to the saved record
+        $file = new FileModel;
+        $file->fromFile(base_path('modules/system/tests/fixtures/plugins/database/tester/assets/images/avatar.png'));
+        $file->save();
+
+        $user = UserWithPhotosValidation::find($user->id);
+        $user->photos = $file;
+
+        // Validation data now holds an existing Attach\File plus the appended model
+        $user->save();
+
+        $user->unsetRelations();
+        $this->assertCount(2, $user->photos);
+    }
+
     public function testRemovalProtection()
     {
         Model::unguard();
@@ -71,5 +119,16 @@ class AttachManyModelTest extends PluginTestCase
 
         $user2Photo = $user2->photos->first();
         $this->assertNotNull($user2Photo);
+    }
+
+    /**
+     * makeUploadedFile builds a test upload from a copied fixture image
+     */
+    protected function makeUploadedFile(): UploadedFile
+    {
+        $path = temp_path('attach-many-test.png');
+        copy(base_path('modules/system/tests/fixtures/plugins/database/tester/assets/images/avatar.png'), $path);
+
+        return new UploadedFile($path, 'avatar.png', 'image/png', null, true);
     }
 }

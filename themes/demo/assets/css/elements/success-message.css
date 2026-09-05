@@ -1,0 +1,102 @@
+/* Success message, an inline confirmation card with a green check badge */
+.success-message {
+    display: flex;
+    align-items: flex-start;
+    gap: 1.25rem;
+    padding: 1.5rem 1.75rem;
+    border-radius: 1rem;
+    text-align: left;
+    background: linear-gradient(135deg, rgba(40, 167, 69, 0.08) 0%, rgba(40, 167, 69, 0.04) 100%);
+    border: 1px solid rgba(40, 167, 69, 0.15);
+}
+
+.success-message .success-message-icon {
+    position: relative;
+    flex-shrink: 0;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+    width: 56px;
+    height: 56px;
+    border-radius: 50%;
+    font-size: 1.75rem;
+    color: #28a745;
+    background: rgba(40, 167, 69, 0.15);
+}
+
+.success-message .success-message-spark {
+    position: absolute;
+    font-size: 1rem;
+    color: #4cd07d;
+}
+
+.success-message .success-message-spark-1 {
+    top: -4px;
+    right: -2px;
+}
+
+.success-message .success-message-spark-2 {
+    bottom: 0;
+    left: -4px;
+}
+
+.success-message .success-message-title {
+    font-weight: 700;
+    color: #2c7a3f;
+    margin-bottom: 0.35rem;
+}
+
+.success-message .success-message-text {
+    color: #4a5a50;
+    line-height: 1.55;
+    margin-bottom: 0;
+}
+
+.success-message .success-message-text p {
+    margin-bottom: 0.5rem;
+}
+
+.success-message .success-message-text p:last-child {
+    margin-bottom: 0;
+}
+
+/* Hero variant, a centred confirmation for modals and standalone screens */
+.success-message.success-message-hero {
+    flex-direction: column;
+    align-items: center;
+    text-align: center;
+    gap: 0;
+    padding: 0;
+    background: none;
+    border: 0;
+}
+
+.success-message-hero .success-message-icon {
+    width: 110px;
+    height: 110px;
+    margin-bottom: 1.75rem;
+    font-size: 3.5rem;
+}
+
+.success-message-hero .success-message-spark-1 {
+    top: -2px;
+    right: 4px;
+    font-size: 1.4rem;
+}
+
+.success-message-hero .success-message-spark-2 {
+    bottom: 8px;
+    left: -2px;
+    font-size: 1.1rem;
+}
+
+.success-message-hero .success-message-title {
+    font-size: 2rem;
+    color: #3f4a54;
+    margin-bottom: 0.5rem;
+}
+
+.success-message-hero .success-message-text {
+    color: #7a828c;
+    font-size: 1.1rem;
+}

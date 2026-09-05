@@ -406,7 +406,10 @@ class Router
      */
     protected function getCacheGeneration(): int
     {
-        return (int) Cache::memo()->get('cms.router.generation', 1);
+        // Stored on first use, otherwise every request misses this key
+        return (int) Cache::memo()->rememberForever('cms.router.generation', function () {
+            return 1;
+        });
     }
 
     /**

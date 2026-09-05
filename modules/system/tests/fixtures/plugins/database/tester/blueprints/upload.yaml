@@ -1,0 +1,20 @@
+uuid: unittest-upload-7c52e19b
+handle: UnitTest\Upload
+type: submission
+name: Upload
+
+navigation:
+    icon: ph ph-paperclip
+    order: 111
+
+fields:
+    name:
+        label: Name
+        type: text
+        validation: required
+
+    files:
+        label: Files
+        type: fileupload
+        maxFiles: 2
+        validation: required

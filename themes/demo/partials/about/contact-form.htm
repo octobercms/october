@@ -2,10 +2,29 @@
 <?
 // How to activate this form:
 //
-// - 1. Open Admin Panel → Settings → Team → Manage Groups
-// - 2. Create a New Group → Set Code field to "contact-team"
-// - 3. Select Users tab → Click Add Users
-// - 4. Click Save
+// 1. Create the notification group
+//    - Open Admin Panel → Settings → Team → Team Groups
+//    - Create a New Group → Set Code field to "contact-team"
+//    - Select Users tab → Click Add Users → Save
+//
+// 2. Create the "backend:contact-form" mail template
+//    - Open Admin Panel → Settings → Mail → Mail Templates
+//    - Click New Template
+//    - Set Code to "backend:contact-form"
+//    - Set Subject to: New contact enquiry from {{ first_name }}
+//    - Set Content to the Markdown below:
+//
+//      Hello
+//
+//      A new contact enquiry has been received via **{{ appName }}**.
+//
+//      {% partial 'panel' body %}
+//      - Name: {{ first_name }}
+//      - Email: {{ email }}
+//      - Comments: {{ comments }}
+//      {% endpartial %}
+//
+//    - Click Save
 //
 function onSubmitContactForm()
 {
@@ -26,13 +45,15 @@ function onSubmitContactForm()
         'first_name' => __("name"),
     ]);
 
-    // Notify the 'contact-team' group with 'backend:contact-form' mail template
+    // Notify the 'contact-team' team group
     //
     $group = \Backend\Models\UserGroup::where('code', 'contact-team')->first();
     if (!$group) {
         throw new ApplicationException(__("Sorry, this contact form is not enabled: We cannot receive emails at the moment, please try using another method."));
     }
 
+    // Send email using 'backend:contact-form' mail template
+    //
     Mail::sendTo(
         $group->users->pluck('full_name', 'email')->all(),
         'backend:contact-form',
@@ -49,11 +70,13 @@ function onSubmitContactForm()
     <p class="lead">Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.</p>
 
     {% if isSubmit %}
-        <div class="alert alert-success text-start" role="alert">
-            <h4 class="alert-heading">Thanks for getting in touch!</h4>
+        {% set successContent %}
             <p>Please bear in mind we receive a lot of feedback, it may take several days to process and you may not receive a response.</p>
             <p class="mb-0">Not to worry though, we have your email <strong>{{ emailAddress }}</strong>, all feedback we receive will be read and action taken if needed.</p>
-        </div>
+        {% endset %}
+        {% partial 'elements/success-message'
+            title="Thanks for getting in touch!"
+            content=successContent %}
     {% else %}
         <form
             data-request="onSubmitContactForm"

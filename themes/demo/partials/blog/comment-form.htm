@@ -4,9 +4,9 @@
     </h3>
 
     {% if formSubmitted %}
-        <div class="alert alert-success">
-            Thank you for your comment! It will appear here once it has been approved.
-        </div>
+        {% partial 'elements/success-message'
+            title="Thank you for your comment!"
+            text="It will appear here once it has been approved." %}
     {% else %}
         <form
             data-request="commentForm::onFormSubmit"

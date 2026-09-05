@@ -1,0 +1,279 @@
+/* Modal panel */
+.survey-modal {
+    .modal-content {
+        border: 0;
+        border-radius: 1.25rem;
+        overflow: hidden;
+        background: linear-gradient(160deg, #fbfbff 0%, #f1f0fb 100%);
+        box-shadow: 0 1.5rem 3rem rgba(60, 50, 120, 0.25);
+    }
+
+    .modal-header {
+        border-bottom: 1px solid rgba(90, 70, 160, 0.08);
+        padding: 1.35rem 1.75rem;
+    }
+
+    .modal-title {
+        font-size: 1.5rem;
+        color: #3f4a54;
+    }
+
+    .modal-body {
+        position: relative;
+        padding: 0;
+        overflow: hidden;
+        padding-top: 2rem;
+        padding-bottom: 3.5rem;
+    }
+
+    /* Brand badge, soft tint rather than a hard circle */
+    .survey-brand {
+        width: 44px;
+        height: 44px;
+        margin-right: 0.85rem;
+        border-radius: 50%;
+        background: rgba(255, 146, 43, 0.12);
+        display: flex;
+        align-items: center;
+        justify-content: center;
+
+        img {
+            width: 24px;
+            height: 24px;
+        }
+    }
+}
+
+/* Survey form and its decorative flourishes, drawn with CSS only */
+.survey-form {
+    position: relative;
+    z-index: 1;
+    padding: 5rem 3rem 6rem;
+
+    &::before,
+    &::after {
+        content: '';
+        position: absolute;
+        border-radius: 50%;
+        z-index: -1;
+        pointer-events: none;
+    }
+
+    &::before {
+        width: 190px;
+        height: 190px;
+        top: -70px;
+        left: -70px;
+        background: rgba(120, 100, 210, 0.06);
+    }
+
+    &::after {
+        width: 240px;
+        height: 240px;
+        top: 20px;
+        right: -110px;
+        background: rgba(120, 100, 210, 0.05);
+    }
+
+    .survey-dots {
+        position: absolute;
+        width: 84px;
+        height: 84px;
+        z-index: -1;
+        pointer-events: none;
+        background-image: radial-gradient(rgba(120, 100, 210, 0.35) 2px, transparent 2px);
+        background-size: 16px 16px;
+
+        &.survey-dots-tl {
+            top: 1.5rem;
+            left: 1.5rem;
+        }
+
+        &.survey-dots-br {
+            bottom: 3.5rem;
+            right: 1.5rem;
+        }
+    }
+
+    /* Bottom wave, drawn with a CSS gradient so no asset recoloring is needed */
+    .survey-wave {
+        position: absolute;
+        left: -10%;
+        right: -10%;
+        bottom: -60px;
+        height: 160px;
+        z-index: -1;
+        pointer-events: none;
+        background: rgba(120, 100, 210, 0.06);
+        border-radius: 50% 50% 0 0 / 100% 100% 0 0;
+    }
+
+    /* Question heading */
+    .survey-question {
+        font-size: 2rem;
+        color: #3f4a54;
+    }
+
+    /* Selected rating summary */
+    .survey-selected {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 0.85rem;
+        margin-bottom: 1.75rem;
+    }
+
+    .survey-selected .survey-selected-icon {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        width: 48px;
+        height: 48px;
+        border-radius: 50%;
+        font-size: 1.6rem;
+        line-height: 1;
+    }
+
+    .survey-selected .survey-selected-text {
+        font-size: 1.25rem;
+        color: #3f4a54;
+    }
+
+    .survey-selected[data-rating="bad"] {
+        .survey-selected-icon {
+            color: #dc3545;
+            background: rgba(220, 53, 69, 0.12);
+        }
+        strong {
+            color: #dc3545;
+        }
+    }
+
+    .survey-selected[data-rating="ok"] {
+        .survey-selected-icon {
+            color: #fd7e14;
+            background: rgba(253, 126, 20, 0.12);
+        }
+        strong {
+            color: #fd7e14;
+        }
+    }
+
+    .survey-selected[data-rating="good"] {
+        .survey-selected-icon {
+            color: #28a745;
+            background: rgba(40, 167, 69, 0.12);
+        }
+        strong {
+            color: #28a745;
+        }
+    }
+
+    .survey-selected[data-rating="great"] {
+        .survey-selected-icon {
+            color: #c9a227;
+            background: rgba(201, 162, 39, 0.14);
+        }
+        strong {
+            color: #c9a227;
+        }
+    }
+
+    /* Subtitle under the question */
+    .survey-subtitle {
+        color: #7a828c;
+        font-size: 1.1rem;
+        margin-bottom: 2.5rem;
+    }
+
+    /* Step navigation buttons */
+    .survey-buttons {
+        display: flex;
+        align-items: center;
+        justify-content: center;
+        gap: 1.5rem;
+        margin-top: 2rem;
+    }
+
+    /* Rating cards */
+    .survey-ratings {
+        display: flex;
+        justify-content: center;
+        gap: 1.5rem;
+        flex-wrap: wrap;
+    }
+
+    .survey-rating-btn {
+        border: 0;
+        background: #fff;
+        border-radius: 1.25rem;
+        padding: 1.5rem 1.25rem 1rem;
+        width: 148px;
+        box-shadow: 0 0.5rem 1.25rem rgba(60, 50, 120, 0.1);
+        transition: transform 0.15s ease, box-shadow 0.15s ease;
+
+        &:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 0.85rem 1.75rem rgba(60, 50, 120, 0.18);
+        }
+
+        .survey-rating-icon {
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            width: 96px;
+            height: 96px;
+            margin: 0 auto 1.25rem;
+            border-radius: 50%;
+            font-size: 3.4rem;
+            line-height: 1;
+        }
+
+        .survey-rating-label {
+            display: block;
+            font-weight: 700;
+            font-size: 1.25rem;
+        }
+
+        /* Per-rating colors, icon tint plus soft circle */
+        &[data-rating="bad"] {
+            .survey-rating-icon {
+                color: #dc3545;
+                background: rgba(220, 53, 69, 0.12);
+            }
+            .survey-rating-label {
+                color: #dc3545;
+            }
+        }
+
+        &[data-rating="ok"] {
+            .survey-rating-icon {
+                color: #fd7e14;
+                background: rgba(253, 126, 20, 0.12);
+            }
+            .survey-rating-label {
+                color: #fd7e14;
+            }
+        }
+
+        &[data-rating="good"] {
+            .survey-rating-icon {
+                color: #28a745;
+                background: rgba(40, 167, 69, 0.12);
+            }
+            .survey-rating-label {
+                color: #28a745;
+            }
+        }
+
+        &[data-rating="great"] {
+            .survey-rating-icon {
+                color: #c9a227;
+                background: rgba(201, 162, 39, 0.14);
+            }
+            .survey-rating-label {
+                color: #c9a227;
+            }
+        }
+    }
+}

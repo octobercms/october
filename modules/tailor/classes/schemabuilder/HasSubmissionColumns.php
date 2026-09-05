@@ -20,5 +20,9 @@ trait HasSubmissionColumns
         if (!$this->hasColumn('submitted_user_agent')) {
             $table->string('submitted_user_agent')->nullable();
         }
+
+        if (!$this->hasColumn('is_partial_submission')) {
+            $table->boolean('is_partial_submission')->default(false);
+        }
     }
 }

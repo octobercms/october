@@ -1,10 +1,8 @@
-<div class="navbar-mobile">
-    <div class="collapse navbar-collapse" id="navbarSupportedContent">
-        <div class="text-end">
-            <button class="navbar-toggler" type="button" data-bs-toggle="collapse" data-bs-target="#navbarSupportedContent" aria-controls="navbarSupportedContent" aria-expanded="false" aria-label="Toggle navigation">
-                <span class="bi bi-x-circle"></span>
-            </button>
-        </div>
+<div class="offcanvas offcanvas-end navbar-mobile" tabindex="-1" id="navbarSupportedContent" aria-labelledby="navbarSupportedContentLabel">
+    <div class="offcanvas-header">
+        <button type="button" class="btn-close" data-bs-dismiss="offcanvas" aria-label="Close"></button>
+    </div>
+    <div class="offcanvas-body">
         <ul class="nav flex-column mb-2 mb-lg-0">
             {% partial 'site/nav-links' %}
         </ul>

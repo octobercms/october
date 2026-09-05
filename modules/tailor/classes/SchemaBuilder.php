@@ -105,6 +105,7 @@ class SchemaBuilder
         'expired_at',
         'submitted_ip',
         'submitted_user_agent',
+        'is_partial_submission',
 
         // Relations
         'primaryRecord',

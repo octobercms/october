@@ -6,20 +6,22 @@ use Cms\Classes\ComponentModuleBase;
 use ApplicationException;
 
 /**
- * SubmissionComponent handles user-submitted content via a Tailor blueprint.
- *
- * Uses the FormComponent behavior to provide form rendering, validation,
- * and save handling. The component wires the behavior to a Tailor submission
- * blueprint, deriving fields from the blueprint's fieldset.
+ * SubmissionComponent handles user-submitted content via a Tailor blueprint
+
  */
 class SubmissionComponent extends ComponentModuleBase
 {
     /**
-     * @var array implement extensions
+     * init attaches the wizard or standard form behavior based on the wizard property
      */
-    public $implement = [
-        \Cms\Behaviors\FormComponent::class,
-    ];
+    public function init()
+    {
+        $this->extendClassWith(
+            $this->property('wizard')
+                ? \Cms\Behaviors\WizardComponent::class
+                : \Cms\Behaviors\FormComponent::class
+        );
+    }
 
     /**
      * componentDetails
@@ -43,6 +45,13 @@ class SubmissionComponent extends ComponentModuleBase
             'handle' => [
                 'title' => 'Handle',
                 'type' => 'dropdown',
+                'showExternalParam' => false
+            ],
+            'wizard' => [
+                'title' => 'Wizard Submission',
+                'description' => 'Allow partial submissions across multiple steps',
+                'type' => 'checkbox',
+                'default' => false,
                 'showExternalParam' => false
             ],
         ];
@@ -98,6 +107,7 @@ class SubmissionComponent extends ComponentModuleBase
                 'comment' => $field->comment ?? '',
                 'fileTypes' => $field->fileTypes ?? null,
                 'maxFiles' => $field->maxFiles ?? null,
+                'tags' => (array) ($field->tags ?? []),
             ];
         }
 
@@ -109,12 +119,9 @@ class SubmissionComponent extends ComponentModuleBase
      */
     public function onFormSubmit()
     {
-        // Honeypot check
-        if (post('_oc_hp') !== null && strlen(post('_oc_hp')) > 0) {
-            throw new ApplicationException('Submission blocked.');
-        }
+        $this->checkHoneypot();
 
-        $result = $this->asExtension('FormComponent')->onFormSubmit();
+        $result = $this->getFormBehavior()->onFormSubmit();
 
         $model = $this->controller->vars['formModel'] ?? null;
         if ($model instanceof SubmissionRecord) {
@@ -122,6 +129,86 @@ class SubmissionComponent extends ComponentModuleBase
         }
 
         return $result;
+    }
+
+    /**
+     * onFormStep adds spam protection before delegating the forward step to the behavior
+     */
+    public function onFormStep()
+    {
+        if (!$this->isClassExtendedWith(\Cms\Behaviors\WizardComponent::class)) {
+            throw new ApplicationException('Multi-step submissions are not enabled for this form.');
+        }
+
+        $this->checkHoneypot();
+
+        return $this->getFormBehavior()->onFormStep();
+    }
+
+    /**
+     * onFormGoto delegates back navigation to the behavior, no validation required
+     */
+    public function onFormGoto()
+    {
+        if (!$this->isClassExtendedWith(\Cms\Behaviors\WizardComponent::class)) {
+            throw new ApplicationException('Multi-step submissions are not enabled for this form.');
+        }
+
+        return $this->getFormBehavior()->onFormGoto();
+    }
+
+    /**
+     * getFormBehavior returns the form behavior attached to this component
+     * @return \Cms\Behaviors\FormComponent|\Cms\Behaviors\WizardComponent
+     */
+    protected function getFormBehavior()
+    {
+        return $this->asExtension('WizardComponent') ?: $this->asExtension('FormComponent');
+    }
+
+    /**
+     * formMarkPartial flags the record as an incomplete submission
+     */
+    public function formMarkPartial($model): void
+    {
+        $model->is_partial_submission = true;
+    }
+
+    /**
+     * formMarkComplete clears the incomplete submission flag
+     */
+    public function formMarkComplete($model): void
+    {
+        $model->is_partial_submission = false;
+    }
+
+    /**
+     * formFindPartialModel only resolves records still marked as partial submissions
+     */
+    public function formFindPartialModel($model, $recordId)
+    {
+        return $model->newQuery()
+            ->where($model->getKeyName(), $recordId)
+            ->where('is_partial_submission', true)
+            ->first();
+    }
+
+    /**
+     * formGetSessionKey scopes partial submission tracking to the blueprint
+     */
+    public function formGetSessionKey(): string
+    {
+        return 'cms_form_partial.' . $this->getBlueprintUuid();
+    }
+
+    /**
+     * checkHoneypot rejects submissions that fill the hidden honeypot field
+     */
+    protected function checkHoneypot(): void
+    {
+        if (post('_oc_hp') !== null && strlen(post('_oc_hp')) > 0) {
+            throw new ApplicationException('Submission blocked.');
+        }
     }
 
     /**

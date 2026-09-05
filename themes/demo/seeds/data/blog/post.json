@@ -1,28 +1,28 @@
 [
     {
         "id": 1,
-        "title": "Consectetur adipiscing elit",
-        "slug": "consectetur-adipiscing-elit",
+        "title": "The Secret Language of Old-Growth Forests",
+        "slug": "secret-language-of-forests",
         "is_enabled": 1,
         "content_group": "regular_post",
-        "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<\/p><p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?<\/p>",
+        "content": "<p>Walk into an old-growth forest and you step into a conversation that has been going on for centuries. Beneath the leaf litter, a vast web of fungal threads connects tree to tree, carrying sugars, water, and warning signals between the tallest canopy giants and the youngest seedlings on the forest floor. Foresters have taken to calling it the wood wide web, and it upends the old idea of the forest as a crowd of solitary trees competing for light.</p><p>A mother tree, the oldest and largest in a stand, can be linked to hundreds of its neighbours. When a seedling is struggling in deep shade, sugars flow toward it through the network. When one tree comes under attack from insects, chemical alarms travel through the soil and neighbouring trees begin to raise their defences before the pests even arrive. Cut the connections, and the whole community grows more slowly and more sickly. It turns out a forest is less a collection of individuals than a single, patient, living thing that measures its life in centuries.</p>",
         "author": 1,
         "categories": [
             1
         ],
-        "featured_text": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
+        "featured_text": "Beneath every ancient forest runs a hidden network of fungi and roots, quietly sharing food and sending warnings between the trees. It is one of nature's oldest conversations."
     },
     {
         "id": 2,
-        "title": "Nemo enim ipsam",
-        "slug": "nemo-enim-ipsam",
+        "title": "Following the Autumn Migration",
+        "slug": "following-the-autumn-migration",
         "is_enabled": 1,
         "content_group": "regular_post",
-        "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<\/p><p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem. Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam, nisi ut aliquid ex ea commodi consequatur? Quis autem vel eum iure reprehenderit qui in ea voluptate velit esse quam nihil molestiae consequatur, vel illum qui dolorem eum fugiat quo voluptas nulla pariatur?<\/p>",
+        "content": "<p>Each autumn, as the light softens and the first cold nights arrive, something ancient stirs in millions of birds. Almost overnight the skies fill with movement as swallows, warblers, and geese begin the long journey south. Some will cross entire oceans without landing, navigating by the stars, the setting sun, and a magnetic sense we are only beginning to understand.</p><p>Standing on a headland at first light during the migration is one of nature's great free spectacles. Waves of small birds pour overhead, pausing in the hedgerows to feed before pressing on. A single willow warbler weighing less than a two-pound coin may travel from a northern woodland all the way to sub-Saharan Africa and back again the following spring, guided home to the very same tree it left. The more we learn about these journeys, the more astonishing it becomes that creatures so small carry maps so vast inside them.</p>",
         "author": 1,
         "categories": [
             2
         ],
-        "featured_text": "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt mollitia animi, id est laborum et dolorum fuga."
+        "featured_text": "As the nights draw in, millions of birds set out on journeys that span oceans and continents, navigating by the stars to reach places they have never seen and return home again."
     }
 ]

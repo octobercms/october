@@ -2,6 +2,7 @@
 
 use Cms\Classes\Router;
 use Cms\Classes\Theme;
+use Illuminate\Cache\Events\CacheMissed;
 
 class RouterTest extends TestCase
 {
@@ -67,6 +68,42 @@ class RouterTest extends TestCase
         $page = $router->findByUrl('/');
         $this->assertNotEmpty($page);
         $this->assertEquals('index.htm', $page->getFileName());
+    }
+
+    public function testCacheGenerationIsStoredAfterFirstUse()
+    {
+        Cache::forget('cms.router.generation');
+
+        $misses = 0;
+        Event::listen(CacheMissed::class, function ($event) use (&$misses) {
+            if ($event->key === 'cms.router.generation') {
+                $misses++;
+            }
+        });
+
+        $this->assertNotEmpty((new Router(self::$theme))->findByUrl('/'));
+        $this->assertSame(1, Cache::get('cms.router.generation'));
+
+        // The next request finds the stored value
+        $this->forgetMemoizedCache();
+        $this->assertNotEmpty((new Router(self::$theme))->findByUrl('/'));
+
+        $this->assertSame(1, $misses);
+
+        // Clearing the cache advances the stored generation
+        (new Router(self::$theme))->clearCache();
+        $this->assertSame(2, Cache::get('cms.router.generation'));
+    }
+
+    /**
+     * forgetMemoizedCache empties the request level memo store, as a new request would
+     */
+    protected function forgetMemoizedCache(): void
+    {
+        $store = Cache::memo()->getStore();
+        $property = new ReflectionProperty($store, 'cache');
+        $property->setAccessible(true);
+        $property->setValue($store, []);
     }
 
     public function testStaleSharedCacheRetriesFromDisk()

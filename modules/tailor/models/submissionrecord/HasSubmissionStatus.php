@@ -20,6 +20,10 @@ trait HasSubmissionStatus
             return 'rejected';
         }
 
+        if ($this->is_partial_submission) {
+            return 'partial';
+        }
+
         if (!$this->is_enabled) {
             return 'pending';
         }
@@ -35,6 +39,7 @@ trait HasSubmissionStatus
         $options = [
             'approved' => ['Approved', 'var(--bs-green)'],
             'pending' => ['Pending', 'var(--bs-orange)'],
+            'partial' => ['Partial', 'var(--bs-gray-500)'],
         ];
 
         if ($this->isSoftDeleteEnabled()) {
@@ -54,7 +59,11 @@ trait HasSubmissionStatus
         }
 
         if ($scope->value === 'pending') {
-            return $query->where('is_enabled', false);
+            return $query->where('is_enabled', false)->where('is_partial_submission', false);
+        }
+
+        if ($scope->value === 'partial') {
+            return $query->where('is_partial_submission', true);
         }
 
         if ($scope->value === 'rejected') {

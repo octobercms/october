@@ -1,0 +1,41 @@
+uuid: 9875c9a8-983a-454a-b5ab-e9dc057d00bf
+handle: Site\Feedback
+type: submission
+name: Feedback
+
+submission:
+    titleTemplate: '{{ rating|title }} feedback{% if name %} from {{ name }}{% endif %}'
+
+navigation:
+    icon: ph ph-chat-centered-text
+    order: 400
+
+fields:
+    rating:
+        label: Rating
+        type: dropdown
+        validation: required|in:bad,ok,good,great
+        tags: step1
+        options:
+            bad: Bad
+            ok: OK
+            good: Good
+            great: Great
+
+    comments:
+        label: Comments
+        type: textarea
+        validation: required|min:5|max:2000
+        tags: step2
+
+    name:
+        label: Name
+        type: text
+        validation: nullable|max:100
+        tags: step3
+
+    email:
+        label: Email Address
+        type: email
+        validation: required|email
+        tags: step3

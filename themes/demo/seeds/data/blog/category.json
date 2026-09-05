@@ -1,37 +1,37 @@
 [
     {
         "id": 1,
-        "title": "Announcements",
-        "slug": "announcements",
+        "title": "Forests",
+        "slug": "forests",
         "is_enabled": 1,
-        "description": "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt molliti"
+        "description": "Stories from the world's woodlands, from ancient old-growth canopies to the quiet science of how trees share water and nutrients through the soil beneath our feet."
     },
     {
         "id": 2,
-        "title": "News",
-        "slug": "news",
+        "title": "Wildlife",
+        "slug": "wildlife",
         "is_enabled": 1,
-        "description": "Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt."
+        "description": "Field notes on the creatures we share the planet with, tracking the habits, migrations, and small daily dramas that unfold in the wild all around us."
     },
     {
         "id": 3,
-        "title": "Startup Ideas",
-        "slug": "startup-ideas",
+        "title": "Conservation",
+        "slug": "conservation",
         "is_enabled": 1,
-        "description": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proide"
+        "description": "Ideas and efforts to protect wild places, from rewilding river valleys to the community projects quietly bringing native habitats back to life."
     },
     {
         "id": 4,
-        "title": "Updates",
-        "slug": "updates",
+        "title": "Seasons",
+        "slug": "seasons",
         "is_enabled": 1,
-        "description": "At vero eos et accusamus et iusto odio dignissimos ducimus qui blanditiis praesentium voluptatum deleniti atque corrupti quos dolores et quas molestias excepturi sint occaecati cupiditate non provident, similique sunt in culpa qui officia deserunt molliti"
+        "description": "How the natural world turns through the year, marking the changing light, the first frosts, and the bloom of spring across meadow, mountain, and coast."
     },
     {
         "id": 5,
-        "title": "Automation",
-        "slug": "automation",
+        "title": "Gardens",
+        "slug": "gardens",
         "is_enabled": 1,
-        "description": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo."
+        "description": "Cultivating a little wilderness of your own, with practical notes on native planting, pollinator gardens, and letting nature find its own balance."
     }
 ]

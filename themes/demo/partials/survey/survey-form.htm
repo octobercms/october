@@ -1,0 +1,187 @@
+##
+[submission surveyForm]
+handle = "Site\Feedback"
+wizard = 1
+==
+{% set ratingOptions = {
+    bad: { label: 'Bad', icon: 'bi-emoji-frown-fill', color: '#dc3545' },
+    ok: { label: 'OK', icon: 'bi-emoji-neutral-fill', color: '#fd7e14' },
+    good: { label: 'Good', icon: 'bi-emoji-laughing-fill', color: '#28a745' },
+    great: { label: 'Great', icon: 'bi-star-fill', color: '#c9a227' }
+} %}
+
+<div class="survey-form text-center py-4">
+    {% if formSubmitted %}
+
+        <span class="survey-dots survey-dots-tl"></span>
+        <span class="survey-dots survey-dots-br"></span>
+        <span class="survey-wave"></span>
+
+        {% partial 'elements/success-message'
+            hero=true
+            title="Thank you for your feedback!"
+            text="We appreciate you taking the time to let us know how we did." %}
+
+        <div class="survey-buttons">
+            <button
+                type="button"
+                data-bs-dismiss="modal"
+                class="btn btn-primary btn-lg btn-pill px-4">
+                Done
+            </button>
+        </div>
+
+    {% elseif formTag == 'step1' %}
+
+        {% set selected = ratingOptions[formModel.rating] %}
+
+        <span class="survey-dots survey-dots-tl"></span>
+        <span class="survey-dots survey-dots-br"></span>
+        <span class="survey-wave"></span>
+
+        <div class="survey-selected" data-rating="{{ formModel.rating }}">
+            <span class="survey-selected-icon">
+                <i class="bi {{ selected.icon }}"></i>
+            </span>
+            <span class="survey-selected-text">
+                You selected: <strong>{{ selected.label }}</strong>
+            </span>
+        </div>
+
+        <h3 class="survey-question">
+            Tell us a bit more about your experience
+        </h3>
+
+        <p class="survey-subtitle">
+            Your feedback helps us improve the experience for everyone.
+        </p>
+
+        <form
+            data-request="surveyForm::onFormStep"
+            data-request-update="{ _self: true }"
+            data-request-validate>
+
+            <input type="hidden" name="_form_step" value="step2">
+
+            <div class="mb-3 form-floating">
+                <textarea name="comments" style="height:125px" class="form-control" id="surveyCommentsTextarea" placeholder="Your experience">{{ formModel.comments }}</textarea>
+                <label for="surveyCommentsTextarea">
+                    Your experience
+                </label>
+                <div class="invalid-feedback text-start" data-validate-for="comments"></div>
+            </div>
+
+            <div style="display:none">
+                <input type="text" name="_oc_hp" value="" autocomplete="off" tabindex="-1">
+            </div>
+
+            <div class="survey-buttons">
+                <button
+                    type="button"
+                    data-request="surveyForm::onFormGoto"
+                    data-request-data="{ _form_goto: '' }"
+                    data-request-update="{ _self: true }"
+                    data-attach-loading
+                    class="btn btn-link survey-back">
+                    Back
+                </button>
+                <button
+                    type="submit"
+                    data-attach-loading
+                    class="btn btn-primary btn-lg btn-pill px-4">
+                    Continue
+                </button>
+            </div>
+        </form>
+
+    {% elseif formTag == 'step2' %}
+
+        <h3 class="survey-question">
+            Can we follow up with you?
+        </h3>
+
+        <p class="survey-subtitle">
+            Share your name and email address if we need to contact you about this feedback.
+        </p>
+
+        <form
+            data-request="surveyForm::onFormSubmit"
+            data-request-update="{ _self: true }"
+            data-request-validate>
+
+            <div class="row">
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input type="text" name="name" class="form-control" id="surveyNameInput" value="{{ formModel.name }}">
+                        <label for="surveyNameInput">
+                            Name
+                        </label>
+                        <div class="invalid-feedback text-start" data-validate-for="name"></div>
+                    </div>
+                </div>
+                <div class="col-md-6">
+                    <div class="form-floating mb-3">
+                        <input type="email" name="email" class="form-control" id="surveyEmailInput" value="{{ formModel.email }}">
+                        <label for="surveyEmailInput">
+                            Email address
+                        </label>
+                        <div class="invalid-feedback text-start" data-validate-for="email"></div>
+                    </div>
+                </div>
+            </div>
+
+            <div style="display:none">
+                <input type="text" name="_oc_hp" value="" autocomplete="off" tabindex="-1">
+            </div>
+
+            <div class="survey-buttons">
+                <button
+                    type="button"
+                    data-request="surveyForm::onFormGoto"
+                    data-request-data="{ _form_goto: 'step1' }"
+                    data-request-update="{ _self: true }"
+                    data-attach-loading
+                    class="btn btn-link survey-back">
+                    Back
+                </button>
+                <button
+                    type="submit"
+                    data-attach-loading
+                    class="btn btn-primary btn-lg btn-pill px-4">
+                    Send Feedback
+                </button>
+            </div>
+        </form>
+
+    {% else %}
+
+        <span class="survey-dots survey-dots-tl"></span>
+        <span class="survey-dots survey-dots-br"></span>
+        <span class="survey-wave"></span>
+
+        <h3 class="survey-question mb-5">
+            How did we do for you today?
+        </h3>
+
+        <div class="survey-ratings">
+            {% for code, option in ratingOptions %}
+                <button
+                    type="button"
+                    class="survey-rating-btn"
+                    data-rating="{{ code }}"
+                    data-request="surveyForm::onFormStep"
+                    data-request-data="{ _form_step: 'step1', rating: '{{ code }}' }"
+                    data-request-update="{ _self: true }"
+                    data-attach-loading>
+                    <span class="survey-rating-icon">
+                        <i class="bi {{ option.icon }}"></i>
+                    </span>
+                    <span class="survey-rating-label">
+                        {{ option.label }}
+                    </span>
+                </button>
+            {% endfor %}
+        </div>
+
+    {% endif %}
+</div>

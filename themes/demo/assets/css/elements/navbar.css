@@ -64,64 +64,51 @@
 
 /* Mobile Nav */
 .navbar-mobile {
-    display: none;
+    width: 260px;
+    background: #fff;
+
+    .offcanvas-header {
+        justify-content: flex-end;
+        padding: 1.25rem 1.25rem 0;
+    }
+
+    .offcanvas-body {
+        padding: 0 1.25rem 1.25rem;
+    }
+
+    .nav-item {
+        .nav-link {
+            color: #3f4a54;
+            &:hover {
+                color: #000;
+            }
+        }
+        .btn {
+            margin-top: 1rem;
+            margin-left: 1rem;
+        }
+    }
+
+    .btn-outline-light {
+        color: #3f4a54;
+        border-color: rgba(63, 74, 84, 0.3);
+
+        &:hover, &:focus {
+            color: #fff;
+            background-color: #3f4a54;
+            border-color: #3f4a54;
+        }
+    }
 }
 
 @media (max-width: 991px) {
-    .navbar-mobile {
-        display: block;
+    #layout-nav .navbar-toggler {
+        color: #fff;
+        padding: 10px;
+        opacity: .8;
 
-        .navbar-collapse {
-            background: #2d3134;
-            position: fixed;
-            z-index: 10001;
-            right: -260px;
-            top: 0;
-            bottom: 0;
-            width: 260px;
-            padding: 20px;
-            height: 100% !important;
-            box-sizing: border-box;
-            overflow-x: hidden;
-            overflow-y: auto;
-            text-align: left;
-            backface-visibility: hidden;
-            transform: translate3d(0, 0, 0);
-            transform-origin: 0 10%;
-            transform: perspective(1000px) scale(1.3);
-            transition: all 0.4s 0s ease-in;
-
-            &.collapsing {
-                transition-duration: 0.1s;
-            }
-
-            &.show {
-                transition: all 0.3s 0s ease-out;
-                transform: perspective(1000px) scale(1) translate3d(-260px, 0, 0);
-            }
-        }
-
-        .navbar-toggler {
-            color: #fff;
-            padding: 10px;
-            opacity: .8;
-
-            &:hover, &:focus {
-                opacity: 1;
-            }
-        }
-
-        .nav-item {
-            .nav-link {
-                color: #e0e0e0;
-                &:hover {
-                    color: #fff;
-                }
-            }
-            .btn {
-                margin-top: 1rem;
-                margin-left: 1rem;
-            }
+        &:hover, &:focus {
+            opacity: 1;
         }
     }
 }

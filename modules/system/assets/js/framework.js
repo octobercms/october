@@ -1408,6 +1408,7 @@ window['${id}']();`;
       this.delegate = delegate;
       this.url = url;
       this.options = options;
+      this.context = options.context || null;
       this.headers = options.headers || {};
       this.method = options.method || "GET";
       this.data = options.data;
@@ -1545,10 +1546,10 @@ window['${id}']();`;
     }
     // Application events
     notifyApplicationBeforeRequestStart() {
-      Events.dispatch("ajax:request-start", { detail: { url: this.url, xhr: this.xhr }, cancelable: false });
+      Events.dispatch("ajax:request-start", { detail: { url: this.url, xhr: this.xhr, context: this.context }, cancelable: false });
     }
     notifyApplicationAfterRequestEnd() {
-      Events.dispatch("ajax:request-end", { detail: { url: this.url, xhr: this.xhr }, cancelable: false });
+      Events.dispatch("ajax:request-end", { detail: { url: this.url, xhr: this.xhr, context: this.context }, cancelable: false });
     }
     // XHR compatibility wrapper
     createXhrWrapper() {
@@ -1773,7 +1774,7 @@ window['${id}']();`;
         ]);
       }
       const { url, headers, method } = Options.fetch(this.handler, this.options);
-      this.request = new HttpRequest(this, url, { method, headers, data, trackAbort: true });
+      this.request = new HttpRequest(this, url, { method, headers, data, trackAbort: true, context: this.context });
       this.isRedirect = this.options.redirect && this.options.redirect.length > 0;
       this.notifyApplicationBeforeSend();
       this.notifyApplicationAjaxPromise();

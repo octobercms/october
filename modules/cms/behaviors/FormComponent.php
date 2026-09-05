@@ -176,16 +176,16 @@ class FormComponent extends ComponentBehavior
         $model->save();
 
         /**
-         * @event cms.form.submitSuccess
+         * @event cms.form.submit
          * Fires after a form submission has been saved successfully.
          *
          * Example usage:
          *
-         *     Event::listen('cms.form.submitSuccess', function ($component, $model) {
+         *     Event::listen('cms.form.submit', function ($component, $model) {
          *         // Send notification, log activity, etc.
          *     });
          */
-        Event::fire('cms.form.submitSuccess', [$this->component, $model]);
+        Event::fire('cms.form.submit', [$this->component, $model]);
 
         $this->controller->vars['formSubmitted'] = true;
         $this->controller->vars['formModel'] = $model;

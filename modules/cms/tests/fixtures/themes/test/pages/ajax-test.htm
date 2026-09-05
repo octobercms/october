@@ -4,5 +4,13 @@ layout = "ajax-test"
 function onTest() {
     $this['var'] = 'page';
 }
+
+function onThrowSafe() {
+    throw new \ApplicationException('You cannot do that');
+}
+
+function onThrowGeneric() {
+    throw new \RuntimeException('Sensitive internals');
+}
 ==
 {{ layoutStartVar }}{{ layoutBeforePageStartVar }}{{ pageStartVar }}{{ pageEndVar }}{{ layoutEndVar }}

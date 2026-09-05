@@ -1,0 +1,23 @@
+<div class="success-message {{ hero ? 'success-message-hero' }}">
+    <div class="success-message-icon">
+        <i class="bi bi-check-lg"></i>
+        {% if hero %}
+            <i class="bi bi-stars success-message-spark success-message-spark-1"></i>
+            <i class="bi bi-stars success-message-spark success-message-spark-2"></i>
+        {% endif %}
+    </div>
+    <div>
+        <h4 class="success-message-title">
+            {{ title }}
+        </h4>
+        {% if content %}
+            <div class="success-message-text">
+                {{ content|raw }}
+            </div>
+        {% elseif text %}
+            <p class="success-message-text">
+                {{ text }}
+            </p>
+        {% endif %}
+    </div>
+</div>

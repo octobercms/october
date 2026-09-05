@@ -30,3 +30,7 @@
 @import "elements/popover.css";
 @import "elements/modals.css";
 @import "elements/how-its-made.css";
+@import "elements/success-message.css";
+
+/* Partials */
+@import "partials/survey.css";

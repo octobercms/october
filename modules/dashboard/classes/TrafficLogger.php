@@ -93,44 +93,66 @@ class TrafficLogger
     public function logPageview()
     {
         try {
-            $this->logPageviewInternal();
+            $pageview = $this->makePageview();
         }
         catch (Throwable $e) {
             traceLog($e);
+            return;
         }
+
+        if (!$pageview) {
+            return;
+        }
+
+        // The record is built from the request now, so the client cookie is
+        // queued on this response, and written once the response has been
+        // sent, so the visitor does not wait for the insert
+        defer(function () use ($pageview) {
+            try {
+                $pageview->save();
+
+                if (rand(1, 100) === 1) {
+                    TrafficStatisticsPageview::purgeOldRecords();
+                }
+            }
+            catch (Throwable $e) {
+                traceLog($e);
+            }
+        });
     }
 
     /**
-     * logPageviewInternal performs the pageview logging logic.
+     * makePageview builds the pageview record for the current request, or returns
+     * null when the request should not be counted.
      */
-    protected function logPageviewInternal()
+    protected function makePageview(): ?TrafficStatisticsPageview
     {
         if (!self::isEnabled()) {
-            return;
+            return null;
         }
 
         if (Request::method() !== 'GET') {
-            return;
+            return null;
         }
 
         if (Request::ajax() && !Request::pjax()) {
-            return;
+            return null;
         }
 
         if ($this->settingModel->filter_exclude_bots && Request::isCrawler()) {
-            return;
+            return null;
         }
 
         if ($this->isAdminRoleExcluded()) {
-            return;
+            return null;
         }
 
         if ($this->isIpExcluded(Request::ip())) {
-            return;
+            return null;
         }
 
         if ($this->isPathExcluded(Request::path())) {
-            return;
+            return null;
         }
 
         $referrer = Request::header('X-PJAX-REFERRER');
@@ -170,11 +192,7 @@ class TrafficLogger
             $pageview->site_id = Site::getActiveSite()?->id;
         }
 
-        $pageview->save();
-
-        if (rand(1, 100) === 1) {
-            TrafficStatisticsPageview::purgeOldRecords();
-        }
+        return $pageview;
     }
 
     /**

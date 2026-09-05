@@ -12,27 +12,27 @@
                 "sort_order": 1
             },
             {
-                "title": "Outstanding performance",
-                "content": "<p>Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium, totam rem aperiam, eaque ipsa quae ab illo inventore veritatis et quasi architecto beatae vitae dicta sunt explicabo. Nemo enim ipsam voluptatem quia voluptas sit aspernatur aut odit aut fugit, sed quia consequuntur magni dolores eos qui ratione voluptatem sequi nesciunt. Neque porro quisquam est, qui dolorem ipsum quia dolor sit amet, consectetur, adipisci velit, sed quia non numquam eius modi tempora incidunt ut labore et dolore magnam aliquam quaerat voluptatem.<\/p>",
+                "title": "Rooted in the wild",
+                "content": "<p>We are a small team of naturalists, writers, and volunteers with a shared belief that people protect what they have learned to love. For over a decade we have worked to bring wild places closer to everyday life, restoring habitats, running field surveys, and telling the stories of the plants and animals that share our landscapes. From replanting native woodland to counting returning swifts each spring, our work is guided by patience, curiosity, and a deep respect for the natural world.<\/p>",
                 "image": "",
                 "content_group": "paragraph_block",
                 "sort_order": 2
             },
             {
-                "title": "Why work with us",
-                "content": "<p>Lorem ipsum dolor sit amet, consectetur adipiscing elit, sed do eiusmod tempor incididunt ut labore et dolore magna aliqua. Ut enim ad minim veniam, quis nostrud exercitation ullamco laboris nisi ut aliquip ex ea commodo consequat. Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla pariatur. Excepteur sint occaecat cupidatat non proident, sunt in culpa qui officia deserunt mollit anim id est laborum.<\/p>",
+                "title": "Why it matters",
+                "content": "<p>Wild places are disappearing quietly, one hedgerow and one wetland at a time. But nature is remarkably willing to return when given the chance. Protect a stretch of river, leave a meadow uncut, plant a stand of native trees, and within a few seasons the birds, insects, and wildflowers come flooding back. Our projects are built on that simple, hopeful truth, and on the volunteers who give their weekends to make it happen.<\/p>",
                 "list_items": [
                     {
-                        "text": "Doloremque"
+                        "text": "Restoring native woodland and meadow"
                     },
                     {
-                        "text": "Beatae vitae"
+                        "text": "Protecting rivers and wetlands"
                     },
                     {
-                        "text": "Totam rem aperiam"
+                        "text": "Bringing pollinators back to gardens"
                     }
                 ],
-                "button_text": "Learn more about our process",
+                "button_text": "See how you can get involved",
                 "button_url": "https:\/\/octobercms.com\/features",
                 "image": "",
                 "content_group": "detailed_block",
@@ -44,28 +44,28 @@
                 "metrics": [
                     {
                         "number": 3912,
-                        "description": "Sed ut perspiciatis",
+                        "description": "Native trees planted",
                         "icon": "notepad",
                         "content_group": null,
                         "sort_order": 1
                     },
                     {
                         "number": 223,
-                        "description": "Nemo enim ipsam",
+                        "description": "Hectares of habitat protected",
                         "icon": "shield",
                         "content_group": null,
                         "sort_order": 2
                     },
                     {
                         "number": 863,
-                        "description": "Nam libero tempore",
+                        "description": "Species recorded in surveys",
                         "icon": "basket",
                         "content_group": null,
                         "sort_order": 3
                     },
                     {
                         "number": 865,
-                        "description": "Et harum quidem rerum",
+                        "description": "Volunteers in the field",
                         "icon": "briefcase",
                         "content_group": null,
                         "sort_order": 4
@@ -78,8 +78,8 @@
                 "members": [
                     {
                         "title": "Andy Anderson",
-                        "role": "Sales Manager",
-                        "description": "Ut enim ad minima veniam, quis nostrum exercitationem ullam corporis suscipit laboriosam.",
+                        "role": "Habitat Manager",
+                        "description": "Andy leads our woodland and meadow restoration, happiest with a spade in hand and mud on his boots.",
                         "avatar": "",
                         "content_group": null,
                         "sort_order": 1,
@@ -103,8 +103,8 @@
                     },
                     {
                         "title": "Bob Harris",
-                        "role": "Product Designer",
-                        "description": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque.",
+                        "role": "Field Naturalist",
+                        "description": "Bob runs our species surveys, from dawn bird counts to late-summer butterfly transects across the reserve.",
                         "avatar": "",
                         "content_group": null,
                         "sort_order": 2,
@@ -133,8 +133,8 @@
                     },
                     {
                         "title": "Ann Lewis",
-                        "role": "Marketing Manager",
-                        "description": "Duis aute irure dolor in reprehenderit in voluptate velit esse cillum dolore eu fugiat nulla.",
+                        "role": "Community Outreach",
+                        "description": "Ann connects schools and local groups with the wild on their doorstep, turning curiosity into lasting care.",
                         "avatar": "",
                         "content_group": null,
                         "sort_order": 3,
@@ -158,8 +158,8 @@
                     },
                     {
                         "title": "Christina Thompson",
-                        "role": "System Analyst",
-                        "description": "Et harum quidem rerum facilis est et expedita distinctio.",
+                        "role": "Conservation Scientist",
+                        "description": "Christina turns years of field data into the evidence that guides where we plant, protect, and rewild next.",
                         "avatar": "",
                         "content_group": null,
                         "sort_order": 4,
@@ -188,8 +188,8 @@
                     },
                     {
                         "title": "John Smith",
-                        "role": "President",
-                        "description": "Sed ut perspiciatis unde omnis iste natus error sit voluptatem accusantium doloremque laudantium.",
+                        "role": "Founder",
+                        "description": "John started this work with a single restored hedgerow and a stubborn belief that nature always finds its way back.",
                         "avatar": "",
                         "content_group": null,
                         "sort_order": 5,

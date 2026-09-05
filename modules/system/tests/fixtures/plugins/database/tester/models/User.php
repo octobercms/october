@@ -44,6 +44,15 @@ class SoftDeleteUser extends User
     use \October\Rain\Database\Traits\SoftDelete;
 }
 
+class UserWithPhotosValidation extends User
+{
+    use \October\Rain\Database\Traits\Validation;
+
+    public $rules = [
+        'photos' => 'required',
+    ];
+}
+
 class UserWithAuthor extends User
 {
     public $hasOne = [

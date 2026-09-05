@@ -272,6 +272,57 @@ class ControllerTest extends TestCase
         $this->assertStringContainsString('partial', $content['__ajax']['message']);
     }
 
+    public function testAjaxHandlerSafeExceptionShowsMessage()
+    {
+        Config::set('app.debug', false);
+        Request::swap($this->configAjaxRequestMock('onThrowSafe', ''));
+
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/ajax-test');
+
+        $this->assertInstanceOf(\Larajax\Classes\AjaxResponse::class, $response);
+        $httpResponse = $response->toResponse(request());
+        $content = $httpResponse->getOriginalContent();
+        $this->assertFalse($content['__ajax']['ok']);
+        $this->assertEquals('error', $content['__ajax']['severity']);
+        $this->assertEquals(400, $httpResponse->getStatusCode());
+        $this->assertEquals('You cannot do that', $content['__ajax']['message']);
+    }
+
+    public function testAjaxHandlerGenericExceptionIsMasked()
+    {
+        Config::set('app.debug', false);
+        Request::swap($this->configAjaxRequestMock('onThrowGeneric', ''));
+
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/ajax-test');
+
+        $this->assertInstanceOf(\Larajax\Classes\AjaxResponse::class, $response);
+        $httpResponse = $response->toResponse(request());
+        $content = $httpResponse->getOriginalContent();
+        $this->assertFalse($content['__ajax']['ok']);
+        $this->assertEquals('Server Error', $content['__ajax']['message']);
+        $this->assertStringNotContainsString('Sensitive internals', json_encode($content));
+    }
+
+    public function testAjaxHandlerGenericExceptionShownInDebug()
+    {
+        Config::set('app.debug', true);
+        Request::swap($this->configAjaxRequestMock('onThrowGeneric', ''));
+
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/ajax-test');
+
+        $this->assertInstanceOf(\Larajax\Classes\AjaxResponse::class, $response);
+        $httpResponse = $response->toResponse(request());
+        $content = $httpResponse->getOriginalContent();
+        $this->assertFalse($content['__ajax']['ok']);
+        $this->assertEquals('Sensitive internals', $content['__ajax']['message']);
+    }
+
     public function testPageAjax()
     {
         Request::swap($this->configAjaxRequestMock('onTest', 'ajax-result'));

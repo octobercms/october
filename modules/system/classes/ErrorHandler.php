@@ -6,7 +6,6 @@ use Lang;
 use Config;
 use System;
 use October\Rain\Exception\ErrorHandler as ErrorHandlerBase;
-use October\Rain\Exception\ApplicationException;
 use October\Rain\Exception\ForbiddenException;
 use October\Rain\Exception\SystemException;
 use Symfony\Component\HttpKernel\Exception\HttpException;
@@ -169,19 +168,9 @@ class ErrorHandler extends ErrorHandlerBase
      */
     public static function getDetailedMessage($exception)
     {
-        // Access denied error
-        if ($exception instanceof ForbiddenException) {
-            return $exception->getMessage() ?: __("Access Denied");
-        }
-
         // Not found error
         if ($exception instanceof NotFoundHttpException) {
             return $exception->getMessage() ?: __("Not Found");
-        }
-
-        // ApplicationException never displays a detailed error
-        if ($exception instanceof ApplicationException) {
-            return $exception->getMessage() ?: __("An Error Occurred");
         }
 
         // ValidationException should be shown to user
