@@ -83,6 +83,8 @@ class ManifestCache
      */
     public function put($key, $value = null)
     {
+        $this->ensureManifestIsLoaded();
+
         $this->manifestDirty = true;
 
         $this->manifest[$key] = $value;
@@ -96,6 +98,8 @@ class ManifestCache
      */
     public function forget($key)
     {
+        $this->ensureManifestIsLoaded();
+
         $this->manifestDirty = true;
 
         unset($this->manifest[$key]);
@@ -154,9 +158,15 @@ class ManifestCache
             throw new Exception("The {$this->manifestPath} directory must be present and writable.");
         }
 
-        File::put(
-            $this->manifestPath,
-            '<?php return '.var_export($manifest, true).';'
-        );
+        // Write to a sibling file and rename, so a concurrent request never
+        // includes a half-written manifest
+        $tempPath = $this->manifestPath . '.' . uniqid('', true) . '.tmp';
+
+        File::put($tempPath, '<?php return '.var_export($manifest, true).';');
+
+        if (!@rename($tempPath, $this->manifestPath)) {
+            @unlink($tempPath);
+            throw new Exception("The {$this->manifestPath} file could not be replaced.");
+        }
     }
 }

@@ -63,10 +63,7 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
             this.listen('click', '.toolbar-select-all', this.onSelectAllClick);
             this.listen('click', '.toolbar-copy-selected', this.onCopySelectedClick);
             this.listen('click', '.toolbar-paste-items', this.onPasteItemsClick);
-
-            // Other MediaFinder instances on the same page need to refresh their
-            // paste button state whenever any instance copies items to the clipboard.
-            oc.Events.on(document, 'oc.mediafinder.clipboardUpdated', this.proxy(this.updateButtonsState));
+            oc.Events.on(document, 'clipboardUpdate.oc.mediafinder', this.proxy(this.updateButtonsState));
         }
 
         if (this.config.isSortable) {
@@ -86,7 +83,7 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
         this.unmountExternalToolbarEventBusEvents();
 
         if (this.config.isMulti && this.config.useCopyPaste) {
-            oc.Events.off(document, 'oc.mediafinder.clipboardUpdated', this.proxy(this.updateButtonsState));
+            oc.Events.off(document, 'clipboardUpdate.oc.mediafinder', this.proxy(this.updateButtonsState));
         }
 
         this.sortable = null;
@@ -526,7 +523,7 @@ oc.registerControl('mediafinder', class extends oc.ControlBase {
         }
 
         this.$navigationClipboard.copy(items, 'mediafinder');
-        oc.Events.dispatch('oc.mediafinder.clipboardUpdated');
+        oc.Events.dispatch('clipboardUpdate.oc.mediafinder');
 
         $.oc.flashMsg({
             text: items.length + oc.lang.get('mediafinder.items_copied_to_clipboard'),

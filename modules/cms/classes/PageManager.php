@@ -76,16 +76,17 @@ class PageManager
                     continue;
                 }
 
+                // Resolving is the expensive part, do it once per distinct link
+                if (in_array($search, $searches)) {
+                    continue;
+                }
+
                 $url = static::url($ocUrl);
                 if (!$url) {
                     continue;
                 }
 
                 $fragment = $matches[2][$index] ?? '';
-
-                if (in_array($search, $searches)) {
-                    continue;
-                }
 
                 $searches[] = $search;
                 $replaces[] = '="' . $url . $fragment . '"';

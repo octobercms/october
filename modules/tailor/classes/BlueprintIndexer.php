@@ -243,17 +243,19 @@ class BlueprintIndexer
             $currentMtime = 0;
         }
 
+        // Only write the stamp when something changed, otherwise every
+        // request in debug mode rewrites the same file
         if ($mtime > $currentMtime) {
             $this->clearCache();
-        }
 
-        try {
-            File::put(
-                $debugFile,
-                '<?php return '.var_export(compact('mtime'), true).';'
-            );
-        }
-        catch (Exception $ex) {
+            try {
+                File::put(
+                    $debugFile,
+                    '<?php return '.var_export(compact('mtime'), true).';'
+                );
+            }
+            catch (Exception $ex) {
+            }
         }
 
         $this->debugChecked = true;

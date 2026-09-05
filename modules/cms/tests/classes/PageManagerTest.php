@@ -46,4 +46,22 @@ class PageManagerTest extends TestCase
 
         $this->assertCount(0, $this->extractSnippets($markup));
     }
+
+    public function testProcessLinksResolvesEachAddressOnce()
+    {
+        $resolved = [];
+        Event::listen('cms.pageLookup.resolveItem', function ($type, $item) use (&$resolved) {
+            $resolved[] = $item->reference;
+            return ['url' => 'https://example.com/' . $item->reference];
+        });
+
+        $about = '<a href="october://cms-page@link/about">a</a>';
+        $contact = '<a href="october://cms-page@link/contact#team">c</a>';
+
+        $result = PageManager::processLinks($about . $contact . $about . $about);
+
+        $this->assertSame(3, substr_count($result, 'href="https://example.com/about"'));
+        $this->assertSame(1, substr_count($result, 'href="https://example.com/contact#team"'));
+        $this->assertSame(['about', 'contact'], $resolved);
+    }
 }

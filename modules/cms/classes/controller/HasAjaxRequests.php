@@ -75,9 +75,15 @@ trait HasAjaxRequests
             $this->getAjaxHandlerPartialList()
         );
 
-        // Run page in capture mode
-        if ($result = $this->runPage($page, ['capture' => true])) {
-            return $result;
+        // Run page in capture mode, this is an AJAX-only cycle so lifecycle
+        // exceptions convert to an AJAX response instead of an error page
+        try {
+            if ($result = $this->runPage($page, ['capture' => true])) {
+                return $result;
+            }
+        }
+        catch (Throwable $ex) {
+            return ajax()->exception($ex);
         }
 
         // Execute AJAX event

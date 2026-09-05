@@ -77,7 +77,7 @@ class TrafficLogger
     {
         $retention = $this->settingModel->traffic_stats_retention;
 
-        if ($retention && strlen($retention) && is_int($retention)) {
+        if (is_numeric($retention) && (int) $retention > 0) {
             return (int) $retention;
         }
 

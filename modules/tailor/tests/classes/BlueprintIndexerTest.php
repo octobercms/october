@@ -82,6 +82,36 @@ class BlueprintIndexerTest extends TestCase
     }
 
     /**
+     * testDebugStampIsOnlyWrittenWhenBlueprintsChange checks the debug stamp is only rewritten when blueprints change
+     */
+    public function testDebugStampIsOnlyWrittenWhenBlueprintsChange()
+    {
+        Config::set('app.debug', true);
+        $indexer = BlueprintIndexer::instance();
+        $stamp = self::callProtectedMethod($indexer, 'makeCacheFile', ['debug']);
+        @mkdir(dirname($stamp), 0755, true);
+
+        // Stamp is older than the blueprints, it must be refreshed
+        file_put_contents($stamp, '<?php return ' . var_export(['mtime' => -1], true) . ';');
+        self::setProtectedProperty($indexer, 'debugChecked', false);
+        self::callProtectedMethod($indexer, 'resetCacheInDebugMode');
+        $this->assertGreaterThanOrEqual(0, (require $stamp)['mtime']);
+
+        // Stamp is current, nothing may be written
+        touch($stamp, time() - 3600);
+        clearstatcache(true, $stamp);
+        $before = filemtime($stamp);
+
+        self::setProtectedProperty($indexer, 'debugChecked', false);
+        self::callProtectedMethod($indexer, 'resetCacheInDebugMode');
+        clearstatcache(true, $stamp);
+
+        $this->assertSame($before, filemtime($stamp));
+
+        @unlink($stamp);
+    }
+
+    /**
      * testThemeContextResolvesInactiveThemeBlueprint checks a theme context lets
      * an inactive theme's blueprint resolve, as needed when seeding that theme.
      */

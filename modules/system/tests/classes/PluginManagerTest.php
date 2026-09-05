@@ -47,6 +47,27 @@ class PluginManagerTest extends TestCase
         $this->assertInstanceOf('DependencyTest\Dependency\Plugin', $result['DependencyTest.Dependency']);
     }
 
+    public function testUnmetDependencyDisablesWithoutRewritingMetaFile()
+    {
+        $metaFile = self::getProtectedProperty($this->manager, 'metaFile');
+        $this->assertFileExists($metaFile);
+        $this->assertTrue($this->manager->isDisabled('DependencyTest.NotFound'));
+
+        // The next request loads the same state again, nothing should be written
+        touch($metaFile, time() - 3600);
+        clearstatcache(true, $metaFile);
+        $before = filemtime($metaFile);
+
+        self::setProtectedProperty($this->manager, 'disabledPlugins', []);
+        self::callProtectedMethod($this->manager, 'loadDisabled');
+        self::callProtectedMethod($this->manager, 'loadDependencies');
+        clearstatcache(true, $metaFile);
+
+        $this->assertSame($before, filemtime($metaFile));
+        $this->assertTrue($this->manager->isDisabled('DependencyTest.NotFound'));
+        $this->assertFalse($this->manager->isDisabled('DependencyTest.Found'));
+    }
+
     public function testGetPluginPath()
     {
         $result = $this->manager->getPluginPath('October\Tester');
@@ -197,5 +218,12 @@ class PluginManagerTest extends TestCase
 
         $result = $this->manager->isDisabled('DependencyTest.NotFound');
         $this->assertTrue($result);
+    }
+
+    public function testGetIdentifier()
+    {
+        $this->assertEquals('October.Tester', $this->manager->getIdentifier('October\\Tester'));
+        $this->assertEquals('October.Tester', $this->manager->getIdentifier('October\\Tester\\Plugin'));
+        $this->assertEquals('October.Tester', $this->manager->getIdentifier('October.Tester'));
     }
 }

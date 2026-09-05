@@ -46,7 +46,7 @@ class System
 
         // Check manifest
         if (Manifest::has(self::MANIFEST_MODULES)) {
-            return (array) Manifest::get(self::MANIFEST_MODULES);
+            return $this->listModulesCache = (array) Manifest::get(self::MANIFEST_MODULES);
         }
 
         $loadModules = Config::get('system.load_modules');

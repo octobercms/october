@@ -59,7 +59,7 @@ class SitePicker extends ComponentModuleBase
             return $this->allSitesCache;
         }
 
-        $sites = Site::listEnabled();
+        $sites = $this->cloneSites(Site::listEnabled());
 
         foreach ($sites as $site) {
             $site->setUrlOverride(Cms::siteUrl(
@@ -87,12 +87,23 @@ class SitePicker extends ComponentModuleBase
             return [];
         }
 
-        $sites = Site::listEnabled();
+        $sites = $this->cloneSites(Site::listEnabled());
 
         foreach ($sites as $site) {
             $site->setUrlOverride(Cms::siteUrl($page, $site, (array) $params));
         }
 
         return $sites;
+    }
+
+    /**
+     * cloneSites so a URL override set here does not leak into the shared
+     * site definitions used elsewhere in the request
+     */
+    protected function cloneSites($sites)
+    {
+        return $sites->map(function ($site) {
+            return clone $site;
+        });
     }
 }

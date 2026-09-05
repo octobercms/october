@@ -1,0 +1,16 @@
+url = "/ajax-capture-test"
+==
+function onStart() {
+    if (post('throwGeneric')) {
+        throw new \RuntimeException('Sensitive internals');
+    }
+
+    throw new \October\Rain\Exception\ValidationException(['name' => 'Name is invalid']);
+}
+
+function onDoSomething() {
+}
+==
+<p>
+    capture
+</p>

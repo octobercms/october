@@ -185,11 +185,11 @@ class ControllerTest extends TestCase
         $this->assertEquals('12345', $response);
     }
 
-    protected function configAjaxRequestMock($handler, $partials = false, $selfPartial = null)
+    protected function configAjaxRequestMock($handler, $partials = false, $selfPartial = null, $postData = [])
     {
         // Create a partial mock that initializes properly for PHP 8.5+ typed properties
         $requestMock = $this->getMockBuilder(\Illuminate\Http\Request::class)
-            ->setConstructorArgs([[], [], [], [], [], ['REQUEST_METHOD' => 'POST']])
+            ->setConstructorArgs([[], $postData, [], [], [], ['REQUEST_METHOD' => 'POST']])
             ->onlyMethods(['ajax', 'header'])
             ->getMock();
 
@@ -321,6 +321,40 @@ class ControllerTest extends TestCase
         $content = $httpResponse->getOriginalContent();
         $this->assertFalse($content['__ajax']['ok']);
         $this->assertEquals('Sensitive internals', $content['__ajax']['message']);
+    }
+
+    public function testAjaxPartialCaptureValidationException()
+    {
+        Request::swap($this->configAjaxRequestMock('onDoSomething', '', 'capture-partial'));
+
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/ajax-capture-test');
+
+        $this->assertInstanceOf(\Larajax\Classes\AjaxResponse::class, $response);
+        $httpResponse = $response->toResponse(request());
+        $content = $httpResponse->getOriginalContent();
+        $this->assertFalse($content['__ajax']['ok']);
+        $this->assertEquals(422, $httpResponse->getStatusCode());
+        $this->assertArrayHasKey('name', $content['__ajax']['invalid']);
+        $this->assertEquals('Name is invalid', $content['__ajax']['invalid']['name'][0]);
+    }
+
+    public function testAjaxPartialCaptureGenericExceptionIsMasked()
+    {
+        Config::set('app.debug', false);
+        Request::swap($this->configAjaxRequestMock('onDoSomething', '', 'capture-partial', ['throwGeneric' => '1']));
+
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/ajax-capture-test');
+
+        $this->assertInstanceOf(\Larajax\Classes\AjaxResponse::class, $response);
+        $httpResponse = $response->toResponse(request());
+        $content = $httpResponse->getOriginalContent();
+        $this->assertFalse($content['__ajax']['ok']);
+        $this->assertEquals('Server Error', $content['__ajax']['message']);
+        $this->assertStringNotContainsString('Sensitive internals', json_encode($content));
     }
 
     public function testPageAjax()

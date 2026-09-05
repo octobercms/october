@@ -574,7 +574,7 @@ class PluginManager
         $namespace = Str::normalizeClassName($namespace);
 
         // Value provided is a namespace, convert to a code
-        if (strpos($namespace, '\\') !== null) {
+        if (strpos($namespace, '\\') !== false) {
             $parts = explode('\\', $namespace);
             $slice = array_slice($parts, 0, 2);
             $namespace = implode('.', $slice);
@@ -844,10 +844,15 @@ class PluginManager
         }
 
         try {
-            File::put(
-                $this->metaFile,
-                '<?php return '.var_export($data, true).';'
-            );
+            // Write to a sibling file and rename, so a concurrent request never
+            // includes a half-written file
+            $tempPath = $this->metaFile . '.' . uniqid('', true) . '.tmp';
+
+            File::put($tempPath, '<?php return '.var_export($data, true).';');
+
+            if (!@rename($tempPath, $this->metaFile)) {
+                @unlink($tempPath);
+            }
         }
         catch (Throwable $ex) {
             // Cache write failure is non-fatal, will rebuild next request
@@ -1011,12 +1016,54 @@ class PluginManager
             }
 
             if ($disable) {
-                $this->disablePlugin($id);
+                $this->disablePluginAtRuntime($id);
             }
             else {
-                $this->enablePlugin($id);
+                $this->enablePluginAtRuntime($id);
             }
         }
+    }
+
+    /**
+     * disablePluginAtRuntime marks a plugin as disabled for this request because its
+     * dependencies are not met. The meta file is built from the database and never
+     * carried these entries, so writing it here only repeated the same work on every
+     * request without changing what was stored.
+     */
+    protected function disablePluginAtRuntime($id): bool
+    {
+        $code = $this->getIdentifier($id);
+        if (array_key_exists($code, $this->disabledPlugins)) {
+            return false;
+        }
+
+        $this->disabledPlugins[$code] = false;
+
+        if ($pluginObj = $this->findByIdentifier($code)) {
+            $pluginObj->disabled = true;
+        }
+
+        return true;
+    }
+
+    /**
+     * enablePluginAtRuntime reverses disablePluginAtRuntime once dependencies are met.
+     * Plugins disabled by the user or by configuration are left alone.
+     */
+    protected function enablePluginAtRuntime($id): bool
+    {
+        $code = $this->getIdentifier($id);
+        if (!array_key_exists($code, $this->disabledPlugins) || $this->disabledPlugins[$code] !== false) {
+            return false;
+        }
+
+        unset($this->disabledPlugins[$code]);
+
+        if ($pluginObj = $this->findByIdentifier($code)) {
+            $pluginObj->disabled = false;
+        }
+
+        return true;
     }
 
     /**

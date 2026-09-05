@@ -279,7 +279,7 @@ class SettingsManager
         if (isset($item['class']) && !isset($item['url'])) {
             $uri = [];
 
-            if (strpos($owner, '.') !== null) {
+            if (strpos($owner, '.') !== false) {
                 [$author, $plugin] = explode('.', $owner);
                 $uri[] = strtolower($author);
                 $uri[] = strtolower($plugin);
