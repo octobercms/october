@@ -1,7 +1,7 @@
 <?php namespace Tailor\Behaviors;
 
 use Cms;
-use Url;
+use File;
 use Site;
 use Event;
 use Cache;
@@ -85,15 +85,8 @@ class PreviewController extends ControllerBehavior
             ];
         }
 
-        // Get the URL from the CMS controller
-        $controller = new Controller(Theme::getEditTheme());
-
-        // Force the custom app URL from the site
-        if (($site = Site::getSiteFromContext()) && $site->is_custom_url) {
-            Url::forceRootUrl($site->app_url);
-        }
-
-        $url = $controller->pageUrl($pageName, $model->makePageUrlParams());
+        // Build the URL for the site under edit
+        $url = $this->makePreviewUrl($pageName, $model->makePageUrlParams());
 
         // Generate preview token
         $token = PreviewToken::createTokenForUrl($url, [
@@ -101,7 +94,7 @@ class PreviewController extends ControllerBehavior
         ]);
 
         // Attach to URL
-        $url .= '?' . http_build_query([
+        $url .= (str_contains($url, '?') ? '&' : '?') . http_build_query([
             '_preview_token' => $token->token,
         ]);
 
@@ -109,6 +102,27 @@ class PreviewController extends ControllerBehavior
             'token' => $token->token,
             'url' => $url
         ];
+    }
+
+    /**
+     * makePreviewUrl builds the preview URL for the site under edit, respecting
+     * translated URL patterns, route prefixes and custom domains.
+     */
+    protected function makePreviewUrl(string $pageName, array $urlParams): ?string
+    {
+        if (!strlen(File::extension($pageName))) {
+            $pageName .= '.htm';
+        }
+
+        $theme = $this->getTheme();
+        $site = Site::getSiteFromContext();
+        $page = $site ? Page::loadCached($theme, $pageName) : null;
+
+        if ($site && $page) {
+            return Cms::siteUrl($page, $site, $urlParams);
+        }
+
+        return (new Controller($theme))->pageUrl($pageName, $urlParams);
     }
 
     /**
