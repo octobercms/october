@@ -107,7 +107,7 @@ class TrafficLogger
         // The record is built from the request now, so the client cookie is
         // queued on this response, and written once the response has been
         // sent, so the visitor does not wait for the insert
-        defer(function () use ($pageview) {
+        \Illuminate\Support\defer(function () use ($pageview) {
             try {
                 $pageview->save();
 
