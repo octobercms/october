@@ -1,6 +1,10 @@
 <div
     class="position-relative h-100"
-    :class="{'application-sidebar-hidden': sidebarHidden || isDirectDocumentMode}"
+    :class="{
+        'application-sidebar-hidden': sidebarHidden || isDirectDocumentMode,
+        'application-has-documents': hasOpenDocuments,
+        'application-no-documents': !hasOpenDocuments
+    }"
     data-lang-reveal-in-sidebar="<?= e(trans('editor::lang.common.reveal_in_sidebar')) ?>"
     v-oc-hotkey:[quickViewHotkey]="onShowQuickAccess"
     v-oc-hotkey:[toggleSidebarHotkey]="onToggleSidebar"

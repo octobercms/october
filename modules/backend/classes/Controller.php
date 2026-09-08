@@ -185,6 +185,7 @@ class Controller extends Extendable implements AjaxControllerInterface
     /**
      * beforeDisplay is a method to override in your controller as a way to execute logic before
      * each action executes. It is preferred over placing logic in the constructor
+     * @return mixed
      */
     public function beforeDisplay()
     {

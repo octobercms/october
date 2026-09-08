@@ -131,7 +131,7 @@ class Page extends CmsCompoundObject
     }
 
     /**
-     * getMenuTypeInfo handler for the pages.menuitem.getTypeInfo event.
+     * getMenuTypeInfo handler for the cms.pageLookup.getTypeInfo event.
      * Returns a menu item type information. The type information is returned as array
      * with the following elements:
      * - references - a list of the item type reference options. The options are returned in the
@@ -169,7 +169,7 @@ class Page extends CmsCompoundObject
     }
 
     /**
-     * resolveMenuItem handler for the pages.menuitem.resolveItem event.
+     * resolveMenuItem handler for the cms.pageLookup.resolveItem event.
      * Returns information about a menu item. The result is an array
      * with the following keys:
      * - url - the menu item URL. Not required for menu item types that return all available records.

@@ -1,4 +1,4 @@
-// TODO - decide where should it go
+/* TODO - decide where should it go */
 
 .editor-icon-button {
     width: 20px;
@@ -12,7 +12,9 @@
     border-radius: 4px;
     background: transparent;
 
-    .backend-hide-text();
+    /* Hide text (.backend-hide-text) */
+    font-size: 0;
+    color: transparent;
 
     &:before {
         position: absolute;
@@ -21,6 +23,6 @@
 
 @media (hover: hover) {
     .editor-icon-button:focus {
-        background: @toolbar-focus-bg;
+        background: var(--oc-toolbar-hover-bg);
     }
 }

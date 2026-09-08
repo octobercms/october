@@ -110,9 +110,6 @@ class PageLookup extends WidgetBase
      */
     public function onLoadPopup()
     {
-        // Disable asset broadcasting
-        $this->controller->flushAssets();
-
         return $this->render();
     }
 

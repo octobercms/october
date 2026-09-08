@@ -847,6 +847,7 @@ window['${id}']();`;
       this.context.complete = decoratePromiseProxy(this.complete, this);
       this.context.cancel = this.cancel.bind(this);
       this.context.handleErrorMessage = this.handleErrorMessage.bind(this);
+      this.context.handleBrowserEvents = this.handleBrowserEvents.bind(this);
     }
     // Options can override all public methods in this class
     invoke(method, args = []) {
@@ -900,7 +901,7 @@ window['${id}']();`;
         return;
       }
       this.delegate.toggleRedirect(false);
-      if (!data.$env?.isFatal()) {
+      if (data.$env && !data.$env.isFatal()) {
         await this.invoke("handleUpdateOperations", [data, responseCode, xhr]);
         await this.invoke("handleUpdateResponse", [data, responseCode, xhr]);
       } else if (!errorMsg) {

@@ -14,7 +14,7 @@
 
         .document-not-found-message {
             margin: 30px auto 0 auto;
-            color: @primary-color;
+            color: var(--oc-primary-color);
 
             > div {
                 margin-top: 30px;
@@ -36,7 +36,7 @@
 
         .editor-hotkeys {
             margin: 30px auto 0 auto;
-            color: @primary-color;
+            color: var(--oc-primary-color);
 
             th,
             td {
@@ -53,7 +53,7 @@
                 display: inline-block;
                 padding: 1px 4px;
                 border-radius: 4px;
-                background: @secondary-bg;
+                background: var(--bs-secondary-bg);
             }
         }
     }

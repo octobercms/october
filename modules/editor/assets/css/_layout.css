@@ -1,0 +1,19 @@
+.editor-page {
+    --oc-editor-base-padding: 20px;
+
+    .editor-panel {
+        padding: var(--oc-editor-base-padding);
+    }
+
+    .editor-padding-top {
+        padding-top: var(--oc-editor-base-padding);
+    }
+
+    .editor-margin-top {
+        margin-top: var(--oc-editor-base-padding);
+    }
+
+    .editor-min-document-content-height {
+        min-height: 500px;
+    }
+}

@@ -390,7 +390,12 @@
 
         .loading-indicator {
             > span {
-                top: 15px;
+                --loader-size: 16px;
+                border-width: 2px;
+                top: 50%;
+                margin-top: calc(var(--loader-size) / -2);
+                left: auto;
+                right: 8px;
             }
         }
 

@@ -47,6 +47,10 @@ export default {
 
         isDocumentNameToOpenProvided: function isDocumentNameToOpenProvided() {
             return !!this.documentNameToOpen;
+        },
+
+        hasOpenDocuments: function computeHasOpenDocuments() {
+            return this.store.state.editorTabs.length > 0;
         }
     },
     methods: {
@@ -59,6 +63,8 @@ export default {
                         resolve(data);
                     },
                     error: function(data, statusCode, xhr) {
+                        this.handleBrowserEvents(data && data.$env ? data.$env.getBrowserEvents() : []);
+
                         xhr.responseJSON = data;
                         reject(xhr);
                     }

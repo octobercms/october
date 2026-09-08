@@ -25,7 +25,7 @@ trait ViewMaker
     protected $viewPath;
 
     /**
-     * @var string layoutPath specifies a path to the layout directory
+     * @var string|array layoutPath specifies a path to the layout directory
      */
     protected $layoutPath;
 
