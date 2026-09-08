@@ -73,7 +73,7 @@ class Content extends CmsCompoundObject
     }
 
     /**
-     * parseMarkup according to the file type.
+     * parseMarkup according to the file type
      * @return string
      */
     public function parseMarkup()
@@ -81,19 +81,29 @@ class Content extends CmsCompoundObject
         $extension = strtolower(File::extension($this->fileName));
         $result = $this->markup;
 
-        switch ($extension) {
-            case 'html':
-                $result = PageManager::processMarkup($result);
-                break;
-            case 'md':
-                $result = Markdown::parse((string) $result);
-                $result = PageManager::processMarkup($result);
-                break;
-            case 'txt':
-                $result = htmlspecialchars($result);
-                break;
+        if ($extension === 'md') {
+            $result = Markdown::parse((string) $result);
+        }
+        elseif ($extension === 'txt') {
+            $result = htmlspecialchars($result);
+        }
+
+        if ($this->isMarkupProcessable()) {
+            $result = PageManager::processLinks($result);
         }
 
         return $result;
+    }
+
+    /**
+     * isMarkupProcessable returns true when the content type supports link
+     * and snippet processing.
+     */
+    public function isMarkupProcessable(): bool
+    {
+        return in_array(
+            strtolower(File::extension($this->fileName)),
+            ['htm', 'html', 'md']
+        );
     }
 }

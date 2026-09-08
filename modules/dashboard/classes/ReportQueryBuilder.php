@@ -1,6 +1,7 @@
 <?php namespace Dashboard\Classes;
 
 use Db;
+use Config;
 use Carbon\Carbon;
 use SystemException;
 use Illuminate\Database\Query\Builder as QueryBuilder;
@@ -879,9 +880,11 @@ class ReportQueryBuilder
     protected function applyDateFilters(QueryBuilder $query): void
     {
         if ($this->dateColumn && $this->dateStart !== null) {
+            $appTimezone = Config::get('app.timezone');
+
             $query->whereBetween($this->dateColumn, [
-                $this->dateStart->startOfDay()->toDateTimeString(),
-                $this->dateEnd->endOfDay()->toDateTimeString()
+                $this->dateStart->copy()->startOfDay()->setTimezone($appTimezone)->toDateTimeString(),
+                $this->dateEnd->copy()->endOfDay()->setTimezone($appTimezone)->toDateTimeString()
             ]);
         }
 

@@ -15,7 +15,7 @@
     <?php if ($externalToolbarBus): ?>data-external-toolbar-bus="<?= e($externalToolbarBus)?>"<?php endif ?>
 >
     <!-- Passable fields -->
-    <input type="hidden" name="<?= $name ?>" value="" data-repeater-pointer-input disabled />
+    <input type="hidden" name="<?= $name ?>" value="" data-repeater-pointer-input <?= count($formWidgets) ? 'disabled' : '' ?> />
     <input type="hidden" name="<?= $this->alias ?>_loaded" value="1" />
 
     <?php if ($displayMode === 'builder'): ?>

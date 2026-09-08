@@ -8,6 +8,7 @@ class ReportFetchDataTest extends TestCase
     public function tearDown(): void
     {
         Carbon::setTestNow();
+        Config::set('backend.timezone', null);
 
         parent::tearDown();
     }
@@ -46,6 +47,23 @@ class ReportFetchDataTest extends TestCase
 
         $this->assertSame('2026-05-01', $dateStart->toDateString());
         $this->assertSame('2026-05-21', $dateEnd->toDateString());
+    }
+
+    public function testDashboardIntervalAnchorsDatesToBackendTimezone(): void
+    {
+        Config::set('backend.timezone', 'Asia/Shanghai');
+
+        [$dateStart, $dateEnd] = $this->getRequestedDateInterval(
+            '2026-08-31',
+            '2026-08-31'
+        );
+
+        // The selected day is midnight in the backend timezone (UTC+8)
+        $this->assertSame('Asia/Shanghai', $dateStart->getTimezone()->getName());
+        $this->assertSame('2026-08-31 00:00:00', $dateStart->toDateTimeString());
+
+        // Which is the previous day at 16:00 in UTC
+        $this->assertSame('2026-08-30 16:00:00', $dateStart->copy()->utc()->toDateTimeString());
     }
 
     protected function getRequestedDateInterval(?string $dateStart, ?string $dateEnd): array

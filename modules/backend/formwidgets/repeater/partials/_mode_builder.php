@@ -7,11 +7,14 @@
 </div>
 
 <ul id="<?= $this->getId('items') ?>" class="field-repeater-items">
+    <?php $isFirstItem = true ?>
     <?php foreach ($formWidgets as $index => $widget): ?>
         <?= $this->makePartial('repeater_item', [
             'widget' => $widget,
-            'indexValue' => $index
+            'indexValue' => $index,
+            'lazyItem' => !$isFirstItem
         ]) ?>
+        <?php $isFirstItem = false ?>
     <?php endforeach ?>
 </ul>
 

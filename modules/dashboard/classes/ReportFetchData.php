@@ -1,5 +1,8 @@
 <?php namespace Dashboard\Classes;
 
+use Config;
+use Carbon\Carbon;
+use Carbon\CarbonPeriod;
 use Dashboard\Widgets\Dash;
 use Dashboard\Classes\DashReport;
 use Dashboard\Classes\ReportDataOrderRule;
@@ -12,8 +15,7 @@ use Dashboard\Classes\ReportFetchDataResult;
 use Dashboard\Classes\ReportMetric;
 use Dashboard\Classes\ReportMetricConfiguration;
 use Dashboard\Models\ReportDataCache;
-use Carbon\CarbonPeriod;
-use Carbon\Carbon;
+use Backend\Models\Preference as BackendPreference;
 use SystemException;
 
 /**
@@ -251,7 +253,7 @@ class ReportFetchData
         }
 
         try {
-            $date = Carbon::createFromFormat('!Y-m-d', $value);
+            $date = Carbon::createFromFormat('!Y-m-d', $value, $this->getBackendTimezone());
         }
         catch (\Throwable $exception) {
             return null;
@@ -262,6 +264,20 @@ class ReportFetchData
         }
 
         return $date;
+    }
+
+    /**
+     * getBackendTimezone returns the timezone dashboard dates are interpreted in.
+     */
+    protected function getBackendTimezone(): string
+    {
+        try {
+            return BackendPreference::get('timezone')
+                ?: Config::get('backend.timezone', Config::get('app.timezone'));
+        }
+        catch (\Throwable $exception) {
+            return Config::get('backend.timezone', Config::get('app.timezone'));
+        }
     }
 
     /**

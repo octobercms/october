@@ -5,13 +5,15 @@
     $titleFrom = $useGroups ? $this->getGroupItemConfig($groupCode, 'titleFrom') : '';
     $itemDescription = $useGroups ? $this->getGroupItemConfig($groupCode, 'description') : '';
     $useTabs = $useGroups ? $this->getGroupItemConfig($groupCode, 'useTabs', $this->useTabs) : $this->useTabs;
+    $collapsedItem = $collapsedItem ?? false;
+    $lazyItem = $lazyItem ?? $collapsedItem;
 ?>
 <li
     <?= $itemTitle ? 'data-item-title="'.e(__($itemTitle)).'"' : '' ?>
     <?= $itemIcon ? 'data-item-icon="'.e($itemIcon).'"' : '' ?>
     <?= $itemDescription ? 'data-item-description="'.e(__($itemDescription)).'"' : '' ?>
     <?= $titleFrom ? 'data-title-from="'.$titleFrom.'"' : '' ?>
-    class="field-repeater-item"
+    class="field-repeater-item<?= $collapsedItem ? ' collapsed' : '' ?>"
     data-repeater-index="<?= $indexValue ?>"
     data-repeater-group="<?= $groupCode ?>"
 >
@@ -56,6 +58,7 @@
     </div>
     <div class="repeater-content"
         data-control="formwidget"
+        <?= $lazyItem ? 'data-lazy-controls' : '' ?>
         data-refresh-handler="<?= $this->getEventHandler('onRefresh') ?>"
         data-refresh-data="'_repeater_index': '<?= $indexValue ?>', '_repeater_group': '<?= $groupCode ?>'"
     >

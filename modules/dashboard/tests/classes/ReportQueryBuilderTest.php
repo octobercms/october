@@ -689,6 +689,47 @@ class ReportQueryBuilderTest extends TestCase
         $this->assertEquals(1, $dataArray[0]->oc_metric_min_int);
     }
 
+    public function testDateRangeConvertsBackendTimezoneToUtc()
+    {
+        Schema::dropIfExists('test_report_events');
+        Schema::create('test_report_events', function($table)
+        {
+            $table->increments('id');
+            $table->dateTime('created_at');
+            $table->integer('int_metric');
+        });
+
+        // Stored in UTC. The Shanghai day 2026-08-31 spans UTC
+        // 2026-08-30 16:00:00 to 2026-08-31 15:59:59.
+        Db::table('test_report_events')->insert([
+            ['created_at' => '2026-08-30 15:30:00', 'int_metric' => 1], // previous Shanghai day
+            ['created_at' => '2026-08-30 16:30:00', 'int_metric' => 2], // within Shanghai 2026-08-31
+            ['created_at' => '2026-08-31 15:30:00', 'int_metric' => 3], // within Shanghai 2026-08-31
+            ['created_at' => '2026-08-31 16:30:00', 'int_metric' => 4], // next Shanghai day
+        ]);
+
+        $dimension = new ReportDimension(ReportDimension::CODE_DATE, 'created_at', 'Date');
+        $metric = new ReportMetric('total_int', 'int_metric', 'Total integer', ReportMetric::AGGREGATE_SUM);
+
+        // User in Asia/Shanghai selecting a single day: 2026-08-31
+        $start = Carbon::parse('2026-08-31', 'Asia/Shanghai');
+        $end = Carbon::parse('2026-08-31', 'Asia/Shanghai');
+
+        $builder = ReportQueryBuilder::table('test_report_events')
+            ->dimension($dimension)
+            ->metrics([$metric])
+            ->withoutGrouping()
+            ->dateRange($start, $end, 'created_at');
+
+        $dataArray = $builder->toQuery()->get()->toArray();
+
+        $this->assertCount(1, $dataArray);
+        // Only the two rows inside the Shanghai day are matched (metrics 2 and 3)
+        $this->assertEquals(5, $dataArray[0]->oc_metric_total_int);
+
+        Schema::dropIfExists('test_report_events');
+    }
+
     public function testToSql()
     {
         $dimension = new ReportDimension(ReportDimension::CODE_DATE, 'date_dimension', 'Date');

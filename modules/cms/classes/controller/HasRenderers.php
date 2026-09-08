@@ -1,10 +1,12 @@
 <?php namespace Cms\Classes\Controller;
 
 use Lang;
+use Event;
 use Config;
 use Cms\Classes\Partial;
 use Cms\Classes\Content;
 use Cms\Classes\CodeParser;
+use Cms\Classes\PageManager;
 use Cms\Classes\PartialStack;
 use Cms\Classes\CmsException;
 use Cms\Classes\ComponentPartial;
@@ -334,6 +336,26 @@ trait HasRenderers
         }
 
         $fileContent = $content->parsedMarkup;
+
+        // Process dynamic snippets at render time
+        if ($content->isMarkupProcessable()) {
+            if ($this->page) {
+                $fileContent = PageManager::processSnippets($fileContent);
+            }
+
+            /**
+             * @event cms.content.postProcessMarkup
+             * Provides opportunity to hook into the post-processing of content markup
+             *
+             * Example usage:
+             *
+             *     Event::listen('cms.content.postProcessMarkup', function ((string) &$content) {
+             *         $content = str_replace('<a href=', '<a rel="nofollow" href=', $content);
+             *     });
+             *
+             */
+            Event::fire('cms.content.postProcessMarkup', [&$fileContent]);
+        }
 
         // Inject global view variables
         $globalVars = ViewHelper::getGlobalVars();

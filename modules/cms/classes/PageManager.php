@@ -105,6 +105,11 @@ class PageManager
      */
     public static function processSnippets($markup): string
     {
+        $controller = CmsController::getController();
+        if (!$controller || !$controller->getPage()) {
+            return (string) $markup;
+        }
+
         $searches = $replaces = [];
 
         $theme = Theme::getActiveTheme();

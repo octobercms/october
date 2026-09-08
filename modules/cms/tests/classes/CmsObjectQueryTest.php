@@ -59,6 +59,7 @@ class CmsObjectQueryTest extends TestCase
         $this->assertEquals([
             "404",
             "a/a-page",
+            "ajax-capture-test",
             "ajax-test",
             "authors",
             "b/b-page",

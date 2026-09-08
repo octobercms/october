@@ -2,7 +2,8 @@
     <?php foreach ($formWidgets as $index => $widget): ?>
         <?= $this->makePartial('repeater_item', [
             'widget' => $widget,
-            'indexValue' => $index
+            'indexValue' => $index,
+            'collapsedItem' => !$itemsExpanded
         ]) ?>
     <?php endforeach ?>
 </ul>
