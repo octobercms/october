@@ -18,7 +18,40 @@ class FilterWidgetTest extends PluginTestCase
 
         WidgetManager::instance()->registerFilterWidgets(function ($manager) {
             $manager->registerFilterWidget(\Backend\FilterWidgets\Text::class, 'text');
+            $manager->registerFilterWidget(\Backend\FilterWidgets\Group::class, 'group');
         });
+    }
+
+    /**
+     * A group scope's option label is developer-authored (from a model's
+     * options method or a plain config array), not end-user input, so it is
+     * passed through unescaped all the way to the AJAX response — the
+     * `{{{ name }}}` (unescaped) Mustache tag on the client is what's meant
+     * to render it. https://github.com/octobercms/october/issues/5935
+     */
+    public function testGroupScopeOptionLabelPreservesRawHtml()
+    {
+        $rawLabel = "<span class='select-status status-indicator'></span> Active";
+
+        $filter = $this->makeFilterWidget([
+            'model' => new User,
+            'arrayName' => 'array',
+            'scopes' => [
+                'status' => [
+                    'type' => 'group',
+                    'label' => 'Status',
+                    'options' => [
+                        'active' => $rawLabel,
+                    ],
+                ],
+            ],
+        ]);
+        $filter->render();
+
+        $widget = $filter->getFilterWidgets()['status'];
+        $result = $widget->onGetGroupOptions();
+
+        $this->assertSame($rawLabel, $result['options']['available'][0]['name']);
     }
 
     public function testFilterWidgetsAreRegistered()
