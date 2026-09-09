@@ -2,6 +2,7 @@
     $selectedValues = is_array($selectedValues) ? $selectedValues : [];
     $flatOptions = $this->getFieldOptions();
     $fieldOptions = $field->asOptionsDefinition($flatOptions);
+    $hasSelectableOptions = (bool) count($fieldOptions);
     if (!$useKey) {
         $fieldOptions = $field->asOptionsDefinition($this->getKeylessOptions($selectedValues, $fieldOptions));
     }
@@ -61,7 +62,7 @@
     <select
         id="<?= $field->getId() ?>"
         name="<?= $field->getName() ?>[]"
-        class="form-control custom-select <?= !count($fieldOptions) ? 'select-no-dropdown' : '' ?> select-hide-selected"
+        class="form-control custom-select <?= !$hasSelectableOptions ? 'select-no-dropdown' : '' ?> select-hide-selected"
         <?= $customSeparators ? 'data-token-separators="'.$customSeparators.'"' : '' ?>
         <?= $placeholder ? 'data-placeholder="'.e(__($placeholder)).'"' : '' ?>
         <?= $maxItems ? 'data-maximum-selection-length="'.$maxItems.'"' : '' ?>
