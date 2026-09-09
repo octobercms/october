@@ -54,6 +54,53 @@ class FilterWidgetTest extends PluginTestCase
         $this->assertSame($rawLabel, $result['options']['available'][0]['name']);
     }
 
+    /**
+     * A group scope backed by a related model (no `options`/`optionsMethod`
+     * configured) pulls its label from a plain database column, which is not
+     * developer-authored, so it must stay HTML-escaped even though the
+     * template renders it with the unescaped `{{{ name }}}` Mustache tag —
+     * matching the RecordFinder precedent (`_record_single.php`,
+     * `_record_multi.php`, both call `e()` on their model-derived name).
+     * https://github.com/octobercms/october/issues/5935
+     */
+    public function testGroupScopeOptionLabelFromModelRelationIsEscaped()
+    {
+        $unsafeLogin = '<script>alert(1)</script>';
+
+        $user = new User;
+        $user->fill([
+            'first_name' => 'Test',
+            'last_name' => 'User',
+            'login' => $unsafeLogin,
+            'email' => 'grouptest@test.com',
+            'password' => 'password',
+            'password_confirmation' => 'password',
+        ]);
+        $user->save();
+
+        $filter = $this->makeFilterWidget([
+            'model' => new User,
+            'arrayName' => 'array',
+            'scopes' => [
+                'status' => [
+                    'type' => 'group',
+                    'label' => 'Status',
+                    'modelClass' => User::class,
+                    'nameFrom' => 'login',
+                ],
+            ],
+        ]);
+        $filter->render();
+
+        $widget = $filter->getFilterWidgets()['status'];
+        $result = $widget->onGetGroupOptions();
+
+        $names = array_column($result['options']['available'], 'name');
+
+        $this->assertContains(e($unsafeLogin), $names);
+        $this->assertNotContains($unsafeLogin, $names);
+    }
+
     public function testFilterWidgetsAreRegistered()
     {
         $widgetManager = WidgetManager::instance();
