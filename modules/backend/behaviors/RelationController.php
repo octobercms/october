@@ -315,6 +315,16 @@ class RelationController extends ControllerBehavior
         $this->initialized = true;
     }
 
+    /**
+     * checkReadOnly rejects mutating AJAX handlers when readOnly is set on the relation config
+     */
+    protected function checkReadOnly()
+    {
+        if ($this->readOnly) {
+            throw new ApplicationException(Lang::get('backend::lang.relation.read_only_error'));
+        }
+    }
+
     //
     // Interface
     //

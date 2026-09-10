@@ -261,6 +261,7 @@ trait HasManageMode
     public function onRelationManageCreate()
     {
         $this->beforeAjax();
+        $this->checkReadOnly();
 
         $saveData = $this->manageFormWidget->getSaveData();
         $sessionKey = $this->deferredBinding ? $this->relationSessionKey : null;
@@ -305,6 +306,7 @@ trait HasManageMode
     public function onRelationManageUpdate()
     {
         $this->beforeAjax();
+        $this->checkReadOnly();
 
         $saveData = $this->manageFormWidget->getSaveData();
 
@@ -335,6 +337,7 @@ trait HasManageMode
     public function onRelationManageDelete()
     {
         $this->beforeAjax();
+        $this->checkReadOnly();
 
         $deletedModels = [];
 
@@ -383,6 +386,7 @@ trait HasManageMode
     public function onRelationManageAdd()
     {
         $this->beforeAjax();
+        $this->checkReadOnly();
 
         $recordId = post('record_id');
         $sessionKey = $this->deferredBinding ? $this->relationSessionKey : null;
@@ -437,6 +441,7 @@ trait HasManageMode
     public function onRelationManageRemove()
     {
         $this->beforeAjax();
+        $this->checkReadOnly();
 
         $recordId = post('record_id');
         $sessionKey = $this->deferredBinding ? $this->relationSessionKey : null;

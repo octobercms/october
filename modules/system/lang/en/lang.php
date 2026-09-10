@@ -330,6 +330,9 @@
     'invalid_token' => [
       'label' => 'Invalid security token',
     ],
+    'https_required' => [
+      'label' => 'HTTPS is required for this request',
+    ],
     'maintenance' => [
       'label' => 'We\'ll Be Right Back!',
       'help' => 'We\'re currently down for maintenance, check back soon!',

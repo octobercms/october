@@ -4,6 +4,7 @@ use Arr;
 use Lang;
 use Flash;
 use Backend;
+use BackendAuth;
 use Redirect;
 use BackendMenu;
 use Tailor\Classes\RecordIndexer;
@@ -796,6 +797,13 @@ class Entries extends WildcardController
         $model = $model->withTrashed()->find($recordId);
 
         if (!$model) {
+            throw new ApplicationException(__("Form record with an ID of :id could not be found.", [
+                'class' => $this->modelInstance::class, 'id' => $recordId
+            ]));
+        }
+
+        // Enforce site role isolation on the resolved record
+        if ($this->formHasMultisite($model) && !BackendAuth::userHasSiteAccess($model->site_id)) {
             throw new ApplicationException(__("Form record with an ID of :id could not be found.", [
                 'class' => $this->modelInstance::class, 'id' => $recordId
             ]));

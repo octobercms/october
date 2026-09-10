@@ -1,5 +1,6 @@
 <?php namespace Backend\Classes;
 
+use Site;
 use October\Rain\Auth\Manager as RainAuthManager;
 
 /**
@@ -67,6 +68,26 @@ class AuthManager extends RainAuthManager
         }
 
         return false;
+    }
+
+    /**
+     * userHasSiteAccess returns true when the current user is permitted to access
+     * the supplied site definition or ID
+     */
+    public function userHasSiteAccess($site): bool
+    {
+        if (!$site) {
+            return true;
+        }
+
+        if (is_numeric($site)) {
+            $site = Site::getSiteFromId($site);
+            if (!$site) {
+                return true;
+            }
+        }
+
+        return $site->matchesRole($this->getUser());
     }
 
     /**

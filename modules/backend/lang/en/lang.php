@@ -251,6 +251,7 @@
     'missing_model' => 'Relation behavior used in :class does not have a model defined.',
     'invalid_action_single' => 'This action cannot be performed on a singular relationship.',
     'invalid_action_multi' => 'This action cannot be performed on a multiple relationship.',
+    'read_only_error' => 'This relation is read-only and cannot be modified.',
     'help' => 'Click on an item to add',
     'add' => 'Add',
     'link_selected' => 'Link Selected',
@@ -308,6 +309,7 @@
   ],
   'import_export' => [
     'row' => 'Row :row',
+    'invalid_column' => 'Column [:column] is not a valid import target.',
     'encodings' => [
       'utf_8' => 'UTF-8',
       'us_ascii' => 'US-ASCII',

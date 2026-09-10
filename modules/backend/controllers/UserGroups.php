@@ -1,6 +1,7 @@
 <?php namespace Backend\Controllers;
 
 use Backend\Classes\SettingsController;
+use ForbiddenException;
 
 /**
  * UserGroups controller
@@ -44,4 +45,28 @@ class UserGroups extends SettingsController
      * @var string settingsItemCode determines the settings code
      */
     public $settingsItemCode = 'admingroups';
+
+    /**
+     * onRelationManageDelete is blocked
+     */
+    public function onRelationManageDelete()
+    {
+        throw new ForbiddenException;
+    }
+
+    /**
+     * onRelationManageCreate is blocked
+     */
+    public function onRelationManageCreate()
+    {
+        throw new ForbiddenException;
+    }
+
+    /**
+     * onRelationManageUpdate is blocked
+     */
+    public function onRelationManageUpdate()
+    {
+        throw new ForbiddenException;
+    }
 }

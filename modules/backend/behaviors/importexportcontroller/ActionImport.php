@@ -36,7 +36,7 @@ trait ActionImport
     public function actionImport()
     {
         $model = $this->importGetModel();
-        $matches = post('column_match', []);
+        $matches = $this->filterImportColumnMatches(post('column_match', []));
 
         if ($optionData = post('ImportOptions')) {
             $model->fill($optionData);
@@ -121,6 +121,27 @@ trait ActionImport
     public function importGetModel()
     {
         return $this->getModelForType('import');
+    }
+
+    /**
+     * filterImportColumnMatches rejects any undeclared columns
+     */
+    protected function filterImportColumnMatches(array $matches): array
+    {
+        $allowed = array_keys($this->getImportDbColumns());
+
+        foreach ($matches as $columnIndex => $dbNames) {
+            foreach ((array) $dbNames as $dbName) {
+                if (!in_array($dbName, $allowed, true)) {
+                    throw new ApplicationException(Lang::get(
+                        'backend::lang.import_export.invalid_column',
+                        ['column' => $dbName]
+                    ));
+                }
+            }
+        }
+
+        return $matches;
     }
 
     /**

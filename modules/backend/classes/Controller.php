@@ -215,7 +215,9 @@ class Controller extends Extendable implements AjaxControllerInterface
         // Check forced HTTPS protocol.
         // @see \System\Traits\SecurityController
         if (!$this->verifyForceSecure()) {
-            return Redirect::secure(Request::path());
+            return Request::ajax()
+                ? ajax()->error(Lang::get('system::lang.page.https_required.label'), 403)
+                : Redirect::secure(Request::path());
         }
 
         // Check that user is logged in and has permission to view this page

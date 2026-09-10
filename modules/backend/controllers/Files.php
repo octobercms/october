@@ -44,6 +44,12 @@ class Files extends Controller
     public function thumb($code = null, $width = 100, $height = 100, $mode = 'auto', $extension = 'auto')
     {
         try {
+            // Restrict output extension to a raster image allowlist
+            $extension = strtolower($extension);
+            if ($extension !== 'auto' && !in_array($extension, FileModel::$imageExtensions, true)) {
+                throw new ApplicationException('Unsupported thumbnail extension.');
+            }
+
             return $this->findFileObject($code)->outputThumb(
                 $width,
                 $height,

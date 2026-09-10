@@ -76,7 +76,7 @@ trait SecurityController
      */
     protected function verifyForceSecure(): bool
     {
-        if (Request::secure() || Request::ajax()) {
+        if (Request::secure()) {
             return true;
         }
 

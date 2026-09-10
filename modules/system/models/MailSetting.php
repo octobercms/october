@@ -2,6 +2,7 @@
 
 use App;
 use Site;
+use Crypt;
 use Event;
 use Config;
 use System\Models\SettingModel;
@@ -16,6 +17,7 @@ class MailSetting extends SettingModel
 {
     use \October\Rain\Database\Traits\Multisite;
     use \October\Rain\Database\Traits\Validation;
+    use \October\Rain\Database\Traits\Encryptable;
 
     const MODE_LOG = 'log';
     const MODE_SENDMAIL = 'sendmail';
@@ -51,6 +53,17 @@ class MailSetting extends SettingModel
         'ses_key',
         'ses_secret',
         'ses_region',
+        'postmark_token',
+    ];
+
+    /**
+     * @var array encryptable attribute names which should be encrypted
+     */
+    protected $encryptable = [
+        'smtp_password',
+        'mailgun_secret',
+        'ses_key',
+        'ses_secret',
         'postmark_token',
     ];
 
@@ -240,5 +253,46 @@ class MailSetting extends SettingModel
     public function isMultisiteEnabled()
     {
         return Site::hasFeature('backend_mail_setting');
+    }
+
+    /**
+     * getEncryptableValue decrypts an attribute value with a fallback for legacy
+     * plaintext values stored before encryption was introduced. Plaintext values
+     * are returned as-is and become encrypted the next time settings are saved.
+     * @param  string $key
+     * @return string
+     */
+    public function getEncryptableValue($key)
+    {
+        $value = $this->attributes[$key];
+
+        if (!$this->isEncryptedPayloadValue($value)) {
+            return $value;
+        }
+
+        return Crypt::decrypt($value);
+    }
+
+    /**
+     * isEncryptedPayloadValue determines if a value looks like an encrypted
+     * payload (base64-encoded JSON with iv, value and mac keys) as opposed
+     * to a legacy plaintext value.
+     * @param  mixed $value
+     * @return bool
+     */
+    protected function isEncryptedPayloadValue($value): bool
+    {
+        if (!is_string($value) || $value === '') {
+            return false;
+        }
+
+        $decoded = base64_decode($value, true);
+        if ($decoded === false) {
+            return false;
+        }
+
+        $payload = json_decode($decoded, true);
+
+        return is_array($payload) && isset($payload['iv'], $payload['value'], $payload['mac']);
     }
 }

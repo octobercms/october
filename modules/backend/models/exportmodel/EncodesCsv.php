@@ -42,6 +42,19 @@ trait EncodesCsv
     }
 
     /**
+     * neutralizeCsvFormula prepends an apostrophe to cell values that a spreadsheet
+     * application would otherwise parse as a formula, per OWASP CSV Injection guidance
+     */
+    protected function neutralizeCsvFormula($value)
+    {
+        if (is_string($value) && strlen($value) && in_array($value[0], ['=', '+', '-', '@', "\t", "\r"], true)) {
+            return "'" . $value;
+        }
+
+        return $value;
+    }
+
+    /**
      * encodeArrayValueForCsv
      */
     protected function encodeArrayValueForCsv(array $data, $delimiter = '|')
@@ -103,13 +116,13 @@ trait EncodesCsv
         // Add headers
         if ($options['firstRowTitles']) {
             $headers = $this->getColumnHeaders($columns);
-            $csv->insertOne($headers);
+            $csv->insertOne(array_map([$this, 'neutralizeCsvFormula'], $headers));
         }
 
         // Add records
         foreach ($results as $result) {
             $data = $this->matchDataToColumns($result, $columns);
-            $csv->insertOne($data);
+            $csv->insertOne(array_map([$this, 'neutralizeCsvFormula'], $data));
         }
 
         // Output
