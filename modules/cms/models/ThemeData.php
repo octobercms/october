@@ -1,6 +1,5 @@
 <?php namespace Cms\Models;
 
-use Lang;
 use Model;
 use Event;
 use October\Rain\Html\Helper as HtmlHelper;
@@ -8,7 +7,6 @@ use Cms\Classes\Theme as CmsTheme;
 use System\Classes\CombineAssets;
 use System\Models\File;
 use Exception;
-use PhpParser\Node\Stmt\Else_;
 
 /**
  * ThemeData for theme customization
@@ -94,7 +92,18 @@ class ThemeData extends Model
     }
 
     /**
-     * forTheme returns a cached version of this model, based on a Theme object
+     * afterDelete drops the per-request cache so a missing row is not reused
+     */
+    public function afterDelete()
+    {
+        if ($this->theme) {
+            unset(self::$instances[$this->theme]);
+        }
+    }
+
+    /**
+     * forTheme returns a cached version of this model, based on a Theme object.
+     * A missing row is an unsaved model with yaml defaults, not an insert.
      */
     public static function forTheme(CmsTheme $theme): ThemeData
     {
@@ -104,16 +113,27 @@ class ThemeData extends Model
         }
 
         try {
-            $themeData = static::createThemeDataModel()->firstOrCreate(['theme' => $dirName]);
+            $themeData = static::createThemeDataModel()->firstWhere('theme', $dirName);
         }
         catch (Exception $ex) {
-            // Database failed
-            $themeData = static::createThemeDataModel(['theme' => $dirName]);
+            $themeData = null;
         }
 
-        $themeData->initFormFields();
+        if (!$themeData) {
+            $themeData = static::createThemeDataModel(['theme' => $dirName]);
+            $themeData->initFormFields();
+            $themeData->setDefaultValues();
+        }
 
         return self::$instances[$dirName] = $themeData;
+    }
+
+    /**
+     * clearInternalCache of model instances
+     */
+    public static function clearInternalCache()
+    {
+        self::$instances = [];
     }
 
     /**
@@ -138,12 +158,18 @@ class ThemeData extends Model
     }
 
     /**
-     * beforeValidate set the default values.
+     * beforeValidate set the default values for attributes that were not provided.
      */
     public function beforeValidate()
     {
-        if (!$this->exists) {
-            $this->setDefaultValues();
+        if ($this->exists) {
+            return;
+        }
+
+        foreach ($this->getDefaultValues() as $attribute => $value) {
+            if ($this->{$attribute} === null) {
+                $this->{$attribute} = $value;
+            }
         }
     }
 
@@ -257,7 +283,7 @@ class ThemeData extends Model
     {
         $theme = CmsTheme::getActiveTheme();
 
-        if (!$theme || !$theme->hasCustomData()) {
+        if (!$theme || !$theme->hasAssetVariables()) {
             return;
         }
 
@@ -279,7 +305,7 @@ class ThemeData extends Model
     {
         $theme = CmsTheme::getActiveTheme();
 
-        if (!$theme || !$theme->hasCustomData()) {
+        if (!$theme || !$theme->hasAssetVariables()) {
             return '';
         }
 

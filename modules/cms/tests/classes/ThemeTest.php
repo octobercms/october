@@ -95,4 +95,31 @@ class ThemeTest extends TestCase
         $this->assertNotNull($activeTheme);
         $this->assertEquals('apitest', $activeTheme->getDirName());
     }
+
+    public function testHasAssetVariables()
+    {
+        $this->assertTrue(Theme::load('test')->hasAssetVariables());
+        $this->assertTrue(Theme::load('test')->hasCustomData());
+
+        $this->assertFalse(Theme::load('formonlytest')->hasAssetVariables());
+        $this->assertTrue(Theme::load('formonlytest')->hasCustomData());
+
+        $this->assertFalse(Theme::load('parenttest')->hasAssetVariables());
+        $this->assertFalse(Theme::load('parenttest')->hasCustomData());
+    }
+
+    public function testHasAssetVariablesInheritsParentForm()
+    {
+        Event::listen('cms.theme.extendFormConfig', function ($themeCode, &$config) {
+            if ($themeCode === 'parenttest') {
+                $config['fields']['header_color'] = [
+                    'label' => 'Header Colour',
+                    'assetVar' => 'header-bg',
+                ];
+            }
+        });
+
+        $this->assertTrue(Theme::load('parenttest')->hasAssetVariables());
+        $this->assertTrue(Theme::load('childtest')->hasAssetVariables());
+    }
 }

@@ -1,0 +1,12 @@
+name: Form Only Test
+description: 'Theme fixture with a customization form and no assetVar fields.'
+author: October CMS
+homepage: 'https://octobercms.com'
+code: ''
+
+form:
+    fields:
+        site_name:
+            label: Site Name
+            type: text
+            default: October

@@ -57,6 +57,14 @@ class ThemeOptions extends Controller
     }
 
     /**
+     * formFindModelObject
+     */
+    public function formFindModelObject($recordId)
+    {
+        return $this->getThemeData($this->getDirName($recordId));
+    }
+
+    /**
      * update
      */
     public function update($dirName = null)
@@ -64,9 +72,7 @@ class ThemeOptions extends Controller
         $dirName = $this->getDirName($dirName);
 
         try {
-            $model = $this->getThemeData($dirName);
-
-            $this->asExtension('FormController')->update($model->id);
+            $this->asExtension('FormController')->update($dirName);
 
             $this->vars['hasCustomData'] = $this->hasThemeData($dirName);
         }
@@ -80,8 +86,7 @@ class ThemeOptions extends Controller
      */
     public function update_onSave($dirName = null)
     {
-        $model = $this->getThemeData($this->getDirName($dirName));
-        $result = $this->asExtension('FormController')->update_onSave($model->id);
+        $result = $this->asExtension('FormController')->update_onSave($this->getDirName($dirName));
 
         // Redirect close requests to the settings index when user doesn't have access
         // to go back to the theme selection page
@@ -98,7 +103,9 @@ class ThemeOptions extends Controller
     public function update_onResetDefault($dirName = null)
     {
         $model = $this->getThemeData($this->getDirName($dirName));
-        $model->delete();
+        if ($model->exists) {
+            $model->delete();
+        }
 
         return Backend::redirect('cms/themeoptions/update/'.$dirName);
     }

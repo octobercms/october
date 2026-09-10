@@ -463,6 +463,26 @@ class Theme implements CallsMethods
     }
 
     /**
+     * hasAssetVariables returns true if the theme form defines combiner `assetVar` fields
+     */
+    public function hasAssetVariables(): bool
+    {
+        $config = $this->getFormConfig();
+
+        $fields = (array) array_get($config, 'fields') +
+            (array) array_get($config, 'tabs.fields') +
+            (array) array_get($config, 'secondaryTabs.fields');
+
+        foreach ($fields as $field) {
+            if (is_array($field) && array_get($field, 'assetVar')) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * getCustomData returns data specific to this theme
      */
     public function getCustomData(): ThemeData
@@ -475,11 +495,13 @@ class Theme implements CallsMethods
      */
     public function removeCustomData(): bool
     {
-        if ($this->hasCustomData()) {
-            return $this->getCustomData()->delete();
+        $themeData = $this->getCustomData();
+
+        if (!$themeData->exists) {
+            return true;
         }
 
-        return true;
+        return (bool) $themeData->delete();
     }
 
     /**
@@ -682,7 +704,8 @@ class Theme implements CallsMethods
             'getConfigArray',
             'getPreviewImageUrl',
             'getCustomData',
-            'hasCustomData'
+            'hasCustomData',
+            'hasAssetVariables'
         ];
     }
 }
