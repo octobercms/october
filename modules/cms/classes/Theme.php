@@ -15,6 +15,7 @@ use DirectoryIterator;
 use ApplicationException;
 use Cms\Models\ThemeData;
 use Backend\Models\UserPreference;
+use October\Rain\Halcyon\Model as HalcyonModel;
 use October\Rain\Halcyon\Datasource\DbDatasource;
 use October\Rain\Halcyon\Datasource\AutoDatasource;
 use October\Rain\Halcyon\Datasource\FileDatasource;
@@ -561,6 +562,8 @@ class Theme implements CallsMethods
     public function registerHalcyonDatasource()
     {
         $resolver = App::make('halcyon');
+
+        HalcyonModel::setDatasourceResolver($resolver);
 
         // Already registered
         if ($resolver->hasDatasource($this->dirName)) {
