@@ -46,7 +46,7 @@
         <div class="filter-items">
             <ul>
                 {{#available}}
-                    <li data-item-id="{{ id }}"><a href="javascript:;">{{ name }}</a></li>
+                    <li data-item-id="{{ id }}"><a href="javascript:;">{{{ name }}}</a></li>
                 {{/available}}
                 {{#loading}}
                     <li class="loading"><span></span></li>
@@ -56,7 +56,7 @@
         <div class="filter-active-items">
             <ul>
                 {{#active}}
-                    <li data-item-id="{{ id }}"><a href="javascript:;">{{ name }}</a></li>
+                    <li data-item-id="{{ id }}"><a href="javascript:;">{{{ name }}}</a></li>
                 {{/active}}
             </ul>
         </div>
