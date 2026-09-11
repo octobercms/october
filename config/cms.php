@@ -163,7 +163,7 @@ return [
     |
     */
 
-    'enable_data_cache' => env('CMS_DATA_CACHE', false),
+    'enable_theme_data_cache' => env('CMS_THEME_DATA_CACHE', false),
 
     /*
     |--------------------------------------------------------------------------

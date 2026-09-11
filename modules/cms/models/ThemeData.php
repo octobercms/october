@@ -112,7 +112,7 @@ class ThemeData extends Model
             return $themeData;
         }
 
-        $cacheEnabled = Config::get('cms.enable_data_cache');
+        $cacheEnabled = Config::get('cms.enable_theme_data_cache');
         $cacheKey = static::getCacheKey($dirName);
 
         if ($cacheEnabled && is_array($cacheData = Cache::get($cacheKey))) {
