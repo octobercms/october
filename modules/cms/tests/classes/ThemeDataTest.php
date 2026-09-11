@@ -1,6 +1,5 @@
 <?php
 
-use Cache;
 use Cms\Classes\Theme;
 use Cms\Models\ThemeData;
 use Illuminate\Support\Facades\Schema;
@@ -13,7 +12,6 @@ class ThemeDataTest extends TestCase
         parent::setUp();
 
         Config::set('cms.active_theme', 'test');
-        Config::set('cms.enable_data_cache', false);
         Event::forget('cms.theme.getActiveTheme');
         Theme::resetCache();
 
@@ -41,19 +39,8 @@ class ThemeDataTest extends TestCase
         $this->assertTrue($theme->isJsonable('nested'));
     }
 
-    public function testForThemeDoesNotCacheWhenDisabled()
+    public function testForThemeStoresRowAttributes()
     {
-        Config::set('cms.enable_data_cache', false);
-
-        ThemeData::forTheme(Theme::load('test'));
-
-        $this->assertNull(Cache::get(ThemeData::getCacheKey('test')));
-    }
-
-    public function testForThemeStoresRowAttributesWhenEnabled()
-    {
-        Config::set('cms.enable_data_cache', true);
-
         $themeData = ThemeData::forTheme(Theme::load('test'));
         $cached = Cache::get(ThemeData::getCacheKey('test'));
 
@@ -67,8 +54,6 @@ class ThemeDataTest extends TestCase
 
     public function testForThemeRehydratesFromCache()
     {
-        Config::set('cms.enable_data_cache', true);
-
         $theme = Theme::load('test');
         $themeData = ThemeData::forTheme($theme);
         $themeData->position = 'top';
@@ -93,8 +78,6 @@ class ThemeDataTest extends TestCase
 
     public function testSaveBustsThemeDataCache()
     {
-        Config::set('cms.enable_data_cache', true);
-
         $theme = Theme::load('test');
         $themeData = ThemeData::forTheme($theme);
         $themeData->position = 'top';
@@ -116,8 +99,6 @@ class ThemeDataTest extends TestCase
 
     public function testDeleteBustsThemeDataCache()
     {
-        Config::set('cms.enable_data_cache', true);
-
         $theme = Theme::load('test');
         $themeData = ThemeData::forTheme($theme);
         $themeData->position = 'top';
@@ -134,8 +115,6 @@ class ThemeDataTest extends TestCase
 
     public function testLegacyCachedModelIsIgnored()
     {
-        Config::set('cms.enable_data_cache', true);
-
         $theme = Theme::load('test');
         $themeData = ThemeData::forTheme($theme);
         $themeData->position = 'top';

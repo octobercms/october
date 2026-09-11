@@ -1,7 +1,6 @@
 <?php namespace Cms\Models;
 
 use Cache;
-use Config;
 use Model;
 use Event;
 use October\Rain\Html\Helper as HtmlHelper;
@@ -112,10 +111,9 @@ class ThemeData extends Model
             return $themeData;
         }
 
-        $cacheEnabled = Config::get('cms.enable_theme_data_cache');
         $cacheKey = static::getCacheKey($dirName);
 
-        if ($cacheEnabled && is_array($cacheData = Cache::get($cacheKey))) {
+        if (is_array($cacheData = Cache::get($cacheKey))) {
             return self::$instances[$dirName] = static::newFromCache($cacheData);
         }
 
@@ -131,7 +129,7 @@ class ThemeData extends Model
 
         self::$instances[$dirName] = $themeData;
 
-        if ($cacheEnabled && $themeData->exists) {
+        if ($themeData->exists) {
             Cache::put($cacheKey, static::getCacheableAttributes($themeData), now()->addMinutes(1440));
         }
 
