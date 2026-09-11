@@ -1,0 +1,87 @@
+{% set mode = mode|default('404') %}
+<div class="error-illustration">
+    <div class="error-illustration-glow"></div>
+
+    <!-- Dashed swoosh -->
+    <svg class="error-swoosh" width="200" height="120" viewBox="0 0 200 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        <path d="M6 96C34 30 118 6 194 34" stroke="#9F74FB" stroke-width="2.5" stroke-linecap="round" stroke-dasharray="6 9" stroke-opacity="0.55" />
+    </svg>
+
+    <!-- Floating accents -->
+    <span class="error-dot error-dot-1"></span>
+    <span class="error-dot error-dot-2"></span>
+    <span class="error-dot error-dot-3"></span>
+    <span class="error-dot error-dot-4"></span>
+
+    <!-- Dotted grid -->
+    <svg class="error-grid" width="120" height="120" viewBox="0 0 120 120" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+        {% for row in 0..5 %}
+            {% for col in 0..5 %}
+                <circle cx="{{ col * 22 + 4 }}" cy="{{ row * 22 + 4 }}" r="2.5" fill="#9F74FB" fill-opacity="0.35" />
+            {% endfor %}
+        {% endfor %}
+    </svg>
+
+    <!-- Browser window -->
+    <div class="error-window">
+        <div class="error-window-bar">
+            <span class="error-window-btn error-window-btn-red"></span>
+            <span class="error-window-btn error-window-btn-amber"></span>
+            <span class="error-window-btn error-window-btn-green"></span>
+        </div>
+        <div class="error-window-body">
+            {% if mode == 'error' %}
+                <div class="error-window-alert">
+                    <span class="error-window-alert-mark">
+                        !
+                    </span>
+                </div>
+            {% else %}
+                <div class="error-window-code">
+                    {{ code|default('404') }}
+                </div>
+            {% endif %}
+            <span class="error-window-line error-window-line-1"></span>
+            <span class="error-window-line error-window-line-2"></span>
+        </div>
+    </div>
+
+    <!-- Leaf badge -->
+    <div class="error-leaf-badge">
+        <img src="{{ 'assets/images/logo-leaf.png'|theme }}" alt="October CMS" width="34" />
+    </div>
+
+    <!-- Corner icon -->
+    <div class="error-corner-icon">
+        {% if mode == 'error' %}
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <path d="M12 8.5a3.5 3.5 0 100 7 3.5 3.5 0 000-7z" stroke="#fff" stroke-width="2" />
+                <path d="M19.4 13.5a7.6 7.6 0 000-3l1.7-1.3-1.7-3-2 0.8a7.5 7.5 0 00-2.6-1.5L14.5 3h-5l-0.3 2a7.5 7.5 0 00-2.6 1.5l-2-0.8-1.7 3L4.6 10a7.6 7.6 0 000 3l-1.7 1.3 1.7 3 2-0.8a7.5 7.5 0 002.6 1.5l0.3 2h5l0.3-2a7.5 7.5 0 002.6-1.5l2 0.8 1.7-3-1.7-1.3z" stroke="#fff" stroke-width="1.6" stroke-linejoin="round" />
+            </svg>
+        {% else %}
+            <svg width="26" height="26" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg" aria-hidden="true">
+                <circle cx="10.5" cy="10.5" r="6.5" stroke="#fff" stroke-width="2.2" />
+                <line x1="15.6" y1="15.6" x2="20" y2="20" stroke="#fff" stroke-width="2.2" stroke-linecap="round" />
+            </svg>
+        {% endif %}
+    </div>
+
+    <!-- Speech note -->
+    <div class="error-note">
+        <span class="error-note-text">
+            {% if mode == 'error' %}
+                <strong>Oops!</strong> Let's get you back on track.
+            {% else %}
+                Looks like this page took a vacation.
+            {% endif %}
+        </span>
+        <span class="error-note-face" aria-hidden="true">
+            <svg width="22" height="22" viewBox="0 0 24 24" fill="none" xmlns="http://www.w3.org/2000/svg">
+                <circle cx="12" cy="12" r="10" stroke="#6A6CF7" stroke-width="2" />
+                <circle cx="8.5" cy="10" r="1.3" fill="#6A6CF7" />
+                <circle cx="15.5" cy="10" r="1.3" fill="#6A6CF7" />
+                <path d="M8 14.5c1 1.3 2.4 2 4 2s3-0.7 4-2" stroke="#6A6CF7" stroke-width="2" stroke-linecap="round" />
+            </svg>
+        </span>
+    </div>
+</div>

@@ -8,9 +8,32 @@ css[] = "pages/404.css"
 {% put meta %}
     <meta name="turbo-visit-control" content="error">
 {% endput %}
-<div class="container page-404">
-    <div class="banner-404">
-        <h1>Error</h1>
-        <p>We're sorry, but something went wrong and the page cannot be displayed.</p>
+<div class="error-page">
+    <div class="container">
+        <div class="row align-items-center">
+            <div class="col-lg-6 error-404-content">
+                <span class="error-404-eyebrow">
+                    Error
+                </span>
+                <h1 class="error-404-heading">
+                    Something Went Wrong
+                </h1>
+                <p class="error-404-lead">
+                    We're sorry, but something went wrong and the page cannot be displayed. Please try again in a few moments.
+                </p>
+                <div class="error-404-actions">
+                    <a href="{{ 'index'|page }}" class="btn btn-primary btn-pill error-404-btn-home">
+                        Go to Homepage
+                        <span class="error-404-arrow" aria-hidden="true">&rarr;</span>
+                    </a>
+                    <a href="https://docs.octobercms.com/" class="btn btn-outline-secondary btn-pill">
+                        Browse Documentation
+                    </a>
+                </div>
+            </div>
+            <div class="col-lg-6 error-404-visual">
+                {% partial 'site/error-illustration' mode='error' %}
+            </div>
+        </div>
     </div>
 </div>

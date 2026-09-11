@@ -179,10 +179,6 @@ class Group extends FilterWidgetBase
             $nameColumn = $scope->nameFrom;
             $options = $this->getOptionsFromModel($searchQuery);
 
-            // Model relation values are not developer-authored, unlike the
-            // options/optionsMethod branch above, so they must be escaped
-            // before being rendered raw by the group filter template
-            // (see RecordFinder's _record_single.php/_record_multi.php).
             foreach ($options as $option) {
                 $available[$option->getKey()] = e($option->{$nameColumn});
             }
