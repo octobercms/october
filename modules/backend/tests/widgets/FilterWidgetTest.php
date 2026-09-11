@@ -23,11 +23,7 @@ class FilterWidgetTest extends PluginTestCase
     }
 
     /**
-     * A group scope's option label is developer-authored (from a model's
-     * options method or a plain config array), not end-user input, so it is
-     * passed through unescaped all the way to the AJAX response — the
-     * `{{{ name }}}` (unescaped) Mustache tag on the client is what's meant
-     * to render it. https://github.com/octobercms/october/issues/5935
+     * A group scope's config label is developer-authored, so it reaches the AJAX response raw for the unescaped `{{{ name }}}` tag to render.
      */
     public function testGroupScopeOptionLabelPreservesRawHtml()
     {
@@ -55,13 +51,7 @@ class FilterWidgetTest extends PluginTestCase
     }
 
     /**
-     * A group scope backed by a related model (no `options`/`optionsMethod`
-     * configured) pulls its label from a plain database column, which is not
-     * developer-authored, so it must stay HTML-escaped even though the
-     * template renders it with the unescaped `{{{ name }}}` Mustache tag —
-     * matching the RecordFinder precedent (`_record_single.php`,
-     * `_record_multi.php`, both call `e()` on their model-derived name).
-     * https://github.com/octobercms/october/issues/5935
+     * A group scope label pulled from a model column is not developer-authored, so it stays HTML-escaped before the unescaped `{{{ name }}}` tag renders it.
      */
     public function testGroupScopeOptionLabelFromModelRelationIsEscaped()
     {
