@@ -152,6 +152,21 @@ return [
 
     /*
     |--------------------------------------------------------------------------
+    | Determines if the theme data caching is enabled.
+    |--------------------------------------------------------------------------
+    |
+    | If the caching is enabled, theme customization records are cached between
+    | requests. Saving or deleting theme options busts that cache. Changes to
+    | form field definitions in theme.yaml are not invalidated automatically;
+    | use the clear cache command. It is recommended to disable the caching
+    | during the development, and enable it in the production mode.
+    |
+    */
+
+    'enable_data_cache' => env('CMS_DATA_CACHE', false),
+
+    /*
+    |--------------------------------------------------------------------------
     | Determines if the asset minification is enabled.
     |--------------------------------------------------------------------------
     |
