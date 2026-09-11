@@ -1,6 +1,7 @@
 <?php namespace Cms\Models;
 
-use Lang;
+use Cache;
+use Config;
 use Model;
 use Event;
 use October\Rain\Html\Helper as HtmlHelper;
@@ -8,7 +9,6 @@ use Cms\Classes\Theme as CmsTheme;
 use System\Classes\CombineAssets;
 use System\Models\File;
 use Exception;
-use PhpParser\Node\Stmt\Else_;
 
 /**
  * ThemeData for theme customization
@@ -66,6 +66,14 @@ class ThemeData extends Model
     protected static $instances = [];
 
     /**
+     * clear cached theme data when the record is removed.
+     */
+    public function afterDelete()
+    {
+        $this->clearCache($this->theme);
+    }
+
+    /**
      * beforeSave the model, strip dynamic attributes applied from config.
      */
     public function beforeSave()
@@ -87,6 +95,7 @@ class ThemeData extends Model
     public function afterSave()
     {
         try {
+            $this->clearCache($this->theme);
             CombineAssets::resetCache();
         }
         catch (Exception $ex) {
@@ -103,6 +112,13 @@ class ThemeData extends Model
             return $themeData;
         }
 
+        $cacheEnabled = Config::get('cms.enable_theme_data_cache');
+        $cacheKey = static::getCacheKey($dirName);
+
+        if ($cacheEnabled && is_array($cacheData = Cache::get($cacheKey))) {
+            return self::$instances[$dirName] = static::newFromCache($cacheData);
+        }
+
         try {
             $themeData = static::createThemeDataModel()->firstOrCreate(['theme' => $dirName]);
         }
@@ -113,7 +129,41 @@ class ThemeData extends Model
 
         $themeData->initFormFields();
 
-        return self::$instances[$dirName] = $themeData;
+        self::$instances[$dirName] = $themeData;
+
+        if ($cacheEnabled && $themeData->exists) {
+            Cache::put($cacheKey, static::getCacheableAttributes($themeData), now()->addMinutes(1440));
+        }
+
+        return $themeData;
+    }
+
+    /**
+     * getCacheableAttributes returns the persisted columns stored in cache
+     */
+    protected static function getCacheableAttributes(ThemeData $themeData): array
+    {
+        $data = $themeData->getOriginal('data') ?? $themeData->data;
+
+        if (is_string($data)) {
+            $data = json_decode($data, true) ?: [];
+        }
+
+        return [
+            'id' => $themeData->getOriginal('id') ?? $themeData->getKey(),
+            'theme' => $themeData->getOriginal('theme') ?? $themeData->theme,
+            'data' => (array) $data,
+            'created_at' => (string) ($themeData->getOriginal('created_at') ?? $themeData->created_at),
+            'updated_at' => (string) ($themeData->getOriginal('updated_at') ?? $themeData->updated_at),
+        ];
+    }
+
+    /**
+     * newFromCache rehydrates a model from cached row attributes
+     */
+    protected static function newFromCache(array $attributes): ThemeData
+    {
+        return static::createThemeDataModel()->newFromBuilder($attributes);
     }
 
     /**
@@ -135,6 +185,14 @@ class ThemeData extends Model
         }
 
         $this->setRawAttributes((array) $this->getAttributes() + $data, true);
+    }
+
+    /**
+     * clearCache forgets the stored query result
+     */
+    public function clearCache($dirName)
+    {
+        Cache::forget(static::getCacheKey($dirName));
     }
 
     /**
@@ -268,6 +326,14 @@ class ThemeData extends Model
                 $filter->setPresets($assetVars);
             }
         }
+    }
+
+    /**
+     * getCacheKey returns a cache key for this theme data record
+     */
+    public static function getCacheKey(string $theme): string
+    {
+        return 'cms.theme.data.'.$theme;
     }
 
     /**
