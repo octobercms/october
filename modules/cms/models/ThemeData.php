@@ -70,9 +70,7 @@ class ThemeData extends Model
      */
     public function afterDelete()
     {
-        if ($dirName = $this->theme) {
-            $this->clearCache($dirName);
-        }
+        $this->clearCache($this->theme);
     }
 
     /**
@@ -97,9 +95,7 @@ class ThemeData extends Model
     public function afterSave()
     {
         try {
-            if ($dirName = $this->theme) {
-                $this->clearCache($dirName);
-            }
+            $this->clearCache($this->theme);
             CombineAssets::resetCache();
         }
         catch (Exception $ex) {
@@ -116,11 +112,11 @@ class ThemeData extends Model
             return $themeData;
         }
 
-        $enableDataCache = Config::get('cms.enable_data_cache');
+        $cacheEnabled = Config::get('cms.enable_data_cache');
         $cacheKey = static::getCacheKey($dirName);
 
-        if ($enableDataCache && is_array($cached = Cache::get($cacheKey))) {
-            return self::$instances[$dirName] = static::newFromCache($cached);
+        if ($cacheEnabled && is_array($cacheData = Cache::get($cacheKey))) {
+            return self::$instances[$dirName] = static::newFromCache($cacheData);
         }
 
         try {
@@ -135,7 +131,7 @@ class ThemeData extends Model
 
         self::$instances[$dirName] = $themeData;
 
-        if ($enableDataCache && $themeData->exists) {
+        if ($cacheEnabled && $themeData->exists) {
             Cache::put($cacheKey, static::getCacheableAttributes($themeData), now()->addMinutes(1440));
         }
 
