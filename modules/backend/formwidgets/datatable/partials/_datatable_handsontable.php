@@ -4,7 +4,7 @@
     data-control="datatable"
     data-alias="<?= $this->alias ?>"
     data-columns='<?= e(json_encode($columns)) ?>'
-    data-data='<?= e(json_encode($value)) ?>'
+    data-data-locker="#<?= $this->getId('input') ?>"
     data-col-headers='<?= e(json_encode($colHeaders)) ?>'
     data-hot-options='<?= e(json_encode($hotOptions)) ?>'
     data-ajax-columns='<?= e(json_encode($ajaxColumns)) ?>'
@@ -47,5 +47,5 @@
 
     <div class="handsontable-container" data-hot-container></div>
 
-    <input type="hidden" name="<?= $name ?>" data-table-data>
+    <input type="hidden" id="<?= $this->getId('input') ?>" name="<?= $name ?>" value="<?= e(json_encode($value)) ?>" />
 </div>

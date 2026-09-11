@@ -13,13 +13,13 @@ registerControl('datatable', class extends ControlBase {
     init() {
         this.config = Object.assign({
             columns: [],
-            data: [],
             colHeaders: [],
             hotOptions: {},
             ajaxColumns: [],
             columnDependencies: {},
             alias: '',
-            fieldName: ''
+            fieldName: '',
+            dataLocker: null
         }, this.parseJsonConfig());
 
         this.hot = null;
@@ -28,7 +28,7 @@ registerControl('datatable', class extends ControlBase {
 
     connect() {
         this.containerEl = this.element.querySelector('[data-hot-container]');
-        this.dataInputEl = this.element.querySelector('[data-table-data]');
+        this.dataInputEl = this.element.querySelector(this.config.dataLocker);
 
         this.initHandsontable();
         this.bindToolbar();
@@ -55,7 +55,7 @@ registerControl('datatable', class extends ControlBase {
 
     parseJsonConfig() {
         var el = this.element;
-        var jsonKeys = ['columns', 'data', 'colHeaders', 'hotOptions', 'ajaxColumns', 'columnDependencies'];
+        var jsonKeys = ['columns', 'colHeaders', 'hotOptions', 'ajaxColumns', 'columnDependencies'];
         var result = {};
 
         for (var key in el.dataset) {
@@ -78,8 +78,9 @@ registerControl('datatable', class extends ControlBase {
         this.lastSelectedRow = null;
 
         var hasPlaceholder = !!(this.config.hotOptions && this.config.hotOptions.emptyDataState);
-        var initialData = this.config.data.length
-            ? this.config.data
+        var lockerData = this.getLockerData();
+        var initialData = lockerData.length
+            ? lockerData
             : (hasPlaceholder ? [] : [{}]);
 
         var hotOptions = Object.assign({}, this.config.hotOptions, {
@@ -243,6 +244,15 @@ registerControl('datatable', class extends ControlBase {
         }
 
         this.syncToHiddenInput();
+    }
+
+    getLockerData() {
+        try {
+            return JSON.parse(this.dataInputEl.value) || [];
+        }
+        catch (e) {
+            return [];
+        }
     }
 
     syncToHiddenInput() {
