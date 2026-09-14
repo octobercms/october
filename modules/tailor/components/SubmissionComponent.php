@@ -24,6 +24,14 @@ class SubmissionComponent extends ComponentModuleBase
     }
 
     /**
+     * onRun sets a default formSubmitted flag
+     */
+    public function onRun()
+    {
+        $this->controller->vars['formSubmitted'] = $this->controller->vars['formSubmitted'] ?? false;
+    }
+
+    /**
      * componentDetails
      */
     public function componentDetails()

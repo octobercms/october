@@ -21,6 +21,38 @@ class SubmissionComponentTest extends PluginTestCase
     }
 
     /**
+     * testOnRunDefaultsFormSubmittedToFalse
+     */
+    public function testOnRunDefaultsFormSubmittedToFalse()
+    {
+        $component = $this->makeComponent();
+
+        $component->onRun();
+
+        $this->assertFalse($component->getController()->vars['formSubmitted']);
+    }
+
+    /**
+     * testOnRunPreservesSubmittedState
+     */
+    public function testOnRunPreservesSubmittedState()
+    {
+        $component = $this->makeComponent(wizard: false);
+
+        $this->setPostData([
+            'name' => 'Jeff',
+            'email' => 'jeff@example.tld',
+        ]);
+
+        $component->onFormSubmit();
+        $this->assertTrue($component->getController()->vars['formSubmitted']);
+
+        $component->onRun();
+
+        $this->assertTrue($component->getController()->vars['formSubmitted']);
+    }
+
+    /**
      * testFormGetFieldsFilterByTag
      */
     public function testFormGetFieldsFilterByTag()
