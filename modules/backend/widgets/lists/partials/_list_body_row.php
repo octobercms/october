@@ -19,7 +19,7 @@
             }
         ?>
         <td class="<?= implode(' ', $classes) ?>">
-            <?php if ($column->clickable && !$action && ($action = $this->getRecordAction($record))): ?>
+            <?php if ($column->type !== 'file' && $column->clickable && !$action && ($action = $this->getRecordAction($record))): ?>
                 <a <?= $action[1] ?> href="<?= $action[0] ?>">
                     <?= $this->getColumnValue($record, $column) ?>
                 </a>
