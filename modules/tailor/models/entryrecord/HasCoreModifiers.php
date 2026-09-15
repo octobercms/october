@@ -34,12 +34,6 @@ trait HasCoreModifiers
             'scope',
         ];
 
-        // To remove from validation rules when hidden
-        $toInvalidate = [
-            'title',
-            'slug',
-        ];
-
         $fieldset = $this->getFieldsetDefinition();
         $formFields = $host->getFormFieldset();
 
@@ -47,9 +41,25 @@ trait HasCoreModifiers
             if ($modifier = $fieldset->getField($name)) {
                 $field->useConfig(array_only($modifier->getConfig(), $toTransfer));
             }
+        }
+    }
 
-            // Remove required validation for title field
-            if (in_array($name, $toInvalidate) && $field->hidden) {
+    /**
+     * applyCoreValidationModifiers drops rules for core fields the blueprint hides,
+     * so programmatic saves match the backend form behavior.
+     */
+    protected function applyCoreValidationModifiers()
+    {
+        $toInvalidate = [
+            'title',
+            'slug',
+        ];
+
+        $fieldset = $this->getFieldsetDefinition();
+
+        foreach ($toInvalidate as $name) {
+            $field = $fieldset->getField($name);
+            if ($field && $field->hidden) {
                 unset($this->rules[$name]);
             }
         }

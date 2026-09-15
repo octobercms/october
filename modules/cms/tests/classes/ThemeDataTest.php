@@ -14,6 +14,8 @@ class ThemeDataTest extends TestCase
         Config::set('cms.active_theme', 'test');
         Event::forget('cms.theme.getActiveTheme');
         Theme::resetCache();
+        Cache::flush();
+        ThemeData::flushEventListeners();
 
         $this->resetThemeDataInstances();
         $this->createThemeDataTable();

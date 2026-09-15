@@ -1,6 +1,7 @@
 <?php namespace Tailor\Components;
 
 use Tailor\Classes\BlueprintIndexer;
+use Tailor\Classes\ContentDecoder\SubmissionDecoder;
 use Tailor\Models\SubmissionRecord;
 use Cms\Classes\ComponentModuleBase;
 use ApplicationException;
@@ -112,6 +113,44 @@ class SubmissionComponent extends ComponentModuleBase
         }
 
         return $config;
+    }
+
+    /**
+     * formGetRejectedTypes accepts relation-backed types since the submission decoder guards them
+     */
+    public function formGetRejectedTypes(): array
+    {
+        return [];
+    }
+
+    /**
+     * formCoerceRelationValues extracts relation-backed values and applies them via the submission decoder
+     */
+    public function formCoerceRelationValues($model, array $data, array $allowedFields): array
+    {
+        $relationFields = [];
+        foreach ($this->formGetFieldConfig() as $name => $field) {
+            if (in_array($field['type'] ?? 'text', ['repeater', 'nestedform', 'entries'])) {
+                $relationFields[] = $name;
+            }
+        }
+
+        $relationFields = array_intersect($relationFields, $allowedFields);
+        if (!$relationFields) {
+            return $data;
+        }
+
+        // Nested uploaded files merge into their matching rows, postback values never can
+        $values = array_replace_recursive(
+            array_only($data, $relationFields),
+            array_only(files(), $relationFields)
+        );
+
+        if ($values) {
+            (new SubmissionDecoder($this))->decode($model, $values);
+        }
+
+        return array_except($data, $relationFields);
     }
 
     /**

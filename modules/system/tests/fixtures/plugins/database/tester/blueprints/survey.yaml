@@ -1,0 +1,69 @@
+uuid: unittest-survey-4b8de1a2
+handle: UnitTest\Survey
+type: submission
+name: Survey
+
+navigation:
+    icon: ph ph-clipboard-text
+    order: 112
+
+fields:
+    name:
+        label: Name
+        type: text
+        validation: required
+
+    post:
+        label: Related Post
+        type: entries
+        source: UnitTest\Post
+        maxItems: 1
+
+    answers:
+        label: Answers
+        type: repeater
+        form:
+            fields:
+                answer:
+                    label: Answer
+                    type: text
+
+                photo:
+                    label: Photo
+                    type: fileupload
+                    maxFiles: 1
+
+                followups:
+                    label: Follow Ups
+                    type: repeater
+                    form:
+                        fields:
+                            note:
+                                label: Note
+                                type: text
+
+    profile:
+        label: Profile
+        type: nestedform
+        form:
+            fields:
+                bio:
+                    label: Bio
+                    type: text
+
+    blocks:
+        label: Blocks
+        type: repeater
+        groups:
+            quote:
+                name: Quote
+                fields:
+                    text:
+                        label: Text
+                        type: text
+            code:
+                name: Code
+                fields:
+                    snippet:
+                        label: Snippet
+                        type: text

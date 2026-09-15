@@ -1,0 +1,20 @@
+uuid: unittest-note-8f31ab77
+handle: UnitTest\Note
+type: stream
+name: Note
+
+navigation:
+    icon: ph ph-note
+    order: 113
+
+fields:
+    title:
+        hidden: true
+
+    slug:
+        hidden: true
+
+    content:
+        label: Content
+        type: text
+        validation: required

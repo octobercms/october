@@ -40,6 +40,9 @@ trait DraftableModel
      */
     public function initializeDraftableModel()
     {
+        // Align the in-memory default with the schema default
+        $this->attributes[$this->getDraftModeColumnName()] ??= DraftableScope::MODE_PUBLISHED;
+
         if (!$this->isJsonable('primary_attrs')) {
             $this->addJsonable('primary_attrs');
         }

@@ -5,6 +5,7 @@ use BackendMenu;
 use Tailor\Classes\Blueprint;
 use Tailor\Classes\BlueprintIndexer;
 use Backend\Classes\WildcardController;
+use ApplicationException;
 use ForbiddenException;
 use NotFoundException;
 
@@ -115,6 +116,38 @@ class BulkActions extends WildcardController
         $model->extendWithBlueprint();
 
         return $model;
+    }
+
+    /**
+     * onImport enforces update and publish sub-permissions before delegating to the behavior.
+     */
+    public function onImport()
+    {
+        if (post('ImportOptions.update_existing') && !$this->hasSourcePermission()) {
+            throw new ApplicationException(__("You do not have permission to update existing records."));
+        }
+
+        if (!$this->hasSourcePermission('publish')) {
+            $matches = post('column_match', []);
+            $publishColumns = ['is_enabled', 'published_at', 'expired_at'];
+            foreach ($matches as $columnIndex => $dbNames) {
+                foreach ((array) $dbNames as $dbName) {
+                    if (in_array($dbName, $publishColumns, true)) {
+                        throw new ApplicationException(__("You do not have permission to publish records."));
+                    }
+                }
+            }
+        }
+
+        return $this->asExtension('ImportExportController')->onImport();
+    }
+
+    /**
+     * hasSourcePermission is a convenience wrapper checking a sub-permission on the active source.
+     */
+    protected function hasSourcePermission($name = null): bool
+    {
+        return $this->user->hasAccess($this->activeSource->getPermissionCodeName($name));
     }
 
     /**

@@ -112,7 +112,37 @@ class FormComponent extends ComponentBehavior
      */
     public function formGetFieldNames(): array
     {
-        return array_keys($this->component->formGetFieldConfig());
+        $result = [];
+        $rejectedTypes = $this->component->formGetRejectedTypes();
+
+        foreach ($this->component->formGetFieldConfig() as $name => $field) {
+            if (in_array($field['type'] ?? 'text', $rejectedTypes)) {
+                continue;
+            }
+
+            $result[] = $name;
+        }
+
+        return $result;
+    }
+
+    /**
+     * formGetRejectedTypes returns field types that never accept postback values
+     */
+    public function formGetRejectedTypes(): array
+    {
+        return [
+            'repeater',
+            'nestedform',
+        ];
+    }
+
+    /**
+     * formCoerceRelationValues lets the component apply relation-backed values under its own trust rules
+     */
+    public function formCoerceRelationValues($model, array $data, array $allowedFields): array
+    {
+        return $data;
     }
 
     /**
@@ -156,6 +186,9 @@ class FormComponent extends ComponentBehavior
         // File fields accept uploaded files only, never postback values
         $data = array_except(array_only(post(), $allowedFields), $fileFields);
         $files = $this->formGetValidatedFiles($fileFields);
+
+        // Relation-backed values pass through the component's trust rules
+        $data = $this->component->formCoerceRelationValues($model, $data, $allowedFields);
 
         $model->fill(array_merge($data, $files));
 
@@ -247,7 +280,7 @@ class FormComponent extends ComponentBehavior
     /**
      * formValidateFile validates a single uploaded file against size and extension rules
      */
-    protected function formValidateFile(string $name, mixed $file, array $fieldConfig): void
+    public function formValidateFile(string $name, mixed $file, array $fieldConfig): void
     {
         if (!$file instanceof UploadedFile || !$file->isValid()) {
             throw new ApplicationException(__('The uploaded file is not valid'));

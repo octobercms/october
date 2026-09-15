@@ -94,6 +94,9 @@ class WizardComponent extends FormComponent
         $data = array_except(array_only(post(), $allowedFields), $fileFields);
         $files = $this->formGetValidatedFiles($fileFields);
 
+        // Relation-backed values pass through the component's trust rules
+        $data = $this->component->formCoerceRelationValues($model, $data, $allowedFields);
+
         $model->fill(array_merge($data, $files));
 
         Event::fire('cms.form.beforeSubmit', [$this->component, $model]);
@@ -168,6 +171,9 @@ class WizardComponent extends FormComponent
         // File fields accept uploaded files only, never postback values
         $data = array_except(array_only(post(), $allowedFields), $fileFields);
         $files = $this->formGetValidatedFiles($fileFields);
+
+        // Relation-backed values pass through the component's trust rules
+        $data = $this->component->formCoerceRelationValues($model, $data, $allowedFields);
 
         $model->fill(array_merge($data, $files));
 

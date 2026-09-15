@@ -161,6 +161,10 @@ class ThemeData extends Model
      */
     protected static function newFromCache(array $attributes): ThemeData
     {
+        if (isset($attributes['data']) && !is_string($attributes['data'])) {
+            $attributes['data'] = json_encode((array) $attributes['data']);
+        }
+
         return static::createThemeDataModel()->newFromBuilder($attributes);
     }
 

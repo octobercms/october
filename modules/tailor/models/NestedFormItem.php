@@ -55,7 +55,7 @@ class NestedFormItem extends RepeaterItem
     /**
      * getFieldsetDefinition returns a fieldset for the selected content group.
      */
-    protected function getFieldsetDefinition(): Fieldset
+    public function getFieldsetDefinition(): Fieldset
     {
         return $this->getContentFieldsetDefinition();
     }

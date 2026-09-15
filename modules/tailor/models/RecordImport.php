@@ -3,6 +3,7 @@
 use Site;
 use Backend\Models\ImportModel;
 use Tailor\Classes\RecordIndexer;
+use Tailor\Classes\ContentDecoder\ImportDecoder;
 use October\Contracts\Element\ListElement;
 use October\Contracts\Element\FormElement;
 
@@ -68,6 +69,8 @@ class RecordImport extends ImportModel
      */
     public function importData($results, $sessionKey = null)
     {
+        $decoder = new ImportDecoder($this);
+
         foreach ($results as $row => $data) {
             // If id is empty, unset it so the database auto-increments
             if (!array_get($data, 'id')) {
@@ -91,9 +94,7 @@ class RecordImport extends ImportModel
             }
 
             // Update record
-            foreach ($data as $attr => $value) {
-                $this->decodeModelAttribute($record, $attr, $value, $sessionKey);
-            }
+            $decoder->decode($record, $data, $sessionKey);
             $record->forceSave(null, $sessionKey);
 
             RecordIndexer::instance()->process($record);
@@ -127,74 +128,10 @@ class RecordImport extends ImportModel
     }
 
     /**
-     * decodeModelAttribute
+     * decodeFileRelation widens visibility so the import decoder can delegate file handling.
      */
-    public function decodeModelAttribute($model, $attr, $value, $sessionKey)
+    public function decodeFileRelation($model, $attr, $value, $sessionKey)
     {
-        /**
-         * @event model.beforeImportAttribute
-         * Called when the model is importing an attribute
-         *
-         * Example usage:
-         *
-         *     $model->bindEvent('model.beforeImportAttribute', function (string $attr, mixed &$value) use (\October\Rain\Database\Model $model) {
-         *         // Apply data transformations
-         *         if ($attr === 'price') {
-         *             $value = (int) $value;
-         *         }
-         *     });
-         *
-         */
-        if ($this->fireEvent('model.beforeImportAttribute', [$attr, &$value], true) === false) {
-            return;
-        }
-
-        if ($model->hasRelation($attr)) {
-            $relationModel = $model->makeRelation($attr);
-            if ($relationModel instanceof RepeaterItem) {
-                $this->decodeRepeaterItems($model, $attr, $value, $sessionKey);
-            }
-            elseif ($relationModel instanceof \System\Models\File) {
-                $this->decodeFileRelation($model, $attr, $value, $sessionKey);
-            }
-            else {
-                $model->setRelationSimpleValue($attr, $value);
-            }
-        }
-        else {
-            $model->$attr = $value;
-        }
-    }
-
-    /**
-     * decodeRepeaterItems
-     */
-    protected function decodeRepeaterItems($model, $attr, $values, $sessionKey)
-    {
-        if ($model->isRelationTypeSingular($attr)) {
-            $values = [$values];
-        }
-
-        foreach ($values as $value) {
-            $item = $model->makeRelation($attr);
-            $item->content_group = $value['content_group'] ?? null;
-            $item->extendWithBlueprint();
-
-            $this->decodeRepeaterItem($item, $value, $sessionKey);
-
-            // Repeaters "has many" relations are without a session key
-            // and the saving chain is deferred in memory instead
-            $model->$attr()->add($item);
-        }
-    }
-
-    /**
-     * decodeRepeaterItem
-     */
-    protected function decodeRepeaterItem($model, $data, $sessionKey)
-    {
-        foreach ($data as $attr => $value) {
-            $this->decodeModelAttribute($model, $attr, $value, $sessionKey);
-        }
+        parent::decodeFileRelation($model, $attr, $value, $sessionKey);
     }
 }
