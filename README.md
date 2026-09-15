@@ -11,7 +11,7 @@ October's mission is to show the world that web development is not rocket scienc
 [![Version](https://img.shields.io/packagist/v/october/october)](https://octobercms.com/changelog)
 [![License](https://poser.pugx.org/october/october/license.svg)](./LICENSE.md)
 
-> *Please note*: October CMS is open source and every new account includes a complimentary license for the first year. After that, a license is required to continue receiving updates and access the Marketplace ecosystem.
+> *Please note*: October CMS is source-available software licensed under an [End User License Agreement](./LICENSE.md).
 
 ## Installing October
 
@@ -31,7 +31,7 @@ If you plan on using a database, run this command inside the application directo
 
 The best place to learn October CMS is by [reading the documentation](https://docs.octobercms.com) or [following some tutorials](https://octobercms.com/support/articles/tutorials).
 
-You may also watch this [introductory video](https://www.youtube.com/watch?v=yLZTOeOS7wI). Make sure to check out our [official YouTube channel](https://www.youtube.com/c/OctoberCMSOfficial). There is also the excellent video series by [Watch & Learn](https://watch-learn.com/series/making-websites-with-october-cms).
+You may also watch this [introductory video](https://www.youtube.com/watch?v=yLZTOeOS7wI). Make sure to check out our [official YouTube channel](https://www.youtube.com/c/OctoberCMSOfficial). There is also the excellent video series by [Watch & Learn](https://watch-learn.com/tag/octobercms/1/).
 
 For code examples of building with October CMS, visit the [RainLab Plugin Suite](https://github.com/rainlab) or the [October Demos Repo](https://github.com/octoberdemos).
 
