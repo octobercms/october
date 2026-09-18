@@ -1,5 +1,6 @@
 <?php namespace Cms\Models;
 
+use Cms\Classes\ThemeManager;
 use October\Rain\Halcyon\SourceFile as BaseSourceFile;
 
 /**
@@ -16,4 +17,24 @@ class SourceFile extends BaseSourceFile
      * @var string table associated with the model.
      */
     protected $table = 'cms_source_files';
+
+    /**
+     * boot the model and bust cached theme lang lines when a lang row changes.
+     */
+    public static function boot()
+    {
+        parent::boot();
+
+        $clearLangCache = function (self $row) {
+            if (!is_string($row->source) || !str_ends_with($row->source, '.lang')) {
+                return;
+            }
+
+            ThemeManager::clearDatabaseLangCache($row->source);
+        };
+
+        static::saved($clearLangCache);
+        static::deleted($clearLangCache);
+        static::restored($clearLangCache);
+    }
 }

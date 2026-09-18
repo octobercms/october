@@ -27,6 +27,7 @@ class LangTest extends TestCase
         Config::set('cms.active_theme', 'test');
         Event::forget('cms.theme.getActiveTheme');
         Theme::resetCache();
+        ThemeManager::clearDatabaseLangCache($this->source);
 
         $this->fixtureFile = base_path('modules/cms/tests/fixtures/themes/test/lang/en.json');
 
@@ -390,6 +391,91 @@ class LangTest extends TestCase
         $this->assertEquals('Hello', trans('hello'));
     }
 
+    public function testBootReusesCachedLangLines()
+    {
+        Config::set('cms.database_templates', true);
+
+        SourceFile::upsertAt($this->source, 'en.json', '{"hello":"Hola desde DB"}');
+        $this->bootTestTheme();
+
+        Db::table('cms_source_files')->where('source', $this->source)->where('path', 'en.json')->update([
+            'content' => '{"hello":"should not leak"}',
+        ]);
+
+        $this->resetMemoCache();
+        $this->bootTestTheme();
+
+        $this->assertEquals('Hola desde DB', trans('hello'));
+        $this->assertTrue(Cache::has(ThemeManager::getDatabaseLangCacheKey($this->source)));
+    }
+
+    public function testLangSaveBustsCachedLines()
+    {
+        Config::set('cms.database_templates', true);
+
+        SourceFile::upsertAt($this->source, 'en.json', '{"hello":"Hola desde DB"}');
+        $this->bootTestTheme();
+
+        SourceFile::upsertAt($this->source, 'en.json', '{"hello":"Updated"}');
+
+        $this->resetMemoCache();
+        $this->bootTestTheme();
+
+        $this->assertEquals('Updated', trans('hello'));
+    }
+
+    public function testLangTombstoneBustsCachedLines()
+    {
+        Config::set('cms.database_templates', true);
+
+        SourceFile::upsertAt($this->source, 'en.json', '{"hello":"Hola desde DB"}');
+        $this->bootTestTheme();
+
+        SourceFile::tombstoneAt($this->source, 'en.json');
+
+        $this->resetMemoCache();
+        $this->bootTestTheme();
+
+        $this->assertEquals('hello', trans('hello'));
+    }
+
+    public function testLangPurgeBustsCachedLines()
+    {
+        Config::set('cms.database_templates', true);
+
+        SourceFile::upsertAt($this->source, 'en.json', '{"hello":"Hola desde DB"}');
+        $this->bootTestTheme();
+
+        ThemeManager::instance()->purgeDatabaseLangs('test');
+
+        $this->assertFalse(Cache::has(ThemeManager::getDatabaseLangCacheKey($this->source)));
+
+        \Lang::addJsonPath(base_path('modules/cms/tests/fixtures/themes/test/lang'));
+        $this->resetMemoCache();
+        $this->bootTestTheme();
+
+        $this->assertEquals('Hello', trans('hello'));
+    }
+
+    public function testBootSkipsLangQueryWhenCached()
+    {
+        Config::set('cms.database_templates', true);
+
+        $this->bootTestTheme();
+        $this->resetMemoCache();
+
+        Db::flushQueryLog();
+        Db::enableQueryLog();
+
+        $this->bootTestTheme();
+
+        $queries = array_filter(Db::getQueryLog(), function ($query) {
+            return str_contains($query['query'], 'cms_source_files');
+        });
+
+        $this->assertCount(0, $queries);
+    }
+
     //
     // Helpers
     //
@@ -412,6 +498,17 @@ class LangTest extends TestCase
         $this->setProtectedProperty($manager, 'bootedThemes', []);
 
         $this->callProtectedMethod($manager, 'bootTheme', [Theme::load('test')]);
+    }
+
+    /**
+     * resetMemoCache drops the request-level memo map without flushing the
+     * persistent store, matching a later request in a new process.
+     */
+    protected function resetMemoCache(): void
+    {
+        $store = Cache::memo()->getStore();
+        $property = new ReflectionProperty($store, 'cache');
+        $property->setValue($store, []);
     }
 
     protected function createSourceFilesTable(): void
