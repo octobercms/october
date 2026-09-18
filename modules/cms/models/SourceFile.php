@@ -26,15 +26,12 @@ class SourceFile extends BaseSourceFile
         parent::boot();
 
         $clearLangCache = function (self $row) {
-            if (!is_string($row->source) || !str_ends_with($row->source, '.lang')) {
-                return;
+            if (str_ends_with((string) $row->source, '.lang')) {
+                ThemeManager::clearDatabaseLangCache($row->source);
             }
-
-            ThemeManager::clearDatabaseLangCache($row->source);
         };
 
         static::saved($clearLangCache);
         static::deleted($clearLangCache);
-        static::restored($clearLangCache);
     }
 }

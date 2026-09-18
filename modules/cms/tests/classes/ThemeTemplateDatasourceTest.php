@@ -52,8 +52,7 @@ class ThemeTemplateDatasourceTest extends TestCase
         $mtime = $datasource->lastModified('pages', 'index', 'htm');
         $this->assertNotNull($mtime);
         $this->assertTrue($datasource->isTemplateTrashed('pages', 'hidden', 'htm'));
-        $this->assertTrue(Cache::has(ThemeTemplateDatasource::mtimeCacheKey('cms_theme_templates', 'test')));
-        $this->assertTrue(Cache::has(ThemeTemplateDatasource::trashedCacheKey('cms_theme_templates', 'test')));
+        $this->assertTrue(Cache::has(ThemeTemplateDatasource::cacheKey('test')));
 
         $this->resetRequestCache();
 
@@ -73,15 +72,12 @@ class ThemeTemplateDatasourceTest extends TestCase
         $datasource->lastModified('pages', 'index', 'htm');
         $datasource->isTemplateTrashed('pages', 'index', 'htm');
 
-        $mtimeKey = ThemeTemplateDatasource::mtimeCacheKey('cms_theme_templates', 'test');
-        $trashedKey = ThemeTemplateDatasource::trashedCacheKey('cms_theme_templates', 'test');
-        $this->assertTrue(Cache::has($mtimeKey));
-        $this->assertTrue(Cache::has($trashedKey));
+        $cacheKey = ThemeTemplateDatasource::cacheKey('test');
+        $this->assertTrue(Cache::has($cacheKey));
 
         $datasource->insert('pages', 'extra', 'htm', 'url = "/extra"');
 
-        $this->assertFalse(Cache::has($mtimeKey));
-        $this->assertFalse(Cache::has($trashedKey));
+        $this->assertFalse(Cache::has($cacheKey));
 
         Db::flushQueryLog();
         Db::enableQueryLog();
@@ -98,22 +94,7 @@ class ThemeTemplateDatasourceTest extends TestCase
 
         ThemeManager::instance()->purgeDatabaseTemplates('test');
 
-        $this->assertFalse(Cache::has(ThemeTemplateDatasource::mtimeCacheKey('cms_theme_templates', 'test')));
-        $this->assertFalse(Cache::has(ThemeTemplateDatasource::trashedCacheKey('cms_theme_templates', 'test')));
-    }
-
-    public function testExtendQuerySkipsPersistentCache()
-    {
-        $datasource = $this->makeDatasource();
-        $datasource->bindEvent('halcyon.datasource.db.extendQuery', function () {
-            //
-        });
-
-        $datasource->lastModified('pages', 'index', 'htm');
-        $datasource->isTemplateTrashed('pages', 'index', 'htm');
-
-        $this->assertFalse(Cache::has(ThemeTemplateDatasource::mtimeCacheKey('cms_theme_templates', 'test')));
-        $this->assertFalse(Cache::has(ThemeTemplateDatasource::trashedCacheKey('cms_theme_templates', 'test')));
+        $this->assertFalse(Cache::has(ThemeTemplateDatasource::cacheKey('test')));
     }
 
     protected function makeDatasource(): ThemeTemplateDatasource

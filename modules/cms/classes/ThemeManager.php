@@ -123,7 +123,9 @@ class ThemeManager
             return;
         }
 
-        $this->registerDatabaseLangLines($loader, $lines);
+        foreach ($lines as $locale => $localeLines) {
+            $loader->addJsonLines($locale, $localeLines);
+        }
     }
 
     /**
@@ -165,17 +167,6 @@ class ThemeManager
     }
 
     /**
-     * registerDatabaseLangLines applies cached or loaded lines to the translator.
-     * Locales absent from the map are left to the filesystem.
-     */
-    protected function registerDatabaseLangLines($loader, array $lines): void
-    {
-        foreach ($lines as $locale => $localeLines) {
-            $loader->addJsonLines($locale, $localeLines);
-        }
-    }
-
-    /**
      * getDatabaseLangCacheKey returns the cache key for a lang source
      */
     public static function getDatabaseLangCacheKey(string $source): string
@@ -185,7 +176,7 @@ class ThemeManager
 
     /**
      * clearDatabaseLangCache forgets stored lang lines for a source.
-     * Called when a lang row is saved, tombstoned, restored, or purged.
+     * Called when a lang row is saved, tombstoned, or purged.
      */
     public static function clearDatabaseLangCache(?string $source): void
     {
@@ -193,9 +184,7 @@ class ThemeManager
             return;
         }
 
-        $cacheKey = static::getDatabaseLangCacheKey($source);
-        Cache::forget($cacheKey);
-        Cache::memo()->forget($cacheKey);
+        Cache::memo()->forget(static::getDatabaseLangCacheKey($source));
     }
 
     /**

@@ -2,18 +2,14 @@
 
 use Cache;
 use Exception;
-use Carbon\Carbon;
 use October\Rain\Halcyon\Datasource\DbDatasource;
 
 /**
  * ThemeTemplateDatasource caches the template index between requests.
  *
- * Looking up a template checks cms_theme_templates for its mtime and for
- * tombstones. Those two indexes are already cached in memory for the current
- * process; this class also stores them in the application cache so the next
- * request does not query the database. Saving, deleting, or purging templates
- * busts that cache. Listeners on halcyon.datasource.db.extendQuery can change
- * the query, so the persistent cache is skipped while any are bound.
+ * The mtime and tombstone indexes are already cached in memory for the
+ * current process. This stores both in one application cache entry so the
+ * next request does not query. Saving, deleting, or purging templates busts it.
  *
  * @package october\cms
  * @author Alexey Bobkov, Samuel Georges
@@ -25,121 +21,83 @@ class ThemeTemplateDatasource extends DbDatasource
      */
     public function lastModified(string $dirName, string $fileName, string $extension): ?int
     {
-        if (!$this->usesPersistentIndexCache()) {
-            return parent::lastModified($dirName, $fileName, $extension);
-        }
-
         try {
-            $this->rememberMtimeCache();
-
-            $path = $this->makeFilePath($dirName, $fileName, $extension);
-            if (!isset(self::$mtimeCache[$this->source][$path])) {
-                return null;
-            }
-
-            return Carbon::parse(self::$mtimeCache[$this->source][$path])->timestamp;
+            $this->rememberIndexes();
         }
         catch (Exception $ex) {
             return null;
         }
+
+        return parent::lastModified($dirName, $fileName, $extension);
     }
 
     /**
-     * getTrashedPaths returns cached tombstoned paths for this datasource source
+     * getTrashedPaths returns tombstoned paths for this datasource source
      */
     protected function getTrashedPaths(): array
     {
-        if (!$this->usesPersistentIndexCache()) {
-            return parent::getTrashedPaths();
-        }
+        $this->rememberIndexes();
 
-        if (!isset(self::$trashedPathCache[$this->source])) {
-            $cacheKey = static::trashedCacheKey($this->table, $this->source);
-            $cached = Cache::memo()->get($cacheKey);
-
-            if (is_array($cached)) {
-                self::$trashedPathCache[$this->source] = $cached;
-            }
-            else {
-                self::$trashedPathCache[$this->source] = array_fill_keys(
-                    $this->getQuery(false)->whereNotNull('deleted_at')->pluck('path')->all(),
-                    true
-                );
-
-                Cache::memo()->put($cacheKey, self::$trashedPathCache[$this->source], now()->addMinutes(1440));
-            }
-        }
-
-        return self::$trashedPathCache[$this->source];
+        return parent::getTrashedPaths();
     }
 
     /**
-     * flushCache drops the in-memory indexes and the persistent copies
+     * flushCache drops the in-memory indexes and the persistent copy
      */
     protected function flushCache()
     {
         parent::flushCache();
 
-        static::clearCache($this->source, $this->table);
+        static::clearCache($this->source);
     }
 
     /**
-     * clearCache forgets the stored indexes for a theme source.
+     * clearCache forgets the stored index for a theme source.
      * Used when rows are removed outside this datasource, such as a purge.
      */
-    public static function clearCache(string $source, string $table = 'cms_theme_templates')
+    public static function clearCache(string $source)
     {
         unset(self::$pathCache[$source], self::$mtimeCache[$source], self::$trashedPathCache[$source]);
 
-        foreach ([static::mtimeCacheKey($table, $source), static::trashedCacheKey($table, $source)] as $cacheKey) {
-            Cache::forget($cacheKey);
-            Cache::memo()->forget($cacheKey);
-        }
+        Cache::memo()->forget(static::cacheKey($source));
     }
 
     /**
-     * mtimeCacheKey returns the cache key for active template mtimes
+     * cacheKey returns the cache key for a theme's template index
      */
-    public static function mtimeCacheKey(string $table, string $source): string
+    public static function cacheKey(string $source): string
     {
-        return 'cms.theme.templates.mtime.'.$table.'.'.$source;
+        return 'cms.theme.templates.'.$source;
     }
 
     /**
-     * trashedCacheKey returns the cache key for tombstoned template paths
+     * rememberIndexes fills the in-memory mtime and tombstone indexes from
+     * cache, or from the database when the cache is cold.
      */
-    public static function trashedCacheKey(string $table, string $source): string
+    protected function rememberIndexes(): void
     {
-        return 'cms.theme.templates.trashed.'.$table.'.'.$source;
-    }
-
-    /**
-     * rememberMtimeCache fills the in-memory mtime index from cache or the database
-     */
-    protected function rememberMtimeCache(): void
-    {
-        if (isset(self::$mtimeCache[$this->source])) {
+        if (isset(self::$mtimeCache[$this->source], self::$trashedPathCache[$this->source])) {
             return;
         }
 
-        $cacheKey = static::mtimeCacheKey($this->table, $this->source);
+        $cacheKey = static::cacheKey($this->source);
         $cached = Cache::memo()->get($cacheKey);
 
-        if (is_array($cached)) {
-            self::$mtimeCache[$this->source] = $cached;
+        if (is_array($cached['mtime'] ?? null) && is_array($cached['trashed'] ?? null)) {
+            self::$mtimeCache[$this->source] = $cached['mtime'];
+            self::$trashedPathCache[$this->source] = $cached['trashed'];
             return;
         }
 
         self::$mtimeCache[$this->source] = $this->getQuery()->pluck('updated_at', 'path')->all();
+        self::$trashedPathCache[$this->source] = array_fill_keys(
+            $this->getQuery(false)->whereNotNull('deleted_at')->pluck('path')->all(),
+            true
+        );
 
-        Cache::memo()->put($cacheKey, self::$mtimeCache[$this->source], now()->addMinutes(1440));
-    }
-
-    /**
-     * usesPersistentIndexCache is false when a listener may change the query
-     */
-    protected function usesPersistentIndexCache(): bool
-    {
-        return empty($this->emitterEventCollection['halcyon.datasource.db.extendQuery']);
+        Cache::memo()->put($cacheKey, [
+            'mtime' => self::$mtimeCache[$this->source],
+            'trashed' => self::$trashedPathCache[$this->source],
+        ], now()->addMinutes(1440));
     }
 }
