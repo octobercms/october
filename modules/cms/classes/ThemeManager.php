@@ -162,7 +162,7 @@ class ThemeManager
             $lines[$locale] = is_array($decoded) ? $decoded : [];
         }
 
-        Cache::memo()->put($cacheKey, $lines, now()->addMinutes(1440));
+        Cache::memo()->forever($cacheKey, $lines);
 
         return $lines;
     }
