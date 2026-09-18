@@ -1,7 +1,6 @@
 /*
  * Code Blocks
  */
-import $ from 'jquery';
 import CodeMirror  from 'codemirror';
 import 'codemirror/lib/codemirror.css';
 import 'codemirror/theme/twilight.css';
@@ -11,7 +10,9 @@ import 'codemirror/mode/clike/clike';
 import 'codemirror/mode/xml/xml';
 import 'codemirror/addon/mode/multiplex';
 
-$(document).on('render', function() {
+const $ = window.jQuery;
+
+function renderCodeBlocks() {
     $('.code-block > pre').each(function () {
         if (this.dataset.disposable) {
             return;
@@ -43,8 +44,7 @@ $(document).on('render', function() {
         });
     });
 
-});
+}
 
-$(document).on('click', '.expand-code', function () {
-    $(this).closest('.collapsed-code-block').removeClass('collapsed');
-});
+$(renderCodeBlocks);
+$(document).on('render', renderCodeBlocks);

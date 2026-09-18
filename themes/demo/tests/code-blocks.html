@@ -1,0 +1,79 @@
+<!doctype html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <title>Demo code-block loading regression</title>
+    <link rel="stylesheet" href="../assets/css/elements/code.css">
+    <script src="../assets/vendor/jquery.min.js"></script>
+    <script src="../assets/js/code-blocks.js" defer
+        data-script="../assets/vendor/codeblocks/codeblocks.min.js"
+        data-stylesheet="../assets/vendor/codeblocks/codeblocks.min.css"></script>
+</head>
+<body>
+    <h1>Code-block loading regression</h1>
+    <pre id="results">Running…</pre>
+    <main id="samples"></main>
+    <script>
+        const samples = document.querySelector('#samples');
+        const initial = new URLSearchParams(location.search).has('initial');
+        function insertSample(language = 'php') {
+            samples.innerHTML = '<div class="code-block collapsed-code-block collapsed">'
+                + '<pre data-language="' + language + '"></pre><button class="expand-code">Expand</button></div>';
+            samples.querySelector('pre').textContent = language === 'php' ? '<?php echo "Hello";' : '{{ title }}';
+        }
+        if (initial) insertSample();
+
+        function assert(condition, message) {
+            if (!condition) throw new Error(message);
+            results.push('PASS: ' + message);
+        }
+        const results = [];
+        function waitFor(check) {
+            return new Promise((resolve, reject) => {
+                const deadline = Date.now() + 5000;
+                const timer = setInterval(() => {
+                    if (check()) { clearInterval(timer); resolve(); }
+                    else if (Date.now() > deadline) { clearInterval(timer); reject(new Error('Timed out waiting for highlighting')); }
+                }, 25);
+            });
+        }
+        function render() {
+            document.dispatchEvent(new CustomEvent('render', { bubbles: true }));
+        }
+        window.addEventListener('load', async () => {
+            try {
+                if (!initial) {
+                    assert(!document.querySelector('script[src*="codeblocks.min.js"]'), 'No editor script on a page without code');
+                    assert(!document.querySelector('link[href*="codeblocks.min.css"]'), 'No editor CSS on a page without code');
+                    insertSample();
+                    render();
+                    render();
+                }
+                await waitFor(() => samples.querySelector('.CodeMirror'));
+                assert(samples.querySelector('.CodeMirror').CodeMirror.getValue() === '<?php echo "Hello";', 'Initial or AJAX-inserted PHP text preserved');
+                assert(document.querySelector('link[href*="codeblocks.min.css"]').sheet !== null, 'Styles loaded before editor initialization');
+                assert(samples.querySelector('.CodeMirror').CodeMirror.getOption('readOnly') === true, 'Code samples remain read-only');
+                samples.querySelector('.expand-code').click();
+                assert(!samples.querySelector('.code-block').classList.contains('collapsed'), 'Expand control still works');
+
+                render();
+                render();
+                assert(samples.querySelectorAll('.CodeMirror').length === 1, 'Repeated render does not duplicate editors');
+                insertSample('twig');
+                render();
+                await waitFor(() => samples.querySelector('.CodeMirror'));
+                assert(samples.querySelector('.CodeMirror').CodeMirror.getValue() === '{{ title }}', 'Replacement Twig fragment highlighted');
+                assert(document.querySelectorAll('script[src*="codeblocks.min.js"]').length === 1, 'Editor script requested once');
+                assert(document.querySelectorAll('link[href*="codeblocks.min.css"]').length === 1, 'Editor CSS requested once');
+                document.querySelector('#results').textContent = results.join('\n');
+                document.documentElement.dataset.testResult = 'passed';
+            }
+            catch (error) {
+                document.querySelector('#results').textContent = results.join('\n') + '\nFAIL: ' + error.message;
+                document.documentElement.dataset.testResult = 'failed';
+                throw error;
+            }
+        });
+    </script>
+</body>
+</html>
