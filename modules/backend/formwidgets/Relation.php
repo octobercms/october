@@ -278,6 +278,7 @@ class Relation extends FormWidgetBase
         // Add quick create option to dropdown
         if ($this->hasQuickCreate()) {
             $field->options = $this->addQuickCreateOption($field->options);
+            $this->applyQuickCreateFieldDefaults($field);
         }
 
         return $this->renderFormField = $field;
@@ -418,6 +419,11 @@ class Relation extends FormWidgetBase
      */
     public function getSaveValue($value)
     {
+        // The quick create sentinel option is never a valid value
+        if ($value === '__quick_create__') {
+            return null;
+        }
+
         if (is_string($value) && !strlen($value)) {
             return null;
         }

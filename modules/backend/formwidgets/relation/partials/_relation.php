@@ -11,6 +11,9 @@
             <?php if ($popupSize = $this->quickCreateConfig['popupSize'] ?? null): ?>
                 data-popup-size="<?= e($popupSize) ?>"
             <?php endif ?>
+            <?php if ($quickCreated ?? false): ?>
+                data-quick-created="true"
+            <?php endif ?>
         >
             <?= $this->makePartial('~/modules/backend/widgets/form/partials/_field_'.$field->type.'.php', [
                 'field' => $field

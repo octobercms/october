@@ -11951,6 +11951,17 @@
                 }
             ]
         },
+        "permissions": {
+            "properties": {
+                "code": {
+                    "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
         "scopes": {
             "additionalProperties": {
                 "$ref": "#/definitions/AnyScope"

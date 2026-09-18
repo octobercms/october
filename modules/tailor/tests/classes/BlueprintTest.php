@@ -117,6 +117,29 @@ class BlueprintTest extends TestCase
         ], $blueprints->pluck('fileName')->all());
     }
 
+    /**
+     * testPermissionCodeName checks the default and custom permission code generation
+     */
+    public function testPermissionCodeName()
+    {
+        $blueprint = new EntryBlueprint(['uuid' => '6947ff28-b660-47d7-9240-24ca6d58aeae']);
+        $this->assertEquals('tailor.entry.6947ff28b66047d7924024ca6d58aeae', $blueprint->getPermissionCodeName());
+        $this->assertEquals('tailor.entry.6947ff28b66047d7924024ca6d58aeae.create', $blueprint->getPermissionCodeName('create'));
+
+        $blueprint = new EntryBlueprint([
+            'uuid' => '6947ff28-b660-47d7-9240-24ca6d58aeae',
+            'permissions' => ['code' => 'blog_tags'],
+        ]);
+        $this->assertEquals('tailor.entry.blog_tags', $blueprint->getPermissionCodeName());
+        $this->assertEquals('tailor.entry.blog_tags.delete', $blueprint->getPermissionCodeName('delete'));
+
+        $blueprint = new GlobalBlueprint([
+            'uuid' => '03ea35df-c3b6-4a35-b21c-979c9cf372a2',
+            'permissions' => ['code' => 'blog_config'],
+        ]);
+        $this->assertEquals('tailor.global.blog_config', $blueprint->getPermissionCodeName());
+    }
+
     public function testAssignUuid()
     {
         $this->markTestSkipped('Needs refactor to isolate blueprint paths');

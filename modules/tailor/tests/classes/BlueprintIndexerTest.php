@@ -112,6 +112,42 @@ class BlueprintIndexerTest extends TestCase
     }
 
     /**
+     * testPermissionConfigWithCustomCodeAndLabel checks the permissions blueprint
+     * property can override the generated permission code and label.
+     */
+    public function testPermissionConfigWithCustomCodeAndLabel()
+    {
+        $indexer = BlueprintIndexer::instance();
+
+        $blueprint = new \Tailor\Classes\Blueprint\StreamBlueprint([
+            'uuid' => '6947ff28-b660-47d7-9240-24ca6d58aeae',
+            'handle' => 'Blog\Tag',
+            'name' => 'Tag',
+            'permissions' => [
+                'code' => 'blog_tags',
+                'label' => 'Blog Tags',
+            ],
+        ]);
+
+        $config = self::callProtectedMethod($indexer, 'buildPermissionConfig', [$blueprint]);
+        $this->assertEquals('tailor.entry.blog_tags', $config['prefix']);
+        $this->assertEquals('Blog Tags', $config['label']);
+        $this->assertEquals('Update Blog Tags Entries', $config['baseLabel']);
+
+        // Defaults apply when the property is absent
+        $blueprint = new \Tailor\Classes\Blueprint\StreamBlueprint([
+            'uuid' => '6947ff28-b660-47d7-9240-24ca6d58aeae',
+            'handle' => 'Blog\Tag',
+            'name' => 'Tag',
+        ]);
+
+        $config = self::callProtectedMethod($indexer, 'buildPermissionConfig', [$blueprint]);
+        $this->assertEquals('tailor.entry.6947ff28b66047d7924024ca6d58aeae', $config['prefix']);
+        $this->assertEquals('Tag', $config['label']);
+        $this->assertEquals('Update Tag Entries', $config['baseLabel']);
+    }
+
+    /**
      * testThemeContextResolvesInactiveThemeBlueprint checks a theme context lets
      * an inactive theme's blueprint resolve, as needed when seeding that theme.
      */

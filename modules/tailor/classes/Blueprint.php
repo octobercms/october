@@ -829,11 +829,12 @@ class Blueprint extends Extendable
     }
 
     /**
-     * getPermissionCodeName
+     * getPermissionCodeName returns the permission code, which can be customized with the
+     * permissions.code blueprint property, also used to share permissions between blueprints
      */
     public function getPermissionCodeName($name = null): string
     {
-        $code = str_replace('-', '', $this->uuid);
+        $code = $this->getPermissionsOption('code') ?: str_replace('-', '', $this->uuid);
 
         if ($this instanceof \Tailor\Classes\Blueprint\GlobalBlueprint) {
             $prefix = 'tailor.global.';
@@ -845,6 +846,14 @@ class Blueprint extends Extendable
         $suffix = $name !== null ? '.' . $name : '';
 
         return $prefix . $code . $suffix;
+    }
+
+    /**
+     * getPermissionsOption returns an option from the permissions blueprint property
+     */
+    public function getPermissionsOption(string $key)
+    {
+        return is_array($this->permissions) ? ($this->permissions[$key] ?? null) : null;
     }
 
     /**

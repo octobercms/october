@@ -107,6 +107,17 @@ trait HasQuickCreate
     }
 
     /**
+     * applyQuickCreateFieldDefaults ensures an empty option exists so the quick create
+     * option is never selected by default when no entries are available
+     */
+    protected function applyQuickCreateFieldDefaults($field)
+    {
+        if (!$field->placeholder && !$field->getConfig('emptyOption')) {
+            $field->placeholder = __("Select");
+        }
+    }
+
+    /**
      * onLoadQuickCreateForm AJAX handler to render the popup form
      */
     public function onLoadQuickCreateForm()
@@ -139,6 +150,7 @@ trait HasQuickCreate
         $this->formField->value = $newModel->getKey();
 
         $this->prepareVars();
+        $this->vars['quickCreated'] = true;
 
         return ['#' . $this->getId() => $this->makePartial('relation')];
     }

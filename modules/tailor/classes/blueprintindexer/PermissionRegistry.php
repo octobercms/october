@@ -101,28 +101,30 @@ trait PermissionRegistry
      */
     protected function buildPermissionConfig($blueprint): ?array
     {
+        $name = $blueprint->getPermissionsOption('label') ?: $blueprint->name;
+
         $config = [];
         $config['prefix'] = $blueprint->getPermissionCodeName();
         $config['uuid'] = $blueprint->uuid;
         $config['handle'] = $blueprint->handle;
-        $config['label'] = $blueprint->name;
+        $config['label'] = $name;
 
         if ($blueprint instanceof EntryBlueprint) {
             $config['useMulti'] = true;
             $config['usePublish'] = true;
             $config['useDrafts'] = $blueprint->useDrafts();
-            $config['baseLabel'] = __('Update :name Entries', ['name' => $blueprint->name]);
+            $config['baseLabel'] = __('Update :name Entries', ['name' => $name]);
 
             if ($blueprint instanceof SingleBlueprint) {
                 $config['useMulti'] = false;
                 $config['usePublish'] = true;
                 $config['useDrafts'] = $blueprint->useDrafts();
-                $config['baseLabel'] = __('Update :name', ['name' => $blueprint->name]);
+                $config['baseLabel'] = __('Update :name', ['name' => $name]);
             }
         }
 
         if ($blueprint instanceof GlobalBlueprint) {
-            $config['baseLabel'] = __('Update :name', ['name' => $blueprint->name]);
+            $config['baseLabel'] = __('Update :name', ['name' => $name]);
         }
 
         return $config;

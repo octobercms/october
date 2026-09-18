@@ -146,7 +146,6 @@ export default class CustomSelectControl extends ControlBase {
 
     buildTokenSeparatorOptions(selectOptions, separators) {
         selectOptions.tags = true;
-        selectOptions.allowClear = false;
         selectOptions.tokenSeparators = separators.split('|');
 
         // When the dropdown is hidden, force the first option to be selected always.

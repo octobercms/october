@@ -5,7 +5,8 @@ registerControl('relation-quick-create', class extends ControlBase {
         this.config = Object.assign({
             handlerLoad: null,
             quickCreateValue: '__quick_create__',
-            popupSize: null
+            popupSize: null,
+            quickCreated: false
         }, this.config);
         this.previousValue = null;
     }
@@ -14,7 +15,19 @@ registerControl('relation-quick-create', class extends ControlBase {
         this.$el = $(this.element);
         this.$select = this.$el.find('select').first();
         this.previousValue = this.$select.val();
+
+        // Never revert to the sentinel value if it was selected by default
+        if (this.previousValue === this.config.quickCreateValue) {
+            this.previousValue = '';
+        }
+
         this.listen('change', 'select', this.onSelectChange);
+
+        // Notify dependent fields after a record is quick created
+        if (this.config.quickCreated) {
+            this.element.removeAttribute('data-quick-created');
+            this.$select.trigger('change');
+        }
     }
 
     disconnect() {
