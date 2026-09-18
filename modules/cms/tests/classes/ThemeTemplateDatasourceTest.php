@@ -35,7 +35,7 @@ class ThemeTemplateDatasourceTest extends TestCase
             $theme = Theme::load('test');
             $primary = $this->getProtectedProperty($theme->getDatasource(), 'primaryDatasource');
 
-            $this->assertInstanceOf(ThemeTemplateDatasource::class, $primary);
+            $this->assertInstanceOf(DbDatasource::class, $primary);
         }
         finally {
             $this->forgetRegisteredDatasource('test');
@@ -52,7 +52,7 @@ class ThemeTemplateDatasourceTest extends TestCase
         $mtime = $datasource->lastModified('pages', 'index', 'htm');
         $this->assertNotNull($mtime);
         $this->assertTrue($datasource->isTemplateTrashed('pages', 'hidden', 'htm'));
-        $this->assertTrue(Cache::has(ThemeTemplateDatasource::cacheKey('test')));
+        $this->assertTrue(Cache::has($this->indexCacheKey()));
 
         $this->resetRequestCache();
 
@@ -72,7 +72,7 @@ class ThemeTemplateDatasourceTest extends TestCase
         $datasource->lastModified('pages', 'index', 'htm');
         $datasource->isTemplateTrashed('pages', 'index', 'htm');
 
-        $cacheKey = ThemeTemplateDatasource::cacheKey('test');
+        $cacheKey = $this->indexCacheKey();
         $this->assertTrue(Cache::has($cacheKey));
 
         $datasource->insert('pages', 'extra', 'htm', 'url = "/extra"');
@@ -94,12 +94,17 @@ class ThemeTemplateDatasourceTest extends TestCase
 
         ThemeManager::instance()->purgeDatabaseTemplates('test');
 
-        $this->assertFalse(Cache::has(ThemeTemplateDatasource::cacheKey('test')));
+        $this->assertFalse(Cache::has($this->indexCacheKey()));
     }
 
-    protected function makeDatasource(): ThemeTemplateDatasource
+    protected function makeDatasource(): DbDatasource
     {
-        return new ThemeTemplateDatasource('test', 'cms_theme_templates');
+        return ThemeTemplateDatasource::make('test');
+    }
+
+    protected function indexCacheKey(): string
+    {
+        return 'halcyon.db.'.ThemeTemplateDatasource::TABLE.'.test';
     }
 
     protected function templateQueries(): array

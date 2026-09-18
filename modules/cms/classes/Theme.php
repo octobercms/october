@@ -570,7 +570,7 @@ class Theme implements CallsMethods
 
         // Database layer
         if ($this->databaseLayerEnabled()) {
-            $datasources[] = new ThemeTemplateDatasource($this->dirName, 'cms_theme_templates');
+            $datasources[] = ThemeTemplateDatasource::make($this->dirName);
         }
 
         // Current / child theme
