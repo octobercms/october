@@ -5,10 +5,12 @@ use App;
 use Lang;
 use Yaml;
 use File;
+use Cache;
 use System;
 use Cms\Classes\Theme as CmsTheme;
 use Cms\Models\SourceFile;
 use October\Rain\Composer\ComposerManager;
+use October\Rain\Halcyon\Datasource\DbDatasource;
 use ApplicationException;
 use Exception;
 
@@ -94,12 +96,13 @@ class ThemeManager
 
     /**
      * injectDatabaseLangLines registers any DB-backed lang strings for the
-     * theme directly with the translator. Each locale that has either an
-     * active row or a tombstone becomes authoritative through the database
-     * layer; the corresponding on-disk JSON file is skipped for that locale
-     * (an empty array is registered for tombstoned locales so the disk file
-     * does not leak through). Only runs when database_templates is active
-     * for the theme.
+     * theme directly with the translator. Results are cached between requests
+     * and busted when a lang row is saved, tombstoned, or purged. Each locale
+     * that has either an active row or a tombstone becomes authoritative
+     * through the database layer; the corresponding on-disk JSON file is
+     * skipped for that locale (an empty array is registered for tombstoned
+     * locales so the disk file does not leak through). Only runs when
+     * database_templates is active for the theme.
      */
     protected function injectDatabaseLangLines(CmsTheme $theme): void
     {
@@ -115,26 +118,74 @@ class ThemeManager
         $source = 'theme.'.$theme->getDirName().'.lang';
 
         try {
-            $rows = SourceFile::withTrashed()->bySource($source)->get();
+            $lines = $this->loadDatabaseLangLines($source);
         }
         catch (Exception $ex) {
             return;
         }
 
-        foreach ($rows as $row) {
+        foreach ($lines as $locale => $localeLines) {
+            $loader->addJsonLines($locale, $localeLines);
+        }
+    }
+
+    /**
+     * loadDatabaseLangLines returns locale lines for a lang source, using the
+     * application cache when a previous request already loaded them. An empty
+     * array is cached too, so a theme with no database overrides does not
+     * query on every request. Tombstones are stored as an empty line set so
+     * the filesystem copy stays suppressed.
+     */
+    protected function loadDatabaseLangLines(string $source): array
+    {
+        $cacheKey = static::getDatabaseLangCacheKey($source);
+        $cached = Cache::memo()->get($cacheKey);
+
+        if (is_array($cached)) {
+            return $cached;
+        }
+
+        $lines = [];
+
+        foreach (SourceFile::withTrashed()->bySource($source)->get() as $row) {
             $locale = pathinfo($row->path, PATHINFO_FILENAME);
             if (!$locale) {
                 continue;
             }
 
             if ($row->trashed()) {
-                $loader->addJsonLines($locale, []);
+                $lines[$locale] = [];
                 continue;
             }
 
             $decoded = json_decode((string) $row->getContents(), true);
-            $loader->addJsonLines($locale, is_array($decoded) ? $decoded : []);
+            $lines[$locale] = is_array($decoded) ? $decoded : [];
         }
+
+        Cache::memo()->forever($cacheKey, $lines);
+
+        return $lines;
+    }
+
+    /**
+     * getDatabaseLangCacheKey returns the cache key for a lang source
+     */
+    public static function getDatabaseLangCacheKey(string $source): string
+    {
+        return 'cms.theme.lang.'.$source;
+    }
+
+    /**
+     * clearDatabaseLangCache forgets stored lang lines for a source.
+     * Called when a lang row is saved, tombstoned, or purged.
+     */
+    public static function clearDatabaseLangCache(?string $source): void
+    {
+        if (!$source) {
+            return;
+        }
+
+        Cache::memo()->forget(static::getDatabaseLangCacheKey($source));
     }
 
     /**
@@ -469,6 +520,8 @@ class ThemeManager
     public function purgeDatabaseTemplates(string $dirName)
     {
         Db::table('cms_theme_templates')->where('source', $dirName)->delete();
+
+        DbDatasource::clearCache($dirName, 'cms_theme_templates');
     }
 
     /**
@@ -525,6 +578,8 @@ class ThemeManager
         $source = 'theme.'.$dirName.'.lang';
 
         SourceFile::withTrashed()->bySource($source)->forceDelete();
+
+        static::clearDatabaseLangCache($source);
     }
 
     /**
