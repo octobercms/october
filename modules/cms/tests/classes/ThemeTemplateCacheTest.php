@@ -2,24 +2,23 @@
 
 use Cms\Classes\Theme;
 use Cms\Classes\ThemeManager;
-use Cms\Classes\ThemeTemplateDatasource;
 use October\Rain\Database\Schema\Blueprint;
 use October\Rain\Halcyon\Datasource\DbDatasource;
 
-class ThemeTemplateDatasourceTest extends TestCase
+class ThemeTemplateCacheTest extends TestCase
 {
     public function setUp(): void
     {
         parent::setUp();
 
         Config::set('cms.database_templates', false);
-        ThemeTemplateDatasource::clearCache('test');
+        DbDatasource::clearCache('test', 'cms_theme_templates');
         $this->createTemplatesTable();
     }
 
     public function tearDown(): void
     {
-        ThemeTemplateDatasource::clearCache('test');
+        DbDatasource::clearCache('test', 'cms_theme_templates');
         Schema::dropIfExists('cms_theme_templates');
         Config::set('cms.database_templates', false);
 
@@ -99,12 +98,12 @@ class ThemeTemplateDatasourceTest extends TestCase
 
     protected function makeDatasource(): DbDatasource
     {
-        return ThemeTemplateDatasource::make('test');
+        return new DbDatasource('test', 'cms_theme_templates');
     }
 
     protected function indexCacheKey(): string
     {
-        return 'halcyon.db.'.ThemeTemplateDatasource::TABLE.'.test';
+        return 'halcyon.db.cms_theme_templates.test';
     }
 
     protected function templateQueries(): array

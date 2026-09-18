@@ -10,6 +10,7 @@ use System;
 use Cms\Classes\Theme as CmsTheme;
 use Cms\Models\SourceFile;
 use October\Rain\Composer\ComposerManager;
+use October\Rain\Halcyon\Datasource\DbDatasource;
 use ApplicationException;
 use Exception;
 
@@ -520,7 +521,7 @@ class ThemeManager
     {
         Db::table('cms_theme_templates')->where('source', $dirName)->delete();
 
-        ThemeTemplateDatasource::clearCache($dirName);
+        DbDatasource::clearCache($dirName, 'cms_theme_templates');
     }
 
     /**

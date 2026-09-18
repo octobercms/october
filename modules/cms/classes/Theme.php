@@ -15,6 +15,7 @@ use DirectoryIterator;
 use ApplicationException;
 use Cms\Models\ThemeData;
 use Backend\Models\UserPreference;
+use October\Rain\Halcyon\Datasource\DbDatasource;
 use October\Rain\Halcyon\Datasource\AutoDatasource;
 use October\Rain\Halcyon\Datasource\FileDatasource;
 use October\Rain\Halcyon\Datasource\DatasourceInterface;
@@ -570,7 +571,7 @@ class Theme implements CallsMethods
 
         // Database layer
         if ($this->databaseLayerEnabled()) {
-            $datasources[] = ThemeTemplateDatasource::make($this->dirName);
+            $datasources[] = new DbDatasource($this->dirName, 'cms_theme_templates');
         }
 
         // Current / child theme
