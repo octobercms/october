@@ -242,6 +242,10 @@ export const DocumentComponentBase = {
             throw new Error('getSaveDocumentData must be implemented in DocumentComponentBase descendants.');
         },
 
+        getSaveEnvelope: function getSaveEnvelope(documentData) {
+            return null;
+        },
+
         getMainUiDocumentProperties: function getMainUiDocumentProperties() {
             throw new Error(
                 'getMainUiDocumentProperties must be implemented in DocumentComponentBase descendants. This method must return a list of properties that can be edited without opening the Settings popup.'
@@ -267,18 +271,25 @@ export const DocumentComponentBase = {
             const timeoutPromise = new TimeoutPromise();
             const lastSavedData = inspectorDocumentData ? inspectorDocumentData : this.documentData;
             const isNewDocument = this.documentMetadata.isNewDocument;
+            const saveEnvelope = this.getSaveEnvelope(documentData);
 
             this.processing = true;
 
             try {
-                let data = await this.ajaxRequest('onCommand', {
+                const requestData = {
                     extension: this.namespace,
                     command: 'onSaveDocument',
                     documentData: documentData,
                     documentMetadata: this.documentMetadata,
                     documentForceSave: force ? 1 : 0,
                     extraData: typeof extraData === 'object' ? extraData : null
-                });
+                };
+
+                if (saveEnvelope) {
+                    requestData.__ajax = saveEnvelope;
+                }
+
+                let data = await this.ajaxRequest('onCommand', requestData);
 
                 await timeoutPromise.make(data);
 

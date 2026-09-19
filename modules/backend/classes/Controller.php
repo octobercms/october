@@ -14,7 +14,6 @@ use BackendAuth;
 use Backend\Models\UserPreference;
 use Backend\Models\Preference as BackendPreference;
 use October\Rain\Exception\SystemException;
-use October\Rain\Exception\ValidationException;
 use October\Rain\Exception\ApplicationException;
 use October\Rain\Extension\Extendable;
 use Illuminate\Database\Eloquent\MassAssignmentException;
@@ -22,6 +21,7 @@ use Larajax\Exceptions\ComponentNotFound;
 use Larajax\Exceptions\HandlerNameInvalid;
 use Larajax\Exceptions\HandlerNotFound;
 use Larajax\Contracts\AjaxControllerInterface;
+use Illuminate\Validation\ValidationException;
 use ForbiddenException;
 use Throwable;
 

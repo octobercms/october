@@ -3,6 +3,7 @@
 use App;
 use BackendAuth;
 use Backend\Models\EditorSetting;
+use Backend\Classes\RichEditorManager;
 use System\Classes\VueComponentBase;
 
 /**
@@ -79,46 +80,13 @@ class RichEditor extends VueComponentBase
     }
 
     /**
-     * getGlobalButtons
+     * getGlobalButtons returns the configured default toolbar buttons, or null
+     * when unset so the client-side registry defaults (oc.richEditor) apply
      */
-    protected function getGlobalButtons()
+    protected function getGlobalButtons(): ?array
     {
-        $result = EditorSetting::getConfigured('html_toolbar_buttons');
-        if (!$result) {
-            return $this->getDefaultButtons();
-        }
+        $result = RichEditorManager::instance()->getDefaultButtons();
 
-        $result = explode(',', $result);
-        $buttons = [];
-        foreach ($result as $button) {
-            $buttons[] = trim($button);
-        }
-
-        return $buttons;
-    }
-
-    /**
-     * getDefaultButtons returns the default toolbar button set, matching
-     * oc.richEditorButtons which may not be available in all contexts.
-     */
-    protected function getDefaultButtons()
-    {
-        return [
-            'paragraphFormat',
-            'align',
-            'bold',
-            'italic',
-            'underline',
-            '|',
-            'formatOL',
-            'formatUL',
-            '|',
-            'insertSnippet',
-            'insertTable',
-            'insertPageLink',
-            'insertImage',
-            'insertHR',
-            'html'
-        ];
+        return $result !== null ? explode(',', $result) : null;
     }
 }

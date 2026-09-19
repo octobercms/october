@@ -10,8 +10,8 @@
         <?php if ($readOnly): ?>data-read-only="true"<?php endif ?>
         <?php if ($useMediaManager): ?>data-use-media-manager="true"<?php endif ?>
         <?php if ($editorLang): ?>data-editor-lang="<?= $editorLang ?>"<?php endif ?>
-        <?php if ($toolbarButtons): ?>data-toolbar-buttons="<?= implode(',', $toolbarButtons) ?>"
-        <?php elseif ($globalToolbarButtons): ?>data-toolbar-buttons="<?= str_replace(" ", "", $globalToolbarButtons) ?>"<?php endif ?>
+        <?php if ($toolbarButtons): ?>data-toolbar-buttons="<?= implode(',', $toolbarButtons) ?>"<?php endif ?>
+        <?php if ($globalToolbarButtons): ?>data-global-toolbar-buttons="<?= str_replace(" ", "", $globalToolbarButtons) ?>"<?php endif ?>
         <?php if ($allowEmptyTags): ?>data-allow-empty-tags="<?= e($allowEmptyTags) ?>"<?php endif ?>
         <?php if ($allowTags): ?>data-allow-tags="<?= e($allowTags) ?>"<?php endif ?>
         <?php if ($allowAttrs): ?>data-allow-attrs="<?= e($allowAttrs) ?>"<?php endif ?>

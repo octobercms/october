@@ -4,6 +4,7 @@ use App;
 use Config;
 use BackendAuth;
 use Backend\Classes\FormWidgetBase;
+use Backend\Classes\RichEditorManager;
 use Backend\Models\EditorSetting;
 
 /**
@@ -24,9 +25,15 @@ class RichEditor extends FormWidgetBase
     public $fullPage = false;
 
     /**
-     * @var bool Determines whether content has HEAD and HTML tags.
+     * @var string|array|null toolbarButtons to display, used verbatim.
      */
     public $toolbarButtons;
+
+    /**
+     * @var string|null toolbar references a named toolbar definition by its code,
+     * registered via the registerRichEditorToolbars registration method.
+     */
+    public $toolbar;
 
     /**
      * @var bool If true, the editor is set to read-only mode
@@ -86,6 +93,7 @@ class RichEditor extends FormWidgetBase
             'fullPage',
             'readOnly',
             'toolbarButtons',
+            'toolbar',
             'legacyMode',
             'showMargins',
             'useLineBreaks',
@@ -129,7 +137,7 @@ class RichEditor extends FormWidgetBase
         $this->vars['useMediaManager'] = BackendAuth::userHasAccess('media.library');
         $this->vars['legacyMode'] = $this->legacyMode;
 
-        $this->vars['globalToolbarButtons'] = EditorSetting::getConfigured('html_toolbar_buttons');
+        $this->vars['globalToolbarButtons'] = RichEditorManager::instance()->getDefaultButtons();
         $this->vars['allowEmptyTags'] = EditorSetting::getConfigured('html_allow_empty_tags');
         $this->vars['allowTags'] = EditorSetting::getConfigured('html_allow_tags');
         $this->vars['allowAttrs'] = EditorSetting::getConfigured('html_allow_attrs');
@@ -147,20 +155,25 @@ class RichEditor extends FormWidgetBase
     }
 
     /**
-     * evalToolbarButtons to use based on config.
-     * @return string
+     * evalToolbarButtons resolves the button list from field config, where a
+     * named toolbar definition applies when no verbatim buttons are given
      */
-    protected function evalToolbarButtons()
+    protected function evalToolbarButtons(): ?array
     {
         $buttons = $this->toolbarButtons;
 
         if (is_string($buttons)) {
-            $buttons = array_map(function ($button) {
+            return array_map(function ($button) {
                 return strlen($button) ? $button : '|';
             }, explode('|', $buttons));
         }
 
-        return $buttons;
+        if (!$buttons && $this->toolbar) {
+            $definition = RichEditorManager::instance()->getToolbarButtons($this->toolbar);
+            return $definition !== null ? explode(',', $definition) : null;
+        }
+
+        return $buttons ?: null;
     }
 
     /**

@@ -1,0 +1,21 @@
+# ===================================
+#  Field Definitions
+# ===================================
+
+fields:
+    label:
+        label: Label
+        span: auto
+
+    code:
+        label: API Code
+        span: auto
+
+    description:
+        label: Description
+        span: full
+
+    buttons:
+        label: Toolbar Buttons
+        type: toolbarbuilder
+        span: full

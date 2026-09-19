@@ -69,6 +69,14 @@ class FormComponent extends ComponentBehavior
     ];
 
     /**
+     * beforeDisplay seeds the default form page variables so templates can reference them before submission
+     */
+    public function beforeDisplay()
+    {
+        $this->controller->vars['formSubmitted'] ??= false;
+    }
+
+    /**
      * formGetFields returns field metadata for use in Twig templates.
      *
      * Each field is returned as an array with keys: name, label, type,

@@ -4,6 +4,22 @@
 
 tabs:
     fields:
+        toolbars:
+            label: Toolbar Buttons
+            commentAbove: Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.
+            tab: Toolbar Buttons
+            type: relation
+            span: full
+            controller:
+                label: Toolbar
+                view:
+                    list: ~/modules/backend/models/editortoolbar/columns.yaml
+                    toolbarButtons: create|delete
+                    defaultSort:
+                        column: label
+                        direction: asc
+                manage:
+                    form: ~/modules/backend/models/editortoolbar/fields.yaml
 
         html_custom_styles:
             label: Custom Stylesheet
@@ -127,20 +143,6 @@ tabs:
             type: textarea
             size: small
             span: auto
-
-        html_toolbar_buttons:
-            label: Toolbar Buttons
-            comment: The Toolbar Buttons to be displayed in the Rich Editor by default.
-            tab: Toolbar Buttons
-            type: textarea
-            span: left
-
-        _html_toolbar_buttons_presets:
-            label: Insert a preset toolbar button configuration
-            tab: Toolbar Buttons
-            type: partial
-            path: ~/modules/backend/models/editorsetting/_toolbar_presets.php
-            span: right
 
         html_allow_attrs:
             label: Allowed Attributes

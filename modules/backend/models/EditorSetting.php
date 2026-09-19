@@ -6,6 +6,7 @@ use Cache;
 use Config;
 use System;
 use Less_Parser;
+use Backend\Classes\RichEditorManager;
 use System\Models\SettingModel;
 use Exception;
 
@@ -125,17 +126,10 @@ class EditorSetting extends SettingModel
     ];
 
     /**
-     * @var array editorToolbarPresets for Froala
+     * @var array hasMany relations
      */
-    protected $editorToolbarPresets = [
-        'default' => 'paragraphFormat, paragraphStyle, quote, bold, italic, align, formatOL, formatUL, insertTable,
-                      insertSnippet, insertPageLink, insertImage, insertVideo, insertAudio, insertFile, insertHR, fullscreen, html',
-        'minimal' => 'bold, italic, underline, |, insertSnippet, insertPageLink, insertImage, |, html',
-        'full'    => 'undo, redo, |, bold, italic, underline, |, paragraphFormat, paragraphStyle, inlineStyle, |,
-                      strikeThrough, subscript, superscript, clearFormatting, |, fontFamily, fontSize, |, color,
-                      emoticons, icons, -, selectAll, |, align, formatOL, formatUL, outdent, indent, quote, |, insertHR,
-                      insertSnippet, insertPageLink, insertImage, insertVideo, insertAudio, insertFile, insertTable, |, selectAll,
-                      html, fullscreen',
+    public $hasMany = [
+        'toolbars' => [EditorToolbar::class, 'key' => 'setting_id'],
     ];
 
     /**
@@ -172,6 +166,15 @@ class EditorSetting extends SettingModel
     }
 
     /**
+     * beforeSettingsDisplay syncs the registered rich editor toolbar
+     * definitions when the editor settings page is displayed
+     */
+    public function beforeSettingsDisplay()
+    {
+        RichEditorManager::instance()->syncToolbars();
+    }
+
+    /**
      * beforeSave
      */
     public function beforeSave()
@@ -202,24 +205,25 @@ class EditorSetting extends SettingModel
             'html_style_table_cell',
         ];
 
-        $value = $this->value;
-
         foreach ($styleFields as $field) {
-            if (is_array($value[$field] ?? null)) {
-                foreach ($value[$field] as $key => $row) {
-                    if (isset($row['class_name'])) {
-                        // Only allow valid CSS class characters: letters, digits, hyphens, underscores
-                        $value[$field][$key]['class_name'] = preg_replace(
-                            '/[^a-zA-Z0-9_-]/',
-                            '',
-                            $row['class_name']
-                        );
-                    }
+            $value = $this->$field;
+            if (!is_array($value)) {
+                continue;
+            }
+
+            foreach ($value as $key => $row) {
+                if (isset($row['class_name'])) {
+                    // Only allow valid CSS class characters: letters, digits, hyphens, underscores
+                    $value[$key]['class_name'] = preg_replace(
+                        '/[^a-zA-Z0-9_-]/',
+                        '',
+                        $row['class_name']
+                    );
                 }
             }
-        }
 
-        $this->value = $value;
+            $this->$field = $value;
+        }
     }
 
     /**
@@ -328,16 +332,6 @@ class EditorSetting extends SettingModel
         $property = 'default'.studly_case($attribute);
 
         return $this->$property;
-    }
-
-    /**
-     * getEditorToolbarPresets returns the editor toolbar presets without line breaks.
-     */
-    public function getEditorToolbarPresets(): array
-    {
-        return array_map(function($value) {
-            return preg_replace('/\s+/', ' ', $value);
-        }, $this->editorToolbarPresets);
     }
 
     /**

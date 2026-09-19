@@ -98,6 +98,10 @@ class Settings extends Controller
 
             $model = $this->createModel($item);
 
+            if (method_exists($model, 'beforeSettingsDisplay')) {
+                $model->beforeSettingsDisplay();
+            }
+
             $this->initWidgets($model);
         }
         catch (Exception $ex) {
@@ -178,6 +182,10 @@ class Settings extends Controller
         $widget = $this->makeWidget(\Backend\Widgets\Form::class, $config);
         $widget->bindToController();
         $this->formWidget = $widget;
+
+        if ($this->isClassExtendedWith(\Backend\Behaviors\RelationController::class)) {
+            $this->initRelation($model);
+        }
     }
 
     /**

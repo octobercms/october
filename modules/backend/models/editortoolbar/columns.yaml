@@ -1,0 +1,21 @@
+# ===================================
+#  Column Definitions
+# ===================================
+
+columns:
+    label:
+        label: Label
+        searchable: true
+
+    code:
+        label: Code
+        searchable: true
+
+    description:
+        label: Description
+        searchable: true
+
+    is_modified:
+        label: Modified
+        type: switch
+        sortable: false

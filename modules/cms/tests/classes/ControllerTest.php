@@ -340,6 +340,53 @@ class ControllerTest extends TestCase
         $this->assertEquals('Name is invalid', $content['__ajax']['invalid']['name'][0]);
     }
 
+    public function testPostbackHandlerLaravelValidationExceptionPopulatesErrors()
+    {
+        Config::set('system.enable_csrf_protection', false);
+        Request::swap(\Illuminate\Http\Request::create('/ajax-test', 'POST', ['_handler' => 'onThrowLaravelValidation']));
+
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $controller->run('/ajax-test');
+
+        $errors = $controller->vars['errors'];
+        $this->assertInstanceOf(\Illuminate\Support\ViewErrorBag::class, $errors);
+        $this->assertEquals('Name is invalid', $errors->getBag('default')->first('name'));
+    }
+
+    public function testAjaxApiResponseHandlesLaravelValidationException()
+    {
+        $validator = \Validator::make([], ['name' => 'required'], ['name.required' => 'Name is invalid']);
+        $validator->fails();
+        $exception = new \Illuminate\Validation\ValidationException($validator);
+
+        $response = new \Cms\Classes\AjaxApiResponse;
+        $response->setHandlerException($exception);
+
+        $this->assertEquals(422, $response->getStatusCode());
+        $content = $response->getOriginalContent();
+        $this->assertEquals('Name is invalid', $content['error']['message']);
+        $this->assertArrayHasKey('name', $content['error']['fields']);
+        $this->assertEquals('Name is invalid', $content['error']['fields']['name'][0]);
+    }
+
+    public function testAjaxHandlerLaravelValidationExceptionReturns422()
+    {
+        Request::swap($this->configAjaxRequestMock('onThrowLaravelValidation', ''));
+
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/ajax-test');
+
+        $this->assertInstanceOf(\Larajax\Classes\AjaxResponse::class, $response);
+        $httpResponse = $response->toResponse(request());
+        $content = $httpResponse->getOriginalContent();
+        $this->assertFalse($content['__ajax']['ok']);
+        $this->assertEquals(422, $httpResponse->getStatusCode());
+        $this->assertArrayHasKey('name', $content['__ajax']['invalid']);
+        $this->assertEquals('Name is invalid', $content['__ajax']['invalid']['name'][0]);
+    }
+
     public function testAjaxPartialCaptureGenericExceptionIsMasked()
     {
         Config::set('app.debug', false);

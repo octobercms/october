@@ -1,4 +1,8 @@
+import { bootEngine } from '../../../../formwidgets/richeditor/assets/js/richeditor.engine.froala.js';
+
 function initFroala(component) {
+    bootEngine();
+
     const options = JSON.parse(component.$el.getAttribute('data-configuration'));
     const $textarea = $(component.$refs.textarea);
     let froalaOptions = {
@@ -12,17 +16,10 @@ function initFroala(component) {
         froalaOptions.enter = $.FroalaEditor.ENTER_BR;
     }
 
-    if (Array.isArray(component.toolbarButtons) && component.toolbarButtons.length > 0) {
-        froalaOptions.toolbarButtons = component.toolbarButtons;
-    }
-    else {
-        if (options.globalToolbarButtons) {
-            froalaOptions.toolbarButtons = options.globalToolbarButtons;
-        }
-        else {
-            froalaOptions.toolbarButtons = component.defaultButtons;
-        }
-    }
+    froalaOptions.toolbarButtons = oc.richEditor.resolveButtons({
+        fieldButtons: component.toolbarButtons,
+        globalButtons: options.globalToolbarButtons
+    });
 
     froalaOptions.imageStyles = options.imageStyles
         ? options.imageStyles
@@ -186,7 +183,6 @@ export default {
     data: function() {
         return {
             editorId: $.oc.domIdManager.generate('richeditor'),
-            defaultButtons: oc.richEditorButtons,
             editor: null,
             lastCachedValue: this.modelValue
         };

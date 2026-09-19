@@ -41,6 +41,7 @@
 <script src="<?= Url::assetRelative('modules/system/assets/js/vendor.js') ?>"></script>
 <script src="<?= Url::assetRelative('modules/system/assets/js/framework-bundle.min.js') ?>"></script>
 <script src="<?= Url::assetRelative('modules/system/assets/js/foundation.js') ?>"></script>
+<script src="<?= Url::assetRelative('modules/backend/formwidgets/richeditor/assets/js/richeditor.api.js') ?>"></script>
 <script src="<?= Url::assetRelative('modules/system/assets/js/lang/lang.'.App::getLocale().'.js') ?>"></script>
 <script type="module" src="<?= Url::assetRelative('modules/system/assets/js/main.js') ?>"></script>
 <script type="module" src="<?= Backend::skinAsset('assets/js/main.js') ?>"></script>

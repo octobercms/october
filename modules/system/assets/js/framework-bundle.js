@@ -1318,12 +1318,19 @@ window['${id}']();`;
         this.getAsFormData()
       );
     }
-    getAsJsonData() {
-      return JSON.stringify(
-        this.convertFormDataToJson(
-          this.getAsFormData()
-        )
+    getAsJsonObject() {
+      return this.convertFormDataToJson(
+        this.getAsFormData()
       );
+    }
+    getAsJsonData() {
+      const formData = this.getAsFormData();
+      const jsonData = this.convertFormDataToJson(formData);
+      const orders = this.buildOrderManifest(formData);
+      if (orders.length) {
+        jsonData.__ajax = { orders };
+      }
+      return JSON.stringify(jsonData);
     }
     // Private
     appendSingleInputElement(requestData) {
@@ -1378,6 +1385,27 @@ window['${id}']();`;
         }
       }).join("&");
     }
+    buildOrderManifest(formData) {
+      const ordersByPath = {};
+      Array.from(formData.keys()).forEach((name) => {
+        const segments = name.match(/[^\]\[]+/g) || [];
+        for (let i = 1; i < segments.length; i++) {
+          const key = segments[i];
+          if (!isIntegerKey(key)) {
+            continue;
+          }
+          const parentPath = segments.slice(0, i);
+          const pathKey = parentPath.join("\0");
+          if (!ordersByPath[pathKey]) {
+            ordersByPath[pathKey] = { path: parentPath, keys: [] };
+          }
+          if (!ordersByPath[pathKey].keys.includes(key)) {
+            ordersByPath[pathKey].keys.push(key);
+          }
+        }
+      });
+      return Object.values(ordersByPath).filter((entry) => entry.keys.length > 1);
+    }
     convertFormDataToJson(formData) {
       let flatData = this.formDataToArray(formData);
       let jsonData = {};
@@ -1409,6 +1437,9 @@ window['${id}']();`;
   };
   function isElementInput(el) {
     return ["input", "select", "textarea"].includes((el.tagName || "").toLowerCase());
+  }
+  function isIntegerKey(key) {
+    return /^(0|[1-9][0-9]*)$/.test(key);
   }
 
   // ../../vendor/larajax/larajax/resources/src/util/http-request.js
@@ -1790,7 +1821,7 @@ window['${id}']();`;
       }
       if (this.options.query) {
         this.actions.invoke("applyQueryToUrl", [
-          this.options.query !== true ? this.options.query : JSON.parse(dataObj.getAsJsonData())
+          this.options.query !== true ? this.options.query : dataObj.getAsJsonObject()
         ]);
       }
       const { url, headers, method } = Options.fetch(this.handler, this.options);

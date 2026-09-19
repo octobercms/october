@@ -1,5 +1,6 @@
 import { ControlBase, registerControl } from 'larajax';
 import RichEditorFormWidget from '../../../../vuecomponents/richeditordocumentconnector/assets/js/formwidget.js';
+import { bootEngine } from './richeditor.engine.froala.js';
 
 /*
  * Rich text editor form field control (WYSIWYG)
@@ -27,6 +28,7 @@ registerControl('richeditor', class extends ControlBase {
             editorOptions: null,
             useMediaManager: false,
             toolbarButtons: null,
+            globalToolbarButtons: null,
             allowEmptyTags: null,
             allowTags: null,
             allowAttrs: null,
@@ -87,6 +89,8 @@ registerControl('richeditor', class extends ControlBase {
     }
 
     initFroala() {
+        bootEngine();
+
         var froalaOptions = {
             ...this.config.editorOptions,
             editorClass: 'control-richeditor',
@@ -100,12 +104,10 @@ registerControl('richeditor', class extends ControlBase {
             froalaOptions.enter = $.FroalaEditor.ENTER_BR;
         }
 
-        if (this.config.toolbarButtons) {
-            froalaOptions.toolbarButtons = this.config.toolbarButtons.split(',');
-        }
-        else {
-            froalaOptions.toolbarButtons = oc.richEditorButtons;
-        }
+        froalaOptions.toolbarButtons = oc.richEditor.resolveButtons({
+            fieldButtons: this.config.toolbarButtons,
+            globalButtons: this.config.globalToolbarButtons
+        });
 
         froalaOptions.imageStyles = this.config.imageStyles
             ? this.config.imageStyles
@@ -430,33 +432,3 @@ registerControl('richeditor', class extends ControlBase {
         });
     }
 });
-
-// BUTTON DEFINITIONS
-// =================
-
-oc.richEditorRegisterButton = $.FE.RegisterCommand;
-
-oc.richEditorButtons = [
-    'paragraphFormat',
-    'align',
-    'bold',
-    'italic',
-    'underline',
-    '|',
-    'formatOL',
-    'formatUL',
-    '|',
-    'insertSnippet',
-    'insertTable',
-    'insertPageLink',
-    'insertImage',
-    'insertHR',
-    'html'
-];
-
-// @deprecated backwards compatibility
-if ($.oc === undefined) {
-    $.oc = {};
-}
-
-$.oc.richEditorButtons = oc.richEditorButtons;

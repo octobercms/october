@@ -2,9 +2,9 @@
 
 use Illuminate\Http\Response;
 use October\Rain\Exception\ApplicationException;
-use October\Rain\Exception\ValidationException;
 use October\Rain\Exception\ForbiddenException;
 use October\Rain\Exception\NotFoundException;
+use Illuminate\Validation\ValidationException;
 use Illuminate\Http\RedirectResponse;
 use ArrayAccess;
 
@@ -112,7 +112,7 @@ class AjaxApiResponse extends Response implements ArrayAccess
 
         if ($exception instanceof ValidationException) {
             $this->setStatusCode(422);
-            $error['fields'] = $exception->getFields();
+            $error['fields'] = $exception->errors();
         }
         elseif ($exception instanceof ApplicationException) {
             $this->setStatusCode(400);

@@ -39,6 +39,7 @@ class ServiceProvider extends ModuleServiceProvider
         $this->app->scoped('backend.auth', fn () => \Backend\Classes\AuthManager::instance());
         $this->app->scoped('backend.menu', \Backend\Classes\NavigationManager::class);
         $this->app->scoped('backend.widgets', \Backend\Classes\WidgetManager::class);
+        $this->app->scoped('backend.richeditor', \Backend\Classes\RichEditorManager::class);
     }
 
     /**
@@ -169,6 +170,7 @@ class ServiceProvider extends ModuleServiceProvider
         return [
             \Backend\FormWidgets\CodeEditor::class => 'codeeditor',
             \Backend\FormWidgets\RichEditor::class => 'richeditor',
+            \Backend\FormWidgets\ToolbarBuilder::class => 'toolbarbuilder',
             \Backend\FormWidgets\MarkdownEditor::class => 'markdown',
             \Backend\FormWidgets\FileUpload::class => 'fileupload',
             \Backend\FormWidgets\Relation::class => 'relation',

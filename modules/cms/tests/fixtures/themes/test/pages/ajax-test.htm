@@ -12,5 +12,11 @@ function onThrowSafe() {
 function onThrowGeneric() {
     throw new \RuntimeException('Sensitive internals');
 }
+
+function onThrowLaravelValidation() {
+    $validator = \Validator::make([], ['name' => 'required'], ['name.required' => 'Name is invalid']);
+    $validator->fails();
+    throw new \Illuminate\Validation\ValidationException($validator);
+}
 ==
 {{ layoutStartVar }}{{ layoutBeforePageStartVar }}{{ pageStartVar }}{{ pageEndVar }}{{ layoutEndVar }}

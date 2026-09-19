@@ -8,7 +8,7 @@ use Cms\Classes\CmsException;
 use Cms\Classes\PartialWatcher;
 use Cms\Classes\AjaxApiResponse;
 use October\Rain\Exception\ApplicationException;
-use October\Rain\Exception\ValidationException;
+use Illuminate\Validation\ValidationException;
 use Exception;
 use Throwable;
 
@@ -247,7 +247,7 @@ trait HasAjaxRequests
         }
         catch (ValidationException $ex) {
             $errors = $this->vars['errors'] ?? new \Illuminate\Support\ViewErrorBag;
-            $this->vars['errors'] = $errors->put('default', $ex->getErrors());
+            $this->vars['errors'] = $errors->put('default', $ex->validator->errors());
             Flash::error($ex->getMessage());
         }
         catch (ApplicationException $ex) {
