@@ -74,6 +74,11 @@ class ThemeDataTest extends TestCase
         $this->assertEquals('top', $fromCache->position);
         $this->assertTrue($fromCache->exists);
         $this->assertEquals($warmed->id, $fromCache->id);
+
+        // Accessing the raw jsonable 'data' attribute on a cache-rehydrated
+        // model used to throw a TypeError, since the cached value is stored
+        // as an already-decoded array instead of a JSON string.
+        $this->assertEquals(['position' => 'top'], $fromCache->data);
     }
 
     public function testSaveBustsThemeDataCache()

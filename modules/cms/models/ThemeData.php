@@ -161,6 +161,14 @@ class ThemeData extends Model
      */
     protected static function newFromCache(array $attributes): ThemeData
     {
+        // The cached 'data' attribute is stored as a decoded array (see
+        // getCacheableAttributes), but newFromBuilder expects raw column
+        // values as they come from the database, where jsonable attributes
+        // are still JSON-encoded strings.
+        if (isset($attributes['data']) && is_array($attributes['data'])) {
+            $attributes['data'] = json_encode($attributes['data'], JSON_UNESCAPED_UNICODE);
+        }
+
         return static::createThemeDataModel()->newFromBuilder($attributes);
     }
 
