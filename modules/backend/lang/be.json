@@ -398,5 +398,11 @@
   "to manage its settings.": "кіраваць яго наладамі.",
   "Includes": "Уключае",
   "Excludes": "Выключае",
-  "Misc": "Рознае"
+  "Misc": "Рознае",
+  "Available Buttons": "Даступныя кнопкі",
+  "Modified": "Зменена",
+  "Toolbar": "Панэль інструментаў",
+  "Code": "Код",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "Наладзьце вызначэнні панэляў інструментаў, даступныя тэкставаму рэдактару. Плагіны могуць рэгістраваць дадатковыя вызначэнні панэляў інструментаў.",
+  "Close": "Закрыць"
 }

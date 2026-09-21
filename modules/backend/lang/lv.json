@@ -328,5 +328,13 @@
   "There was no data supplied to export": "Dati eksportam netika sniegti",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "PHP paplašinājums :name nav instalēts. Lūdzu instalējiet šo papildinājumu un aktivizējiet to.",
   "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "Mape :name vai tās apakšmapes nav ierakstāmas ar PHP. Lūdzu iestatiet pareizas tiesības web serverim šajā mapē.",
-  "Misc": "Izvēles"
+  "Misc": "Izvēles",
+  "Reset to Default": "Atiestatīt uz noklusējumu",
+  "Available Buttons": "Pieejamās pogas",
+  "API Code": "API kods",
+  "Modified": "Mainīts",
+  "Toolbar": "Rīkjosla",
+  "Code": "Kods",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "Konfigurējiet teksta redaktoram pieejamās rīkjoslas definīcijas. Spraudņi var reģistrēt papildu definīcijas.",
+  "Close": "Aizvērt"
 }

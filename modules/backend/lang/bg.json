@@ -401,5 +401,11 @@
   "Manage Roles": "Управление на ролите",
   "Manage Groups": "Групи",
   "Customize Backend": "Персонализирайте администраторския-панел",
-  "Misc": "Разни"
+  "Misc": "Разни",
+  "Available Buttons": "Налични бутони",
+  "Modified": "Променено",
+  "Toolbar": "Лента с инструменти",
+  "Code": "Код",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "Конфигурирайте дефинициите на лентата с инструменти, достъпни за текстовия редактор. Плъгините могат да регистрират допълнителни дефиниции.",
+  "Close": "Затвори"
 }

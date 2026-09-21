@@ -353,5 +353,12 @@
   "Manage Roles": "Керування ролями",
   "Manage Groups": "Групи",
   "Customize Backend": "Налаштування адмін панелі",
-  "Misc": "Різне"
+  "Misc": "Різне",
+  "Available Buttons": "Доступні кнопки",
+  "API Code": "Код API",
+  "Modified": "Змінено",
+  "Toolbar": "Панель інструментів",
+  "Code": "Код",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "Налаштуйте визначення панелей інструментів, доступні текстовому редактору. Плагіни можуть реєструвати додаткові визначення.",
+  "Close": "Закрити"
 }

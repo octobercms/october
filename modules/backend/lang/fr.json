@@ -400,5 +400,11 @@
   "Manage Roles": "Gérer les rôles",
   "Manage Groups": "Groupes",
   "Customize Backend": "Personnaliser l’interface d’administration",
-  "Misc": "Divers"
+  "Misc": "Divers",
+  "Available Buttons": "Boutons disponibles",
+  "Modified": "Modifié",
+  "Toolbar": "Barre d'outils",
+  "Code": "Code",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "Configurez les définitions de barre d'outils disponibles pour l'éditeur de texte enrichi. Les plugins peuvent enregistrer des définitions supplémentaires.",
+  "Close": "Fermer"
 }

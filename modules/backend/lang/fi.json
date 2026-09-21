@@ -356,5 +356,12 @@
   "Manage Roles": "Hallinnoi Rooleja",
   "Manage Groups": "Hallinnoi ryhmiä",
   "Customize Backend": "Kustomoi ylläpito",
-  "Misc": "Muuta"
+  "Misc": "Muuta",
+  "Available Buttons": "Käytettävissä olevat painikkeet",
+  "API Code": "API-koodi",
+  "Modified": "Muokattu",
+  "Toolbar": "Työkalurivi",
+  "Code": "Koodi",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "Määritä tekstieditorin käytettävissä olevat työkalurivimääritykset. Lisäosat voivat rekisteröidä lisää määrityksiä.",
+  "Close": "Sulje"
 }

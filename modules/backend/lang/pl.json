@@ -398,5 +398,11 @@
   "to manage its settings.": "aby zarządzać jego ustawieniami.",
   "Includes": "Zawiera",
   "Excludes": "Wyklucza",
-  "Misc": "Różne"
+  "Misc": "Różne",
+  "Available Buttons": "Dostępne przyciski",
+  "Modified": "Zmodyfikowano",
+  "Toolbar": "Pasek narzędzi",
+  "Code": "Kod",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "Skonfiguruj definicje pasków narzędzi dostępne dla edytora tekstu. Wtyczki mogą rejestrować dodatkowe definicje.",
+  "Close": "Zamknij"
 }

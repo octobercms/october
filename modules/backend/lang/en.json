@@ -398,5 +398,11 @@
   "to manage its settings.": "to manage its settings.",
   "Includes": "Includes",
   "Excludes": "Excludes",
-  "Misc": "Misc"
+  "Misc": "Misc",
+  "Available Buttons": "Available Buttons",
+  "Modified": "Modified",
+  "Toolbar": "Toolbar",
+  "Code": "Code",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.",
+  "Close": "Close"
 }

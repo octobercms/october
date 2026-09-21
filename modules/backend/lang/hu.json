@@ -354,5 +354,12 @@
   "Manage Roles": "Szerepkörök Menedzselése",
   "Manage Groups": "Csoportok Menedzselése",
   "Customize Backend": "Admin Felület Testreszabása",
-  "Misc": "Egyebek"
+  "Misc": "Egyebek",
+  "Available Buttons": "Elérhető gombok",
+  "API Code": "API kód",
+  "Modified": "Módosítva",
+  "Toolbar": "Eszköztár",
+  "Code": "Kód",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "Állítsa be a szövegszerkesztő számára elérhető eszköztár-definíciókat. A bővítmények további definíciókat regisztrálhatnak.",
+  "Close": "Bezárás"
 }

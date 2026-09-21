@@ -313,7 +313,7 @@
   "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.",
   "Records Per Page": "Records Per Page",
   "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.",
-  "Reset to Default": "Reset to Default",
+  "Reset to Default": "Repor predefinições",
   "Add Selected": "Add Selected",
   "Create & Close": "Create & Close",
   "Creating :name...": "Creating :name...",
@@ -351,5 +351,12 @@
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "A extensão PHP :name não está instalada. Por favor, instale esta biblioteca para activar a extensão.",
   "The plugin :name is a dependency but is not installed. Please install this plugin.": "A extensão :name é uma dependência mas não está instalada. Por favor instale esta extensão.",
   "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "Diretoria :name ou suas subdiretorias não são graváveis pelo PHP. Por favor, defina permissões de escrita para o servidor nesta diretoria.",
-  "Misc": "Outros"
+  "Misc": "Outros",
+  "Available Buttons": "Botões disponíveis",
+  "API Code": "Código da API",
+  "Modified": "Modificado",
+  "Toolbar": "Barra de ferramentas",
+  "Code": "Código",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "Configure as definições de barra de ferramentas disponíveis para o editor de texto. Os plugins podem registar definições adicionais.",
+  "Close": "Fechar"
 }

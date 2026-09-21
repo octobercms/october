@@ -397,5 +397,11 @@
   "Configure the widget": "قم بتهيئة الأداة",
   "to manage its settings.": "لإدارة إعداداته.",
   "Includes": "يشمل",
-  "Excludes": "باستثناء"
+  "Excludes": "باستثناء",
+  "Available Buttons": "الأزرار المتاحة",
+  "Modified": "تم التعديل",
+  "Toolbar": "شريط الأدوات",
+  "Code": "الكود",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "قم بإعداد تعريفات شريط الأدوات المتاحة للمحرر النصي. يمكن للإضافات تسجيل تعريفات إضافية لشريط الأدوات.",
+  "Close": "إغلاق"
 }

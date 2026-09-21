@@ -301,5 +301,13 @@
   "Add Selected": "追加は選択されています",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "PHP拡張\":name\"はインストールされていません。PHP拡張をインストールして有効にしてください。",
   "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "ディレクトリ\":name\"またはそのサブディレクトリは、PHPから書き込みできません。このディレクトリのパーミッションを設定してください。",
-  "Misc": "その他"
+  "Misc": "その他",
+  "Reset to Default": "デフォルトに戻す",
+  "Available Buttons": "利用可能なボタン",
+  "API Code": "APIコード",
+  "Modified": "変更済み",
+  "Toolbar": "ツールバー",
+  "Code": "コード",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "リッチエディタで利用できるツールバー定義を設定します。プラグインは追加のツールバー定義を登録できます。",
+  "Close": "閉じる"
 }

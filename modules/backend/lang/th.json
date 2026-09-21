@@ -304,5 +304,13 @@
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "ส่วนต่อเติม PHP :name ไม่ถูกติดตั้ง กรุณาติดตั้งส่วนต่อเติมนี้และเปิดการใช้งานส่วนต่อเติม",
   "The plugin :name is a dependency but is not installed. Please install this plugin.": "ปลั๊กอิน :name เป็น dependency แต่ไม่ถูกติดตั้ง กรุณาติดตั้งปลั๊กอินนี้",
   "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "โฟลเดอร์ :name หรือโฟลเดอร์ย่อยของมัน ไม่สามารถเขียนได้โดย PHP กรุณาตั้งสิทธิ์ที่สอดคล้องกับเว็บเซิร์ฟเวอร์ที่โฟลเดอร์นี้",
-  "Misc": "อื่นๆ"
+  "Misc": "อื่นๆ",
+  "Reset to Default": "รีเซ็ตเป็นค่าเริ่มต้น",
+  "Available Buttons": "ปุ่มที่ใช้ได้",
+  "API Code": "รหัส API",
+  "Modified": "แก้ไขแล้ว",
+  "Toolbar": "แถบเครื่องมือ",
+  "Code": "รหัส",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "กำหนดค่าคำจำกัดความแถบเครื่องมือที่ใช้ได้กับตัวแก้ไขข้อความ ปลั๊กอินสามารถลงทะเบียนคำจำกัดความเพิ่มเติมได้",
+  "Close": "ปิด"
 }

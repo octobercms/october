@@ -401,5 +401,11 @@
   "Manage Roles": "Rollen verwalten",
   "Manage Groups": "Gruppen",
   "Customize Backend": "Backend anpassen",
-  "Misc": "Verschiedenes"
+  "Misc": "Verschiedenes",
+  "Available Buttons": "Verfügbare Buttons",
+  "Modified": "Geändert",
+  "Toolbar": "Toolbar",
+  "Code": "Code",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "Konfigurieren Sie die Toolbar-Definitionen für den Rich-Text-Editor. Plugins können zusätzliche Toolbar-Definitionen registrieren.",
+  "Close": "Schließen"
 }

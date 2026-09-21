@@ -301,5 +301,13 @@
   "Add Selected": "Tambah terpilih",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "Ekstensi PHP :name tidak terpasang. Silakan instalasi modul ini dan aktifkan ekstensi.",
   "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "Direktori :name atau direktori di bawahnya tidak dapat ditulis oleh PHP. Silakan atur hak akses webserver yang sesuai pada direktori ini.",
-  "Misc": "Lain-lain"
+  "Misc": "Lain-lain",
+  "Reset to Default": "Atur Ulang ke Bawaan",
+  "Available Buttons": "Tombol yang Tersedia",
+  "API Code": "Kode API",
+  "Modified": "Diubah",
+  "Toolbar": "Bilah Alat",
+  "Code": "Kode",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "Konfigurasikan definisi bilah alat yang tersedia untuk editor teks. Plugin dapat mendaftarkan definisi bilah alat tambahan.",
+  "Close": "Tutup"
 }

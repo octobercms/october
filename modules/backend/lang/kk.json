@@ -242,7 +242,7 @@
   "Markup Styles": "Markup Styles",
   "Paragraph Formats": "Paragraph Formats",
   "Markup Classes": "Markup Classes",
-  "Label": "Label",
+  "Label": "Белгі",
   "Paragraph": "Paragraph",
   "Class Name": "Class Name",
   "Link": "Link",
@@ -259,7 +259,7 @@
   "The list of tags that are removed together with their content.": "The list of tags that are removed together with their content.",
   "Line Breaker Tags": "Line Breaker Tags",
   "The list of tags that are used to place a line breaker element between.": "The list of tags that are used to place a line breaker element between.",
-  "Toolbar Buttons": "Toolbar Buttons",
+  "Toolbar Buttons": "Құралдар тақтасының түймелері",
   "The Toolbar Buttons to be displayed in the Rich Editor by default.": "The Toolbar Buttons to be displayed in the Rich Editor by default.",
   "Insert a preset toolbar button configuration": "Insert a preset toolbar button configuration",
   "Allowed Attributes": "Allowed Attributes",
@@ -308,5 +308,13 @@
   "Update your account details such as name, email address and password.": "Update your account details such as name, email address and password.",
   "Backend Preferences": "Backend Preferences",
   "Manage your account preferences such as desired language.": "Manage your account preferences such as desired language.",
-  "security login": "security login"
+  "security login": "security login",
+  "Reset to Default": "Әдепкі мәнге қайтару",
+  "Available Buttons": "Қолжетімді түймелер",
+  "API Code": "API коды",
+  "Modified": "Өзгертілген",
+  "Toolbar": "Құралдар тақтасы",
+  "Code": "Код",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "Мәтін редакторына қолжетімді құралдар тақтасы анықтамаларын баптаңыз. Плагиндер қосымша анықтамаларды тіркей алады.",
+  "Close": "Жабу"
 }

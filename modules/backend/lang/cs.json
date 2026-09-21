@@ -401,5 +401,11 @@
   "Manage Roles": "Role",
   "Manage Groups": "Skupiny",
   "Customize Backend": "Nastavení administrace",
-  "Misc": "Ostatní"
+  "Misc": "Ostatní",
+  "Available Buttons": "Dostupná tlačítka",
+  "Modified": "Upraveno",
+  "Toolbar": "Panel nástrojů",
+  "Code": "Kód",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "Nastavte definice panelů nástrojů dostupné pro editor formátovaného textu. Pluginy mohou registrovat další definice panelů nástrojů.",
+  "Close": "Zavřít"
 }

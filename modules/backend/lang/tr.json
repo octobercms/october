@@ -329,5 +329,13 @@
   "The PHP extension :name is not installed. Please install this library and activate the extension.": ":name PHP eklentisi sistemde yüklü değil. Lütfen kütüphaneyi kurun ve eklentiyi aktifleştirin.",
   "The plugin :name is a dependency but is not installed. Please install this plugin.": ":name isimli eklenti gerekli, fakat yüklenmemiş. Lütfen bu eklentiyi yükleyin.",
   "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": ":name dizini ve alt dizinleri PHP tarafından yazılabilir değil. Lütfen bu dizindeki webserver için gerekli yazma izinlerini verin.",
-  "Misc": "Çeşitli"
+  "Misc": "Çeşitli",
+  "Reset to Default": "Varsayılana Sıfırla",
+  "Available Buttons": "Kullanılabilir Düğmeler",
+  "API Code": "API Kodu",
+  "Modified": "Değiştirildi",
+  "Toolbar": "Araç Çubuğu",
+  "Code": "Kod",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "Zengin metin editörü için kullanılabilir araç çubuğu tanımlarını yapılandırın. Eklentiler ek araç çubuğu tanımları kaydedebilir.",
+  "Close": "Kapat"
 }

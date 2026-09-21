@@ -245,7 +245,7 @@
   "Paragraph Formats": "Μορφές παραγράφου",
   "Markup Classes": "Markup Classes",
   "Tag Name": "Όνομα ετικέτας",
-  "Label": "Label",
+  "Label": "Ετικέτα",
   "Paragraph": "Paragraph",
   "Class Name": "Class Name",
   "Link": "Link",
@@ -398,5 +398,11 @@
   "to manage its settings.": "για να διαχειριστείτε τις ρυθμίσεις του.",
   "Includes": "Περιλαμβάνει",
   "Excludes": "Εξαιρείται",
-  "Misc": "Διάφορα"
+  "Misc": "Διάφορα",
+  "Available Buttons": "Διαθέσιμα κουμπιά",
+  "Modified": "Τροποποιημένο",
+  "Toolbar": "Γραμμή εργαλείων",
+  "Code": "Κωδικός",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "Διαμορφώστε τους ορισμούς γραμμής εργαλείων που είναι διαθέσιμοι στον επεξεργαστή εμπλουτισμένου κειμένου. Τα πρόσθετα μπορούν να καταχωρίσουν επιπλέον ορισμούς.",
+  "Close": "Κλείσιμο"
 }

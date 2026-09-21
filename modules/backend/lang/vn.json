@@ -398,5 +398,11 @@
   "to manage its settings.": "để quản lý các cài đặt của nó.",
   "Includes": "Bao gồm",
   "Excludes": "Ngoại trừ",
-  "Misc": "Khác"
+  "Misc": "Khác",
+  "Available Buttons": "Nút có sẵn",
+  "Modified": "Đã sửa đổi",
+  "Toolbar": "Thanh công cụ",
+  "Code": "Mã",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "Cấu hình các định nghĩa thanh công cụ có sẵn cho trình soạn thảo văn bản. Plugin có thể đăng ký thêm các định nghĩa thanh công cụ.",
+  "Close": "Đóng"
 }

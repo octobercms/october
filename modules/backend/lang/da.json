@@ -245,7 +245,7 @@
   "Paragraph Formats": "Afsnitsformater",
   "Markup Classes": "Markup Classes",
   "Tag Name": "Tagnavn",
-  "Label": "Label",
+  "Label": "Etiket",
   "Paragraph": "Afsnit",
   "Class Name": "Class navn",
   "Link": "Link",
@@ -398,5 +398,11 @@
   "to manage its settings.": "at administrere dens indstillinger.",
   "Includes": "Inkluderer",
   "Excludes": "Ekskluderer",
-  "Misc": "Andet"
+  "Misc": "Andet",
+  "Available Buttons": "Tilgængelige knapper",
+  "Modified": "Ændret",
+  "Toolbar": "Værktøjslinje",
+  "Code": "Kode",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "Konfigurer de værktøjslinjedefinitioner, der er tilgængelige for teksteditoren. Plugins kan registrere yderligere definitioner.",
+  "Close": "Luk"
 }

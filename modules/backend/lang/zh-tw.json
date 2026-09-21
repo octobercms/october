@@ -188,5 +188,15 @@
   "Add Selected": "增加選取的",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "PHP外掛 :name 沒安裝. 請安裝這個庫並且啟用外掛",
   "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "目錄 :name 或子目錄對PHP不可寫. 請對這個目錄上的webserver設定正確的權限",
-  "Misc": "雜項"
+  "Misc": "雜項",
+  "Toolbar Buttons": "工具列按鈕",
+  "Reset to Default": "重設為預設值",
+  "Available Buttons": "可用按鈕",
+  "API Code": "API 代碼",
+  "Modified": "已修改",
+  "Toolbar": "工具列",
+  "Code": "代碼",
+  "Label": "標籤",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "設定富文字編輯器可用的工具列定義。外掛可以註冊額外的工具列定義。",
+  "Close": "關閉"
 }

@@ -69,5 +69,15 @@
   "Add Selected": "Agregar seleccionado",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "La extensión PHP :name no está instalada. Por favor instale esta librería y active la extensión.",
   "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "El directorio :name o los subdirectorios no se puede escribir por PHP. Por favor establezca los permisos correctos para el servidor web en este directorio.",
-  "Misc": "Misc"
+  "Misc": "Misc",
+  "Toolbar Buttons": "Botones de la barra de herramientas",
+  "Reset to Default": "Restablecer a los valores predeterminados",
+  "Available Buttons": "Botones disponibles",
+  "API Code": "Código API",
+  "Modified": "Modificado",
+  "Toolbar": "Barra de herramientas",
+  "Code": "Código",
+  "Label": "Etiqueta",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "Configure las definiciones de barras de herramientas disponibles para el editor de texto enriquecido. Los plugins pueden registrar definiciones adicionales.",
+  "Close": "Cerrar"
 }

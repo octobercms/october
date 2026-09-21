@@ -102,7 +102,7 @@
   "Custom styles to include in the HTML editor.": "Tilpassede CSS-stilregler å inkludere i HTML-editoren.",
   "Markup Styles": "Markup-stiler",
   "Markup Classes": "Markup-klasser",
-  "Label": "Label",
+  "Label": "Etikett",
   "Paragraph": "Avsnitt",
   "Class Name": "Navn på klasse",
   "Link": "Link",
@@ -186,5 +186,14 @@
   "There was no data supplied to export": "Ingen data å eksportere",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "PHP-extensionen :name er ikke installert..",
   "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "Mappen :name eller dens undermapper kan ikke skrives på av PHP. Vennligst sjekk skrivetilganger på serveren.",
-  "Misc": "Div."
+  "Misc": "Div.",
+  "Toolbar Buttons": "Verktøylinjeknapper",
+  "Reset to Default": "Tilbakestill til standard",
+  "Available Buttons": "Tilgjengelige knapper",
+  "API Code": "API-kode",
+  "Modified": "Endret",
+  "Toolbar": "Verktøylinje",
+  "Code": "Kode",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "Konfigurer verktøylinjedefinisjonene som er tilgjengelige for teksteditoren. Utvidelser kan registrere flere definisjoner.",
+  "Close": "Lukk"
 }

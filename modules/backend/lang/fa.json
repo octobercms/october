@@ -329,5 +329,13 @@
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "افزونه PHP با نام :name نصب نشده است. لطفن این افزونه را نصب کرده و فعال نمایید.",
   "The plugin :name is a dependency but is not installed. Please install this plugin.": "افزونه :name مورد نیاز است ولی نصب نشده. لطفا این افزونه را نصب کنید.",
   "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "پوشه :name یا یکی از زیر پوشه های آن برای PHP قابل نوشتن نیستند. لطفا تنظیمات این پوشه را تعییر دهید.",
-  "Misc": "متفرقه"
+  "Misc": "متفرقه",
+  "Reset to Default": "بازنشانی به پیش‌فرض",
+  "Available Buttons": "دکمه‌های موجود",
+  "API Code": "کد API",
+  "Modified": "تغییر یافته",
+  "Toolbar": "نوار ابزار",
+  "Code": "کد",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "تعریف‌های نوار ابزار در دسترس ویرایشگر متن را پیکربندی کنید. افزونه‌ها می‌توانند تعریف‌های بیشتری ثبت کنند.",
+  "Close": "بستن"
 }

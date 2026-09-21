@@ -396,5 +396,11 @@
   "Manage Roles": "Beheer rollen",
   "Manage Groups": "Beheer groepen",
   "Customize Backend": "Aanpassen beheeromgeving",
-  "Misc": "Overig"
+  "Misc": "Overig",
+  "Available Buttons": "Beschikbare knoppen",
+  "API Code": "API-code",
+  "Modified": "Gewijzigd",
+  "Toolbar": "Toolbar",
+  "Code": "Code",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "Configureer de toolbar-definities die beschikbaar zijn voor de teksteditor. Plugins kunnen extra definities registreren."
 }

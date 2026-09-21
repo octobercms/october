@@ -313,7 +313,7 @@
   "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.",
   "Records Per Page": "Records Per Page",
   "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.",
-  "Reset to Default": "Reset to Default",
+  "Reset to Default": "Ponastavi na privzeto",
   "Add Selected": "Add Selected",
   "Create & Close": "Create & Close",
   "Creating :name...": "Creating :name...",
@@ -354,5 +354,12 @@
   "Manage Roles": "Upravljanje z vlogami",
   "Manage Groups": "Upravljanje s skupinami",
   "Customize Backend": "Prilagoditev administracije",
-  "Misc": "Razno"
+  "Misc": "Razno",
+  "Available Buttons": "Razpoložljivi gumbi",
+  "API Code": "API koda",
+  "Modified": "Spremenjeno",
+  "Toolbar": "Orodna vrstica",
+  "Code": "Koda",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "Nastavite definicije orodne vrstice, ki so na voljo urejevalniku besedila. Vtičniki lahko registrirajo dodatne definicije.",
+  "Close": "Zapri"
 }

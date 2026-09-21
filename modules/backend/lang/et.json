@@ -313,7 +313,7 @@
   "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.",
   "Records Per Page": "Records Per Page",
   "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.",
-  "Reset to Default": "Reset to Default",
+  "Reset to Default": "Taasta vaikeseaded",
   "Add Selected": "Add Selected",
   "Create & Close": "Loo ja sulge",
   "Creating :name...": "Loomine :name...",
@@ -350,5 +350,12 @@
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "PHP laiendus :name ei ole paigaldatud. Süsteemi toimiseks on vajalik selle paigaldamine.",
   "The plugin :name is a dependency but is not installed. Please install this plugin.": "Plugin :name on vajalik süsteemi toimimiseks, kuid seda pole paigaldatud. Palun paigalda see plugin.",
   "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "PHP-l ei ole õigust kirjutada katallogi :name või selle alamkataloogidesse. Palun paranda kataloogide juurdepääsuõigused serveris.",
-  "Misc": "Muu"
+  "Misc": "Muu",
+  "Available Buttons": "Saadaolevad nupud",
+  "API Code": "API kood",
+  "Modified": "Muudetud",
+  "Toolbar": "Tööriistariba",
+  "Code": "Kood",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "Seadista tekstiredaktorile saadaolevad tööriistariba definitsioonid. Pluginad saavad registreerida täiendavaid definitsioone.",
+  "Close": "Sulge"
 }

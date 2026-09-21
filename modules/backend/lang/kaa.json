@@ -242,7 +242,7 @@
   "Markup Styles": "Markup Styles",
   "Paragraph Formats": "Jańa jol formatı",
   "Markup Classes": "Markup Classes",
-  "Label": "Label",
+  "Label": "Belgi",
   "Paragraph": "Paragraph",
   "Class Name": "Klass ataması",
   "Link": "Silteme",
@@ -313,7 +313,7 @@
   "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.",
   "Records Per Page": "Records Per Page",
   "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.",
-  "Reset to Default": "Reset to Default",
+  "Reset to Default": "Ádepki jaǵdayǵa qaytarıw",
   "Add Selected": "Add Selected",
   "Create & Close": "Create & Close",
   "Creating :name...": "Creating :name...",
@@ -346,5 +346,12 @@
   "Show Ignored Columns": "Show Ignored Columns",
   "Auto Match Columns": "Auto Match Columns",
   "File not found": "File not found",
-  "There was no data supplied to export": "There was no data supplied to export"
+  "There was no data supplied to export": "There was no data supplied to export",
+  "Available Buttons": "Qoljetimli túymeler",
+  "API Code": "API kodı",
+  "Modified": "Ózgertilgen",
+  "Toolbar": "Ásbaplar paneli",
+  "Code": "Kod",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.",
+  "Close": "Jabıw"
 }

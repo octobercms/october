@@ -398,5 +398,11 @@
   "to manage its settings.": "per gestionar la seva configuració.",
   "Includes": "Inclou",
   "Excludes": "Exclou",
-  "Misc": "Misc"
+  "Misc": "Misc",
+  "Available Buttons": "Botons disponibles",
+  "Modified": "Modificat",
+  "Toolbar": "Barra d'eines",
+  "Code": "Codi",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "Configureu les definicions de la barra d'eines disponibles per a l'editor de text enriquit. Els connectors poden registrar definicions addicionals.",
+  "Close": "Tanca"
 }

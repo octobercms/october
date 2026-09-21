@@ -313,7 +313,7 @@
   "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.": "Use checkboxes to select columns you want to see in the list. You can change position of columns by dragging them up or down.",
   "Records Per Page": "Records Per Page",
   "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.": "Select the number of records per page to display. Please note that high number of records on a single page can reduce performance.",
-  "Reset to Default": "Reset to Default",
+  "Reset to Default": "Resetare la implicit",
   "Add Selected": "Add Selected",
   "Create & Close": "Create & Close",
   "Creating :name...": "Creating :name...",
@@ -352,5 +352,12 @@
   "Manage Roles": "Gestionați rolurile",
   "Manage Groups": "Grupuri",
   "Customize Backend": "Personalizează Panou de Administrare",
-  "Misc": "Altele"
+  "Misc": "Altele",
+  "Available Buttons": "Butoane disponibile",
+  "API Code": "Cod API",
+  "Modified": "Modificat",
+  "Toolbar": "Bară de instrumente",
+  "Code": "Cod",
+  "Configure the toolbar definitions available to the Rich Editor. Plugins can register additional toolbar definitions.": "Configurați definițiile barei de instrumente disponibile pentru editorul de text. Pluginurile pot înregistra definiții suplimentare.",
+  "Close": "Închide"
 }
