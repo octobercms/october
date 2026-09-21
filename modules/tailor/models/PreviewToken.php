@@ -2,6 +2,7 @@
 
 use Str;
 use Url;
+use Site;
 use Date;
 use Model;
 use BackendAuth;
@@ -44,6 +45,7 @@ class PreviewToken extends Model
     {
         $token = new static;
         $token->route = $route;
+        $token->site_id = Site::getSiteIdFromContext();
         $token->token = Str::random(32);
         $token->expired_at = $expiry ?: Date::now()->addHours(48);
 
@@ -94,6 +96,10 @@ class PreviewToken extends Model
 
         $uri = Url::makeRelative(Url::current());
         if ($uri !== $expectedUri) {
+            return;
+        }
+
+        if ($token->site_id && (int) $token->site_id !== (int) Site::getSiteIdFromContext()) {
             return;
         }
 
