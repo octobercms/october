@@ -168,10 +168,10 @@ trait ResponseMaker
             if ($contents instanceof AjaxResponse) {
                 foreach ($responseEvents as $event) {
                     if ($event['async'] ?? false) {
-                        $contents->browserEvent($event['event'], $event['data']);
+                        $contents->browserEventAsync($event['event'], $event['data']);
                     }
                     else {
-                        $contents->browserEventAsync($event['event'], $event['data']);
+                        $contents->browserEvent($event['event'], $event['data']);
                     }
                 }
             }
