@@ -80,10 +80,10 @@ class File
 
         $path = realpath($filePath);
 
-        if ($path !== false && !str_starts_with($path, $directory)) {
-            return false;
+        if ($path === false) {
+            return true;
         }
 
-        return true;
+        return str_starts_with($path, rtrim($directory, DIRECTORY_SEPARATOR) . DIRECTORY_SEPARATOR);
     }
 }

@@ -48,6 +48,10 @@ trait ValidatesExternalImages
         // parse_url returns IPv6 literals wrapped in brackets, e.g. [::1]
         $host = trim($parts['host'], '[]');
 
+        if (!$this->isCanonicalHost($host)) {
+            return false;
+        }
+
         $ips = [];
         if (filter_var($host, FILTER_VALIDATE_IP)) {
             $ips[] = $host;
@@ -96,6 +100,23 @@ trait ValidatesExternalImages
         }
 
         return str_starts_with($mimeType, 'image/');
+    }
+
+    /**
+     * isCanonicalHost rejects non-canonical numeric IPv4 spellings (leading-zero/octal,
+     * hex, abbreviated, integer) that dns_get_record and libc getaddrinfo parse differently
+     */
+    protected function isCanonicalHost(string $host): bool
+    {
+        if (filter_var($host, FILTER_VALIDATE_IP)) {
+            return true;
+        }
+
+        if (preg_match('/^[0-9a-fA-Fx.]+$/', $host)) {
+            return false;
+        }
+
+        return true;
     }
 
     /**

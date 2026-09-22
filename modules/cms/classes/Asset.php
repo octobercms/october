@@ -337,6 +337,10 @@ class Asset extends Extendable
      */
     protected function findInTheme(Theme $theme, string $fileName)
     {
+        if (!FileHelper::validatePath($fileName, null)) {
+            return null;
+        }
+
         if ($theme->assetDatabaseLayerEnabled()) {
             if ($this->isTombstoned($theme, $fileName)) {
                 return null;
@@ -443,7 +447,11 @@ class Asset extends Extendable
             ));
         }
 
-        if (strlen($this->originalFileName) && $this->originalFileName !== $this->fileName) {
+        if (
+            strlen($this->originalFileName) &&
+            $this->originalFileName !== $this->fileName &&
+            FileHelper::validatePath($this->originalFileName, null)
+        ) {
             $fullPath = $this->getFilePath($this->originalFileName);
 
             if (File::isFile($fullPath)) {
@@ -684,7 +692,11 @@ class Asset extends Extendable
         );
 
         // Renames tombstone the old row and remove its disk object
-        if (strlen($this->originalFileName) && $this->originalFileName !== $this->fileName) {
+        if (
+            strlen($this->originalFileName) &&
+            $this->originalFileName !== $this->fileName &&
+            FileHelper::validatePath($this->originalFileName, null)
+        ) {
             SourceFile::tombstoneAt($source, $this->originalFileName);
 
             $oldDiskPath = $this->getDiskPath($this->theme, $this->originalFileName);

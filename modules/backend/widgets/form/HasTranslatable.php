@@ -52,12 +52,20 @@ trait HasTranslatable
      */
     public function onSaveTranslateField()
     {
+        if (!$this->useTranslatable) {
+            throw new SystemException("Translation is not enabled on this form.");
+        }
+
         $fieldName = post('field_name');
         $siteId = post('site_id');
         $field = $this->getField($fieldName);
 
         if (!$field) {
             throw new SystemException("Field [{$fieldName}] not found in form.");
+        }
+
+        if (!$field->translatable) {
+            throw new SystemException("Field [{$fieldName}] is not translatable.");
         }
 
         $model = $this->model;
