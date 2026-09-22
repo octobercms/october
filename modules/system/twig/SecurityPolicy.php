@@ -195,6 +195,10 @@ final class SecurityPolicy implements SecurityPolicyInterface
             return new \System\Twig\SecurityPolicy\SafeRequest($object);
         }
 
+        if ($object instanceof \Illuminate\Pagination\AbstractPaginator) {
+            return new \System\Twig\SecurityPolicy\SafePaginator($object);
+        }
+
         return $object;
     }
 

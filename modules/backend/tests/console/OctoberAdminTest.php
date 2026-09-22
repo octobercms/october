@@ -74,4 +74,26 @@ class OctoberAdminTest extends PluginTestCase
         $this->assertEquals(1, $exitCode);
         $this->assertEquals(0, User::count());
     }
+
+    public function testCommandRejectsDuplicateLogin()
+    {
+        Artisan::call('october:admin', $this->commandOptions());
+
+        $exitCode = Artisan::call('october:admin', $this->commandOptions([
+            '--email' => 'other@example.com',
+        ]));
+
+        $this->assertEquals(1, $exitCode);
+        $this->assertEquals(1, User::count());
+    }
+
+    public function testCommandRejectsPasswordThatFailsPolicy()
+    {
+        Config::set('backend.password_policy.min_length', 12);
+
+        $exitCode = Artisan::call('october:admin', $this->commandOptions());
+
+        $this->assertEquals(1, $exitCode);
+        $this->assertEquals(0, User::count());
+    }
 }
