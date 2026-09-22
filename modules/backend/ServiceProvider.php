@@ -19,6 +19,7 @@ class ServiceProvider extends ModuleServiceProvider
         parent::register('backend');
 
         $this->registerSingletons();
+        $this->registerConsole();
     }
 
     /**
@@ -27,6 +28,14 @@ class ServiceProvider extends ModuleServiceProvider
     public function boot()
     {
         parent::boot('backend');
+    }
+
+    /**
+     * registerConsole for command line specifics
+     */
+    protected function registerConsole()
+    {
+        $this->discoverConsoleCommands('backend');
     }
 
     /**

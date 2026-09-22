@@ -12,6 +12,7 @@ use Validator;
 use BackendAuth;
 use Backend\Models\AccessLog;
 use Backend\Classes\Controller;
+use Backend\Classes\UserFactory;
 use Backend\Models\User as UserModel;
 use System\Classes\RateLimiter;
 use System\Classes\UpdateManager;
@@ -323,34 +324,7 @@ class Auth extends Controller
             return Backend::redirect('backend/auth/signin');
         }
 
-        // Validate user input
-        $rules = [
-            'first_name' => 'required',
-            'last_name' => 'required',
-            'email' => 'required|between:6,255|email|unique:backend_users',
-            'login' => 'required|between:2,255|unique:backend_users',
-            'password' => 'required:create|between:4,255|confirmed',
-            'password_confirmation' => 'required_with:password|between:4,255'
-        ];
-
-        $validation = Validator::make(post(), $rules, [], [
-            'first_name' => __('First name'),
-            'last_name' => __('Last name'),
-            'email' => __('Email'),
-            'login' => __('Username'),
-            'password' => __('Password'),
-            'password_confirmation' => __('Confirm Password'),
-        ]);
-
-        if ($validation->fails()) {
-            throw new ValidationException($validation);
-        }
-
-        // Validate password against policy
-        (new UserModel)->validatePasswordPolicy(post('password'));
-
-        // Create user and sign in
-        $user = UserModel::createDefaultAdmin(post());
+        $user = UserFactory::create(post(), createDefaultAdmin: true);
         BackendAuth::login($user);
 
         // Fresh setup should not resume a stale guest URL (e.g. https://localhost/admin).
