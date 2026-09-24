@@ -373,7 +373,9 @@ table.table.data {
     }
 
     th.list-cell-type-number,
-    td.list-cell-type-number {
+    td.list-cell-type-number,
+    th.list-cell-type-currency,
+    td.list-cell-type-currency {
         text-align: right;
     }
 

@@ -120,13 +120,28 @@ class DataTable extends FormWidgetBase
             $this->vars['ajaxColumns'] = $this->ajaxColumns;
             $this->vars['columnDependencies'] = $this->columnDependencies;
             $this->vars['hotOptions'] = $this->buildOptions();
-            $this->vars['adding'] = $this->formField->getConfig('adding', true);
-            $this->vars['deleting'] = $this->formField->getConfig('deleting', true);
-            $this->vars['toolbar'] = $this->formField->getConfig('toolbar', true);
-            $this->vars['searching'] = $this->formField->getConfig('searching', false);
-            $this->vars['csvExport'] = $this->formField->getConfig('csvExport', false);
-            $this->vars['csvImport'] = $this->formField->getConfig('csvImport', false);
+            $this->vars['adding'] = $this->getFieldConfig('adding', true);
+            $this->vars['deleting'] = $this->getFieldConfig('deleting', true);
+            $this->vars['toolbar'] = $this->getFieldConfig('toolbar', true);
+            $this->vars['searching'] = $this->getFieldConfig('searching', false);
+            $this->vars['csvExport'] = $this->getFieldConfig('csvExport', false);
+            $this->vars['csvImport'] = $this->getFieldConfig('csvImport', false);
         }
+    }
+
+    /**
+     * getFieldConfig reads an option from the form field config with a fallback
+     * to the widget config, supporting standalone makeFormWidget instances.
+     */
+    protected function getFieldConfig(string $name, $default = null)
+    {
+        $value = $this->formField->getConfig($name);
+
+        if ($value === null) {
+            $value = $this->getConfig($name, $default);
+        }
+
+        return $value;
     }
 
     //
@@ -138,7 +153,7 @@ class DataTable extends FormWidgetBase
      */
     protected function processColumns()
     {
-        $columns = $this->formField->getConfig('columns', []);
+        $columns = $this->getFieldConfig('columns', []);
 
         foreach ($columns as $columnName => $config) {
             $config = (array) $config;
@@ -172,6 +187,11 @@ class DataTable extends FormWidgetBase
 
         if (!empty($config['ellipsis'])) {
             $column['textEllipsis'] = true;
+        }
+
+        if (!empty($config['wrap'])) {
+            $column['wordWrap'] = true;
+            $column['textEllipsis'] = false;
         }
 
         $type = $config['type'] ?? 'string';
@@ -276,12 +296,12 @@ class DataTable extends FormWidgetBase
      */
     protected function buildOptions(): array
     {
-        $sorting = $this->formField->getConfig('sorting', false);
-        $reorderRows = $this->formField->getConfig('reorderRows', false);
-        $reorderColumns = $this->formField->getConfig('reorderColumns', false);
-        $searching = $this->formField->getConfig('searching', false);
-        $height = $this->formField->getConfig('height', false);
-        $placeholder = $this->formField->getConfig('placeholder', false);
+        $sorting = $this->getFieldConfig('sorting', false);
+        $reorderRows = $this->getFieldConfig('reorderRows', false);
+        $reorderColumns = $this->getFieldConfig('reorderColumns', false);
+        $searching = $this->getFieldConfig('searching', false);
+        $height = $this->getFieldConfig('height', false);
+        $placeholder = $this->getFieldConfig('placeholder', false);
 
         $options = [
             'rowHeaders' => $reorderRows,
@@ -290,7 +310,12 @@ class DataTable extends FormWidgetBase
             'manualColumnMove' => $reorderColumns,
             'manualColumnFreeze' => $reorderColumns,
             'columnSorting' => $sorting,
-            'stretchH' => 'all',
+            // Fit mode: the client computes exact column widths so the table
+            // always fills the container, cells clip on one line (ellipsis)
+            // and the full value is available in the cell editor.
+            'stretchH' => 'none',
+            'wordWrap' => false,
+            'textEllipsis' => true,
             'preventOverflow' => 'horizontal',
             'autoWrapRow' => true,
             'autoWrapCol' => true,

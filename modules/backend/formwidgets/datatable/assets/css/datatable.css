@@ -55,6 +55,37 @@
         line-height: 28px;
     }
 
+    /* Scrollbars: slim classic bars so overflow is always discoverable,
+       overriding browser overlay scrollbars that render invisible.
+       Chromium ignores the webkit pseudos when scrollbar-width is set,
+       so the standard properties are gated to non-webkit engines. */
+    .wtHolder {
+        &::-webkit-scrollbar {
+            width: 9px;
+            height: 9px;
+        }
+
+        &::-webkit-scrollbar-track {
+            background: transparent;
+        }
+
+        &::-webkit-scrollbar-thumb {
+            background-color: var(--bs-secondary-bg);
+            border-radius: 4px;
+
+            &:hover {
+                background-color: var(--bs-border-color);
+            }
+        }
+    }
+
+    @supports not selector(::-webkit-scrollbar) {
+        .wtHolder {
+            scrollbar-width: thin;
+            scrollbar-color: var(--bs-secondary-bg) transparent;
+        }
+    }
+
     .handsontableInput {
         padding: 0 5px;
         line-height: 28px;

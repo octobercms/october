@@ -34,7 +34,7 @@ registerControl('datatable', class extends ControlBase {
         this.bindToolbar();
         this.bindFormSubmit();
         this.syncToHiddenInput();
-        this.initVisibilityObserver();
+        this.initResizeObserver();
     }
 
     disconnect() {
@@ -93,9 +93,11 @@ registerControl('datatable', class extends ControlBase {
             },
             afterRemoveRow: function() {
                 self.syncToHiddenInput();
+                self.fitColumnsToContainer();
             },
             afterCreateRow: function() {
                 self.syncToHiddenInput();
+                self.fitColumnsToContainer();
             },
             afterSelectionEnd: function(row) {
                 self.lastSelectedRow = row;
@@ -108,16 +110,88 @@ registerControl('datatable', class extends ControlBase {
         this.hot = new Handsontable(this.containerEl, hotOptions);
     }
 
-    initVisibilityObserver() {
-        var hot = this.hot;
-        var rendered = false;
-        this.observer = new IntersectionObserver(function(entries) {
-            if (entries[0].isIntersecting && !rendered) {
-                rendered = true;
-                hot.render();
-            }
+    initResizeObserver() {
+        var self = this;
+        this.lastFitWidth = null;
+
+        // Refit whenever the container size changes: first paint, popup and
+        // tab reveals, window resizes and layout shifts all funnel through
+        // here, keeping the grid sized to its container at all times.
+        this.observer = new ResizeObserver(function() {
+            self.fitColumnsToContainer();
         });
         this.observer.observe(this.containerEl);
+    }
+
+    fitColumnsToContainer() {
+        if (!this.hot) {
+            return;
+        }
+
+        var available = this.getAvailableWidth();
+        if (available <= 0 || available === this.lastFitWidth) {
+            return;
+        }
+
+        this.lastFitWidth = available;
+        this.hot.updateSettings({ colWidths: this.calculateFitWidths(available) });
+    }
+
+    getAvailableWidth() {
+        var width = this.containerEl.clientWidth;
+        if (!width) {
+            return 0;
+        }
+
+        // Subtract a rendered vertical scrollbar, if any
+        var holder = this.containerEl.querySelector('.wtHolder');
+        if (holder) {
+            width -= (holder.offsetWidth - holder.clientWidth);
+        }
+
+        // Subtract the row header column, if enabled
+        var rowHeader = this.containerEl.querySelector('.ht_master table tbody tr th');
+        if (rowHeader) {
+            width -= rowHeader.offsetWidth;
+        }
+
+        return width;
+    }
+
+    calculateFitWidths(available) {
+        var MIN_WIDTH = 60;
+        var columns = this.config.columns;
+        var fixedTotal = 0;
+        var flexCount = 0;
+
+        columns.forEach(function(col) {
+            if (col.width) {
+                fixedTotal += col.width;
+            }
+            else {
+                flexCount++;
+            }
+        });
+
+        if (!flexCount) {
+            return columns.map(function(col) {
+                return col.width;
+            });
+        }
+
+        // Explicit widths are honored, remaining space is split evenly with
+        // the rounding remainder given to the last flexible column.
+        var flexWidth = Math.max(Math.floor((available - fixedTotal) / flexCount), MIN_WIDTH);
+        var remainder = Math.max(available - fixedTotal - (flexWidth * flexCount), 0);
+        var flexLeft = flexCount;
+
+        return columns.map(function(col) {
+            if (col.width) {
+                return col.width;
+            }
+            flexLeft--;
+            return flexLeft === 0 ? flexWidth + remainder : flexWidth;
+        });
     }
 
     processColumns() {

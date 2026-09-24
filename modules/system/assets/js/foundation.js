@@ -7903,6 +7903,19 @@ API.txt for details.
         }
 
         if ($valuesField.length > 0) {
+            // Custom values without a property definition are preserved,
+            // protecting manually added configuration from deletion.
+            var existingValues = this.loadValues(this.configuration);
+
+            for (var existingProperty in existingValues) {
+                if (
+                    !values.hasOwnProperty(existingProperty) &&
+                    !this.surface.findPropertyDefinition(existingProperty)
+                ) {
+                    values[existingProperty] = existingValues[existingProperty];
+                }
+            }
+
             $valuesField.val(JSON.stringify(values));
         }
         else {
