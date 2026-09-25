@@ -95,8 +95,8 @@
 
 <script>
     oc.popup.bindToPopups('#<?= $relationManageFormWidget->getId("managePopup") ?>', {
-        _relation_field: '<?= $relationField ?>',
-        _relation_extra_config: '<?= e(json_encode($relationExtraConfig)) ?>',
-        _form_session_key: '<?= $formSessionKey ?>'
+        _relation_field: <?= json_encode($relationField) ?>,
+        _relation_extra_config: <?= json_encode(json_encode($relationExtraConfig)) ?>,
+        _form_session_key: <?= json_encode($formSessionKey) ?>
     });
 </script>

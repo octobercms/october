@@ -39,6 +39,7 @@ trait HasExtraConfig
         $extraConfig['chain'][] = $this->field;
         $extraConfig['manageIds'][$this->field] = $this->manageId;
         $extraConfig['sessionKeys'][$this->field] = [$this->sessionKey, $this->relationSessionKey];
+        $extraConfig['eventTargets'][$this->field] = $this->eventTarget;
 
         $this->extraConfigChain = $this->extraConfig = $extraConfig;
     }

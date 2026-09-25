@@ -5,7 +5,6 @@
     ]) ?>
         <input type="hidden" name="field_name" value="<?= e($translatableField->fieldName) ?>" />
         <input type="hidden" name="site_id" value="<?= e($translatableSite->id) ?>" />
-        <input type="hidden" name="model_id" value="<?= e($translatableModelId) ?>" />
         <div class="modal-header">
             <h4 class="modal-title">
                 <?=  e($translatableSite->name) ?>

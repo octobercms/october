@@ -97,6 +97,8 @@
 
 <script>
     oc.popup.bindToPopups('#<?= $relationPivotWidget->getId("pivotPopup") ?>', {
-        _relation_field: '<?= $relationField ?>'
+        _relation_field: <?= json_encode($relationField) ?>,
+        _relation_extra_config: <?= json_encode(json_encode($relationExtraConfig)) ?>,
+        _form_session_key: <?= json_encode($formSessionKey) ?>
     });
 </script>

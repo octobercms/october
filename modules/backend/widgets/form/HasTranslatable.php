@@ -29,6 +29,10 @@ trait HasTranslatable
             throw new SystemException("Field [{$fieldName}] not found in form.");
         }
 
+        if (!$field->translatable) {
+            throw new SystemException("Field [{$fieldName}] is not translatable.");
+        }
+
         $site = $this->getTranslatableSite($siteId);
 
         // Wrap the entire handler in site context so the form widget renders
@@ -41,7 +45,6 @@ trait HasTranslatable
             $this->vars['translatableSite'] = $site;
             $this->vars['translatableFormWidget'] = $formWidget;
             $this->vars['translatableSessionKey'] = $formWidget->getSessionKey();
-            $this->vars['translatableModelId'] = $this->model->getKey();
 
             return $this->makePartial('translate_popup');
         });
@@ -52,7 +55,7 @@ trait HasTranslatable
      */
     public function onSaveTranslateField()
     {
-        if (!$this->useTranslatable) {
+        if ($this->useTranslatable === false) {
             throw new SystemException("Translation is not enabled on this form.");
         }
 
@@ -71,12 +74,16 @@ trait HasTranslatable
         $model = $this->model;
         $site = $this->getTranslatableSite($siteId);
 
-        Site::withContext($siteId, function () use ($model, $field, $site) {
+        // Only call hooks for the FormController widget
+        $useSaveHooks = $this->controller->methodExists('formGetWidget') &&
+            $this->controller->formGetWidget() === $this;
+
+        Site::withContext($siteId, function () use ($model, $field, $site, $useSaveHooks) {
             $siteModel = $this->getTranslatableSiteModel($model, $site);
             $formWidget = $this->makeTranslateFormWidget($field, $siteModel, $site);
             $saveData = $formWidget->getSaveData();
 
-            if ($this->controller->methodExists('formBeforeSave')) {
+            if ($useSaveHooks && $this->controller->methodExists('formBeforeSave')) {
                 $this->controller->formBeforeSave($model);
             }
 
@@ -85,7 +92,7 @@ trait HasTranslatable
                 'force' => true
             ]);
 
-            if ($this->controller->methodExists('formAfterSave')) {
+            if ($useSaveHooks && $this->controller->methodExists('formAfterSave')) {
                 $this->controller->formAfterSave($model);
             }
         });
@@ -158,11 +165,6 @@ trait HasTranslatable
     {
         if (!method_exists($model, 'isClassInstanceOf')) {
             return $model;
-        }
-
-        // Model isn't populated likely from saving context
-        if (!$model->exists && ($modelId = post('model_id'))) {
-            $model = $model->newQuery()->find($modelId) ?: $model;
         }
 
         // Multisite: load the linked record for the target site

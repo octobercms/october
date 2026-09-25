@@ -194,6 +194,77 @@ class FormWidgetTest extends PluginTestCase
         $this->assertEquals('[name="array[trigger][]"]', array_get($attributes, 'data-trigger'));
     }
 
+    public function testTranslateSaveAllowedWithDefaultTranslatableState()
+    {
+        $this->swapPostRequest(['field_name' => 'name']);
+
+        $model = new FormTestModel;
+        $model->exists = true;
+
+        $form = new Form(null, [
+            'model' => $model,
+            'fields' => [
+                'name' => [
+                    'label' => 'Author Name'
+                ]
+            ]
+        ]);
+
+        self::callProtectedMethod($form, 'defineFormFields');
+
+        // The inherited default (null) must pass the form-level guard and
+        // fail on the field-level gate instead
+        $this->expectException(SystemException::class);
+        $this->expectExceptionMessage('Field [name] is not translatable.');
+
+        $form->onSaveTranslateField();
+    }
+
+    public function testTranslateSaveRejectedWhenExplicitlyDisabled()
+    {
+        $model = new FormTestModel;
+        $model->exists = true;
+
+        $form = new Form(null, [
+            'model' => $model,
+            'useTranslatable' => false,
+            'fields' => [
+                'name' => [
+                    'label' => 'Author Name'
+                ]
+            ]
+        ]);
+
+        $this->expectException(SystemException::class);
+        $this->expectExceptionMessage('Translation is not enabled on this form.');
+
+        $form->onSaveTranslateField();
+    }
+
+    public function testTranslateSaveRejectedWithoutPersistedModel()
+    {
+        $form = new Form(null, [
+            'model' => new FormTestModel,
+            'fields' => [
+                'name' => [
+                    'label' => 'Author Name'
+                ]
+            ]
+        ]);
+
+        $this->expectException(SystemException::class);
+        $this->expectExceptionMessage('Translation is not enabled on this form.');
+
+        $form->onSaveTranslateField();
+    }
+
+    protected function swapPostRequest(array $data)
+    {
+        $request = \Illuminate\Http\Request::create('/', 'POST', $data);
+        $this->app->instance('request', $request);
+        \Illuminate\Support\Facades\Facade::clearResolvedInstance('request');
+    }
+
     protected function restrictedFormFixture(bool $singlePermission = false)
     {
         return new Form(null, [

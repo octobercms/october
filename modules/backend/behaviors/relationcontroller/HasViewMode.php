@@ -415,8 +415,22 @@ trait HasViewMode
                 return 'list';
 
             default:
-                return '';
+                return $this->getPostedEventTarget();
         }
+    }
+
+    /**
+     * getPostedEventTarget returns the event target persisted by the extra config, since widget
+     * AJAX requests (search, pagination) inside the popup cannot resolve it from the handler name.
+     */
+    protected function getPostedEventTarget(): string
+    {
+        $target = $this->extraConfig['eventTargets'][$this->field] ?? null;
+        if (in_array($target, ['button-add', 'button-create', 'button-link', 'button-update', 'list'], true)) {
+            return $target;
+        }
+
+        return '';
     }
 
     /**
