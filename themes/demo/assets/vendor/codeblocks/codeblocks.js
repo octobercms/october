@@ -13,6 +13,10 @@ import 'codemirror/addon/mode/multiplex';
 export default class extends oc.ControlBase {
     init() {
         const pre = this.element.querySelector('pre');
+        if (pre.querySelector('.CodeMirror')) {
+            return;
+        }
+
         const codeValue = pre.textContent;
         let modeValue;
 
