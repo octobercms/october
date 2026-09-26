@@ -1,7 +1,6 @@
 {# Vendor #}
 <script src="{{ 'assets/vendor/jquery.min.js'|theme }}"></script>
 <script src="{{ 'assets/vendor/bootstrap/bootstrap.min.js'|theme }}"></script>
-<script src="{{ 'assets/vendor/codeblocks/codeblocks.min.js'|theme }}"></script>
 <script src="{{ 'assets/vendor/slick-carousel/slick.min.js'|theme }}"></script>
 
 <script type="module">
@@ -21,6 +20,10 @@
 <script src="{{ 'assets/js/controls/gallery-slider.js'|theme}}"></script>
 <script src="{{ 'assets/js/controls/card-slider.js'|theme}}"></script>
 <script src="{{ 'assets/js/controls/quantity-input.js'|theme}}"></script>
+<script>
+    // Highlighting is imported only on pages with code samples
+    oc.registerControl('codeblock', () => import("{{ 'assets/vendor/codeblocks/codeblocks.min.js'|theme }}"));
+</script>
 <script src="{{ 'assets/js/app.js'|theme}}"></script>
 
 {# Placeholder #}
