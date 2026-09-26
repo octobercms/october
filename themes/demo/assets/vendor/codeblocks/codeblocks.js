@@ -10,21 +10,13 @@ import 'codemirror/mode/clike/clike';
 import 'codemirror/mode/xml/xml';
 import 'codemirror/addon/mode/multiplex';
 
-const $ = window.jQuery;
+export default class extends oc.ControlBase {
+    init() {
+        const pre = this.element.querySelector('pre');
+        const codeValue = pre.textContent;
+        let modeValue;
 
-function renderCodeBlocks() {
-    $('.code-block > pre').each(function () {
-        if (this.dataset.disposable) {
-            return;
-        }
-        this.dataset.disposable = true;
-
-        var $pre = $(this),
-            codeValue = $pre.text(),
-            language = $pre.data('language'),
-            modeValue;
-
-        if (language === 'php') {
+        if (pre.dataset.language === 'php') {
             modeValue = 'text/x-php';
         }
         else {
@@ -34,17 +26,13 @@ function renderCodeBlocks() {
             };
         }
 
-        $pre.empty();
+        pre.textContent = '';
 
-        new CodeMirror(this, {
+        new CodeMirror(pre, {
             value: codeValue,
             mode: modeValue,
             lineNumbers: true,
             readOnly: true
         });
-    });
-
+    }
 }
-
-$(renderCodeBlocks);
-$(document).on('render', renderCodeBlocks);
