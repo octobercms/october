@@ -310,10 +310,7 @@ class DataTable extends FormWidgetBase
             'manualColumnMove' => $reorderColumns,
             'manualColumnFreeze' => $reorderColumns,
             'columnSorting' => $sorting,
-            // Fit mode: the client computes exact column widths so the table
-            // always fills the container, cells clip on one line (ellipsis)
-            // and the full value is available in the cell editor.
-            'stretchH' => 'none',
+            'stretchH' => 'fit',
             'wordWrap' => false,
             'textEllipsis' => true,
             'preventOverflow' => 'horizontal',

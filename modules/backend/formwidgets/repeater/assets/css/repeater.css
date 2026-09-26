@@ -123,6 +123,7 @@ body.component-backend-document-fullscreen {
 
     > ul.field-repeater-items {
         flex-grow: 1;
+        min-width: 0;
 
         > li {
             display: none;

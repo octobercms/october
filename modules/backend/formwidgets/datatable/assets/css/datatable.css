@@ -1,11 +1,14 @@
 .field-datatable.is-handsontable {
+    border: 1px solid var(--bs-border-color);
+    border-radius: 4px;
+    background: var(--oc-form-control-bg);
+    overflow: hidden;
+
     .toolbar {
         padding: 3px;
         font-size: 0;
         white-space: nowrap;
-        border: 1px solid var(--bs-border-color);
-        border-bottom: none;
-        border-radius: 4px 4px 0 0;
+        border-bottom: 1px solid var(--bs-border-color);
 
         .toolbar-search {
             float: right;
@@ -17,16 +20,12 @@
                 font-size: 13px;
             }
         }
-
-        + .handsontable-container {
-            border-top-left-radius: 0;
-            border-top-right-radius: 0;
-        }
     }
 
     /* Header styling to match legacy table */
     .handsontable thead th {
         padding: 0;
+        text-align: left;
         font-weight: normal;
         font-size: 14px;
         color: var(--oc-heading-color);
@@ -117,11 +116,15 @@
             background-color: var(--bs-tertiary-bg);
             color: var(--oc-heading-color);
 
+            /* Outer edges are drawn by the container border */
             &:last-child {
-                border-color: var(--bs-border-color);
+                border-right-color: transparent;
             }
 
-            &:first-child,
+            &:first-child {
+                border-left-color: transparent;
+            }
+
             &:nth-child(2) {
                 border-left-color: var(--bs-border-color);
             }
@@ -134,7 +137,11 @@
         }
 
         td:first-of-type {
-            border-left-color: var(--bs-border-color);
+            border-left-color: transparent;
+        }
+
+        td:last-child {
+            border-right-color: transparent;
         }
 
         .htNoFrame + th,
@@ -144,7 +151,7 @@
 
         tr:first-child {
             th, td {
-                border-top-color: var(--bs-border-color);
+                border-top-color: transparent;
             }
         }
 
