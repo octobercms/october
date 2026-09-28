@@ -161,7 +161,7 @@ class SettingModel extends ExpandoModel
         }
 
         $this->clearCache();
-        unset(self::$instances[$this->settingsCode]);
+        unset(static::$instances[$this->getCacheKey()]);
     }
 
     /**
