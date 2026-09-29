@@ -101,6 +101,71 @@ class SafeSessionStoreTest extends TestCase
         $proxy->put('_token', 'forged-token');
     }
 
+    /**
+     * testWidgetStateKeysAreBlocked ensures backend widget state cannot be written through any key form.
+     */
+    public function testWidgetStateKeysAreBlocked()
+    {
+        $store = $this->makeStore();
+        $proxy = new SafeSessionStore($store);
+
+        $attempts = [
+            fn() => $proxy->put('widget.Backend-Users-ListWidget', '{"columns":[]}'),
+            fn() => $proxy->put('widget', ['Backend-Users-ListWidget' => '{"columns":[]}']),
+            fn() => $proxy->put(['widget.Backend-Users-ListWidget' => '{"columns":[]}'], null),
+            fn() => $proxy->push('widget.Backend-Users-ListWidget', 'x'),
+            fn() => $proxy->flash('widget.Backend-Users-ListWidget', 'x'),
+            fn() => $proxy->forget('widget'),
+        ];
+
+        foreach ($attempts as $index => $attempt) {
+            try {
+                $attempt();
+                $this->fail("Expected widget write attempt {$index} to be blocked");
+            }
+            catch (SecurityNotAllowedMethodError $e) {
+                $this->assertStringContainsString('reserved session key', $e->getMessage());
+            }
+        }
+
+        $this->assertFalse($store->has('widget'));
+    }
+
+    /**
+     * testWidgetLikeKeysAreAllowed ensures the widget reservation does not catch unrelated theme keys.
+     */
+    public function testWidgetLikeKeysAreAllowed()
+    {
+        $store = $this->makeStore();
+        $proxy = new SafeSessionStore($store);
+
+        $proxy->put('widgets', 1);
+        $proxy->put('widget_layout', 'grid');
+
+        $this->assertSame(1, $store->get('widgets'));
+        $this->assertSame('grid', $store->get('widget_layout'));
+    }
+
+    /**
+     * testPullingReservedKeyIsBlocked ensures pull cannot be used to remove a reserved key.
+     */
+    public function testPullingReservedKeyIsBlocked()
+    {
+        $store = $this->makeStore();
+        $store->put('admin_auth', [3, 'real_persist_code']);
+        $proxy = new SafeSessionStore($store);
+
+        try {
+            $proxy->pull('admin_auth');
+            $this->fail('Expected pull of a reserved key to be blocked');
+        }
+        catch (SecurityNotAllowedMethodError) {
+        }
+
+        $this->assertSame([3, 'real_persist_code'], $store->get('admin_auth'));
+        $this->assertNull($proxy->pull('missing_key'));
+    }
+
     public function testLifecycleMethodsAreBlocked()
     {
         $proxy = new SafeSessionStore($this->makeStore());

@@ -46,7 +46,7 @@ class SafeSessionStore implements CallsAnyMethod
      * have that key validated against $reservedKeyPrefixes.
      */
     protected $writeMethods = [
-        'put', 'push', 'increment', 'decrement', 'remove', 'forget',
+        'pull', 'put', 'push', 'increment', 'decrement', 'remove', 'forget',
         'flash', 'now',
     ];
 
@@ -115,7 +115,12 @@ class SafeSessionStore implements CallsAnyMethod
         $topKey = strstr($key, '.', true) ?: $key;
 
         foreach ($this->reservedKeyPrefixes as $prefix) {
-            if (str_starts_with($topKey, $prefix)) {
+            // A trailing dot reserves the whole top-level segment by exact name
+            $isReserved = str_ends_with($prefix, '.')
+                ? $topKey === rtrim($prefix, '.')
+                : str_starts_with($topKey, $prefix);
+
+            if ($isReserved) {
                 throw new SecurityNotAllowedMethodError(
                     sprintf('Writing to reserved session key "%s" is blocked in Safe Mode.', $key),
                     Store::class,

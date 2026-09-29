@@ -93,6 +93,7 @@ class ListStructure extends Lists
             'showReorder',
             'treeExpanded',
             'includeSortOrders',
+            'includeReferencePool',
             'permissions'
         ]);
 

@@ -68,6 +68,7 @@ final class SecurityPolicy implements SecurityPolicyInterface
         \Illuminate\Database\Eloquent\Builder::class => \Illuminate\Database\Query\Builder::class,
         \Illuminate\Database\Eloquent\Model::class => \Illuminate\Database\Eloquent\Builder::class,
         \Tailor\Classes\ComponentVariable::class => \Illuminate\Database\Eloquent\Builder::class,
+        \System\Twig\SecurityPolicy\SafePaginator::class => \Illuminate\Pagination\AbstractPaginator::class,
     ];
 
     /**
@@ -97,6 +98,9 @@ final class SecurityPolicy implements SecurityPolicyInterface
         // Block Illuminate\Support\Traits\Macroable
         'macro',
         'mixin',
+
+        // Block Cms\Classes\Controller
+        'inComponentContext',
     ];
 
     /**

@@ -17,12 +17,19 @@ use Traversable;
 class SafePaginator implements CallsAnyMethod, ArrayAccess, Countable, IteratorAggregate
 {
     /**
-     * @var array blockedMethods that expose the raw collection or accept callables
+     * @var array blockedMethods that expose the raw collection, accept callables, or instantiate arbitrary classes
      */
     protected $blockedMethods = [
         'through',
         'setcollection',
         'getcollection',
+        'tap',
+        'pipe',
+        'loadmorph',
+        'loadmorphcount',
+        'mapinto',
+        'pipeinto',
+        'toresourcecollection',
     ];
 
     /**
