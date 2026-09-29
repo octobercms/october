@@ -73,10 +73,10 @@ class UserRoles extends SettingsController
     }
 
     /**
-     * listBeforeReorderStructure blocks reorder posts that reference roles the
+     * listBeforeReorder blocks reorder posts that reference roles the
      * caller is not authorized to manage
      */
-    public function listBeforeReorderStructure($record)
+    public function listBeforeReorder($record)
     {
         $ids = array_filter(array_merge(
             [$record->getKey()],

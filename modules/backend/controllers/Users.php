@@ -277,6 +277,10 @@ class Users extends SettingsController
      */
     public function update_onRestore($recordId)
     {
+        if (!$this->formCheckPermission('modelDelete')) {
+            throw new ForbiddenException;
+        }
+
         $this->formFindModelObject($recordId)->restore();
 
         Flash::success(Lang::get('backend::lang.form.restore_success', ['name' => Lang::get('backend::lang.user.name')]));

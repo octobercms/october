@@ -457,6 +457,10 @@ class Entries extends WildcardController
     public function onSave($recordId = null)
     {
         if ($this->actionMethod === 'update') {
+            if ($this->isSectionDraftable()) {
+                $this->checkSourcePermission('publish');
+            }
+
             $redirect = $this->asExtension('FormController')->update_onSave($recordId);
             if (post('close')) {
                 return $redirect;

@@ -194,6 +194,58 @@ class FormWidgetTest extends PluginTestCase
         $this->assertEquals('[name="array[trigger][]"]', array_get($attributes, 'data-trigger'));
     }
 
+    public function testReadOnlyDropdownEscapesHiddenValue()
+    {
+        $model = new FormTestModel;
+        $model->choice = '"><svg onload="alert(1)"></svg>';
+
+        $form = new Form(null, [
+            'model' => $model,
+            'fields' => [
+                'choice' => [
+                    'type' => 'dropdown',
+                    'readOnly' => true,
+                    'options' => ['a' => 'Option A']
+                ]
+            ]
+        ]);
+
+        $html = $form->render();
+
+        $this->assertStringNotContainsString('<svg', $html);
+        $this->assertStringContainsString('value="&quot;&gt;&lt;svg', $html);
+    }
+
+    public function testReadOnlyTagListEscapesHiddenValues()
+    {
+        $model = new FormTestModel;
+        $model->tags = ['"><svg onload="alert(1)"></svg>'];
+        $model->tagString = '"><svg onload="alert(2)"></svg>';
+
+        $form = new Form(new \Backend\Classes\Controller, [
+            'model' => $model,
+            'fields' => [
+                'tags' => [
+                    'type' => 'taglist',
+                    'readOnly' => true,
+                    'customTags' => true
+                ],
+                'tagString' => [
+                    'type' => 'taglist',
+                    'mode' => 'string',
+                    'readOnly' => true,
+                    'customTags' => true
+                ]
+            ]
+        ]);
+
+        $html = $form->render();
+
+        $this->assertStringNotContainsString('<svg', $html);
+        $this->assertStringContainsString('value="&quot;&gt;&lt;svg onload=&quot;alert(1)', $html);
+        $this->assertStringContainsString('value="&quot;&gt;&lt;svg onload=&quot;alert(2)', $html);
+    }
+
     public function testTranslateSaveAllowedWithDefaultTranslatableState()
     {
         $this->swapPostRequest(['field_name' => 'name']);

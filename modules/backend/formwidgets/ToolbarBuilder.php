@@ -75,11 +75,13 @@ class ToolbarBuilder extends FormWidgetBase
     }
 
     /**
-     * normalizeButtons cleans a button list to a comma separated string
+     * normalizeButtons cleans a button list to a comma separated string of safe button codes
      */
     protected function normalizeButtons(string $buttons): string
     {
-        $items = array_filter(array_map('trim', explode(',', $buttons)), 'strlen');
+        $items = array_filter(array_map('trim', explode(',', $buttons)), function ($item) {
+            return strlen($item) && preg_match('/^[a-zA-Z0-9_|\-]+$/', $item);
+        });
 
         return implode(',', $items);
     }

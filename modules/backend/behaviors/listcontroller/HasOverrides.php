@@ -121,6 +121,15 @@ trait HasOverrides
     }
 
     /**
+     * listBeforeReorder is called before the list record structure is reordered and may return false to abort the reorder.
+     * @param \October\Rain\Database\Model $record
+     * @param string|null $definition List definition (optional)
+     */
+    public function listBeforeReorder($record, $definition = null)
+    {
+    }
+
+    /**
      * listAfterReorder is called after the list record structure is reordered
      * @param \October\Rain\Database\Model $record
      * @param string|null $definition List definition (optional)

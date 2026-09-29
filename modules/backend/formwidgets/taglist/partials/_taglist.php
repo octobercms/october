@@ -34,7 +34,7 @@
 
 <!-- Tag List -->
 <?php if ($this->previewMode || $field->readOnly || $field->disabled): ?>
-    <ul class="form-control taglist--preview" <?= $field->readOnly || $field->disabled ? 'disabled="disabled"' : '' ?>>
+    <ul class="form-control taglist--preview" <?= $field->disabled ? 'disabled="disabled"' : ($field->readOnly ? 'readonly="readonly"' : '') ?>>
         <?php foreach ($previewOptions as $option): ?>
             <li class="taglist__item"><?= $field->getDisplayValue($option->label) ?></li>
         <?php endforeach ?>
@@ -45,13 +45,13 @@
                 <input
                     type="hidden"
                     name="<?= $field->getName() ?>[]"
-                    value="<?= $option->value ?>" />
+                    value="<?= e($option->value) ?>" />
             <?php endforeach ?>
         <?php else: ?>
             <input
                 type="hidden"
                 name="<?= $field->getName() ?>"
-                value="<?= $field->value ?>" />
+                value="<?= e($field->value) ?>" />
         <?php endif ?>
     <?php endif ?>
 <?php else: ?>

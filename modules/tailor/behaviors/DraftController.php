@@ -51,6 +51,10 @@ class DraftController extends ControllerBehavior
         if ($this->isDraftMode()) {
             $draftModel = $this->controller->formFindModelObject($this->getDraftId());
 
+            if (!$this->isDraftOfPrimary($draftModel)) {
+                throw new Exception("Resolved model is not a draft of the primary record");
+            }
+
             if ($draftModel->isUnsavedDraftStatus()) {
                 $context = FormField::CONTEXT_CREATE;
             }
@@ -138,6 +142,10 @@ class DraftController extends ControllerBehavior
         $this->initDraft($model);
 
         $draftModel = $this->draftGetDraftModel();
+
+        if (!$draftModel->isDraftStatus()) {
+            $this->controller->checkSourcePermission('publish');
+        }
 
         $draftModel->setDraftCommit((array) post('Draft'));
 
@@ -231,17 +239,32 @@ class DraftController extends ControllerBehavior
 
         $this->initDraft($model);
 
-        if ($draftModel = $this->draftGetDraftModel()) {
-            $draftModel->{$this->deleteMethod}();
-            Flash::success(__('Draft Discarded'));
+        if (!$this->isDraftMode()) {
+            throw new Exception("No draft was resolved for the primary record");
         }
-        else {
-            Flash::error('Unable to find draft model');
-        }
+
+        $this->draftGetDraftModel()->{$this->deleteMethod}();
+        Flash::success(__("Draft Discarded"));
 
         if ($redirect = $this->controller->makeRedirect('update', $model)) {
             return $redirect;
         }
+    }
+
+    /**
+     * isDraftOfPrimary confirms the given model is a draft of the primary record, unless first draft
+     */
+    protected function isDraftOfPrimary($draftModel): bool
+    {
+        if (!$draftModel || !$this->primaryModel) {
+            return false;
+        }
+
+        if ($draftModel->getKey() === $this->primaryModel->getKey()) {
+            return $this->primaryModel->isFirstDraftStatus();
+        }
+
+        return (string) $draftModel->primary_id === (string) $this->primaryModel->getKey();
     }
 
     /**

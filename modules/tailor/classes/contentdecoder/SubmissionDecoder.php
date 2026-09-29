@@ -1,5 +1,6 @@
 <?php namespace Tailor\Classes\ContentDecoder;
 
+use Html;
 use Tailor\Models\EntryRecord;
 use Tailor\Models\RepeaterItem;
 use October\Rain\Database\Relations\BelongsTo;
@@ -45,6 +46,15 @@ class SubmissionDecoder extends Decoder
     ];
 
     /**
+     * @var array htmlFieldTypes are field types whose scalar value may reach a reviewer as markup and must be sanitized before storage
+     */
+    protected $htmlFieldTypes = [
+        'richeditor',
+        'markdown',
+        'codeeditor',
+    ];
+
+    /**
      * __construct with the component providing uploaded file validation.
      */
     public function __construct(protected $component)
@@ -52,21 +62,44 @@ class SubmissionDecoder extends Decoder
     }
 
     /**
-     * beforeDecodeAttribute drops child attributes that are unknown to the fieldset or guarded.
+     * beforeDecodeAttribute drops child attributes that are unknown to the fieldset or guarded,
+     * and sanitizes scalar HTML values before they reach the model.
      */
     protected function beforeDecodeAttribute($model, $attr, &$value): bool
     {
-        if (!$model instanceof RepeaterItem) {
+        if ($model instanceof RepeaterItem) {
+            if ($attr === 'content_group') {
+                return false;
+            }
+
+            $field = $model->getFieldsetDefinition()->getField($attr);
+            if (!$field || $field->guarded === true) {
+                return false;
+            }
+
+            $this->sanitizeHtmlValue($field, $value);
+
             return true;
         }
 
-        if ($attr === 'content_group') {
-            return false;
+        $field = $model->getFieldsetDefinition()->getField($attr);
+        if ($field) {
+            $this->sanitizeHtmlValue($field, $value);
         }
 
-        $field = $model->getFieldsetDefinition()->getField($attr);
+        return true;
+    }
 
-        return $field && $field->guarded !== true;
+    /**
+     * sanitizeHtmlValue passes visitor-authored HTML through the sanitizer for field types that store markup.
+     */
+    protected function sanitizeHtmlValue($field, &$value): void
+    {
+        if (!is_string($value) || !in_array($field->type ?? null, $this->htmlFieldTypes, true)) {
+            return;
+        }
+
+        $value = Html::clean($value);
     }
 
     /**

@@ -71,6 +71,20 @@
         box-shadow: none;
     }
 
+    &[readonly],
+    &[readonly]:focus {
+        color: var(--oc-form-control-readonly-color);
+        border-color: var(--oc-form-control-readonly-border);
+        background-color: var(--oc-form-control-readonly-bg);
+    }
+
+    &:disabled,
+    &[disabled] {
+        color: var(--oc-form-control-disabled-color);
+        background-color: var(--oc-form-control-disabled-bg);
+        cursor: not-allowed;
+    }
+
     &.growable, /* @deprecated */
     &.is-growable {
         width: 110px;

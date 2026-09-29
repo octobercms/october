@@ -203,6 +203,10 @@ class ListController extends ControllerBehavior
             return $this->controller->listOverrideRecordUrl($record, $definition);
         });
 
+        $widget->bindEvent('list.beforeReorderStructure', function ($record) use ($definition) {
+            return $this->controller->listBeforeReorder($record, $definition);
+        });
+
         $widget->bindEvent('list.reorderStructure', function ($record) use ($definition) {
             return $this->controller->listAfterReorder($record, $definition);
         });

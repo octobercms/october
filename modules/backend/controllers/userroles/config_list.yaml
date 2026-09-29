@@ -15,6 +15,7 @@ structure:
     showTree: false
     showReorder: true
     maxDepth: 1
+    includeReferencePool: true
 
 toolbar:
     buttons: list_toolbar

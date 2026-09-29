@@ -180,6 +180,8 @@
     }
 
     &.select2-container--disabled {
+        --custom-select-input-color: var(--custom-select-input-disabled-color);
+
         .select2-selection {
             border-color: var(--custom-select-input-border);
             box-shadow: none;

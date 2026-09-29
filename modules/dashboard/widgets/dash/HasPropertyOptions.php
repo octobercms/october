@@ -87,12 +87,13 @@ trait HasPropertyOptions
             return [];
         }
 
-        $traitFound = in_array(\System\Traits\PropertyContainer::class, class_uses_recursive($className));
-        if (!$traitFound) {
+        if (!$this->isReportWidget($className)) {
             return [];
         }
 
-        $obj = new $className($this->controller, null);
+        $resolvedClass = $this->dashManager->resolveReportWidget($className);
+
+        $obj = new $resolvedClass($this->controller, null);
         $obj->setProperties(post());
 
         // Nested properties have names like object.property

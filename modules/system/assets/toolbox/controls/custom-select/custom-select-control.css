@@ -43,6 +43,7 @@
     --custom-select-input-transition: border-color ease-in-out .15s, box-shadow ease-in-out .15s;
     --custom-select-input-color-placeholder: #cccccc;
     --custom-select-input-disabled-bg: var(--oc-form-control-disabled-bg);
+    --custom-select-input-disabled-color: var(--oc-form-control-disabled-color);
 
     /* Sizing variables */
     --custom-select-padding-small-vertical: 5px;
