@@ -69,7 +69,7 @@ class PreviewToken extends Model
     public static function createTokenForUrl($url, $params = [])
     {
         return static::createToken([
-            'uri' => Url::makeRelative($url)
+            'uri' => parse_url(Url::makeRelative($url), PHP_URL_PATH)
         ] + $params);
     }
 
