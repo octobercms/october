@@ -51,7 +51,7 @@
   "Text Notice": "Aviso de texto",
   "Widget Configuration": "Configuración del widget",
   "Configure the report widget": "Configurar el widget de informe",
-  "Width :columns": "Ancho: columnas",
+  "Width :columns": "Ancho :columns",
   "The widget width, a number between 1 and 10.": "El ancho del widget, un número entre 1 y 10.",
   "Please enter the widget width as a number between 1 and 10.": "Introduzca el ancho del widget como un número entre 1 y 10.",
   "{1} column|[2,Inf] columns": "{1} columna|[2,Inf] columnas",

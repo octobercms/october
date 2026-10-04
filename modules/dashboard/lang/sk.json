@@ -47,7 +47,7 @@
   "Text Notice": "Textové oznámenie",
   "Widget Configuration": "Konfigurácia widgetu",
   "Configure the report widget": "Konfigurácia widgetu prehľadu",
-  "Width :columns": "Šírka: stĺpce",
+  "Width :columns": "Šírka :columns",
   "The widget width, a number between 1 and 10.": "Šírka widgetu, číslo medzi 1 a 10.",
   "Please enter the widget width as a number between 1 and 10.": "Zadajte šírku widgetu ako číslo od 1 do 10.",
   "{1} column|[2,Inf] columns": "{1} stĺpec|[2,Inf] stĺpce",

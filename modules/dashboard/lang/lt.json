@@ -47,7 +47,7 @@
   "Text Notice": "Tekstinis pranešimas",
   "Widget Configuration": "Valdiklio konfigūracija",
   "Configure the report widget": "Ataskaitos valdiklio konfigūravimas",
-  "Width :columns": "Plotis: stulpeliai",
+  "Width :columns": "Plotis :columns",
   "The widget width, a number between 1 and 10.": "Valdiklio plotis, skaičius nuo 1 iki 10.",
   "Please enter the widget width as a number between 1 and 10.": "Įveskite valdiklio plotį skaičiumi nuo 1 iki 10.",
   "{1} column|[2,Inf] columns": "{1} stulpelis|[2,Inf] stulpeliai",

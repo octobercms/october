@@ -47,7 +47,7 @@
   "Text Notice": "Pemberitahuan Teks",
   "Widget Configuration": "Konfigurasi Widget",
   "Configure the report widget": "Konfigurasikan widget laporan.",
-  "Width :columns": "Lebar :kolom",
+  "Width :columns": "Lebar :columns",
   "The widget width, a number between 1 and 10.": "Lebar widget, sebuah angka antara 1 dan 10.",
   "Please enter the widget width as a number between 1 and 10.": "Silakan masukkan lebar widget sebagai angka antara 1 dan 10.",
   "{1} column|[2,Inf] columns": "kolom {1}|[2,Inf] kolom",

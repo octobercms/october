@@ -47,7 +47,7 @@
   "Text Notice": "Tekstiteade",
   "Widget Configuration": "Vidina konfiguratsioon",
   "Configure the report widget": "Aruande vidina seadistamine",
-  "Width :columns": "Laius: veerud",
+  "Width :columns": "Laius :columns",
   "The widget width, a number between 1 and 10.": "Vidina laius, arv vahemikus 1 kuni 10.",
   "Please enter the widget width as a number between 1 and 10.": "Palun sisesta vidina laius numbrina vahemikus 1 kuni 10.",
   "{1} column|[2,Inf] columns": "{1} veerg|[2,Inf] veerud",

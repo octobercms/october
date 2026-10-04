@@ -47,7 +47,7 @@
   "Text Notice": "テキスト通知",
   "Widget Configuration": "ウィジェットの設定",
   "Configure the report widget": "レポートウィジェットを設定する",
-  "Width :columns": "幅:列",
+  "Width :columns": "幅 :columns",
   "The widget width, a number between 1 and 10.": "ウィジェットの幅。1 から 10 までの数値。",
   "Please enter the widget width as a number between 1 and 10.": "ウィジェットの幅を1〜10の数値で入力してください。",
   "{1} column|[2,Inf] columns": "{1} 列|[2,Inf] 列",

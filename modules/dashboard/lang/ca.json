@@ -51,7 +51,7 @@
   "Text Notice": "Avís per SMS",
   "Widget Configuration": "Configuració del widget",
   "Configure the report widget": "Configura el widget d'informes",
-  "Width :columns": "Amplada: columnes",
+  "Width :columns": "Amplada :columns",
   "The widget width, a number between 1 and 10.": "L'amplada del widget, un número entre 1 i 10.",
   "Please enter the widget width as a number between 1 and 10.": "Si us plau, introduïu l'amplada del widget com un número entre 1 i 10.",
   "{1} column|[2,Inf] columns": "{1} columna|[2,Inf] columnes",

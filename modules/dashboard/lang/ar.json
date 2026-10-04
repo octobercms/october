@@ -47,7 +47,7 @@
   "Text Notice": "إشعار نصي",
   "Widget Configuration": "إعدادات الأداة",
   "Configure the report widget": "قم بتهيئة أداة التقرير",
-  "Width :columns": "العرض: أعمدة",
+  "Width :columns": "العرض :columns",
   "The widget width, a number between 1 and 10.": "عرض الأداة، وهو رقم بين 1 و 10.",
   "Please enter the widget width as a number between 1 and 10.": "يرجى إدخال عرض الأداة كرقم بين 1 و 10.",
   "{1} column|[2,Inf] columns": "{1} عمود | [2، ∞] أعمدة",

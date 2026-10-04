@@ -47,7 +47,7 @@
   "Text Notice": "Metin Bildirimi",
   "Widget Configuration": "Widget Yapılandırması",
   "Configure the report widget": "Rapor aracını yapılandırın",
-  "Width :columns": "Genişlik :sütunlar",
+  "Width :columns": "Genişlik :columns",
   "The widget width, a number between 1 and 10.": "Pencere öğesinin genişliği, 1 ile 10 arasında bir sayı.",
   "Please enter the widget width as a number between 1 and 10.": "Lütfen widget genişliğini 1 ile 10 arasında bir sayı olarak girin.",
   "{1} column|[2,Inf] columns": "{1} sütun|[2,Sonsuz] sütun",

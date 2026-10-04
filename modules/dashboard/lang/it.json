@@ -47,7 +47,7 @@
   "Text Notice": "Avviso di testo",
   "Widget Configuration": "Configurazione del widget",
   "Configure the report widget": "Configurare il widget del report",
-  "Width :columns": "Larghezza: colonne",
+  "Width :columns": "Larghezza :columns",
   "The widget width, a number between 1 and 10.": "Larghezza del widget, un numero compreso tra 1 e 10.",
   "Please enter the widget width as a number between 1 and 10.": "Inserisci la larghezza del widget come numero compreso tra 1 e 10.",
   "{1} column|[2,Inf] columns": "{1} colonna|[2,Inf] colonne",

@@ -51,7 +51,7 @@
     "Text Notice": "Powiadomienie tekstowe",
     "Widget Configuration": "Konfiguracja widżetu",
     "Configure the report widget": "Skonfiguruj widżet raportu",
-    "Width :columns": "Szerokość: kolumny",
+    "Width :columns": "Szerokość :columns",
     "The widget width, a number between 1 and 10.": "Szerokość widżetu, liczba pomiędzy 1 a 10.",
     "Please enter the widget width as a number between 1 and 10.": "Proszę wprowadzić szerokość widgetu jako liczbę od 1 do 10.",
     "{1} column|[2,Inf] columns": "{1} kolumna|[2,Inf] kolumny",

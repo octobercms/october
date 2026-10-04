@@ -47,7 +47,7 @@
   "Text Notice": "Tekstiviesti-ilmoitus",
   "Widget Configuration": "Widget-määritykset",
   "Configure the report widget": "Raporttiwidgetin määrittäminen",
-  "Width :columns": "Leveys: sarakkeet",
+  "Width :columns": "Leveys :columns",
   "The widget width, a number between 1 and 10.": "Widgetin leveys, luku väliltä 1–10.",
   "Please enter the widget width as a number between 1 and 10.": "Anna widgetin leveys numerona väliltä 1–10.",
   "{1} column|[2,Inf] columns": "{1} sarake|[2,Inf] sarakkeet",

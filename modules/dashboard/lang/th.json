@@ -47,7 +47,7 @@
   "Text Notice": "ข้อความแจ้งเตือน",
   "Widget Configuration": "การกำหนดค่าวิดเจ็ต",
   "Configure the report widget": "ตั้งค่าวิดเจ็ตรายงาน",
-  "Width :columns": "ความกว้าง :คอลัมน์",
+  "Width :columns": "ความกว้าง :columns",
   "The widget width, a number between 1 and 10.": "ความกว้างของวิดเจ็ต ซึ่งเป็นตัวเลขระหว่าง 1 ถึง 10",
   "Please enter the widget width as a number between 1 and 10.": "โปรดป้อนความกว้างของวิดเจ็ตเป็นตัวเลขระหว่าง 1 ถึง 10",
   "{1} column|[2,Inf] columns": "คอลัมน์ {1} | คอลัมน์ [2,Inf]",

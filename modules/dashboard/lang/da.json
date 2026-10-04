@@ -47,7 +47,7 @@
   "Text Notice": "Tekstmeddelelse",
   "Widget Configuration": "Widget-konfiguration",
   "Configure the report widget": "Konfigurer rapportwidgetten",
-  "Width :columns": "Bredde: kolonner",
+  "Width :columns": "Bredde :columns",
   "The widget width, a number between 1 and 10.": "Widgetens bredde, et tal mellem 1 og 10.",
   "Please enter the widget width as a number between 1 and 10.": "Indtast venligst widgetens bredde som et tal mellem 1 og 10.",
   "{1} column|[2,Inf] columns": "{1} kolonne|[2,Inf] kolonner",

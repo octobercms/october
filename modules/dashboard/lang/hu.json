@@ -47,7 +47,7 @@
   "Text Notice": "Szöveges értesítés",
   "Widget Configuration": "Widget konfiguráció",
   "Configure the report widget": "A jelentés widget konfigurálása",
-  "Width :columns": "Szélesség: oszlopok",
+  "Width :columns": "Szélesség :columns",
   "The widget width, a number between 1 and 10.": "A widget szélessége, egy 1 és 10 közötti szám.",
   "Please enter the widget width as a number between 1 and 10.": "Kérjük, adja meg a widget szélességét 1 és 10 közötti számként.",
   "{1} column|[2,Inf] columns": "{1} oszlop|[2,Inf] oszlopok",

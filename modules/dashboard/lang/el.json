@@ -47,7 +47,7 @@
   "Text Notice": "Ειδοποίηση κειμένου",
   "Widget Configuration": "Ρύθμιση παραμέτρων γραφικού στοιχείου",
   "Configure the report widget": "Ρύθμιση παραμέτρων του γραφικού στοιχείου αναφοράς",
-  "Width :columns": "Πλάτος: στήλες",
+  "Width :columns": "Πλάτος :columns",
   "The widget width, a number between 1 and 10.": "Το πλάτος του γραφικού στοιχείου, ένας αριθμός μεταξύ 1 και 10.",
   "Please enter the widget width as a number between 1 and 10.": "Παρακαλώ εισάγετε το πλάτος του γραφικού στοιχείου ως αριθμό μεταξύ 1 και 10.",
   "{1} column|[2,Inf] columns": "{1} στήλη|[2,Πληροφορίες] στήλες",

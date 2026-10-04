@@ -47,7 +47,7 @@
   "Text Notice": "Teksta paziņojums",
   "Widget Configuration": "Logrīka konfigurācija",
   "Configure the report widget": "Konfigurēt atskaites logrīku",
-  "Width :columns": "Platums: kolonnas",
+  "Width :columns": "Platums :columns",
   "The widget width, a number between 1 and 10.": "Logrīka platums, skaitlis no 1 līdz 10.",
   "Please enter the widget width as a number between 1 and 10.": "Lūdzu, ievadiet logrīka platumu kā skaitli no 1 līdz 10.",
   "{1} column|[2,Inf] columns": "{1} kolonna|[2,Inf] kolonnas",

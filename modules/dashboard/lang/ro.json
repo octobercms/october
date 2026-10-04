@@ -47,7 +47,7 @@
   "Text Notice": "Notificare prin SMS",
   "Widget Configuration": "Configurarea widgetului",
   "Configure the report widget": "Configurați widgetul raportului",
-  "Width :columns": "Lățime: coloane",
+  "Width :columns": "Lățime :columns",
   "The widget width, a number between 1 and 10.": "Lățimea widgetului, un număr între 1 și 10.",
   "Please enter the widget width as a number between 1 and 10.": "Introduceți lățimea widgetului ca număr între 1 și 10.",
   "{1} column|[2,Inf] columns": "{1} coloană|[2,Inf] coloane",

@@ -47,7 +47,7 @@
   "Text Notice": "Текстово известие",
   "Widget Configuration": "Конфигурация на джаджа",
   "Configure the report widget": "Конфигуриране на виджета за отчети",
-  "Width :columns": "Ширина: колони",
+  "Width :columns": "Ширина :columns",
   "The widget width, a number between 1 and 10.": "Ширината на уиджета, число между 1 и 10.",
   "Please enter the widget width as a number between 1 and 10.": "Моля, въведете ширината на уиджета като число между 1 и 10.",
   "{1} column|[2,Inf] columns": "{1} колона|[2,Inf] колони",

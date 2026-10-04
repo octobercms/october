@@ -47,7 +47,7 @@
   "Text Notice": "Besedilno obvestilo",
   "Widget Configuration": "Konfiguracija gradnika",
   "Configure the report widget": "Konfigurirajte pripomoček za poročila",
-  "Width :columns": "Širina: stolpci",
+  "Width :columns": "Širina :columns",
   "The widget width, a number between 1 and 10.": "Širina gradnika, število med 1 in 10.",
   "Please enter the widget width as a number between 1 and 10.": "Prosimo, vnesite širino gradnika kot število med 1 in 10.",
   "{1} column|[2,Inf] columns": "{1} stolpec|[2,Inf] stolpcev",

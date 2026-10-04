@@ -47,7 +47,7 @@
   "Text Notice": "Тэкставае паведамленне",
   "Widget Configuration": "Канфігурацыя віджэта",
   "Configure the report widget": "Наладзьце віджэт справаздачы",
-  "Width :columns": "Шырыня: слупкі",
+  "Width :columns": "Шырыня :columns",
   "The widget width, a number between 1 and 10.": "Шырыня віджэта, лік ад 1 да 10.",
   "Please enter the widget width as a number between 1 and 10.": "Калі ласка, увядзіце шырыню віджэта ў выглядзе ліку ад 1 да 10.",
   "{1} column|[2,Inf] columns": "{1} слупок|[2,Inf] слупкі",

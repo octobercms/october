@@ -47,7 +47,7 @@
   "Text Notice": "Текстовое уведомление",
   "Widget Configuration": "Настройка виджета",
   "Configure the report widget": "Настройте виджет отчета.",
-  "Width :columns": "Ширина: столбцы",
+  "Width :columns": "Ширина :columns",
   "The widget width, a number between 1 and 10.": "Ширина виджета — число от 1 до 10.",
   "Please enter the widget width as a number between 1 and 10.": "Пожалуйста, введите ширину виджета в виде числа от 1 до 10.",
   "{1} column|[2,Inf] columns": "{1} столбец|[2,Inf] столбцов",
