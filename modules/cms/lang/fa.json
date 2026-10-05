@@ -135,7 +135,7 @@
   "Default": "مقدار پیشفرض",
   "Options": "گزینه ها",
   "Define a Snippet Partial": "یک Snippet Partial را تعریف کنید",
-  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "کلید گزینه %s نامعتبر است. کلید گزینه انتخابگر کشویی فقط میتواند شامل اعداد، حروف لاتین وکاراکتر های _ و - باشد.",
+  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "کلید گزینه :key نامعتبر است. کلید گزینه انتخابگر کشویی فقط میتواند شامل اعداد، حروف لاتین وکاراکتر های _ و - باشد.",
   "The description is displayed in the snippet list in the editor when a snippet is added.": "هنگامی که یک قطعه اضافه می شود، توضیحات در لیست قطعه در ویرایشگر نمایش داده می شود.",
   "Details": "جزئیات"
 }

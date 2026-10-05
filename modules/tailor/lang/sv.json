@@ -1,7 +1,7 @@
 {
   "Manage Entries": "Hantera poster",
   "Create :name Entry": "Skapa :name post",
-  "New :name": "Ny :namnpost",
+  "New :name": "Ny :name",
   "Import Entries": "Importera poster",
   "Export Entries": "Exportera poster",
   "First Draft": "Första utkastet",
@@ -83,10 +83,10 @@
   "Sort by Column": "Sortera efter kolumn",
   "Model column the records should be ordered by": "Modellkolumn posterna ska sorteras efter",
   "Direction": "Riktning",
-  "Update :name Entries": "Uppdatera :namnposter",
-  "Update :name": "Uppdatering :namn",
-  ":name Entry": ":namnpost",
-  "All :name Items": "Alla :namnposter",
+  "Update :name Entries": "Uppdatera :name-poster",
+  "Update :name": "Uppdatera :name",
+  ":name Entry": ":name-post",
+  "All :name Items": "Alla :name-poster",
   "Update Existing Records": "Uppdatera befintliga poster",
   "Check this box to update records that match the same ID, title or slug.": "Markera den här rutan för att uppdatera poster som matchar samma ID, titel eller snigel.",
   "Copy": "Kopiera"

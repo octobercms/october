@@ -5,7 +5,7 @@
     'dependencies_section' => '安装依赖',
     'demo_section' => '演示内容',
     'locale_select_label' => '选择语言',
-    'locale_select_error' => '语言代码：代码无效，请重试',
+    'locale_select_error' => '语言代码 :code 无效，请重试',
     'app_url_label' => '应用程序 URL',
     'backend_uri_label' => '后端 URI',
     'backend_uri_comment' => '为了保护您的应用程序，请使用自定义地址来访问管理面板。',

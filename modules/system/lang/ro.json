@@ -75,7 +75,7 @@
   "or": "sau",
   "Code": "Cod",
   "October CMS Marketplace": "Piața CMS din octombrie",
-  "Visit the :link to add some.": "Proiectul nu are pluginuri sau teme. Accesați linkul : pentru a adăuga câteva.",
+  "Project has no plugins or themes. Visit the :link to add some.": "Proiectul nu are pluginuri sau teme. Accesați :link pentru a adăuga câteva.",
   "Buy Now": "Cumpără acum",
   "Updating package manager": "Se actualizează managerul de pachete",
   "Updating application files": "Se descarca fisierele aplicatiei",

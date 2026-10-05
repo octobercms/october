@@ -97,7 +97,7 @@ return [
     "regex"            => ":attribute 格式无效。",
     "required"         => "需要 :attribute 字段。",
     "required_if"      => "需要 :attribute 字段, 当 :other 是 :value。",
-    'required_unless'      => 'attribute 字段是必需的，除非 :other 在 :values 中。',
+    'required_unless'      => ':attribute 字段是必需的，除非 :other 在 :values 中。',
     "required_with"    => "需要 :attribute 字段, 当 :values 是当前值。",
     'required_with_all'    => '当 :values 存在时， :attribute 字段是必需的。',
     "required_without" => "需要 :attribute 字段, 当 :values 不是当前值。",

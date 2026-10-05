@@ -75,7 +75,7 @@
   "or": "tai",
   "Code": "Koodi",
   "October CMS Marketplace": "OctoberCMS Markkinapaikka",
-  "Visit the :link to add some.": "Projektissa ei ole lisäosia tai teemoja. Käy :linkissä lisätäksesi joitain.",
+  "Project has no plugins or themes. Visit the :link to add some.": "Projektissa ei ole lisäosia tai teemoja. Käy :linkissä lisätäksesi joitain.",
   "Buy Now": "Osta nyt",
   "Updating package manager": "Päivitetään paketinhallintaa",
   "Updating application files": "Ladataan ohjelmiston versiota",

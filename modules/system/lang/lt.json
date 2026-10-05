@@ -75,7 +75,7 @@
   "or": "arba",
   "Code": "Kodas",
   "October CMS Marketplace": "Spalio mėn. TVS prekyvietė",
-  "Visit the :link to add some.": "Projekte nėra papildinių ar temų. Jei norite pridėti keletą, apsilankykite :nuorodoje.",
+  "Project has no plugins or themes. Visit the :link to add some.": "Projekte nėra papildinių ar temų. Jei norite pridėti keletą, apsilankykite :link.",
   "Buy Now": "Pirkti dabar",
   "Updating package manager": "Paketų tvarkyklės atnaujinimas",
   "Updating application files": "Siunčiami programos failai",

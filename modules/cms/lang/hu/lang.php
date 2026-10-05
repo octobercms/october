@@ -1,6 +1,6 @@
 <?php return [
   'cms_object' => [
-    'invalid_file' => 'Érvénytelen fájlnév. Csak latin betűket, számokat, aláhúzásokat, kötőjeleket és pontokat tartalmazhat. Néhány példa a megfelelő fájlnévre: kapcsolat.htm, impresszum, konyvtar/oldalnev',
+    'invalid_file' => 'Érvénytelen fájlnév: :name. Csak latin betűket, számokat, aláhúzásokat, kötőjeleket és pontokat tartalmazhat. Néhány példa a megfelelő fájlnévre: kapcsolat.htm, impresszum, konyvtar/oldalnev',
     'invalid_file_inspector' => 'Érvénytelen fáljnév. A fájlnevek csak alfanumerikus szimbólumokat, aláhúzásokat, kötőjeleket és pontokat tartalmazhatnak. Néhány példa a helyes fájlnevekre: oldal.htm, oldal, konyvtar/oldal',
     'invalid_property' => 'A(z) \':name\' tulajdonság nem állítható be.',
     'file_already_exists' => 'Már létezik \':name\' nevű fájl.',

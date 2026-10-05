@@ -144,7 +144,7 @@
     'too_large' => '업로드 파일이 너무 큽니다. 파일 사이즈는 최대 :max_size 입니다.',
     'type_not_allowed' => '허가된 파일타입은  :allowed_types 입니다.',
     'file_not_valid' => '파일이 올바르지 않습니다.',
-    'error_uploading_file' => '파일 업로드 오류: ":name"',
+    'error_uploading_file' => '파일 업로드 오류: ":name": :error',
     'move_please_select' => '선택해 주세요',
     'move_destination' => '목표 디렉토리',
     'move_popup_title' => '자산 이동',

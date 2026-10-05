@@ -84,7 +84,7 @@
   "Model column the records should be ordered by": "レコードの順序付けに必要なモデル列",
   "Direction": "方向",
   "Update :name Entries": ":name エントリを更新",
-  "Update :name": "更新:名前",
+  "Update :name": ":name を更新",
   ":name Entry": ":name エントリ",
   "All :name Items": "すべての:name エントリ",
   "Update Existing Records": "既存のレコードを更新する",

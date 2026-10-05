@@ -25,7 +25,7 @@ return [
     'before_or_equal'      => '":attribute" mora biti datum pred ali enak datumu :date.',
     'between'              => [
         'numeric' => '":attribute" mora biti med :min in :max.',
-        'file'    => '":attribute" mora biti med :min in max: kB.',
+        'file'    => '":attribute" mora biti med :min in :max kB.',
         'string'  => '":attribute" mora vsebovati med :min in :max znakov.',
         'array'   => '":attribute" mora vsebovati med :min in :max elementov.',
     ],

@@ -51,7 +51,7 @@ return [
         "numeric" => ":attributeには、:min以上の数字を指定してください。",
         "file"    => ":attributeには、:min KB以上のファイルを指定してください。",
         "string"  => ":attributeは、:min文字以上にしてください。",
-        "array"   => ":attributeの項目は、:max個以上にしてください。",
+        "array"   => ":attributeの項目は、:min個以上にしてください。",
     ],
     "not_in"               => "選択された:attributeは、有効ではありません。",
     "numeric"              => ":attributeには、数字を指定してください。",

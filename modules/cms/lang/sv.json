@@ -30,7 +30,7 @@
   "Unknown component": "Okänd komponent",
   "View Bag": "Visa väska",
   "Stores custom template properties.": "Lagrar anpassade mallegenskaper.",
-  "By :name": "Vid namn",
+  "By :name": "Av :name",
   "The theme ':name' is not found.": "Kunde inte hitta temat ':name'.",
   "Manage the front-end theme and customization options.": "Förhandsgranska listan av installerade teman och välj ett aktivt tema.",
   "Site Theme": "Front-end tema",
@@ -135,7 +135,7 @@
   "Default": "Standard",
   "Options": "Alternativ",
   "Define a Snippet Partial": "Definiera en Snippet Partial",
-  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Nyckeln: %s, i Rullgardinsmenyn är ogiltig. Alternativnycklarna kan bara innehålla siffror, latinska bokstäver och karaktärerna _ samt -",
+  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Nyckeln: :key, i Rullgardinsmenyn är ogiltig. Alternativnycklarna kan bara innehålla siffror, latinska bokstäver och karaktärerna _ samt -",
   "The description is displayed in the snippet list in the editor when a snippet is added.": "Beskrivningen visas i utdragslistan i editorn när ett utdrag läggs till.",
   "Details": "Detaljer"
 }

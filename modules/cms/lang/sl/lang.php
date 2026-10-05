@@ -150,7 +150,7 @@
     'error_renaming' => 'Napaka pri preimenovanju datoteke oziroma mape.',
     'name_cant_be_empty' => 'Ime ne more biti prazno.',
     'too_large' => 'Naložena datoteka je prevelika. Največja dovoljena velikost datoteke je :max_size.',
-    'type_not_allowed' => 'Dovoljeni so le formati datotek: :alowed_types',
+    'type_not_allowed' => 'Dovoljeni so le formati datotek: :allowed_types',
     'file_not_valid' => 'Neveljavna datoteka',
     'error_uploading_file' => 'Napaka pri nalaganju datoteke \':name\': :error',
     'move_please_select' => 'izberite',

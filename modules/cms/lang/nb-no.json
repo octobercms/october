@@ -80,5 +80,5 @@
   "Dropdown": "Dropdown",
   "Default": "Standard",
   "Options": "Alternativer",
-  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Ugyldig dropdown-alternativ kode: %s. Alternativkoder kan bare inneholde tall, latinske bokstaver, _ og -"
+  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Ugyldig dropdown-alternativ kode: :key. Alternativkoder kan bare inneholde tall, latinske bokstaver, _ og -"
 }

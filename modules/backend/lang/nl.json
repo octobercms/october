@@ -380,7 +380,7 @@
   "Import Dashboard": "Dashboard importeren",
   "The requested dashboard could not be found.": "Het opgevraagde dashboard kon niet worden gevonden.",
   "Debug mode is enabled. This is not recommended for production installations.": "Debug modus is ingeschakeld. Dit wordt niet aanbevolen op een productie-omgeving.",
-  "The backend URL :name is too generic. Please set to something more unique.": "De URL van de beheeromgeving is te generiek. Kies een unieke naam.",
+  "The backend URL :name is too generic. Please set to something more unique.": "De URL van de beheeromgeving :name is te generiek. Kies een unieke naam.",
   "An account with a generic login :name was found. Please rename this administrator account.": "Er is een account met een generieke gebruikersnaam gevonden (:name). Pas de gebruikersnaam aan van dit account.",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "De PHP extensie :name is niet geïnstalleerd. Installeer deze bibliotheek en activeer de extensie.",
   "The plugin :name is a dependency but is not installed. Please install this plugin.": "De plugin :name is een afhankelijkheid maar is niet geïnstalleerd. Installeer deze plugin a.u.b.",

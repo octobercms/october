@@ -97,7 +97,7 @@ return [
     'regex'          => 'A(z) :attribute formátuma érvénytelen.',
     'required'             => 'A(z) :attribute megadása kötelező.',
     'required_if'          => 'A(z) :attribute megadása kötelező, ha a(z) :other :value.',
-    'required_unless'      => 'A(z) :attribute megadása kötelező, hacsak a(z) :other :value.',
+    'required_unless'      => 'A(z) :attribute megadása kötelező, ha a(z) :other értéke nem :values.',
     'required_with'        => 'A(z) :attribute megadása kötelező, ha a(z) :values jelen van.',
     'required_with_all'    => 'A(z) :attribute megadása kötelező, ha az összes :values jelen van.',
     'required_without'     => 'A(z) :attribute megadása kötelező, ha a(z) :values nincs jelen.',

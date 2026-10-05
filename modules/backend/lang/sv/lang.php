@@ -156,7 +156,7 @@
     'concurrency_file_changed_description' => 'Filen du redigerar har ändrats av en annan användare. Du kan antingen ladda om sidan och förlora dina ändringar eller skriva över filen med dina ändringar.',
   ],
   'relation' => [
-    'missing_config' => 'Relationsbeteendet har ingen konfiguration för \': config \'.',
+    'missing_config' => 'Relationsbeteendet har ingen konfiguration för \':config\'.',
     'missing_definition' => 'Relationen saknar en definintion för \':field\'',
     'missing_model' => 'Relationen som används i :class har ingen modell definierad',
     'invalid_action_single' => 'Den här åtgärden kan inte appliceras på en enskild relation',

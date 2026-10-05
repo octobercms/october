@@ -36,7 +36,7 @@ return [
     'current_password' => 'Het wachtwoord is onjuist.',
     'date' => ':attribute moet een datum bevatten.',
     'date_equals' => ':attribute moet een datum zijn gelijk aan :date.',
-    'date_format' => ':attribute moet een geldig datum formaat bevatten.',
+    'date_format' => ':attribute moet overeenkomen met het formaat :format.',
     'decimal' => ':attribute moet :decimal decimalen bevatten.',
     'declined' => ':attribute moet zijn afgewezen.',
     'declined_if' => ':attribute moet afgewezen zijn als :other de waarde :value heeft.',

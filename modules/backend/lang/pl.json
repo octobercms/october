@@ -11,7 +11,7 @@
   "Password must contain at least one lowercase character.": "Hasło musi zawierać co najmniej jedną małą literę.",
   "Password must contain at least one number.": "Hasło musi zawierać co najmniej jedną cyfrę.",
   "Password must contain at least one nonalphanumeric character.": "Hasło musi zawierać co najmniej jeden znak niealfanumeryczny.",
-  "Welcome to your Administration Area, :name": "Witamy w obszarze administracyjnym, :nazwa",
+  "Welcome to your Administration Area, :name": "Witamy w obszarze administracyjnym, :name",
   "Duplicate": "Duplikuj",
   "Expand": "Rozwiń",
   "Collapse": "Zwiń",

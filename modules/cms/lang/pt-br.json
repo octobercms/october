@@ -135,7 +135,7 @@
   "Default": "Padrão",
   "Options": "Opções",
   "Define a Snippet Partial": "Define a Snippet Partial",
-  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Chave de opção inválida: %s. Chaves de opção podem conter apenas dígitos, letras latinas e os caracteres _ e -",
+  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Chave de opção inválida: :key. Chaves de opção podem conter apenas dígitos, letras latinas e os caracteres _ e -",
   "The description is displayed in the snippet list in the editor when a snippet is added.": "The description is displayed in the snippet list in the editor when a snippet is added.",
   "Details": "Detalhes"
 }

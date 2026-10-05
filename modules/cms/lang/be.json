@@ -30,7 +30,7 @@
   "Unknown component": "Невядомы кампанент",
   "View Bag": "Прагляд сумкі",
   "Stores custom template properties.": "Захоўвае ўласныя ўласцівасці шаблона.",
-  "By :name": "Па: імя",
+  "By :name": "Аўтар: :name",
   "The theme ':name' is not found.": "Тэма \":name\" не знойдзена",
   "Manage the front-end theme and customization options.": "Прагляд усталяваных тэм і выбар актыўнай тэмы",
   "Site Theme": "Інтэрфейсная тэма",
@@ -135,7 +135,7 @@
   "Default": "Па змаўчанні",
   "Options": "Параметры",
   "Define a Snippet Partial": "Вызначэнне частковага фрагмента",
-  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Няправільны ключ опцыі выпадальнага меню: :ключ. Клавішы опцый могуць змяшчаць толькі лічбы, лацінскія літары і сімвалы _ і -",
+  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Няправільны ключ опцыі выпадальнага меню: :key. Клавішы опцый могуць змяшчаць толькі лічбы, лацінскія літары і сімвалы _ і -",
   "The description is displayed in the snippet list in the editor when a snippet is added.": "Апісанне адлюстроўваецца ў спісе фрагментаў у рэдактары пры даданні фрагмента.",
   "Details": "Дэталі"
 }

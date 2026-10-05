@@ -10,7 +10,7 @@
   "Password must contain at least one lowercase character.": "Kata sandi harus mengandung setidaknya satu karakter huruf kecil.",
   "Password must contain at least one number.": "Kata sandi harus berisi setidaknya satu nomor.",
   "Password must contain at least one nonalphanumeric character.": "Kata sandi harus mengandung setidaknya satu karakter non-alfa numerik.",
-  "Welcome to your Administration Area, :name": "Selamat datang di Area Administrasi Anda, :nama",
+  "Welcome to your Administration Area, :name": "Selamat datang di Area Administrasi Anda, :name",
   "Duplicate": "Duplikat",
   "Expand": "Ekspansi",
   "Collapse": "Mekar",

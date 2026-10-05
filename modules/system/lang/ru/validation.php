@@ -80,7 +80,7 @@ return [
         'numeric' => 'Поле :attribute не может быть больше чем :max.',
         'file'    => 'Поле :attribute не может быть больше чем :max килобайт.',
         'string'  => 'Поле :attribute не может быть больше чем :max символов(а).',
-        'array'   => 'Поле :attribute не может содержать больше чем :value элементов(а).',
+        'array'   => 'Поле :attribute не может содержать больше чем :max элементов(а).',
     ],
     'mimes'                => 'Поле :attribute должен быть файлом типа: :values.',
     'mimetypes'            => 'Поле :attribute должен быть файлом типа: :values.',

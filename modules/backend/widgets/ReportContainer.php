@@ -465,18 +465,18 @@ class ReportContainer extends WidgetBase
             'validationPattern' => '^[0-9]+$',
             'validationMessage' => __("Please enter the widget width as a number between 1 and 10."),
             'options' => [
-                1  => '1 ' . trans_choice("{1} column|[2,Inf] columns", 1),
-                2  => '2 ' . trans_choice("{1} column|[2,Inf] columns", 2),
-                3  => '3 ' . trans_choice("{1} column|[2,Inf] columns", 3),
-                4  => '4 ' . trans_choice("{1} column|[2,Inf] columns", 4),
-                5  => '5 ' . trans_choice("{1} column|[2,Inf] columns", 5),
-                6  => '6 ' . trans_choice("{1} column|[2,Inf] columns", 6),
-                7  => '7 ' . trans_choice("{1} column|[2,Inf] columns", 7),
-                8  => '8 ' . trans_choice("{1} column|[2,Inf] columns", 8),
-                9  => '9 ' . trans_choice("{1} column|[2,Inf] columns", 9),
-                10 => '10 ' . trans_choice("{1} column|[2,Inf] columns", 10),
-                11 => '11 ' . trans_choice("{1} column|[2,Inf] columns", 11),
-                12 => '12 ' . trans_choice("{1} column|[2,Inf] columns", 12)
+                1  => '1 ' . trans_choice("{1} column|[2,*] columns", 1),
+                2  => '2 ' . trans_choice("{1} column|[2,*] columns", 2),
+                3  => '3 ' . trans_choice("{1} column|[2,*] columns", 3),
+                4  => '4 ' . trans_choice("{1} column|[2,*] columns", 4),
+                5  => '5 ' . trans_choice("{1} column|[2,*] columns", 5),
+                6  => '6 ' . trans_choice("{1} column|[2,*] columns", 6),
+                7  => '7 ' . trans_choice("{1} column|[2,*] columns", 7),
+                8  => '8 ' . trans_choice("{1} column|[2,*] columns", 8),
+                9  => '9 ' . trans_choice("{1} column|[2,*] columns", 9),
+                10 => '10 ' . trans_choice("{1} column|[2,*] columns", 10),
+                11 => '11 ' . trans_choice("{1} column|[2,*] columns", 11),
+                12 => '12 ' . trans_choice("{1} column|[2,*] columns", 12)
             ]
         ];
         $result[] = $property;

@@ -58,7 +58,7 @@
     'error_deleting_directory' => 'De originele map :dir kan niet verwijderd worden',
     'moving' => 'Verplaatsen geselecteerde items',
     'moved' => 'Geselecteerde items zijn verplaatst',
-    'destination_exists' => 'Bestand of map met deze naam bestaat reeds: name',
+    'destination_exists' => 'Bestand of map met deze naam bestaat reeds: :name',
     'file_not_valid' => 'Bestand is niet geldig',
     'too_large' => 'Het bestand is te groot. De maximale bestandsgrootte is :max_size',
   ],

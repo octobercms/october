@@ -278,7 +278,7 @@
     'return_to_parent_label' => 'Нагоре ..',
     'nothing_selected' => 'Нищо не е избрано.',
     'multiple_selected' => 'Множество предмети избрани.',
-    'uploading_file_num' => 'Качване: брой на файл(ове)...',
+    'uploading_file_num' => 'Качване на :number файл(а)...',
     'uploading_complete' => 'Качването завършено',
     'uploading_error' => 'Качването неуспешно',
     'order_by' => 'Подредени по',

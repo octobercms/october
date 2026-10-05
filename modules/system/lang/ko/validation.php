@@ -51,7 +51,7 @@ return [
         "numeric" => ":attribute에는 :min이상의 숫자를 설정해주세요.",
         "file"    => ":attribute에는 :min KB이상의 파일을 선택해주세요.",
         "string"  => ":attribute는 :min문자이상으로 해주세요.",
-        "array"   => ":attribute 갯수는 :max개 이상으로 해주세요.",
+        "array"   => ":attribute 갯수는 :min개 이상으로 해주세요.",
     ],
     "not_in"               => "선택된:attribute는 유효하지 않습니다.",
     "numeric"              => ":attribute는 숫자만으로 설정해주세요.",

@@ -75,7 +75,7 @@
   "or": "یا",
   "Code": "کد یکتا",
   "October CMS Marketplace": "بازار CMS اکتبر",
-  "Visit the :link to add some.": "پروژه هیچ پلاگین یا تمی ندارد. برای افزودن مقداری از لینک: بازدید کنید.",
+  "Project has no plugins or themes. Visit the :link to add some.": "پروژه هیچ پلاگین یا تمی ندارد. برای افزودن مقداری از :link بازدید کنید.",
   "Buy Now": "هم اکنون خریداری کنید",
   "Updating package manager": "به روز رسانی مدیر بسته",
   "Updating application files": "دریافت فایل های نرم افزار",

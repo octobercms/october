@@ -75,7 +75,7 @@
   "or": "また",
   "Code": "コード",
   "October CMS Marketplace": "10 月の CMS マーケットプレイス",
-  "Visit the :link to add some.": "プロジェクトにはプラグインやテーマはありません。 :link にアクセスして追加してください。",
+  "Project has no plugins or themes. Visit the :link to add some.": "プロジェクトにはプラグインやテーマはありません。 :link にアクセスして追加してください。",
   "Buy Now": "今買う",
   "Updating package manager": "パッケージマネージャーを更新しています",
   "Updating application files": "アプリケーションファイルのダウンロード中",

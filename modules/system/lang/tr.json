@@ -75,7 +75,7 @@
   "or": "veya",
   "Code": "Kod",
   "October CMS Marketplace": "Ekim CMS Pazar Yeri",
-  "Visit the :link to add some.": "Projede eklenti veya tema yok. Biraz eklemek için :bağlantısını ziyaret edin.",
+  "Project has no plugins or themes. Visit the :link to add some.": "Projede eklenti veya tema yok. Eklemek için :link adresini ziyaret edin.",
   "Buy Now": "Şimdi al",
   "Updating package manager": "Paket yöneticisi güncelleniyor",
   "Updating application files": "Uygulama dosyaları indiriliyor",

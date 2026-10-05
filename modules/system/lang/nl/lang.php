@@ -88,7 +88,7 @@
     'zh-tw' => '繁體中文',
   ],
   'directory' => [
-    'create_fail' => 'Map aanmaken mislukt: ',
+    'create_fail' => 'Map aanmaken mislukt: :name',
   ],
   'file' => [
     'create_fail' => 'Bestand aanmaken mislukt: :name',

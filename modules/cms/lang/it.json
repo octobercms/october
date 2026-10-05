@@ -30,7 +30,7 @@
   "Unknown component": "Componente sconosciuto",
   "View Bag": "Visualizza Borsa",
   "Stores custom template properties.": "Memorizza le proprietà del modello personalizzate.",
-  "By :name": "Per nome",
+  "By :name": "Di :name",
   "The theme ':name' is not found.": "Tema ':name' non trovato.",
   "Manage the front-end theme and customization options.": "Visualizza l'anteprima dei temi installati e seleziona un tema attivo.",
   "Site Theme": "Tema del sito",
@@ -135,7 +135,7 @@
   "Default": "Default",
   "Options": "Opzioni",
   "Define a Snippet Partial": "Definisci uno snippet parziale",
-  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Opzione del menu a cascata non valida: %s. Le opzioni possono contenere solo numeri, lettere latine e i caratteri _ e -",
+  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Opzione del menu a cascata non valida: :key. Le opzioni possono contenere solo numeri, lettere latine e i caratteri _ e -",
   "The description is displayed in the snippet list in the editor when a snippet is added.": "La descrizione viene visualizzata nell'elenco dei frammenti nell'editor quando viene aggiunto un frammento.",
   "Details": "Dettagli"
 }

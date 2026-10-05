@@ -75,7 +75,7 @@
   "or": "vai",
   "Code": "Kods",
   "October CMS Marketplace": "Oktobra CMS tirgus",
-  "Visit the :link to add some.": "Projektam nav spraudņu vai motīvu. Apmeklējiet saiti :, lai pievienotu dažus.",
+  "Project has no plugins or themes. Visit the :link to add some.": "Projektam nav spraudņu vai motīvu. Apmeklējiet :link, lai pievienotu dažus.",
   "Buy Now": "Pērc tagad",
   "Updating package manager": "Pakešu pārvaldnieka atjaunināšana",
   "Updating application files": "Lejupielādējam aplikācijas failus",

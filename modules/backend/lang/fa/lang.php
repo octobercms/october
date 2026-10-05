@@ -193,7 +193,7 @@
     'deleting_name' => 'درحال حذف :name...',
     'reset_default' => 'بازگشت به پیش فرض',
     'resetting' => 'بازنشانی',
-    'resetting_name' => 'بازنشانی name:',
+    'resetting_name' => 'بازنشانی :name',
     'field_off' => 'بله',
     'field_on' => 'خیر',
     'add' => 'افزودن',

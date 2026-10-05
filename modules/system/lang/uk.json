@@ -75,7 +75,7 @@
   "or": "або",
   "Code": "Код",
   "October CMS Marketplace": "Маркетплейс October CMS",
-  "Visit the :link to add some.": "Проєкт не має плагінів або тем. Перейдіть за посиланням :link, щоб додати.",
+  "Project has no plugins or themes. Visit the :link to add some.": "Проєкт не має плагінів або тем. Перейдіть за посиланням :link, щоб додати.",
   "Buy Now": "Купити зараз",
   "Updating package manager": "Оновлення менеджера пакунків",
   "Updating application files": "Завантаження файлів програми",

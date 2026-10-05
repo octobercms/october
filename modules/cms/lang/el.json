@@ -30,7 +30,7 @@
   "Unknown component": "Άγνωστο συστατικό",
   "View Bag": "Δείτε την Τσάντα",
   "Stores custom template properties.": "Αποθηκεύει τις ιδιότητες προσαρμοσμένου προτύπου.",
-  "By :name": "Από όνομα",
+  "By :name": "Από :name",
   "The theme ':name' is not found.": "Το θέμα ':name' δεν βρέθηκε.",
   "Manage the front-end theme and customization options.": "Προεπισκόπηση των εγκατεστημένων θεμάτων και επιλογή του ενεργού θέματος.",
   "Site Theme": "Θέμα Front-End",

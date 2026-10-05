@@ -50,7 +50,7 @@
   "Width :columns": "Largeur en nombre de colonnes :columns",
   "The widget width, a number between 1 and 10.": "La largeur du Widget doit être comprise entre 1 et 10.",
   "Please enter the widget width as a number between 1 and 10.": "Veuillez définir la largeur du Widget avec un nombre compris entre 1 et 10.",
-  "{1} column|[2,Inf] columns": "{1} colonne|[2,Inf] colonnes",
+  "{1} column|[2,*] columns": "{1} colonne|[2,*] colonnes",
   "Force new row": "Forcer l'affichage sur une nouvelle ligne",
   "Put the widget in a new row.": "Placer le Widget sur une nouvelle ligne.",
   "Widget title": "Titre du Widget",

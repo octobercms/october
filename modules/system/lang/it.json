@@ -75,7 +75,7 @@
   "or": "o",
   "Code": "Codice",
   "October CMS Marketplace": "Mercato CMS di ottobre",
-  "Visit the :link to add some.": "Il progetto non ha plugin o temi. Visita il :link per aggiungerne alcuni.",
+  "Project has no plugins or themes. Visit the :link to add some.": "Il progetto non ha plugin o temi. Visita il :link per aggiungerne alcuni.",
   "Buy Now": "Acquista ora",
   "Updating package manager": "Aggiornamento del gestore pacchetti",
   "Updating application files": "Scaricamento dei file in corso",

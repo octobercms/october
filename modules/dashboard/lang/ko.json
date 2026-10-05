@@ -54,7 +54,7 @@
   "Width :columns": "넓이 :columns",
   "The widget width, a number between 1 and 10.": "위젯 넓이는 1에서 10까지 숫자입니다.",
   "Please enter the widget width as a number between 1 and 10.": "위젯 넓이는 1에서 10까지의 숫자로 입력해주세요.",
-  "{1} column|[2,Inf] columns": "{1} 열|[2,Inf] 열",
+  "{1} column|[2,*] columns": "{1} 열|[2,*] 열",
   "Force new row": "신규 행",
   "Put the widget in a new row.": "신규 행에 위젯을 놓습니다.",
   "Widget title": "위젯 제목",

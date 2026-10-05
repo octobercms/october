@@ -1,7 +1,7 @@
 {
   "Manage Entries": "จัดการรายการ",
   "Create :name Entry": "สร้าง :name Entry",
-  "New :name": "ใหม่ :รายการชื่อ",
+  "New :name": ":name ใหม่",
   "Import Entries": "นำเข้ารายการ",
   "Export Entries": "ส่งออกรายการ",
   "First Draft": "ร่างแรก",
@@ -83,10 +83,10 @@
   "Sort by Column": "จัดเรียงตามคอลัมน์",
   "Model column the records should be ordered by": "คอลัมน์แบบจำลองที่ควรเรียงลำดับเรกคอร์ด",
   "Direction": "ทิศทาง",
-  "Update :name Entries": "อัปเดต: รายการชื่อ",
-  "Update :name": "อัพเดท : ชื่อ",
-  ":name Entry": ": ชื่อรายการ",
-  "All :name Items": "ทั้งหมด : รายการชื่อ",
+  "Update :name Entries": "อัปเดตรายการ :name",
+  "Update :name": "อัปเดต :name",
+  ":name Entry": "รายการ :name",
+  "All :name Items": "รายการ :name ทั้งหมด",
   "Update Existing Records": "อัปเดตบันทึกที่มีอยู่",
   "Check this box to update records that match the same ID, title or slug.": "ทำเครื่องหมายที่ช่องนี้เพื่ออัปเดตระเบียนที่ตรงกับ ID ชื่อเรื่อง หรือ Slug เดียวกัน",
   "Copy": "สำเนา"

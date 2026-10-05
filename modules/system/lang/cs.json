@@ -78,7 +78,7 @@
   "or": "nebo",
   "Code": "Kód",
   "October CMS Marketplace": "Říjnové CMS Marketplace",
-  "Visit the :link to add some.": "Projekt nemá žádné pluginy ani motivy. Navštivte odkaz: a přidejte nějaké.",
+  "Project has no plugins or themes. Visit the :link to add some.": "Projekt nemá žádné pluginy ani motivy. Navštivte :link a přidejte nějaké.",
   "Buy Now": "Kup nyní",
   "Updating package manager": "Aktualizace správce balíčků",
   "Updating application files": "Stahování aplikačních souborů",

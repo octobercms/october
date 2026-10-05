@@ -50,7 +50,7 @@
   "Width :columns": "Breite :columns",
   "The widget width, a number between 1 and 10.": "Die Widget-Breite, eine Zahl zwischen 1 und 10.",
   "Please enter the widget width as a number between 1 and 10.": "Bitte geben Sie die Widget-Breite als Zahl zwischen 1 und 10 ein.",
-  "{1} column|[2,Inf] columns": "{1} Spalte|[2,Inf] Spalten",
+  "{1} column|[2,*] columns": "{1} Spalte|[2,*] Spalten",
   "Force new row": "Neue Zeile erzwingen",
   "Put the widget in a new row.": "Platzieren Sie das Widget in einer neuen Zeile.",
   "Widget title": "Widget-Titel",

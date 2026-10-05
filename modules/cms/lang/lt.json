@@ -30,7 +30,7 @@
   "Unknown component": "Nežinomas komponentas",
   "View Bag": "Žiūrėti krepšį",
   "Stores custom template properties.": "Saugo tinkintų šablonų ypatybes.",
-  "By :name": "Pagal vardą",
+  "By :name": "Autorius: :name",
   "The theme ':name' is not found.": "Dizainas ':name' nerastas.",
   "Manage the front-end theme and customization options.": "Peržiūrėkite įdiegtų dizainų sąrašą ir pasirinkite aktyvųjį dizainą.",
   "Site Theme": "Svetainės dizainas",

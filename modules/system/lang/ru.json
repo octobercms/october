@@ -75,7 +75,7 @@
   "or": "или",
   "Code": "Код",
   "October CMS Marketplace": "Маркетплейс October CMS",
-  "Visit the :link to add some.": "У проекта нет плагинов или тем. Перейдите в :link, чтобы добавить их.",
+  "Project has no plugins or themes. Visit the :link to add some.": "У проекта нет плагинов или тем. Перейдите в :link, чтобы добавить их.",
   "Buy Now": "Купить",
   "Updating package manager": "Обновление пакетного менеджера",
   "Updating application files": "Обновление файлов приложения",

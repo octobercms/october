@@ -114,7 +114,7 @@
   "No description provided": "Без опису",
   "No snippets found": "Сніппети не знайдені",
   "Search...": "Пошук...",
-  "Snippet with the requested code :code was not found in the theme.": "Сніппет з запитаним кодом %s не знайдений в темі.",
+  "Snippet with the requested code :code was not found in the theme.": "Сніппет з запитаним кодом :code не знайдений в темі.",
   "Snippet": "Сніппети",
   "Enter a code to make this partial available as a snippet in content editors.": "Введіть код, щоб зробити цей фрагмент доступним як сніппет в розширенні Сторінки.",
   "Please enter the snippet code": "Введіть код сніпету",
@@ -135,7 +135,7 @@
   "Default": "За замовчуванням",
   "Options": "Опції",
   "Define a Snippet Partial": "Задати фрагмент сніппету",
-  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Неправильний ключ списку: %s. Ключ може містити тільки цифри, латинські літери і символи _ і -",
+  "Invalid drop-down option key: :key. Option keys can contain only digits, Latin letters and characters _ and -": "Неправильний ключ списку: :key. Ключ може містити тільки цифри, латинські літери і символи _ і -",
   "The description is displayed in the snippet list in the editor when a snippet is added.": "Опис відображається у списку сніпетів в редакторі при додаванні сніпету.",
   "Details": "Деталі",
   "Frontend Theme": "Фронтенд теми"

@@ -30,7 +30,7 @@
   "Unknown component": "Nezināms komponents",
   "View Bag": "Skatīt somu",
   "Stores custom template properties.": "Saglabā pielāgotas veidnes rekvizītus.",
-  "By :name": "Autors: vārds",
+  "By :name": "Autors: :name",
   "The theme ':name' is not found.": "Tēma ':name' netika atrasta.",
   "Manage the front-end theme and customization options.": "Priekšskatiet instalētās tēmas un izvēlieties aktīvo tēmu.",
   "Site Theme": "Front-end tēma",

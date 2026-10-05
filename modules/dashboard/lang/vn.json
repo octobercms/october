@@ -50,7 +50,7 @@
   "Width :columns": "Chiều rộng :columns",
   "The widget width, a number between 1 and 10.": "Chiều rộng tiện ích, một số từ 1 đến 10.",
   "Please enter the widget width as a number between 1 and 10.": "Vui lòng nhập chiều rộng tiện ích là một số từ 1 đến 10.",
-  "{1} column|[2,Inf] columns": "{1} cột|[2,Inf] cột",
+  "{1} column|[2,*] columns": "{1} cột|[2,*] cột",
   "Force new row": "Bắt buộc hàng mới",
   "Put the widget in a new row.": "Đặt tiện ích ở một hàng mới.",
   "Widget title": "Tiêu đề tiện ích",

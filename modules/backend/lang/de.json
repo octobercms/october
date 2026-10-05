@@ -386,7 +386,7 @@
   "The requested dashboard could not be found.": "Das angeforderte Dashboard konnte nicht gefunden werden.",
   "Debug mode is enabled. This is not recommended for production installations.": "Der Debug-Modus ist aktiviert. Dies wird für Produktionsinstallationen nicht empfohlen.",
   "The backend URL :name is too generic. Please set to something more unique.": "Die Backend-URL :name ist zu allgemein. Bitte geben Sie einen eindeutigeren Namen an.",
-  "An account with a generic login :name was found. Please rename this administrator account.": "Es wurde ein Konto mit dem generischen Benutzernamen gefunden. Bitte benennen Sie dieses Administratorkonto um.",
+  "An account with a generic login :name was found. Please rename this administrator account.": "Es wurde ein Konto mit dem generischen Benutzernamen :name gefunden. Bitte benennen Sie dieses Administratorkonto um.",
   "The PHP extension :name is not installed. Please install this library and activate the extension.": "Die PHP Erweiterung :name ist nicht installiert. Bitte installieren Sie diese Library und aktivieren Sie die Erweiterung.",
   "The plugin :name is a dependency but is not installed. Please install this plugin.": "Das Plugin :name hat eine Abhängigkeit die nicht installiert ist. Bitte installieren Sie alle benötigten Plugins.",
   "Directory :name or its subdirectories is not writable for PHP. Please set corresponding permissions for the webserver on this directory.": "Verzeichnis :name oder ein Unterverzeichnis kann nicht von PHP beschrieben werden. Bitte setzen Sie die korrekten Rechte für den Webserver in diesem Verzeichnis.",

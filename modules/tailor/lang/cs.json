@@ -84,7 +84,7 @@
   "Model column the records should be ordered by": "Sloupec modelu, podle kterého by měly být záznamy seřazeny",
   "Direction": "Směr",
   "Update :name Entries": "Aktualizace :name Záznamy",
-  "Update :name": "Aktualizace: jméno",
+  "Update :name": "Aktualizace :name",
   ":name Entry": ":name Vstup",
   "All :name Items": "Všechny položky :name",
   "Update Existing Records": "Aktualizovat existující záznamy",

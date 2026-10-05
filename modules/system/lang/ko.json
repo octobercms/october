@@ -75,7 +75,7 @@
   "or": "또는",
   "Code": "코드",
   "October CMS Marketplace": "10월 CMS 마켓플레이스",
-  "Visit the :link to add some.": "프로젝트에 플러그인이나 테마가 없습니다. 일부를 추가하려면 :link를 방문하세요.",
+  "Project has no plugins or themes. Visit the :link to add some.": "프로젝트에 플러그인이나 테마가 없습니다. 일부를 추가하려면 :link를 방문하세요.",
   "Buy Now": "지금 구매",
   "Updating package manager": "패키지 관리자 업데이트",
   "Updating application files": "애플리케이션 파일 다운로드중",

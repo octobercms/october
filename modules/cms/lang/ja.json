@@ -30,7 +30,7 @@
   "Unknown component": "不明なコンポーネント",
   "View Bag": "バッグを見る",
   "Stores custom template properties.": "カスタム テンプレート プロパティを格納します。",
-  "By :name": "名前で",
+  "By :name": "作成者: :name",
   "The theme ':name' is not found.": "テーマ「:name」が見つかりません。",
   "Manage the front-end theme and customization options.": "インストール済みのテーマのプレビュー一覧とアクティブテーマの選択。",
   "Site Theme": "フロントエンドのテーマ",
