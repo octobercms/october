@@ -81,6 +81,24 @@ class PreviewControllerTest extends TestCase
     }
 
     /**
+     * testPreviewUrlDropsBackendQueryString ensures the editor's query string stays off the preview URL so the token path matches the front end.
+     */
+    public function testPreviewUrlDropsBackendQueryString()
+    {
+        $this->applyEditSite('fr');
+
+        Request::instance()->query->replace(['draft' => '62', '_site_id' => '2']);
+
+        $url = $this->makePreviewUrl('blog-post', ['slug' => 'my-post']);
+        $this->assertStringEndsWith('/blogue/my-post', $url);
+        $this->assertEquals('/blogue/my-post', Url::makeRelative($url));
+
+        $url = $this->makePreviewUrl('index', []);
+        $this->assertStringNotContainsString('?', $url);
+        $this->assertEquals('/', Url::makeRelative($url));
+    }
+
+    /**
      * makePreviewUrl invokes the protected behavior method without booting a backend controller.
      */
     protected function makePreviewUrl(string $pageName, array $urlParams): ?string

@@ -1,6 +1,7 @@
 <?php namespace Tailor\Behaviors;
 
 use Cms;
+use Str;
 use File;
 use Site;
 use Event;
@@ -118,8 +119,9 @@ class PreviewController extends ControllerBehavior
         $site = Site::getSiteFromContext();
         $page = $site ? Page::loadCached($theme, $pageName) : null;
 
+        // Drop the backend query string (draft, _site_id) that siteUrl preserves
         if ($site && $page) {
-            return Cms::siteUrl($page, $site, $urlParams);
+            return Str::before(Cms::siteUrl($page, $site, $urlParams), '?');
         }
 
         return (new Controller($theme))->pageUrl($pageName, $urlParams);
