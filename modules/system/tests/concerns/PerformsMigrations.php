@@ -25,6 +25,11 @@ trait PerformsMigrations
     protected $pluginTestCaseDatabaseReused = false;
 
     /**
+     * @var array pluginTestCaseTailorMigrated are database keys whose cached database has tailor tables.
+     */
+    protected static $pluginTestCaseTailorMigrated = [];
+
+    /**
      * beginTestDatabase attaches the database migrated earlier in this process,
      * keeping an in-memory database alive across application rebuilds
      */
@@ -88,6 +93,23 @@ trait PerformsMigrations
     {
         // Migrate tailor
         BlueprintIndexer::instance()->migrate();
+    }
+
+    /**
+     * migrateTailorOnce migrates tailor unless the reused database already has its tables
+     */
+    protected function migrateTailorOnce()
+    {
+        $key = $this->getTestDatabaseKey();
+        if ($this->pluginTestCaseDatabaseReused && isset(static::$pluginTestCaseTailorMigrated[$key])) {
+            return;
+        }
+
+        $this->migrateTailor();
+
+        if ($this->useTransactions === true) {
+            static::$pluginTestCaseTailorMigrated[$key] = true;
+        }
     }
 
     /**

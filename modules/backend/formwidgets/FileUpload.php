@@ -257,6 +257,11 @@ class FileUpload extends FormWidgetBase
             return;
         }
 
+        // Files stored under another field, such as a translated locale, are listed from the query
+        if ($model->{$attribute}()->getAttachmentField() !== $attribute) {
+            return;
+        }
+
         $value = $model->{$attribute};
         if (!$value) {
             return $model->newCollection();

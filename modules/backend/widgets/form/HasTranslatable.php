@@ -44,7 +44,7 @@ trait HasTranslatable
             $this->vars['translatableField'] = $field;
             $this->vars['translatableSite'] = $site;
             $this->vars['translatableFormWidget'] = $formWidget;
-            $this->vars['translatableSessionKey'] = $formWidget->getSessionKey();
+            $this->vars['translatableSessionKey'] = $this->getSessionKey();
 
             return $this->makePartial('translate_popup');
         });
@@ -96,6 +96,43 @@ trait HasTranslatable
                 $this->controller->formAfterSave($model);
             }
         });
+    }
+
+    /**
+     * bindTranslatableToController rebuilds the translate popup form when a request targets one of its widgets, so their AJAX handlers can run.
+     */
+    protected function bindTranslatableToController()
+    {
+        if ($this->useTranslatable === false || !$this->controller || !method_exists($this->controller, 'getAjaxHandler')) {
+            return;
+        }
+
+        $siteId = post('site_id');
+        $fieldName = post('field_name');
+        $handler = (string) $this->controller->getAjaxHandler();
+        if (!$siteId || !$fieldName || !str_starts_with($handler, $this->alias . 'TranslateField' . $siteId)) {
+            return;
+        }
+
+        $field = $this->getField($fieldName);
+        if (!$field || !$field->translatable) {
+            return;
+        }
+
+        $site = $this->getTranslatableSite($siteId);
+
+        Site::withContext($site->id, function () use ($field, $site) {
+            $siteModel = $this->getTranslatableSiteModel($this->model, $site);
+            $this->makeTranslateFormWidget($field, $siteModel, $site);
+        });
+    }
+
+    /**
+     * getTranslateSessionKey returns the deferred binding session key for a translate popup, kept apart from the main form and other sites.
+     */
+    protected function getTranslateSessionKey($site): string
+    {
+        return $this->getSessionKey() . 'TranslateField' . $site->id;
     }
 
     /**
@@ -203,7 +240,7 @@ trait HasTranslatable
         $config->alias = $this->alias . 'TranslateField' . $site->id;
         $config->arrayName = 'TranslateField';
         $config->context = 'translate';
-        $config->sessionKey = $this->getSessionKey();
+        $config->sessionKey = $this->getTranslateSessionKey($site);
         $config->isNested = true;
         $config->useTranslatable = false;
         $config->useFilterFields = false;

@@ -21,6 +21,7 @@ use Cms\Classes\CmsCompoundObject;
 use Cms\Classes\ComponentManager;
 use Cms\Classes\ComponentPartial;
 use Cms\Classes\EditorExtension;
+use Cms\Components\TranslatableBag;
 use October\Rain\Halcyon\Model as HalcyonModel;
 use October\Rain\Router\Router as RainRouter;
 use Editor\Classes\ApiHelpers;
@@ -525,11 +526,9 @@ trait HasExtensionCrud
             unset($settings['viewBag']);
         }
 
-        // Drop empty translatable values and remove the section when nothing remains
+        // Clean translatable values and remove the section when nothing remains
         if (isset($settings['translatable']) && is_array($settings['translatable'])) {
-            $settings['translatable'] = array_filter($settings['translatable'], function ($value) {
-                return $value !== null && $value !== '' && $value !== [];
-            });
+            $settings['translatable'] = TranslatableBag::cleanProperties($settings['translatable']);
 
             if (count($settings['translatable']) === 0) {
                 unset($settings['translatable']);

@@ -13,12 +13,15 @@ use Illuminate\Http\UploadedFile;
 
 class SubmissionDecoderTest extends PluginTestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
+    /**
+     * @var bool autoMigrateTailor migrates the tailor blueprints once for the reused database
+     */
+    protected $autoMigrateTailor = true;
 
-        $this->migrateTailor();
-    }
+    /**
+     * @var bool useTransactions isolates each test with a database transaction
+     */
+    protected $useTransactions = true;
 
     /**
      * testRepeaterScalarInputRejected covers the reparenting primitive, a scalar ID must never

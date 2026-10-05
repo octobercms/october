@@ -26,6 +26,12 @@ abstract class PluginTestCase extends TestCase
     protected $useTransactions = false;
 
     /**
+     * @var bool autoMigrateTailor performs tailor blueprint migrations upon setup,
+     * only once per process when combined with useTransactions.
+     */
+    protected $autoMigrateTailor = false;
+
+    /**
      * @var bool autoRegister performs plugin boot and registration.
      */
     protected $autoRegister = true;
@@ -74,6 +80,11 @@ abstract class PluginTestCase extends TestCase
         if ($this->autoMigrate === true) {
             $this->migrateModules();
             $this->migrateCurrentPlugin();
+        }
+
+        // Migrate tailor before the transaction so its tables survive the rollback
+        if ($this->autoMigrateTailor === true) {
+            $this->migrateTailorOnce();
         }
 
         // Isolate database changes made by this test

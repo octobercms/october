@@ -13,12 +13,15 @@ use Illuminate\Http\UploadedFile;
 
 class SubmissionComponentTest extends PluginTestCase
 {
-    public function setUp(): void
-    {
-        parent::setUp();
+    /**
+     * @var bool autoMigrateTailor migrates the tailor blueprints once for the reused database
+     */
+    protected $autoMigrateTailor = true;
 
-        $this->migrateTailor();
-    }
+    /**
+     * @var bool useTransactions isolates each test with a database transaction
+     */
+    protected $useTransactions = true;
 
     /**
      * testFormGetFieldsFilterByTag
@@ -322,9 +325,10 @@ class SubmissionComponentTest extends PluginTestCase
     {
         $component = $this->makeComponent();
 
-        // Create the partial, then re-save the same record well past the
+        // Create the partial, then re-save the same record past the
         // throttle rate. Updates to an owned record must never be limited.
-        for ($i = 0; $i < 20; $i++) {
+        $attempts = $component->formGetThrottleRate() + 2;
+        for ($i = 0; $i < $attempts; $i++) {
             $this->setPostData([
                 '_form_step' => 'step1',
                 '_form_goto' => 'step1',
@@ -336,7 +340,7 @@ class SubmissionComponentTest extends PluginTestCase
         }
 
         $this->assertEquals(1, SubmissionRecord::inSection('UnitTest\Contact')->newQuery()->count());
-        $this->assertEquals('Jeff 19', $this->findLastSubmission()->name);
+        $this->assertEquals('Jeff ' . ($attempts - 1), $this->findLastSubmission()->name);
     }
 
     /**

@@ -147,6 +147,44 @@ class TranslatableBagTest extends TestCase
         $this->assertArrayHasKey('custom', $properties);
     }
 
+    public function testCleanPropertiesStripsLocaleKey()
+    {
+        $result = TranslatableBag::cleanProperties([
+            'locales' => [
+                'nl' => ['locale' => 'nl', 'url' => '/klimaatambities', 'title' => ''],
+                'fr' => ['url' => '/ambitions-climatiques']
+            ]
+        ]);
+
+        $this->assertEquals([
+            'locales' => [
+                'nl' => ['url' => '/klimaatambities'],
+                'fr' => ['url' => '/ambitions-climatiques']
+            ]
+        ], $result);
+    }
+
+    public function testCleanPropertiesDropsEmptyItems()
+    {
+        $result = TranslatableBag::cleanProperties([
+            'locales' => [
+                'de' => ['locale' => 'de', 'url' => '', 'title' => null],
+                'fr' => ['url' => '/contactez']
+            ],
+            'custom' => 'value',
+            'empty' => ''
+        ]);
+
+        $this->assertEquals([
+            'locales' => ['fr' => ['url' => '/contactez']],
+            'custom' => 'value'
+        ], $result);
+
+        $this->assertEquals([], TranslatableBag::cleanProperties([
+            'locales' => ['de' => ['locale' => 'de']]
+        ]));
+    }
+
     /**
      * swapSiteManager replaces the site manager facade with a stub.
      */

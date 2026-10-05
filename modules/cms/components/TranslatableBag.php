@@ -167,6 +167,39 @@ class TranslatableBag extends ComponentModuleBase
     }
 
     /**
+     * cleanProperties drops empty values and the locale key repeated inside each item before saving.
+     * @param array $properties
+     * @return array
+     */
+    public static function cleanProperties(array $properties): array
+    {
+        $isFilled = function ($value) {
+            return $value !== null && $value !== '' && $value !== [];
+        };
+
+        if (isset($properties[self::LOCALES_PROPERTY]) && is_array($properties[self::LOCALES_PROPERTY])) {
+            $locales = [];
+
+            foreach ($properties[self::LOCALES_PROPERTY] as $locale => $values) {
+                if (!is_array($values)) {
+                    continue;
+                }
+
+                unset($values['locale']);
+
+                $values = array_filter($values, $isFilled);
+                if ($values) {
+                    $locales[$locale] = $values;
+                }
+            }
+
+            $properties[self::LOCALES_PROPERTY] = $locales;
+        }
+
+        return array_filter($properties, $isFilled);
+    }
+
+    /**
      * makeLocaleDescription lists the available site locales as a hint.
      * @return string
      */

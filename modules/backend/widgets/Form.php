@@ -187,6 +187,7 @@ class Form extends WidgetBase implements FormElement
     {
         $this->defineFormFields();
         parent::bindToController();
+        $this->bindTranslatableToController();
     }
 
     /**

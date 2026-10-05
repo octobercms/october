@@ -33,7 +33,7 @@ export default {
     },
     data: function () {
         return {
-            editedObject: this.computeValue(),
+            editedObject: this.computeEditedObject(),
             nestedControlProperties: [
                 {
                     type: 'objectListRecords',
@@ -81,6 +81,30 @@ export default {
                     return this.control.itemProperties[index];
                 }
             }
+        },
+
+        // Keyed items stored without their key property (locales[fr][url]) take it from the object key
+        computeEditedObject: function computeEditedObject() {
+            var value = this.computeValue(),
+                keyPropertyName = this.control.keyProperty;
+
+            if (!keyPropertyName || !value || Array.isArray(value)) {
+                return value;
+            }
+
+            var result = {};
+            Object.keys(value).forEach(function (key) {
+                var item = value[key];
+
+                if (item && typeof item === 'object' && utils.isValueEmpty(item[keyPropertyName])) {
+                    item = Object.assign({}, item);
+                    item[keyPropertyName] = key;
+                }
+
+                result[key] = item;
+            });
+
+            return result;
         },
 
         shouldSkipInspectorValidation: function shouldSkipInspectorValidation() {
