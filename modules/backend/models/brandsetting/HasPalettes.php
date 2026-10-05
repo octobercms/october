@@ -235,9 +235,10 @@ trait HasPalettes
     public function getPaletteStyleVarsFor(string $preset, string $mode, array $customColors = []): array
     {
         // Merge defaults
+        $defaultColors = $this->getPaletteColorsFor('default', $mode);
         $result = array_merge(
-            $this->getPaletteColorsFor('default', $mode),
-            $this->getPaletteColorsFor($preset, $mode) ?: $customColors
+            $defaultColors,
+            $this->getPaletteColorsFor($preset, $mode) ?: $this->cleanCustomPaletteColors($customColors, $defaultColors)
         );
 
         // Convert keys to kebab from snake case
@@ -248,6 +249,27 @@ trait HasPalettes
             }
             $result[$newKey] = $val;
             unset($result[$key]);
+        }
+
+        return $result;
+    }
+
+    /**
+     * cleanCustomPaletteColors keeps user supplied colors that are plain CSS colors under a safe name, so no LESS source reaches the parser.
+     */
+    protected function cleanCustomPaletteColors(array $customColors, array $defaultColors): array
+    {
+        $result = [];
+
+        foreach ($customColors as $key => $val) {
+            if (!array_key_exists($key, $defaultColors) && !preg_match('/^[a-z0-9_]+$/iD', (string) $key)) {
+                continue;
+            }
+
+            $color = static::makeLessColorValue($val, $defaultColors[$key] ?? '');
+            if ($color !== '') {
+                $result[$key] = $color;
+            }
         }
 
         return $result;

@@ -22,6 +22,7 @@ class BrandSetting extends SettingModel
 {
     use \October\Rain\Database\Traits\Validation;
     use \Backend\Models\BrandSetting\HasPalettes;
+    use \System\Traits\HasLessFunctions;
 
     /**
      * @var string settingsCode is a unique code for this object
@@ -114,23 +115,9 @@ class BrandSetting extends SettingModel
             $this->custom_css = Html::cleanCss($this->custom_css);
 
             if (System::checkSafeMode()) {
-                $this->custom_css = $this->stripLessFileAccess($this->custom_css);
+                $this->custom_css = static::stripLessFileAccess($this->custom_css);
             }
         }
-    }
-
-    /**
-     * stripLessFileAccess removes LESS import directives and file reading functions until none remain.
-     */
-    protected function stripLessFileAccess(string $css): string
-    {
-        do {
-            $previous = $css;
-            $css = preg_replace('/@\s*import?/i', '', $css);
-            $css = preg_replace('/(data-uri|image-size|image-width|image-height)\s*\(/i', '(', $css);
-        } while ($css !== $previous);
-
-        return $css;
     }
 
     /**
@@ -326,8 +313,8 @@ class BrandSetting extends SettingModel
         $basePath = base_path('modules/backend/models/brandsetting');
 
         // Process settings
-        $loginBgColor = $instance->login_background_color ?? self::DEFAULT_LOGIN_COLOR;
-        $wallpaperSize = $instance->login_background_wallpaper_size ?? self::DEFAULT_WALLPAPER_SIZE;
+        $loginBgColor = static::makeLessColorValue($instance->login_background_color, self::DEFAULT_LOGIN_COLOR);
+        $wallpaperSize = static::makeLessSizeValue($instance->login_background_wallpaper_size, self::DEFAULT_WALLPAPER_SIZE);
 
         // Process palettes
         $preset = $instance->color_palette['preset'] ?? 'default';

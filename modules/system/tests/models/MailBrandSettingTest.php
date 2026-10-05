@@ -76,7 +76,7 @@ class MailBrandSettingTest extends TestCase
 
     protected function makeCssColorValue(string $value, string $default): string
     {
-        $method = new ReflectionMethod(MailBrandSetting::class, 'makeCssColorValue');
+        $method = new ReflectionMethod(MailBrandSetting::class, 'makeLessColorValue');
 
         return $method->invoke(null, $value, $default);
     }

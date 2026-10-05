@@ -17,6 +17,7 @@ use Exception;
 class MailBrandSetting extends SettingModel
 {
     use \October\Rain\Database\Traits\Validation;
+    use \System\Traits\HasLessFunctions;
 
     /**
      * @var string settingsCode
@@ -148,22 +149,10 @@ class MailBrandSetting extends SettingModel
             // panel_bg -> panel-bg
             $cssVar = str_replace('_', '-', $var);
 
-            $result[$cssVar] = static::makeCssColorValue((string) self::get($var, $default), $default);
+            $result[$cssVar] = static::makeLessColorValue(self::get($var, $default), $default);
         }
 
         return $result;
-    }
-
-    /**
-     * makeCssColorValue returns the value when it is a plain CSS color, otherwise the default, so no LESS source reaches the parser.
-     */
-    protected static function makeCssColorValue(string $value, string $default): string
-    {
-        $value = trim($value);
-
-        $isColor = preg_match('/^(#[0-9a-f]{3,8}|[a-z]+|(rgb|rgba|hsl|hsla)\([0-9.,%\s\/]*\))$/i', $value);
-
-        return $isColor ? $value : $default;
     }
 
     public static function compileCss()
