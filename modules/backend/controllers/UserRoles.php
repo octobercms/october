@@ -57,6 +57,35 @@ class UserRoles extends SettingsController
     }
 
     /**
+     * duplicate action opens the create form pre-filled from an existing role.
+     */
+    public function duplicate($recordId = null)
+    {
+        $this->pageTitle = __("Duplicate Role");
+        $this->actionView = 'create';
+
+        $this->asExtension('FormController')->create();
+    }
+
+    /**
+     * duplicate_onSave creates the new role from the duplicate form.
+     */
+    public function duplicate_onSave($recordId = null)
+    {
+        return $this->asExtension('FormController')->create_onSave();
+    }
+
+    /**
+     * formExtendModel replaces the new model with a copy of the source role when duplicating.
+     */
+    public function formExtendModel($model)
+    {
+        if ($this->action === 'duplicate' && !$model->exists) {
+            return $this->formFindModelObject($this->params[0] ?? null)->duplicateRole();
+        }
+    }
+
+    /**
      * listExtendQuery
      */
     public function listExtendQuery($query)

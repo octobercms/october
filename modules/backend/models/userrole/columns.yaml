@@ -40,3 +40,12 @@ columns:
         cssClass: text-end
         type: colorpicker
         sortable: false
+
+    duplicate_link:
+        label: Duplicate
+        shortLabel: ''
+        sortable: false
+        type: linkage
+        linkText: Duplicate
+        linkUrl: backend/userroles/duplicate/:id
+        align: right

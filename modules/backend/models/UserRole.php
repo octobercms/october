@@ -102,6 +102,20 @@ class UserRole extends RoleBase
     }
 
     /**
+     * duplicateRole returns an unsaved copy of this role with its permissions, excluding its code and users.
+     */
+    public function duplicateRole(): static
+    {
+        $copy = new static;
+        $copy->name = sprintf("%s (%s)", $this->name, __("Copy"));
+        $copy->description = $this->description;
+        $copy->color_background = $this->color_background;
+        $copy->permissions = $this->permissions ?: [];
+
+        return $copy;
+    }
+
+    /**
      * getDefaultPermissions returns default permissions for a role
      */
     public function getDefaultPermissions()

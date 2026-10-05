@@ -31,6 +31,11 @@
                     dataRequestData: "close: true",
                     dataRequestMessage: __("Saving :name...", ['name' => $formRecordName])
                 ) ?>
+                <?= Ui::button(
+                    label: __("Duplicate"),
+                    href: Backend::url('backend/userroles/duplicate/'.$formModel->id),
+                    secondary: true
+                ) ?>
                 <?= Ui::iconButton(
                     label: __("Delete"),
                     icon: 'oc-icon-delete',
