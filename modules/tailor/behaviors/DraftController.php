@@ -264,6 +264,11 @@ class DraftController extends ControllerBehavior
             return $this->primaryModel->isFirstDraftStatus();
         }
 
+        // Version history rows also reference the primary record but are never drafts
+        if (!$draftModel->isDraftStatus()) {
+            return false;
+        }
+
         return (string) $draftModel->primary_id === (string) $this->primaryModel->getKey();
     }
 

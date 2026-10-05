@@ -183,11 +183,25 @@ class EditorSetting extends SettingModel
             $this->html_custom_styles = Html::cleanCss($this->html_custom_styles);
 
             if (System::checkSafeMode()) {
-                $this->html_custom_styles = str_ireplace('@import', 'import', $this->html_custom_styles);
+                $this->html_custom_styles = $this->stripLessFileAccess($this->html_custom_styles);
             }
         }
 
         $this->cleanMarkupClasses();
+    }
+
+    /**
+     * stripLessFileAccess removes LESS import directives and file reading functions until none remain.
+     */
+    protected function stripLessFileAccess(string $css): string
+    {
+        do {
+            $previous = $css;
+            $css = preg_replace('/@\s*import?/i', '', $css);
+            $css = preg_replace('/(data-uri|image-size|image-width|image-height)\s*\(/i', '(', $css);
+        } while ($css !== $previous);
+
+        return $css;
     }
 
     /**

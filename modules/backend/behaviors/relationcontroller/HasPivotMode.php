@@ -133,6 +133,7 @@ trait HasPivotMode
     public function onRelationManagePivotCreate()
     {
         $this->beforeAjax();
+        $this->checkReadOnly();
 
         // If the pivot model fails for some reason, abort the sync
         Db::transaction(function () {
@@ -185,6 +186,7 @@ trait HasPivotMode
     public function onRelationManagePivotUpdate()
     {
         $this->beforeAjax();
+        $this->checkReadOnly();
 
         // Save data to model
         $saveData = $this->pivotWidget->getSaveData();

@@ -55,22 +55,25 @@
     }
 
     DropdownEditor.prototype.formatSelectOption = function(state) {
+        // Escape HTML
+        var text = $('<span>').text(state.text).html()
+
         if (!state.id)
-            return state.text; // optgroup
+            return text; // optgroup
 
         var option = state.element,
             iconClass = option.getAttribute('data-icon'),
             imageSrc = option.getAttribute('data-image')
 
         if (iconClass) {
-            return '<i class="select-icon '+iconClass+'"></i> ' + state.text
+            return $('<i class="select-icon"></i>').addClass(iconClass).prop('outerHTML') + ' ' + text
         }
 
         if (imageSrc) {
-            return '<img class="select-image" src="'+imageSrc+'" alt="" /> ' + state.text
+            return $('<img class="select-image" alt="" />').attr('src', imageSrc).prop('outerHTML') + ' ' + text
         }
 
-        return state.text
+        return text
     }
 
     DropdownEditor.prototype.createOption = function(select, title, value) {

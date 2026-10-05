@@ -33,7 +33,7 @@
         <div class="mediafinder-files-container">
             <div class="server-file"
                 data-public-url="<?= e($singleFile->publicUrl ?? '') ?>"
-                data-thumb-url="<?= $singleFile->thumbUrl ?? '' ?>"
+                data-thumb-url="<?= e($singleFile->thumbUrl ?? '') ?>"
                 data-path="<?= e($singleFile->path ?? '') ?>"
                 data-title="<?= e($singleFile->title ?? '') ?>"
                 data-document-type="<?= e($singleFile ? $singleFile->getFileType() : '') ?>"

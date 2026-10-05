@@ -1,6 +1,6 @@
 <!-- Rich Editor -->
 <?php if ($this->previewMode): ?>
-    <div class="form-control"><?= $value ?></div>
+    <div class="form-control"><?= $safeMode ? Html::clean((string) $value) : $value ?></div>
 <?php else: ?>
     <div
         id="<?= $this->getId() ?>"

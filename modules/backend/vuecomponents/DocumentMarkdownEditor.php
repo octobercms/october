@@ -46,7 +46,7 @@ class DocumentMarkdownEditor extends VueComponentBase
         $this->addJs('/modules/backend/vuecomponents/documentmarkdowneditor/assets/vendor/easymde@2.12.0/easymde.min.js');
         $this->addCss('/modules/backend/vuecomponents/documentmarkdowneditor/assets/vendor/easymde@2.12.0/easymde.min.css');
         $this->addJs('vendor/marked@1.2.0/marked.min.js');
-        $this->addJs('vendor/dompurify@2.1.1/purify.min.js');
+        $this->addJs('vendor/dompurify@3.4.16/purify.min.js');
     }
 
     /**

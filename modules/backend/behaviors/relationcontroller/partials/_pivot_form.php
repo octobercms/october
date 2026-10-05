@@ -10,10 +10,10 @@
         ]) ?>
 
             <!-- Passable fields -->
-            <input type="hidden" name="_relation_field" value="<?= $relationField ?>" />
+            <input type="hidden" name="_relation_field" value="<?= e($relationField) ?>" />
             <input type="hidden" name="_relation_extra_config" value="<?= e(json_encode($relationExtraConfig)) ?>" />
             <?php if ($relationPivotId): ?>
-                <input type="hidden" name="pivot_id" value="<?= $relationPivotId ?>" />
+                <input type="hidden" name="pivot_id" value="<?= e($relationPivotId) ?>" />
             <?php endif ?>
 
             <div class="modal-header">
@@ -59,10 +59,10 @@
         ]) ?>
 
             <!-- Passable fields -->
-            <input type="hidden" name="_relation_field" value="<?= $relationField ?>" />
+            <input type="hidden" name="_relation_field" value="<?= e($relationField) ?>" />
             <input type="hidden" name="_relation_extra_config" value="<?= e(json_encode($relationExtraConfig)) ?>" />
             <?php foreach ((array) $foreignId as $fid): ?>
-                <input type="hidden" name="foreign_id[]" value="<?= $fid ?>" />
+                <input type="hidden" name="foreign_id[]" value="<?= e($fid) ?>" />
             <?php endforeach ?>
 
             <div class="modal-header">

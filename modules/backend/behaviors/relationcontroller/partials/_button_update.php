@@ -1,7 +1,7 @@
 <a
     data-control="popup"
     data-handler="onRelationButtonUpdate"
-    data-request-data="manage_id: '<?= $relationManageId ?>'"
+    data-request-data="manage_id: '<?= e($relationManageId) ?>'"
     href="javascript:;"
     class="btn btn-sm btn-secondary relation-button-update"
 >

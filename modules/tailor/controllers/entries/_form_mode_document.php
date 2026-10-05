@@ -6,7 +6,7 @@
                     <div class="flex-grow-1">
                         <?= $this->formRender([
                             'section' => 'outside',
-                            'preview' => $initialState['isDeleted']
+                            'preview' => $initialState['isDeleted'] || $initialState['isLocked']
                         ]) ?>
                     </div>
                     <div>

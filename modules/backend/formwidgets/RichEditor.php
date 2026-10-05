@@ -41,6 +41,11 @@ class RichEditor extends FormWidgetBase
     public $readOnly = false;
 
     /**
+     * @var bool safeMode sanitizes the value with Html::clean when it is rendered as HTML in preview mode.
+     */
+    public $safeMode = true;
+
+    /**
      * @var bool The Legacy mode disables the Vue integration.
      */
     public $legacyMode = false;
@@ -92,6 +97,7 @@ class RichEditor extends FormWidgetBase
         $this->fillFromConfig([
             'fullPage',
             'readOnly',
+            'safeMode',
             'toolbarButtons',
             'toolbar',
             'legacyMode',
@@ -129,6 +135,7 @@ class RichEditor extends FormWidgetBase
         $this->vars['stretch'] = $this->formField->stretch;
         $this->vars['size'] = $this->formField->size;
         $this->vars['readOnly'] = $this->readOnly;
+        $this->vars['safeMode'] = $this->safeMode;
         $this->vars['showMargins'] = $this->showMargins;
         $this->vars['externalToolbarBus'] = $this->externalToolbarBus;
         $this->vars['name'] = $this->getFieldName();

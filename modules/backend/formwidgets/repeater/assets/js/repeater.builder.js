@@ -88,7 +88,7 @@ class RepeaterFormWidgetBuilder extends RepeaterFormWidgetBase {
                 itemIndex = $item.data('repeater-index'),
                 $groupItem = $('> li[data-repeater-index='+itemIndex+']', self.$sidebar);
 
-            $('[data-group-title]:first', $groupItem).html(self.getCollapseTitle($item));
+            $('[data-group-title]:first', $groupItem).text(self.getCollapseTitle($item));
         });
     }
 
@@ -103,8 +103,8 @@ class RepeaterFormWidgetBuilder extends RepeaterFormWidgetBase {
             self.$sidebar.append($groupItem);
             $('[data-group-controls]:first', $groupItem).replaceWith($(this).addClass('group-controls'));
             $('[data-group-image]:first > i', $groupItem).addClass($item.data('item-icon'));
-            $('[data-group-title]:first', $groupItem).html($item.data('item-title'));
-            $('[data-group-description]:first', $groupItem).html($item.data('item-description'));
+            $('[data-group-title]:first', $groupItem).text($item.data('item-title'));
+            $('[data-group-description]:first', $groupItem).text($item.data('item-description'));
 
             $groupItem.attr('data-repeater-index', $item.data('repeater-index'));
             $groupItem.attr('data-repeater-group', $item.data('repeater-group'));

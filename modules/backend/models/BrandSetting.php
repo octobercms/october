@@ -114,9 +114,23 @@ class BrandSetting extends SettingModel
             $this->custom_css = Html::cleanCss($this->custom_css);
 
             if (System::checkSafeMode()) {
-                $this->custom_css = str_ireplace('@import', 'import', $this->custom_css);
+                $this->custom_css = $this->stripLessFileAccess($this->custom_css);
             }
         }
+    }
+
+    /**
+     * stripLessFileAccess removes LESS import directives and file reading functions until none remain.
+     */
+    protected function stripLessFileAccess(string $css): string
+    {
+        do {
+            $previous = $css;
+            $css = preg_replace('/@\s*import?/i', '', $css);
+            $css = preg_replace('/(data-uri|image-size|image-width|image-height)\s*\(/i', '(', $css);
+        } while ($css !== $previous);
+
+        return $css;
     }
 
     /**

@@ -10,6 +10,7 @@ use BackendMenu;
 use Tailor\Classes\RecordIndexer;
 use Tailor\Classes\Blueprint;
 use Tailor\Classes\BlueprintIndexer;
+use Tailor\Models\EntryRecord;
 use Tailor\Models\SubmissionRecord;
 use Backend\Classes\WildcardController;
 use Tailor\Classes\Blueprint\SingleBlueprint;
@@ -205,6 +206,7 @@ class Entries extends WildcardController
 
                     case 'restore':
                         $this->checkSourcePermission('delete');
+                        $this->checkSourcePermission('publish');
                         $model->restore();
                         Flash::success(__('Entries have been restored'));
                         break;
@@ -338,6 +340,7 @@ class Entries extends WildcardController
             'isDraft' => $this->isSectionDraftable() && $this->formGetModel()->isDraftStatus(),
             'isSingular' => $this->isSectionSingular(),
             'isDeleted' => $model->trashed(),
+            'isLocked' => $this->isLiveRecordLocked($this->formGetModel()),
             'drafts' => $model->getDraftRecords(),
             'statusCode' => $model->status_code,
             'hasPreviewPage' => $this->hasPreviewPage(),
@@ -469,6 +472,17 @@ class Entries extends WildcardController
             return $this->prepareAjaxResponseVars();
         }
         else {
+            if ($this->actionMethod !== 'create') {
+                throw new ForbiddenException;
+            }
+
+            $this->checkSourcePermission('create');
+
+            // Drafts sections create through a first draft, saving directly writes live content
+            if ($this->isSectionDraftable()) {
+                $this->checkSourcePermission('publish');
+            }
+
             return $this->asExtension('FormController')->create_onSave();
         }
     }
@@ -490,6 +504,7 @@ class Entries extends WildcardController
      */
     public function onRestore($recordId = null)
     {
+        $this->checkSourcePermission('delete');
         $this->checkSourcePermission('publish');
 
         if ($model = $this->formFindModelObject($recordId)) {
@@ -609,6 +624,7 @@ class Entries extends WildcardController
             $config->structure = [
                 'maxDepth' => $section->getMaxDepth(),
                 'showTree' => $section->hasTree(),
+                'permissions' => $section->getPermissionCodeName('publish'),
             ] + ((array) $section->structure);
         }
 
@@ -654,6 +670,33 @@ class Entries extends WildcardController
                 }
             }
         });
+
+        // Publishing fields of child entries require publish permission on their own blueprint
+        if (
+            $widget instanceof \Backend\Widgets\Form &&
+            $model instanceof EntryRecord &&
+            !BackendAuth::userHasAccess($model->getBlueprintDefinition()->getPermissionCodeName('publish'))
+        ) {
+            if (!$model->exists) {
+                $model->is_enabled = false;
+            }
+
+            $widget->bindEvent('form.extendFields', function () use ($widget) {
+                $widget->getField('is_enabled')?->hidden();
+                $widget->getField('published_at')?->hidden();
+                $widget->getField('expired_at')?->hidden();
+            });
+        }
+    }
+
+    /**
+     * relationExtendConfig makes relation managed children read only when they belong to live content the user cannot publish
+     */
+    public function relationExtendConfig($config, $field, $model)
+    {
+        if ($this->isLiveRecordLocked($model)) {
+            $config->readOnly = true;
+        }
     }
 
     /**
@@ -869,6 +912,27 @@ class Entries extends WildcardController
     }
 
     /**
+     * formExtendFieldsBefore disables form features that would write live content the user cannot publish.
+     */
+    public function formExtendFieldsBefore($widget)
+    {
+        // Form widgets inherit preview mode, which stops their handlers from saving immediately
+        if ($this->isLiveRecordLocked($widget->model)) {
+            $widget->previewMode = true;
+        }
+
+        // Other site records resolved from a published record or its drafts are live content
+        if (
+            $this->isSectionDraftable() &&
+            $widget->model instanceof EntryRecord &&
+            !$widget->model->isFirstDraftStatus() &&
+            !$this->hasSourcePermission('publish')
+        ) {
+            $widget->useTranslatable = false;
+        }
+    }
+
+    /**
      * formExtendFields
      */
     public function formExtendFields($widget)
@@ -909,6 +973,17 @@ class Entries extends WildcardController
     public function hasSourcePermission(...$names)
     {
         return $this->checkSourcePermission($names, false);
+    }
+
+    /**
+     * isLiveRecordLocked returns true when the model is live content of a drafts section and the user cannot publish.
+     */
+    protected function isLiveRecordLocked($model): bool
+    {
+        return $this->isSectionDraftable() &&
+            $model instanceof EntryRecord &&
+            !$model->isDraftStatus() &&
+            !$this->hasSourcePermission('publish');
     }
 
     /**

@@ -39,6 +39,10 @@ final class SecurityPolicy implements SecurityPolicyInterface
             'orderByRaw', 'groupByRaw',
             'joinSub', 'leftJoinSub', 'rightJoinSub', 'crossJoinSub',
             'raw', 'rawValue',
+            'aggregate', 'numericAggregate',
+            'when', 'unless', 'tap', 'pipe', 'beforeQuery',
+            'chunk', 'chunkMap', 'chunkById', 'chunkByIdDesc', 'orderedChunkById',
+            'each', 'eachById',
         ],
         \Illuminate\Database\Eloquent\Builder::class => [
             'forceDelete',
@@ -46,6 +50,7 @@ final class SecurityPolicy implements SecurityPolicyInterface
             'firstOrCreate', 'createOrFirst', 'updateOrCreate', 'incrementOrCreate',
             'fillAndInsert', 'fillAndInsertOrIgnore', 'fillAndInsertGetId',
             'touch',
+            'withAggregate',
         ],
         \Illuminate\Database\Eloquent\Model::class => [
             'updateOrFail', 'updateQuietly',
@@ -54,10 +59,36 @@ final class SecurityPolicy implements SecurityPolicyInterface
             'push', 'pushQuietly',
             'fill', 'forceFill',
             'setTable',
+            'loadAggregate', 'loadMorphAggregate',
+            'withoutTouching', 'withoutTouchingOn', 'withoutEvents', 'withoutBroadcasting',
+            'withoutTimestamps', 'withoutTimestampsOn', 'unguarded',
+            'handleLazyLoadingViolationUsing', 'handleDiscardedAttributeViolationUsing',
+            'handleMissingAttributeViolationUsing',
+            'retrieved', 'saving', 'saved', 'updating', 'updated', 'creating', 'created',
+            'replicating', 'deleting', 'deleted', 'fetching', 'fetched',
         ],
         \Illuminate\Pagination\AbstractPaginator::class => [
             'through', 'setCollection', 'getCollection',
         ],
+        \Carbon\Carbon::class => [
+            'round', 'roundUnit', 'executeWithLocale', 'serializeUsing', 'genericMacro',
+            'withTestNow', 'setTestNow', 'setTestNowAndTimezone',
+        ],
+        \Illuminate\View\View::class => [
+            'render',
+        ],
+        \Illuminate\View\ComponentAttributeBag::class => [
+            'when', 'unless', 'whenHas', 'whenFilled', 'whenMissing', 'filter',
+        ],
+    ];
+
+    /**
+     * @var array eagerLoadMethods accept relation constraints that are invoked as callables, so their callable arguments are stripped.
+     */
+    protected $eagerLoadMethods = [
+        'with', 'load', 'loadMissing',
+        'withCount', 'withMax', 'withMin', 'withSum', 'withAvg', 'withExists',
+        'loadCount', 'loadMax', 'loadMin', 'loadSum', 'loadAvg', 'loadExists',
     ];
 
     /**
@@ -129,6 +160,10 @@ final class SecurityPolicy implements SecurityPolicyInterface
             foreach ($methods as $ii => $m) {
                 $this->blockedClassMethods[$i][$ii] = strtr($m, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz');
             }
+        }
+
+        foreach ($this->eagerLoadMethods as $i => $m) {
+            $this->eagerLoadMethods[$i] = strtr($m, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz');
         }
     }
 
@@ -204,6 +239,47 @@ final class SecurityPolicy implements SecurityPolicyInterface
         }
 
         return $object;
+    }
+
+    /**
+     * stripCallableArguments removes callable constraints passed to eager loading methods, keeping plain relation names intact.
+     */
+    public function stripCallableArguments($object, string $method, array $arguments): array
+    {
+        $isQueryReceiver = $object instanceof \Illuminate\Database\Eloquent\Model ||
+            $object instanceof \Illuminate\Database\Eloquent\Builder ||
+            $object instanceof \Illuminate\Database\Eloquent\Relations\Relation ||
+            $object instanceof \Tailor\Classes\ComponentVariable;
+
+        $normalizedMethod = strtr($method, 'ABCDEFGHIJKLMNOPQRSTUVWXYZ', 'abcdefghijklmnopqrstuvwxyz');
+        if (!$isQueryReceiver || !in_array($normalizedMethod, $this->eagerLoadMethods, true)) {
+            return $arguments;
+        }
+
+        foreach ($arguments as $index => $argument) {
+            if (is_array($argument)) {
+                $arguments[$index] = $this->stripKeyedCallables($argument);
+            }
+        }
+
+        return $arguments;
+    }
+
+    /**
+     * stripKeyedCallables nulls callables stored under string keys, where relation constraints live.
+     */
+    protected function stripKeyedCallables(array $value): array
+    {
+        foreach ($value as $key => $item) {
+            if (is_string($key) && is_callable($item)) {
+                $value[$key] = null;
+            }
+            elseif (is_array($item)) {
+                $value[$key] = $this->stripKeyedCallables($item);
+            }
+        }
+
+        return $value;
     }
 
     //

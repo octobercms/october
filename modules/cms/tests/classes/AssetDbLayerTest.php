@@ -495,6 +495,44 @@ class AssetDbLayerTest extends TestCase
         Asset::inTheme($theme)->rename('style2.css', 'css/style1.css');
     }
 
+    public function testRenameToSvgRejectedWhenDbLayerOff()
+    {
+        $theme = Theme::load('test');
+        $sourcePath = dirname($this->fixtureFile).'/rename-probe.js';
+        $targetPath = dirname($this->fixtureFile).'/rename-probe.svg';
+        file_put_contents($sourcePath, '/* probe */');
+
+        try {
+            Asset::inTheme($theme)->rename('rename-probe.svg', 'css/rename-probe.js');
+            $this->fail('Renaming a non-svg asset to svg should be rejected');
+        }
+        catch (ApplicationException $ex) {
+            $this->assertFileExists($sourcePath);
+            $this->assertFileDoesNotExist($targetPath);
+        }
+        finally {
+            @unlink($sourcePath);
+            @unlink($targetPath);
+        }
+    }
+
+    public function testRenameToSvgRejectedWhenDbLayerOn()
+    {
+        Config::set('cms.database_assets', true);
+
+        $theme = Theme::load('test');
+
+        try {
+            Asset::inTheme($theme)->rename('style1.svg', 'css/style1.css');
+            $this->fail('Renaming a non-svg asset to svg should be rejected');
+        }
+        catch (ApplicationException $ex) {
+        }
+
+        $this->assertNull(SourceFile::findByPath($this->source, 'css/style1.svg'));
+        Storage::disk('assets')->assertMissing($this->diskPrefix.'css/style1.svg');
+    }
+
     public function testRenameDirectoryReKeysAllContents()
     {
         Config::set('cms.database_assets', true);

@@ -10,6 +10,7 @@ use System\Models\File as FileModel;
 use October\Rain\Filesystem\Definitions as FileDefinitions;
 use ApplicationException;
 use ValidationException;
+use ForbiddenException;
 use Exception;
 
 /**
@@ -368,6 +369,10 @@ class FileUpload extends FormWidgetBase
      */
     public function onRemoveAttachment()
     {
+        if ($this->previewMode) {
+            throw new ForbiddenException;
+        }
+
         $fileId = post('file_id');
         if (!$fileId) {
             return;
@@ -390,6 +395,10 @@ class FileUpload extends FormWidgetBase
      */
     public function onSortAttachments()
     {
+        if ($this->previewMode) {
+            throw new ForbiddenException;
+        }
+
         if ($sortData = post('sortOrder')) {
             asort($sortData);
             $ids = array_keys($sortData);
@@ -436,6 +445,10 @@ class FileUpload extends FormWidgetBase
      */
     public function onSaveAttachmentConfig()
     {
+        if ($this->previewMode) {
+            throw new ForbiddenException;
+        }
+
         try {
             $formWidget = $this->getConfigFormWidget();
 
@@ -478,6 +491,10 @@ class FileUpload extends FormWidgetBase
      */
     public function onUpload()
     {
+        if ($this->previewMode) {
+            throw new ForbiddenException;
+        }
+
         try {
             if (!Input::hasFile('file_data')) {
                 throw new ApplicationException('File missing from request');

@@ -23,7 +23,7 @@
                 <div class="layout-cell">
                     <div class="layout-relative">
                         <div class="image_area">
-                            <img src="<?= $imageUrl ?>" style="max-width:none" />
+                            <img src="<?= e($imageUrl) ?>" style="max-width:none" />
                         </div>
                     </div>
                 </div>

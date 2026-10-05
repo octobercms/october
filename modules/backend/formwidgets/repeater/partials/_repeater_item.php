@@ -15,7 +15,7 @@
     <?= $titleFrom ? 'data-title-from="'.$titleFrom.'"' : '' ?>
     class="field-repeater-item<?= $collapsedItem ? ' collapsed' : '' ?>"
     data-repeater-index="<?= $indexValue ?>"
-    data-repeater-group="<?= $groupCode ?>"
+    data-repeater-group="<?= e($groupCode) ?>"
 >
     <div class="repeater-header">
         <div class="repeater-item-title">
@@ -60,7 +60,7 @@
         data-control="formwidget"
         <?= $lazyItem ? 'data-lazy-controls' : '' ?>
         data-refresh-handler="<?= $this->getEventHandler('onRefresh') ?>"
-        data-refresh-data="'_repeater_index': '<?= $indexValue ?>', '_repeater_group': '<?= $groupCode ?>'"
+        data-refresh-data="'_repeater_index': '<?= $indexValue ?>', '_repeater_group': '<?= e($groupCode) ?>'"
     >
         <?= $widget->render([
             'section' => $useTabs ? 'secondary' : 'outside',
@@ -68,7 +68,7 @@
         ]) ?>
         <input type="hidden" name="<?= $widget->arrayName ?>[_index]" value="<?= $indexValue ?>" />
         <?php if ($useGroups): ?>
-            <input type="hidden" name="<?= $widget->arrayName ?>[<?= $groupKeyFrom ?>]" value="<?= $groupCode ?>" />
+            <input type="hidden" name="<?= $widget->arrayName ?>[<?= $groupKeyFrom ?>]" value="<?= e($groupCode) ?>" />
         <?php endif ?>
     </div>
 </li>

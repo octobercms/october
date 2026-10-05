@@ -97,8 +97,15 @@ class SubmissionComponent extends ComponentModuleBase
             return [];
         }
 
+        // Core attributes such as is_enabled are never visitor input, even when a blueprint field modifies them
+        $fieldModifiers = (new SubmissionRecord)->fieldModifiers;
+
         $config = [];
         foreach ($fieldset->getAllFields() as $name => $field) {
+            if (in_array($name, $fieldModifiers)) {
+                continue;
+            }
+
             $config[$name] = [
                 'label' => $field->label,
                 'type' => $field->type ?? 'text',
@@ -124,33 +131,43 @@ class SubmissionComponent extends ComponentModuleBase
     }
 
     /**
-     * formCoerceRelationValues extracts relation-backed values and applies them via the submission decoder
+     * formCoerceRelationValues applies relation-backed values via the submission decoder and sanitizes the remaining scalar values
      */
     public function formCoerceRelationValues($model, array $data, array $allowedFields): array
     {
+        $decoder = new SubmissionDecoder($this);
+
+        // Every relation except file attachments must pass the decoder trust rules
+        $fileFields = $this->formGetFileFieldNames();
         $relationFields = [];
-        foreach ($this->formGetFieldConfig() as $name => $field) {
-            if (in_array($field['type'] ?? 'text', ['repeater', 'nestedform', 'entries'])) {
+        foreach ($allowedFields as $name) {
+            if ($model->hasRelation($name) && !in_array($name, $fileFields)) {
                 $relationFields[] = $name;
             }
         }
 
-        $relationFields = array_intersect($relationFields, $allowedFields);
-        if (!$relationFields) {
-            return $data;
+        if ($relationFields) {
+            // Nested uploaded files merge into their matching rows, postback values never can
+            $values = array_replace_recursive(
+                array_only($data, $relationFields),
+                array_only(files(), $relationFields)
+            );
+
+            if ($values) {
+                $decoder->decode($model, $values);
+            }
+
+            $data = array_except($data, $relationFields);
         }
 
-        // Nested uploaded files merge into their matching rows, postback values never can
-        $values = array_replace_recursive(
-            array_only($data, $relationFields),
-            array_only(files(), $relationFields)
-        );
-
-        if ($values) {
-            (new SubmissionDecoder($this))->decode($model, $values);
+        $fieldset = $model->getFieldsetDefinition();
+        foreach ($data as $name => $value) {
+            if ($field = $fieldset->getField($name)) {
+                $data[$name] = $decoder->sanitizeFieldValue($field, $value);
+            }
         }
 
-        return array_except($data, $relationFields);
+        return $data;
     }
 
     /**

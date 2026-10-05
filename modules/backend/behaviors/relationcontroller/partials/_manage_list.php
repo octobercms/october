@@ -3,7 +3,7 @@
     data-popup-size="<?= $relationPopupSize ?? 950 ?>"
 >
     <?= Form::open() ?>
-        <input type="hidden" name="_relation_field" value="<?= $relationField ?>" />
+        <input type="hidden" name="_relation_field" value="<?= e($relationField) ?>" />
         <input type="hidden" name="_relation_extra_config" value="<?= e(json_encode($relationExtraConfig)) ?>" />
 
         <div class="modal-header">

@@ -3,8 +3,8 @@
         <?php foreach ($availableColors as $index => $color): ?>
             <li
                 class="<?= $color == $value ? 'active' : null ?>"
-                data-hex-color="<?= $color ?>">
-                <span style="background: <?= $color ?>"><?= $color ?></span>
+                data-hex-color="<?= e($color) ?>">
+                <span style="background: <?= e($color) ?>"><?= e($color) ?></span>
             </li>
         <?php endforeach ?>
     <?php endif ?>

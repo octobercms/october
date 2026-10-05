@@ -452,6 +452,10 @@ trait HasValueProcessor
             }
         }
 
+        if (!$this->isSafeLinkageUrl((string) $linkUrl)) {
+            return e(__($linkText));
+        }
+
         return $this->makePartial('column_linkage', [
             'attributes' => (array) $column->attributes,
             'linkText' => $linkText,
@@ -459,6 +463,20 @@ trait HasValueProcessor
             'column' => $column,
             'value' => $value
         ]);
+    }
+
+    /**
+     * isSafeLinkageUrl allows relative URLs and a short list of schemes, since browsers ignore control characters inside a scheme.
+     */
+    protected function isSafeLinkageUrl(string $url): bool
+    {
+        $url = preg_replace('/[\x00-\x20\x7f]+/', '', $url);
+
+        if (!preg_match('/^([a-z][a-z0-9+.\-]*):/i', $url, $matches)) {
+            return true;
+        }
+
+        return in_array(strtolower($matches[1]), ['http', 'https', 'ftp', 'ftps', 'mailto', 'tel', 'sms'], true);
     }
 
     /**

@@ -73,7 +73,8 @@ class MailSetting extends SettingModel
     public $rules = [
         'sender_name'  => 'required',
         'sender_email' => 'required|email',
-        'sendmail_path' => ['nullable', 'regex:/^[^;&|`$()<>\r\n\\\\]*$/'],
+        // A sendmail compatible binary followed only by the delivery flags it needs
+        'sendmail_path' => ['nullable', 'regex:/^([a-zA-Z]:)?([\w.\-]*\/)*[\w.\-]*(sendmail|msmtp|ssmtp)[\w.\-]*( +-(bs|t|i|oi|ti|f *[\w.+\-]+@[\w.\-]+))*$/D'],
     ];
 
     /**

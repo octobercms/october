@@ -46,12 +46,10 @@ class SubmissionDecoder extends Decoder
     ];
 
     /**
-     * @var array htmlFieldTypes are field types whose scalar value may reach a reviewer as markup and must be sanitized before storage
+     * @var array htmlFieldTypes are field types that store visitor-authored HTML and must be sanitized before storage
      */
     protected $htmlFieldTypes = [
         'richeditor',
-        'markdown',
-        'codeeditor',
     ];
 
     /**
@@ -62,44 +60,45 @@ class SubmissionDecoder extends Decoder
     }
 
     /**
-     * beforeDecodeAttribute drops child attributes that are unknown to the fieldset or guarded,
-     * and sanitizes scalar HTML values before they reach the model.
+     * beforeDecodeAttribute drops attributes that are guarded or unknown to a child fieldset,
+     * and sanitizes scalar values before they reach the model.
      */
     protected function beforeDecodeAttribute($model, $attr, &$value): bool
     {
-        if ($model instanceof RepeaterItem) {
-            if ($attr === 'content_group') {
-                return false;
-            }
-
-            $field = $model->getFieldsetDefinition()->getField($attr);
-            if (!$field || $field->guarded === true) {
-                return false;
-            }
-
-            $this->sanitizeHtmlValue($field, $value);
-
-            return true;
+        if ($model instanceof RepeaterItem && $attr === 'content_group') {
+            return false;
         }
 
         $field = $model->getFieldsetDefinition()->getField($attr);
-        if ($field) {
-            $this->sanitizeHtmlValue($field, $value);
+        if (!$field) {
+            return !$model instanceof RepeaterItem;
         }
+
+        if ($field->guarded === true) {
+            return false;
+        }
+
+        $value = $this->sanitizeFieldValue($field, $value);
 
         return true;
     }
 
     /**
-     * sanitizeHtmlValue passes visitor-authored HTML through the sanitizer for field types that store markup.
+     * sanitizeFieldValue cleans visitor-authored HTML and drops color values that are not hex codes.
      */
-    protected function sanitizeHtmlValue($field, &$value): void
+    public function sanitizeFieldValue($field, $value)
     {
-        if (!is_string($value) || !in_array($field->type ?? null, $this->htmlFieldTypes, true)) {
-            return;
+        $type = $field->type ?? null;
+
+        if ($type === 'colorpicker') {
+            return is_string($value) && preg_match('/^#[0-9a-f]{3,8}$/i', $value) ? $value : null;
         }
 
-        $value = Html::clean($value);
+        if (is_string($value) && in_array($type, $this->htmlFieldTypes, true)) {
+            return Html::clean($value);
+        }
+
+        return $value;
     }
 
     /**

@@ -19,12 +19,14 @@ class ThemeDataTest extends TestCase
 
         $this->resetThemeDataInstances();
         $this->createThemeDataTable();
+        $this->createTranslateAttributesTable();
     }
 
     public function tearDown(): void
     {
         $this->resetThemeDataInstances();
         Schema::dropIfExists('cms_theme_data');
+        Schema::dropIfExists('system_translate_attributes');
 
         parent::tearDown();
     }
@@ -146,6 +148,20 @@ class ThemeDataTest extends TestCase
             $table->string('theme')->nullable()->index();
             $table->mediumText('data')->nullable();
             $table->timestamps();
+        });
+    }
+
+    protected function createTranslateAttributesTable(): void
+    {
+        Schema::dropIfExists('system_translate_attributes');
+
+        Schema::create('system_translate_attributes', function (Blueprint $table) {
+            $table->increments('id');
+            $table->string('model_type', 512);
+            $table->integer('model_id');
+            $table->string('locale', 16);
+            $table->string('attribute', 128);
+            $table->mediumText('value')->nullable();
         });
     }
 }

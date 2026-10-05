@@ -45,7 +45,7 @@
             <?php foreach ($fileList as $file): ?>
                 <div class="server-file"
                     data-id="<?= $file->id ?>"
-                    data-path="<?= $file->pathUrl ?>"
+                    data-path="<?= e($file->pathUrl) ?>"
                     data-thumb="<?= e($file->thumbUrl) ?>"
                     data-name="<?= e($file->title ?: $file->file_name) ?>"
                     data-description="<?= e($file->description) ?>"

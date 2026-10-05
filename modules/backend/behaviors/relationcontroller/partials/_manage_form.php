@@ -10,9 +10,9 @@
             'data-request-success' => "oc.relationBehavior.changed('" . e($relationField) . "', 'updated')",
         ]) ?>
             <!-- Passable fields -->
-            <input type="hidden" name="_relation_field" value="<?= $relationField ?>" />
+            <input type="hidden" name="_relation_field" value="<?= e($relationField) ?>" />
             <input type="hidden" name="_relation_extra_config" value="<?= e(json_encode($relationExtraConfig)) ?>" />
-            <input type="hidden" name="_form_session_key" value="<?= $formSessionKey ?>" />
+            <input type="hidden" name="_form_session_key" value="<?= e($formSessionKey) ?>" />
 
             <div class="modal-header">
                 <h4 class="modal-title"><?= e($relationManageTitle) ?></h4>
@@ -58,9 +58,9 @@
             'data-request-success' => "oc.relationBehavior.changed('" . e($relationField) . "', 'created')",
         ]) ?>
             <!-- Passable fields -->
-            <input type="hidden" name="_relation_field" value="<?= $relationField ?>" />
+            <input type="hidden" name="_relation_field" value="<?= e($relationField) ?>" />
             <input type="hidden" name="_relation_extra_config" value="<?= e(json_encode($relationExtraConfig)) ?>" />
-            <input type="hidden" name="_form_session_key" value="<?= $formSessionKey ?>" />
+            <input type="hidden" name="_form_session_key" value="<?= e($formSessionKey) ?>" />
 
             <div class="modal-header">
                 <h4 class="modal-title"><?= e($relationManageTitle) ?></h4>

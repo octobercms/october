@@ -12,12 +12,47 @@ fields:
         label: Name
         type: text
         validation: required
+        tags: [step1]
+
+    is_enabled:
+        label: Approved
+        tags: [step1]
 
     post:
         label: Related Post
         type: entries
         source: UnitTest\Post
         maxItems: 1
+
+    featured_post:
+        label: Featured Post
+        type: entries
+        source: UnitTest\Post
+        maxItems: 1
+        guarded: true
+
+    user_group:
+        label: User Group
+        type: recordfinder
+        modelClass: Backend\Models\UserGroup
+        maxItems: 1
+
+    summary:
+        label: Summary
+        type: richeditor
+        tags: [step1]
+
+    notes:
+        label: Notes
+        type: markdown
+
+    script:
+        label: Script
+        type: codeeditor
+
+    accent:
+        label: Accent
+        type: colorpicker
 
     answers:
         label: Answers
@@ -33,6 +68,22 @@ fields:
                     type: fileupload
                     maxFiles: 1
 
+                detail:
+                    label: Detail
+                    type: richeditor
+
+                detail_notes:
+                    label: Detail Notes
+                    type: markdown
+
+                detail_script:
+                    label: Detail Script
+                    type: codeeditor
+
+                tint:
+                    label: Tint
+                    type: colorpicker
+
                 followups:
                     label: Follow Ups
                     type: repeater
@@ -41,6 +92,15 @@ fields:
                             note:
                                 label: Note
                                 type: text
+
+    faqs:
+        label: FAQs
+        type: nesteditems
+        form:
+            fields:
+                question:
+                    label: Question
+                    type: text
 
     profile:
         label: Profile

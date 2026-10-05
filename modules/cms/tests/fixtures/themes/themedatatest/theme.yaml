@@ -1,0 +1,28 @@
+name: Theme Data Test
+description: Used to test translatable theme data.
+author: October CMS
+
+form:
+    fields:
+        title:
+            label: Title
+            default: Default title
+            translatable: true
+
+        position:
+            label: Position
+            type: radio
+            options:
+                top: At the top
+                left: At the left
+
+        logo:
+            label: Logo
+            type: fileupload
+            mode: image
+            translatable: true
+
+        background:
+            label: Background
+            type: fileupload
+            mode: image

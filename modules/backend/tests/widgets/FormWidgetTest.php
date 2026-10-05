@@ -246,6 +246,28 @@ class FormWidgetTest extends PluginTestCase
         $this->assertStringContainsString('value="&quot;&gt;&lt;svg onload=&quot;alert(2)', $html);
     }
 
+    public function testMarkdownPreviewModeDropsUnsafeLinks()
+    {
+        $model = new FormTestModel;
+        $model->notes = "[Open](javascript:alert(1))\n\n[Site](https://octobercms.com)\n\n<b>bold</b>";
+
+        $form = new Form(new \Backend\Classes\Controller, [
+            'model' => $model,
+            'previewMode' => true,
+            'fields' => [
+                'notes' => [
+                    'type' => 'markdown'
+                ]
+            ]
+        ]);
+
+        $html = $form->render();
+
+        $this->assertStringNotContainsString('href="javascript:', $html);
+        $this->assertStringContainsString('href="https://octobercms.com"', $html);
+        $this->assertStringNotContainsString('<b>bold</b>', $html);
+    }
+
     public function testTranslateSaveAllowedWithDefaultTranslatableState()
     {
         $this->swapPostRequest(['field_name' => 'name']);

@@ -5,7 +5,7 @@
 <div class="modal-body">
     <p>
         <?= e(__('Column')) ?>:
-        <strong><?= $columnName ?></strong>
+        <strong><?= e($columnName) ?></strong>
     </p>
     <div class="list-preview">
         <div class="control-simplelist is-divided is-scrollable size-small" data-control="simplelist">

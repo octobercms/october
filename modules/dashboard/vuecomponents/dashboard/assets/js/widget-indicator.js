@@ -84,7 +84,20 @@ export default {
                 return '#';
             }
 
-            return this.linkHref;
+            if (!this.linkHref) {
+                return this.linkHref;
+            }
+
+            // Only allow relative URLs or http and https URLs
+            try {
+                const url = new URL(this.linkHref, window.location.href);
+                if (url.protocol === 'http:' || url.protocol === 'https:') {
+                    return this.linkHref;
+                }
+            }
+            catch (err) {}
+
+            return '#';
         },
 
         complicationClass: function () {

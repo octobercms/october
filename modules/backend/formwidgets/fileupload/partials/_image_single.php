@@ -48,7 +48,7 @@
             <?php if ($singleFile): ?>
                 <div class="server-file"
                     data-id="<?= $singleFile->id ?>"
-                    data-path="<?= $singleFile->pathUrl ?>"
+                    data-path="<?= e($singleFile->pathUrl) ?>"
                     data-thumb="<?= e($singleFile->thumbUrl) ?>"
                     data-name="<?= e($singleFile->title ?: $singleFile->file_name) ?>"
                     data-description="<?= e($singleFile->description) ?>"

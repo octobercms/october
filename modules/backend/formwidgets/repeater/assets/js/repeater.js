@@ -370,7 +370,8 @@ export class RepeaterFormWidgetBase extends ControlBase {
             if ($textInput.is('select')) {
                 result = $textInput.find('option:selected').text();
             } else if ($textInput.is('textarea')) {
-                result = $('<div />').html($textInput.val()).text().substring(0, 255);
+                // Strip tags using an inert document so no markup is executed
+                result = (new DOMParser().parseFromString(String($textInput.val()), 'text/html').body.textContent || '').substring(0, 255);
             } else {
                 result = $textInput.val();
             }

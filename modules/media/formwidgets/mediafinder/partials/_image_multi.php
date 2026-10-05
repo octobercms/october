@@ -65,7 +65,7 @@
             <?php foreach ($fileList as $file): ?>
                 <div class="server-file"
                     data-public-url="<?= e($file->publicUrl ?? '') ?>"
-                    data-thumb-url="<?= $file->thumbUrl ?? '' ?>"
+                    data-thumb-url="<?= e($file->thumbUrl ?? '') ?>"
                     data-path="<?= e($file->path ?? '') ?>"
                     data-title="<?= e($file->title ?? '') ?>"
                     data-document-type="<?= e($file->getFileType() ?: '') ?>"

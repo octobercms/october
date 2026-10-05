@@ -5463,9 +5463,12 @@ API.txt for details.
 
         highlighter: function (item) {
             var query = this.query.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&')
-            return item.replace(new RegExp('(' + query + ')', 'ig'), function ($1, match) {
-                return '<strong>' + match + '</strong>'
-            })
+
+            // Escape each segment of the label, matches sit at odd indexes
+            return String(item).split(new RegExp('(' + query + ')', 'ig')).map(function (part, index) {
+                var text = $('<span>').text(part).html()
+                return index % 2 ? '<strong>' + text + '</strong>' : text
+            }).join('')
         },
 
         render: function (items) {
@@ -9400,22 +9403,25 @@ API.txt for details.
     }
 
     DropdownEditor.prototype.formatSelectOption = function(state) {
+        // Escape HTML
+        var text = $('<span>').text(state.text).html()
+
         if (!state.id)
-            return state.text; // optgroup
+            return text; // optgroup
 
         var option = state.element,
             iconClass = option.getAttribute('data-icon'),
             imageSrc = option.getAttribute('data-image')
 
         if (iconClass) {
-            return '<i class="select-icon '+iconClass+'"></i> ' + state.text
+            return $('<i class="select-icon"></i>').addClass(iconClass).prop('outerHTML') + ' ' + text
         }
 
         if (imageSrc) {
-            return '<img class="select-image" src="'+imageSrc+'" alt="" /> ' + state.text
+            return $('<img class="select-image" alt="" />').attr('src', imageSrc).prop('outerHTML') + ' ' + text
         }
 
-        return state.text
+        return text
     }
 
     DropdownEditor.prototype.createOption = function(select, title, value) {

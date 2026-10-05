@@ -163,9 +163,12 @@
 
         highlighter: function (item) {
             var query = this.query.replace(/[\-\[\]{}()*+?.,\\\^$|#\s]/g, '\\$&')
-            return item.replace(new RegExp('(' + query + ')', 'ig'), function ($1, match) {
-                return '<strong>' + match + '</strong>'
-            })
+
+            // Escape each segment of the label, matches sit at odd indexes
+            return String(item).split(new RegExp('(' + query + ')', 'ig')).map(function (part, index) {
+                var text = $('<span>').text(part).html()
+                return index % 2 ? '<strong>' + text + '</strong>' : text
+            }).join('')
         },
 
         render: function (items) {

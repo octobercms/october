@@ -1,5 +1,6 @@
 <?php namespace Cms\Models;
 
+use Site;
 use Cache;
 use Model;
 use Event;
@@ -18,6 +19,8 @@ use Exception;
 class ThemeData extends Model
 {
     use \October\Rain\Database\Traits\Validation;
+    use \October\Rain\Database\Traits\Translatable;
+    use \October\Rain\Database\Traits\TranslatableAttachments;
 
     /**
      * @var string The database table used by the model.
@@ -58,6 +61,11 @@ class ThemeData extends Model
      * @var array attachOne relations
      */
     public $attachOne = [];
+
+    /**
+     * @var array translatable attributes, set from form fields marked as translatable.
+     */
+    public $translatable = [];
 
     /**
      * @var ThemeData instances of cached objects
@@ -107,7 +115,9 @@ class ThemeData extends Model
     public static function forTheme(CmsTheme $theme): ThemeData
     {
         $dirName = $theme->getDirName();
-        if ($themeData = array_get(self::$instances, $dirName)) {
+
+        $instanceKey = $dirName.':'.Site::getSiteFromContext()?->hard_locale;
+        if ($themeData = self::$instances[$instanceKey] ?? null) {
             return $themeData;
         }
 
@@ -127,7 +137,7 @@ class ThemeData extends Model
 
         $themeData->initFormFields();
 
-        self::$instances[$dirName] = $themeData;
+        self::$instances[$instanceKey] = $themeData;
 
         if ($themeData->exists) {
             Cache::put($cacheKey, static::getCacheableAttributes($themeData), now()->addMinutes(1440));
@@ -187,6 +197,8 @@ class ThemeData extends Model
         }
 
         $this->setRawAttributes((array) $this->getAttributes() + $data, true);
+
+        $this->promoteTranslatableValues();
     }
 
     /**
@@ -222,6 +234,10 @@ class ThemeData extends Model
                 continue;
             }
 
+            if (!empty($field['translatable']) && !in_array($id, $this->translatable)) {
+                $this->translatable[] = $id;
+            }
+
             if (!isset($field['type'])) {
                 continue;
             }
@@ -241,6 +257,8 @@ class ThemeData extends Model
                 $this->attachOne[$id] = File::class;
             }
         }
+
+        $this->defineTranslatableAttachments();
     }
 
     /**

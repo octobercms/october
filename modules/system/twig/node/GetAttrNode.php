@@ -135,6 +135,11 @@ class GetAttrNode extends GetAttrExpression implements SupportDefinedTestInterfa
             $policy = $env->getExtension(SandboxExtension::class)->getSecurityPolicy();
             if ($policy instanceof \System\Twig\SecurityPolicy) {
                 $object = $policy->castMethodObjectToSafeObject($object);
+
+                // The attribute() function passes arguments with ANY_CALL, so check any call with arguments
+                if ($arguments) {
+                    $arguments = $policy->stripCallableArguments($object, (string) $item, $arguments);
+                }
             }
         }
 

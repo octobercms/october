@@ -118,6 +118,47 @@ class ListsWidgetTest extends PluginTestCase
         $this->assertNotNull($list->getColumn('email'));
     }
 
+    /**
+     * @dataProvider linkageUrlProvider
+     */
+    public function testLinkageColumnOnlyLinksSafeSchemes(string $url, bool $expectLink)
+    {
+        $user = new BackendUserFixture;
+        $this->actingAs($user->asSuperUser());
+
+        $list = new Lists(null, [
+            'model' => new User,
+            'arrayName' => 'array',
+            'columns' => [
+                'login' => [
+                    'type' => 'linkage',
+                    'label' => 'Link'
+                ]
+            ]
+        ]);
+        $list->render();
+
+        $record = new User;
+        $record->login = $url;
+
+        $html = (string) $list->getColumnValue($record, $list->getColumn('login'));
+
+        $this->assertSame($expectLink, str_contains($html, '<a href='));
+    }
+
+    public static function linkageUrlProvider(): array
+    {
+        return [
+            ['https://octobercms.com', true],
+            ['/relative/path', true],
+            ['mailto:hello@example.com', true],
+            ['javascript:alert(1)', false],
+            ["java\tscript:alert(1)", false],
+            [' JAVASCRIPT:alert(1)', false],
+            ['data:text/html,x', false],
+        ];
+    }
+
     protected function restrictedListsFixture(bool $singlePermission = false)
     {
         return new Lists(null, [

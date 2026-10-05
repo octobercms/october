@@ -4,7 +4,7 @@
     <?php if (!$searchMode): ?>
         <?php foreach ($pathSegments as $folder => $path): ?>
             <?php if ($path != '/'): ?>
-                <li><a href="javascript:;" data-type="media-item" data-item-type="folder" data-path="<?= e($path) ?>"><?= basename($folder) ?></a></li>
+                <li><a href="javascript:;" data-type="media-item" data-item-type="folder" data-path="<?= e($path) ?>"><?= e(basename($folder)) ?></a></li>
             <?php endif ?>
         <?php endforeach?>
     <?php else: ?>

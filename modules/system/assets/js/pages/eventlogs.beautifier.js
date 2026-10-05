@@ -213,7 +213,10 @@
             result += childIndent;
 
             if (!isArray) {
-                result += '{exception-beautifier-code}' + key + '{/exception-beautifier-code}: ';
+                result += '{exception-beautifier-code}' + key
+                    .replace(/&/g, '&amp;')
+                    .replace(/</g, '&lt;')
+                    .replace(/>/g, '&gt;') + '{/exception-beautifier-code}: ';
             }
 
             result += self.buildJsonTree(data[key], depth + 1);

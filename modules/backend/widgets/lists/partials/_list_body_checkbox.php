@@ -3,7 +3,7 @@
         class="form-check-input"
         type="checkbox"
         name="checked[]"
-        value="<?= $this->getColumnKey($record) ?>"
+        value="<?= e($this->getColumnKey($record)) ?>"
         <?= $this->isRowChecked($record) ? 'checked' : '' ?>
         autocomplete="off" />
 </td>

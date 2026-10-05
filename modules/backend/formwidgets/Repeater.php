@@ -2,6 +2,7 @@
 
 use Backend\Classes\FormField;
 use Backend\Classes\FormWidgetBase;
+use ForbiddenException;
 
 /**
  * Repeater Form Widget
@@ -408,6 +409,10 @@ class Repeater extends FormWidgetBase
      */
     public function onAddItem()
     {
+        if ($this->previewMode) {
+            throw new ForbiddenException;
+        }
+
         self::$onAddItemCalled = true;
 
         $this->prepareParentModelData();
@@ -437,6 +442,10 @@ class Repeater extends FormWidgetBase
      */
     public function onDuplicateItem()
     {
+        if ($this->previewMode) {
+            throw new ForbiddenException;
+        }
+
         $fromIndex = post('_repeater_index');
         $groupCode = post('_repeater_group');
 

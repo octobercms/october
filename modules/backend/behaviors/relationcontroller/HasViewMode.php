@@ -158,6 +158,13 @@ trait HasViewMode
             }
         }
 
+        // Read only relations cannot be reordered
+        if ($this->readOnly) {
+            $widget->bindEvent('list.beforeReorderStructure', function () {
+                $this->checkReadOnly();
+            }, 100);
+        }
+
         // Custom structure reordering logic
         if (
             $this->relationParent->isClassInstanceOf(\October\Contracts\Database\SortableRelationInterface::class) &&

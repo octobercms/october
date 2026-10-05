@@ -2,6 +2,7 @@
 
 use File;
 use Lang;
+use Config;
 use Storage;
 use Cms\Models\SourceFile;
 use Symfony\Component\HttpFoundation\File\UploadedFile;
@@ -144,6 +145,10 @@ trait HasOperations
                 'editor::lang.filesystem.type_not_allowed',
                 ['allowed_types' => implode(', ', $allowedExtensions)]
             ));
+        }
+
+        if (!is_dir($originalFullPath)) {
+            $this->assertNotRenamingToVector($newName, $originalPath, $allowedExtensions);
         }
 
         $newFullPath = $basePath.'/'.dirname($originalPath).'/'.$newName;
@@ -419,6 +424,8 @@ trait HasOperations
                 ['allowed_types' => implode(', ', $allowedExtensions)]
             ));
         }
+
+        $this->assertNotRenamingToVector($newName, $originalPath, $allowedExtensions);
 
         $this->assertNoDatabaseCollision($source, $basePath, $newPath);
 
@@ -731,5 +738,22 @@ trait HasOperations
     protected function validateOperationFileExtension(string $name, array $allowedExtensions): bool
     {
         return in_array(strtolower(File::extension($name)), $allowedExtensions);
+    }
+
+    /**
+     * assertNotRenamingToVector blocks renaming a non-svg file to svg, since only uploads pass through the vector sanitizer.
+     */
+    protected function assertNotRenamingToVector(string $newName, string $originalPath, array $allowedExtensions): void
+    {
+        if (
+            Config::get('media.clean_vectors', true) &&
+            strtolower(File::extension($newName)) === 'svg' &&
+            strtolower(File::extension($originalPath)) !== 'svg'
+        ) {
+            throw new ApplicationException(Lang::get(
+                'editor::lang.filesystem.type_not_allowed',
+                ['allowed_types' => implode(', ', array_diff($allowedExtensions, ['svg']))]
+            ));
+        }
     }
 }

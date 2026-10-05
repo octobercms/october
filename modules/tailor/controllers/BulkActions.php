@@ -4,6 +4,7 @@ use Backend;
 use BackendMenu;
 use Tailor\Classes\Blueprint;
 use Tailor\Classes\BlueprintIndexer;
+use Tailor\Classes\Blueprint\EntryBlueprint;
 use Backend\Classes\WildcardController;
 use ApplicationException;
 use ForbiddenException;
@@ -125,6 +126,16 @@ class BulkActions extends WildcardController
     {
         if (post('ImportOptions.update_existing') && !$this->hasSourcePermission()) {
             throw new ApplicationException(__("You do not have permission to update existing records."));
+        }
+
+        // Updating records of a drafts section writes live content without the draft workflow
+        if (
+            post('ImportOptions.update_existing') &&
+            $this->activeSource instanceof EntryBlueprint &&
+            $this->activeSource->useDrafts() &&
+            !$this->hasSourcePermission('publish')
+        ) {
+            throw new ApplicationException(__("You do not have permission to publish records."));
         }
 
         if (!$this->hasSourcePermission('publish')) {
