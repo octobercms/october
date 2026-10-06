@@ -29,6 +29,11 @@ class Content extends CmsCompoundObject
     protected $purgeable = ['parsedMarkup'];
 
     /**
+     * @var string|null parsedMarkupCache holds the markup with links resolved for this request.
+     */
+    protected $parsedMarkupCache = null;
+
+    /**
      * findLocalized returns a content file from a locale subdirectory, falling back
      * to the base file when no translation exists.
      * @param \Cms\Classes\Theme $theme
@@ -60,20 +65,28 @@ class Content extends CmsCompoundObject
     }
 
     /**
-     * getParsedMarkupAttribute returns a default value for parsedMarkup attribute.
+     * getParsedMarkupAttribute returns the parsed markup with page links resolved.
      * @return string
      */
     public function getParsedMarkupAttribute()
     {
-        if (array_key_exists('parsedMarkup', $this->attributes)) {
-            return $this->attributes['parsedMarkup'];
+        if ($this->parsedMarkupCache !== null) {
+            return $this->parsedMarkupCache;
         }
 
-        return $this->attributes['parsedMarkup'] = $this->parseMarkup();
+        $result = $this->attributes['parsedMarkup'] ?? $this->parseMarkup();
+
+        // Links resolve per request since their URLs depend on the active site and locale
+        if ($this->isMarkupProcessable()) {
+            $result = PageManager::processLinks($result);
+        }
+
+        return $this->parsedMarkupCache = $result;
     }
 
     /**
-     * parseMarkup according to the file type
+     * parseMarkup converts the file type to HTML, the result is safe to cache since
+     * it does not depend on the request.
      * @return string
      */
     public function parseMarkup()
@@ -86,10 +99,6 @@ class Content extends CmsCompoundObject
         }
         elseif ($extension === 'txt') {
             $result = htmlspecialchars($result);
-        }
-
-        if ($this->isMarkupProcessable()) {
-            $result = PageManager::processLinks($result);
         }
 
         return $result;

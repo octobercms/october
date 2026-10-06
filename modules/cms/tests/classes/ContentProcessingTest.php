@@ -30,6 +30,51 @@ class ContentProcessingTest extends TestCase
         $this->assertStringContainsString('october://cms-page@link/missing-page', $result);
     }
 
+    public function testLinksResolveOnAccessNotWhenCaching()
+    {
+        $theme = Theme::load('test');
+        $resolved = 0;
+
+        Event::listen('cms.pageLookup.resolveItem', function () use (&$resolved) {
+            $resolved++;
+        });
+
+        // Loading and caching the file must not resolve links, their URLs depend on the request
+        $content = Content::loadCached($theme, 'link-test.htm');
+
+        $this->assertEquals(0, $resolved);
+        $this->assertStringContainsString('october://cms-page@link/index', $content->getAttributes()['parsedMarkup']);
+
+        // Links resolve once per instance when the parsed markup is read
+        $content->parsedMarkup;
+        $content->parsedMarkup;
+
+        $this->assertEquals(2, $resolved);
+        $this->assertStringContainsString('href="' . url('/') . '"', $content->parsedMarkup);
+    }
+
+    public function testLinkResolutionDoesNotRecurseWhenItLoadsContent()
+    {
+        $theme = Theme::load('test');
+        $depth = $maxDepth = 0;
+
+        // Simulates a lookup type that lists content files to resolve, like static pages building a menu
+        Event::listen('cms.pageLookup.resolveItem', function () use ($theme, &$depth, &$maxDepth) {
+            $maxDepth = max($maxDepth, ++$depth);
+
+            if ($depth < 3) {
+                Content::listInTheme($theme);
+            }
+
+            $depth--;
+        });
+
+        $content = Content::loadCached($theme, 'link-test.htm');
+
+        $this->assertStringContainsString('href="' . url('/') . '"', $content->parsedMarkup);
+        $this->assertEquals(1, $maxDepth);
+    }
+
     public function testParsedMarkupResolvesLinksInHtmlContent()
     {
         $theme = Theme::load('test');
