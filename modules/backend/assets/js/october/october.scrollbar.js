@@ -22,7 +22,7 @@ oc.registerControl('scrollbar', class extends oc.ControlBase {
             animation: true
         }, this.config);
 
-        this.isNative = document.documentElement.classList.contains('mobile');
+        this.isNative = window.matchMedia('(pointer: coarse)').matches;
         this.isTouch = 'ontouchstart' in window;
         this.isScrollable = false;
         this.isLocked = false;
@@ -33,7 +33,7 @@ oc.registerControl('scrollbar', class extends oc.ControlBase {
         // @deprecated backwards compatibility
         $(this.el).data('oc.scrollbar', this);
 
-        // Use native scrolling on mobile
+        // Use native scrolling on touch screens, matching the coarse pointer CSS
         if (this.isNative) {
             return;
         }
@@ -42,12 +42,10 @@ oc.registerControl('scrollbar', class extends oc.ControlBase {
     }
 
     connect() {
-        if (this.isNative) {
-            return;
+        if (!this.isNative) {
+            this.attachEventHandlers();
+            this.update();
         }
-
-        this.attachEventHandlers();
-        this.update();
 
         // Dispatch a ready event
         setTimeout(() => {
@@ -130,11 +128,17 @@ oc.registerControl('scrollbar', class extends oc.ControlBase {
         this.startOffset = this.options.vertical ? this.el.scrollTop : this.el.scrollLeft;
 
         if (this.isTouch) {
-            window.addEventListener('touchmove', this.proxy(this.moveDrag));
+            window.addEventListener('touchmove', this.proxy(this.onTouchMove), { passive: false });
             this.el.addEventListener('touchend', this.proxy(this.stopDrag));
         } else {
             window.addEventListener('mousemove', this.proxy(this.moveDrag));
             window.addEventListener('mouseup', this.proxy(this.stopDrag));
+        }
+    }
+
+    onTouchMove(event) {
+        if (this.moveDrag(event.touches[0])) {
+            event.preventDefault();
         }
     }
 
@@ -158,13 +162,18 @@ oc.registerControl('scrollbar', class extends oc.ControlBase {
         }
 
         this.setThumbPosition();
-        return true;
+
+        return this.options.vertical
+            ? this.el.scrollTop !== this.startOffset
+            : this.el.scrollLeft !== this.startOffset;
     }
 
     stopDrag() {
         document.body.classList.remove('drag-noselect');
         oc.Events.dispatch('scrollbar:scroll-end', { target: this.el });
 
+        window.removeEventListener('touchmove', this.proxy(this.onTouchMove));
+        this.el.removeEventListener('touchend', this.proxy(this.stopDrag));
         window.removeEventListener('mousemove', this.proxy(this.moveDrag));
         window.removeEventListener('mouseup', this.proxy(this.stopDrag));
     }
@@ -212,6 +221,10 @@ oc.registerControl('scrollbar', class extends oc.ControlBase {
     }
 
     setThumbPosition() {
+        if (!this.thumb) {
+            return;
+        }
+
         let properties = this.calculateProperties();
 
         if (this.options.vertical) {
