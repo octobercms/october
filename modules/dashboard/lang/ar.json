@@ -198,5 +198,11 @@
   "Warning": "تحذير",
   "Week": "أسبوع",
   "Year": "سنة",
-  "Yesterday": "أمس"
+  "Yesterday": "أمس",
+  "Pie": "دائري",
+  "Doughnut": "حلقي",
+  "Goal": "الهدف",
+  "Shows the progress toward this value for the selected period.": "يعرض التقدم نحو هذه القيمة خلال الفترة المحددة.",
+  ":percent of :goal": ":percent من :goal",
+  "Personalized dashboard": "لوحة تحكم مخصصة"
 }

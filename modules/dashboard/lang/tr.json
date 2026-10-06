@@ -198,5 +198,11 @@
   "Warning": "Uyarı",
   "Week": "Hafta",
   "Year": "Yıl",
-  "Yesterday": "Dün"
+  "Yesterday": "Dün",
+  "Pie": "Pasta",
+  "Doughnut": "Halka",
+  "Goal": "Hedef",
+  "Shows the progress toward this value for the selected period.": "Seçilen dönemde bu değere doğru ilerlemeyi gösterir.",
+  ":percent of :goal": ":percent (hedef: :goal)",
+  "Personalized dashboard": "Kişiselleştirilmiş kontrol paneli"
 }

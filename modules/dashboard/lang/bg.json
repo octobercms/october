@@ -198,5 +198,11 @@
   "Warning": "Предупреждение",
   "Week": "Седмица",
   "Year": "Година",
-  "Yesterday": "Вчера"
+  "Yesterday": "Вчера",
+  "Pie": "Кръгова",
+  "Doughnut": "Пръстеновидна",
+  "Goal": "Цел",
+  "Shows the progress toward this value for the selected period.": "Показва напредъка към тази стойност за избрания период.",
+  ":percent of :goal": ":percent от :goal",
+  "Personalized dashboard": "Персонализирано табло за управление"
 }

@@ -198,5 +198,11 @@
   "Warning": "Hoiatus",
   "Week": "Nädal",
   "Year": "Aasta",
-  "Yesterday": "Eile"
+  "Yesterday": "Eile",
+  "Pie": "Sektordiagramm",
+  "Doughnut": "Rõngasdiagramm",
+  "Goal": "Eesmärk",
+  "Shows the progress toward this value for the selected period.": "Näitab edenemist selle väärtuse suunas valitud perioodil.",
+  ":percent of :goal": ":percent eesmärgist :goal",
+  "Personalized dashboard": "Isikupärastatud armatuurlaud"
 }

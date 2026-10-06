@@ -198,5 +198,11 @@
   "Warning": "Varning",
   "Week": "Vecka",
   "Year": "År",
-  "Yesterday": "I går"
+  "Yesterday": "I går",
+  "Pie": "Cirkel",
+  "Doughnut": "Ring",
+  "Goal": "Mål",
+  "Shows the progress toward this value for the selected period.": "Visar framstegen mot detta värde under den valda perioden.",
+  ":percent of :goal": ":percent av :goal",
+  "Personalized dashboard": "Personanpassad instrumentpanel"
 }

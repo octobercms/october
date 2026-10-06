@@ -198,5 +198,11 @@
   "Warning": "POZOR",
   "Week": "Týždeň",
   "Year": "Rok",
-  "Yesterday": "Včera"
+  "Yesterday": "Včera",
+  "Pie": "Koláčový graf",
+  "Doughnut": "Prstencový graf",
+  "Goal": "Cieľ",
+  "Shows the progress toward this value for the selected period.": "Zobrazuje pokrok k tejto hodnote za vybrané obdobie.",
+  ":percent of :goal": ":percent z :goal",
+  "Personalized dashboard": "Personalizovaný ovládací panel"
 }

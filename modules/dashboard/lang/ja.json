@@ -198,5 +198,11 @@
   "Warning": "警告",
   "Week": "週",
   "Year": "年",
-  "Yesterday": "昨日"
+  "Yesterday": "昨日",
+  "Pie": "円グラフ",
+  "Doughnut": "ドーナツグラフ",
+  "Goal": "目標",
+  "Shows the progress toward this value for the selected period.": "選択した期間におけるこの値への進捗を表示します。",
+  ":percent of :goal": ":goal の :percent",
+  "Personalized dashboard": "パーソナライズされたダッシュボード"
 }

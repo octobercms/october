@@ -198,5 +198,11 @@
   "Warning": "Opozorilo",
   "Week": "Teden",
   "Year": "Leto",
-  "Yesterday": "Včeraj"
+  "Yesterday": "Včeraj",
+  "Pie": "Tortni grafikon",
+  "Doughnut": "Kolobarni grafikon",
+  "Goal": "Cilj",
+  "Shows the progress toward this value for the selected period.": "Prikazuje napredek do te vrednosti v izbranem obdobju.",
+  ":percent of :goal": ":percent od :goal",
+  "Personalized dashboard": "Personalizirana nadzorna plošča"
 }

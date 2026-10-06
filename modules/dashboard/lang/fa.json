@@ -198,5 +198,11 @@
   "Warning": "هشدار",
   "Week": "هفته",
   "Year": "سال",
-  "Yesterday": "دیروز"
+  "Yesterday": "دیروز",
+  "Pie": "دایره‌ای",
+  "Doughnut": "حلقوی",
+  "Goal": "هدف",
+  "Shows the progress toward this value for the selected period.": "پیشرفت به سمت این مقدار را در دوره انتخاب‌شده نشان می‌دهد.",
+  ":percent of :goal": ":percent از :goal",
+  "Personalized dashboard": "داشبورد شخصی‌سازی‌شده"
 }

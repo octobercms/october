@@ -198,5 +198,11 @@
   "Warning": "Waarschuwing",
   "Week": "Week",
   "Year": "Jaar",
-  "Yesterday": "Gisteren"
+  "Yesterday": "Gisteren",
+  "Pie": "Cirkeldiagram",
+  "Doughnut": "Ringdiagram",
+  "Goal": "Doel",
+  "Shows the progress toward this value for the selected period.": "Toont de voortgang naar deze waarde in de geselecteerde periode.",
+  ":percent of :goal": ":percent van :goal",
+  "Personalized dashboard": "Gepersonaliseerd dashboard"
 }

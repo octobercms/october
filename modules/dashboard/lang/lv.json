@@ -198,5 +198,11 @@
   "Warning": "Brīdinājums",
   "Week": "Nedēļa",
   "Year": "Gads",
-  "Yesterday": "Vakar"
+  "Yesterday": "Vakar",
+  "Pie": "Sektoru diagramma",
+  "Doughnut": "Gredzena diagramma",
+  "Goal": "Mērķis",
+  "Shows the progress toward this value for the selected period.": "Parāda progresu līdz šai vērtībai izvēlētajā periodā.",
+  ":percent of :goal": ":percent no :goal",
+  "Personalized dashboard": "Personalizēts informācijas panelis"
 }

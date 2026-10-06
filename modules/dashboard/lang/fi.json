@@ -198,5 +198,11 @@
   "Warning": "Varoitus",
   "Week": "Viikko",
   "Year": "Vuosi",
-  "Yesterday": "Eilen"
+  "Yesterday": "Eilen",
+  "Pie": "Ympyrä",
+  "Doughnut": "Rengas",
+  "Goal": "Tavoite",
+  "Shows the progress toward this value for the selected period.": "Näyttää edistymisen kohti tätä arvoa valitulla ajanjaksolla.",
+  ":percent of :goal": ":percent tavoitteesta :goal",
+  "Personalized dashboard": "Personoitu koontinäkymä"
 }

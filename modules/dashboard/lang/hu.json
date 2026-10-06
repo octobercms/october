@@ -198,5 +198,11 @@
   "Warning": "Figyelmeztetés",
   "Week": "Hét",
   "Year": "Év",
-  "Yesterday": "Tegnap"
+  "Yesterday": "Tegnap",
+  "Pie": "Torta",
+  "Doughnut": "Perec",
+  "Goal": "Cél",
+  "Shows the progress toward this value for the selected period.": "Megmutatja az ehhez az értékhez viszonyított haladást a kiválasztott időszakban.",
+  ":percent of :goal": ":percent (cél: :goal)",
+  "Personalized dashboard": "Személyre szabott irányítópult"
 }

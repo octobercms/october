@@ -223,5 +223,11 @@
     "Default Grouping": "Domyślne grupowanie",
     "Default Comparison": "Domyślne porównanie",
     "Use Default": "Użyj domyślnego",
-    "Previous period": "Poprzedni okres"
+    "Previous period": "Poprzedni okres",
+    "Pie": "Kołowy",
+    "Doughnut": "Pierścieniowy",
+    "Goal": "Cel",
+    "Shows the progress toward this value for the selected period.": "Pokazuje postęp w kierunku tej wartości w wybranym okresie.",
+    ":percent of :goal": ":percent z :goal",
+    "Personalized dashboard": "Spersonalizowany kokpit"
 }

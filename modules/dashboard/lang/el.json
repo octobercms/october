@@ -198,5 +198,11 @@
   "Warning": "Προειδοποίηση",
   "Week": "Εβδομάδα",
   "Year": "Ετος",
-  "Yesterday": "Εχθές"
+  "Yesterday": "Εχθές",
+  "Pie": "Πίτα",
+  "Doughnut": "Δακτύλιος",
+  "Goal": "Στόχος",
+  "Shows the progress toward this value for the selected period.": "Εμφανίζει την πρόοδο προς αυτή την τιμή για την επιλεγμένη περίοδο.",
+  ":percent of :goal": ":percent από :goal",
+  "Personalized dashboard": "Εξατομικευμένος πίνακας ελέγχου"
 }

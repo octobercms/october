@@ -198,5 +198,11 @@
   "Warning": "Папярэджанне",
   "Week": "Тыдзень",
   "Year": "Год",
-  "Yesterday": "Учора"
+  "Yesterday": "Учора",
+  "Pie": "Кругавая",
+  "Doughnut": "Кальцавая",
+  "Goal": "Мэта",
+  "Shows the progress toward this value for the selected period.": "Паказвае прагрэс да гэтага значэння за выбраны перыяд.",
+  ":percent of :goal": ":percent ад :goal",
+  "Personalized dashboard": "Персаналізаваная панэль кіравання"
 }

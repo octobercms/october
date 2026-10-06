@@ -198,5 +198,11 @@
   "Warning": "Įspėjimas",
   "Week": "Savaitė",
   "Year": "Metai",
-  "Yesterday": "Vakar"
+  "Yesterday": "Vakar",
+  "Pie": "Skritulinė",
+  "Doughnut": "Žiedinė",
+  "Goal": "Tikslas",
+  "Shows the progress toward this value for the selected period.": "Rodo pažangą šios vertės link pasirinktu laikotarpiu.",
+  ":percent of :goal": ":percent iš :goal",
+  "Personalized dashboard": "Suasmenintas prietaisų skydelis"
 }

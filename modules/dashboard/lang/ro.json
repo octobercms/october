@@ -198,5 +198,11 @@
   "Warning": "Avertizare",
   "Week": "Săptămână",
   "Year": "An",
-  "Yesterday": "Ieri"
+  "Yesterday": "Ieri",
+  "Pie": "Radială",
+  "Doughnut": "Inel",
+  "Goal": "Obiectiv",
+  "Shows the progress toward this value for the selected period.": "Afișează progresul către această valoare în perioada selectată.",
+  ":percent of :goal": ":percent din :goal",
+  "Personalized dashboard": "Tablou de bord personalizat"
 }

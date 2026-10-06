@@ -223,5 +223,11 @@
   "Default Grouping": "Agrupació per defecte",
   "Default Comparison": "Comparació per defecte",
   "Use Default": "Utilitza el valor per defecte",
-  "Previous period": "Període anterior"
+  "Previous period": "Període anterior",
+  "Pie": "Circular",
+  "Doughnut": "Anell",
+  "Goal": "Objectiu",
+  "Shows the progress toward this value for the selected period.": "Mostra el progrés cap a aquest valor en el període seleccionat.",
+  ":percent of :goal": ":percent de :goal",
+  "Personalized dashboard": "Tauler de control personalitzat"
 }

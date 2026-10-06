@@ -223,5 +223,11 @@
   "Default Grouping": "기본 그룹화",
   "Default Comparison": "기본 비교",
   "Use Default": "기본값 사용",
-  "Previous period": "이전 기간"
+  "Previous period": "이전 기간",
+  "Pie": "원형",
+  "Doughnut": "도넛형",
+  "Goal": "목표",
+  "Shows the progress toward this value for the selected period.": "선택한 기간 동안 이 값을 향한 진행률을 표시합니다.",
+  ":percent of :goal": ":goal 중 :percent",
+  "Personalized dashboard": "개인화된 대시보드"
 }

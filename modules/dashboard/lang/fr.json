@@ -198,5 +198,11 @@
   "Warning": "Avertissement",
   "Week": "Semaine",
   "Year": "Année",
-  "Yesterday": "Hier"
+  "Yesterday": "Hier",
+  "Pie": "Secteurs",
+  "Doughnut": "Anneau",
+  "Goal": "Objectif",
+  "Shows the progress toward this value for the selected period.": "Affiche la progression vers cette valeur sur la période sélectionnée.",
+  ":percent of :goal": ":percent de :goal",
+  "Personalized dashboard": "Tableau de bord personnalisé"
 }

@@ -228,5 +228,6 @@
   "Doughnut": "Doughnut",
   "Goal": "Goal",
   "Shows the progress toward this value for the selected period.": "Shows the progress toward this value for the selected period.",
-  ":percent of :goal": ":percent of :goal"
+  ":percent of :goal": ":percent of :goal",
+  "Personalized dashboard": "Personalized dashboard"
 }

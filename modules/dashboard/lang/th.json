@@ -198,5 +198,11 @@
   "Warning": "คำเตือน",
   "Week": "สัปดาห์",
   "Year": "ปี",
-  "Yesterday": "เมื่อวาน"
+  "Yesterday": "เมื่อวาน",
+  "Pie": "วงกลม",
+  "Doughnut": "โดนัท",
+  "Goal": "เป้าหมาย",
+  "Shows the progress toward this value for the selected period.": "แสดงความคืบหน้าสู่ค่านี้ในช่วงเวลาที่เลือก",
+  ":percent of :goal": ":percent จาก :goal",
+  "Personalized dashboard": "แดชบอร์ดที่ปรับแต่งเฉพาะบุคคล"
 }

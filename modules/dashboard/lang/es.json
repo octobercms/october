@@ -223,5 +223,11 @@
   "Default Grouping": "Agrupación por defecto",
   "Default Comparison": "Comparación por defecto",
   "Use Default": "Usar por defecto",
-  "Previous period": "Período anterior"
+  "Previous period": "Período anterior",
+  "Pie": "Circular",
+  "Doughnut": "Anillo",
+  "Goal": "Objetivo",
+  "Shows the progress toward this value for the selected period.": "Muestra el progreso hacia este valor en el período seleccionado.",
+  ":percent of :goal": ":percent de :goal",
+  "Personalized dashboard": "Panel de control personalizado"
 }

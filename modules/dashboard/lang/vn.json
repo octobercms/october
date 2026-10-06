@@ -198,5 +198,11 @@
   "Warning": "Cảnh báo",
   "Week": "Tuần",
   "Year": "Năm",
-  "Yesterday": "Hôm qua"
+  "Yesterday": "Hôm qua",
+  "Pie": "Hình tròn",
+  "Doughnut": "Vành khuyên",
+  "Goal": "Mục tiêu",
+  "Shows the progress toward this value for the selected period.": "Hiển thị tiến độ đạt tới giá trị này trong khoảng thời gian đã chọn.",
+  ":percent of :goal": ":percent của :goal",
+  "Personalized dashboard": "Bảng điều khiển được cá nhân hóa"
 }

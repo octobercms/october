@@ -198,5 +198,11 @@
   "Warning": "Peringatan",
   "Week": "Pekan",
   "Year": "Tahun",
-  "Yesterday": "Kemarin"
+  "Yesterday": "Kemarin",
+  "Pie": "Pai",
+  "Doughnut": "Donat",
+  "Goal": "Target",
+  "Shows the progress toward this value for the selected period.": "Menampilkan kemajuan menuju nilai ini dalam periode yang dipilih.",
+  ":percent of :goal": ":percent dari :goal",
+  "Personalized dashboard": "Dasbor yang dipersonalisasi"
 }
