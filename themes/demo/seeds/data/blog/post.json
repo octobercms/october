@@ -10,6 +10,7 @@
         "categories": [
             1
         ],
+        "enable_comments": 1,
         "featured_text": "Beneath every ancient forest runs a hidden network of fungi and roots, quietly sharing food and sending warnings between the trees. It is one of nature's oldest conversations."
     },
     {
@@ -23,6 +24,7 @@
         "categories": [
             2
         ],
+        "enable_comments": 1,
         "featured_text": "As the nights draw in, millions of birds set out on journeys that span oceans and continents, navigating by the stars to reach places they have never seen and return home again."
     }
 ]

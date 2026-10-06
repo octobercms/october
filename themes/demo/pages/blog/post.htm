@@ -15,9 +15,6 @@ handle = "Blog\Category"
 [collection comments]
 handle = "Blog\Comment"
 
-[submission commentForm]
-handle = "Blog\Comment"
-
 [resources]
 vars[activeNavLink] = 'blog'
 ==
@@ -81,12 +78,14 @@ vars[activeNavLink] = 'blog'
             {% partial 'elements/user-panel-author' user=post.author %}
         </div>
     {% endif %}
-    <div class="card-divider"></div>
-    <div class="card-body card-lg">
-        {% partial 'blog/comment-list' %}
-    </div>
-    <div class="card-divider"></div>
-    <div class="card-body card-lg">
-        {% ajaxPartial 'blog/comment-form' %}
-    </div>
+    {% if post.enable_comments %}
+        <div class="card-divider"></div>
+        <div class="card-body card-lg">
+            {% partial 'blog/comment-list' %}
+        </div>
+        <div class="card-divider"></div>
+        <div class="card-body card-lg">
+            {% ajaxPartial 'blog/comment-form' %}
+        </div>
+    {% endif %}
 </article>

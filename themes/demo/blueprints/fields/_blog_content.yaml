@@ -26,6 +26,13 @@ fields:
         type: entries
         source: Blog\Category
 
+    enable_comments:
+        tab: Manage
+        label: Enable Comments
+        comment: Uncheck to hide the comment section and stop accepting new comments on this post.
+        type: checkbox
+        default: true
+
     featured_text:
         tab: Featured
         label: Featured Text
