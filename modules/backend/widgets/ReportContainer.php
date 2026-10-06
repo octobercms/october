@@ -4,15 +4,16 @@ use Lang;
 use Flash;
 use Request;
 use Backend\Classes\WidgetBase;
-use Backend\Classes\DashManager;
+use Backend\Classes\WidgetManager;
 use Backend\Models\UserPreference;
+use Dashboard\Classes\ReportWidgetBase;
 use System\Models\Parameter as SystemParameters;
 use ApplicationException;
 use ForbiddenException;
 
 /**
- * ReportContainer has been deprecated
- * @deprecated this has been replaced by the `Backend\Widgets\Dash` widget
+ * ReportContainer displays the report widgets stored in the user preferences.
+ * @deprecated use the Dashboard\Widgets\Dash widget instead
  */
 class ReportContainer extends WidgetBase
 {
@@ -229,7 +230,7 @@ class ReportContainer extends WidgetBase
         }
 
         $this->vars['sizes'] = $sizes;
-        $this->vars['widgets'] = DashManager::instance()->listReportWidgets();
+        $this->vars['widgets'] = $this->listAvailableWidgets();
 
         return $this->makePartial('new_widget_popup');
     }
@@ -250,14 +251,11 @@ class ReportContainer extends WidgetBase
             throw new ApplicationException("Please select a widget to add.");
         }
 
-        if (!class_exists($className)) {
-            throw new ApplicationException("The selected class doesn't exist.");
-        }
-
-        $widget = new $className($this->controller);
-        if (!($widget instanceof \Backend\Classes\ReportWidgetBase)) {
+        if (!array_key_exists($className, $this->listAvailableWidgets())) {
             throw new ApplicationException("The selected class is not a report widget.");
         }
+
+        $widget = new $className($this->controller, null);
 
         $widgetInfo = $this->addWidget($widget, $size);
 
@@ -399,7 +397,7 @@ class ReportContainer extends WidgetBase
 
     /**
      * makeReportWidget makes a single report widget object, returned array index:
-     * - widget: The widget object (Backend\Classes\ReportWidgetBase)
+     * - widget: The widget object (Dashboard\Classes\ReportWidgetBase)
      * - sortOrder: The current sort order
      *
      * @param  string $alias
@@ -412,15 +410,26 @@ class ReportContainer extends WidgetBase
         $configuration['alias'] = $alias;
 
         $className = $widgetInfo['class'];
-        $availableReportWidgets = array_keys(DashManager::instance()->listReportWidgets());
-        if (!class_exists($className) || !in_array($className, $availableReportWidgets)) {
+        if (!array_key_exists($className, $this->listAvailableWidgets())) {
             return;
         }
 
-        $widget = new $className($this->controller, $configuration);
+        $widget = new $className($this->controller, null, $configuration);
         $widget->bindToController();
 
         return ['widget' => $widget, 'sortOrder' => $widgetInfo['sortOrder']];
+    }
+
+    /**
+     * listAvailableWidgets returns the registered report widgets this container can render, keyed by class name
+     */
+    protected function listAvailableWidgets(): array
+    {
+        return array_filter(
+            WidgetManager::instance()->listReportWidgets(),
+            fn($className) => is_subclass_of($className, ReportWidgetBase::class),
+            ARRAY_FILTER_USE_KEY
+        );
     }
 
     /**

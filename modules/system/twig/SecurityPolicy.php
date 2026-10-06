@@ -66,6 +66,14 @@ final class SecurityPolicy implements SecurityPolicyInterface
             'handleMissingAttributeViolationUsing',
             'retrieved', 'saving', 'saved', 'updating', 'updated', 'creating', 'created',
             'replicating', 'deleting', 'deleted', 'fetching', 'fetched',
+            'softDeleted', 'restoring', 'restored', 'forceDeleting', 'forceDeleted',
+            'validating', 'validated', 'observe',
+        ],
+        \Tailor\Models\EntryRecord::class => [
+            'extendInSection', 'extendInSectionUuid',
+        ],
+        \Tailor\Models\GlobalRecord::class => [
+            'extendInGlobal', 'extendInGlobalUuid',
         ],
         \Illuminate\Pagination\AbstractPaginator::class => [
             'through', 'setCollection', 'getCollection',
@@ -86,9 +94,10 @@ final class SecurityPolicy implements SecurityPolicyInterface
      * @var array eagerLoadMethods accept relation constraints that are invoked as callables, so their callable arguments are stripped.
      */
     protected $eagerLoadMethods = [
-        'with', 'load', 'loadMissing',
+        'with', 'withOnly', 'load', 'loadMissing', 'fresh',
         'withCount', 'withMax', 'withMin', 'withSum', 'withAvg', 'withExists',
         'loadCount', 'loadMax', 'loadMin', 'loadSum', 'loadAvg', 'loadExists',
+        'loadMorph', 'loadMorphCount', 'loadMorphMax', 'loadMorphMin', 'loadMorphSum', 'loadMorphAvg',
     ];
 
     /**
@@ -117,6 +126,7 @@ final class SecurityPolicy implements SecurityPolicyInterface
         // Block October\Rain\Extension\ExtendableTrait
         'extendableCall',
         'extendableCallStatic',
+        'extendableExtendCallback',
         'extendClassWith',
         'implementClassWith',
         'addDynamicMethod',

@@ -3,6 +3,11 @@ import WidgetBase from './widget-base.js';
 
 const dataHelper = DataHelper.instance();
 
+const pieColors = [
+    '#6A6CF7', '#0EA5E9', '#84CC16', '#F59E0B', '#EF4444',
+    '#A855F7', '#14B8A6', '#EC4899', '#64748B', '#F97316'
+];
+
 function formatInterval(interval, date) {
     if (interval === 'month') {
         return date.format('MMM, YYYY');
@@ -27,8 +32,17 @@ export default {
             lastGroupInterval: null
         }
     },
+    computed: {
+        isPieChart: function () {
+            return ['pie', 'doughnut'].includes(this.configuration.chartType);
+        }
+    },
     methods: {
         getChartConfig: function () {
+            if (this.isPieChart) {
+                return this.getPieChartConfig();
+            }
+
             const theme = $('html').data('bs-theme');
             const axisColor = theme === 'dark' ? '#6C757D' : '#E3EAEC';
 
@@ -211,6 +225,69 @@ export default {
             return result;
         },
 
+        getPieChartConfig: function () {
+            const metricsData = this.metricsData;
+            const container = this.$el.closest('.widget-inner-container');
+
+            // Slices are separated with the widget background color, so they work with any theme
+            const sliceBorderColor = container ? getComputedStyle(container).backgroundColor : '#FFFFFF';
+
+            const datasets = this.getRequestMetrics().map(metric => {
+                return {
+                    data: [],
+                    label: metricsData[metric].label,
+                    backgroundColor: (context) => pieColors[context.dataIndex % pieColors.length],
+                    borderColor: sliceBorderColor,
+                    borderWidth: 2,
+                    formatting: this.getMetricIntlFormatOptions(metric)
+                };
+            });
+
+            return {
+                type: this.configuration.chartType,
+                data: {
+                    labels: [],
+                    datasets: datasets
+                },
+                options: {
+                    maintainAspectRatio: false,
+                    animation: false,
+                    responsive: true,
+                    layout: {
+                        padding: 10
+                    },
+                    plugins: {
+                        legend: {
+                            position: 'right',
+                            labels: {
+                                usePointStyle: true,
+                                pointStyle: 'circle',
+                                boxWidth: 8,
+                                boxHeight: 8
+                            }
+                        },
+                        tooltip: {
+                            cornerRadius: 2,
+                            callbacks: {
+                                label: (context) => {
+                                    const formattedValue = context.dataset.formattedData
+                                        ? context.dataset.formattedData[context.dataIndex]
+                                        : null;
+
+                                    return context.dataset.label + ': ' + dataHelper.formatDisplayValue(
+                                        context.parsed,
+                                        formattedValue,
+                                        context.dataset.formatting,
+                                        this.store.state.locale
+                                    );
+                                }
+                            }
+                        }
+                    }
+                }
+            };
+        },
+
         getRequestDimension: function () {
             return this.widget.configuration.dimension;
         },
@@ -259,7 +336,9 @@ export default {
                 options: {
                     'bar': oc.t("Bar"),
                     'stacked-bar': oc.t("Stacked Bar"),
-                    'line': oc.t("Line")
+                    'line': oc.t("Line"),
+                    'pie': oc.t("Pie"),
+                    'doughnut': oc.t("Doughnut")
                 }
             });
 
@@ -298,6 +377,12 @@ export default {
                 false, // Keep null values to create gaps in the chart
                 oc.t("[not set]")
             );
+
+            if (this.isPieChart && this.configuration.dimension === 'date') {
+                const interval = this.store.state.range.interval;
+                this.chart.data.labels = this.chart.data.labels.map(label => formatInterval(interval, moment(label)));
+            }
+
             this.chart.update();
         }
     },

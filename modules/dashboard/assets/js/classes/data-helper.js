@@ -39,7 +39,7 @@ export default class DataHelper
                     dimensionValue = dataPoint.oc_dimension_label;
                 }
 
-                if (dimensionValue === null) {
+                if (dimensionValue === null || dimensionValue === undefined || dimensionValue === '') {
                     dimensionValue = notSetLabel;
                 }
 

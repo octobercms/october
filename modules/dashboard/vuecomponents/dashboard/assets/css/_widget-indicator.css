@@ -94,6 +94,38 @@
         }
     }
 
+    .indicator-goal {
+        display: flex;
+        align-items: center;
+        gap: 10px;
+        padding: 0 var(--oc-widget-body-padding) 14px;
+
+        .indicator-goal-bar {
+            flex-grow: 1;
+            height: 6px;
+            border-radius: 3px;
+            background-color: var(--oc-toolbar-border);
+            overflow: hidden;
+
+            > span {
+                display: block;
+                height: 100%;
+                border-radius: 3px;
+                background-color: #6A6CF7;
+            }
+        }
+
+        .indicator-goal-text {
+            font-size: 12px;
+            white-space: nowrap;
+            color: var(--bs-secondary-color);
+        }
+
+        &.complete .indicator-goal-bar > span {
+            background-color: #87C00D;
+        }
+    }
+
     .indicator-link-container {
         padding: 10px 17px;
         background-color: var(--oc-sidebar-bg);

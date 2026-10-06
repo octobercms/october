@@ -17,7 +17,7 @@
                 </div>
                 <div v-else>
                     <div class="total-name">
-                        <div class="total-color" :style="{'background-color': metricData.color}"></div>
+                        <div v-if="!isPieChart" class="total-color" :style="{'background-color': metricData.color}"></div>
                         <span v-text="metricsData[metricData.metric].label"></span>
                     </div>
                     <div class="total-container">
@@ -42,6 +42,7 @@
         <dashboard-component-dashboard-widget-error
             v-if="error"
             :store="store"
+            :message="errorMessage"
             @configure="$emit('configure')"
         ></dashboard-component-dashboard-widget-error>
     </div>

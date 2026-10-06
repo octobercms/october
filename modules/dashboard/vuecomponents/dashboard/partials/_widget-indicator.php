@@ -6,6 +6,7 @@
         <dashboard-component-dashboard-widget-error
             v-if="error"
             :store="store"
+            :message="errorMessage"
             @configure="$emit('configure')"
         ></dashboard-component-dashboard-widget-error>
 
@@ -41,6 +42,16 @@
                 </p>
             </div>
         </template>
+    </div>
+    <div
+        v-if="goalProgress !== null && !error && !explicitLoading"
+        class="indicator-goal"
+        :class="{'complete': goalProgress >= 1}"
+    >
+        <div class="indicator-goal-bar">
+            <span :style="{'width': goalBarWidth}"></span>
+        </div>
+        <span class="indicator-goal-text" v-text="goalText"></span>
     </div>
     <template v-if="widget.configuration.linkText && !error">
         <div class="indicator-link-container" v-if="linkEnabled">

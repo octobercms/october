@@ -3,6 +3,7 @@
 use Backend;
 use Dashboard\Models\Dashboard;
 use October\Rain\Support\ModuleServiceProvider;
+use Dashboard\Classes\DashManager;
 use Dashboard\Classes\CmsReportDataSource;
 use Dashboard\Classes\CmsStatusDataSource;
 use Dashboard\Classes\SystemReportDataSource;
@@ -21,11 +22,7 @@ class ServiceProvider extends ModuleServiceProvider
         parent::register('dashboard');
 
         $this->registerSingletons();
-
-        // Backend specific
-        if ($this->app->runningInBackend() || $this->app->runningInOctane()) {
-            $this->registerDashboardDatasource();
-        }
+        $this->registerDashboardWidgets();
     }
 
     /**
@@ -115,25 +112,36 @@ class ServiceProvider extends ModuleServiceProvider
     }
 
     /**
-     * registerDashboardDatasource
+     * registerDashboards
      */
-    protected function registerDashboardDatasource()
+    public function registerDashboards()
     {
-        $this->callAfterResolving('dashboard.dashboards', function($manager) {
-            $manager->registerDataSourceClass(
-                SystemReportDataSource::class,
-                'system::lang.dashboard.report_data_source.data_source_name'
-            );
+        return [
+            'dataSources' => [
+                SystemReportDataSource::class => [
+                    'label' => 'system::lang.dashboard.report_data_source.data_source_name'
+                ],
+                CmsReportDataSource::class => [
+                    'label' => "Traffic Information"
+                ],
+                CmsStatusDataSource::class => [
+                    'label' => "Website Status"
+                ]
+            ]
+        ];
+    }
 
-            $manager->registerDataSourceClass(
-                CmsReportDataSource::class,
-                "Traffic Information"
-            );
-
-            $manager->registerDataSourceClass(
-                CmsStatusDataSource::class,
-                "Website Status"
-            );
+    /**
+     * registerDashboardWidgets adds report widgets from the registerDashboards method to the widget manager
+     */
+    protected function registerDashboardWidgets()
+    {
+        $this->callAfterResolving('backend.widgets', function($manager) {
+            $manager->registerReportWidgets(function($manager) {
+                foreach (DashManager::instance()->listRegistrations('widgets') as $className => $widgetInfo) {
+                    $manager->registerReportWidget($className, $widgetInfo);
+                }
+            });
         });
     }
 }

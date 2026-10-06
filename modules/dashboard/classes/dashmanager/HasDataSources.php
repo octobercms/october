@@ -1,6 +1,7 @@
 <?php namespace Dashboard\Classes\DashManager;
 
 use Lang;
+use BackendAuth;
 use SystemException;
 use Dashboard\Classes\ReportDataSourceBase;
 
@@ -13,7 +14,7 @@ use Dashboard\Classes\ReportDataSourceBase;
 trait HasDataSources
 {
     /**
-     * @var string[]
+     * @var array dataSources registered with registerDataSourceClass, keyed by class name
      */
     protected $dataSources = [];
 
@@ -22,11 +23,13 @@ trait HasDataSources
      * @param string $className A class name of a data source.
      * The class must extend Dashboard\Classes\ReportDataSourceBase
      * @param string $displayName The data source name to display in the user interface.
+     * @param array $permissions Permissions required to use the data source, where any one grants access.
      */
-    public function registerDataSourceClass(string $className, string $displayName): void
+    public function registerDataSourceClass(string $className, string $displayName, array $permissions = []): void
     {
         $this->dataSources[$className] = [
-            'displayName' => $displayName
+            'displayName' => $displayName,
+            'permissions' => $permissions
         ];
     }
 
@@ -38,7 +41,7 @@ trait HasDataSources
      */
     public function getDataSource(string $className): ?ReportDataSourceBase
     {
-        if (!array_key_exists($className, $this->dataSources)) {
+        if (!array_key_exists($className, $this->listDataSourceClasses())) {
             return null;
         }
 
@@ -50,15 +53,30 @@ trait HasDataSources
     }
 
     /**
-     * listDataSourceClasses returns class and display names of registered data sources.
+     * listDataSourceClasses returns class and display names of the data sources available to the current user.
      * @return array
      */
     public function listDataSourceClasses(): array
     {
-        $result = [];
-        foreach ($this->dataSources as $className => $info) {
-            $result[$className] = $info['displayName'];
+        $registered = [];
+        foreach ($this->listRegistrations('dataSources') as $className => $info) {
+            $registered[$className] = [
+                'displayName' => is_array($info) ? ($info['label'] ?? $className) : (string) $info,
+                'permissions' => is_array($info) ? (array) ($info['permissions'] ?? []) : []
+            ];
         }
+
+        foreach ($this->dataSources as $className => $info) {
+            $registered[$className] = $info;
+        }
+
+        $result = [];
+        foreach ($registered as $className => $info) {
+            if ($this->hasDataSourcePermissions($info['permissions'] ?? [])) {
+                $result[$className] = $info['displayName'];
+            }
+        }
+
         return $result;
     }
 
@@ -101,5 +119,19 @@ trait HasDataSources
         }
 
         return $result;
+    }
+
+    /**
+     * hasDataSourcePermissions checks the current user on every call, since the manager is shared between requests.
+     */
+    protected function hasDataSourcePermissions(array $permissions): bool
+    {
+        if (!$permissions) {
+            return true;
+        }
+
+        $user = BackendAuth::getUser();
+
+        return $user && $user->hasAccess($permissions, false);
     }
 }

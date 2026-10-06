@@ -405,6 +405,40 @@ class ReportDateDataSetTest extends TestCase
         $this->assertEquals(9, $aggregated[0]->oc_metric_total);
     }
 
+    public function testKeepsPartialFirstGroupOfPreAggregatedData()
+    {
+        // The range starts mid-month, so the January row is keyed before the range start
+        $values = [
+            (object)[
+                'oc_dimension' => '2023-01-01',
+                'oc_metric_total' => 10
+            ],
+            (object)[
+                'oc_dimension' => '2023-03-01',
+                'oc_metric_total' => 30
+            ]
+        ];
+
+        $dataSet = $this->makeDataSet(
+            true,
+            $values,
+            Carbon::create('2023-01-15'),
+            Carbon::create('2023-03-31'),
+            ReportMetric::AGGREGATE_SUM,
+            ReportDataSourceBase::GROUP_INTERVAL_MONTH
+        );
+        $result = $dataSet->getNormalizedData();
+        $this->assertCount(3, $result);
+
+        $this->assertEquals('2023-01-01', $result[0]->oc_dimension);
+        $this->assertEquals('2023-02-01', $result[1]->oc_dimension);
+        $this->assertEquals('2023-03-01', $result[2]->oc_dimension);
+
+        $this->assertEquals(10, $result[0]->oc_metric_total);
+        $this->assertNull($result[1]->oc_metric_total);
+        $this->assertEquals(30, $result[2]->oc_metric_total);
+    }
+
     private function makeDataSet(
         bool $ascending,
         ?array $values,

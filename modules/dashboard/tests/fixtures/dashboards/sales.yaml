@@ -1,0 +1,16 @@
+# ===================================
+#  Dashboard Definition
+# ===================================
+
+name: Sales
+icon: ph ph-shopping-cart
+showInterval: false
+permissions:
+    - acme.sales.view
+
+reports:
+    sales_title:
+        row: 1
+        width: 20
+        type: section-title
+        title: Sales

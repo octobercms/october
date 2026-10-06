@@ -2,6 +2,7 @@
 
 use SystemException;
 use Backend\Classes\Controller;
+use Backend\Classes\WidgetManager;
 use Dashboard\Classes\VueReportWidgetBase;
 
 /**
@@ -13,40 +14,27 @@ use Dashboard\Classes\VueReportWidgetBase;
 trait HasVueReportWidgets
 {
     /**
-     * @var array vueReportWidgets
-     */
-    protected $vueReportWidgets;
-
-    /**
      * listVueReportWidgetClasses returns class names and registration parameters of registered dashboard widgets.
      */
     public function listVueReportWidgetClasses(): array
     {
-        if ($this->vueReportWidgets === null) {
-            $this->listVueReportWidgets();
-        }
-
-        return array_keys($this->vueReportWidgets);
+        return array_keys($this->listVueReportWidgets());
     }
 
     /**
-     * listReportWidgets returns a list of registered report widgets.
-     * @return array Array keys are class names.
+     * listVueReportWidgets returns the Vue report widgets available to the current user, keyed by class name.
+     * @return array
      */
     public function listVueReportWidgets()
     {
-        if ($this->vueReportWidgets !== null) {
-            return $this->vueReportWidgets;
-        }
-
         $widgets = [];
-        foreach ($this->widgetManager->listReportWidgets() as $className => $widgetInfo) {
+        foreach (WidgetManager::instance()->listReportWidgets() as $className => $widgetInfo) {
             if (is_subclass_of($className, VueReportWidgetBase::class)) {
                 $widgets[$className] = $widgetInfo;
             }
         }
 
-        return $this->vueReportWidgets = $widgets;
+        return $widgets;
     }
 
     /**
@@ -54,7 +42,7 @@ trait HasVueReportWidgets
      */
     public function isVueReportWidget($widgetCodeOrClass): bool
     {
-        $widgetClass = $this->widgetManager->resolveReportWidget($widgetCodeOrClass);
+        $widgetClass = WidgetManager::instance()->resolveReportWidget($widgetCodeOrClass);
 
         return is_subclass_of($widgetClass, VueReportWidgetBase::class);
     }
@@ -68,11 +56,7 @@ trait HasVueReportWidgets
      */
     public function getVueReportWidget(string $className, Controller $controller): ?VueReportWidgetBase
     {
-        if ($this->vueReportWidgets === null) {
-            $this->listVueReportWidgets();
-        }
-
-        if (!array_key_exists($className, $this->vueReportWidgets)) {
+        if (!array_key_exists($className, $this->listVueReportWidgets())) {
             return null;
         }
 

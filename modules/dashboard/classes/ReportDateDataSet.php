@@ -95,10 +95,18 @@ class ReportDateDataSet
         $result = [];
 
         $columnNames = $this->getColumnNames();
+        $isFirstDate = true;
 
         foreach ($this->range as $date) {
             $reportDate = $date->toDateString();
             $dataPoint = $this->getDataPoint($reportDate);
+
+            if (!$dataPoint && $isFirstDate && ($groupDataPoint = $this->getGroupStartDataPoint($date))) {
+                $dataPoint = $groupDataPoint;
+                $reportDate = $groupDataPoint->{$this->dimension->getDataSetColumnName()};
+            }
+
+            $isFirstDate = false;
 
             if ($dataPoint) {
                 $dataPoint = $this->addMissingColumns($dataPoint, $columnNames);
@@ -182,6 +190,25 @@ class ReportDateDataSet
         }
 
         return null;
+    }
+
+    /**
+     * getGroupStartDataPoint finds a pre-aggregated data point keyed by the start of the group containing the date, which is earlier than the date when the range starts mid-group.
+     */
+    private function getGroupStartDataPoint(Carbon $date): ?object
+    {
+        $groupIntervals = [
+            ReportDataSourceBase::GROUP_INTERVAL_WEEK,
+            ReportDataSourceBase::GROUP_INTERVAL_MONTH,
+            ReportDataSourceBase::GROUP_INTERVAL_QUARTER,
+            ReportDataSourceBase::GROUP_INTERVAL_YEAR
+        ];
+
+        if (!in_array($this->groupInterval, $groupIntervals)) {
+            return null;
+        }
+
+        return $this->getDataPoint($this->getAggregationSetName($date->copy(), $this->groupInterval));
     }
 
     private function getColumnNames($excludeDimension = false): array

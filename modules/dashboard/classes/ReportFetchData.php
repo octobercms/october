@@ -154,7 +154,7 @@ class ReportFetchData
         $this->resetCache = (bool) post('reset_cache');
 
         $this->limit = !empty($this->widgetConfig['limit']) ? (int) $this->widgetConfig['limit'] : null;
-        $this->hideEmptyDimensionValues = $this->widgetConfig['empty_dimension_values'] ?? null === 'hide';
+        $this->hideEmptyDimensionValues = ($this->widgetConfig['empty_dimension_values'] ?? null) === 'hide';
 
         [$this->dateStart, $this->dateEnd, $this->startTimestamp] = $this->getRequestedDateInterval(post('date_start'), post('date_end'));
         [$this->compareDateStart, $this->compareDateEnd] = $this->getRequestedCompareInterval(post('compare'));

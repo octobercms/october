@@ -171,7 +171,19 @@ class PluginBase extends ServiceProviderBase implements OctoberPackage
     }
 
     /**
-     * @inheritDoc
+     * registerDashboards registers dashboards, report widgets and data sources using the
+     * dashboards, widgets and dataSources keys, where a plain array registers dashboards only.
+     * @return array
+     */
+    public function registerDashboards()
+    {
+        return [];
+    }
+
+    /**
+     * registerReportWidgets registers any report widgets provided by this plugin.
+     * @deprecated use the widgets key of registerDashboards
+     * @return array
      */
     public function registerReportWidgets()
     {

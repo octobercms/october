@@ -115,7 +115,7 @@ Drag-and-drop reordering for sortable models.
 | `Toolbar` | Button toolbar with search integration |
 | `Search` | Search input widget |
 | `Table` | Spreadsheet-style data editor |
-| `ReportContainer` | Dashboard report widget container |
+| `ReportContainer` | Report widget container, deprecated in favor of the dashboard module |
 | `SiteSwitcher` | Multisite selector |
 | `RoleImpersonator` | Permission testing via role impersonation |
 

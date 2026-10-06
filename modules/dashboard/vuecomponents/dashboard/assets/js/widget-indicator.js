@@ -1,4 +1,5 @@
 import phosphorIconList from '../../../../../backend/assets/js/ph-icons-list.js';
+import DataHelper from '../../../../assets/js/classes/data-helper.js';
 import WidgetBase from './widget-base.js';
 import { utils as inspectorUtils } from '../../../../../backend/vuecomponents/inspector/assets/js/classes/index.js';
 import { modalUtils } from '../../../../../backend/vuecomponents/modal/assets/js/classes/index.js';
@@ -106,6 +107,39 @@ export default {
             }
 
             return null;
+        },
+
+        goalValue: function () {
+            const goal = parseFloat(this.widget.configuration.goal);
+            if (this.isIndicatorDimension || !(goal > 0)) {
+                return null;
+            }
+
+            return goal;
+        },
+
+        goalProgress: function () {
+            const total = this.getMetricTotalClean(this.valueMetric);
+            if (this.goalValue === null || total === null || isNaN(total)) {
+                return null;
+            }
+
+            return total / this.goalValue;
+        },
+
+        goalBarWidth: function () {
+            return Math.min(this.goalProgress, 1) * 100 + '%';
+        },
+
+        goalText: function () {
+            return oc.t(":percent of :goal", {
+                percent: DataHelper.instance().formatValue(
+                    this.goalProgress,
+                    { style: 'percent', maximumFractionDigits: 0 },
+                    this.store.state.locale
+                ),
+                goal: this.formatMetricValue(this.valueMetric, this.goalValue)
+            });
         }
     },
     methods: {
@@ -209,6 +243,21 @@ export default {
                 dataCacheKeyName: metricsCacheKey,
                 dataCacheKeyPropertyNames: metricsCachePropertyNames,
                 depends: ['dataSource', 'dimension'],
+                visibility: metricsVisibility
+            });
+
+            result.push({
+                property: 'goal',
+                title: oc.t("Goal"),
+                description: oc.t("Shows the progress toward this value for the selected period."),
+                tab: oc.t("General"),
+                type: 'string',
+                validation: {
+                    float: {
+                        allowNegative: false,
+                        message: oc.t("Enter a positive number")
+                    }
+                },
                 visibility: metricsVisibility
             });
 

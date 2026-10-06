@@ -158,6 +158,7 @@
         <dashboard-component-dashboard-widget-error
             v-if="error"
             :store="store"
+            :message="errorMessage"
             @configure="$emit('configure')"
         ></dashboard-component-dashboard-widget-error>
     </div>

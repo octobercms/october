@@ -4,6 +4,7 @@ import InspectorConfigurator from '../../../../assets/js/classes/inspector-confi
 export default {
     props: {
         error: Boolean,
+        errorMessage: String,
         widget: Object,
         store: Object,
         loading: Boolean,

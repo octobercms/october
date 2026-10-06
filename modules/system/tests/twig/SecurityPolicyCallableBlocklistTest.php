@@ -51,6 +51,14 @@ class SecurityPolicyCallableBlocklistTest extends TestCase
         $cases['model loadAggregate'] = ['model', 'loadAggregate'];
         $cases['model saving'] = ['model', 'saving'];
         $cases['model withoutEvents'] = ['model', 'withoutEvents'];
+        foreach (['softDeleted', 'restoring', 'restored', 'forceDeleting', 'forceDeleted', 'validating', 'validated', 'observe', 'extendableExtendCallback'] as $method) {
+            $cases["model {$method}"] = ['model', $method];
+        }
+
+        $cases['entry extendInSection'] = ['entry', 'extendInSection'];
+        $cases['entry extendInSectionUuid'] = ['entry', 'extendInSectionUuid'];
+        $cases['global extendInGlobal'] = ['global', 'extendInGlobal'];
+        $cases['global extendInGlobalUuid'] = ['global', 'extendInGlobalUuid'];
         $cases['carbon round'] = ['carbon', 'round'];
         $cases['carbon setTestNow'] = ['carbon', 'setTestNow'];
         $cases['attributes when'] = ['attributes', 'when'];
@@ -103,6 +111,34 @@ class SecurityPolicyCallableBlocklistTest extends TestCase
     }
 
     /**
+     * @dataProvider forwardingMethodProvider
+     */
+    public function testEagerLoadConstraintsAreStrippedForForwardingMethods(string $method, array $arguments, array $expected)
+    {
+        $model = new SecurityPolicyCallableBlocklistTestModel;
+
+        $this->assertSame($expected, $this->policy->stripCallableArguments($model, $method, $arguments));
+    }
+
+    public static function forwardingMethodProvider(): array
+    {
+        $morphMap = ['App\Post' => ['author' => 'strtoupper', 'tags']];
+        $cleanMorphMap = ['App\Post' => ['author' => null, 'tags']];
+
+        return [
+            'withOnly' => ['withOnly', [['author' => 'strtoupper']], [['author' => null]]],
+            'fresh' => ['fresh', [['author' => 'strtoupper', 'tags']], [['author' => null, 'tags']]],
+            'loadMorph' => ['loadMorph', ['commentable', $morphMap], ['commentable', $cleanMorphMap]],
+            'loadMorphCount' => ['loadMorphCount', ['commentable', $morphMap], ['commentable', $cleanMorphMap]],
+            'loadMorphMax' => ['loadMorphMax', ['commentable', $morphMap, 'date'], ['commentable', $cleanMorphMap, 'date']],
+            'loadMorphMin' => ['loadMorphMin', ['commentable', $morphMap, 'date'], ['commentable', $cleanMorphMap, 'date']],
+            'loadMorphSum' => ['loadMorphSum', ['commentable', $morphMap, 'count'], ['commentable', $cleanMorphMap, 'count']],
+            'loadMorphAvg' => ['loadMorphAvg', ['commentable', $morphMap, 'count'], ['commentable', $cleanMorphMap, 'count']],
+            'LOADMORPH' => ['LOADMORPH', ['commentable', $morphMap], ['commentable', $cleanMorphMap]],
+        ];
+    }
+
+    /**
      * @dataProvider positionalNameProvider
      */
     public function testPositionalNamesMatchingPhpFunctionsAreKept(string $method, array $arguments)
@@ -120,6 +156,8 @@ class SecurityPolicyCallableBlocklistTest extends TestCase
             'withSum count column' => ['withSum', ['items', 'count']],
             'load file relation' => ['load', ['author', 'file']],
             'with link relation' => ['with', ['author', 'link']],
+            'fresh file relation' => ['fresh', ['author', 'file']],
+            'withOnly link relation' => ['withOnly', [['author', 'link']]],
         ];
     }
 
@@ -152,6 +190,8 @@ class SecurityPolicyCallableBlocklistTest extends TestCase
             'query' => (new ReflectionClass(QueryBuilder::class))->newInstanceWithoutConstructor(),
             'eloquent' => (new ReflectionClass(EloquentBuilder::class))->newInstanceWithoutConstructor(),
             'model' => new SecurityPolicyCallableBlocklistTestModel,
+            'entry' => (new ReflectionClass(\Tailor\Models\EntryRecord::class))->newInstanceWithoutConstructor(),
+            'global' => (new ReflectionClass(\Tailor\Models\GlobalRecord::class))->newInstanceWithoutConstructor(),
             'carbon' => Carbon::now(),
             'attributes' => new ComponentAttributeBag,
         };

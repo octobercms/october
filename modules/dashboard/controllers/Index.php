@@ -6,6 +6,7 @@ use Redirect;
 use BackendAuth;
 use BackendMenu;
 use Backend\Classes\WildcardController;
+use Dashboard\Classes\DashManager;
 use Dashboard\Models\Dashboard;
 
 /**
@@ -98,11 +99,16 @@ class Index extends WildcardController
     protected function syncAllDashboards()
     {
         if (!Request::ajax()) {
-            Dashboard::syncAll(
-                $this,
-                (array) $this->asExtension('DashController')->dashGetConfig()
-            );
+            Dashboard::syncAll($this, $this->listDefinedDashboards());
         }
+    }
+
+    /**
+     * listDefinedDashboards returns the dashboards defined by the controller configuration, followed by those registered by plugins
+     */
+    protected function listDefinedDashboards(): array
+    {
+        return (array) $this->makeConfig($this->dashConfig) + DashManager::instance()->listDashboardDefinitions();
     }
 
     /**
@@ -113,9 +119,10 @@ class Index extends WildcardController
     {
         $allDashboards = $this->listAllDashboards()->keyBy('code')->all();
 
+        // Definitions are only supplied for dashboards available to the user
         $config = $this->mergeConfig(
             array_fill_keys(array_keys($allDashboards), []),
-            $this->makeConfig($this->dashConfig)
+            array_intersect_key($this->listDefinedDashboards(), $allDashboards)
         );
 
         // Post processing

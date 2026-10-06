@@ -66,10 +66,28 @@ class ReportFetchDataTest extends TestCase
         $this->assertSame('2026-08-30 16:00:00', $dateStart->copy()->utc()->toDateTimeString());
     }
 
+    public function testEmptyDimensionValuesAreHiddenOnlyWhenRequested(): void
+    {
+        $this->assertTrue($this->fillFromWidgetConfig(['empty_dimension_values' => 'hide'])->hideEmptyDimensionValues);
+        $this->assertFalse($this->fillFromWidgetConfig(['empty_dimension_values' => 'not-set'])->hideEmptyDimensionValues);
+        $this->assertFalse($this->fillFromWidgetConfig([])->hideEmptyDimensionValues);
+    }
+
     protected function getRequestedDateInterval(?string $dateStart, ?string $dateEnd): array
     {
         $fetchData = new ReportFetchData;
 
         return static::callProtectedMethod($fetchData, 'getRequestedDateInterval', [$dateStart, $dateEnd]);
+    }
+
+    protected function fillFromWidgetConfig(array $widgetConfig): ReportFetchData
+    {
+        request()->setMethod('POST');
+        request()->request->replace(['widget_config' => $widgetConfig]);
+
+        $fetchData = new ReportFetchData;
+        $fetchData->fillFromPost();
+
+        return $fetchData;
     }
 }

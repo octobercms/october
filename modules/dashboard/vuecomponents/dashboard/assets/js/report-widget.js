@@ -20,6 +20,7 @@ export default {
             loading: true,
             autoUpdating: false,
             error: false,
+            errorMessage: null,
             noData: false,
             menuItems: [],
             autoUpdateTimerId: null,
@@ -61,6 +62,7 @@ export default {
             this.cancelLoading();
             this.loading = true;
             this.error = false;
+            this.errorMessage = null;
             const range = this.store.state.range;
             const widgetConfiguration = $.oc.vueUtils.getCleanObject(this.widget.configuration);
             widgetImplementation.extendConfigurationBeforeDataFetch(widgetConfiguration);
@@ -121,6 +123,7 @@ export default {
                     if (!tracker.cancelled) {
                         console.error(err);
                         this.error = true;
+                        this.errorMessage = err && err.$env ? err.$env.getMessage() : null;
                     }
                 })
                 .finally(() => {

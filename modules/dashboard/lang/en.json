@@ -223,5 +223,10 @@
   "Default Grouping": "Default Grouping",
   "Default Comparison": "Default Comparison",
   "Use Default": "Use Default",
-  "Previous period": "Previous period"
+  "Previous period": "Previous period",
+  "Pie": "Pie",
+  "Doughnut": "Doughnut",
+  "Goal": "Goal",
+  "Shows the progress toward this value for the selected period.": "Shows the progress toward this value for the selected period.",
+  ":percent of :goal": ":percent of :goal"
 }

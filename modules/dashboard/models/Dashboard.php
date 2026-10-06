@@ -9,6 +9,7 @@ use SystemException;
 use ApplicationException;
 use Backend\Models\UserRole;
 use Backend\Models\UserPreference;
+use Dashboard\Classes\DashManager;
 
 /**
  * Dashboard definition
@@ -166,6 +167,10 @@ class Dashboard extends Model
                 return true;
             }
 
+            if ($dashboard->is_system && !DashManager::instance()->hasDashboardAccess($dashboard->code, $user)) {
+                return true;
+            }
+
             if ($dashboard->created_user_id === $user?->id) {
                 return false;
             }
@@ -193,9 +198,8 @@ class Dashboard extends Model
     }
 
     /**
-     * syncAll dashboard definitions. This will check if the supplied definitions
-     * can be customized and then creates an entry for each dashboard in the
-     * database.
+     * syncAll creates a system dashboard for each definition keyed by code, removing
+     * those no longer defined unless customized, which are kept as regular dashboards.
      */
     public static function syncAll($owner, array $dashboards)
     {
@@ -203,24 +207,43 @@ class Dashboard extends Model
         // and if not, halt the process, there is nothing to capture
         // or perhaps checking the "scoreboardMode" property
 
-        $ownerQuery = static::applyOwner($owner);
-        $dbDashboards = $ownerQuery
-            ->pluck('is_custom', 'owner_field')
-            ->all();
+        $ownerType = is_string($owner) ? $owner : get_class($owner);
 
-        $newDashboards = array_diff_key($dashboards, $dbDashboards);
+        $syncedDashboards = static::applyOwner($ownerType)
+            ->whereNotNull('owner_field')
+            ->get(['id', 'owner_field', 'is_custom', 'is_system', 'is_interval_hidden'])
+            ->keyBy('owner_field');
 
-        // Clean up non-customized templates
-        foreach ($dbDashboards as $code => $isCustom) {
-            if (!$isCustom && !array_key_exists($code, $dashboards)) {
-                $ownerQuery->where('owner_field', $code)->delete();
+        foreach ($syncedDashboards as $code => $dashboard) {
+            $definition = $dashboards[$code] ?? null;
+
+            if ($definition === null && !$dashboard->is_custom) {
+                static::whereKey($dashboard->getKey())->delete();
+                continue;
+            }
+
+            // System dashboards follow the definition for the interval setting, since it is not editable
+            $attributes = ['is_system' => $definition !== null];
+            if ($definition !== null) {
+                $attributes['is_interval_hidden'] = !($definition['showInterval'] ?? true);
+            }
+
+            $changed = array_filter($attributes, fn($value, $key) => (bool) $dashboard->$key !== $value, ARRAY_FILTER_USE_BOTH);
+            if ($changed) {
+                static::whereKey($dashboard->getKey())->update($changed);
             }
         }
 
-        // Create new dashboards
-        foreach ($newDashboards as $field => $definition) {
+        // Codes already used by other dashboards are not claimed
+        $usedCodes = static::applyOwner($ownerType)->pluck('code')->all();
+
+        foreach (array_diff_key($dashboards, $syncedDashboards->all()) as $field => $definition) {
+            if (in_array((string) $field, $usedCodes, true)) {
+                continue;
+            }
+
             $dashboard = new static;
-            $dashboard->owner_type = get_class($owner);
+            $dashboard->owner_type = $ownerType;
             $dashboard->owner_field = $field;
             $dashboard->is_custom = false;
             $dashboard->is_global = true;

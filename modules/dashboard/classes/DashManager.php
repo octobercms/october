@@ -2,31 +2,21 @@
 
 use App;
 use Backend\Classes\WidgetManager;
+use System\Classes\PluginManager;
 use SystemException;
 
 /**
- * DashManager manages report data sources and widgets.
+ * DashManager manages dashboards, report data sources and widgets.
  *
  * @package october\dashboard
  * @author Alexey Bobkov, Samuel Georges
  */
 class DashManager
 {
+    use \System\Traits\ConfigMaker;
+    use \Dashboard\Classes\DashManager\HasDashboards;
     use \Dashboard\Classes\DashManager\HasDataSources;
     use \Dashboard\Classes\DashManager\HasVueReportWidgets;
-
-    /**
-     * @var \System\Classes\WidgetManager widgetManager
-     */
-    protected $widgetManager;
-
-    /**
-     * __construct this class
-     */
-    public function __construct()
-    {
-        $this->widgetManager = WidgetManager::instance();
-    }
 
     /**
      * instance creates a new instance of this singleton
@@ -37,12 +27,38 @@ class DashManager
     }
 
     /**
+     * listRegistrations returns the items registered with the registerDashboards method for the
+     * dashboards, widgets or dataSources group, where a plain array registers dashboards only
+     */
+    public function listRegistrations(string $group): array
+    {
+        $result = [];
+
+        $bundles = PluginManager::instance()->getRegistrationMethodValues('registerDashboards');
+        foreach ($bundles as $items) {
+            if (!is_array($items)) {
+                continue;
+            }
+
+            if (!array_intersect_key($items, array_flip(['dashboards', 'widgets', 'dataSources']))) {
+                $items = ['dashboards' => $items];
+            }
+
+            foreach ((array) ($items[$group] ?? []) as $key => $value) {
+                $result[$key] = $value;
+            }
+        }
+
+        return $result;
+    }
+
+    /**
      * listAllReportWidgetGroups
      */
     public function listAllReportWidgetGroups()
     {
         $groups = [];
-        foreach ($this->widgetManager->listReportWidgets() as $className => $widgetInfo) {
+        foreach (WidgetManager::instance()->listReportWidgets() as $className => $widgetInfo) {
             $group = __($widgetInfo['group'] ?? "Widgets");
             $groups[$group] ??= [];
 
@@ -89,6 +105,6 @@ class DashManager
      */
     public function resolveReportWidget($name)
     {
-        return $this->widgetManager->resolveReportWidget($name);
+        return WidgetManager::instance()->resolveReportWidget($name);
     }
 }

@@ -41,19 +41,31 @@ class PopupDesign extends FormDesignBase
     }
 
     /**
-     * formRenderDesignButtons renders popup-specific buttons
+     * formRenderDesignButtons renders popup-specific buttons, which the controller can override with a `_form_popup_buttons.php` partial
      */
     public function formRenderDesignButtons(): string
     {
-        return $this->makePartial('buttons');
+        $contents = $this->controller->makePartial('form_popup_buttons', [], false);
+        if (!$contents) {
+            $contents = $this->makePartial('buttons');
+        }
+
+        return $contents;
     }
 
     /**
-     * formRenderDesignError renders popup-specific error display
+     * formRenderDesignError renders popup-specific error display, which the controller can override with a `_form_popup_error.php` partial
      */
     public function formRenderDesignError(string $fatalError): string
     {
-        return $this->makePartial('error', ['fatalError' => $fatalError]);
+        $params = ['fatalError' => $fatalError];
+
+        $contents = $this->controller->makePartial('form_popup_error', $params, false);
+        if (!$contents) {
+            $contents = $this->makePartial('error', $params);
+        }
+
+        return $contents;
     }
 
     /**
