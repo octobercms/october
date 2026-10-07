@@ -77,7 +77,7 @@ trait HasComponentHelpers
         $this->parseRouteParamsOnComponent($componentObj, $this->router->getParameters());
 
         try {
-            $componentObj->init();
+            $this->initComponent($componentObj);
         }
         catch (Throwable $e) {
             unset($this->vars[$alias]);
@@ -125,11 +125,40 @@ trait HasComponentHelpers
 
         $this->parseRouteParamsOnComponent($componentObj, $this->router->getParameters());
 
-        $componentObj->init();
+        $this->initComponent($componentObj);
 
         $this->parseEnvironmentVarsOnComponent($componentObj, $vars + $this->vars);
 
         return $componentObj;
+    }
+
+    /**
+     * initComponent fires lifecycle events then calls ComponentBase::init()
+     */
+    protected function initComponent(ComponentBase $component): void
+    {
+        /**
+         * @event cms.component.beforeInit
+         * Provides an opportunity to inspect or decorate a component after it is
+         * constructed and attached to the page/layout/partial, immediately before
+         * `$component->init()` is called.
+         *
+         * Example usage (access gate before component bootstrapping):
+         *
+         *     Event::listen('cms.component.beforeInit', function ((\Cms\Classes\ComponentBase) $component) {
+         *         // Gate or decorate the component before init()
+         *     });
+         *
+         * Or
+         *
+         *     $component->bindEvent('component.beforeInit', function () {
+         *         // Local listener on this component instance
+         *     });
+         *
+         */
+        $component->fireSystemEvent('cms.component.beforeInit');
+
+        $component->init();
     }
 
     /**
