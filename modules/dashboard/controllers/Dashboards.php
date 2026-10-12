@@ -2,6 +2,7 @@
 
 use BackendMenu;
 use Backend\Classes\Controller;
+use Dashboard\Classes\DashManager;
 use Dashboard\Models\Dashboard;
 use ForbiddenException;
 
@@ -92,6 +93,11 @@ class Dashboards extends Controller
         if ($model = $this->formFindModelObject(post('form_record_id'))) {
             $model->is_custom = false;
             $model->definition = null;
+
+            if ($definition = $this->findSystemDefinition($model)) {
+                $model->fillFromDefinition($definition);
+            }
+
             $model->save();
         }
 
@@ -108,7 +114,6 @@ class Dashboards extends Controller
         if ($model->is_system) {
             $form->getField('code')->disabled();
             $form->getField('is_global')->disabled();
-            $form->getField('is_interval_hidden')->disabled();
         }
         else {
             $form->getField('_system_definition_hint')->hidden();
@@ -118,6 +123,17 @@ class Dashboards extends Controller
             $form->getField('is_global')->hidden();
             $form->getField('roles')->hidden();
         }
+    }
+
+    /**
+     * findSystemDefinition returns the definition a system dashboard was seeded from.
+     */
+    protected function findSystemDefinition(Dashboard $dashboard): ?array
+    {
+        $definitions = (array) $this->makeConfig('~/modules/dashboard/controllers/index/config_dash.yaml')
+            + DashManager::instance()->listDashboardDefinitions();
+
+        return $definitions[$dashboard->owner_field] ?? null;
     }
 
     /**

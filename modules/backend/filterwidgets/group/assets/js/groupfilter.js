@@ -118,7 +118,7 @@ registerControl('groupfilter', class extends ControlBase {
     }
 
     focusSearch() {
-        if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
+        if ($.oc.isTouchEnabled()) {
             return;
         }
 

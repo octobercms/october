@@ -77,7 +77,8 @@
             offsetX = this.$element.data('inspector-offset-x'),
             offsetY = this.$element.data('inspector-offset-y'),
             placement = this.$element.data('inspector-placement'),
-            fallbackPlacement = this.$element.data('inspector-fallback-placement');
+            fallbackPlacement = this.$element.data('inspector-fallback-placement'),
+            $target = this.getPopoverTarget();
 
         if (offset === undefined) {
             offset = 15;
@@ -91,7 +92,7 @@
             fallbackPlacement = 'bottom';
         }
 
-        this.$element.ocPopover({
+        $target.ocPopover({
             content: this.getPopoverContents(),
             highlightModalTarget: true,
             modal: true,
@@ -107,7 +108,7 @@
 
         this.setInspectorVisibleFlag(true);
 
-        this.popoverObj = this.$element.data('oc.popover');
+        this.popoverObj = $target.data('oc.popover');
         this.$popoverContainer = this.popoverObj.$container;
 
         this.$popoverContainer.addClass('inspector-temporary-placement');
@@ -123,6 +124,20 @@
 
         this.$popoverContainer.find('[data-inspector-title]').text(this.title);
         this.$popoverContainer.find('[data-inspector-description]').text(this.description);
+    }
+
+    InspectorPopup.prototype.getPopoverTarget = function() {
+        var anchor = this.$element.data('inspector-anchor');
+
+        if (anchor) {
+            var $anchor = this.$element.find(anchor).first();
+
+            if ($anchor.length) {
+                return $anchor;
+            }
+        }
+
+        return this.$element;
     }
 
     InspectorPopup.prototype.repositionPopover = function() {

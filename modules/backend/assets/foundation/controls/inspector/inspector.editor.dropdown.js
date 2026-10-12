@@ -131,7 +131,7 @@
 
         $(select).select2(options)
 
-        if (!('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
+        if (!$.oc.isTouchEnabled()) {
             this.indicatorContainer = $('.select2-container', this.containerCell)
             this.indicatorContainer.addClass('loading-indicator-container size-small')
         }
@@ -140,7 +140,7 @@
     DropdownEditor.prototype.createPlaceholder = function(select) {
         var placeholder = this.propertyDefinition.placeholder || this.propertyDefinition.emptyOption
 
-        var isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+        var isTouchDevice = $.oc.isTouchEnabled()
 
         if (placeholder !== undefined && !isTouchDevice) {
             this.createOption(select, null, null)
@@ -401,7 +401,7 @@
     }
 
     DropdownEditor.prototype.showLoadingIndicator = function() {
-        if (!('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
+        if (!$.oc.isTouchEnabled()) {
             this.indicatorContainer.loadIndicator()
         }
     }
@@ -411,7 +411,7 @@
             return
         }
 
-        if (!('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
+        if (!$.oc.isTouchEnabled()) {
             this.indicatorContainer.loadIndicator('hide')
             this.indicatorContainer.loadIndicator('destroy')
         }

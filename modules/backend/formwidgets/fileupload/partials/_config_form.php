@@ -50,6 +50,11 @@
 </div>
 
 <script>
+    oc.popup.bindToPopups('#<?= $this->getId('popup') ?>', {
+        file_id: <?= json_encode($file->id) ?>,
+        fileupload_flag: 1
+    });
+
     setTimeout(
         function(){ $('#<?= $this->getId('popup') ?> input.form-control:first').focus() },
         310

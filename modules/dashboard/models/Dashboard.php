@@ -211,26 +211,19 @@ class Dashboard extends Model
 
         $syncedDashboards = static::applyOwner($ownerType)
             ->whereNotNull('owner_field')
-            ->get(['id', 'owner_field', 'is_custom', 'is_system', 'is_interval_hidden'])
+            ->get(['id', 'owner_field', 'is_custom', 'is_system'])
             ->keyBy('owner_field');
 
         foreach ($syncedDashboards as $code => $dashboard) {
-            $definition = $dashboards[$code] ?? null;
+            $isSystem = isset($dashboards[$code]);
 
-            if ($definition === null && !$dashboard->is_custom) {
+            if (!$isSystem && !$dashboard->is_custom) {
                 static::whereKey($dashboard->getKey())->delete();
                 continue;
             }
 
-            // System dashboards follow the definition for the interval setting, since it is not editable
-            $attributes = ['is_system' => $definition !== null];
-            if ($definition !== null) {
-                $attributes['is_interval_hidden'] = !($definition['showInterval'] ?? true);
-            }
-
-            $changed = array_filter($attributes, fn($value, $key) => (bool) $dashboard->$key !== $value, ARRAY_FILTER_USE_BOTH);
-            if ($changed) {
-                static::whereKey($dashboard->getKey())->update($changed);
+            if ((bool) $dashboard->is_system !== $isSystem) {
+                static::whereKey($dashboard->getKey())->update(['is_system' => $isSystem]);
             }
         }
 
@@ -249,15 +242,23 @@ class Dashboard extends Model
             $dashboard->is_global = true;
             $dashboard->is_system = true;
             $dashboard->code = $field;
-            $dashboard->name = $definition['name'] ?? 'Unknown';
-            $dashboard->icon = $definition['icon'] ?? 'icon-globe';
-            $dashboard->is_interval_hidden = !($definition['showInterval'] ?? 1) ? 1 : 0;
-            $dashboard->default_start = $definition['defaultStart'] ?? null;
-            $dashboard->default_end = $definition['defaultEnd'] ?? null;
-            $dashboard->default_interval = $definition['defaultInterval'] ?? null;
-            $dashboard->default_compare = $definition['defaultCompare'] ?? null;
+            $dashboard->fillFromDefinition($definition);
             $dashboard->forceSave();
         }
+    }
+
+    /**
+     * fillFromDefinition seeds the settings of a system dashboard from its definition.
+     */
+    public function fillFromDefinition(array $definition): void
+    {
+        $this->name = $definition['name'] ?? 'Unknown';
+        $this->icon = $definition['icon'] ?? 'icon-globe';
+        $this->is_interval_hidden = !($definition['showInterval'] ?? true);
+        $this->default_start = $definition['defaultStart'] ?? null;
+        $this->default_end = $definition['defaultEnd'] ?? null;
+        $this->default_interval = $definition['defaultInterval'] ?? null;
+        $this->default_compare = $definition['defaultCompare'] ?? null;
     }
 
     /**

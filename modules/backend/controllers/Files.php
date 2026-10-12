@@ -181,7 +181,9 @@ class Files extends Controller
         // Ensure that the file model utilized for this request is
         // the one specified in the relationship configuration
         if ($file->attachment) {
-            $fileModel = $file->attachment->{$file->field}()->getRelated();
+            // Translated files add a locale suffix to the relation name, eg: image:fr
+            $relationName = explode(':', $file->field)[0];
+            $fileModel = $file->attachment->{$relationName}()->getRelated();
 
             // Only attempt to get file model through its assigned class
             // when the assigned class differs from the default one that

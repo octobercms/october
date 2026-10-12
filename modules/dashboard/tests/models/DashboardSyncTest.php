@@ -75,15 +75,30 @@ class DashboardSyncTest extends PluginTestCase
     }
 
     /**
-     * testSyncFollowsDefinitionIntervalSetting ensures the interval setting of a system dashboard follows its definition.
+     * testSyncSeedsIntervalSettingOnCreateOnly ensures the definition seeds the interval setting and the stored value wins after that.
      */
-    public function testSyncFollowsDefinitionIntervalSetting()
+    public function testSyncSeedsIntervalSettingOnCreateOnly()
     {
-        Dashboard::syncAll(Index::class, ['sales' => ['name' => 'Sales']]);
+        $definitions = ['sales' => ['name' => 'Sales', 'showInterval' => false]];
+        Dashboard::syncAll(Index::class, $definitions);
+
+        $this->assertTrue((bool) $this->findDashboard('sales')->is_interval_hidden);
+
+        Dashboard::applyOwner(Index::class)->where('code', 'sales')->update(['is_interval_hidden' => false]);
+        Dashboard::syncAll(Index::class, $definitions);
 
         $this->assertFalse((bool) $this->findDashboard('sales')->is_interval_hidden);
+    }
 
-        Dashboard::syncAll(Index::class, ['sales' => ['name' => 'Sales', 'showInterval' => false]]);
+    /**
+     * testSyncKeepsIntervalSettingWhenDefinitionOmitsIt ensures a definition without an interval setting leaves the stored value alone.
+     */
+    public function testSyncKeepsIntervalSettingWhenDefinitionOmitsIt()
+    {
+        Dashboard::syncAll(Index::class, ['sales' => ['name' => 'Sales']]);
+        Dashboard::applyOwner(Index::class)->where('code', 'sales')->update(['is_interval_hidden' => true]);
+
+        Dashboard::syncAll(Index::class, ['sales' => ['name' => 'Sales']]);
 
         $this->assertTrue((bool) $this->findDashboard('sales')->is_interval_hidden);
     }

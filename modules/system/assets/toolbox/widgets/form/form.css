@@ -176,12 +176,42 @@
             cursor: pointer;
         }
 
+        /* Inset from the corner and centered on a single line field */
         &.no-label {
             position: absolute;
-            top: 1px;
-            right: 0;
+            top: 8px;
+            right: 8px;
             left: auto;
             z-index: 2;
+
+            /* Lift the open menu above the dropdown overlay */
+            &:has(> .dropdown-menu.show) {
+                z-index: 1000;
+            }
+        }
+    }
+
+    /* Keep field content clear of the translate icon when there is no label */
+    &:has(> .form-translatable.no-label) {
+        > .form-control {
+            padding-right: 41px;
+        }
+
+        > .field-richeditor,
+        > .field-markdowneditor {
+            .document-toolbar-container {
+                padding-right: 33px;
+            }
+        }
+
+        &:has(> .select2-container, > .relation-widget > .select2-container) {
+            > .form-translatable {
+                right: 30px;
+            }
+
+            .select2-selection__rendered {
+                padding-right: 62px;
+            }
         }
     }
 

@@ -56,3 +56,8 @@ addEventListener('render', function() {
     });
 
 });
+
+// Expanding code samples does not wait for highlighting to load
+$(document).on('click', '.expand-code', function() {
+    $(this).closest('.collapsed-code-block').removeClass('collapsed');
+});

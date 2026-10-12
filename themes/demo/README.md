@@ -233,7 +233,7 @@ The theme uses Bootstrap 5 for its grid system, components, and utility classes.
 | Bootstrap Icons | Icon font |
 | Slick Carousel | Image and card sliders |
 | PhotoSwipe | Lightbox gallery with captions |
-| CodeBlocks | Code syntax highlighting |
+| CodeBlocks | Code syntax highlighting, loaded only on pages with code samples |
 
 CSS is organized by function (`elements/`, `controls/`, `blocks/`, `layouts/`, `pages/`) with a main `theme.css` entry point and a `vendor.css` for third-party styles. All stylesheets are plain CSS -- no preprocessor is required to work with the theme, though October CMS's built-in combiner supports LESS and SCSS when needed.
 
@@ -269,6 +269,9 @@ Uncombined JavaScript:
 <script src="{{ 'assets/js/controls/gallery-slider.js'|theme }}"></script>
 <script src="{{ 'assets/js/controls/card-slider.js'|theme }}"></script>
 <script src="{{ 'assets/js/controls/quantity-input.js'|theme }}"></script>
+<script>
+    oc.registerControl('codeblock', () => import("{{ 'assets/vendor/codeblocks/codeblocks.min.js'|theme }}"));
+</script>
 <script src="{{ 'assets/js/app.js'|theme }}"></script>
 ```
 
@@ -284,6 +287,11 @@ Combined JavaScript:
     'assets/js/controls/quantity-input.js',
     'assets/js/app.js'
 ]|theme }}"></script>
+<script>
+    oc.registerControl('codeblock', () => import("{{ 'assets/vendor/codeblocks/codeblocks.min.js'|theme }}"));
+</script>
 ```
+
+The code block registration stays inline so `|theme` resolves the bundle URL, which is imported only on pages with code samples.
 
 > **Important**: Make sure you keep the `{% styles %}` and `{% scripts %}` placeholder tags as these are used by plugins for injecting assets.

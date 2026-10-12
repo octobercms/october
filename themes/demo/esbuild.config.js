@@ -24,15 +24,15 @@ await esbuild.build({
     alias: { jquery: './assets/vendor/jquery-global-shim.js' },
 });
 
+// Imported by the codeblock control on pages with code samples
 await esbuild.build({
     entryPoints: ['assets/vendor/codeblocks/codeblocks.js'],
     bundle: true,
-    format: 'iife',
+    format: 'esm',
     outfile: 'assets/vendor/codeblocks/codeblocks.min.js',
     minify: isProduction,
     sourcemap: false,
     target: ['es2020'],
-    alias: { jquery: './assets/vendor/jquery-global-shim.js' },
 });
 
 // SCSS Compilation

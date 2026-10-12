@@ -151,11 +151,12 @@ export default class DragScroll {
                     self.startDrag(touchEvent.touches[0]);
                     self.touchDragStarted = true;
 
+                    // Listen only while dragging since a non-passive window listener delays page scrolling
+                    window.addEventListener('touchmove', self.onTouchMove, { passive: false });
+
                     event.stopPropagation();
                 }
             });
-
-            window.addEventListener('touchmove', self.onTouchMove, { passive: false });
         }
 
         $el.on('click.dragScroll', function() {
@@ -212,7 +213,7 @@ export default class DragScroll {
         this.startOffset = this.options.vertical ? $el.scrollTop() : $el.scrollLeft();
 
         if ('ontouchstart' in window || navigator.maxTouchPoints > 0) {
-            $(window).on('touchend.dragScroll', function(event) {
+            $(window).on('touchend.dragScroll touchcancel.dragScroll', function(event) {
                 self.stopDrag();
             });
         }
@@ -270,6 +271,7 @@ export default class DragScroll {
             $el = this.el;
 
         $(window).off('.dragScroll');
+        window.removeEventListener('touchmove', this.onTouchMove, { passive: false });
         this.touchDragStarted = false;
 
         this.dragging = false;

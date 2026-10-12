@@ -29,6 +29,27 @@ class DashboardIndexControllerTest extends PluginTestCase
     }
 
     /**
+     * testDefaultDashboardFollowsSortOrder ensures the first dashboard in the sort order opens ahead of a personal dashboard.
+     */
+    public function testDefaultDashboardFollowsSortOrder()
+    {
+        $controller = $this->makeIndexController((new BackendUserFixture)->asSuperUser());
+        Dashboard::syncAll(Index::class, ['system' => ['name' => 'System Dashboard']]);
+
+        $dashboard = new Dashboard;
+        $dashboard->name = 'My Dashboard';
+        $dashboard->code = 'my-dashboard';
+        $dashboard->owner_type = Index::class;
+        $dashboard->is_custom = true;
+        $dashboard->save();
+
+        $controller->index();
+
+        $this->assertEquals(['system', 'my-dashboard', 'sales'], $controller->vars['dashboards']->pluck('code')->all());
+        $this->assertEquals('system', $controller->vars['dashboard']->code);
+    }
+
+    /**
      * testRegisteredDashboardSuppliesReports ensures the dash config carries the reports of the registered definition.
      */
     public function testRegisteredDashboardSuppliesReports()

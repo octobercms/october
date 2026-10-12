@@ -24,6 +24,7 @@ oc.registerControl('scrollbar', class extends oc.ControlBase {
 
         this.isNative = window.matchMedia('(pointer: coarse)').matches;
         this.isTouch = 'ontouchstart' in window;
+        this.isTouchDrag = false;
         this.isScrollable = false;
         this.isLocked = false;
         this.dragStart = 0;
@@ -80,13 +81,13 @@ oc.registerControl('scrollbar', class extends oc.ControlBase {
     }
 
     attachEventHandlers() {
+        // Touch screen laptops use both touch and mouse
         if (this.isTouch) {
             this.el.addEventListener('touchstart', this.proxy(this.onTouchStart));
-        } else {
-            this.thumb.addEventListener('mousedown', this.proxy(this.onDragStart));
-            this.track.addEventListener('mouseup', this.proxy(this.onTrackClick));
         }
 
+        this.thumb.addEventListener('mousedown', this.proxy(this.onDragStart));
+        this.track.addEventListener('mouseup', this.proxy(this.onTrackClick));
         this.el.addEventListener('wheel', this.proxy(this.onScrollWheel));
         this.el.addEventListener('scrollbar:goto-start', this.proxy(this.gotoStart));
         window.addEventListener('resize', this.proxy(this.update));
@@ -94,13 +95,13 @@ oc.registerControl('scrollbar', class extends oc.ControlBase {
 
     onTouchStart(event) {
         if (event.touches.length === 1) {
-            this.startDrag(event.touches[0]);
+            this.startDrag(event.touches[0], true);
             event.stopPropagation();
         }
     }
 
     onDragStart(event) {
-        this.startDrag(event);
+        this.startDrag(event, false);
     }
 
     onTrackClick(event) {
@@ -120,16 +121,18 @@ oc.registerControl('scrollbar', class extends oc.ControlBase {
         event.preventDefault();
     }
 
-    startDrag(event) {
+    startDrag(event, isTouchDrag) {
         document.body.classList.add('drag-noselect');
         oc.Events.dispatch('scrollbar:scroll-start', { target: this.el });
 
+        this.isTouchDrag = isTouchDrag;
         this.dragStart = event[this.eventElementName];
         this.startOffset = this.options.vertical ? this.el.scrollTop : this.el.scrollLeft;
 
-        if (this.isTouch) {
+        if (isTouchDrag) {
             window.addEventListener('touchmove', this.proxy(this.onTouchMove), { passive: false });
             this.el.addEventListener('touchend', this.proxy(this.stopDrag));
+            this.el.addEventListener('touchcancel', this.proxy(this.stopDrag));
         } else {
             window.addEventListener('mousemove', this.proxy(this.moveDrag));
             window.addEventListener('mouseup', this.proxy(this.stopDrag));
@@ -148,7 +151,7 @@ oc.registerControl('scrollbar', class extends oc.ControlBase {
         let offset,
             dragTo = event[this.eventElementName];
 
-        if (this.isTouch) {
+        if (this.isTouchDrag) {
             offset = this.dragStart - dragTo;
         } else {
             let ratio = this.getCanvasSize() / this.getViewportSize();
@@ -172,8 +175,10 @@ oc.registerControl('scrollbar', class extends oc.ControlBase {
         document.body.classList.remove('drag-noselect');
         oc.Events.dispatch('scrollbar:scroll-end', { target: this.el });
 
+        this.isTouchDrag = false;
         window.removeEventListener('touchmove', this.proxy(this.onTouchMove));
         this.el.removeEventListener('touchend', this.proxy(this.stopDrag));
+        this.el.removeEventListener('touchcancel', this.proxy(this.stopDrag));
         window.removeEventListener('mousemove', this.proxy(this.moveDrag));
         window.removeEventListener('mouseup', this.proxy(this.stopDrag));
     }

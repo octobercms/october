@@ -125,13 +125,6 @@
     }
 }
 
-.touch .control-dropdown.dropdown-menu > li {
-    a:hover {
-        color: var(--bs-body-color);
-        background: white;
-    }
-}
-
 body.dropdown-open {
     .dropdown-overlay {
         position: fixed;

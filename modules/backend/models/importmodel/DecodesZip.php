@@ -1,7 +1,10 @@
 <?php namespace Backend\Models\ImportModel;
 
 use File;
+use Html;
+use Config;
 use Storage;
+use October\Rain\Filesystem\Definitions as FileDefinitions;
 use ApplicationException;
 
 /**
@@ -103,20 +106,74 @@ trait DecodesZip
         }
 
         if ($model->isRelationTypeSingular($attr)) {
-            $localPath = $this->resolveImportFilePath($value);
-            if ($localPath) {
-                $model->{$attr}()->createFromFile($localPath, [], $sessionKey);
-            }
+            $this->attachImportFile($model, $attr, $value, $sessionKey);
         }
         else {
             $values = is_array($value) ? $value : [$value];
             foreach ($values as $filePath) {
-                $localPath = $this->resolveImportFilePath($filePath);
-                if ($localPath) {
-                    $model->{$attr}()->createFromFile($localPath, [], $sessionKey);
-                }
+                $this->attachImportFile($model, $attr, $filePath, $sessionKey);
             }
         }
+    }
+
+    /**
+     * attachImportFile attaches a referenced file after checking its type against the field and cleaning vector content.
+     */
+    protected function attachImportFile($model, $attr, $value, $sessionKey)
+    {
+        $localPath = $this->resolveImportFilePath($value);
+        if (!$localPath) {
+            return;
+        }
+
+        $extension = strtolower(File::extension($localPath));
+        $allowedTypes = $this->getImportFileTypes($model, $attr);
+        if ($allowedTypes !== null && !in_array($extension, $allowedTypes, true)) {
+            throw new ApplicationException(__("The file :name is not an allowed type for the :field field", [
+                'name' => basename($localPath),
+                'field' => $attr
+            ]));
+        }
+
+        if ($extension !== 'svg' || !Config::get('media.clean_vectors', true)) {
+            $model->{$attr}()->createFromFile($localPath, [], $sessionKey);
+            return;
+        }
+
+        // Clean a copy so media library and seed source files are never modified
+        $cleanDir = temp_path('import/' . uniqid('oc'));
+        $cleanPath = $cleanDir . '/' . basename($localPath);
+
+        try {
+            File::makeDirectory($cleanDir, 0755, true, true);
+            File::put($cleanPath, Html::cleanVector(File::get($localPath)));
+            $model->{$attr}()->createFromFile($cleanPath, [], $sessionKey);
+        }
+        finally {
+            File::deleteDirectory($cleanDir);
+        }
+    }
+
+    /**
+     * getImportFileTypes returns the lowercase extensions a file field accepts, or null when any type is accepted.
+     */
+    protected function getImportFileTypes($model, $attr): ?array
+    {
+        $field = method_exists($model, 'getFieldsetDefinition')
+            ? $model->getFieldsetDefinition()->getField($attr)
+            : null;
+
+        $types = $field?->fileTypes ?: FileDefinitions::get('default_extensions');
+
+        if ($types === '*') {
+            return null;
+        }
+
+        if (!is_array($types)) {
+            $types = explode(',', $types);
+        }
+
+        return array_map(fn ($type) => strtolower(trim($type, ' .')), $types);
     }
 
     /**

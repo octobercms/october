@@ -3,6 +3,7 @@
 use Backend\Widgets\Form;
 use Backend\Classes\Controller;
 use System\Models\File;
+use System\Models\TranslatableFile;
 use October\Rain\Database\Model;
 
 /**
@@ -20,7 +21,8 @@ class FileUploadTranslatableModel extends Model
     public $translatable = ['name', 'image'];
 
     public $attachOne = [
-        'image' => File::class
+        'image' => File::class,
+        'document' => TranslatableFile::class
     ];
 
     protected function resolveTranslatableLocale()
@@ -59,6 +61,7 @@ class FileUploadTranslatableTest extends PluginTestCase
         Schema::dropIfExists('file_upload_translatables');
         File::where('attachment_type', FileUploadTranslatableModel::class)->delete();
         File::where('file_name', 'like', 'popup-test-%')->delete();
+        Db::table('system_translate_attributes')->where('model_type', TranslatableFile::class)->delete();
         FileUploadTranslatableModel::$activeLocale = 'en';
         Site::resetCache();
 
@@ -147,6 +150,48 @@ class FileUploadTranslatableTest extends PluginTestCase
     }
 
     /**
+     * testAttachmentConfigBindsFileToPopups confirms popups opened from the attachment config form post the file
+     */
+    public function testAttachmentConfigBindsFileToPopups()
+    {
+        $site = $this->makeSite('fr');
+        $model = $this->makeModel();
+        $file = $this->addDocument($model);
+
+        $this->swapRequest($this->getCaptionPostData($file, $site), 'formDocument::onLoadAttachmentConfig');
+        $controller = new Controller;
+        $form = $this->makeForm(FileUploadTranslatableModel::find($model->id), $controller);
+        $configForm = $controller->widget->formDocumentfileupload;
+
+        $this->assertTrue($configForm->getField('title')->translatable);
+        $this->assertTrue($configForm->getField('description')->translatable);
+
+        $markup = $form->getFormWidget('document')->onLoadAttachmentConfig();
+        $this->assertStringContainsString('oc.popup.bindToPopups(', $markup);
+        $this->assertStringContainsString('file_id: ' . $file->id . ',', $markup);
+    }
+
+    /**
+     * testCaptionTranslationSavesToSiteLocale confirms a caption saved from the translate popup only changes that locale
+     */
+    public function testCaptionTranslationSavesToSiteLocale()
+    {
+        $site = $this->makeSite('fr');
+        $model = $this->makeModel();
+        $file = $this->addDocument($model);
+
+        $postData = $this->getCaptionPostData($file, $site) + ['TranslateField' => ['title' => 'Guide']];
+        $this->swapRequest($postData, 'formDocumentfileupload::onSaveTranslateField');
+        $this->makeCaptionConfigForm($model)->onSaveTranslateField();
+
+        $this->assertSame('Manual', TranslatableFile::find($file->id)->title);
+
+        Site::withContext($site->id, function () use ($file) {
+            $this->assertSame('Guide', TranslatableFile::find($file->id)->title);
+        });
+    }
+
+    /**
      * makeModel creates a saved model in the default locale
      */
     protected function makeModel()
@@ -156,6 +201,50 @@ class FileUploadTranslatableTest extends PluginTestCase
         $model->save();
 
         return $model;
+    }
+
+    /**
+     * addDocument attaches a captioned document to the model
+     */
+    protected function addDocument($model)
+    {
+        $file = new TranslatableFile;
+        $file->file_name = 'popup-test-manual.pdf';
+        $file->disk_name = uniqid() . '.pdf';
+        $file->file_size = 0;
+        $file->content_type = 'application/pdf';
+        $file->title = 'Manual';
+        $model->document()->add($file);
+
+        return $file;
+    }
+
+    /**
+     * getCaptionPostData returns the request data posted by the caption translate popup of a site
+     */
+    protected function getCaptionPostData($file, $site): array
+    {
+        return [
+            'file_id' => $file->id,
+            'fileupload_flag' => 1,
+            'field_name' => 'title',
+            'site_id' => $site->id,
+            '_session_key' => 'mainkey'
+        ];
+    }
+
+    /**
+     * makeCaptionConfigForm builds the form for the current request and returns the attachment config form
+     */
+    protected function makeCaptionConfigForm($model)
+    {
+        $controller = new Controller;
+        $this->makeForm(FileUploadTranslatableModel::find($model->id), $controller);
+
+        $configForm = $controller->widget->formDocumentfileupload ?? null;
+        $this->assertInstanceOf(Form::class, $configForm);
+
+        return $configForm;
     }
 
     /**
@@ -213,7 +302,8 @@ class FileUploadTranslatableTest extends PluginTestCase
             'arrayName' => 'FileUploadTranslatableModel',
             'fields' => [
                 'name' => ['type' => 'text'],
-                'image' => ['type' => 'fileupload', 'mode' => 'image']
+                'image' => ['type' => 'fileupload', 'mode' => 'image'],
+                'document' => ['type' => 'fileupload', 'mode' => 'file']
             ]
         ]);
 

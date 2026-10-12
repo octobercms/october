@@ -41,6 +41,7 @@ There are several optional data attributes and features that could be defined in
 * `data-inspector-offset-y` - sets vertical offset, in pixels, for the Inspector popup.
 * `data-inspector-placement` - sets defines placement for the Inspector popup, optional. If omitted, Inspector evaluates a placement automatically. Supported values: top, bottom, left, top.
 * `data-inspector-fallback-placement` - sets less preferable placement for the Inspector popup, optional. This value is used if Inspector can't use the placement specified in data-inspector-placement. Supported values: top, bottom, left, top.
+* `data-inspector-anchor` - a selector for a child element to position the Inspector popup against, optional. Use it when the inspectable element contains nested content, such as a sub-item list, that should not affect the popup position. If omitted or not found, the popup is positioned against the inspectable element.
 * `data-inspector-external-parameters` - if this attribute exists in any parent element of the inspectable element, the external parameters editors will be enabled in Inspector (unless property-specific rules cancel the external editor).
 
 ### Dynamic configuration and dynamic items

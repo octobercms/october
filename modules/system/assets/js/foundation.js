@@ -8173,7 +8173,8 @@ API.txt for details.
             offsetX = this.$element.data('inspector-offset-x'),
             offsetY = this.$element.data('inspector-offset-y'),
             placement = this.$element.data('inspector-placement'),
-            fallbackPlacement = this.$element.data('inspector-fallback-placement');
+            fallbackPlacement = this.$element.data('inspector-fallback-placement'),
+            $target = this.getPopoverTarget();
 
         if (offset === undefined) {
             offset = 15;
@@ -8187,7 +8188,7 @@ API.txt for details.
             fallbackPlacement = 'bottom';
         }
 
-        this.$element.ocPopover({
+        $target.ocPopover({
             content: this.getPopoverContents(),
             highlightModalTarget: true,
             modal: true,
@@ -8203,7 +8204,7 @@ API.txt for details.
 
         this.setInspectorVisibleFlag(true);
 
-        this.popoverObj = this.$element.data('oc.popover');
+        this.popoverObj = $target.data('oc.popover');
         this.$popoverContainer = this.popoverObj.$container;
 
         this.$popoverContainer.addClass('inspector-temporary-placement');
@@ -8219,6 +8220,20 @@ API.txt for details.
 
         this.$popoverContainer.find('[data-inspector-title]').text(this.title);
         this.$popoverContainer.find('[data-inspector-description]').text(this.description);
+    }
+
+    InspectorPopup.prototype.getPopoverTarget = function() {
+        var anchor = this.$element.data('inspector-anchor');
+
+        if (anchor) {
+            var $anchor = this.$element.find(anchor).first();
+
+            if ($anchor.length) {
+                return $anchor;
+            }
+        }
+
+        return this.$element;
     }
 
     InspectorPopup.prototype.repositionPopover = function() {
@@ -9479,7 +9494,7 @@ API.txt for details.
 
         $(select).select2(options)
 
-        if (!('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
+        if (!$.oc.isTouchEnabled()) {
             this.indicatorContainer = $('.select2-container', this.containerCell)
             this.indicatorContainer.addClass('loading-indicator-container size-small')
         }
@@ -9488,7 +9503,7 @@ API.txt for details.
     DropdownEditor.prototype.createPlaceholder = function(select) {
         var placeholder = this.propertyDefinition.placeholder || this.propertyDefinition.emptyOption
 
-        var isTouchDevice = 'ontouchstart' in window || navigator.maxTouchPoints > 0
+        var isTouchDevice = $.oc.isTouchEnabled()
 
         if (placeholder !== undefined && !isTouchDevice) {
             this.createOption(select, null, null)
@@ -9749,7 +9764,7 @@ API.txt for details.
     }
 
     DropdownEditor.prototype.showLoadingIndicator = function() {
-        if (!('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
+        if (!$.oc.isTouchEnabled()) {
             this.indicatorContainer.loadIndicator()
         }
     }
@@ -9759,7 +9774,7 @@ API.txt for details.
             return
         }
 
-        if (!('ontouchstart' in window || navigator.maxTouchPoints > 0)) {
+        if (!$.oc.isTouchEnabled()) {
             this.indicatorContainer.loadIndicator('hide')
             this.indicatorContainer.loadIndicator('destroy')
         }
