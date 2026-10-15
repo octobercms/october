@@ -1,7 +1,7 @@
 <?php
     $isHorizontal = $this->formGetWidget()->horizontalMode;
 ?>
-<?= Form::open(['class' => 'd-flex flex-column h-100 design-basic']) ?>
+<?= Form::open(['class' => 'd-flex flex-column h-100 design-basic', 'data-change-monitor' => $this->getDesignChangeMonitor()]) ?>
 
     <?= Block::placeholder('form:before-form') ?>
 
