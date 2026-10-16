@@ -15,6 +15,7 @@ use System\Classes\UpdateManager;
 use System\Models\RequestLog;
 use System\Models\LogSetting;
 use System\Models\EventLog;
+use ForbiddenException;
 
 /**
  * SystemReportDataSource providing the system information.
@@ -103,6 +104,10 @@ class SystemReportDataSource extends ReportDataSourceBase
      */
     protected function onGetPopupData()
     {
+        if (!BackendAuth::getUser()?->isSuperUser()) {
+            throw new ForbiddenException;
+        }
+
         return [
             'title' => __("System Issues"),
             'content' => $this->makePartial('warnings', ['warnings' => $this->getSystemWarnings()])

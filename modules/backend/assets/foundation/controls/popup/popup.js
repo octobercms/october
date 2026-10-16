@@ -487,6 +487,9 @@
             $.each(vars, function(name, value){
                 $form.prepend($('<input />').attr({ type: 'hidden', name: name, value: value }));
             });
+
+            // Popups spawned within this popup need the variables too
+            oc.popup.bindToPopups($modal, vars);
         });
     };
 

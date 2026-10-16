@@ -84,6 +84,39 @@ class ResizeImageItemTest extends TestCase
     }
 
     /**
+     * testUrlSchemeIsNotCheckedOnDisk ensures a non-http URL never reaches its stream wrapper, so no connection is opened.
+     */
+    public function testUrlSchemeIsNotCheckedOnDisk()
+    {
+        $server = stream_socket_server('tcp://127.0.0.1:0');
+        $address = stream_socket_get_name($server, false);
+        $timeout = ini_set('default_socket_timeout', 1);
+
+        try {
+            $item = (new ResizeImageItem)->fromObject("ftp://{$address}/image.jpg");
+            $connection = @stream_socket_accept($server, 0);
+        }
+        finally {
+            ini_set('default_socket_timeout', $timeout);
+            fclose($server);
+        }
+
+        $this->assertFalse($connection);
+        $this->assertNull($item->source);
+    }
+
+    /**
+     * testLocalPathStillResolves ensures plain local paths are still read from disk.
+     */
+    public function testLocalPathStillResolves()
+    {
+        $item = (new ResizeImageItem)->fromObject($this->sourcePath);
+
+        $this->assertSame('local', $item->source);
+        $this->assertSame($this->sourcePath, $item->path);
+    }
+
+    /**
      * makeItem builds a resize item from the local test file
      */
     protected function makeItem(): ResizeImageItem

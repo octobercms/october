@@ -288,7 +288,7 @@ class ResizeImageItem extends ElementBase
     protected function parseFileName($filePath): ?string
     {
         // Local disk path
-        if (file_exists($filePath)) {
+        if (!str_contains($filePath, '://') && file_exists($filePath)) {
             return $filePath;
         }
 
