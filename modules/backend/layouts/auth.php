@@ -24,15 +24,15 @@
             }
         }
         </script>
-        <script src="<?= Url::asset('modules/system/assets/js/vendor.js') ?>?v<?= $coreBuild ?>"></script>
-        <script src="<?= Url::asset('modules/system/assets/js/framework-bundle.min.js') ?>?v<?= $coreBuild ?>"></script>
-        <script src="<?= Url::asset('modules/system/assets/js/foundation.js') ?>?v<?= $coreBuild ?>"></script>
-        <script src="<?= Url::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js') ?>?v<?= $coreBuild ?>"></script>
-        <script type="module" src="<?= Url::asset('modules/system/assets/js/main.js') ?>?v<?= $coreBuild ?>"></script>
-        <script type="module" src="<?= Url::asset('modules/backend/assets/js/main.js') ?>?v<?= $coreBuild ?>"></script>
-        <script src="<?= Url::asset('modules/backend/assets/js/auth/auth.js') ?>?v<?= $coreBuild ?>"></script>
-        <link href="<?= Url::asset('modules/system/assets/css/main.css') ?>?v<?= $coreBuild ?>" rel="stylesheet" />
-        <link href="<?= Url::asset('modules/backend/assets/css/main.css') ?>?v<?= $coreBuild ?>" rel="stylesheet" />
+        <script src="<?= Url::asset('modules/system/assets/js/vendor.js') ?>?v=<?= $coreBuild ?>"></script>
+        <script src="<?= Url::asset('modules/system/assets/js/framework-bundle.min.js') ?>?v=<?= $coreBuild ?>"></script>
+        <script src="<?= Url::asset('modules/system/assets/js/foundation.js') ?>?v=<?= $coreBuild ?>"></script>
+        <script src="<?= Url::asset('modules/system/assets/js/lang/lang.'.App::getLocale().'.js') ?>?v=<?= $coreBuild ?>"></script>
+        <script type="module" src="<?= Url::asset('modules/system/assets/js/main.js') ?>?v=<?= $coreBuild ?>"></script>
+        <script type="module" src="<?= Url::asset('modules/backend/assets/js/main.js') ?>?v=<?= $coreBuild ?>"></script>
+        <script src="<?= Url::asset('modules/backend/assets/js/auth/auth.js') ?>?v=<?= $coreBuild ?>"></script>
+        <link href="<?= Url::asset('modules/system/assets/css/main.css') ?>?v=<?= $coreBuild ?>" rel="stylesheet" />
+        <link href="<?= Url::asset('modules/backend/assets/css/main.css') ?>?v=<?= $coreBuild ?>" rel="stylesheet" />
 
         <?= $this->makeLayoutPartial('service_worker', ['forceUnregister' => true]) ?>
 
