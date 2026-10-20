@@ -101,7 +101,7 @@ class Users extends SettingsController
         }
 
         // Manage other admins
-        if ($form->getContext() !== 'create' && !BackendAuth::userHasAccess('admins.manage.other_admins')) {
+        if ($form->model->exists && !BackendAuth::userHasAccess('admins.manage.other_admins')) {
             $form->removeField('password');
             $form->removeField('password_confirmation');
             $form->getField('email')->disabled();
