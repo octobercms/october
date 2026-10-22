@@ -567,6 +567,16 @@ registerControl('media-manager', class extends ControlBase {
         }
 
         this.updateSidebarMediaPreview(items);
+
+        /**
+         * Trigger an event when the sidebar preview is updated.
+         * Allows third-party plugins to extend or customize the preview panel.
+         *
+         * @event updateSidebarPreview.oc.mediamanager
+         * @param {NodeList|Array} items - Selected DOM media items
+         * @param {HTMLElement} previewPanel - Sidebar preview container element
+         */
+        this.$el.trigger('updateSidebarPreview.oc.mediamanager', [items, previewPanel]);
     }
 
     loadSidebarThumbnail() {
