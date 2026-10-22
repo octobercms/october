@@ -28,7 +28,7 @@
 <?php Block::endPut() ?>
 
 <?php Block::put('body') ?>
-    <?= Form::open(['class'=>'position-relative h-100']) ?>
+    <?= Form::open(['class' => 'position-relative h-100', 'data-change-monitor' => $this->getDesignChangeMonitor()]) ?>
         <div
             id="<?= $this->formGetId() ?>"
             data-control="formwidget"
