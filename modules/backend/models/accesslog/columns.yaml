@@ -20,7 +20,7 @@ columns:
         searchable: true
 
     login:
-        label: Login
+        label: Username
         relation: user
         select: login
         searchable: true

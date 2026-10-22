@@ -1,6 +1,6 @@
 <div data-control="toolbar loader-container">
     <?= Ui::popupButton(
-        label: __("New :name", ['name' => 'Dashboard']),
+        label: __("New :name", ['name' => __("Dashboard")]),
         handler: 'onLoadPopupForm',
         icon: 'icon-plus',
         primary: true
