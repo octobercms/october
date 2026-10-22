@@ -7,7 +7,7 @@ use Backend\Controllers\Users;
 require_once __DIR__.'/../fixtures/models/BackendUserFixture.php';
 
 /**
- * UsersTest covers credential field authorization on the administrator form.
+ * UsersTest covers credential field and rank authorization on the administrator controller.
  */
 class UsersTest extends PluginTestCase
 {
@@ -60,6 +60,78 @@ class UsersTest extends PluginTestCase
     }
 
     /**
+     * testMyAccountFindsSuperUserImpersonatingRole ensures a super user viewing as a role can still load their own account.
+     */
+    public function testMyAccountFindsSuperUserImpersonatingRole()
+    {
+        $user = $this->actingAsSuperUserImpersonatingRole();
+
+        $controller = new Users;
+        self::setProtectedProperty($controller, 'action', 'myaccount');
+
+        $this->assertEquals($user->id, $controller->formFindModelObject($user->id)->id);
+    }
+
+    /**
+     * testRankQueryShowsOnlySelfWhileImpersonating ensures impersonation exposes the user's own record but no other super users.
+     */
+    public function testRankQueryShowsOnlySelfWhileImpersonating()
+    {
+        $user = $this->actingAsSuperUserImpersonatingRole();
+        $otherSuperUser = $this->makeAdmin('othersuper', true);
+
+        $ids = $this->getRankedUserIds();
+
+        $this->assertContains($user->id, $ids);
+        $this->assertNotContains($otherSuperUser->id, $ids);
+    }
+
+    /**
+     * testRankQueryHidesSuperUsersFromManager ensures a super user is hidden even when their role ranks below the manager.
+     */
+    public function testRankQueryHidesSuperUsersFromManager()
+    {
+        $this->actingAsManager();
+        $admin = $this->makeAdmin('regular');
+        $superUser = $this->makeAdmin('lowsuper', true);
+
+        $ids = $this->getRankedUserIds();
+
+        $this->assertContains($admin->id, $ids);
+        $this->assertNotContains($superUser->id, $ids);
+    }
+
+    /**
+     * actingAsSuperUserImpersonatingRole signs in a saved super user who is viewing the backend as a lower role.
+     */
+    protected function actingAsSuperUserImpersonatingRole(): User
+    {
+        $user = $this->makeAdmin('superuser', true);
+
+        $role = new UserRole;
+        $role->name = 'Impersonated';
+        $role->permissions = ['general.backend' => 1];
+        $role->save();
+
+        $user->setRoleImpersonation($role);
+        $this->actingAs($user);
+
+        return $user;
+    }
+
+    /**
+     * getRankedUserIds returns the user IDs visible to the current user in the administrator list.
+     */
+    protected function getRankedUserIds(): array
+    {
+        $query = User::query();
+
+        (new Users)->listExtendQuery($query);
+
+        return $query->pluck('id')->all();
+    }
+
+    /**
      * actingAsManager signs in a non-superuser administrator holding admins.manage and an optional extra permission.
      */
     protected function actingAsManager(array $extraPermissions = []): void
@@ -80,7 +152,7 @@ class UsersTest extends PluginTestCase
     /**
      * makeAdmin saves a lower-ranked administrator to act as the edit target.
      */
-    protected function makeAdmin(string $login): User
+    protected function makeAdmin(string $login, bool $isSuperUser = false): User
     {
         $role = new UserRole;
         $role->name = $login.'-role';
@@ -96,6 +168,7 @@ class UsersTest extends PluginTestCase
         $user->password = 'secret99';
         $user->password_confirmation = 'secret99';
         $user->role_id = $role->id;
+        $user->is_superuser = $isSuperUser;
         $user->save();
 
         return User::find($user->id);

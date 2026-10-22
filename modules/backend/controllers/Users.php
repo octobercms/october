@@ -240,20 +240,20 @@ class Users extends SettingsController
             return;
         }
 
-        // Hide super users
-        $query->where('is_superuser', false);
-
-        // Hide users above rank, not including self
+        // Hide super users and users above rank, not including self
         $query->where(function($q) {
             $q->where('id', $this->user->id);
 
             if ($this->user->role && $this->user->role->sort_order) {
-                $q->orWhereHas('role', function($q) {
-                    $q->where(
-                        'sort_order',
-                        $this->allowPeerManagement() ? '>=' : '>',
-                        $this->user->role->sort_order
-                    );
+                $q->orWhere(function($q) {
+                    $q->where('is_superuser', false);
+                    $q->whereHas('role', function($q) {
+                        $q->where(
+                            'sort_order',
+                            $this->allowPeerManagement() ? '>=' : '>',
+                            $this->user->role->sort_order
+                        );
+                    });
                 });
             }
         });
