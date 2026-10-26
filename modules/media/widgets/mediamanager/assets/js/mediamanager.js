@@ -567,6 +567,9 @@ registerControl('media-manager', class extends ControlBase {
         }
 
         this.updateSidebarMediaPreview(items);
+
+        // Lets third-party code extend the preview panel, fires as media-manager:update-sidebar-preview
+        this.dispatch('update-sidebar-preview', { detail: { items, previewPanel } });
     }
 
     loadSidebarThumbnail() {
