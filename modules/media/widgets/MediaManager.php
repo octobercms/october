@@ -411,6 +411,14 @@ class MediaManager extends WidgetBase
             throw new ApplicationException(Lang::get('cms::lang.asset.name_cant_be_empty'));
         }
 
+        $type = Input::get('type');
+        $autoRename = Config::get('media.auto_rename') === 'slug';
+
+        // Auto rename is enabled, slug the value
+        if ($type !== MediaLibraryItem::TYPE_FILE && $autoRename) {
+            $newName = $this->slugFileName($newName);
+        }
+
         if (!$this->validateFileName($newName)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.invalid_name'));
         }
@@ -418,7 +426,6 @@ class MediaManager extends WidgetBase
         $originalPath = Input::get('originalPath');
         $originalPath = MediaLibrary::validatePath($originalPath);
         $newPath = dirname($originalPath).'/'.$newName;
-        $type = Input::get('type');
 
         if ($type === MediaLibraryItem::TYPE_FILE) {
             // Validate extension
@@ -492,6 +499,12 @@ class MediaManager extends WidgetBase
         $name = trim(Input::get('name'));
         if (!strlen($name)) {
             throw new ApplicationException(Lang::get('cms::lang.asset.name_cant_be_empty'));
+        }
+
+        // Auto rename is enabled, slug the value
+        $autoRename = Config::get('media.auto_rename') === 'slug';
+        if ($autoRename) {
+            $name = $this->slugFileName($name);
         }
 
         if (!$this->validateFileName($name)) {

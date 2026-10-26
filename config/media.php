@@ -17,12 +17,12 @@ return [
 
    /*
     |--------------------------------------------------------------------------
-    | Automatically Rename Filenames
+    | Automatically Rename Media Items (Files & Folders)
     |--------------------------------------------------------------------------
     |
-    | When a media file is uploaded, automatically transform its filename to
-    | something consistent. The "slug" mode will slug the file name for all
-    | uploads.
+    | When a media file is uploaded or a folder is created/renamed, automatically
+    | transform its name to something consistent. The "slug" mode will slug
+    | the item name for all operations.
     |
     | Supported: "null", "slug"
     |
