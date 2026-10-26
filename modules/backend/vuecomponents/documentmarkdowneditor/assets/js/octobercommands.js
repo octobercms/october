@@ -31,7 +31,7 @@ class OctoberCommands {
                 return this.browseLink(editor);
 
             case 'oc-upload-image':
-                return this.uploadImage(editor);
+                return this.uploadImage(editor, component);
 
             case 'oc-browse-image':
                 return this.browseImage(editor);
@@ -82,14 +82,16 @@ class OctoberCommands {
         editor.codemirror.replaceSelection(str);
     }
 
-    uploadImage(editor) {
+    uploadImage(editor, component) {
+        const accept = component.configuration.imageExtensions.map((extension) => '.' + extension).join(', ');
+
         this.uploadMedia((link, isMultiple, isLast) => {
             let str = '![' + this.titleFromUrl(link) + '](' + link + ')';
             if (isMultiple && !isLast) {
                 str += '\n';
             }
             editor.codemirror.replaceSelection(str);
-        }, '.png, .jpg, .jpeg, .gif, .svg');
+        }, accept);
     }
 
     browseImage(editor) {

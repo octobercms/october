@@ -129,12 +129,14 @@ class OctoberCommands {
     }
 
     uploadImage($textarea) {
+        const allowedTypes = $textarea.data('froala.editor').opts.imageAllowedTypes;
+
         this.uploadMedia(
             (link) => {
                 $textarea.froalaEditor('image.insert', link, true);
             },
             $textarea,
-            '.png, .jpg, .jpeg, .gif, .svg'
+            allowedTypes.map((type) => '.' + type).join(', ')
         );
     }
 

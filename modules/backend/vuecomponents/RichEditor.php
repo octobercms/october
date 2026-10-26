@@ -5,6 +5,7 @@ use BackendAuth;
 use Backend\Models\EditorSetting;
 use Backend\Classes\RichEditorManager;
 use System\Classes\VueComponentBase;
+use October\Rain\Filesystem\Definitions as FileDefinitions;
 
 /**
  * RichEditor Vue component.
@@ -29,6 +30,10 @@ class RichEditor extends VueComponentBase
         $configuration = [
             'editorLang' => $this->getValidEditorLang(),
             'useMediaManager' => BackendAuth::userHasAccess('media.library'),
+            'imageExtensions' => array_values(array_intersect(
+                FileDefinitions::get('image_extensions'),
+                FileDefinitions::get('default_extensions')
+            )),
 
             'globalToolbarButtons' => $this->getGlobalButtons(),
             'allowEmptyTags' => EditorSetting::getConfigured('html_allow_empty_tags'),

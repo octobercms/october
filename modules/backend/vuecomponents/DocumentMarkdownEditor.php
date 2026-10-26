@@ -2,6 +2,7 @@
 
 use App;
 use System\Classes\VueComponentBase;
+use October\Rain\Filesystem\Definitions as FileDefinitions;
 
 /**
  * Markdown editor for the Document UI Vue component.
@@ -63,7 +64,11 @@ class DocumentMarkdownEditor extends VueComponentBase
                 'url_validation' => trans('backend::lang.richeditor.url_validation'),
                 'add_image_title' => trans('backend::lang.richeditor.add_image'),
                 'add_file_title' => trans('backend::lang.richeditor.add_file')
-            ]
+            ],
+            'imageExtensions' => array_values(array_intersect(
+                FileDefinitions::get('image_extensions'),
+                FileDefinitions::get('default_extensions')
+            ))
         ];
 
         $this->vars['configuration'] = json_encode($configuration);

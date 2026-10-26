@@ -107,6 +107,10 @@ function initFroala(component) {
 
     froalaOptions.shortcutsEnabled = ['show', 'bold', 'italic', 'underline', 'indent', 'outdent', 'undo', 'redo'];
 
+    if (!froalaOptions.imageAllowedTypes) {
+        froalaOptions.imageAllowedTypes = options.imageExtensions;
+    }
+
     // File upload
     froalaOptions.imageUploadURL = froalaOptions.fileUploadURL = window.location;
     froalaOptions.imageUploadParam = froalaOptions.fileUploadParam = 'file_data';
