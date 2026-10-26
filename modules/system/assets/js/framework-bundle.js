@@ -5148,11 +5148,13 @@ window['${id}']();`;
       if (!element.hasAttribute("src")) {
         return element;
       }
-      var self = this, loadEvent = function() {
+      var self = this, settleEvent = function() {
         self.delegate.decrementPendingAsset();
-        element.removeEventListener("load", loadEvent);
+        element.removeEventListener("load", settleEvent);
+        element.removeEventListener("error", settleEvent);
       };
-      element.addEventListener("load", loadEvent);
+      element.addEventListener("load", settleEvent);
+      element.addEventListener("error", settleEvent);
       this.delegate.incrementPendingAsset();
       return element;
     }

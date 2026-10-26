@@ -13,19 +13,22 @@ body.has-settings-nav {
 
 .control-settings-nav-container {
     width: 300px;
+    display: flex;
+    flex-direction: column;
 }
 
 .control-settings-nav {
     width: 300px;
-    flex-shrink: 0;
+    flex: 1 1 0;
+    min-height: 0;
     border-right: 1px solid var(--oc-primary-border);
 
     position: sticky;
     top: 0;
-    height: calc(100vh - 70px);
+    max-height: calc(100vh - 70px);
 
     &.is-full {
-        height: 100vh;
+        max-height: 100vh;
     }
 
     .input-clear-search {
@@ -297,5 +300,5 @@ body.drag-noselect {
 }
 
 html body.main-menu-left .control-settings-nav {
-    height: 100vh;
+    max-height: 100vh;
 }
