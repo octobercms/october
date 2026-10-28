@@ -1,0 +1,14 @@
+{
+  "assets/css/theme.css": {
+    "file": "theme-B2xQ1h3a.css",
+    "src": "assets/css/theme.css",
+    "isEntry": true,
+    "names": ["theme.css"]
+  },
+  "assets/js/app.js": {
+    "file": "app-C9kD2fRe.js",
+    "name": "app",
+    "src": "assets/js/app.js",
+    "isEntry": true
+  }
+}

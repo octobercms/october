@@ -88,6 +88,7 @@ class Extension extends TwigExtension
             new TwigSimpleFunction('redirect', [$this, 'redirectFunction'], []),
             new TwigSimpleFunction('abort', [$this, 'abortFunction'], []),
             new TwigSimpleFunction('flash', [$this, 'flashFunction'], []),
+            new TwigSimpleFunction('vite', [$this, 'viteFunction'], ['is_safe' => ['html']]),
         ];
     }
 
@@ -275,6 +276,18 @@ class Extension extends TwigExtension
         }
 
         return $this->controller->runAjaxHandlerAsResponse($name);
+    }
+
+    /**
+     * viteFunction renders the tags for Vite entry points built inside the theme,
+     * eg: {{ vite(['assets/css/theme.css', 'assets/js/app.js']) }}
+     * @param array|string $entryPoints
+     * @param string $buildDirectory
+     * @return string
+     */
+    public function viteFunction($entryPoints, $buildDirectory = 'assets/dist')
+    {
+        return $this->controller->themeVite($entryPoints, $buildDirectory);
     }
 
     /**

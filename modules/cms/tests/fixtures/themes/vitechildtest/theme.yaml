@@ -1,0 +1,6 @@
+name: Vite Child Test
+description: 'Child theme fixture without its own Vite build, inheriting from the vitetest theme.'
+author: October CMS
+homepage: 'https://octobercms.com'
+code: ''
+parent: vitetest

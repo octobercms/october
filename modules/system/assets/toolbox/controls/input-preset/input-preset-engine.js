@@ -1,45 +1,19 @@
 /*
  * Preset Engine - Text transformation utility for slugs, URLs, camelCase, etc.
  *
- * Supports transliteration from multiple languages including Vietnamese, Latin,
- * Greek, Turkish, Russian, Ukrainian, Czech, Polish, Latvian, Arabic, Persian,
- * Lithuanian, Serbian, Azerbaijani, Romanian, and Belarusian.
+ * Accented Latin letters in any language are reduced to their base letter
+ * through Unicode normalization. The maps below cover letters that do not
+ * decompose (ß, æ, ł, đ) and transliterate Greek, Cyrillic, Arabic and Persian.
  *
  * JavaScript API:
  * oc.InputPresetEngine.formatValue(options, 'My Value')
  */
 
-const VIETNAMESE_MAP = {
-    'Á': 'A', 'À': 'A', 'Ã': 'A', 'Ả': 'A', 'Ạ': 'A', 'Ắ': 'A', 'Ằ': 'A', 'Ẵ':
-    'A', 'Ẳ': 'A', 'Ặ': 'A', 'Ấ': 'A', 'Ầ': 'A', 'Ẫ': 'A', 'Ẩ': 'A', 'Ậ': 'A',
-    'Đ': 'D', 'É': 'E', 'È': 'E', 'Ẽ': 'E', 'Ẻ': 'E', 'Ẹ': 'E', 'Ế': 'E', 'Ề':
-    'E', 'Ễ': 'E', 'Ể': 'E', 'Ệ': 'E', 'Ó': 'O', 'Ò': 'O', 'Ỏ': 'O', 'Õ': 'O',
-    'Ọ': 'O', 'Ố': 'O', 'Ồ': 'O', 'Ổ': 'O', 'Ỗ': 'O', 'Ộ': 'O', 'Ơ': 'O', 'Ớ':
-    'O', 'Ờ': 'O', 'Ở': 'O', 'Ỡ': 'O', 'Ợ': 'O', 'Í': 'I', 'Ì': 'I', 'Ỉ': 'I',
-    'Ĩ': 'I', 'Ị': 'I', 'Ú': 'U', 'Ù': 'U', 'Ủ': 'U', 'Ũ': 'U', 'Ụ': 'U', 'Ư':
-    'U', 'Ứ': 'U', 'Ừ': 'U', 'Ử': 'U', 'Ữ': 'U', 'Ự': 'U', 'Ý': 'Y', 'Ỳ': 'Y',
-    'Ỷ': 'Y', 'Ỹ': 'Y', 'Ỵ': 'Y', 'á': 'a', 'à': 'a', 'ã': 'a', 'ả': 'a', 'ạ':
-    'a', 'ắ': 'a', 'ằ': 'a', 'ẵ': 'a', 'ẳ': 'a', 'ặ': 'a', 'ấ': 'a', 'ầ': 'a',
-    'ẫ': 'a', 'ẩ': 'a', 'ậ': 'a', 'đ': 'd', 'é': 'e', 'è': 'e', 'ẽ': 'e', 'ẻ':
-    'e', 'ẹ': 'e', 'ế': 'e', 'ề': 'e', 'ễ': 'e', 'ể': 'e', 'ệ': 'e', 'ó': 'o',
-    'ò': 'o', 'ỏ': 'o', 'õ': 'o', 'ọ': 'o', 'ố': 'o', 'ồ': 'o', 'ổ': 'o', 'ỗ':
-    'o', 'ộ': 'o', 'ơ': 'o', 'ớ': 'o', 'ờ': 'o', 'ở': 'o', 'ỡ': 'o', 'ợ': 'o',
-    'í': 'i', 'ì': 'i', 'ỉ': 'i', 'ĩ': 'i', 'ị': 'i', 'ú': 'u', 'ù': 'u', 'ủ':
-    'u', 'ũ': 'u', 'ụ': 'u', 'ư': 'u', 'ứ': 'u', 'ừ': 'u', 'ử': 'u', 'ữ': 'u',
-    'ự': 'u', 'ý': 'y', 'ỳ': 'y', 'ỷ': 'y', 'ỹ': 'y', 'ỵ': 'y'
-};
-
 const LATIN_MAP = {
-    'À': 'A', 'Á': 'A', 'Â': 'A', 'Ã': 'A', 'Ä': 'A', 'Å': 'A', 'Æ': 'AE', 'Ç':
-    'C', 'È': 'E', 'É': 'E', 'Ê': 'E', 'Ë': 'E', 'Ì': 'I', 'Í': 'I', 'Î': 'I',
-    'Ï': 'I', 'Ð': 'D', 'Ñ': 'N', 'Ò': 'O', 'Ó': 'O', 'Ô': 'O', 'Õ': 'O', 'Ö':
-    'O', 'Ő': 'O', 'Ø': 'O', 'Ù': 'U', 'Ú': 'U', 'Û': 'U', 'Ü': 'U', 'Ű': 'U',
-    'Ý': 'Y', 'Þ': 'TH', 'Ÿ': 'Y', 'ß': 'ss', 'à':'a', 'á':'a', 'â': 'a', 'ã':
-    'a', 'ä': 'a', 'å': 'a', 'æ': 'ae', 'ç': 'c', 'è': 'e', 'é': 'e', 'ê': 'e',
-    'ë': 'e', 'ì': 'i', 'í': 'i', 'î': 'i', 'ï': 'i', 'ð': 'd', 'ñ': 'n', 'ò':
-    'o', 'ó': 'o', 'ô': 'o', 'õ': 'o', 'ö': 'o', 'ő': 'o', 'ø': 'o', 'ō': 'o',
-    'œ': 'oe', 'ù': 'u', 'ú': 'u', 'û': 'u', 'ü': 'u', 'ű': 'u', 'ý': 'y', 'þ':
-    'th', 'ÿ': 'y'
+    'Æ': 'AE', 'Ð': 'D', 'Ø': 'O', 'Þ': 'TH', 'ß': 'ss', 'æ': 'ae', 'ð': 'd',
+    'ø': 'o', 'œ': 'oe', 'þ': 'th', 'Đ': 'D', 'đ': 'd', 'ł': 'l', 'Ł': 'L',
+    'ı': 'i', 'ə': 'e', 'Ə': 'E', 'Ħ': 'H', 'ħ': 'h', 'Ŋ': 'NG', 'ŋ': 'ng',
+    'Ŧ': 'T', 'ŧ': 't', 'Ĳ': 'IJ', 'ĳ': 'ij', 'Ŀ': 'L', 'ŀ': 'l'
 };
 
 const LATIN_SYMBOLS_MAP = {
@@ -59,11 +33,6 @@ const GREEK_MAP = {
     'Ϋ':'Y'
 };
 
-const TURKISH_MAP = {
-    'ş':'s', 'Ş':'S', 'ı':'i', 'İ':'I', 'ç':'c', 'Ç':'C', 'ü':'u', 'Ü':'U',
-    'ö':'o', 'Ö':'O', 'ğ':'g', 'Ğ':'G'
-};
-
 const RUSSIAN_MAP = {
     'а':'a', 'б':'b', 'в':'v', 'г':'g', 'д':'d', 'е':'e', 'ё':'yo', 'ж':'zh',
     'з':'z', 'и':'i', 'й':'j', 'к':'k', 'л':'l', 'м':'m', 'н':'n', 'о':'o',
@@ -81,24 +50,6 @@ const UKRAINIAN_MAP = {
     'Є':'Ye', 'І':'I', 'Ї':'Yi', 'Ґ':'G', 'є':'ye', 'і':'i', 'ї':'yi', 'ґ':'g'
 };
 
-const CZECH_MAP = {
-    'č':'c', 'ď':'d', 'ě':'e', 'ň': 'n', 'ř':'r', 'š':'s', 'ť':'t', 'ů':'u',
-    'ž':'z', 'Č':'C', 'Ď':'D', 'Ě':'E', 'Ň': 'N', 'Ř':'R', 'Š':'S', 'Ť':'T',
-    'Ů':'U', 'Ž':'Z'
-};
-
-const POLISH_MAP = {
-    'ą':'a', 'ć':'c', 'ę':'e', 'ł':'l', 'ń':'n', 'ó':'o', 'ś':'s', 'ź':'z',
-    'ż':'z', 'Ą':'A', 'Ć':'C', 'Ę':'E', 'Ł':'L', 'Ń':'N', 'Ó':'O', 'Ś':'S',
-    'Ź':'Z', 'Ż':'Z'
-};
-
-const LATVIAN_MAP = {
-    'ā':'a', 'č':'c', 'ē':'e', 'ģ':'g', 'ī':'i', 'ķ':'k', 'ļ':'l', 'ņ':'n',
-    'š':'s', 'ū':'u', 'ž':'z', 'Ā':'A', 'Č':'C', 'Ē':'E', 'Ģ':'G', 'Ī':'I',
-    'Ķ':'K', 'Ļ':'L', 'Ņ':'N', 'Š':'S', 'Ū':'U', 'Ž':'Z'
-};
-
 const ARABIC_MAP = {
     'أ':'a', 'ب':'b', 'ت':'t', 'ث': 'th', 'ج':'g', 'ح':'h', 'خ':'kh', 'د':'d',
     'ذ':'th', 'ر':'r', 'ز':'z', 'س':'s', 'ش':'sh', 'ص':'s', 'ض':'d', 'ط':'t',
@@ -110,26 +61,9 @@ const PERSIAN_MAP = {
     'آ':'a', 'ا':'a', 'پ':'p', 'چ':'ch', 'ژ':'zh', 'ک':'k', 'گ':'gh', 'ی':'y'
 };
 
-const LITHUANIAN_MAP = {
-    'ą':'a', 'č':'c', 'ę':'e', 'ė':'e', 'į':'i', 'š':'s', 'ų':'u', 'ū':'u',
-    'ž':'z',
-    'Ą':'A', 'Č':'C', 'Ę':'E', 'Ė':'E', 'Į':'I', 'Š':'S', 'Ų':'U', 'Ū':'U',
-    'Ž':'Z'
-};
-
 const SERBIAN_MAP = {
-    'ђ':'dj', 'ј':'j', 'љ':'lj', 'њ':'nj', 'ћ':'c', 'џ':'dz', 'đ':'d',
-    'Ђ':'Dj', 'Ј':'j', 'Љ':'Lj', 'Њ':'Nj', 'Ћ':'C', 'Џ':'Dz', 'Đ':'D'
-};
-
-const AZERBAIJANI_MAP = {
-    'ç':'c', 'ə':'e', 'ğ':'g', 'ı':'i', 'ö':'o', 'ş':'s', 'ü':'u',
-    'Ç':'C', 'Ə':'E', 'Ğ':'G', 'İ':'I', 'Ö':'O', 'Ş':'S', 'Ü':'U'
-};
-
-const ROMANIAN_MAP = {
-    'ă':'a', 'â':'a', 'î':'i', 'ș':'s', 'ț':'t',
-    'Ă':'A', 'Â':'A', 'Î':'I', 'Ș':'S', 'Ț':'T'
+    'ђ':'dj', 'ј':'j', 'љ':'lj', 'њ':'nj', 'ћ':'c', 'џ':'dz',
+    'Ђ':'Dj', 'Ј':'j', 'Љ':'Lj', 'Њ':'Nj', 'Ћ':'C', 'Џ':'Dz'
 };
 
 const BELARUSIAN_MAP = {
@@ -144,22 +78,14 @@ const SPECIFIC_MAPS = {
 };
 
 const ALL_MAPS = [
-    VIETNAMESE_MAP,
     LATIN_MAP,
     LATIN_SYMBOLS_MAP,
     GREEK_MAP,
-    TURKISH_MAP,
     RUSSIAN_MAP,
     UKRAINIAN_MAP,
-    CZECH_MAP,
-    POLISH_MAP,
-    LATVIAN_MAP,
     ARABIC_MAP,
     PERSIAN_MAP,
-    LITHUANIAN_MAP,
     SERBIAN_MAP,
-    AZERBAIJANI_MAP,
-    ROMANIAN_MAP,
     BELARUSIAN_MAP
 ];
 
@@ -172,8 +98,6 @@ const REMOVE_LIST = [
 export default class InputPresetEngine {
     constructor() {
         this.map = null;
-        this.chars = null;
-        this.regex = null;
         this.locale = null;
     }
 
@@ -184,30 +108,25 @@ export default class InputPresetEngine {
 
         this.locale = document.querySelector('meta[name="backend-locale"]')?.getAttribute('content');
 
-        this.map = {};
-        this.chars = [];
-
         const maps = [...ALL_MAPS];
         if (this.locale && typeof SPECIFIC_MAPS[this.locale] === 'object') {
             maps.push(SPECIFIC_MAPS[this.locale]);
         }
 
-        for (let i = 0; i < maps.length; i++) {
-            const lookup = maps[i];
-            for (const c in lookup) {
-                if (lookup.hasOwnProperty(c)) {
-                    this.map[c] = lookup[c];
-                }
-            }
-        }
+        this.map = new Map(maps.flatMap((lookup) => Object.entries(lookup)));
+    }
 
-        for (const k in this.map) {
-            if (this.map.hasOwnProperty(k)) {
-                this.chars.push(k);
-            }
-        }
+    transliterate(str) {
+        this.initialize();
 
-        this.regex = new RegExp(this.chars.join('|'), 'g');
+        str = this.replaceFromMap(str.normalize('NFC'));
+        str = str.normalize('NFD').replace(/\p{M}/gu, '');
+
+        return this.replaceFromMap(str);
+    }
+
+    replaceFromMap(str) {
+        return str.replace(/[^\x00-\x7F]/gu, (c) => this.map.get(c) ?? c);
     }
 
     removeStopWords(str, options) {
@@ -224,11 +143,7 @@ export default class InputPresetEngine {
     }
 
     toSnake(slug, numChars, options) {
-        this.initialize();
-
-        slug = slug.replace(this.regex, (m) => {
-            return this.map[m];
-        });
+        slug = this.transliterate(slug);
 
         slug = this.removeStopWords(slug, options);
         slug = slug.toLowerCase();
@@ -239,11 +154,7 @@ export default class InputPresetEngine {
     }
 
     toCamel(slug, numChars, options) {
-        this.initialize();
-
-        slug = slug.replace(this.regex, (m) => {
-            return this.map[m];
-        });
+        slug = this.transliterate(slug);
 
         slug = this.removeStopWords(slug, options);
         slug = slug.toLowerCase();
@@ -266,11 +177,7 @@ export default class InputPresetEngine {
     }
 
     slugify(slug, numChars, options) {
-        this.initialize();
-
-        slug = slug.replace(this.regex, (m) => {
-            return this.map[m];
-        });
+        slug = this.transliterate(slug);
 
         slug = this.removeStopWords(slug, options);
         slug = slug.replaceAll('\\', ' ');

@@ -2,7 +2,7 @@
 
 Automatically converts text entered in a source input to a formatted value in a destination input. Useful for generating slugs, URLs, file names, or camelCase identifiers from a title field.
 
-Includes a transliteration engine supporting Vietnamese, Latin, Greek, Turkish, Russian, Ukrainian, Czech, Polish, Latvian, Arabic, Persian, Lithuanian, Serbian, Azerbaijani, Romanian, and Belarusian character sets.
+Includes a transliteration engine that reduces accented Latin letters in any language to their base letter, and transliterates Greek, Russian, Ukrainian, Serbian, Belarusian, Arabic, and Persian character sets.
 
 ## Basic Usage
 

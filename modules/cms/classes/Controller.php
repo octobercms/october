@@ -19,6 +19,7 @@ use Cms\Twig\Loader as TwigLoader;
 use Cms\Twig\DebugExtension;
 use Cms\Twig\Extension as CmsTwigExtension;
 use Cms\Models\MaintenanceSetting;
+use System\Classes\Vite;
 use System\Models\RequestLog;
 use System\Twig\Extension as SystemTwigExtension;
 use System\Twig\SecurityPolicy as TwigSecurityPolicy;
@@ -763,6 +764,40 @@ class Controller implements AjaxControllerInterface
         }
 
         return Url::toRelative($themeUrl);
+    }
+
+    /**
+     * themeVite returns the tags for Vite entry points built inside the theme. While the
+     * Vite dev server runs, its hot file in the theme directory points the tags at the
+     * server, otherwise they load from the manifest in the build directory. Both are
+     * read from the theme directory, so the public folder doesn't need the theme.
+     */
+    public function themeVite(array|string $entryPoints, string $buildDirectory = 'assets/dist'): string
+    {
+        return (new Vite)
+            ->useBasePath($this->getThemeVitePath($buildDirectory))
+            ->useBuildDirectory($buildDirectory)
+            ->createAssetPathsUsing(fn ($path) => $this->themeUrl($path))
+            ->withEntryPoints((array) $entryPoints)
+            ->toHtml();
+    }
+
+    /**
+     * getThemeVitePath returns the directory of the theme that has the Vite build, which
+     * is the parent theme when a child theme doesn't have its own.
+     */
+    protected function getThemeVitePath(string $buildDirectory): string
+    {
+        $hasBuild = fn ($path) => is_file($path.'/hot') || is_file($path.'/'.$buildDirectory.'/manifest.json');
+
+        $themePath = $this->theme->getPath();
+        $parentTheme = $this->theme->getParentTheme();
+
+        if (!$hasBuild($themePath) && $parentTheme && $hasBuild($parentTheme->getPath())) {
+            return $parentTheme->getPath();
+        }
+
+        return $themePath;
     }
 
     /**

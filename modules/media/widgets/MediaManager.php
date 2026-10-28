@@ -412,11 +412,12 @@ class MediaManager extends WidgetBase
         }
 
         $type = Input::get('type');
-        $autoRename = Config::get('media.auto_rename') === 'slug';
 
         // Auto rename is enabled, slug the value
-        if ($type !== MediaLibraryItem::TYPE_FILE && $autoRename) {
-            $newName = $this->slugFileName($newName);
+        if ($this->isAutoRenameEnabled()) {
+            $newName = $type === MediaLibraryItem::TYPE_FILE
+                ? $this->slugFileName(File::name($newName)).'.'.strtolower(File::extension($newName))
+                : $this->slugFileName($newName);
         }
 
         if (!$this->validateFileName($newName)) {
@@ -502,8 +503,7 @@ class MediaManager extends WidgetBase
         }
 
         // Auto rename is enabled, slug the value
-        $autoRename = Config::get('media.auto_rename') === 'slug';
-        if ($autoRename) {
+        if ($this->isAutoRenameEnabled()) {
             $name = $this->slugFileName($name);
         }
 
@@ -1609,8 +1609,7 @@ class MediaManager extends WidgetBase
             $fileName = File::name($fileName).'.'.$extension;
 
             // File name is invalid or auto rename is enabled, slug the value
-            $autoRename = Config::get('media.auto_rename') === 'slug';
-            if ($autoRename || !$this->validateFileName($fileName)) {
+            if ($this->isAutoRenameEnabled() || !$this->validateFileName($fileName)) {
                 $fileNameClean = $this->slugFileName(File::name($fileName));
                 $fileName = "{$fileNameClean}.{$extension}";
             }
@@ -1768,6 +1767,15 @@ class MediaManager extends WidgetBase
         }
 
         return true;
+    }
+
+    /**
+     * isAutoRenameEnabled checks if media item names should be slugged automatically.
+     * @return bool
+     */
+    protected function isAutoRenameEnabled(): bool
+    {
+        return Config::get('media.auto_rename') === 'slug';
     }
 
     /**
