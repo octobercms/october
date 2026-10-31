@@ -151,6 +151,11 @@ trait HasRenderers
      */
     public function renderPartial($name, $parameters = [], $throwException = true)
     {
+        // Expose the caller's parameters to the props tag, the partial tag supplies its own
+        if (!array_key_exists('__cms_partial_params', $parameters)) {
+            $parameters['__cms_partial_params'] = $parameters;
+        }
+
         $vars = $this->vars;
         $this->vars = array_merge($this->vars, $parameters);
 

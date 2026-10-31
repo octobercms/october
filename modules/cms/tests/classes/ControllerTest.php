@@ -143,6 +143,39 @@ class ControllerTest extends TestCase
         );
     }
 
+    public function testPartialTagOnlyExcludesTemplateContext()
+    {
+        // The partial tag passes template variables to the partial unless the only keyword is used.
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/with-partial-only')->getContent();
+        $this->assertEquals('<div>LAYOUT PARTIAL<p>AL B</p></div>', $response);
+    }
+
+    public function testPartialPropsFromFunctionAndPhp()
+    {
+        // Props and attributes must resolve the same way via partial() and renderPartial().
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/with-props-function')->getContent();
+        $this->assertEquals(
+            '<div>LAYOUT PARTIAL<p><div class="card mt-4"><h2>Hi</h2>OK</div><div class="card mt-2"><h2>Php</h2>C</div></p></div>',
+            $response
+        );
+    }
+
+    public function testPartialPropsIgnoreParentPartialParams()
+    {
+        // A partial() call inside a partial tag must not inherit the outer tag's parameters as props.
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $response = $controller->run('/with-props-nested')->getContent();
+        $this->assertEquals(
+            '<div>LAYOUT PARTIAL<p><div class="card inner"><h2></h2>In</div></p></div>',
+            $response
+        );
+    }
+
     public function testContent()
     {
         $theme = Theme::load('test');

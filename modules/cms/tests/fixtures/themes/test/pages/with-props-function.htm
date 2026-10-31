@@ -1,0 +1,8 @@
+url = "/with-props-function"
+layout = "partials"
+==
+function onStart() {
+    $this['phpCard'] = $this->renderPartial('props-card', ['title' => 'Php', 'class' => 'mt-2', 'body' => 'C']);
+}
+==
+<p>{{ partial('props-card', {title: 'Hi', class: 'mt-4', body: 'OK'}) }}{{ phpCard|raw }}</p>
