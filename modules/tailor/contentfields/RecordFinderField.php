@@ -75,10 +75,14 @@ class RecordFinderField extends FallbackField
     {
         $field = $form->addFormField($this->fieldName, $this->label);
 
-        // Content field 'scope' can conflict with Form Widget 'scope'
-        $field->useConfig($this->config + [
-            'nameFrom' => 'title',
-            'scope' => null
+        // Content field 'scope' configures the filter, so the form widget only receives it as a model scope method name
+        $config = $this->config;
+        if (!is_string($config['scope'] ?? null)) {
+            unset($config['scope']);
+        }
+
+        $field->useConfig($config + [
+            'nameFrom' => 'title'
         ]);
 
         // Singular and multi display modes
@@ -115,13 +119,13 @@ class RecordFinderField extends FallbackField
     }
 
     /**
-     * defineFilterScope
+     * defineFilterScope will define how a field is displayed in a filter.
      */
     public function defineFilterScope(FilterElement $filter, $context = null)
     {
         $filter->defineScope($this->fieldName, $this->label)
             ->displayAs('group')
-            ->nameFrom('title')
+            ->nameFrom($this->nameFrom ?: 'title')
             ->shortLabel($this->shortLabel)
             ->useConfig($this->scope ?: [])
         ;

@@ -9,6 +9,9 @@
     data-hot-options='<?= e(json_encode($hotOptions)) ?>'
     data-ajax-columns='<?= e(json_encode($ajaxColumns)) ?>'
     data-column-dependencies='<?= e(json_encode($columnDependencies)) ?>'
+    data-adding="<?= $adding ? 'true' : 'false' ?>"
+    data-deleting="<?= $deleting ? 'true' : 'false' ?>"
+    data-require-valid="<?= $requireValid ? 'true' : 'false' ?>"
     data-field-name="<?= $name ?>"
 >
     <?php if ($toolbar): ?>
@@ -36,6 +39,7 @@
                 <i class="icon-upload"></i>
                 <span class="button-label">Import</span>
             </button>
+            <input type="file" class="d-none" accept=".csv,text/csv" data-table-import-file />
         <?php endif ?>
         <?php if ($searching): ?>
             <div class="toolbar-search">

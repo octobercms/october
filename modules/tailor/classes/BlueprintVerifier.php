@@ -244,7 +244,7 @@ class BlueprintVerifier
     }
 
     /**
-     * validateSourceReferences validates source references in raw field config recursively
+     * validateSourceReferences validates source references in raw field config recursively, including repeater groups
      */
     protected function validateSourceReferences(Blueprint $blueprint, array $fields)
     {
@@ -271,6 +271,17 @@ class BlueprintVerifier
 
             if (is_array($nestedFields)) {
                 $this->validateSourceReferences($blueprint, $nestedFields);
+            }
+
+            // Recursively check the fields of each repeater group
+            $groups = $fieldConfig['groups'] ?? null;
+
+            if (is_array($groups)) {
+                foreach ($groups as $group) {
+                    if (is_array($group['fields'] ?? null)) {
+                        $this->validateSourceReferences($blueprint, $group['fields']);
+                    }
+                }
             }
         }
     }

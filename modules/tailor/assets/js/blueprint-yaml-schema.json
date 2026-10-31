@@ -2939,6 +2939,35 @@
             ],
             "type": "object"
         },
+        "ExtraNavigationItem": {
+            "properties": {
+                "icon": {
+                    "type": "string"
+                },
+                "iconSvg": {
+                    "type": "string"
+                },
+                "itemType": {
+                    "enum": [
+                        "link",
+                        "primary",
+                        "ruler",
+                        "section"
+                    ],
+                    "type": "string"
+                },
+                "label": {
+                    "type": "string"
+                },
+                "order": {
+                    "type": "number"
+                },
+                "url": {
+                    "type": "string"
+                }
+            },
+            "type": "object"
+        },
         "Fields": {
             "additionalProperties": {
                 "$ref": "#/definitions/AnyField"
@@ -4040,6 +4069,15 @@
                     "type": "string"
                 },
                 "label": {
+                    "type": "string"
+                },
+                "mode": {
+                    "enum": [
+                        "content",
+                        "primary",
+                        "secondary",
+                        "settings"
+                    ],
                     "type": "string"
                 },
                 "order": {
@@ -5494,6 +5532,9 @@
                         }
                     ]
                 },
+                "maxItems": {
+                    "type": "number"
+                },
                 "modelClass": {
                     "type": "string"
                 },
@@ -5539,7 +5580,20 @@
                     "type": "boolean"
                 },
                 "scope": {
-                    "type": "string"
+                    "anyOf": [
+                        {
+                            "additionalProperties": true,
+                            "properties": {},
+                            "type": "object"
+                        },
+                        {
+                            "const": false,
+                            "type": "boolean"
+                        },
+                        {
+                            "type": "string"
+                        }
+                    ]
                 },
                 "searchMode": {
                     "enum": [
@@ -11872,6 +11926,12 @@
         "drafts": {
             "type": "boolean"
         },
+        "extraNavigation": {
+            "additionalProperties": {
+                "$ref": "#/definitions/ExtraNavigationItem"
+            },
+            "type": "object"
+        },
         "fields": {
             "additionalProperties": {
                 "$ref": "#/definitions/TailorField"
@@ -11961,6 +12021,17 @@
                 }
             },
             "type": "object"
+        },
+        "primaryNavigation": {
+            "anyOf": [
+                {
+                    "$ref": "#/definitions/Navigation"
+                },
+                {
+                    "const": false,
+                    "type": "boolean"
+                }
+            ]
         },
         "scopes": {
             "additionalProperties": {

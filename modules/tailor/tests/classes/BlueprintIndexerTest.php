@@ -6,6 +6,11 @@ use Tailor\Classes\BlueprintIndexer;
 
 class BlueprintIndexerTest extends TestCase
 {
+    /**
+     * @var array pluginBlueprintsPaths are temporary plugin blueprint directories removed after each test
+     */
+    protected $pluginBlueprintsPaths = [];
+
     public function setUp(): void
     {
         parent::setUp();
@@ -21,6 +26,10 @@ class BlueprintIndexerTest extends TestCase
         Config::set('cms.active_theme', 'test');
         Theme::resetCache();
         Blueprint::resetDatasourceCache();
+
+        foreach ($this->pluginBlueprintsPaths as $path) {
+            File::deleteDirectory($path);
+        }
 
         parent::tearDown();
     }
@@ -112,6 +121,43 @@ class BlueprintIndexerTest extends TestCase
     }
 
     /**
+     * testDebugModeDetectsPluginBlueprintChanges checks a changed plugin blueprint refreshes the debug stamp.
+     */
+    public function testDebugModeDetectsPluginBlueprintChanges()
+    {
+        $mtime = time() + 3600;
+        $this->setPluginDatasources(['October.PluginTest' => $this->makePluginBlueprintsPath($mtime)]);
+
+        // Stamp predates the plugin blueprint, it must be refreshed
+        $this->assertSame($mtime, $this->runDebugCheckWithStamp($mtime - 1));
+
+        // Stamp is current, it must be kept
+        $this->assertSame($mtime, $this->runDebugCheckWithStamp($mtime));
+    }
+
+    /**
+     * testDebugModeWithoutAppBlueprintsDirectory checks theme and plugin blueprints are still checked when the app blueprints directory is missing.
+     */
+    public function testDebugModeWithoutAppBlueprintsDirectory()
+    {
+        $this->app->useAppPath(base_path('modules/tailor/tests/fixtures/missing-app'));
+        $this->assertFileNotExists(app_path('blueprints'));
+
+        Config::set('cms.active_theme', 'parenttest');
+        Theme::resetCache();
+
+        // Theme blueprints are checked
+        $this->setPluginDatasources([]);
+        $themeMtime = File::lastModifiedRecursive(Theme::getActiveTheme()->getPath().'/blueprints');
+        $this->assertSame($themeMtime, $this->runDebugCheckWithStamp(-1));
+
+        // Plugin blueprints are checked
+        $mtime = time() + 3600;
+        $this->setPluginDatasources(['October.PluginTest' => $this->makePluginBlueprintsPath($mtime)]);
+        $this->assertSame($mtime, $this->runDebugCheckWithStamp($themeMtime));
+    }
+
+    /**
      * testPermissionConfigWithCustomCodeAndLabel checks the permissions blueprint
      * property can override the generated permission code and label.
      */
@@ -174,5 +220,47 @@ class BlueprintIndexerTest extends TestCase
         // Clearing the context restores the active theme filtering
         $indexer->setThemeContext(null);
         $this->assertNull($indexer->findSectionByHandle('Webinar'));
+    }
+
+    /**
+     * runDebugCheckWithStamp writes the debug stamp, runs the debug mode check and returns the resulting stamp mtime.
+     */
+    protected function runDebugCheckWithStamp(int $stampMtime): int
+    {
+        $indexer = BlueprintIndexer::instance();
+        $stamp = self::callProtectedMethod($indexer, 'makeCacheFile', ['debug']);
+        @mkdir(dirname($stamp), 0755, true);
+
+        file_put_contents($stamp, '<?php return ' . var_export(['mtime' => $stampMtime], true) . ';');
+        self::setProtectedProperty($indexer, 'debugChecked', false);
+        self::callProtectedMethod($indexer, 'resetCacheInDebugMode');
+
+        $result = (require $stamp)['mtime'];
+        @unlink($stamp);
+
+        return $result;
+    }
+
+    /**
+     * makePluginBlueprintsPath creates a temporary plugin blueprints directory holding one blueprint modified at the given time.
+     */
+    protected function makePluginBlueprintsPath(int $mtime): string
+    {
+        $path = base_path('modules/tailor/tests/fixtures/plugin-blueprints-'.bin2hex(random_bytes(4)));
+        mkdir($path, 0755, true);
+
+        file_put_contents($path.'/note.yaml', "handle: PluginNote\ntype: mixin\nname: Plugin Note\n");
+        touch($path.'/note.yaml', $mtime);
+        clearstatcache();
+
+        return $this->pluginBlueprintsPaths[] = $path;
+    }
+
+    /**
+     * setPluginDatasources replaces the plugin blueprint directories resolved by the blueprint classes.
+     */
+    protected function setPluginDatasources(array $paths): void
+    {
+        (new ReflectionProperty(Blueprint::class, 'resolvedPlugins'))->setValue(null, $paths);
     }
 }

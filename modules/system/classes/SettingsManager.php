@@ -184,7 +184,7 @@ class SettingsManager
 
         // Emulate groups for filterByContext by wrapping and unwrapping
         if ($context !== null) {
-            return $this->filterByContext([$this->items], $context)[0];
+            return $this->filterByContext([$this->items], $context)[0] ?? [];
         }
 
         return $this->items;

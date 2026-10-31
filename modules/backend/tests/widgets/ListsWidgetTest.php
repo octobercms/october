@@ -159,6 +159,48 @@ class ListsWidgetTest extends PluginTestCase
         ];
     }
 
+    /**
+     * testSelectableColumnEscapesOptionAttributes checks image and icon option values cannot break out of their attributes.
+     * @dataProvider selectableOptionProvider
+     */
+    public function testSelectableColumnEscapesOptionAttributes(string $optionValue, string $expected)
+    {
+        $user = new BackendUserFixture;
+        $this->actingAs($user->asSuperUser());
+
+        $list = new Lists(null, [
+            'model' => new User,
+            'arrayName' => 'array',
+            'columns' => [
+                'login' => [
+                    'type' => 'selectable',
+                    'label' => 'Login',
+                    'options' => ['admin' => ['Admin', $optionValue]]
+                ]
+            ]
+        ]);
+        $list->render();
+
+        $record = new User;
+        $record->login = 'admin';
+
+        $html = (string) $list->getColumnValue($record, $list->getColumn('login'));
+
+        $this->assertStringContainsString($expected, $html);
+        $this->assertStringNotContainsString('onerror="alert(1)"', $html);
+    }
+
+    /**
+     * selectableOptionProvider returns option values for the image and icon branches with the escaped output.
+     */
+    public static function selectableOptionProvider(): array
+    {
+        return [
+            ['/images/x.svg" onerror="alert(1)', '<img src="/images/x.svg&quot; onerror=&quot;alert(1)"'],
+            ['ph ph-user" onerror="alert(1)', '<i class="ph ph-user&quot; onerror=&quot;alert(1)"'],
+        ];
+    }
+
     protected function restrictedListsFixture(bool $singlePermission = false)
     {
         return new Lists(null, [

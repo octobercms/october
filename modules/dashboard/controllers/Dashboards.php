@@ -161,6 +161,25 @@ class Dashboards extends Controller
     }
 
     /**
+     * listBeforeReorder rejects reorder requests that reference dashboards outside the user's list.
+     */
+    public function listBeforeReorder($record, $definition = null)
+    {
+        $ids = array_filter(array_merge(
+            [$record->getKey()],
+            (array) post('sort_orders', []),
+            (array) post('root_sort_orders', [])
+        ));
+
+        $query = Dashboard::whereIn('id', $ids);
+        $this->listExtendQuery($query);
+
+        if (array_diff(array_unique($ids), $query->pluck('id')->all())) {
+            throw new ForbiddenException;
+        }
+    }
+
+    /**
      * listExtendRefreshResults refreshes the sidenav on every list update
      */
     public function listExtendRefreshResults($host, $result, $definition = null)

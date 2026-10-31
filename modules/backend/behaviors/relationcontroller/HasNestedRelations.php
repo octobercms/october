@@ -183,7 +183,7 @@ trait HasNestedRelations
 
             if (
                 ($parentId = $this->manageIds[$parentField]) &&
-                ($manageModel = $lastModel->find($parentId))
+                ($manageModel = $this->findNestedParentModel($model, $parentField, $parentId))
             ) {
                 $lastModel = $manageModel;
             }
@@ -192,6 +192,30 @@ trait HasNestedRelations
         }
 
         return null;
+    }
+
+    /**
+     * findNestedParentModel finds the managed parent through its own relation, so a nested relation is only managed for a related parent.
+     */
+    protected function findNestedParentModel($model, string $parentField, $parentId)
+    {
+        [$ownerModel, $relationName] = $this->makeNestedRelationModel($model, $parentField);
+        if (!$ownerModel->hasRelation($relationName)) {
+            return null;
+        }
+
+        $relation = $ownerModel->{$relationName}();
+        $sessionKey = $this->sessionKeys[$parentField][1] ?? null;
+
+        if (!$this->filterRelatedRecordIds($relation, $ownerModel, $parentField, $sessionKey, [$parentId])) {
+            return null;
+        }
+
+        $query = $relation->getRelated()->newQuery();
+
+        $this->controller->relationExtendManageFormQuery($parentField, $query);
+
+        return $query->find($parentId);
     }
 
     /**

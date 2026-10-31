@@ -27,4 +27,21 @@ class SettingsManagerTest extends TestCase
 
         $this->assertStringEndsWith('system/settings/update/standalone/general', $item->url);
     }
+
+    /**
+     * testListAllItemsInContextWithoutMatchesIsEmpty ensures a context with no matching items returns an empty list.
+     */
+    public function testListAllItemsInContextWithoutMatchesIsEmpty()
+    {
+        $manager = SettingsManager::instance();
+        $items = self::getProtectedProperty($manager, 'items');
+
+        try {
+            self::setProtectedProperty($manager, 'items', []);
+            $this->assertSame([], $manager->listAllItems('mysettings'));
+        }
+        finally {
+            self::setProtectedProperty($manager, 'items', $items);
+        }
+    }
 }

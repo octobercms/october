@@ -725,7 +725,7 @@ class PluginManager
                 $this->populateDisabledPluginsFromDb();
             }
         }
-        else {
+        elseif ($this->app->hasDatabase()) {
             $this->populateDisabledPluginsFromDb();
             $this->writeDisabled();
         }

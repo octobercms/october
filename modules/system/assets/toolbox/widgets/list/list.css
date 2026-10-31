@@ -589,6 +589,16 @@ table.table.data {
             margin-left: 3px;
             text-align: center;
         }
+
+        img {
+            display: inline-block;
+            width: auto;
+            max-width: 18px;
+            max-height: 18px;
+            margin-right: 3px;
+            margin-left: 3px;
+            vertical-align: middle;
+        }
     }
 
     /*

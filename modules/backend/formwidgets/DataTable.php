@@ -1,6 +1,10 @@
 <?php namespace Backend\FormWidgets;
 
 use Lang;
+use Response;
+use League\Csv\Info as CsvInfo;
+use League\Csv\Reader as CsvReader;
+use League\Csv\Writer as CsvWriter;
 use Backend\Classes\FormWidgetBase;
 
 /**
@@ -126,6 +130,7 @@ class DataTable extends FormWidgetBase
             $this->vars['searching'] = $this->getFieldConfig('searching', false);
             $this->vars['csvExport'] = $this->getFieldConfig('csvExport', false);
             $this->vars['csvImport'] = $this->getFieldConfig('csvImport', false);
+            $this->vars['requireValid'] = $this->getFieldConfig('requireValid', false);
         }
     }
 
@@ -182,7 +187,9 @@ class DataTable extends FormWidgetBase
         ];
 
         if (isset($config['width'])) {
-            $column['width'] = (int) str_replace('px', '', $config['width']);
+            // Percentages stay as given and resolve against the field width, other widths are pixels
+            $width = trim((string) $config['width']);
+            $column['width'] = str_ends_with($width, '%') ? $width : (int) str_replace('px', '', $width);
         }
 
         if (!empty($config['ellipsis'])) {
@@ -328,6 +335,11 @@ class DataTable extends FormWidgetBase
             $options['minRows'] = 1;
         }
 
+        if (!$this->getFieldConfig('multiSelect', true)) {
+            $options['selectionMode'] = 'single';
+            $options['fillHandle'] = false;
+        }
+
         return $options;
     }
 
@@ -354,6 +366,104 @@ class DataTable extends FormWidgetBase
         }
 
         return ['options' => []];
+    }
+
+    /**
+     * onExportCsv downloads the posted rows as CSV, with the column titles as the header row
+     */
+    public function onExportCsv()
+    {
+        $rows = json_decode(post('tableData'), true) ?: [];
+
+        $csv = CsvWriter::createFromString();
+        $csv->setOutputBOM(CsvWriter::BOM_UTF8);
+        $csv->insertOne(array_map([$this, 'neutralizeCsvFormula'], array_column($this->processedColumns, 'title')));
+
+        foreach ($rows as $row) {
+            $csv->insertOne(array_map(function ($column) use ($row) {
+                $value = $row[$column['data']] ?? null;
+                return $this->neutralizeCsvFormula(is_array($value) ? json_encode($value) : $value);
+            }, $this->processedColumns));
+        }
+
+        $fileName = preg_replace('/[^A-Za-z0-9_-]+/', '_', $this->fieldName) ?: 'datatable';
+
+        return Response::make($csv->toString(), 200, [
+            'Content-Type' => 'text/csv; charset=utf-8',
+            'Content-Disposition' => 'attachment; filename="'.$fileName.'.csv"',
+        ]);
+    }
+
+    /**
+     * onImportCsv reads posted CSV text into rows keyed by column, matching the header row to column
+     * titles or names, or using the column order when the first row is not a header
+     */
+    public function onImportCsv()
+    {
+        $reader = CsvReader::createFromString((string) post('csvData'));
+
+        $delimiters = CsvInfo::getDelimiterStats($reader, [',', ';', "\t"], 10);
+        arsort($delimiters);
+        $reader->setDelimiter((string) array_key_first($delimiters) ?: ',');
+
+        $records = iterator_to_array($reader->getRecords(), false);
+        $columnMap = $this->getCsvHeaderColumnMap($records[0] ?? []);
+
+        if ($columnMap) {
+            array_shift($records);
+        }
+        else {
+            $columnMap = array_column($this->processedColumns, 'data');
+        }
+
+        $rows = [];
+        foreach ($records as $record) {
+            $row = [];
+            foreach ($columnMap as $index => $columnName) {
+                $row[$columnName] = $record[$index] ?? null;
+            }
+
+            if (array_filter($row, fn ($value) => $value !== null && $value !== '')) {
+                $rows[] = $row;
+            }
+        }
+
+        return ['rows' => $rows];
+    }
+
+    /**
+     * getCsvHeaderColumnMap maps CSV header positions to column names by title or name,
+     * returning an empty array when no header cell matches a column
+     */
+    protected function getCsvHeaderColumnMap(array $header): array
+    {
+        $lookup = [];
+        foreach ($this->processedColumns as $column) {
+            $lookup[mb_strtolower(trim($column['title']))] = $column['data'];
+            $lookup[mb_strtolower(trim($column['data']))] = $column['data'];
+        }
+
+        $map = [];
+        foreach ($header as $index => $cell) {
+            $key = mb_strtolower(trim((string) $cell));
+            if (isset($lookup[$key])) {
+                $map[$index] = $lookup[$key];
+            }
+        }
+
+        return $map;
+    }
+
+    /**
+     * neutralizeCsvFormula prepends an apostrophe to values a spreadsheet would read as a formula
+     */
+    protected function neutralizeCsvFormula($value)
+    {
+        if (is_string($value) && strlen($value) && in_array($value[0], ['=', '+', '-', '@', "\t", "\r"], true)) {
+            return "'" . $value;
+        }
+
+        return $value;
     }
 
     //

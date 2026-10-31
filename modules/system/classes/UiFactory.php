@@ -36,10 +36,10 @@ class UiFactory
     }
 
     /**
-     * callout
+     * callout creates a callout, where the optional body is a string, closure or UI element
      */
-    public static function callout()
+    public static function callout($body = null)
     {
-        return new \System\Classes\UiFactory\Migrate\Callout();
+        return new \System\Classes\UiFactory\Migrate\Callout($body);
     }
 }

@@ -345,8 +345,9 @@ trait HasManageMode
         if ($this->viewMode === 'multi') {
             if (($checkedIds = post('checked')) && is_array($checkedIds)) {
                 foreach ($checkedIds as $relationId) {
+                    // A fresh relation per record, since wherePivot adds to the query it is called on
                     if ($pivotKey = $this->isPivotIncrementing()) {
-                        $obj = $this->relationObject->wherePivot($pivotKey, $relationId)->first();
+                        $obj = $this->relationParent->{$this->relationName}()->wherePivot($pivotKey, $relationId)->first();
                     }
                     else {
                         $obj = $this->findManageModelObject($relationId);
@@ -416,7 +417,7 @@ trait HasManageMode
         }
         // Link
         elseif ($this->viewMode === 'single') {
-            if ($recordId && ($model = $this->findManageModelObject($recordId))) {
+            if ($recordId && ($model = $this->findLinkModelObject($recordId))) {
                 $this->relationObject->add($model, $sessionKey);
                 $this->viewFormWidget->setFormValues($model->attributes);
 
@@ -457,7 +458,7 @@ trait HasManageMode
                 }
                 else {
                     $foreignKeyName = $relatedModel->getKeyName();
-                    $models = $relatedModel->whereIn($foreignKeyName, $checkedIds)->get();
+                    $models = $relatedModel->whereIn($foreignKeyName, $this->findRelatedRecordIds($checkedIds))->get();
                 }
 
                 $this->controller->relationBeforeRemove($this->field, $models);
@@ -573,9 +574,21 @@ trait HasManageMode
     }
 
     /**
-     * findManageModelObject for the current field
+     * findManageModelObject finds a record that belongs to the relation, so unrelated records cannot be managed.
      */
     protected function findManageModelObject($recordId)
+    {
+        if (!strlen($recordId) || !$this->findRelatedRecordIds([$recordId])) {
+            return null;
+        }
+
+        return $this->findLinkModelObject($recordId);
+    }
+
+    /**
+     * findLinkModelObject finds any record of the related model, used when linking a record that is not yet related.
+     */
+    protected function findLinkModelObject($recordId)
     {
         if (!strlen($recordId)) {
             return null;
@@ -586,5 +599,44 @@ trait HasManageMode
         $this->controller->relationExtendManageFormQuery($this->field, $query);
 
         return $query->find($recordId);
+    }
+
+    /**
+     * findRelatedRecordIds returns the given IDs that belong to the relation, including records bound in the current session.
+     */
+    protected function findRelatedRecordIds(array $recordIds): array
+    {
+        // A fresh relation keeps the shared relation object's query untouched
+        $relation = $this->relationParent->{$this->relationName}();
+        $sessionKey = $this->deferredBinding ? $this->relationSessionKey : null;
+
+        return $this->filterRelatedRecordIds($relation, $this->relationParent, $this->field, $sessionKey, $recordIds);
+    }
+
+    /**
+     * filterRelatedRecordIds returns the given IDs found in a parent's relation, constrained the same way as the related records list.
+     */
+    protected function filterRelatedRecordIds($relation, $parentModel, string $field, ?string $sessionKey, array $recordIds): array
+    {
+        $query = $relation->getRelated()->newQuery();
+        $relation->addDefinedConstraintsToQuery($query);
+        $relation->setQuery($query);
+
+        if ($sessionKey && method_exists($relation, 'withDeferredQuery')) {
+            $relation->withDeferredQuery(null, $sessionKey);
+        }
+        elseif ($parentModel->exists) {
+            $relation->addConstraints();
+        }
+        else {
+            return [];
+        }
+
+        $this->controller->relationExtendManageFormQuery($field, $query);
+
+        // Select only the key, since sortable pivots add their own columns and ordering
+        $keyName = $relation->getRelated()->getQualifiedKeyName();
+
+        return $query->whereIn($keyName, $recordIds)->reorder()->select($keyName)->pluck($keyName)->all();
     }
 }

@@ -65,6 +65,14 @@ trait HasDatasources
     }
 
     /**
+     * getPluginDatasources returns the blueprint directories provided by plugins, keyed by plugin code.
+     */
+    public static function getPluginDatasources(): array
+    {
+        return static::getDefaultPlugins();
+    }
+
+    /**
      * getDefaultPlugins
      */
     protected static function getDefaultPlugins()

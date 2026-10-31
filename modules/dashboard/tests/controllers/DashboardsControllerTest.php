@@ -98,6 +98,88 @@ class DashboardsControllerTest extends PluginTestCase
     }
 
     /**
+     * testReorderRejectsAnotherUsersDashboard ensures a user without global management cannot reorder dashboards outside their list.
+     */
+    public function testReorderRejectsAnotherUsersDashboard()
+    {
+        $controller = $this->makeManagerController();
+        $other = $this->makeOwnedDashboard('other-sales', 8);
+
+        $this->expectException(ForbiddenException::class);
+
+        $controller->listBeforeReorder($other);
+    }
+
+    /**
+     * testReorderRejectsAnotherUsersDashboardInSortOrders ensures the posted ordering cannot include dashboards outside the user's list.
+     */
+    public function testReorderRejectsAnotherUsersDashboardInSortOrders()
+    {
+        $controller = $this->makeManagerController();
+        $own = $this->makeOwnedDashboard('own-sales', 7);
+        $other = $this->makeOwnedDashboard('other-sales', 8);
+
+        request()->setMethod('POST');
+        request()->request->add(['sort_orders' => [$own->id, $other->id]]);
+
+        $this->expectException(ForbiddenException::class);
+
+        $controller->listBeforeReorder($own);
+    }
+
+    /**
+     * testReorderAllowsOwnDashboards ensures a user can still reorder the dashboards in their list.
+     */
+    public function testReorderAllowsOwnDashboards()
+    {
+        $controller = $this->makeManagerController();
+        $first = $this->makeOwnedDashboard('first-sales', 7);
+        $second = $this->makeOwnedDashboard('second-sales', 7);
+
+        request()->setMethod('POST');
+        request()->request->add(['sort_orders' => [$second->id, $first->id]]);
+
+        $this->assertNull($controller->listBeforeReorder($first));
+    }
+
+    /**
+     * makeManagerController returns the dashboards controller for a user with dashboard.manage but not global management.
+     */
+    protected function makeManagerController(): Dashboards
+    {
+        $user = (new BackendUserFixture)->withPermission(['dashboard.manage' => 1]);
+        $user->forceFill(['id' => 7]);
+        $this->actingAs($user);
+
+        return new Dashboards;
+    }
+
+    /**
+     * makeOwnedDashboard saves a dashboard created by the given user.
+     */
+    protected function makeOwnedDashboard(string $code, int $userId): Dashboard
+    {
+        $dashboard = new Dashboard;
+        $dashboard->name = $code;
+        $dashboard->code = $code;
+        $dashboard->owner_type = Index::class;
+        $dashboard->created_user_id = $userId;
+        $dashboard->save();
+
+        return $dashboard;
+    }
+
+    /**
+     * tearDown clears the postback between tests.
+     */
+    public function tearDown(): void
+    {
+        request()->request->replace();
+
+        parent::tearDown();
+    }
+
+    /**
      * renderPopupButtons renders the popup form buttons of a dashboard for a superuser.
      */
     protected function renderPopupButtons(Dashboard $dashboard): string

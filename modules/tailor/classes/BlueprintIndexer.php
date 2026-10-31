@@ -201,7 +201,7 @@ class BlueprintIndexer
     }
 
     /**
-     * resetCacheInDebugMode
+     * resetCacheInDebugMode clears the cache when an app, plugin or theme blueprint has changed.
      */
     protected function resetCacheInDebugMode()
     {
@@ -209,13 +209,19 @@ class BlueprintIndexer
             return;
         }
 
-        if (!file_exists(app_path('blueprints'))) {
-            return;
-        }
-
         // Checking recursive mtime of app directory
         $currentMtime = 0;
-        $mtime = File::lastModifiedRecursive(app_path('blueprints'));
+        $mtime = 0;
+        if (file_exists($appPath = app_path('blueprints'))) {
+            $mtime = File::lastModifiedRecursive($appPath);
+        }
+
+        // Checking recursive mtime of plugin directories
+        foreach (Blueprint::getPluginDatasources() as $pluginPath) {
+            if (file_exists($pluginPath)) {
+                $mtime = max($mtime, File::lastModifiedRecursive($pluginPath));
+            }
+        }
 
         // Checking mtime of theme directory, including the parent theme
         $theme = null;
