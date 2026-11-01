@@ -96,6 +96,16 @@ abstract class FormDesignBase extends ControllerBehavior
     }
 
     /**
+     * getDesignChangeMonitor returns true when the unsaved changes warning is enabled
+     * for the design, otherwise null so the form attribute is omitted. Designs can
+     * opt in with `changeMonitor: true` in the design config.
+     */
+    public function getDesignChangeMonitor(bool $default = false): ?bool
+    {
+        return $this->getDesignConfig('changeMonitor', $default) ? true : null;
+    }
+
+    /**
      * getDesignFormSize returns the page size taken from the form configuration,
      * can also specify a custom configuration name, e.g. `sidebarSize`
      */

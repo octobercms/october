@@ -7,7 +7,7 @@
         'isCreateAction' => $this->formGetContext() === 'create',
     ];
 ?>
-<?= Form::open(['class' => 'position-relative h-100', 'data-change-monitor' => true]) ?>
+<?= Form::open(['class' => 'position-relative h-100', 'data-change-monitor' => $this->getDesignChangeMonitor(true)]) ?>
     <div class="position-relative h-100" data-control="vue-app">
         <div class="padded-container d-flex flex-column h-100 form-document-layout">
             <div class="document-header">

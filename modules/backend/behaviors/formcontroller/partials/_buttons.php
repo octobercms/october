@@ -5,6 +5,7 @@
             handler: 'onSave',
             primary: true,
             hotkey: ['ctrl+s', 'cmd+s'],
+            dataChangeMonitorCommit: true,
             dataRequestMessage: __("Creating :name...", ['name' => $formRecordName])
         ) ?>
 
@@ -13,6 +14,7 @@
             handler: 'onSave',
             secondary: true,
             hotkey: ['ctrl+enter', 'cmd+enter'],
+            dataChangeMonitorCommit: true,
             dataBrowserRedirectBack: true,
             dataRequestData: "close: true",
             dataRequestMessage: __("Creating :name...", ['name' => $formRecordName])
@@ -23,6 +25,7 @@
             handler: 'onSave',
             primary: true,
             hotkey: ['ctrl+s', 'cmd+s'],
+            dataChangeMonitorCommit: true,
             dataRequestData: "redirect: false",
             dataRequestMessage: __("Saving :name...", ['name' => $formRecordName])
         ) ?>
@@ -32,6 +35,7 @@
             handler: 'onSave',
             secondary: true,
             hotkey: ['ctrl+enter', 'cmd+enter'],
+            dataChangeMonitorCommit: true,
             dataBrowserRedirectBack: true,
             dataRequestData: "close: true",
             dataRequestMessage: __("Saving :name...", ['name' => $formRecordName])
