@@ -1,7 +1,6 @@
 <?= Form::open([
     'id' => $this->formGetId('managePopup'),
-    'data-popup-size' => $popupSize ?? 950,
-    'data-change-monitor' => $this->getDesignChangeMonitor()
+    'data-popup-size' => $popupSize ?? 950
 ]) ?>
     <input type="hidden" name="form_popup_flag" value="1" />
     <input type="hidden" name="form_record_id" value="<?= $recordId ?? '' ?>" />

@@ -102,4 +102,128 @@ class AttachOneModelTest extends PluginTestCase
         $user->delete();
         $this->assertNotNull(FileModel::find($avatarId));
     }
+
+    public function testReplaceWithAddDeletesPreviousFile()
+    {
+        Model::unguard();
+        $user = User::create(['name' => 'Stevie', 'email' => 'stevie@email.tld']);
+        Model::reguard();
+
+        $first = $user->avatar()->createFromFile(base_path('modules/system/tests/fixtures/plugins/database/tester/assets/images/avatar.png'));
+        $firstPath = $first->getLocalPath();
+        $this->assertFileExists($firstPath);
+
+        $second = new FileModel;
+        $second->fromFile(base_path('modules/system/tests/fixtures/plugins/database/tester/assets/images/avatar.png'));
+        $user->avatar()->add($second);
+
+        $this->assertNull(FileModel::find($first->id));
+        $this->assertFileDoesNotExist($firstPath);
+        $this->assertNotNull(FileModel::find($second->id));
+        $this->assertFileExists($second->getLocalPath());
+    }
+
+    public function testReplaceWithUploadDeletesPreviousFile()
+    {
+        Model::unguard();
+        $user = User::create(['name' => 'Stevie', 'email' => 'stevie@email.tld']);
+        Model::reguard();
+
+        $first = $user->avatar()->createFromFile(base_path('modules/system/tests/fixtures/plugins/database/tester/assets/images/avatar.png'));
+        $firstPath = $first->getLocalPath();
+        $this->assertFileExists($firstPath);
+
+        $user->avatar = $this->makeUploadedFile();
+        $user->save();
+
+        $this->assertNull(FileModel::find($first->id));
+        $this->assertFileDoesNotExist($firstPath);
+        $this->assertNotNull($user->avatar);
+        $this->assertFileExists($user->avatar->getLocalPath());
+    }
+
+    public function testReplaceWithDeferredBindingDeletesPreviousFile()
+    {
+        Model::unguard();
+        $user = User::create(['name' => 'Stevie', 'email' => 'stevie@email.tld']);
+        Model::reguard();
+
+        $first = $user->avatar()->createFromFile(base_path('modules/system/tests/fixtures/plugins/database/tester/assets/images/avatar.png'));
+        $firstPath = $first->getLocalPath();
+        $this->assertFileExists($firstPath);
+
+        $sessionKey = uniqid('session_key', true);
+        $second = new FileModel;
+        $second->fromFile(base_path('modules/system/tests/fixtures/plugins/database/tester/assets/images/avatar.png'));
+        $second->is_public = true;
+        $second->save();
+
+        $user->avatar()->add($second, $sessionKey);
+        $user->save(null, $sessionKey);
+
+        $this->assertNull(FileModel::find($first->id));
+        $this->assertFileDoesNotExist($firstPath);
+        $this->assertNotNull(FileModel::find($second->id));
+        $this->assertFileExists($second->getLocalPath());
+    }
+
+    public function testAddingCurrentFileKeepsIt()
+    {
+        Model::unguard();
+        $user = User::create(['name' => 'Stevie', 'email' => 'stevie@email.tld']);
+        Model::reguard();
+
+        $file = $user->avatar()->createFromFile(base_path('modules/system/tests/fixtures/plugins/database/tester/assets/images/avatar.png'));
+        $filePath = $file->getLocalPath();
+
+        $user->avatar()->add($file);
+
+        $this->assertNotNull(FileModel::find($file->id));
+        $this->assertFileExists($filePath);
+    }
+
+    public function testAddingCurrentFileWithDeferredBindingKeepsIt()
+    {
+        Model::unguard();
+        $user = User::create(['name' => 'Stevie', 'email' => 'stevie@email.tld']);
+        Model::reguard();
+
+        $file = $user->avatar()->createFromFile(base_path('modules/system/tests/fixtures/plugins/database/tester/assets/images/avatar.png'));
+        $filePath = $file->getLocalPath();
+
+        $sessionKey = uniqid('session_key', true);
+        $user->avatar()->add($file, $sessionKey);
+        $user->save(null, $sessionKey);
+
+        $this->assertNotNull(FileModel::find($file->id));
+        $this->assertFileExists($filePath);
+    }
+
+    public function testSetNullDeletesFile()
+    {
+        Model::unguard();
+        $user = User::create(['name' => 'Stevie', 'email' => 'stevie@email.tld']);
+        Model::reguard();
+
+        $file = $user->avatar()->createFromFile(base_path('modules/system/tests/fixtures/plugins/database/tester/assets/images/avatar.png'));
+        $filePath = $file->getLocalPath();
+        $this->assertFileExists($filePath);
+
+        $user->avatar = null;
+        $user->save();
+
+        $this->assertNull(FileModel::find($file->id));
+        $this->assertFileDoesNotExist($filePath);
+    }
+
+    /**
+     * makeUploadedFile builds a test upload from a copied fixture image
+     */
+    protected function makeUploadedFile(): UploadedFile
+    {
+        $path = temp_path('attach-one-test.png');
+        copy(base_path('modules/system/tests/fixtures/plugins/database/tester/assets/images/avatar.png'), $path);
+
+        return new UploadedFile($path, 'avatar.png', 'image/png', null, true);
+    }
 }

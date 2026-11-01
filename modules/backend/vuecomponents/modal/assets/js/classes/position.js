@@ -46,9 +46,7 @@ export class ModalPosition {
     };
 
     fixPosition($contentElement, animate, offsetObj) {
-        var contentOffset = $contentElement.offset();
-
-        contentOffset.top -= window.scrollY;
+        var contentOffset = this.getViewportOffset($contentElement);
 
         var contentWidth = $contentElement.width(),
             contentHeight = $contentElement.height(),
@@ -88,6 +86,25 @@ export class ModalPosition {
                 offsetObj.top -= contentOffset.top - 10;
             }
         }
+    }
+
+    /**
+     * Returns the content offset relative to the viewport from layout geometry, so the dialog's fade-in scale transform does not skew it.
+     */
+    getViewportOffset($contentElement) {
+        var container = $contentElement.closest('.modal').get(0),
+            containerRect = container.getBoundingClientRect(),
+            result = {
+                left: containerRect.left - container.scrollLeft,
+                top: containerRect.top - container.scrollTop
+            };
+
+        for (var el = $contentElement.get(0); el && el !== container; el = el.offsetParent) {
+            result.left += el.offsetLeft;
+            result.top += el.offsetTop;
+        }
+
+        return result;
     }
 
     getInitialOffset(isModal) {

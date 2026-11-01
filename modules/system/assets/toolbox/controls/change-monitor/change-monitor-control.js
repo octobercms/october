@@ -28,7 +28,9 @@ export default class ChangeMonitorControl extends ControlBase {
 
         this.$el.on('change', this.proxy(this.change));
         this.$el.on('unchange.oc.changeMonitor', this.proxy(this.unchange));
-        this.$el.on('click ajaxSuccess', '[data-change-monitor-commit]', this.proxy(this.unchange));
+        this.$el.on('click', '[data-change-monitor-commit]', this.proxy(this.onCommitClick));
+        this.listen('ajax:done', '[data-change-monitor-commit]', this.unchange);
+        this.listen('ajax:before-redirect', '[data-change-monitor-commit]', this.unchange);
         this.$el.on('pause.oc.changeMonitor', this.proxy(this.pause));
         this.$el.on('resume.oc.changeMonitor', this.proxy(this.resume));
         this.$el.on('pauseUnloadListener.oc.changeMonitor', this.proxy(this.pauseUnloadListener));
@@ -52,7 +54,7 @@ export default class ChangeMonitorControl extends ControlBase {
 
         this.$el.off('change', this.proxy(this.change));
         this.$el.off('unchange.oc.changeMonitor', this.proxy(this.unchange));
-        this.$el.off('click ajaxSuccess', '[data-change-monitor-commit]', this.proxy(this.unchange));
+        this.$el.off('click', '[data-change-monitor-commit]', this.proxy(this.onCommitClick));
         this.$el.off('pause.oc.changeMonitor ', this.proxy(this.pause));
         this.$el.off('resume.oc.changeMonitor ', this.proxy(this.resume));
         this.$el.off('pauseUnloadListener.oc.changeMonitor', this.proxy(this.pauseUnloadListener));
@@ -95,6 +97,12 @@ export default class ChangeMonitorControl extends ControlBase {
         if (this.$el.hasClass('oc-data-changed')) {
             this.$el.trigger('unchanged.oc.changeMonitor');
             this.$el.removeClass('oc-data-changed');
+        }
+    }
+
+    onCommitClick(ev) {
+        if (!ev.currentTarget.hasAttribute('data-request')) {
+            this.unchange();
         }
     }
 

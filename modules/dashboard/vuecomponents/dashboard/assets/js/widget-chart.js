@@ -29,12 +29,19 @@ export default {
     data: function () {
         return {
             chart: null,
-            lastGroupInterval: null
+            lastGroupInterval: null,
+            hiddenMetrics: []
         }
     },
     computed: {
         isPieChart: function () {
             return ['pie', 'doughnut'].includes(this.configuration.chartType);
+        },
+
+        // Clicking a metric total shows or hides its line or bars. Pie charts toggle slices
+        // from their own legend, and in edit mode clicks belong to the editor.
+        canToggleMetrics: function () {
+            return !this.isPieChart && !this.store.state.editMode;
         }
     },
     methods: {
@@ -70,6 +77,12 @@ export default {
                 indexAxis = 'y';
             }
 
+            // Metrics on the "right" axis get a second value axis, so values of a different
+            // scale, such as a count beside an amount, don't flatten each other
+            const valueAxis = indexAxis === 'x' ? 'y' : 'x';
+            const secondaryAxis = valueAxis + '1';
+            let hasSecondaryAxis = false;
+
             const metrics = this.getRequestMetrics();
             const datasets = [];
 
@@ -77,9 +90,13 @@ export default {
                 const metricConfiguration = this.getMetricConfigurationByCode(metric);
                 const lineColor = metricConfiguration ? metricConfiguration.color : '#6A6CF7';
                 const bgColor = barChartType ? lineColor : dataHelper.hexToRgbaBackground(lineColor);
+                const onSecondaryAxis = !!metricConfiguration && metricConfiguration.axis === 'right';
+                hasSecondaryAxis = hasSecondaryAxis || onSecondaryAxis;
 
                 datasets.push({
                     axis: indexAxis,
+                    [valueAxis + 'AxisID']: onSecondaryAxis ? secondaryAxis : valueAxis,
+                    hidden: this.isMetricHidden(metric),
                     data: [],
                     label: metricsData[metric].label,
                     pointBackgroundColor: lineColor,
@@ -217,6 +234,27 @@ export default {
             result.options.scales[indexAxis].type = xAxisType;
             result.options.scales[indexAxis].reverse = reverseXAxis;
 
+            if (hasSecondaryAxis) {
+                result.options.scales[secondaryAxis] = {
+                    // Hidden along with its metrics
+                    display: 'auto',
+                    position: indexAxis === 'x' ? 'right' : 'top',
+                    border: {
+                        color: axisColor,
+                        dash: [2, 2]
+                    },
+                    grid: {
+                        drawOnChartArea: false
+                    },
+                    beginAtZero: true,
+                    ticks: {
+                        autoSkip: indexAxis === 'y' ? false : undefined,
+                        maxTicksLimit: indexAxis !== 'y' ? 5 : undefined,
+                    },
+                    stacked: chartType === 'stacked-bar'
+                };
+            }
+
             if (indexAxis === 'x') {
                 result.options.plugins.tooltip.mode = 'index';
                 result.options.plugins.tooltip.intersect = false;
@@ -309,6 +347,32 @@ export default {
             this.widget.configuration.title = oc.t("Chart");
         },
 
+        isMetricHidden: function (metricCode) {
+            return this.hiddenMetrics.includes(metricCode);
+        },
+
+        toggleMetric: function (metricCode) {
+            if (!this.canToggleMetrics || !this.chart) {
+                return;
+            }
+
+            const datasetIndex = this.getRequestMetrics().indexOf(metricCode);
+            if (datasetIndex === -1) {
+                return;
+            }
+
+            // Kept here as well as on the chart, which is rebuilt when the interval changes
+            if (this.isMetricHidden(metricCode)) {
+                this.hiddenMetrics = this.hiddenMetrics.filter(code => code !== metricCode);
+            }
+            else {
+                this.hiddenMetrics = [...this.hiddenMetrics, metricCode];
+            }
+
+            this.chart.setDatasetVisibility(datasetIndex, !this.isMetricHidden(metricCode));
+            this.chart.update();
+        },
+
         getMetricConfigurationByCode: function (metricCode) {
             if (!Array.isArray(this.widget.configuration.metrics)) {
                 return null;
@@ -360,6 +424,18 @@ export default {
 
             this.addDataSourceProps(result, oc.t("General"));
             this.addDataSourceConfigurationProps(result, [], ['auto_update']);
+
+            const metricsProp = this.findConfigurationProp(result, 'metrics');
+            metricsProp.itemProperties.push({
+                property: 'axis',
+                title: oc.t("Axis"),
+                type: 'dropdown',
+                default: 'left',
+                options: {
+                    left: oc.t("Left"),
+                    right: oc.t("Right")
+                }
+            });
 
             return result;
         },

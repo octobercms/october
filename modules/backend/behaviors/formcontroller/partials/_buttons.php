@@ -49,6 +49,7 @@
                 danger: true,
                 hotkey: ['shift+option+d'],
                 class: 'pull-right',
+                dataChangeMonitorCommit: true,
                 dataBrowserRedirectBack: true,
                 dataRequestConfirm: __("Delete this record?"),
                 dataRequestMessage: __("Deleting :name...", ['name' => $formRecordName])

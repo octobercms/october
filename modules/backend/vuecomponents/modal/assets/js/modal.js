@@ -237,7 +237,7 @@ export default {
             var that = this;
 
             Vue.nextTick(function () {
-                var offset = $(that.$refs.content).offset();
+                var offset = modalPosition.getViewportOffset($(that.$refs.content));
 
                 sessionStorage.setItem(that.storageKey + '-x', Math.round(offset.left));
                 sessionStorage.setItem(that.storageKey + '-y', Math.round(offset.top));
@@ -260,7 +260,7 @@ export default {
                 width = parseInt(sessionStorage.getItem(this.storageKey + '-width')),
                 height = parseInt(sessionStorage.getItem(this.storageKey + '-height')),
                 initialOffset = modalPosition.getInitialOffset(this.isModal),
-                contentOffset = $(this.$refs.content).offset();
+                contentOffset = modalPosition.getViewportOffset($(this.$refs.content));
 
             this.offset.top = !isNaN(top) ? top - contentOffset.top : initialOffset;
             this.offset.left = !isNaN(left) ? left - contentOffset.left : initialOffset;
@@ -362,7 +362,12 @@ export default {
             }
         },
 
-        onTransitionEnd: function onTransitionEnd() {
+        onTransitionEnd: function onTransitionEnd(ev) {
+            // Child transitions bubble here, only the content position animation should save
+            if (ev.target !== this.$refs.content) {
+                return;
+            }
+
             $(this.$refs.content).removeClass('animate-position');
             this.savePosition();
         },

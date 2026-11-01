@@ -10,6 +10,12 @@
             <div
                 class="total-cell"
                 v-if="metricData.displayTotals"
+                :class="{'is-toggleable': canToggleMetrics, 'is-hidden': isMetricHidden(metricData.metric)}"
+                :role="canToggleMetrics ? 'button' : null"
+                :tabindex="canToggleMetrics ? 0 : null"
+                :aria-pressed="canToggleMetrics ? String(!isMetricHidden(metricData.metric)) : null"
+                @click="toggleMetric(metricData.metric)"
+                @keydown.enter.space.prevent="toggleMetric(metricData.metric)"
             >
                 <div v-if="loading" class="skeleton-container">
                     <div class="skeleton-name data-skeleton dashboard-widget-loading-pulse"></div>

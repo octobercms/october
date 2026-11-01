@@ -121,6 +121,26 @@ class AttachManyModelTest extends PluginTestCase
         $this->assertNotNull($user2Photo);
     }
 
+    public function testSetNullDeletesFiles()
+    {
+        Model::unguard();
+        $user = User::create(['name' => 'Stevie', 'email' => 'stevie@email.tld']);
+        Model::reguard();
+
+        $photo1 = $user->photos()->createFromFile(base_path('modules/system/tests/fixtures/plugins/database/tester/assets/images/avatar.png'));
+        $photo2 = $user->photos()->createFromFile(base_path('modules/system/tests/fixtures/plugins/database/tester/assets/images/avatar.png'));
+        $photo1Path = $photo1->getLocalPath();
+        $photo2Path = $photo2->getLocalPath();
+
+        $user->photos = null;
+        $user->save();
+
+        $this->assertNull(FileModel::find($photo1->id));
+        $this->assertNull(FileModel::find($photo2->id));
+        $this->assertFileDoesNotExist($photo1Path);
+        $this->assertFileDoesNotExist($photo2Path);
+    }
+
     /**
      * makeUploadedFile builds a test upload from a copied fixture image
      */

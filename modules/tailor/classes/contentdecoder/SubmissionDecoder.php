@@ -78,6 +78,10 @@ class SubmissionDecoder extends Decoder
             return false;
         }
 
+        if (in_array($field->type ?? null, $this->component->formGetRejectedTypes(), true)) {
+            return false;
+        }
+
         $value = $this->sanitizeFieldValue($field, $value);
 
         return true;

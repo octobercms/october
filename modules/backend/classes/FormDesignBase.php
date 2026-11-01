@@ -96,13 +96,12 @@ abstract class FormDesignBase extends ControllerBehavior
     }
 
     /**
-     * getDesignChangeMonitor returns true when the unsaved changes warning is enabled
-     * for the design, otherwise null so the form attribute is omitted. Designs can
-     * opt in with `changeMonitor: true` in the design config.
+     * getDesignChangeMonitor returns true if the form should warn about unsaved changes, set with the `changeMonitor` design config.
      */
-    public function getDesignChangeMonitor(bool $default = false): ?bool
+    public function getDesignChangeMonitor(): bool
     {
-        return $this->getDesignConfig('changeMonitor', $default) ? true : null;
+        // @deprecated default to true in v5, then drop the DocumentDesign override and update the docs default
+        return (bool) $this->getDesignConfig('changeMonitor', false);
     }
 
     /**

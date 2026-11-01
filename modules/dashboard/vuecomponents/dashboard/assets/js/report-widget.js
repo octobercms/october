@@ -432,7 +432,7 @@ export default {
         },
 
         rangeInterval: function () {
-            if (!this.loading) {
+            if (!this.loading || this.hasActiveLoadingPromise()) {
                 this.load();
             }
         },

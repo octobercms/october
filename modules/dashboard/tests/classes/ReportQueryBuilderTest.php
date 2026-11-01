@@ -7,6 +7,8 @@ use Dashboard\Classes\ReportDimensionField;
 use Dashboard\Classes\ReportQueryBuilder;
 use Dashboard\Classes\ReportDimensionFilter;
 use Dashboard\Classes\ReportDataSourceBase;
+use Dashboard\Classes\ReportMetricConfiguration;
+use Dashboard\Classes\ReportDataPaginationParams;
 use Illuminate\Database\Query\Builder;
 use Carbon\Carbon;
 
@@ -382,6 +384,31 @@ class ReportQueryBuilderTest extends TestCase
         $this->assertEquals(4, $dataArray[0]->oc_metric_max_int);
         $this->assertEquals('2023-01-02', $dataArray[0]->oc_dimension);
         $this->assertEquals(2, $builder->getTotalRecords());
+    }
+
+    public function testMetricTotalsIgnoreOrderAndPagination()
+    {
+        Db::table('test_report_data')->insert($this->dailyData);
+
+        $dimension = new ReportDimension(ReportDimension::CODE_DATE, 'date_dimension', 'Date');
+        $metric = new ReportMetric('sum_int', 'int_metric', 'Metric 1', ReportMetric::AGGREGATE_SUM);
+        $configuration = ['sum_int' => new ReportMetricConfiguration(true, false)];
+
+        // Ordered by the dimension, which the totals query does not select
+        $builder = ReportQueryBuilder::table('test_report_data')
+            ->dimension($dimension)
+            ->metrics([$metric])
+            ->orderBy(new ReportDataOrderRule(ReportDataOrderRule::ATTR_TYPE_DIMENSION))
+            ->groupByDay()
+            ->dateRange(new Carbon('2023-01-01'), new Carbon('2023-01-31'));
+
+        $this->assertEquals(10, $builder->getMetricTotals($configuration)['sum_int']);
+
+        // Totals cover every page, not only the current one
+        $builder->paginate(new ReportDataPaginationParams(1, 1));
+
+        $this->assertEquals(10, $builder->getMetricTotals($configuration)['sum_int']);
+        $this->assertEquals(10, $builder->get($configuration)->getMetricTotals()['sum_int']);
     }
 
     public function testDimensionFields()

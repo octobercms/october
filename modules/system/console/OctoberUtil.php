@@ -13,7 +13,7 @@ use ApplicationException;
  *
  * - purge thumbs: Deletes all thumbnail files in the uploads directory.
  * - purge orphans: Deletes files in "system_files" that do not belong to any other model.
- * - purge uploads: Deletes files in the uploads directory that do not exist in the "system_files" table.
+ * - purge uploads: Deletes files on the uploads disk that do not exist in the "system_files" table.
  * - purge deferred: Cleans up all records that have deferred bindings
  * - git pull: Perform "git pull" on all plugins and themes.
  * - compile assets: Compile registered Language, LESS and JS files.

@@ -5,9 +5,12 @@ use Lang;
 use File;
 use Config;
 use System;
+use Storage;
 use Cms\Models\MaintenanceSetting;
 use System\Classes\CombineAssets;
 use System\Models\File as FileModel;
+use Illuminate\Filesystem\FilesystemAdapter;
+use Illuminate\Support\LazyCollection;
 
 /**
  * OctoberUtilCommands is a dedicated class for utility commands
@@ -245,78 +248,85 @@ trait OctoberUtilCommands
     }
 
     /**
-     * utilPurgeUploads deletes files in the uploads directory that do not exist in the "system_files" table
+     * utilPurgeUploads deletes files on the uploads disk that do not exist in the "system_files" table
      */
     protected function utilPurgeUploads()
     {
-        if (!$this->confirmToProceed('This will PERMANENTLY DELETE files in the uploads directory that do not exist in the "system_files" table.')) {
+        if (!$this->confirmToProceed('This will PERMANENTLY DELETE files on the uploads disk that do not exist in the "system_files" table.')) {
             return;
         }
 
-        $uploadsDisk = Config::get('filesystems.disks.uploads.driver', 'local');
-        if ($uploadsDisk !== 'local') {
-            $this->error('Purging uploads is only supported on the local disk');
-            return;
-        }
+        $disk = Storage::disk('uploads');
 
-        $purgeFunc = function($localPath) {
-            $chunks = collect(File::allFiles($localPath))->chunk(50);
-            $filesToDelete = [];
+        foreach (['protected', 'public'] as $directory) {
+            $this->comment('Scanning directory: '.$directory);
+            $filesToDelete = $this->findUnreferencedUploads($disk, $directory);
 
-            foreach ($chunks as $chunk) {
-                $filenames = [];
-                foreach ($chunk as $file) {
-                    $filenames[] = $file->getFileName();
+            if (!$filesToDelete) {
+                $this->comment('No files found to purge.');
+                continue;
+            }
+
+            $this->comment(sprintf('Found %d file(s) to delete (%s).', count($filesToDelete), File::sizeToString(array_sum($filesToDelete))));
+
+            if ($this->output->isVerbose()) {
+                $this->line(implode(PHP_EOL, array_keys($filesToDelete)));
+            }
+
+            if ($this->confirmToProceed('Please confirm file destruction.')) {
+                foreach (array_chunk(array_keys($filesToDelete), 500) as $paths) {
+                    $disk->delete($paths);
                 }
+            }
+        }
+    }
 
-                $foundModels = FileModel::whereIn('disk_name', $filenames)->pluck('disk_name')->all();
+    /**
+     * findUnreferencedUploads returns the path and size of each unused file in a directory, skipping files changed in the last hour.
+     */
+    protected function findUnreferencedUploads(FilesystemAdapter $disk, string $directory): array
+    {
+        $cutoff = time() - 3600;
+        $filesToDelete = [];
 
-                foreach ($chunk as $file) {
-                    if (!in_array($file->getFileName(), $foundModels)) {
-                        $filesToDelete[$file->getFileName()] = $file->getPath() . DIRECTORY_SEPARATOR . $file->getFileName();
+        $listing = LazyCollection::make(function () use ($disk, $directory) {
+            yield from $disk->listContents($directory, true);
+        });
+
+        $listing
+            ->filter(function ($item) use ($cutoff) {
+                return $item->isFile()
+                    && !str_starts_with(basename($item->path()), '.')
+                    && $item->lastModified() < $cutoff;
+            })
+            ->chunk(500)
+            ->each(function ($chunk) use (&$filesToDelete) {
+                $diskNames = [];
+                $thumbIds = [];
+                $sizes = [];
+
+                foreach ($chunk as $item) {
+                    $path = $item->path();
+                    $sizes[$path] = (int) $item->fileSize();
+
+                    if (preg_match('/^thumb_(\d+)_/', basename($path), $match)) {
+                        $thumbIds[$path] = (int) $match[1];
+                    }
+                    else {
+                        $diskNames[$path] = basename($path);
                     }
                 }
-            }
 
-            return $filesToDelete;
-        };
+                $foundNames = FileModel::whereIn('disk_name', $diskNames)->pluck('disk_name')->all();
+                $foundIds = FileModel::whereIn('id', $thumbIds)->pluck('id')->all();
+                $unreferenced = array_diff($diskNames, $foundNames) + array_diff($thumbIds, $foundIds);
 
-        // Local path on disk
-        $localPath = Config::get('filesystems.disks.uploads.root', storage_path('app/uploads'));
-
-        // Protected directory
-        $this->comment('Scanning directory: '.$localPath.'/protected');
-        $filesToDelete = $purgeFunc($localPath.'/protected');
-
-        if (count($filesToDelete)) {
-            $this->comment('Found the following files to delete');
-            $this->comment(implode(', ', array_keys($filesToDelete)));
-            if ($this->confirmToProceed('Please confirm file destruction.')) {
-                foreach ($filesToDelete as $path) {
-                    File::delete($path);
+                foreach (array_keys($unreferenced) as $path) {
+                    $filesToDelete[$path] = $sizes[$path];
                 }
-            }
-        }
-        else {
-            $this->comment('No files found to purge.');
-        }
+            });
 
-        // Public directory
-        $this->comment('Scanning directory: '.$localPath.'/public');
-        $filesToDelete = $purgeFunc($localPath.'/public');
-
-        if (count($filesToDelete)) {
-            $this->comment('Found the following files to delete');
-            $this->comment(implode(', ', array_keys($filesToDelete)));
-            if ($this->confirmToProceed('Please confirm file destruction.')) {
-                foreach ($filesToDelete as $path) {
-                    File::delete($path);
-                }
-            }
-        }
-        else {
-            $this->comment('No files found to purge.');
-        }
+        return $filesToDelete;
     }
 
     /**

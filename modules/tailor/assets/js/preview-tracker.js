@@ -60,8 +60,13 @@ export class PreviewTracker {
     }
 
     startScrollLock() {
-        this.scrollLeft = this.window.scrollX;
-        this.scrollTop = this.window.scrollY;
+        if (!this.scrollLock) {
+            this.scrollLeft = this.window.scrollX;
+            this.scrollTop = this.window.scrollY;
+        }
+
+        this.stopScrollLock();
+
         this.scrollLock = setInterval(() => {
             this.window.scrollTo({
                 left: this.scrollLeft,
@@ -71,14 +76,14 @@ export class PreviewTracker {
         }, 1);
 
         // No scroll if page takes longer than 3s
-        this.scrollLockBuffer = setTimeout(() => {
-            clearInterval(this.scrollLock);
-        }, 3000);
+        this.scrollLockBuffer = setTimeout(() => this.stopScrollLock(), 3000);
     }
 
     stopScrollLock() {
         clearInterval(this.scrollLock);
-        clearInterval(this.scrollLockBuffer);
+        clearTimeout(this.scrollLockBuffer);
+        this.scrollLock = null;
+        this.scrollLockBuffer = null;
     }
 
     getToken() {

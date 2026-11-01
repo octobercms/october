@@ -127,7 +127,7 @@ class SubmissionComponent extends ComponentModuleBase
      */
     public function formGetRejectedTypes(): array
     {
-        return [];
+        return ['mediafinder'];
     }
 
     /**

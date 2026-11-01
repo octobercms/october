@@ -367,6 +367,22 @@ class SubmissionDecoderTest extends PluginTestCase
     }
 
     /**
+     * testMediaFinderValuesRejected ensures media finder values are dropped at the top level and inside repeater items
+     */
+    public function testMediaFinderValuesRejected()
+    {
+        $record = $this->createSubmission([
+            'banner' => 'https://example.com/banner.png',
+            'answers' => [['answer' => 'Row', 'image' => 'https://example.com/image.png']],
+        ]);
+
+        $row = $record->answers()->first();
+        $this->assertNull($record->banner);
+        $this->assertEquals('Row', $row->answer);
+        $this->assertNull($row->image);
+    }
+
+    /**
      * testMarkdownAndCodeValuesKeptVerbatim ensures non-HTML text fields are not entity encoded by the sanitizer
      */
     public function testMarkdownAndCodeValuesKeptVerbatim()

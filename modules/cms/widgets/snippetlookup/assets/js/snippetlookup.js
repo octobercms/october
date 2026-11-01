@@ -55,28 +55,48 @@ class SnippetLookup
     // If a component-based snippet was added, make sure that its code is unique,
     // as it will be used as a component alias.
     static _generateUniqueComponentSnippetCode(originalCode) {
-        var updatedCode = originalCode,
-            counter = 1,
-            snippetFound = false;
+        const usedCodes = this._getUsedComponentSnippetCodes();
 
-        do {
-            snippetFound = false;
-            $('[data-control="richeditor"] textarea, [data-control="markdowneditor"] textarea').each(function() {
-                var $textarea = $(this),
-                    $codeDom = $('<div>' + $textarea.val() + '</div>');
+        let updatedCode = originalCode,
+            counter = 1;
 
-                if ($('[data-snippet="'+updatedCode+'"][data-component]', $codeDom).length > 0) {
-                    snippetFound = true;
-                    updatedCode = originalCode + counter;
-                    counter++;
-
-                    return false;
-                }
-            })
-
-        } while (snippetFound);
+        while (usedCodes.has(updatedCode)) {
+            updatedCode = originalCode + counter;
+            counter++;
+        }
 
         return updatedCode;
+    }
+
+    // Collects component snippet codes from editor content, form widget values and markdown sources.
+    static _getUsedComponentSnippetCodes() {
+        const usedCodes = new Set;
+
+        const addFromContainer = (container) => {
+            container.querySelectorAll('[data-snippet][data-component]').forEach((el) => {
+                usedCodes.add(el.dataset.snippet);
+            });
+        };
+
+        const addFromMarkup = (markup) => {
+            const template = document.createElement('template');
+            template.innerHTML = markup || '';
+            addFromContainer(template.content);
+        };
+
+        addFromContainer(document);
+
+        document.querySelectorAll('[data-control="richeditor"] textarea, [data-control="markdowneditor"] textarea').forEach((el) => {
+            addFromMarkup(el.value);
+        });
+
+        document.querySelectorAll('.CodeMirror').forEach((el) => {
+            if (el.CodeMirror) {
+                addFromMarkup(el.CodeMirror.getValue());
+            }
+        });
+
+        return usedCodes;
     }
 
     // Used by markdown editor to attach snippet controls

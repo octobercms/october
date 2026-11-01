@@ -45,4 +45,12 @@ class DocumentDesign extends FormDesignBase
     {
         return $this->getDesignConfig('secondaryLabel') ?: __("Options");
     }
+
+    /**
+     * getDesignChangeMonitor enables the unsaved changes warning by default for the document layout.
+     */
+    public function getDesignChangeMonitor(): bool
+    {
+        return (bool) $this->getDesignConfig('changeMonitor', true);
+    }
 }

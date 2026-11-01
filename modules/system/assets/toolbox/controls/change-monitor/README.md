@@ -8,11 +8,13 @@ Monitors form inputs for unsaved changes and warns the user before leaving the p
 <form data-change-monitor>
     <input type="text" name="title" />
 
-    <button type="button" data-change-monitor-commit>
+    <button type="button" data-request="onSave" data-change-monitor-commit>
         Save
     </button>
 </form>
 ```
+
+A commit element with `data-request` keeps the warning when the request fails, such as a validation error, and only marks changes as saved when the request succeeds or redirects.
 
 ## JavaScript API
 
@@ -30,7 +32,7 @@ $('#form').changeMonitor()
 | Attribute | Description |
 |---|---|
 | `data-change-monitor` | Enables the plugin on a form |
-| `data-change-monitor-commit` | Marks changes as saved when clicked |
+| `data-change-monitor-commit` | Marks changes as saved when clicked, or once its AJAX request succeeds when used with `data-request` |
 
 ### Events (listened)
 

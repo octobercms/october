@@ -54,6 +54,11 @@ fields:
         label: Accent
         type: colorpicker
 
+    banner:
+        label: Banner
+        type: mediafinder
+        maxItems: 1
+
     answers:
         label: Answers
         type: repeater
@@ -83,6 +88,11 @@ fields:
                 tint:
                     label: Tint
                     type: colorpicker
+
+                image:
+                    label: Image
+                    type: mediafinder
+                    maxItems: 1
 
                 followups:
                     label: Follow Ups

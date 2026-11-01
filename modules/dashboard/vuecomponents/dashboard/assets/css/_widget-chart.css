@@ -61,6 +61,25 @@
         .total-cell {
             text-align: right;
 
+            &.is-toggleable {
+                cursor: pointer;
+                user-select: none;
+                border-radius: 4px;
+
+                &:focus-visible {
+                    outline: 2px solid var(--oc-border-focus);
+                    outline-offset: 2px;
+                }
+            }
+
+            &.is-hidden {
+                opacity: .45;
+
+                .total-name span {
+                    text-decoration: line-through;
+                }
+            }
+
             .total-name {
                 font-weight: 500;
                 display: flex;

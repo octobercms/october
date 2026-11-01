@@ -630,7 +630,8 @@ class ReportQueryBuilder
             return [];
         }
 
-        $query = $this->buildQuery(skipGrouping: true, forceMetrics: $metricsForTotals);
+        // Totals use the same query as for dimensions but without grouping or pagination
+        $query = $this->buildQuery(skipGrouping: true, skipPagination: true, forceMetrics: $metricsForTotals);
         $rows = $query->get()->toArray();
 
         if (empty($rows)) {
