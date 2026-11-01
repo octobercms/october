@@ -289,6 +289,20 @@ class Users extends SettingsController
     }
 
     /**
+     * formFindModelObject refuses the user's own record outside My Settings
+     */
+    public function formFindModelObject($recordId)
+    {
+        $model = $this->asExtension('FormController')->formFindModelObject($recordId);
+
+        if (!$this->isMyAccount() && $model->getKey() == $this->user->getKey()) {
+            throw new ForbiddenException;
+        }
+
+        return $model;
+    }
+
+    /**
      * myaccount controller
      */
     public function myaccount()

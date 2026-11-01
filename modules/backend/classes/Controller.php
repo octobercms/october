@@ -386,7 +386,7 @@ class Controller extends Extendable implements AjaxControllerInterface
         }
 
         $this->suppressView = true;
-        $this->execPageAction($this->action, $this->params);
+        return $this->execPageAction($this->action, $this->params);
     }
 
     /**
@@ -503,7 +503,7 @@ class Controller extends Extendable implements AjaxControllerInterface
         try {
             try {
                 // Execute the page action so behaviors and widgets are initialized
-                $this->pageAction();
+                $actionResponse = $this->pageAction();
 
                 if ($this->fatalError) {
                     throw new ApplicationException($this->fatalError);
@@ -538,7 +538,10 @@ class Controller extends Extendable implements AjaxControllerInterface
                  *     });
                  *
                  */
-                if ($event = $this->fireSystemEvent('backend.ajax.beforeRunHandler', [$handler])) {
+                if ($actionResponse instanceof \Symfony\Component\HttpFoundation\RedirectResponse) {
+                    $response = ajax()::wrap($actionResponse);
+                }
+                elseif ($event = $this->fireSystemEvent('backend.ajax.beforeRunHandler', [$handler])) {
                     $response = ajax()::wrap($event);
                 }
                 else {

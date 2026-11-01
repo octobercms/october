@@ -102,6 +102,68 @@ class UsersTest extends PluginTestCase
     }
 
     /**
+     * testUpdateSaveRefusesOwnRecord ensures a manager cannot change their own role through the update page save handler.
+     */
+    public function testUpdateSaveRefusesOwnRecord()
+    {
+        $manager = $this->actingAsSavedManager();
+        $ownRoleId = $manager->role_id;
+
+        $richerRole = new UserRole;
+        $richerRole->name = 'Richer';
+        $richerRole->permissions = ['general.backend' => 1, 'cms.manage_themes' => 1];
+        $richerRole->save();
+        UserRole::where('id', $richerRole->id)->update(['sort_order' => 70]);
+
+        $this->mergePostback(['User' => ['role' => $richerRole->id]]);
+
+        $controller = new Users;
+        self::setProtectedProperty($controller, 'action', 'update');
+        self::setProtectedProperty($controller, 'params', [$manager->id]);
+
+        try {
+            $controller->asExtension('FormController')->update_onSave($manager->id);
+            $this->fail('Expected ForbiddenException was not thrown');
+        }
+        catch (ForbiddenException) {
+        }
+
+        $this->assertEquals($ownRoleId, User::find($manager->id)->role_id);
+    }
+
+    /**
+     * testUpdateFindsLowerRankedUser ensures a manager can still load other administrators on the update page.
+     */
+    public function testUpdateFindsLowerRankedUser()
+    {
+        $this->actingAsSavedManager();
+        $admin = $this->makeAdmin('regular');
+        UserRole::where('id', $admin->role_id)->update(['sort_order' => 70]);
+
+        $controller = new Users;
+        self::setProtectedProperty($controller, 'action', 'update');
+
+        $this->assertEquals($admin->id, $controller->formFindModelObject($admin->id)->id);
+    }
+
+    /**
+     * actingAsSavedManager signs in a saved administrator whose role grants admins.manage.
+     */
+    protected function actingAsSavedManager(): User
+    {
+        $manager = $this->makeAdmin('manager');
+
+        $role = UserRole::find($manager->role_id);
+        $role->permissions = ['general.backend' => 1, 'admins.manage' => 1];
+        $role->save();
+
+        $manager = User::find($manager->id);
+        $this->actingAs($manager);
+
+        return $manager;
+    }
+
+    /**
      * actingAsSuperUserImpersonatingRole signs in a saved super user who is viewing the backend as a lower role.
      */
     protected function actingAsSuperUserImpersonatingRole(): User
