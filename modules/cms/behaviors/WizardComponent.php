@@ -65,7 +65,7 @@ class WizardComponent extends FormComponent
     {
         $result = [];
 
-        foreach ($this->component->formGetFieldConfig() as $name => $field) {
+        foreach ($this->formGetVisibleFieldConfig() as $name => $field) {
             if (in_array($tag, (array) ($field['tags'] ?? []))) {
                 $result[$name] = $field;
             }

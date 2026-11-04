@@ -1,9 +1,15 @@
 <?php
 
 use System\Classes\VersionManager;
+use October\Rain\Database\Updater;
+use Symfony\Component\Console\Output\BufferedOutput;
 
-class VersionManagerTest extends TestCase
+class VersionManagerTest extends PluginTestCase
 {
+    /**
+     * @var bool useTransactions isolates each test with a database transaction
+     */
+    protected $useTransactions = true;
 
     public function setUp(): void
     {
@@ -198,5 +204,144 @@ class VersionManagerTest extends TestCase
                 ]
             ]
         ];
+    }
+
+    public function testRemovePluginRollsBackRenamedScript()
+    {
+        $updater = $this->fakeUpdater();
+        $this->seedPluginHistory('October.Tester', [
+            '1.0.2' => ['old_comments_table.php'],
+        ]);
+
+        $manager = new VersionManager;
+        $manager->setNotesOutput($output = new BufferedOutput);
+        $manager->removePlugin('October.Tester');
+
+        $this->assertEquals(['create_comments_table.php'], array_map('basename', $updater->packedDown));
+        $this->assertStringContainsString('"old_comments_table.php" not found, rolling back "create_comments_table.php" instead', $output->fetch());
+        $this->assertSame(0, Db::table('system_plugin_history')->where('code', 'October.Tester')->count());
+        $this->assertSame(0, Db::table('system_plugin_versions')->where('code', 'October.Tester')->count());
+    }
+
+    public function testRemovePluginPairsRenamedScriptsInOrder()
+    {
+        $updater = $this->fakeUpdater();
+        $this->seedPluginHistory('October.Tester', [
+            '1.0.1' => ['old_comments_table.php', 'old_blog_settings_table.php'],
+        ]);
+
+        $manager = new VersionManager;
+        $this->setFileVersions($manager, 'October.Tester', [
+            '1.0.1' => ['Renamed scripts', 'create_comments_table.php', 'create_blog_settings_table.php'],
+        ]);
+        $manager->removePlugin('October.Tester');
+
+        $this->assertEquals(['create_blog_settings_table.php', 'create_comments_table.php'], array_map('basename', $updater->packedDown));
+    }
+
+    public function testRemovePluginSkipsAmbiguousRename()
+    {
+        $updater = $this->fakeUpdater();
+        $this->seedPluginHistory('October.Tester', [
+            '1.0.2' => ['old_comments_table.php', 'old_comments_seeder.php'],
+        ]);
+
+        $manager = new VersionManager;
+        $manager->setNotesOutput($output = new BufferedOutput);
+        $manager->removePlugin('October.Tester');
+
+        $notes = $output->fetch();
+        $this->assertEmpty($updater->packedDown);
+        $this->assertStringContainsString('"old_comments_table.php" not found, skipping rollback', $notes);
+        $this->assertStringContainsString('"old_comments_seeder.php" not found, skipping rollback', $notes);
+        $this->assertSame(0, Db::table('system_plugin_history')->where('code', 'October.Tester')->count());
+    }
+
+    public function testRemovePluginSkipsDeletedScript()
+    {
+        $updater = $this->fakeUpdater();
+        $this->seedPluginHistory('October.Tester', [
+            '1.0.1' => ['some_upgrade_file.php'],
+        ]);
+
+        $manager = new VersionManager;
+        $manager->setNotesOutput($output = new BufferedOutput);
+        $manager->removePlugin('October.Tester');
+
+        $this->assertEmpty($updater->packedDown);
+        $this->assertStringContainsString('"some_upgrade_file.php" not found, skipping rollback', $output->fetch());
+        $this->assertSame(0, Db::table('system_plugin_history')->where('code', 'October.Tester')->count());
+    }
+
+    public function testRemovePluginNeverPairsWithAppliedScripts()
+    {
+        $updater = $this->fakeUpdater();
+        $this->seedPluginHistory('October.Tester', [
+            '1.0.1' => ['create_comments_table.php', 'old_blog_settings_table.php'],
+            '1.0.2' => ['old_seeder.php'],
+        ]);
+
+        $manager = new VersionManager;
+        $this->setFileVersions($manager, 'October.Tester', [
+            '1.0.1' => ['create_comments_table.php', 'create_blog_settings_table.php'],
+            '1.0.2' => ['create_comments_table.php'],
+        ]);
+        $manager->removePlugin('October.Tester');
+
+        $this->assertEquals(['create_blog_settings_table.php', 'create_comments_table.php'], array_map('basename', $updater->packedDown));
+    }
+
+    /**
+     * fakeUpdater replaces the database updater with one that records rolled back files.
+     */
+    protected function fakeUpdater(): Updater
+    {
+        $updater = new class extends Updater
+        {
+            public $packedDown = [];
+
+            public function packDown($file)
+            {
+                $this->packedDown[] = $file;
+
+                return true;
+            }
+        };
+
+        $this->app->instance('db.updater', $updater);
+
+        return $updater;
+    }
+
+    /**
+     * seedPluginHistory records applied scripts for a plugin, keyed by version.
+     */
+    protected function seedPluginHistory(string $code, array $scriptsByVersion): void
+    {
+        foreach ($scriptsByVersion as $version => $scripts) {
+            foreach ($scripts as $script) {
+                Db::table('system_plugin_history')->insert([
+                    'code' => $code,
+                    'type' => VersionManager::HISTORY_TYPE_SCRIPT,
+                    'version' => (string) $version,
+                    'detail' => $script,
+                    'created_at' => now(),
+                ]);
+            }
+        }
+
+        Db::table('system_plugin_versions')->insert([
+            'code' => $code,
+            'version' => (string) array_key_last($scriptsByVersion),
+            'created_at' => now(),
+        ]);
+    }
+
+    /**
+     * setFileVersions overrides the version file contents a manager reads for a plugin.
+     */
+    protected function setFileVersions(VersionManager $manager, string $code, array $versions): void
+    {
+        self::setProtectedProperty($manager, 'fileVersions', [$code => $versions]);
     }
 }

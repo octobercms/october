@@ -113,6 +113,8 @@ class SubmissionComponent extends ComponentModuleBase
                 'options' => $field->options ?? [],
                 'placeholder' => $field->placeholder ?? '',
                 'comment' => $field->comment ?? '',
+                'default' => $field->defaults ?? null,
+                'hidden' => (bool) ($field->hidden ?? false),
                 'fileTypes' => $field->fileTypes ?? null,
                 'maxFiles' => $field->maxFiles ?? null,
                 'tags' => (array) ($field->tags ?? []),

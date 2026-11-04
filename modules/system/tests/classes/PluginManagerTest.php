@@ -1,5 +1,6 @@
 <?php
 use System\Classes\PluginManager;
+use System\Classes\SiteManager;
 
 class PluginManagerTest extends TestCase
 {
@@ -225,5 +226,170 @@ class PluginManagerTest extends TestCase
         $this->assertEquals('October.Tester', $this->manager->getIdentifier('October\\Tester'));
         $this->assertEquals('October.Tester', $this->manager->getIdentifier('October\\Tester\\Plugin'));
         $this->assertEquals('October.Tester', $this->manager->getIdentifier('October.Tester'));
+    }
+
+    public function testPluginDisabledForPrimarySiteIsStillLoaded()
+    {
+        $this->loadSiteFixture('system_plugin_sites', ['sites' => [1 => ['October.Tester']]]);
+
+        $this->assertFalse($this->manager->findByIdentifier('October.Tester')->disabled);
+
+        $this->manager->applySiteContext(1);
+        $this->assertTrue($this->manager->isDisabled('October.Tester'));
+        $this->assertArrayNotHasKey('October.Tester', $this->manager->getPlugins());
+
+        $this->manager->applySiteContext(2);
+        $this->assertFalse($this->manager->isDisabled('October.Tester'));
+        $this->assertArrayHasKey('October.Tester', $this->manager->getPlugins());
+    }
+
+    public function testPluginDisabledForSecondarySiteIsHiddenThere()
+    {
+        $this->loadSiteFixture('system_plugin_sites', ['sites' => [2 => ['October.Tester']]]);
+
+        $this->assertFalse($this->manager->findByIdentifier('October.Tester')->disabled);
+
+        $this->manager->applySiteContext(1);
+        $this->assertFalse($this->manager->isDisabled('October.Tester'));
+
+        $this->manager->applySiteContext(2);
+        $this->assertTrue($this->manager->isDisabled('October.Tester'));
+    }
+
+    public function testPluginDisabledForEverySiteIsNotLoaded()
+    {
+        $this->loadSiteFixture('system_plugin_sites', ['sites' => [
+            1 => ['October.Tester', 'October.Sample'],
+            2 => ['October.Sample'],
+        ]]);
+
+        $this->assertTrue($this->manager->findByIdentifier('October.Sample')->disabled);
+        $this->assertFalse($this->manager->findByIdentifier('October.Tester')->disabled);
+
+        $this->manager->applySiteContext(2);
+        $this->assertTrue($this->manager->isDisabled('October.Sample'));
+        $this->assertFalse($this->manager->isDisabled('October.Tester'));
+    }
+
+    public function testSiteContextKeepsPluginInstances()
+    {
+        $this->loadSiteFixture('system_plugin_sites', ['sites' => [1 => ['October.Tester']]]);
+
+        $plugin = $this->manager->findByIdentifier('October.Tester');
+
+        $this->manager->applySiteContext(1);
+        $this->manager->applySiteContext(2);
+
+        $this->assertSame($plugin, $this->manager->findByIdentifier('October.Tester'));
+        $this->assertSame($plugin, $this->manager->getPlugins()['October.Tester']);
+    }
+
+    public function testDependencyDisabledForSiteHidesDependents()
+    {
+        $this->loadSiteFixture('system_plugin_sites', ['sites' => [2 => ['DependencyTest.Dependency']]]);
+
+        $this->manager->applySiteContext(1);
+        $this->assertFalse($this->manager->isDisabled('DependencyTest.Found'));
+        $this->assertFalse($this->manager->isDisabled('DependencyTest.WrongCase'));
+
+        $this->manager->applySiteContext(2);
+        $this->assertTrue($this->manager->isDisabled('DependencyTest.Dependency'));
+        $this->assertTrue($this->manager->isDisabled('DependencyTest.Found'));
+        $this->assertTrue($this->manager->isDisabled('DependencyTest.WrongCase'));
+        $this->assertFalse($this->manager->findByIdentifier('DependencyTest.Found')->disabled);
+    }
+
+    public function testPluginDisabledForSiteGroup()
+    {
+        $this->loadSiteFixture('system_plugin_site_groups', ['groups' => [1 => ['October.Tester']]]);
+
+        $this->assertFalse($this->manager->findByIdentifier('October.Tester')->disabled);
+
+        $this->manager->applySiteContext(1);
+        $this->assertTrue($this->manager->isDisabled('October.Tester'));
+
+        $this->manager->applySiteContext(2);
+        $this->assertFalse($this->manager->isDisabled('October.Tester'));
+    }
+
+    public function testIsDisabledForSiteDefinition()
+    {
+        $this->loadSiteFixture('system_plugin_sites', ['sites' => [2 => ['October.Tester']]]);
+
+        $this->assertFalse($this->manager->isDisabledForSiteDefinition('October.Tester', Site::getSiteFromId(1)));
+        $this->assertTrue($this->manager->isDisabledForSiteDefinition('October.Tester', Site::getSiteFromId(2)));
+        $this->assertTrue($this->manager->isDisabledForSiteDefinition('DependencyTest.NotFound', Site::getSiteFromId(1)));
+    }
+
+    public function testSiteWithContextAppliesPluginVisibility()
+    {
+        $this->loadSiteFixture('system_plugin_sites', ['sites' => [1 => ['October.Tester']]]);
+
+        Site::setActiveSiteId(1);
+        $this->assertTrue($this->manager->isDisabled('October.Tester'));
+
+        $isDisabledInContext = Site::withContext(2, function() {
+            return PluginManager::instance()->isDisabled('October.Tester');
+        });
+
+        $this->assertFalse($isDisabledInContext);
+        $this->assertTrue($this->manager->isDisabled('October.Tester'));
+    }
+
+    public function testNoSelectedSiteHidesNothing()
+    {
+        $this->loadSiteFixture('system_plugin_sites', ['sites' => [1 => ['October.Tester']]]);
+
+        $this->assertFalse($this->manager->isDisabled('October.Tester'));
+
+        $isDisabledInContext = Site::withContext(1, function() {
+            return PluginManager::instance()->isDisabled('October.Tester');
+        });
+
+        $this->assertTrue($isDisabledInContext);
+        $this->assertFalse($this->manager->isDisabled('October.Tester'));
+    }
+
+    /**
+     * loadSiteFixture enables a per-site plugin feature with two sites in separate groups
+     * and loads the given disabled plugin data.
+     */
+    protected function loadSiteFixture(string $feature, array $data): void
+    {
+        Config::set("multisite.features.{$feature}", true);
+
+        // Sites are read from the manifest, as they would be while plugins load
+        Site::resetCache();
+        Manifest::put(SiteManager::MANIFEST_SITES, [
+            [
+                'id' => 1,
+                'name' => 'Primary Site',
+                'code' => 'primary',
+                'is_primary' => true,
+                'is_enabled' => true,
+                'is_enabled_edit' => true,
+                'group_id' => 1,
+                'group' => null,
+            ],
+            [
+                'id' => 2,
+                'name' => 'Secondary Site',
+                'code' => 'secondary',
+                'is_primary' => false,
+                'is_enabled' => true,
+                'is_enabled_edit' => true,
+                'group_id' => 2,
+                'group' => null,
+            ],
+        ]);
+
+        self::setProtectedProperty($this->manager, 'disabledPlugins', []);
+        self::callProtectedMethod($this->manager, 'loadDisabledFromCache', [$data + [
+            'global' => [],
+            'sites' => [],
+            'groups' => [],
+        ]]);
+        $this->manager->loadPlugins();
+        self::callProtectedMethod($this->manager, 'loadDependencies');
     }
 }

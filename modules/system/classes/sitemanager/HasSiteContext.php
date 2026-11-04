@@ -112,12 +112,13 @@ trait HasSiteContext
 
         $site = $this->getSiteFromId($siteId);
 
-        if ($site) {
-            $this->broadcastSiteChange($site->id);
-        }
-
         try {
+            // Set the context first, so listeners see the new site
             $this->siteContext = $site;
+
+            if ($site) {
+                $this->broadcastSiteChange($site->id);
+            }
 
             return $callback();
         }

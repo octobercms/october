@@ -475,6 +475,86 @@ class SubmissionComponentTest extends PluginTestCase
     }
 
     /**
+     * testHiddenFieldsAreNotRendered
+     */
+    public function testHiddenFieldsAreNotRendered()
+    {
+        $fields = $this->makeComponent(wizard: false, handle: 'UnitTest\Competition')->formGetFields();
+
+        $this->assertEquals(['name', 'competition'], array_column($fields, 'name'));
+        $this->assertEquals('hidden', $fields[1]['htmlType']);
+        $this->assertEquals('Summer Draw', $fields[1]['default']);
+    }
+
+    /**
+     * testHiddenFieldsIgnorePostback
+     */
+    public function testHiddenFieldsIgnorePostback()
+    {
+        $component = $this->makeComponent(wizard: false, handle: 'UnitTest\Competition');
+
+        $this->setPostData([
+            'name' => 'Jeff',
+            'competition' => 'Summer Draw',
+            'reviewer_notes' => 'Winner',
+        ]);
+
+        $component->onFormSubmit();
+
+        $record = SubmissionRecord::inSection('UnitTest\Competition')->newQuery()->orderBy('id', 'desc')->first();
+        $this->assertEquals('Jeff', $record->name);
+        $this->assertEquals('Summer Draw', $record->competition);
+        $this->assertNull($record->reviewer_notes);
+    }
+
+    /**
+     * testHiddenFieldsIgnoreStepPostback
+     */
+    public function testHiddenFieldsIgnoreStepPostback()
+    {
+        $component = $this->makeComponent(handle: 'UnitTest\Competition');
+
+        $this->setPostData([
+            '_form_step' => 'step1',
+            'name' => 'Jeff',
+            'reviewer_notes' => 'Winner',
+        ]);
+
+        $component->onFormStep();
+
+        $record = SubmissionRecord::inSection('UnitTest\Competition')->newQuery()->orderBy('id', 'desc')->first();
+        $this->assertEquals('Jeff', $record->name);
+        $this->assertNull($record->reviewer_notes);
+    }
+
+    /**
+     * testDefaultPartialRendersHiddenInput
+     */
+    public function testDefaultPartialRendersHiddenInput()
+    {
+        $html = $this->makeComponent(wizard: false, handle: 'UnitTest\Competition')->renderPartial('@default');
+
+        $this->assertStringContainsString('type="hidden"', $html);
+        $this->assertStringContainsString('value="Summer Draw"', $html);
+        $this->assertStringNotContainsString('formField_competition', $html);
+        $this->assertStringNotContainsString('reviewer_notes', $html);
+    }
+
+    /**
+     * testDefaultPartialRendersSuccessMessage
+     */
+    public function testDefaultPartialRendersSuccessMessage()
+    {
+        $component = $this->makeComponent(wizard: false);
+
+        $this->assertStringContainsString('Submit', $component->renderPartial('@default'));
+
+        $component->getController()->vars['formSubmitted'] = true;
+
+        $this->assertStringContainsString('Thank you for your submission!', $component->renderPartial('@default'));
+    }
+
+    /**
      * makeComponent builds a submission component wired to a CMS controller
      */
     protected function makeComponent(bool $wizard = true, string $handle = 'UnitTest\Contact'): SubmissionComponent
@@ -489,6 +569,7 @@ class SubmissionComponentTest extends PluginTestCase
             'wizard' => $wizard,
         ]);
 
+        $component->name = $component->alias = 'submission';
         $component->init();
 
         return $component;

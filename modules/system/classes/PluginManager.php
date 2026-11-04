@@ -62,9 +62,19 @@ class PluginManager
     protected $metaFile;
 
     /**
-     * @var array disabledPlugins collection of disabled plugins for the active context.
+     * @var array disabledPlugins collection of plugins disabled in every site context, these are never loaded.
      */
     protected $disabledPlugins = [];
+
+    /**
+     * @var array siteDisabledPlugins collection of plugins hidden for the active site context only.
+     */
+    protected $siteDisabledPlugins = [];
+
+    /**
+     * @var int|null siteContextId is the site used to hide plugins, or null when no site is selected.
+     */
+    protected $siteContextId;
 
     /**
      * @var array disabledCache stores the raw structured cache data for cross-site lookups.
@@ -167,8 +177,8 @@ class PluginManager
 
         $classId = $this->getIdentifier($classObj);
 
-        // Check for disabled plugins
-        if ($this->isDisabled($classId)) {
+        // Check for disabled plugins, those hidden only for some sites are still loaded
+        if (array_key_exists($classId, $this->disabledPlugins)) {
             $classObj->disabled = true;
         }
 
@@ -388,7 +398,7 @@ class PluginManager
      */
     public function getPlugins()
     {
-        return array_diff_key((array) $this->plugins, $this->disabledPlugins);
+        return array_diff_key((array) $this->plugins, $this->disabledPlugins, $this->siteDisabledPlugins);
     }
 
     /**
@@ -687,12 +697,14 @@ class PluginManager
     public function reloadDisabledCache()
     {
         $this->disabledPlugins = [];
+        $this->siteDisabledPlugins = [];
         $this->disabledCache = [];
         $this->registrationMethodCache = [];
 
         $this->loadDisabled();
         $this->loadPlugins();
         $this->loadDependencies();
+        $this->applySiteContext($this->siteContextId);
     }
 
     /**
@@ -728,12 +740,13 @@ class PluginManager
         elseif ($this->app->hasDatabase()) {
             $this->populateDisabledPluginsFromDb();
             $this->writeDisabled();
+            $this->mergeDisabledOnEverySite();
         }
     }
 
     /**
-     * loadDisabledFromCache loads the disabled plugins from the cached data,
-     * resolving the active site/group context into the flat disabledPlugins array.
+     * loadDisabledFromCache loads the disabled plugins from the cached data, where a plugin
+     * disabled for every site counts as disabled everywhere.
      */
     protected function loadDisabledFromCache(array $data)
     {
@@ -750,19 +763,22 @@ class PluginManager
             (array) $data['global']
         );
 
-        $this->mergeActiveSiteContext($data);
+        $this->mergeDisabledOnEverySite();
     }
 
     /**
-     * isDisabled determines if a plugin is disabled by looking at the meta information
-     * or the application configuration.
+     * isDisabled determines if a plugin is disabled for the active site context by looking
+     * at the meta information or the application configuration.
      * @return boolean
      */
     public function isDisabled($id)
     {
         $code = $this->getIdentifier($id);
 
-        if (array_key_exists($code, $this->disabledPlugins)) {
+        if (
+            array_key_exists($code, $this->disabledPlugins) ||
+            array_key_exists($code, $this->siteDisabledPlugins)
+        ) {
             return true;
         }
 
@@ -777,26 +793,11 @@ class PluginManager
     {
         $code = $this->getIdentifier($id);
 
-        if (isset($this->disabledCache['global'][$code])) {
+        if (array_key_exists($code, $this->disabledPlugins)) {
             return true;
         }
 
-        if (
-            Site::hasFeature('system_plugin_sites') &&
-            isset($this->disabledCache['sites'][$site->id])
-        ) {
-            return in_array($code, (array) $this->disabledCache['sites'][$site->id]);
-        }
-
-        if (
-            Site::hasFeature('system_plugin_site_groups') &&
-            $site->group_id &&
-            isset($this->disabledCache['groups'][$site->group_id])
-        ) {
-            return in_array($code, (array) $this->disabledCache['groups'][$site->group_id]);
-        }
-
-        return false;
+        return in_array($code, $this->listDisabledForSite($site));
     }
 
     /**
@@ -843,6 +844,8 @@ class PluginManager
             }
         }
 
+        $this->disabledCache = $data;
+
         try {
             // Write to a sibling file and rename, so a concurrent request never
             // includes a half-written file
@@ -860,27 +863,97 @@ class PluginManager
     }
 
     /**
-     * mergeActiveSiteContext merges the per-site or per-group disabled plugins
-     * for the active context into the flat disabledPlugins array.
+     * applySiteContext hides the plugins disabled for the given site, or none when no site is
+     * selected, without reloading the plugin instances.
      */
-    protected function mergeActiveSiteContext(array $data)
+    public function applySiteContext($siteId = null)
+    {
+        $this->siteContextId = $siteId;
+        $this->siteDisabledPlugins = [];
+        $this->registrationMethodCache = [];
+
+        if (!$siteId || !$site = Site::getSiteFromId($siteId)) {
+            return;
+        }
+
+        foreach ($this->listDisabledForSite($site) as $code) {
+            $this->siteDisabledPlugins[$code] = true;
+        }
+
+        // Plugins are sorted by dependency, so a hidden requirement is always found first
+        foreach ($this->plugins as $id => $plugin) {
+            if ($this->isDisabled($id)) {
+                continue;
+            }
+
+            foreach ((array) $this->getDependencies($plugin) as $require) {
+                $requirePlugin = $this->findByIdentifier($require);
+                if (!$requirePlugin || $this->isDisabled($requirePlugin)) {
+                    $this->siteDisabledPlugins[$id] = false;
+                    break;
+                }
+            }
+        }
+    }
+
+    /**
+     * listDisabledForSite returns the plugin codes disabled for a site, or for its site group.
+     */
+    protected function listDisabledForSite($site): array
     {
         if (Site::hasFeature('system_plugin_sites')) {
-            $siteId = Site::getSiteIdFromContext();
-            if ($siteId && isset($data['sites'][$siteId])) {
-                foreach ((array) $data['sites'][$siteId] as $code) {
-                    $this->disabledPlugins[$code] = true;
-                }
+            return (array) ($this->disabledCache['sites'][$site->id] ?? []);
+        }
+
+        if (Site::hasFeature('system_plugin_site_groups')) {
+            return (array) ($this->disabledCache['groups'][(int) ($site->group_id ?? 1)] ?? []);
+        }
+
+        return [];
+    }
+
+    /**
+     * mergeDisabledOnEverySite disables plugins that are disabled for every site, so they are never loaded.
+     */
+    protected function mergeDisabledOnEverySite()
+    {
+        if (!Site::hasFeature('system_plugin_sites') && !Site::hasFeature('system_plugin_site_groups')) {
+            return;
+        }
+
+        $codes = null;
+
+        foreach ($this->listSiteRows() as $site) {
+            $siteCodes = $this->listDisabledForSite($site);
+            $codes = $codes === null ? $siteCodes : array_intersect($codes, $siteCodes);
+
+            if (!$codes) {
+                return;
             }
         }
-        elseif (Site::hasFeature('system_plugin_site_groups')) {
-            $groupId = Site::getSiteGroupIdFromContext();
-            if ($groupId && isset($data['groups'][$groupId])) {
-                foreach ((array) $data['groups'][$groupId] as $code) {
-                    $this->disabledPlugins[$code] = true;
-                }
-            }
+
+        foreach ((array) $codes as $code) {
+            $this->disabledPlugins[$code] = true;
         }
+    }
+
+    /**
+     * listSiteRows returns the id and group of every site from the manifest or database,
+     * since site models cannot be queried before the database service boots.
+     */
+    protected function listSiteRows(): array
+    {
+        if (Manifest::has(SiteManager::MANIFEST_SITES)) {
+            return array_map(function($attributes) {
+                return (object) $attributes;
+            }, (array) Manifest::get(SiteManager::MANIFEST_SITES));
+        }
+
+        if (!$this->app->hasDatabase() || !Schema::hasTable('system_site_definitions')) {
+            return [];
+        }
+
+        return Db::table('system_site_definitions')->get(['id', 'group_id'])->all();
     }
 
     /**

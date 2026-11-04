@@ -54,6 +54,7 @@ class FormComponent extends ComponentBehavior
         'datepicker' => 'date',
         'colorpicker' => 'color',
         'fileupload' => 'file',
+        'hidden' => 'hidden',
     ];
 
     /**
@@ -80,11 +81,11 @@ class FormComponent extends ComponentBehavior
      * formGetFields returns field metadata for use in Twig templates.
      *
      * Each field is returned as an array with keys: name, label, type,
-     * htmlType, options, required, placeholder, comment.
+     * htmlType, options, required, placeholder, comment, default, multiple.
      */
     public function formGetFields(): array
     {
-        $config = $this->component->formGetFieldConfig();
+        $config = $this->formGetVisibleFieldConfig();
         $fields = [];
 
         foreach ($config as $name => $field) {
@@ -108,11 +109,23 @@ class FormComponent extends ComponentBehavior
                 'required' => $isRequired,
                 'placeholder' => __($field['placeholder'] ?? ''),
                 'comment' => __($field['comment'] ?? ''),
+                'default' => $field['default'] ?? null,
                 'multiple' => $htmlType === 'file' && (int) ($field['maxFiles'] ?? 0) !== 1,
             ];
         }
 
         return $fields;
+    }
+
+    /**
+     * formGetVisibleFieldConfig returns the field config without hidden fields, which never render or accept input
+     */
+    protected function formGetVisibleFieldConfig(): array
+    {
+        return array_filter(
+            $this->component->formGetFieldConfig(),
+            static fn ($field) => empty($field['hidden'])
+        );
     }
 
     /**
@@ -123,7 +136,7 @@ class FormComponent extends ComponentBehavior
         $result = [];
         $rejectedTypes = $this->component->formGetRejectedTypes();
 
-        foreach ($this->component->formGetFieldConfig() as $name => $field) {
+        foreach ($this->formGetVisibleFieldConfig() as $name => $field) {
             if (in_array($field['type'] ?? 'text', $rejectedTypes)) {
                 continue;
             }
@@ -160,7 +173,7 @@ class FormComponent extends ComponentBehavior
     {
         $result = [];
 
-        foreach ($this->component->formGetFieldConfig() as $name => $field) {
+        foreach ($this->formGetVisibleFieldConfig() as $name => $field) {
             if (($this->htmlTypeMap[$field['type'] ?? 'text'] ?? null) === 'file') {
                 $result[] = $name;
             }

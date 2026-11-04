@@ -278,9 +278,9 @@ class SiteManager extends Extendable
      */
     protected function broadcastSiteChange($siteId)
     {
-        // Reload plugin disabled state for the new site context
+        // Hide the plugins disabled for the new site, the fallback site hides nothing
         if ($this->hasFeature('system_plugin_sites') || $this->hasFeature('system_plugin_site_groups')) {
-            PluginManager::instance()->reloadDisabledCache();
+            PluginManager::instance()->applySiteContext($this->hasSelectedSite() ? $siteId : null);
         }
 
         /**
@@ -295,6 +295,16 @@ class SiteManager extends Extendable
          *
          */
         Event::fire('site.changed', [$siteId]);
+    }
+
+    /**
+     * hasSelectedSite returns true when a site has been applied or set as the context, instead of the fallback site.
+     */
+    protected function hasSelectedSite(): bool
+    {
+        return $this->siteContext !== null ||
+            $this->getActiveSiteId() !== null ||
+            $this->getEditSiteId() !== null;
     }
 
     /**

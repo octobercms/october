@@ -8,7 +8,7 @@
 
     {% if formSubmitted %}
         <div class="alert alert-success">
-            {{ formSuccessMessage|default('Thank you for your submission!') }}
+            {{ __('Thank you for your submission!') }}
         </div>
     {% else %}
         {% for field in fields %}
@@ -126,6 +126,13 @@
                     {% endif %}
                 </div>
 
+            {% elseif field.htmlType == 'hidden' %}
+                <input
+                    type="hidden"
+                    name="{{ field.name }}"
+                    value="{{ field.default }}"
+                >
+
             {% else %}
                 <div class="mb-3">
                     <label for="formField_{{ field.name }}" class="form-label">
@@ -149,7 +156,7 @@
         {% endfor %}
 
         <button type="submit" data-attach-loading class="btn btn-primary">
-            {{ formSubmitLabel|default('Submit') }}
+            {{ __('Submit') }}
         </button>
     {% endif %}
 </form>

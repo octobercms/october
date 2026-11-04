@@ -597,9 +597,9 @@ class VersionManager
     protected function removeDatabaseScript($code, $version, $script)
     {
         // Execute the database PHP script
-        $updateFile = $this->pluginManager->getPluginPath($code) . '/updates/' . $script;
-
-        $this->getUpdater()->packDown($updateFile);
+        if ($updateFile = $this->resolveRemovableScript($code, $version, $script)) {
+            $this->getUpdater()->packDown($updateFile);
+        }
 
         Db::table('system_plugin_history')
             ->where('code', $code)
@@ -608,6 +608,52 @@ class VersionManager
             ->where('detail', $script)
             ->delete()
         ;
+    }
+
+    /**
+     * resolveRemovableScript returns the file to roll back for an applied script, following a rename in the version file when the original is gone.
+     */
+    protected function resolveRemovableScript($code, $version, $script): ?string
+    {
+        $updatesPath = $this->pluginManager->getPluginPath($code) . '/updates/';
+
+        if (File::isFile($updatesPath . $script)) {
+            return $updatesPath . $script;
+        }
+
+        // Applied scripts for this version that are no longer on disk
+        $appliedScripts = [];
+        $missingScripts = [];
+
+        foreach ($this->getDatabaseHistory($code) as $history) {
+            if ($history->type !== self::HISTORY_TYPE_SCRIPT) {
+                continue;
+            }
+
+            $appliedScripts[] = $history->detail;
+
+            if ((string) $history->version === (string) $version && !File::isFile($updatesPath . $history->detail)) {
+                $missingScripts[] = $history->detail;
+            }
+        }
+
+        // Scripts in the version file for this version that exist but were never applied
+        [, $fileScripts] = $this->extractScriptsAndComments($this->getFileVersions($code)[$version] ?? []);
+
+        $renamedScripts = array_values(array_filter($fileScripts, function ($fileScript) use ($appliedScripts, $updatesPath) {
+            return !in_array($fileScript, $appliedScripts, true) && File::isFile($updatesPath . $fileScript);
+        }));
+
+        $position = array_search($script, $missingScripts, true);
+
+        if ($position === false || count($missingScripts) !== count($renamedScripts)) {
+            $this->note('- <error>v' . $version . ':  Migration file "' . $script . '" not found, skipping rollback</error>');
+            return null;
+        }
+
+        $this->note('- <comment>v' . $version . ':  Migration file "' . $script . '" not found, rolling back "' . $renamedScripts[$position] . '" instead</comment>');
+
+        return $updatesPath . $renamedScripts[$position];
     }
 
     /**

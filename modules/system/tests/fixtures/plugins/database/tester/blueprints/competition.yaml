@@ -1,0 +1,27 @@
+uuid: unittest-competition-3e8f61c4
+handle: UnitTest\Competition
+type: submission
+name: Competition
+
+navigation:
+    icon: ph ph-trophy
+    order: 113
+
+fields:
+    name:
+        label: Name
+        type: text
+        validation: required
+        tags: [step1]
+
+    competition:
+        label: Competition
+        type: hidden
+        default: Summer Draw
+        tags: [step1]
+
+    reviewer_notes:
+        label: Reviewer Notes
+        type: textarea
+        hidden: true
+        tags: [step1]
