@@ -48,7 +48,7 @@ class SafeRequest implements CallsAnyMethod
         'input', 'query', 'post', 'all', 'only', 'except', 'collect',
         'has', 'hasAny', 'hasAll', 'filled', 'anyFilled', 'missing',
         'string', 'str', 'boolean', 'integer', 'float', 'date', 'enum',
-        'isNotFilled', 'whenHas', 'whenFilled', 'whenMissing',
+        'isNotFilled',
 
         // Network metadata (low-sensitivity)
         'ip', 'ips', 'userAgent',

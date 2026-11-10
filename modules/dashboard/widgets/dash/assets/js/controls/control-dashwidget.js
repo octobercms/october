@@ -68,7 +68,7 @@ registerControl('dashwidget', class extends ControlBase
 
         const requiredQueryParams = {
             start: stickyRange.start || this.resolveRangeKeyword(this.store.state.defaultStart),
-            end: stickyRange.end || this.resolveRangeKeyword(this.store.state.defaultEnd),
+            end: stickyRange.end || this.resolveRangeKeyword(this.store.state.defaultEnd, true),
             interval: stickyRange.interval || this.store.state.defaultInterval,
             compare: stickyRange.compare || this.store.state.defaultCompare
         };
@@ -156,7 +156,7 @@ registerControl('dashwidget', class extends ControlBase
         }
         else {
             dateStart = moment(this.resolveRangeKeyword(this.store.state.defaultStart), this.universalDateFormat, true);
-            dateEnd = moment(this.resolveRangeKeyword(this.store.state.defaultEnd), this.universalDateFormat, true);
+            dateEnd = moment(this.resolveRangeKeyword(this.store.state.defaultEnd, true), this.universalDateFormat, true);
             interval = this.store.state.defaultInterval;
             compareMode = this.store.state.defaultCompare;
         }
@@ -166,7 +166,7 @@ registerControl('dashwidget', class extends ControlBase
         }
 
         if (!dateEnd.isValid()) {
-            dateEnd = moment(this.resolveRangeKeyword(this.store.state.defaultEnd), this.universalDateFormat, true);
+            dateEnd = moment(this.resolveRangeKeyword(this.store.state.defaultEnd, true), this.universalDateFormat, true);
         }
 
         if (dateStart.isAfter(dateEnd)) {
@@ -195,15 +195,28 @@ registerControl('dashwidget', class extends ControlBase
         }
     }
 
-    resolveRangeKeyword(keyword) {
-        switch (keyword) {
-            case 'today': return moment().format(this.universalDateFormat);
-            case 'week': return moment().startOf('isoWeek').format(this.universalDateFormat);
-            case 'month': return moment().startOf('month').format(this.universalDateFormat);
-            case 'quarter': return moment().startOf('quarter').format(this.universalDateFormat);
-            case 'year': return moment().startOf('year').format(this.universalDateFormat);
-            default: return keyword;
+    // resolveRangeKeyword returns the first or last date of the range a keyword names, other values pass through.
+    resolveRangeKeyword(keyword, isEnd = false) {
+        const today = moment();
+        const lastMonth = moment().subtract(1, 'month');
+
+        const ranges = {
+            'today': [today, today],
+            'yesterday': [moment().subtract(1, 'days'), moment().subtract(1, 'days')],
+            'week': [moment().startOf('isoWeek'), moment().endOf('isoWeek')],
+            'last-7-days': [moment().subtract(6, 'days'), today],
+            'last-30-days': [moment().subtract(29, 'days'), today],
+            'month': [moment().startOf('month'), moment().endOf('month')],
+            'last-month': [lastMonth.clone().startOf('month'), lastMonth.clone().endOf('month')],
+            'quarter': [moment().startOf('quarter'), moment().endOf('quarter')],
+            'year': [moment().startOf('year'), moment().endOf('year')]
+        };
+
+        if (!Object.hasOwn(ranges, keyword)) {
+            return keyword;
         }
+
+        return ranges[keyword][isEnd ? 1 : 0].format(this.universalDateFormat);
     }
 
     makeIntervalName(startDate, endDate) {

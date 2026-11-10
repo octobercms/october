@@ -66,7 +66,5 @@ class Dashboard extends VueComponentBase
         // $this->addJs('/modules/dashboard/assets/js/classes/Reordering.js', ['type' => 'module']);
         // $this->addJs('/modules/dashboard/assets/js/classes/DataHelper.js', ['type' => 'module']);
         // $this->addJs('/modules/dashboard/assets/js/classes/WidgetManager.js', ['type' => 'module']);
-
-        $this->addJs('js/widget-base.js', ['type' => 'module']);
     }
 }

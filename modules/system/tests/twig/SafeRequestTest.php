@@ -109,4 +109,33 @@ class SafeRequestTest extends TestCase
         $this->assertNull($proxy->server);
         $this->assertFalse(isset($proxy->server));
     }
+
+    public function testWhenHasIsBlocked()
+    {
+        $proxy = new SafeRequest(Request::create('http://example.test/?cmd=whoami', 'GET'));
+
+        $this->expectException(SecurityNotAllowedMethodError::class);
+        $this->expectExceptionMessage('whenHas');
+
+        // whenHas invokes its callable argument, so a string such as passthru would otherwise run
+        $proxy->whenHas('cmd', 'passthru');
+    }
+
+    public function testWhenFilledIsBlocked()
+    {
+        $proxy = new SafeRequest(Request::create('http://example.test/?cmd=whoami', 'GET'));
+
+        $this->expectException(SecurityNotAllowedMethodError::class);
+
+        $proxy->whenFilled('cmd', 'passthru');
+    }
+
+    public function testWhenMissingIsBlocked()
+    {
+        $proxy = new SafeRequest(Request::create('http://example.test/', 'GET'));
+
+        $this->expectException(SecurityNotAllowedMethodError::class);
+
+        $proxy->whenMissing('cmd', 'passthru');
+    }
 }

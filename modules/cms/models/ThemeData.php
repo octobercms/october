@@ -124,7 +124,7 @@ class ThemeData extends Model
         $cacheKey = static::getCacheKey($dirName);
 
         if (is_array($cacheData = Cache::get($cacheKey))) {
-            return self::$instances[$dirName] = static::newFromCache($cacheData);
+            return self::$instances[$instanceKey] = static::newFromCache($cacheData);
         }
 
         try {

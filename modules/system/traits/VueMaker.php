@@ -1,6 +1,7 @@
 <?php namespace System\Traits;
 
 use Str;
+use Backend;
 use Request;
 use SystemException;
 use System\Classes\VueComponentBase;
@@ -188,7 +189,8 @@ trait VueMaker
     }
 
     /**
-     * getEsmModuleUrl converts a file path to a public URL
+     * getEsmModuleUrl converts a file path to a public URL with the asset version, so a
+     * service worker left over from an older build cannot stamp it with its own version.
      */
     protected function getEsmModuleUrl(string $path): string
     {
@@ -200,7 +202,7 @@ trait VueMaker
 
         $path = str_replace('\\', '/', $path);
 
-        return Request::getBasePath() . '/' . ltrim($path, '/');
+        return Request::getBasePath() . '/' . ltrim($path, '/') . '?v=' . Backend::assetVersion();
     }
 
     /**

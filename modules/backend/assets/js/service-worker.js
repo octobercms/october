@@ -2,40 +2,21 @@
  * Backend service worker
  *
  * Propagates a single asset version across the entire ESM dependency graph by
- * rewriting in-flight asset requests with a ?v=<APP_VERSION> query string. A
+ * rewriting in-flight asset requests with a ?v=<appVersion> query string. A
  * bump to Backend::assetVersion() invalidates every imported module, not just
  * the entry points listed in the layout.
  *
- * Imports inherit the version of the asset that requested them, so a worker
- * left over from a previous build still fetches fresh files for a newer page.
+ * A worker left over from an older build adopts the version of a newer page
+ * from its versioned core head assets, until the new worker takes over.
  *
  * Intentionally tiny: no Cache Storage, no offline support, no API routing.
  */
 
-const APP_VERSION = new URL(self.location.href).searchParams.get('v') || '';
+let appVersion = new URL(self.location.href).searchParams.get('v') || '';
 
 const ASSET_PATH_PATTERN = /\/(modules|plugins)\//;
+const CORE_ASSET_PATTERN = /\/modules\/system\/assets\//;
 const VERSIONABLE_EXT = /\.(m?js|css)$/i;
-
-// isVersionableAsset checks if the URL is a script or stylesheet served by a module or plugin.
-function isVersionableAsset(url) {
-    return VERSIONABLE_EXT.test(url.pathname) && ASSET_PATH_PATTERN.test(url.pathname);
-}
-
-// resolveVersion returns the version of the importing asset, falling back to the worker version.
-function resolveVersion(request) {
-    if (!request.referrer) {
-        return APP_VERSION;
-    }
-
-    const referrer = new URL(request.referrer);
-
-    if (referrer.origin !== self.location.origin || !isVersionableAsset(referrer)) {
-        return APP_VERSION;
-    }
-
-    return referrer.searchParams.get('v') || APP_VERSION;
-}
 
 self.addEventListener('install', () => {
     self.skipWaiting();
@@ -59,14 +40,22 @@ self.addEventListener('fetch', (event) => {
     }
 
     if (url.searchParams.has('v')) {
+        if (CORE_ASSET_PATTERN.test(url.pathname)) {
+            appVersion = url.searchParams.get('v');
+        }
+
         return;
     }
 
-    if (!isVersionableAsset(url)) {
+    if (!VERSIONABLE_EXT.test(url.pathname)) {
         return;
     }
 
-    url.searchParams.set('v', resolveVersion(request));
+    if (!ASSET_PATH_PATTERN.test(url.pathname)) {
+        return;
+    }
+
+    url.searchParams.set('v', appVersion);
 
     event.respondWith(fetch(new Request(url.toString(), {
         method: request.method,

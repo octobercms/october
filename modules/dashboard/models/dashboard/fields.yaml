@@ -62,8 +62,12 @@ tabs:
             placeholder: "Use Default"
             options:
                 today: Today
+                yesterday: Yesterday
                 week: This week
+                last-7-days: Last 7 days
+                last-30-days: Last 30 days
                 month: This month
+                last-month: Last month
                 quarter: This quarter
                 year: This year
             trigger:
@@ -79,8 +83,10 @@ tabs:
             placeholder: "Use Default"
             options:
                 today: Today
+                yesterday: Yesterday
                 week: This week
                 month: This month
+                last-month: Last month
                 quarter: This quarter
                 year: This year
             trigger:

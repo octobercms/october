@@ -256,21 +256,52 @@ export default {
             },
 
             closeAllTabs: function closeAllTabs(ignoreTab, onlySaved) {
-                for (var index = this.tabs.length - 1; index >= 0; index--) {
-                    var tab = this.tabs[index];
-                    if (tab === ignoreTab) {
-                        continue;
-                    }
+                var that = this,
+                    pendingTabs = this.tabs.filter(function (tab) {
+                        return tab !== ignoreTab && !(onlySaved && tab.hasChanges);
+                    });
 
-                    if (onlySaved && tab.hasChanges) {
-                        continue;
-                    }
+                // Tabs with unsaved changes ask for confirmation, the batch
+                // resumes once discarded and stops when cancelled.
+                //
+                function closeNextTab() {
+                    while (pendingTabs.length) {
+                        var tab = pendingTabs.pop();
+                        if (that.getTabIndex(tab.key) === undefined) {
+                            continue;
+                        }
 
-                    if (!this.onCloseClick(tab)) {
-                        this.onClick(tab);
-                        break;
+                        var confirmation = that.confirmTabClose(tab);
+                        if (confirmation === true) {
+                            that.closeTabConfirmedByHostedComponent(tab);
+                            continue;
+                        }
+
+                        that.onClick(tab);
+                        confirmation.then(function () {
+                            that.closeTabConfirmedByHostedComponent(tab);
+                            closeNextTab();
+                        }, $.noop);
+
+                        return;
                     }
                 }
+
+                closeNextTab();
+            },
+
+            confirmTabClose: function confirmTabClose(tab) {
+                var componentRefs = this.$refs[this.getTabComponentRefName(tab)];
+
+                if (!componentRefs || !componentRefs.length || typeof componentRefs[0].onParentTabClose != 'function') {
+                    return true;
+                }
+
+                // If result is true or falsy, close immediately
+                // If result is a promise (thenable), wait for it
+                var result = componentRefs[0].onParentTabClose();
+
+                return !result || result === true ? true : result;
             },
 
             getSelectedTabComponent: function getSelectedTabComponent() {
@@ -343,31 +374,20 @@ export default {
             },
 
             onCloseClick: function onCloseClick(tab) {
-                var refName = this.getTabComponentRefName(tab),
-                    componentRefs = this.$refs[refName],
+                var confirmation = this.confirmTabClose(tab),
                     that = this;
 
-                if (componentRefs.length && typeof componentRefs[0].onParentTabClose == 'function') {
-                    var result = this.$refs[refName][0].onParentTabClose();
-
-                    // If result is true or falsy, close immediately
-                    // If result is a promise (thenable), wait for it
-                    if (!result || result === true) {
-                        this.closeTabConfirmedByHostedComponent(tab);
-                        return true;
-                    }
-
-                    // Result is a promise, wait for confirmation
-                    result.then(function () {
-                        that.closeTabConfirmedByHostedComponent(tab);
-                    }, $.noop);
-
-                    return false;
-                }
-                else {
+                if (confirmation === true) {
                     this.closeTabConfirmedByHostedComponent(tab);
                     return true;
                 }
+
+                // Result is a promise, wait for confirmation
+                confirmation.then(function () {
+                    that.closeTabConfirmedByHostedComponent(tab);
+                }, $.noop);
+
+                return false;
             },
 
             onHostedComponentTabClose: function onHostedComponentTabClose(tab) {

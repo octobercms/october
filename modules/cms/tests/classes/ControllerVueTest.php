@@ -107,6 +107,22 @@ class ControllerVueTest extends TestCase
         $this->assertStringContainsString('class="test-button"', $content);
     }
 
+    public function testVueComponentUrlsCarryAssetVersion()
+    {
+        $version = Backend::assetVersion();
+
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $content = $controller->run('/vue-test')->getContent();
+
+        // Imports from the page are versioned so a stale service worker cannot stamp them
+        $this->assertStringContainsString("/vuecomponents/testwidget/assets/js/testwidget.js?v={$version}'", $content);
+        $this->assertStringContainsString("/vuecomponents/testbutton/assets/js/testbutton.js?v={$version}'", $content);
+
+        $opsJson = $this->getAjaxOpsJson('onAjax', '/vue-test');
+        $this->assertStringContainsString("testwidget.js?v={$version}", $opsJson);
+    }
+
     public function testVueComponentCssAsset()
     {
         $theme = Theme::load('test');

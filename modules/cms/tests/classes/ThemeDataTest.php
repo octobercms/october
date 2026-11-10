@@ -80,6 +80,23 @@ class ThemeDataTest extends TestCase
         $this->assertEquals($warmed->id, $fromCache->id);
     }
 
+    public function testForThemeReusesInstanceRehydratedFromCache()
+    {
+        $theme = Theme::load('test');
+        $themeData = ThemeData::forTheme($theme);
+        $themeData->position = 'top';
+        $themeData->save();
+
+        $this->resetThemeDataInstances();
+        ThemeData::forTheme($theme);
+        $this->assertIsArray(Cache::get(ThemeData::getCacheKey('test')));
+
+        $this->resetThemeDataInstances();
+        $fromCache = ThemeData::forTheme($theme);
+
+        $this->assertSame($fromCache, ThemeData::forTheme($theme));
+    }
+
     public function testSaveBustsThemeDataCache()
     {
         $theme = Theme::load('test');

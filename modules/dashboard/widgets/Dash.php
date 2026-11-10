@@ -69,12 +69,12 @@ class Dash extends WidgetBase
     public $showInterval = true;
 
     /**
-     * @var string defaultStart specifies default start keyword: today, week, month, quarter, year
+     * @var string defaultStart specifies default start keyword: today, yesterday, week, last-7-days, last-30-days, month, last-month, quarter, year
      */
     public $defaultStart = 'month';
 
     /**
-     * @var string defaultEnd specifies default end keyword: today, week, month, quarter, year
+     * @var string defaultEnd specifies default end keyword: today, yesterday, week, month, last-month, quarter, year
      */
     public $defaultEnd = 'today';
 
