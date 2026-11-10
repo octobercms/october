@@ -55,4 +55,21 @@ class UserRoleTest extends PluginTestCase
         $this->assertFalse((bool) $copy->is_system);
         $this->assertEquals($role->permissions, $copy->permissions);
     }
+
+    /**
+     * testWildcardCodeDoesNotBecomeSystemRole ensures a role coded with the orphan bucket key is not promoted to a system role.
+     */
+    public function testWildcardCodeDoesNotBecomeSystemRole()
+    {
+        $role = new UserRole;
+        $role->name = 'Wildcard';
+        $role->code = '*';
+        $role->permissions = ['general.backend' => 1];
+        $role->save();
+
+        $role = UserRole::find($role->id);
+
+        $this->assertFalse((bool) $role->is_system);
+        $this->assertEquals(['general.backend' => 1], $role->permissions);
+    }
 }

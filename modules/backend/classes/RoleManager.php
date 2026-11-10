@@ -14,6 +14,8 @@ use October\Rain\Exception\SystemException;
  */
 class RoleManager
 {
+    const ORPHAN_KEY = '*';
+
     /**
      * @var array|null permissions registered.
      */
@@ -204,7 +206,7 @@ class RoleManager
                     }
                 }
                 else {
-                    $this->permissionRoles['*'][$permission->code] = 1;
+                    $this->permissionRoles[self::ORPHAN_KEY][$permission->code] = 1;
                 }
             }
         }
@@ -212,7 +214,7 @@ class RoleManager
         $result = $this->permissionRoles[$role] ?? [];
 
         if ($includeOrphans) {
-            $result += $this->permissionRoles['*'] ?? [];
+            $result += $this->permissionRoles[self::ORPHAN_KEY] ?? [];
         }
 
         return $result;
@@ -223,6 +225,10 @@ class RoleManager
      */
     public function hasPermissionsForRole($role): bool
     {
+        if ($role === self::ORPHAN_KEY) {
+            return false;
+        }
+
         return !!$this->listPermissionsForRole($role, false);
     }
 

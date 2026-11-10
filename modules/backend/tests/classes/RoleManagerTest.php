@@ -127,6 +127,14 @@ class RoleManagerTest extends TestCase
         $this->assertNotContains('test.permission_one', $permissionCodes);
     }
 
+    public function testOrphanKeyIsNotARole()
+    {
+        $manager = $this->instance;
+
+        $this->assertNotEmpty($manager->listPermissionsForRole(RoleManager::ORPHAN_KEY, false));
+        $this->assertFalse($manager->hasPermissionsForRole(RoleManager::ORPHAN_KEY));
+    }
+
     public function testCannotRemovePermissionsBeforeLoaded()
     {
         $this->expectException(SystemException::class);
