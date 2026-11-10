@@ -132,6 +132,9 @@ window.oc.langMessages['sl'] = Object.assign(
     "eventlog": {
         "show_stacktrace": "Prika\u017ei sled dogodkov",
         "hide_stacktrace": "Skrij sled dogodkov",
+        "copy": "Copy",
+        "copied": "Copied",
+        "copy_failed": "Unable to copy to the clipboard.",
         "tabs": {
             "formatted": "Oblikovano",
             "raw": "Brez oblikovanja"

@@ -132,6 +132,9 @@ window.oc.langMessages['fa'] = Object.assign(
     "eventlog": {
         "show_stacktrace": "\u0646\u0645\u0627\u06cc\u0634 \u0631\u0648\u0646\u062f \u0627\u062c\u0631\u0627",
         "hide_stacktrace": "\u0645\u062e\u0641\u06cc \u0633\u0627\u0632\u06cc \u0631\u0648\u0646\u062f \u0627\u062c\u0631\u0627",
+        "copy": "Copy",
+        "copied": "Copied",
+        "copy_failed": "Unable to copy to the clipboard.",
         "tabs": {
             "formatted": "\u0642\u0627\u0644\u0628 \u0628\u0646\u062f\u06cc \u0634\u062f\u0647",
             "raw": "\u062e\u0627\u0645"

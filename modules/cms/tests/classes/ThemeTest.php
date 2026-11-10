@@ -95,4 +95,76 @@ class ThemeTest extends TestCase
         $this->assertNotNull($activeTheme);
         $this->assertEquals('apitest', $activeTheme->getDirName());
     }
+
+    public function testWriteConfigCreatesComposerFile()
+    {
+        $path = $this->makeTempTheme();
+
+        try {
+            Theme::load(basename($path))->writeConfig(['name' => 'Demo', 'authorCode' => 'Acme', 'code' => 'demo']);
+
+            $composer = json_decode(file_get_contents($path.'/composer.json'), true);
+            $this->assertEquals('acme/demo-theme', $composer['name']);
+            $this->assertEquals('october-theme', $composer['type']);
+            $this->assertEquals('Demo', $composer['description']);
+            $this->assertEquals(['php' => '>=8.2'], $composer['require']);
+        }
+        finally {
+            File::deleteDirectory($path);
+        }
+    }
+
+    public function testWriteConfigKeepsComposerFile()
+    {
+        $path = $this->makeTempTheme();
+        file_put_contents($path.'/composer.json', json_encode([
+            'name' => 'acme/old-theme',
+            'type' => 'october-theme',
+            'description' => 'Old',
+            'require' => ['october/rain' => '^4.0'],
+            'extra' => new stdClass,
+        ]));
+
+        try {
+            Theme::load(basename($path))->writeConfig(['name' => 'Demo', 'authorCode' => 'Acme', 'code' => 'demo']);
+
+            $contents = file_get_contents($path.'/composer.json');
+            $composer = json_decode($contents, true);
+            $this->assertEquals('acme/demo-theme', $composer['name']);
+            $this->assertEquals('Demo', $composer['description']);
+            $this->assertEquals(['october/rain' => '^4.0'], $composer['require']);
+            $this->assertStringContainsString('"extra": {}', $contents);
+        }
+        finally {
+            File::deleteDirectory($path);
+        }
+    }
+
+    public function testWriteConfigLeavesInvalidComposerFile()
+    {
+        $path = $this->makeTempTheme();
+        file_put_contents($path.'/composer.json', '{ not json');
+
+        try {
+            Theme::load(basename($path))->writeConfig(['name' => 'Demo', 'authorCode' => 'Acme', 'code' => 'demo']);
+
+            $this->assertEquals('{ not json', file_get_contents($path.'/composer.json'));
+        }
+        finally {
+            File::deleteDirectory($path);
+        }
+    }
+
+    /**
+     * makeTempTheme creates a theme in the fixtures directory, removed by the test
+     */
+    protected function makeTempTheme(): string
+    {
+        $path = base_path('modules/cms/tests/fixtures/themes/tmp-config-'.bin2hex(random_bytes(4)));
+
+        mkdir($path, 0755, true);
+        file_put_contents($path.'/theme.yaml', "name: Tmp\n");
+
+        return $path;
+    }
 }

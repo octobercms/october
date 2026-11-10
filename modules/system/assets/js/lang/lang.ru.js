@@ -132,6 +132,9 @@ window.oc.langMessages['ru'] = Object.assign(
     "eventlog": {
         "show_stacktrace": "\u041f\u043e\u043a\u0430\u0437\u0430\u0442\u044c \u0442\u0440\u0430\u0441\u0441\u0438\u0440\u043e\u0432\u043a\u0443 \u0441\u0442\u0435\u043a\u0430",
         "hide_stacktrace": "\u0421\u043a\u0440\u044b\u0442\u044c \u0442\u0440\u0430\u0441\u0441\u0438\u0440\u043e\u0432\u043a\u0443 \u0441\u0442\u0435\u043a\u0430",
+        "copy": "Copy",
+        "copied": "Copied",
+        "copy_failed": "Unable to copy to the clipboard.",
         "tabs": {
             "formatted": "\u0424\u043e\u0440\u043c\u0430\u0442\u0438\u0440\u043e\u0432\u0430\u043d\u043d\u044b\u0439",
             "raw": "\u0418\u0441\u0445\u043e\u0434\u043d\u044b\u0439"

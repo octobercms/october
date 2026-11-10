@@ -132,6 +132,9 @@ window.oc.langMessages['da'] = Object.assign(
     "eventlog": {
         "show_stacktrace": "Vis stacktracen",
         "hide_stacktrace": "Skjul stacktracen",
+        "copy": "Copy",
+        "copied": "Copied",
+        "copy_failed": "Unable to copy to the clipboard.",
         "tabs": {
             "formatted": "Formateret",
             "raw": "R\u00e5"

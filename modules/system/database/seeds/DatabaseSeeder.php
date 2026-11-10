@@ -15,7 +15,6 @@ class DatabaseSeeder extends Seeder
     {
         Model::unguard();
 
-        $this->call(\System\Database\Seeds\SeedSetupPrimarySite::class, true);
         $this->call(\System\Database\Seeds\SeedSetupMailLayouts::class, true);
         $this->call(\System\Database\Seeds\SeedArtisanAutoexec::class, true);
         $this->call(\System\Database\Seeds\SeedSetBuildNumber::class, true);

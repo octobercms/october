@@ -132,6 +132,9 @@ window.oc.langMessages['tr'] = Object.assign(
     "eventlog": {
         "show_stacktrace": "Veri y\u0131\u011f\u0131n\u0131n\u0131 g\u00f6ster",
         "hide_stacktrace": "Veri y\u0131\u011f\u0131n\u0131n\u0131 gizle",
+        "copy": "Copy",
+        "copied": "Copied",
+        "copy_failed": "Unable to copy to the clipboard.",
         "tabs": {
             "formatted": "Formatl\u0131",
             "raw": "Ham Veri"

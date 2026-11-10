@@ -486,11 +486,85 @@
 
         tabs.find('#beautifier-tab-raw').append('<div class="beautifier-raw-content">' + escapedSource.trim().replace(/\r\n|\r|\n/g, '<br>').replace(/ {2}/g, '&nbsp;&nbsp;') + '</div>');
 
+        tabs.append(this.buildToolbar(rawSource.trim()));
+
         tabs.ocTab({
             closable: false
         });
 
         return tabs;
+    }
+
+    ExceptionBeautifier.prototype.buildToolbar = function (rawSource) {
+        var self = this,
+            resetTimer,
+            $button = $('<button type="button" class="btn btn-sm btn-outline-secondary beautifier-copy"><i></i> <span aria-live="polite"></span></button>'),
+            $icon = $button.find('i'),
+            $label = $button.find('span');
+
+        function setCopied(isCopied) {
+            $button
+                .toggleClass('btn-outline-secondary', !isCopied)
+                .toggleClass('btn-outline-success', isCopied);
+
+            $icon.attr('class', isCopied ? 'ph ph-check' : 'ph ph-copy');
+            $label.text($.oc.lang.get(isCopied ? 'eventlog.copied' : 'eventlog.copy'));
+        }
+
+        setCopied(false);
+
+        $button.on('click', function () {
+            self.copyToClipboard(rawSource).then(function () {
+                clearTimeout(resetTimer);
+                setCopied(true);
+                resetTimer = setTimeout(function () {
+                    setCopied(false);
+                }, 2000);
+            }, function () {
+                $.oc.flashMsg({ text: $.oc.lang.get('eventlog.copy_failed'), 'class': 'error' });
+            });
+        });
+
+        return $('<div class="beautifier-toolbar" />').append($button);
+    }
+
+    ExceptionBeautifier.prototype.copyToClipboard = function (text) {
+        if (navigator.clipboard && window.isSecureContext) {
+            return navigator.clipboard.writeText(text);
+        }
+
+        // The Clipboard API is unavailable over plain HTTP, so fall back to a hidden textarea
+        return new Promise(function (resolve, reject) {
+            var focused = document.activeElement,
+                textarea = document.createElement('textarea'),
+                isCopied = false;
+
+            textarea.value = text;
+            textarea.setAttribute('readonly', '');
+            textarea.style.position = 'fixed';
+            textarea.style.top = '-9999px';
+            document.body.appendChild(textarea);
+            textarea.select();
+
+            try {
+                isCopied = document.execCommand('copy');
+            }
+            catch (e) {
+            }
+
+            document.body.removeChild(textarea);
+
+            if (focused) {
+                focused.focus();
+            }
+
+            if (isCopied) {
+                resolve();
+            }
+            else {
+                reject();
+            }
+        });
     }
 
     // EXCEPTION BEAUTIFIER PLUGIN DEFINITION

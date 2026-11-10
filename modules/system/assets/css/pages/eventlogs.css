@@ -126,6 +126,19 @@
     overflow-x: auto;
 }
 
+.plugin-exception-beautifier .beautifier-toolbar {
+    position: absolute;
+    top: 0;
+    right: 0;
+    height: 46px;
+    display: flex;
+    align-items: center;
+}
+
+.plugin-exception-beautifier .beautifier-copy {
+    white-space: nowrap;
+}
+
 .plugin-exception-beautifier .beautifier-formatted-content,
 .plugin-exception-beautifier .beautifier-raw-content {
     background: var(--bs-body-bg);

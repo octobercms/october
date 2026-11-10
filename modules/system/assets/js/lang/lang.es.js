@@ -132,6 +132,9 @@ window.oc.langMessages['es'] = Object.assign(
     "eventlog": {
         "show_stacktrace": "Mostrar el seguimiento de la pila",
         "hide_stacktrace": "Ocultar el seguimiento de la pila",
+        "copy": "Copy",
+        "copied": "Copied",
+        "copy_failed": "Unable to copy to the clipboard.",
         "tabs": {
             "formatted": "Formateado",
             "raw": "Sin formato"

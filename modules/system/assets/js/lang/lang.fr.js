@@ -132,6 +132,9 @@ window.oc.langMessages['fr'] = Object.assign(
     "eventlog": {
         "show_stacktrace": "Afficher la pile d\u2019ex\u00e9cution",
         "hide_stacktrace": "Masquer la pile d\u2019ex\u00e9cution",
+        "copy": "Copy",
+        "copied": "Copied",
+        "copy_failed": "Unable to copy to the clipboard.",
         "tabs": {
             "formatted": "Message format\u00e9",
             "raw": "Message brut"

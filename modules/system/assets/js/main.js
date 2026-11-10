@@ -19,7 +19,8 @@ window.bootstrap = bootstrap;
 import Cookies from '../vendor/js-cookie/js.cookie.esm.js';
 window.Cookies = Cookies;
 
-import Sortable from '../vendor/sortablejs/sortable.esm.js';
+import Sortable, { MultiDrag } from '../vendor/sortablejs/sortable.esm.js';
+Sortable.mount(new MultiDrag);
 window.Sortable = Sortable;
 
 import Dropzone from '../vendor/dropzone/dropzone.esm.js';

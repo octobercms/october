@@ -132,6 +132,9 @@ window.oc.langMessages['zh-cn'] = Object.assign(
     "eventlog": {
         "show_stacktrace": "\u663e\u793a\u5806\u6808",
         "hide_stacktrace": "\u9690\u85cf\u5806\u6808",
+        "copy": "Copy",
+        "copied": "Copied",
+        "copy_failed": "Unable to copy to the clipboard.",
         "tabs": {
             "formatted": "\u683c\u5f0f\u5316",
             "raw": "\u539f\u59cb"

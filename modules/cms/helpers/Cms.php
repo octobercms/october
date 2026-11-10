@@ -11,6 +11,7 @@ use Response;
 use Cms\Classes\Page;
 use Cms\Classes\Controller;
 use System\Helpers\DateTime as DateTimeHelper;
+use Illuminate\Routing\Exceptions\UrlGenerationException;
 use Exception;
 
 /**
@@ -64,7 +65,12 @@ class Cms
         }
 
         if (self::$actionExists) {
-            $result = Url::action($routeAction, ['slug' => $path]);
+            try {
+                $result = Url::action($routeAction, ['slug' => $path]);
+            }
+            catch (UrlGenerationException $ex) {
+                $result = strtr(rawurlencode((string) $path), ['%2F' => '/']);
+            }
         }
         else {
             $result = $path;

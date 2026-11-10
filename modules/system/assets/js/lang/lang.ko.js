@@ -132,6 +132,9 @@ window.oc.langMessages['ko'] = Object.assign(
     "eventlog": {
         "show_stacktrace": "\uc2a4\ud0dd \ucd94\uc801 \ubcf4\uae30",
         "hide_stacktrace": "\uc2a4\ud0dd \ucd94\uc801 \uac10\ucd94\uae30",
+        "copy": "Copy",
+        "copied": "Copied",
+        "copy_failed": "Unable to copy to the clipboard.",
         "tabs": {
             "formatted": "\uc815\ub9ac\ub41c\ub85c\uadf8",
             "raw": "\ubcf8\ub798\ub85c\uadf8"

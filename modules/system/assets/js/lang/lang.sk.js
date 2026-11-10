@@ -132,6 +132,9 @@ window.oc.langMessages['sk'] = Object.assign(
     "eventlog": {
         "show_stacktrace": "Zobrazi\u0165 stacktrace",
         "hide_stacktrace": "Skry\u0165 stacktrace",
+        "copy": "Copy",
+        "copied": "Copied",
+        "copy_failed": "Unable to copy to the clipboard.",
         "tabs": {
             "formatted": "Form\u00e1tovan\u00e9",
             "raw": "P\u00f4vodn\u00e9 (raw)"

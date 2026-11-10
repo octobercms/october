@@ -132,6 +132,9 @@ window.oc.langMessages['lt'] = Object.assign(
     "eventlog": {
         "show_stacktrace": "Rodyti i\u0161klotin\u0119",
         "hide_stacktrace": "Sl\u0117pti i\u0161klotin\u0119",
+        "copy": "Copy",
+        "copied": "Copied",
+        "copy_failed": "Unable to copy to the clipboard.",
         "tabs": {
             "formatted": "Formatuota",
             "raw": "Nepadorotas"

@@ -13,6 +13,14 @@ return new class extends Migration
             $table->string('code')->index()->nullable();
             $table->timestamps();
         });
+
+        // Seed the default group
+        Db::table('system_site_groups')->insert([
+            'name' => 'Default',
+            'code' => 'default',
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 
     public function down()

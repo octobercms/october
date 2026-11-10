@@ -103,6 +103,9 @@ return [
     'eventlog' => [
         'show_stacktrace' => 'Show the stacktrace',
         'hide_stacktrace' => 'Hide the stacktrace',
+        'copy' => 'Copy',
+        'copied' => 'Copied',
+        'copy_failed' => 'Unable to copy to the clipboard.',
         'tabs' => [
             'formatted' => 'Formatted',
             'raw' => 'Raw',

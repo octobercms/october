@@ -4,6 +4,7 @@ use Url;
 use File;
 use Yaml;
 use Event;
+use stdClass;
 use Exception;
 use ApplicationException;
 
@@ -182,7 +183,8 @@ trait HasConfiguration
     }
 
     /**
-     * writeComposerFile writes to a composer file for a theme
+     * writeComposerFile writes the theme's name and description to its composer file,
+     * keeping the rest of an existing file, eg: requirements the developer added
      */
     protected function writeComposerFile(array $data)
     {
@@ -200,18 +202,33 @@ trait HasConfiguration
             return;
         }
 
-        $composerArr = [
-            'name' => $author.'/'.$code.'-theme',
-            'type' => 'october-theme',
-            'description' => $description,
-            'require' => [
-                'composer/installers' => '~1.0'
-            ]
-        ];
+        $composerPath = $path.'/composer.json';
+        $isNew = !File::exists($composerPath);
+
+        // Decoded as objects, so empty objects stay {} when written back
+        if ($isNew) {
+            $composer = new stdClass;
+        }
+        else {
+            $composer = json_decode(File::get($composerPath));
+
+            // Leave a file that is not valid JSON alone
+            if (!$composer instanceof stdClass) {
+                return;
+            }
+        }
+
+        $composer->name = $author.'/'.$code.'-theme';
+        $composer->type = 'october-theme';
+        $composer->description = $description;
+
+        if ($isNew) {
+            $composer->require = (object) ['php' => '>=8.2'];
+        }
 
         File::put(
-            $path.'/composer.json',
-            json_encode($composerArr, JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT)
+            $composerPath,
+            json_encode($composer, JSON_UNESCAPED_SLASHES|JSON_PRETTY_PRINT)
         );
     }
 }

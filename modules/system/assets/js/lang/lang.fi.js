@@ -132,6 +132,9 @@ window.oc.langMessages['fi'] = Object.assign(
     "eventlog": {
         "show_stacktrace": "N\u00e4yt\u00e4 stacktrace",
         "hide_stacktrace": "Piilota stacktrace",
+        "copy": "Copy",
+        "copied": "Copied",
+        "copy_failed": "Unable to copy to the clipboard.",
         "tabs": {
             "formatted": "Muotoiltu",
             "raw": "Raaka"

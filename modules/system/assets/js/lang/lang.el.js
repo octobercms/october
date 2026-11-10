@@ -132,6 +132,9 @@ window.oc.langMessages['el'] = Object.assign(
     "eventlog": {
         "show_stacktrace": "\u0395\u03bc\u03c6\u03ac\u03bd\u03b9\u03c3\u03b7 stacktrace",
         "hide_stacktrace": "\u0391\u03c0\u03cc\u03ba\u03c1\u03c5\u03c8\u03b7 stachtrace",
+        "copy": "Copy",
+        "copied": "Copied",
+        "copy_failed": "Unable to copy to the clipboard.",
         "tabs": {
             "formatted": "\u039c\u03bf\u03c1\u03c6\u03bf\u03c0\u03bf\u03b9\u03b7\u03bc\u03ad\u03bd\u03bf",
             "raw": "\u0391\u03ba\u03b1\u03c4\u03ad\u03c1\u03b3\u03b1\u03c3\u03c4\u03bf"

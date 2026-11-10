@@ -132,6 +132,9 @@ window.oc.langMessages['pl'] = Object.assign(
     "eventlog": {
         "show_stacktrace": "Poka\u017c stos wywo\u0142a\u0144",
         "hide_stacktrace": "Ukryj stos wywo\u0142a\u0144",
+        "copy": "Copy",
+        "copied": "Copied",
+        "copy_failed": "Unable to copy to the clipboard.",
         "tabs": {
             "formatted": "Sformatowany",
             "raw": "Nieprzetworzony"

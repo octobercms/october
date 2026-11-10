@@ -147,7 +147,8 @@ function initFroala(component) {
     $textarea.on('froalaEditor.focus.richeditor', component.onFocus);
     $textarea.on('froalaEditor.blur.richeditor', component.onBlur);
     $textarea.on('froalaEditor.image.uploaded.richeditor', component.onImageUploaded);
-    $textarea.closest('form').on('oc.beforeRequest', component.onFormBeforeRequest);
+    component.formElement = $textarea.closest('form').get(0) || null;
+    $(component.formElement).on('oc.beforeRequest', component.onFormBeforeRequest);
     $(document).on('vue.beforeRequest', component.onVueFormBeforeRequest);
     // $textarea.on('froalaEditor.html.get.richeditor', this.proxy(this.onSyncContent));
     // $textarea.on('froalaEditor.html.set.richeditor', this.proxy(this.onSetContent));
@@ -188,6 +189,7 @@ export default {
         return {
             editorId: $.oc.domIdManager.generate('richeditor'),
             editor: null,
+            formElement: null,
             lastCachedValue: this.modelValue
         };
     },
@@ -259,10 +261,12 @@ export default {
             $textarea.froalaEditor('destroy');
         }
 
-        $textarea.closest('form').off('oc.beforeRequest', this.onFormBeforeRequest);
+        // The textarea may already be detached here, so unbind from the form found at init
+        $(this.formElement).off('oc.beforeRequest', this.onFormBeforeRequest);
         $(document).off('vue.beforeRequest', this.onVueFormBeforeRequest);
 
         this.editor = null;
+        this.formElement = null;
     },
     watch: {
         modelValue: function onValueChanged(newValue, oldValue) {

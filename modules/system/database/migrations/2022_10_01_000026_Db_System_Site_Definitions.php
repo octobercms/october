@@ -32,6 +32,18 @@ return new class extends Migration
             $table->boolean('is_enabled_edit')->default(0);
             $table->timestamps();
         });
+
+        // Seed the primary site
+        Db::table('system_site_definitions')->insert([
+            'name' => 'Primary Site',
+            'code' => 'primary',
+            'sort_order' => 1,
+            'is_primary' => true,
+            'is_enabled' => true,
+            'is_enabled_edit' => true,
+            'created_at' => now(),
+            'updated_at' => now(),
+        ]);
     }
 
     public function down()
