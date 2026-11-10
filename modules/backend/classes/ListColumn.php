@@ -35,10 +35,12 @@ class ListColumn extends ColumnDefinition
     {
         // @deprecated old API
         if (!is_array($config)) {
-            return parent::__construct([
+            parent::__construct([
                 'columnName' => $config,
                 'label' => $label
             ]);
+
+            return;
         }
 
         parent::__construct($config);

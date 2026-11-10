@@ -268,7 +268,7 @@ class MediaLibrary
     {
         $folders = $this->getStorageDisk()->allDirectories();
 
-        $folders = array_unique($folders, SORT_LOCALE_STRING);
+        $folders = array_unique($folders, SORT_STRING);
 
         $result = [];
 
