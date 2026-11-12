@@ -64,10 +64,12 @@ class FormField extends FieldDefinition
     {
         // @deprecated old API
         if (!is_array($config)) {
-            return parent::__construct([
+            parent::__construct([
                 'fieldName' => $config,
                 'label' => $label
             ]);
+
+            return;
         }
 
         parent::__construct($config);
