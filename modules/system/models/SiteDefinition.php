@@ -146,7 +146,7 @@ class SiteDefinition extends Model
      */
     protected function getFallbackLocale($locale)
     {
-        if ($position = strpos($locale, '-')) {
+        if ($position = strpos((string) $locale, '-')) {
             $target = substr($locale, 0, $position);
             $available = $this->getLocaleOptions();
             if (isset($available[$target])) {

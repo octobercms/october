@@ -46,6 +46,11 @@ class Theme implements CallsMethods
     protected $dirName;
 
     /**
+     * @var array parentThemeCache holds the loaded parent theme by directory name
+     */
+    protected $parentThemeCache = [];
+
+    /**
      * @var mixed activeThemeCache in memory
      */
     protected static $activeThemeCache = false;
@@ -527,7 +532,9 @@ class Theme implements CallsMethods
             return null;
         }
 
-        return static::load((string) $this->getConfigValue('parent'));
+        $dirName = (string) $this->getConfigValue('parent');
+
+        return $this->parentThemeCache[$dirName] ??= static::load($dirName);
     }
 
     /**

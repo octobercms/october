@@ -448,7 +448,7 @@ class Asset extends Extendable
         }
 
         if (
-            strlen($this->originalFileName) &&
+            strlen((string) $this->originalFileName) &&
             $this->originalFileName !== $this->fileName &&
             FileHelper::validatePath($this->originalFileName, null)
         ) {
@@ -693,7 +693,7 @@ class Asset extends Extendable
 
         // Renames tombstone the old row and remove its disk object
         if (
-            strlen($this->originalFileName) &&
+            strlen((string) $this->originalFileName) &&
             $this->originalFileName !== $this->fileName &&
             FileHelper::validatePath($this->originalFileName, null)
         ) {

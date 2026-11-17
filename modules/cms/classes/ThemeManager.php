@@ -239,7 +239,7 @@ class ThemeManager
     }
 
     /**
-     * getInstalled returns a collection of themes installed and their directories
+     * getInstalledDirectories returns a collection of themes installed and their directories
      *
      * ['rainlab.vanilla' => 'vanilla', ...]
      */

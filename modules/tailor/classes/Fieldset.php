@@ -94,7 +94,7 @@ class Fieldset extends FieldsetDefinition
     }
 
     /**
-     * applyModelExtensions
+     * applyBatchModelExtensions
      */
     public function applyBatchModelExtensions($model)
     {

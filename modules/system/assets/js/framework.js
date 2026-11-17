@@ -1745,7 +1745,30 @@ window['${id}']();`;
   }
 
   // ../../vendor/larajax/larajax/resources/src/request/request.js
+  var navigatingTimeout = 3e3;
   var appNavigating = false;
+  var appNavigatingTimer = null;
+  var navigatingRequests = /* @__PURE__ */ new Set();
+  function markAppNavigating() {
+    appNavigating = true;
+    window.clearTimeout(appNavigatingTimer);
+    appNavigatingTimer = window.setTimeout(releaseAppNavigating, navigatingTimeout);
+    window.addEventListener("pagehide", holdAppNavigating);
+    window.addEventListener("pageshow", releaseAppNavigating);
+  }
+  function holdAppNavigating() {
+    window.clearTimeout(appNavigatingTimer);
+    appNavigatingTimer = null;
+  }
+  function releaseAppNavigating() {
+    holdAppNavigating();
+    window.removeEventListener("pagehide", holdAppNavigating);
+    window.removeEventListener("pageshow", releaseAppNavigating);
+    appNavigating = false;
+    const requests = [...navigatingRequests];
+    navigatingRequests.clear();
+    requests.forEach((request) => request.requestFinished());
+  }
   var Request = class _Request {
     constructor(element, handler, options) {
       this.el = element;
@@ -1837,10 +1860,10 @@ window['${id}']();`;
       return new _Request(element, handler, options).start();
     }
     static markNavigating() {
-      appNavigating = true;
+      markAppNavigating();
     }
     markNavigating() {
-      appNavigating = true;
+      markAppNavigating();
     }
     toggleRedirect(redirectUrl) {
       if (!redirectUrl) {
@@ -1966,10 +1989,7 @@ window['${id}']();`;
     }
     requestFinished() {
       if (appNavigating) {
-        window.addEventListener("pageshow", () => {
-          appNavigating = false;
-          this.requestFinished();
-        }, { once: true });
+        navigatingRequests.add(this);
         return;
       }
       this.markAsProgress(false);

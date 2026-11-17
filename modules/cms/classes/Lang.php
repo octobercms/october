@@ -344,7 +344,7 @@ class Lang extends Extendable
             ));
         }
 
-        if (strlen($this->originalFileName) && $this->originalFileName !== $this->fileName) {
+        if (strlen((string) $this->originalFileName) && $this->originalFileName !== $this->fileName) {
             $fullPath = $this->getFilePath($this->originalFileName);
 
             if (File::isFile($fullPath)) {
@@ -572,7 +572,7 @@ class Lang extends Extendable
 
         $row = SourceFile::upsertAt($source, $this->fileName, (string) $this->content);
 
-        if (strlen($this->originalFileName) && $this->originalFileName !== $this->fileName) {
+        if (strlen((string) $this->originalFileName) && $this->originalFileName !== $this->fileName) {
             SourceFile::tombstoneAt($source, $this->originalFileName);
         }
 

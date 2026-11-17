@@ -47,7 +47,7 @@ return [
     | Ignored Files and Patterns
     |--------------------------------------------------------------------------
     |
-    | The media manager wil ignore file names and patterns specified here
+    | The media manager will ignore file names and patterns specified here
     |
     */
 

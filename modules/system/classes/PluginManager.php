@@ -135,7 +135,7 @@ class PluginManager
     }
 
     /**
-     * unloadPlugins reloads all plugins
+     * reloadPlugins reloads all plugins
      */
     public function reloadPlugins()
     {

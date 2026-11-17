@@ -497,6 +497,9 @@ class RelationController extends ControllerBehavior
         }
 
         $this->originalConfig->{$relationName} = $config;
+
+        // A new definition sets the defined readOnly again
+        unset($this->configReadOnly[$relationName]);
     }
 
     /**

@@ -13,7 +13,7 @@
 
 +function ($) { "use strict";
 
-    // TEMPALTE DIFF CLASS DEFINITION
+    // TEMPLATE DIFF CLASS DEFINITION
     // ============================
 
     var TemplateDiff = function(element, options) {
@@ -74,7 +74,7 @@
         result.appendChild(fragment);
     }
 
-    // TEMPALTE DIFF PLUGIN DEFINITION
+    // TEMPLATE DIFF PLUGIN DEFINITION
     // ============================
 
     var old = $.fn.templateDiff
@@ -95,7 +95,7 @@
 
     $.fn.templateDiff.Constructor = TemplateDiff
 
-    // TEMPALTE DIFF NO CONFLICT
+    // TEMPLATE DIFF NO CONFLICT
     // =================
 
     $.fn.templateDiff.noConflict = function () {
@@ -103,7 +103,7 @@
         return this
     }
 
-    // TEMPALTE DIFF DATA-API
+    // TEMPLATE DIFF DATA-API
     // ===============
 
     $(document).render(function () {

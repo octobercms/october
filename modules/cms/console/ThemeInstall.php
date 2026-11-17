@@ -101,7 +101,7 @@ class ThemeInstall extends Command
 
         // Ensure a theme does not already exist
         if ($themeFolder && file_exists($themePath)) {
-            throw new Exception("A theme already exists at '{$themeFolder}' please rename this folder and try again.");
+            throw new Exception("A theme already exists at '{$themeFolder}', please rename this folder and try again.");
         }
     }
 

@@ -280,7 +280,7 @@ class Form extends WidgetBase implements FormElement
     }
 
     /**
-     * renderField
+     * renderTab
      */
     public function renderTab($tabName, $options = [])
     {

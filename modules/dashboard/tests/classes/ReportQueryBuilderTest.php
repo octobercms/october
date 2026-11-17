@@ -33,7 +33,7 @@ class ReportQueryBuilderTest extends TestCase
     // Monthly data (January and February)
     private $monthlyData = [
         ['date_dimension' => '2023-01-10', 'int_metric' => 10, 'float_metric' => 8.5], // january
-        ['date_dimension' => '2023-02-15', 'int_metric' => 12, 'float_metric' => 9.5], // feburary
+        ['date_dimension' => '2023-02-15', 'int_metric' => 12, 'float_metric' => 9.5], // february
         ['date_dimension' => '2023-02-28', 'int_metric' => 14, 'float_metric' => 10.5], // february
     ];
 

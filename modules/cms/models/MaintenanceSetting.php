@@ -59,11 +59,11 @@ class MaintenanceSetting extends SettingModel
             return false;
         }
 
-        if (BackendAuth::userHasAccess('general.view_offline')) {
+        if (!self::get('is_enabled', false)) {
             return false;
         }
 
-        return self::get('is_enabled', false);
+        return !BackendAuth::userHasAccess('general.view_offline');
     }
 
     /**
@@ -75,11 +75,11 @@ class MaintenanceSetting extends SettingModel
             return false;
         }
 
-        if (BackendAuth::userHasAccess('general.backend.view_offline')) {
+        if (!self::get('is_enabled', false)) {
             return false;
         }
 
-        return self::get('is_enabled', false);
+        return !BackendAuth::userHasAccess('general.backend.view_offline');
     }
 
     /**

@@ -28,7 +28,7 @@ trait DecodesCsv
             'iso-8859-6' => Lang::get('backend::lang.import_export.encodings.iso_8859_6'),
             'iso-8859-7' => Lang::get('backend::lang.import_export.encodings.iso_8859_7'),
             'iso-8859-8' => Lang::get('backend::lang.import_export.encodings.iso_8859_8'),
-            'iso-8859-0' => Lang::get('backend::lang.import_export.encodings.iso_8859_0'),
+            'iso-8859-9' => Lang::get('backend::lang.import_export.encodings.iso_8859_0'),
             'iso-8859-10' => Lang::get('backend::lang.import_export.encodings.iso_8859_10'),
             'iso-8859-11' => Lang::get('backend::lang.import_export.encodings.iso_8859_11'),
             'iso-8859-13' => Lang::get('backend::lang.import_export.encodings.iso_8859_13'),
@@ -80,7 +80,7 @@ trait DecodesCsv
         $options = array_merge($defaultOptions, $options);
 
         // Read CSV
-        $reader = CsvReader::createFromPath($filePath);
+        $reader = CsvReader::from($filePath);
 
         if ($options['delimiter'] !== null) {
             $reader->setDelimiter($options['delimiter']);

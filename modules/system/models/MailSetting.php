@@ -3,9 +3,11 @@
 use App;
 use Site;
 use Crypt;
+use Str;
 use Event;
 use Config;
 use System\Models\SettingModel;
+use ValidationException;
 
 /**
  * MailSetting model
@@ -73,8 +75,6 @@ class MailSetting extends SettingModel
     public $rules = [
         'sender_name'  => 'required',
         'sender_email' => 'required|email',
-        // A sendmail compatible binary followed only by the delivery flags it needs
-        'sendmail_path' => ['nullable', 'regex:/^([a-zA-Z]:)?([\w.\-]*\/)*[\w.\-]*(sendmail|msmtp|ssmtp)[\w.\-]*( +-(bs|t|i|oi|ti|f *[\w.+\-]+@[\w.\-]+))*$/D'],
     ];
 
     /**
@@ -102,6 +102,18 @@ class MailSetting extends SettingModel
         $this->ses_secret = $config->get('services.ses.secret');
         $this->ses_region = $config->get('services.ses.region');
         $this->postmark_token = $config->get('services.postmark.secret');
+    }
+
+    /**
+     * beforeValidate
+     */
+    public function beforeValidate()
+    {
+        $path = $this->sendmail_path;
+
+        if ($path !== null && $path !== '' && !(is_string($path) && static::isValidSendmailPath($path))) {
+            throw new ValidationException(['sendmail_path' => __("Please specify a valid sendmail path")]);
+        }
     }
 
     /**
@@ -295,5 +307,71 @@ class MailSetting extends SettingModel
         $payload = json_decode($decoded, true);
 
         return is_array($payload) && isset($payload['iv'], $payload['value'], $payload['mac']);
+    }
+
+    /**
+     * isValidSendmailPath checks the path is a sendmail compatible program followed only
+     * by the delivery flags it needs, since the mailer runs it as a shell command.
+     */
+    public static function isValidSendmailPath(string $path): bool
+    {
+        $args = preg_split('/ +/', $path, -1, PREG_SPLIT_NO_EMPTY);
+
+        if (!$args || !static::isValidSendmailProgram(array_shift($args))) {
+            return false;
+        }
+
+        while ($args) {
+            $flag = array_shift($args);
+
+            // The sender address can follow -f directly or as the next argument
+            if ($flag === '-f' && $args) {
+                $flag .= array_shift($args);
+            }
+
+            if (!static::isValidSendmailFlag($flag)) {
+                return false;
+            }
+        }
+
+        return true;
+    }
+
+    /**
+     * isValidSendmailProgram checks every path segment is a plain name and the program is a known sendmail binary.
+     */
+    protected static function isValidSendmailProgram(string $program): bool
+    {
+        // Backslashes are only allowed after a drive letter, so network paths are rejected
+        if (preg_match('/^[a-zA-Z]:/', $program)) {
+            $program = str_replace('\\', '/', substr($program, 2));
+        }
+
+        $segments = explode('/', $program);
+
+        // A single leading slash makes the path absolute
+        if (count($segments) > 1 && $segments[0] === '') {
+            array_shift($segments);
+        }
+
+        foreach ($segments as $segment) {
+            if (!preg_match('/^[\w.\-]+$/D', $segment)) {
+                return false;
+            }
+        }
+
+        return Str::contains(end($segments), ['sendmail', 'msmtp', 'ssmtp', 'exim']);
+    }
+
+    /**
+     * isValidSendmailFlag checks the flag is a delivery option or a -f sender address.
+     */
+    protected static function isValidSendmailFlag(string $flag): bool
+    {
+        if (in_array($flag, ['-bs', '-t', '-i', '-oi', '-ti'], true)) {
+            return true;
+        }
+
+        return str_starts_with($flag, '-f') && preg_match('/^[\w.+\-]+@[\w.\-]+$/D', substr($flag, 2));
     }
 }

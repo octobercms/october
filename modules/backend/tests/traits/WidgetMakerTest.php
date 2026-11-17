@@ -32,6 +32,8 @@ class ExampleTraitClass
 {
     use \Backend\Traits\WidgetMaker;
 
+    public $controller;
+
     public function __construct()
     {
         $this->controller = new Controller;

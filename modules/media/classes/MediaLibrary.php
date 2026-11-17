@@ -258,6 +258,30 @@ class MediaLibrary
     }
 
     /**
+     * nameExists determines if a file or folder in the same folder already uses the name,
+     * ignoring letter case so that case-insensitive storage cannot replace it either.
+     * @param string $path Specifies the path relative the the Library root.
+     * @param string|null $exceptName Specifies an exact item name to leave out, such as the item being renamed.
+     * @return bool
+     */
+    public function nameExists($path, $exceptName = null): bool
+    {
+        $name = Str::lower(basename($path));
+        $folderPath = self::validatePath(dirname($path));
+        $disk = $this->getStorageDisk();
+
+        foreach (array_merge($disk->files($folderPath), $disk->directories($folderPath)) as $item) {
+            $itemName = basename($item);
+
+            if ($itemName !== $exceptName && Str::lower($itemName) === $name) {
+                return true;
+            }
+        }
+
+        return false;
+    }
+
+    /**
      * listAllDirectories returns a list of all directories in the Library, optionally
      * excluding some of them.
      * @param array $exclude A list of folders to exclude from the result list.
@@ -429,17 +453,17 @@ class MediaLibrary
             // If there's a risk that the directory name was updated
             // by changing the letter case - swap source and destination
             // using a temporary directory with random name.
-            $tempraryDirPath = $this->generateRandomTmpFolderName(dirname($originalPath));
+            $temporaryDirPath = $this->generateRandomTmpFolderName(dirname($originalPath));
 
-            if (!$this->copyFolder($originalPath, $tempraryDirPath)) {
-                $this->deleteFolder($tempraryDirPath);
+            if (!$this->copyFolder($originalPath, $temporaryDirPath)) {
+                $this->deleteFolder($temporaryDirPath);
 
                 return false;
             }
 
             $this->deleteFolder($originalPath);
 
-            return $this->moveFolder($tempraryDirPath, $newPath);
+            return $this->moveFolder($temporaryDirPath, $newPath);
         }
 
         return true;
@@ -610,7 +634,7 @@ class MediaLibrary
      * @param string $path
      * @return bool
      */
-    protected function isVisible($path): bool
+    public function isVisible($path): bool
     {
         $baseName = basename($path);
 

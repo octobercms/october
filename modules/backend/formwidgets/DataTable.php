@@ -2,6 +2,7 @@
 
 use Lang;
 use Response;
+use League\Csv\Bom as CsvBom;
 use League\Csv\Info as CsvInfo;
 use League\Csv\Reader as CsvReader;
 use League\Csv\Writer as CsvWriter;
@@ -375,8 +376,8 @@ class DataTable extends FormWidgetBase
     {
         $rows = json_decode(post('tableData'), true) ?: [];
 
-        $csv = CsvWriter::createFromString();
-        $csv->setOutputBOM(CsvWriter::BOM_UTF8);
+        $csv = CsvWriter::fromString();
+        $csv->setOutputBOM(CsvBom::Utf8);
         $csv->insertOne(array_map([$this, 'neutralizeCsvFormula'], array_column($this->processedColumns, 'title')));
 
         foreach ($rows as $row) {
@@ -400,7 +401,7 @@ class DataTable extends FormWidgetBase
      */
     public function onImportCsv()
     {
-        $reader = CsvReader::createFromString((string) post('csvData'));
+        $reader = CsvReader::fromString((string) post('csvData'));
 
         $delimiters = CsvInfo::getDelimiterStats($reader, [',', ';', "\t"], 10);
         arsort($delimiters);

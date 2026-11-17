@@ -7,7 +7,7 @@
  * JavaScript API:
  * $('#container').reportContainer()
  *
- * Dependancies:
+ * Dependencies:
  * - Isotope (isotope.js)
  */
 +function ($) { "use strict";

@@ -1,5 +1,6 @@
 <?php namespace Backend\Behaviors\ImportExportController;
 
+use League\Csv\Bom as CsvBom;
 use League\Csv\Statement as CsvStatement;
 use League\Csv\Writer as CsvWriter;
 use League\Csv\CharsetConverter;
@@ -62,7 +63,7 @@ trait CanFormatCsv
      */
     protected function createCsvReader(string $path): CsvReader
     {
-        $reader = CsvReader::createFromPath($path);
+        $reader = CsvReader::from($path);
         $options = $this->getFormatOptionsForModel();
 
         if ($options['delimiter'] !== null) {
@@ -109,8 +110,8 @@ trait CanFormatCsv
         ], $options);
 
         // Prepare CSV
-        $csv = CsvWriter::createFromString();
-        $csv->setOutputBOM(CsvWriter::BOM_UTF8);
+        $csv = CsvWriter::fromString();
+        $csv->setOutputBOM(CsvBom::Utf8);
 
         if ($options['delimiter'] !== null) {
             $csv->setDelimiter($options['delimiter']);

@@ -523,7 +523,7 @@ class Dash extends WidgetBase
             throw new ForbiddenException;
         }
 
-        $definition = json_decode(post('definition'), true);
+        $definition = json_decode((string) post('definition'), true);
         if (!$definition) {
             return;
         }
@@ -571,7 +571,7 @@ class Dash extends WidgetBase
             throw new ForbiddenException;
         }
 
-        $definition = json_decode(post('definition'), true);
+        $definition = json_decode((string) post('definition'), true);
         if (!$definition) {
             return;
         }

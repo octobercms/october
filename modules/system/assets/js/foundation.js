@@ -3852,7 +3852,7 @@ API.txt for details.
   var containerDefaults = {
     // If true, items can be dragged from this container
     drag: true,
-    // If true, items can be droped onto this container
+    // If true, items can be dropped onto this container
     drop: true,
     // Exclude items from being draggable, if the
     // selector matches the item
@@ -5299,7 +5299,7 @@ API.txt for details.
 
 ;
 /*
- * The autcomplete plugin, a forked version of Bootstrap's original typeahead plugin.
+ * The autocomplete plugin, a forked version of Bootstrap's original typeahead plugin.
  *
  * Data attributes:
  * - data-control="autocomplete" - enables the autocomplete plugin
@@ -7045,7 +7045,7 @@ API.txt for details.
         return this.values[property]
     }
 
-    Surface.prototype.setPropertyValue = function(property, value, supressChangeEvents, forceEditorUpdate) {
+    Surface.prototype.setPropertyValue = function(property, value, suppressChangeEvents, forceEditorUpdate) {
         if (value !== undefined) {
             this.values[property] = value
         }
@@ -7055,7 +7055,7 @@ API.txt for details.
             }
         }
 
-        if (!supressChangeEvents) {
+        if (!suppressChangeEvents) {
             if (this.originalValues[property] === undefined || !this.comparePropertyValues(this.originalValues[property], value)) {
                 this.markPropertyChanged(property, true)
             }
@@ -7086,7 +7086,7 @@ API.txt for details.
         // they depend on. All editors should be notified, including
         // editors in nested surfaces. The property name is passed as a
         // path object.property (if the property is nested), so that
-        // property depenencies could be defined as
+        // property dependencies could be defined as
         // ['property', 'object.property']
 
         for (var i = 0, len = this.editors.length; i < len; i++) {

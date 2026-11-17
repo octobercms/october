@@ -23,7 +23,7 @@ class DraftableScope implements ScopeInterface
     const MODE_DRAFT = 2;
 
     /**
-     * @var const MODE_NEW_SAVED is a commited draft for a proposed record
+     * @var const MODE_NEW_SAVED is a committed draft for a proposed record
      */
     const MODE_NEW_SAVED = 3;
 

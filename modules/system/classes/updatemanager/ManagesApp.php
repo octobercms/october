@@ -33,7 +33,7 @@ trait ManagesApp
     }
 
     /**
-     * rollbackPlugin rolls back application migrations
+     * rollbackApp rolls back application migrations
      */
     public function rollbackApp()
     {
@@ -52,7 +52,7 @@ trait ManagesApp
     }
 
     /**
-     * seedModule runs seeds  on the app directory
+     * seedApp runs seeds on the app directory
      */
     public function seedApp()
     {

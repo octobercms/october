@@ -22,7 +22,7 @@ trait HasRenderers
     }
 
     /**
-     * formRefreshField is a view helper to render a field from AJAX based on their field names.
+     * formRefreshFields is a view helper to render a field from AJAX based on their field names.
      * @param array|string $names
      */
     public function formRefreshFields($names): array

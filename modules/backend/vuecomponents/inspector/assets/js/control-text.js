@@ -120,7 +120,7 @@ export default {
         },
         'layoutUpdateData.modalShown': function onModalShown() {
             if (this.control.defaultFocus) {
-                // Focus after visbility animations are ready
+                // Focus after visibility animations are ready
                 var self = this;
                 setTimeout(function () {
                     self.focusControl();

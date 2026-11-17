@@ -111,7 +111,7 @@ trait HasEditSite
     }
 
     /**
-     * hasAnyEditSite returns true if there are edit sites
+     * getAnyEditSite
      */
     public function getAnyEditSite()
     {

@@ -3,6 +3,7 @@
 use Site;
 use Lang;
 use View;
+use File;
 use Flash;
 use Config;
 use System;
@@ -465,7 +466,28 @@ class Controller extends Extendable implements AjaxControllerInterface
             throw new ApplicationException(Lang::get('backend::lang.partial.invalid_name', ['name'=>e($partial)]));
         }
 
+        $folder = strpos($partial, '/') !== false ? dirname($partial) . '/' : '';
+        $partialPath = realpath($this->getViewPath($folder . '_' . strtolower(basename($partial))));
+        if (!$partialPath || !$this->isPathInViewPaths($partialPath)) {
+            throw new ApplicationException(Lang::get('backend::lang.partial.not_found_name', ['name'=>e($partial)]));
+        }
+
         return $this->makePartial($partial);
+    }
+
+    /**
+     * isPathInViewPaths checks that a resolved file sits inside one of the view paths
+     */
+    protected function isPathInViewPaths(string $filePath): bool
+    {
+        foreach ($this->getViewPaths() as $viewPath) {
+            $viewPath = realpath(File::symbolizePath($viewPath));
+            if ($viewPath && str_starts_with($filePath, $viewPath . DIRECTORY_SEPARATOR)) {
+                return true;
+            }
+        }
+
+        return false;
     }
 
     /**

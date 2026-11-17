@@ -26,6 +26,11 @@ trait HasExtraConfig
     protected $bumpSessionKeys = false;
 
     /**
+     * @var array configReadOnly holds the readOnly value each relation was defined with, null when not set
+     */
+    protected $configReadOnly = [];
+
+    /**
      * setExtraConfigForChain returns extra config with the relation chain, encoded
      */
     protected function setExtraConfigForChain()
@@ -90,6 +95,11 @@ trait HasExtraConfig
             return;
         }
 
+        // Remember the defined value before extra config is written over it
+        if (!array_key_exists($field, $this->configReadOnly)) {
+            $this->configReadOnly[$field] = $originalConfig['readOnly'] ?? null;
+        }
+
         // readOnlyDefault is used by the relation widget to apply a soft
         // default value, i.e. where a value is otherwise unspecified.
         // In order of application: 1. default 2. config 3. render
@@ -101,7 +111,12 @@ trait HasExtraConfig
             $config['readOnly'] = $config['readOnlyDefault'];
         }
 
+        // A readOnly set in the relation config is locked, otherwise extra config only changes the display
         $parsedConfig = array_only($config, ['readOnly']);
+        if ($this->configReadOnly[$field] !== null) {
+            $parsedConfig['readOnly'] = (bool) $this->configReadOnly[$field];
+        }
+
         $parsedConfig['view'] = array_only($config, ['recordUrl', 'recordOnClick']);
 
         $this->originalConfig->{$field} = array_replace_recursive(

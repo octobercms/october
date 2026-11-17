@@ -2,7 +2,7 @@
     <?php if ($this->useController): ?>
         <?= $this->controller->relationRender($this->getRelationControllerFieldName(), [
             'readOnlyDefault' => $this->previewMode
-        ] + ($this->readOnly === true ? ['readOnly' => true] : [])) ?>
+        ] + ($this->formField->readOnly ? ['readOnly' => true] : [])) ?>
     <?php elseif ($this->hasQuickCreate()): ?>
         <div
             data-control="relation-quick-create"

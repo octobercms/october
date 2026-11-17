@@ -38,6 +38,9 @@ final class SecurityPolicy implements SecurityPolicyInterface
             'havingRaw', 'orHavingRaw',
             'orderByRaw', 'groupByRaw',
             'joinSub', 'leftJoinSub', 'rightJoinSub', 'crossJoinSub',
+            'join', 'joinWhere', 'leftJoin', 'leftJoinWhere', 'rightJoin', 'rightJoinWhere',
+            'crossJoin', 'joinLateral', 'leftJoinLateral', 'union', 'unionAll',
+            'lock', 'dd', 'ddRawSql', 'dump', 'dumpRawSql',
             'raw', 'rawValue',
             'aggregate', 'numericAggregate',
             'when', 'unless', 'tap', 'pipe', 'beforeQuery',
@@ -45,7 +48,8 @@ final class SecurityPolicy implements SecurityPolicyInterface
             'each', 'eachById',
         ],
         \Illuminate\Database\Eloquent\Builder::class => [
-            'forceDelete',
+            'forceDelete', 'restore', 'restoreOrCreate',
+            'fromQuery',
             'create', 'createQuietly', 'forceCreate', 'forceCreateQuietly',
             'firstOrCreate', 'createOrFirst', 'updateOrCreate', 'incrementOrCreate',
             'fillAndInsert', 'fillAndInsertOrIgnore', 'fillAndInsertGetId',
@@ -59,6 +63,17 @@ final class SecurityPolicy implements SecurityPolicyInterface
             'push', 'pushQuietly',
             'fill', 'forceFill',
             'setTable',
+            'setAttribute', 'setRawAttributes', 'offsetSet', 'offsetUnset',
+            'forceSave', 'incrementQuietly', 'decrementQuietly',
+            'bindDeferred', 'unbindDeferred', 'commitDeferred', 'cancelDeferred',
+            'makeRoot', 'makeChildOf', 'moveLeft', 'moveRight', 'moveBefore', 'moveAfter',
+            'moveToNewParent', 'storeNewParent', 'deleteDescendants', 'restoreDescendants',
+            'shiftSiblingsForRestore', 'setDepth', 'resetTreeNesting', 'resetTreeOrphans',
+            'setSortableOrder', 'resetSortableOrdering', 'setSortableRelationOrder',
+            'savePropagate', 'propagateToSite', 'deleteForSite', 'findOrCreateForSite',
+            'multisiteAfterCreate', 'multisiteSaveComplete', 'multisiteAfterDelete',
+            'saveAsFirstDraft', 'createNewDraft', 'saveVersionSnapshot', 'restoreVersionSnapshot',
+            'duplicateRecord',
             'loadAggregate', 'loadMorphAggregate',
             'withoutTouching', 'withoutTouchingOn', 'withoutEvents', 'withoutBroadcasting',
             'withoutTimestamps', 'withoutTimestampsOn', 'unguarded',
@@ -199,7 +214,7 @@ final class SecurityPolicy implements SecurityPolicyInterface
      * checkSecurity
      * @throws SecurityError
      */
-    public function checkSecurity($tags, $filters, $functions): void
+    public function checkSecurity($tags, $filters, $functions, array $tests = []): void
     {
     }
 

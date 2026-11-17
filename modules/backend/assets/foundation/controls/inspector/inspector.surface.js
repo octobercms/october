@@ -527,7 +527,7 @@
         return this.values[property]
     }
 
-    Surface.prototype.setPropertyValue = function(property, value, supressChangeEvents, forceEditorUpdate) {
+    Surface.prototype.setPropertyValue = function(property, value, suppressChangeEvents, forceEditorUpdate) {
         if (value !== undefined) {
             this.values[property] = value
         }
@@ -537,7 +537,7 @@
             }
         }
 
-        if (!supressChangeEvents) {
+        if (!suppressChangeEvents) {
             if (this.originalValues[property] === undefined || !this.comparePropertyValues(this.originalValues[property], value)) {
                 this.markPropertyChanged(property, true)
             }
@@ -568,7 +568,7 @@
         // they depend on. All editors should be notified, including
         // editors in nested surfaces. The property name is passed as a
         // path object.property (if the property is nested), so that
-        // property depenencies could be defined as
+        // property dependencies could be defined as
         // ['property', 'object.property']
 
         for (var i = 0, len = this.editors.length; i < len; i++) {

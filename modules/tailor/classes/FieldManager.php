@@ -144,7 +144,7 @@ class FieldManager
     }
 
     /**
-     * loadExtensionsFromArray helper
+     * loadCustomFieldsFromArray helper
      */
     protected function loadCustomFieldsFromArray($fields)
     {
@@ -198,7 +198,7 @@ class FieldManager
     }
 
     /**
-     * resolveCustomField returns a class name from a custom field code/alias
+     * getCustomFieldClassName returns a class name from a custom field code/alias
      */
     protected function getCustomFieldClassName(string $name): ?string
     {

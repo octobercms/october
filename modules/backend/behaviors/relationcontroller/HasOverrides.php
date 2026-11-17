@@ -174,7 +174,7 @@ trait HasOverrides
     }
 
     /**
-     * relationExtendPivotWidget provides an opportunity to manipulate the pivot widget.
+     * relationExtendPivotFormWidget provides an opportunity to manipulate the pivot form widget.
      * @param \Backend\Widgets\Form $widget
      * @param string $field
      * @param \October\Rain\Database\Model $model

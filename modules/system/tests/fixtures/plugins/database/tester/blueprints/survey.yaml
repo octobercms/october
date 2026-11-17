@@ -58,6 +58,7 @@ fields:
         label: Banner
         type: mediafinder
         maxItems: 1
+        tags: [step1]
 
     answers:
         label: Answers

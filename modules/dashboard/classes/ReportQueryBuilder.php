@@ -641,7 +641,7 @@ class ReportQueryBuilder
         $row = $rows[0];
         $result = [];
         foreach ($metricsForTotals as $metric) {
-            $columnName = $metric->getDataSetColumName();
+            $columnName = $metric->getDataSetColumnName();
             $result[$metric->getCode()] = $row->{$columnName};
         }
 
@@ -719,7 +719,7 @@ class ReportQueryBuilder
 
         // Grouping
         if (!$shouldSkipGrouping) {
-            $query->groupBy(Db::raw($this->dimension->getDataSetColumName()));
+            $query->groupBy(Db::raw($this->dimension->getDataSetColumnName()));
         }
 
         // Pagination / Limit
@@ -758,7 +758,7 @@ class ReportQueryBuilder
         $dimensionColumnName = $this->evalDbObjectName($dimensionColumnName);
         $dimensionColumnName = $this->makeDateGroupingExpression($dimensionColumnName);
 
-        $columns[] = Db::raw($dimensionColumnName . ' AS ' . $this->dimension->getDataSetColumName());
+        $columns[] = Db::raw($dimensionColumnName . ' AS ' . $this->dimension->getDataSetColumnName());
 
         if ($this->hideEmptyValues) {
             $query->whereRaw("$dimensionColumnName is not null");
@@ -808,7 +808,7 @@ class ReportQueryBuilder
 
             $aggregateFunction = $this->getAggregateSql($metric->getAggregateFunction());
             $columnName = $this->evalDbObjectName($metric->getDatabaseColumnName());
-            $metricColumnName = $this->evalDbObjectName($metric->getDataSetColumName());
+            $metricColumnName = $this->evalDbObjectName($metric->getDataSetColumnName());
             $aggregateExpression = sprintf($aggregateFunction, $columnName);
 
             $columns[] = Db::raw(sprintf('%s as %s', $aggregateExpression, $metricColumnName));
@@ -957,12 +957,12 @@ class ReportQueryBuilder
         $columnName = match ($this->orderRule->getDataAttributeType()) {
             ReportDataOrderRule::ATTR_TYPE_DIMENSION =>
                 ($this->dimension->isDate() && $this->groupInterval !== ReportDataSourceBase::GROUP_INTERVAL_FULL)
-                    ? $this->dimension->getDataSetColumName()
+                    ? $this->dimension->getDataSetColumnName()
                     : ($this->dimension->getLabelColumnName() ?? $this->dimension->getDatabaseColumnName()),
 
             ReportDataOrderRule::ATTR_TYPE_METRIC =>
                 ReportMetric::findMetricByCodeStrict($this->metrics, $this->orderRule->getAttributeName())
-                    ->getDataSetColumName(),
+                    ->getDataSetColumnName(),
 
             ReportDataOrderRule::ATTR_TYPE_DIMENSION_FIELD =>
                 $this->dimension->findDimensionFieldByCode($this->orderRule->getAttributeName())->getCode(),

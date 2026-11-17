@@ -37,7 +37,7 @@ trait HasViewMode
     protected $viewMode;
 
     /**
-     * relationGetManageFormWidget returns the manage form widget used by this behavior
+     * relationGetViewFormWidget returns the view form widget used by this behavior
      */
     public function relationGetViewFormWidget(): ?FormWidget
     {

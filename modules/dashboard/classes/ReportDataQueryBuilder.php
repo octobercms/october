@@ -343,7 +343,7 @@ class ReportDataQueryBuilder
         $row = $rows[0];
         $result = [];
         foreach ($metrics as $metric) {
-            $columnName = $metric->getDataSetColumName();
+            $columnName = $metric->getDataSetColumnName();
             $result[$metric->getCode()] = $row->{$columnName};
         }
 
@@ -465,7 +465,7 @@ class ReportDataQueryBuilder
 
                 // In case date grouping is used we need to use the aliased column name (i.e. oc_dimension)
                 if ($this->dimension->isDate() && $this->groupInterval !== ReportDataSourceBase::GROUP_INTERVAL_FULL) {
-                    $columnName = $this->dimension->getDataSetColumName();
+                    $columnName = $this->dimension->getDataSetColumnName();
                 }
                 break;
             case ReportDataOrderRule::ATTR_TYPE_METRIC:
@@ -473,7 +473,7 @@ class ReportDataQueryBuilder
                     $this->metrics,
                     $this->orderRule->getAttributeName()
                 );
-                $columnName = $metric->getDataSetColumName();
+                $columnName = $metric->getDataSetColumnName();
                 break;
             case ReportDataOrderRule::ATTR_TYPE_DIMENSION_FIELD:
                 $field = $this->dimension->findDimensionFieldByCode(
@@ -585,7 +585,7 @@ class ReportDataQueryBuilder
             $dimensionColumnName = $this->makeDateDimensionGroupingColumnName($dimensionColumnName);
 
             $columns[] = Db::raw(
-                $dimensionColumnName . ' AS ' . $this->dimension->getDataSetColumName()
+                $dimensionColumnName . ' AS ' . $this->dimension->getDataSetColumnName()
             );
 
             if ($this->hideEmptyDimensionValues) {
@@ -633,7 +633,7 @@ class ReportDataQueryBuilder
             $aggregateFunction = $this->aggregateFunctionToSql($metric->getAggregateFunction());
             $columnName = $metric->getDatabaseColumnName();
             $columnName = $this->evalDbObjectName($columnName);
-            $metricColumnName = $this->evalDbObjectName($metric->getDataSetColumName());
+            $metricColumnName = $this->evalDbObjectName($metric->getDataSetColumnName());
             $aggregateFunctionFinal = sprintf($aggregateFunction, $columnName);
             $columns[] = Db::raw(
                 sprintf(
@@ -655,7 +655,7 @@ class ReportDataQueryBuilder
         $query->addSelect($columns);
 
         if (!$skipGrouping) {
-            $query->groupBy(Db::raw($this->dimension->getDataSetColumName()));
+            $query->groupBy(Db::raw($this->dimension->getDataSetColumnName()));
         }
 
         if ($this->limit !== null && $this->paginationParams) {

@@ -1,5 +1,5 @@
 /*
- * The autcomplete plugin, a forked version of Bootstrap's original typeahead plugin.
+ * The autocomplete plugin, a forked version of Bootstrap's original typeahead plugin.
  *
  * Data attributes:
  * - data-control="autocomplete" - enables the autocomplete plugin

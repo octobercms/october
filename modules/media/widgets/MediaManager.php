@@ -426,7 +426,18 @@ class MediaManager extends WidgetBase
 
         $originalPath = Input::get('originalPath');
         $originalPath = MediaLibrary::validatePath($originalPath);
-        $newPath = dirname($originalPath).'/'.$newName;
+        $newPath = MediaLibrary::validatePath(dirname($originalPath).'/'.$newName);
+        $library = MediaLibrary::instance();
+
+        // A name the library hides, such as ".jpg", would make the item vanish
+        if (!$library->isVisible($newPath)) {
+            throw new ApplicationException(__("This name is hidden by the media library, please choose another name."));
+        }
+
+        // Another item must not be replaced in any letter case, while changing the case alone is still a rename
+        if ($library->nameExists($newPath, basename($originalPath))) {
+            throw new ApplicationException(Lang::get('backend::lang.media.folder_or_file_exist'));
+        }
 
         if ($type === MediaLibraryItem::TYPE_FILE) {
             // Validate extension
@@ -626,6 +637,13 @@ class MediaManager extends WidgetBase
         }
 
         $library = MediaLibrary::instance();
+
+        // Check every item first so a move never replaces or merges, and never stops halfway
+        foreach (array_merge($files, $folders) as $path) {
+            if ($library->nameExists($dest.'/'.basename($path))) {
+                throw new ApplicationException(Lang::get('backend::lang.media.folder_or_file_exist'));
+            }
+        }
 
         foreach ($files as $path) {
             /*
@@ -852,7 +870,12 @@ class MediaManager extends WidgetBase
 
         $existingFiles = [];
         foreach ($fileNames as $fileName) {
-            $filePath = rtrim($path, '/') . '/' . $fileName;
+            if (!is_string($fileName)) {
+                continue;
+            }
+
+            // Check the name the upload is stored under, the warning lists the name as chosen
+            $filePath = rtrim($path, '/') . '/' . $this->makeUploadFileName($fileName);
             if (MediaLibrary::instance()->has($filePath)) {
                 $existingFiles[] = $fileName;
             }
@@ -878,7 +901,7 @@ class MediaManager extends WidgetBase
         $sortBy = $this->getSortBy();
         $sortDirection = $this->getSortDirection();
         $searchTerm = $this->getSearchTerm();
-        $searchMode = strlen($searchTerm) > 0;
+        $searchMode = strlen((string) $searchTerm) > 0;
 
         if (!$searchMode) {
             $this->vars['items'] = $this->listFolderItems($folder, $filter, ['by' => $sortBy, 'direction' => $sortDirection]);
@@ -1240,7 +1263,7 @@ class MediaManager extends WidgetBase
     }
 
     /**
-     * getThumbnailImagePath generatess a thumbnail image path
+     * getThumbnailImagePath generates a thumbnail image path
      * @param array|null $thumbnailParams
      * @param string $itemPath
      * @param int $lastModified
@@ -1603,15 +1626,12 @@ class MediaManager extends WidgetBase
              */
             $this->fireSystemEvent('media.file.beforeUpload', [$uploadedFile]);
 
-            // Convert uppercase file extensions to lowercase
-            $fileName = $uploadedFile->getClientOriginalName();
-            $extension = strtolower($uploadedFile->getClientOriginalExtension());
-            $fileName = File::name($fileName).'.'.$extension;
+            $fileName = $this->makeUploadFileName($uploadedFile->getClientOriginalName());
+            $extension = File::extension($fileName);
 
-            // File name is invalid or auto rename is enabled, slug the value
-            if ($this->isAutoRenameEnabled() || !$this->validateFileName($fileName)) {
-                $fileNameClean = $this->slugFileName(File::name($fileName));
-                $fileName = "{$fileNameClean}.{$extension}";
+            // A name the library hides, such as ".jpg", would make the file vanish
+            if (!MediaLibrary::instance()->isVisible($fileName)) {
+                throw new ApplicationException(__("This name is hidden by the media library, please choose another name."));
             }
 
             // Check for unsafe file extensions
@@ -1776,6 +1796,22 @@ class MediaManager extends WidgetBase
     protected function isAutoRenameEnabled(): bool
     {
         return Config::get('media.auto_rename') === 'slug';
+    }
+
+    /**
+     * makeUploadFileName returns the name an uploaded file is stored under, with a lowercase
+     * extension and a slugged name when auto rename is enabled or the name is invalid.
+     */
+    protected function makeUploadFileName(string $fileName): string
+    {
+        $extension = strtolower(File::extension($fileName));
+        $fileName = File::name($fileName).'.'.$extension;
+
+        if ($this->isAutoRenameEnabled() || !$this->validateFileName($fileName)) {
+            $fileName = $this->slugFileName(File::name($fileName)).'.'.$extension;
+        }
+
+        return $fileName;
     }
 
     /**

@@ -298,7 +298,7 @@ class Group extends FilterWidgetBase
         }
 
         // Apply the search
-        $searchQuery = Str::lower($searchQuery);
+        $searchQuery = Str::lower((string) $searchQuery);
         if (strlen($searchQuery)) {
             $options = $this->filterOptionsBySearch($options, $searchQuery);
         }

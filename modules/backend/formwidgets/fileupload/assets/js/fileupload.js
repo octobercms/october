@@ -299,7 +299,7 @@ oc.registerControl('fileupload', class extends oc.ControlBase {
         // Change filesize format to match October\Rain\Filesystem\Filesystem::sizeToString() format
         $(file.previewElement).find('[data-dz-size]').html(filesize.size + ' ' + filesize.units);
 
-        // Remove any exisiting objects for single variety
+        // Remove any existing objects for single variety
         if (!this.config.isMulti) {
             this.removeFileFromElement($object.siblings());
         }

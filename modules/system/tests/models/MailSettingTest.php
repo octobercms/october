@@ -1,6 +1,7 @@
 <?php
 
 use System\Models\MailSetting;
+use October\Rain\Exception\ValidationException;
 
 class MailSettingTest extends TestCase
 {
@@ -9,14 +10,30 @@ class MailSettingTest extends TestCase
      */
     public function testSendmailPathValidation(string $path, bool $expectValid)
     {
-        $rules = (new ReflectionClass(MailSetting::class))->getDefaultProperties()['rules'];
+        $this->assertSame($expectValid, MailSetting::isValidSendmailPath($path));
+    }
 
-        $validator = Validator::make(
-            ['sendmail_path' => $path],
-            ['sendmail_path' => $rules['sendmail_path']]
-        );
+    public function testBeforeValidateChecksTheSendmailPath()
+    {
+        $setting = new MailSetting;
 
-        $this->assertSame($expectValid, $validator->passes());
+        $setting->sendmail_path = '';
+        $setting->beforeValidate();
+
+        $setting->sendmail_path = null;
+        $setting->beforeValidate();
+
+        foreach (['/usr/sbin/sendmail -t; touch /tmp/x', ['/usr/sbin/sendmail']] as $path) {
+            $setting->sendmail_path = $path;
+
+            try {
+                $setting->beforeValidate();
+                $this->fail('An invalid sendmail path passed validation');
+            }
+            catch (ValidationException $ex) {
+                $this->assertArrayHasKey('sendmail_path', $ex->errors());
+            }
+        }
     }
 
     public static function sendmailPathProvider(): array
@@ -31,6 +48,11 @@ class MailSettingTest extends TestCase
             ['/usr/sbin/sendmail -bs -f admin@example.com', true],
             ['/usr/sbin/sendmail -t -fadmin@example.com', true],
             ['/usr/bin/msmtp -t', true],
+            ['/usr/sbin/exim -bs', true],
+            ['/usr/sbin/exim4 -t', true],
+            ['C:\\xampp\\sendmail\\sendmail.exe -t', true],
+            ['C:/xampp/sendmail/sendmail.exe -t', true],
+            ['C:\\php\\php.exe C:\\tmp\\sendmail -t', false],
             ['/usr/sbin/sendmail -t; touch /tmp/x', false],
             ['/usr/sbin/sendmail -t -X /tmp/log', false],
             ['/usr/sbin/sendmail -t -X/tmp/log', false],
@@ -42,6 +64,11 @@ class MailSettingTest extends TestCase
             ['/usr/bin/php /tmp/notes.txt -t', false],
             ['/usr/bin/php /tmp/sendmail -t', false],
             ["/usr/sbin/sendmail -t\n", false],
+            ['/usr/sbin/sendmail -t -f', false],
+            ['\\\\attacker.example\\share\\sendmail.exe -t', false],
+            ['//attacker.example/share/sendmail.exe -t', false],
+            ['/\\attacker.example\\share\\sendmail.exe -t', false],
+            ['\\\\.\\GLOBALROOT\\Device\\Mup\\attacker.example\\share\\sendmail.exe -t', false],
         ];
     }
 }

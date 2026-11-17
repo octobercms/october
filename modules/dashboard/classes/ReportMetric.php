@@ -63,7 +63,7 @@ class ReportMetric
         }
 
         if (!preg_match('/^[a-z][a-z0-9_]+$/i', $code)) {
-            throw new SystemException('The metric code can only contain Latin letters, numbers and underscore. The first character must be a letter');
+            throw new SystemException('The metric code can only contain Latin letters, numbers and underscores. The first character must be a letter');
         }
 
         if (!strlen($databaseColumnName)) {

@@ -155,7 +155,7 @@ class EntryBlueprint extends Blueprint
     }
 
     /**
-     * getPageReplacements returns the replacements to be included when resolving the page
+     * getPageFinderReplacements returns the replacements to be included when resolving the page
      * link. Each replacement key should match a URL parameter name and use a dot notation
      * path to the attribute value. eg: `[category => categories.0.slug]`
      */

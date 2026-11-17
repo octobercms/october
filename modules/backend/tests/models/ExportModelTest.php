@@ -24,6 +24,14 @@ class ExportModelTest extends TestCase
         $this->assertEquals('art direction-roman empire-sci\-fi', $result);
     }
 
+    public function testTurkishEncodingOptionIsUsable()
+    {
+        $options = (new ExampleExportModel)->getFormatEncodingOptions();
+
+        $this->assertArrayNotHasKey('iso-8859-0', $options);
+        $this->assertSame('a', mb_convert_encoding('a', 'UTF-8', array_search($options['iso-8859-9'], $options)));
+    }
+
     public function testDownloadCsv()
     {
         $model = new ExampleExportModel;

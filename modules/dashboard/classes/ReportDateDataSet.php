@@ -124,7 +124,7 @@ class ReportDateDataSet
 
         if ($this->orderRule && $this->orderRule->getDataAttributeType() === ReportDataOrderRule::ATTR_TYPE_DIMENSION) {
             $orderRule = $this->orderRule;
-            $dimensionColumnName = $this->dimension->getDataSetColumName();
+            $dimensionColumnName = $this->dimension->getDataSetColumnName();
             usort($result, function ($a, $b) use ($orderRule, $dimensionColumnName) {
                 $valueA = $a->$dimensionColumnName;
                 $valueB = $b->$dimensionColumnName;
@@ -155,7 +155,7 @@ class ReportDateDataSet
             return $values;
         }
 
-        $dimensionColumnName = $this->dimension->getDataSetColumName();
+        $dimensionColumnName = $this->dimension->getDataSetColumnName();
         $columnNames = $this->getColumnNames(true);
         $metricAggregateFunctions = $this->getMetricAggregateFunctions();
 
@@ -182,7 +182,7 @@ class ReportDateDataSet
 
     private function getDataPoint(string $dimensionValue): ?object
     {
-        $columnName = $this->dimension->getDataSetColumName();
+        $columnName = $this->dimension->getDataSetColumnName();
         foreach ($this->values as $valueObject) {
             if ($valueObject->$columnName === $dimensionValue) {
                 return $valueObject;
@@ -215,11 +215,11 @@ class ReportDateDataSet
     {
         $result = [];
         if (!$excludeDimension) {
-            $result[] = $this->dimension->getDataSetColumName();
+            $result[] = $this->dimension->getDataSetColumnName();
         }
 
         foreach ($this->metrics as $metric) {
-            $result[] = $metric->getDataSetColumName();
+            $result[] = $metric->getDataSetColumnName();
         }
 
         return $result;
@@ -245,7 +245,7 @@ class ReportDateDataSet
             $result->$column = null;
         }
 
-        $dimensionColumnName = $this->dimension->getDataSetColumName();
+        $dimensionColumnName = $this->dimension->getDataSetColumnName();
         $result->$dimensionColumnName = $dimensionValue;
 
         return $result;
@@ -258,7 +258,7 @@ class ReportDateDataSet
         }
 
         $orderRule = $this->orderRule;
-        $dimensionColumnName = $this->dimension->getDataSetColumName();
+        $dimensionColumnName = $this->dimension->getDataSetColumnName();
         usort($result, function ($a, $b) use ($orderRule, $dimensionColumnName) {
             $valueA = $a->$dimensionColumnName;
             $valueB = $b->$dimensionColumnName;
@@ -298,7 +298,7 @@ class ReportDateDataSet
         $result = [];
         foreach ($this->metrics as $metric) {
             $function = $metric->getAggregateFunction();
-            $result[$metric->getDataSetColumName()] = $function;
+            $result[$metric->getDataSetColumnName()] = $function;
         }
 
         return $result;

@@ -271,7 +271,7 @@ trait HasWidgetData
 
         $dimension = $this->findDimension($dataSource, $dimensionCode, false);
         if ($dimension) {
-            $result[$dimension->getDataSetColumName()] = Lang::get($dimension->getDisplayName());
+            $result[$dimension->getDataSetColumnName()] = Lang::get($dimension->getDisplayName());
         }
 
         return $result;

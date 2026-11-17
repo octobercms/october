@@ -156,7 +156,7 @@ Serialize all selected containers. Returns a jQuery object . Use .get() to retri
 
 - `drag`: If true, items can be dragged from this container
 
-- `drop`: If true, items can be droped onto this container
+- `drop`: If true, items can be dropped onto this container
 
 - `exclude`: Exclude items from being draggable, if the selector matches the item
 

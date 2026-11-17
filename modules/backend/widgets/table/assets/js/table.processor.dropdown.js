@@ -408,7 +408,7 @@
                 this.setSelectedItem(newSelectedItem);
             }
 
-            return false // Stop propogation of event
+            return false // Stop propagation of event
         }
         else {
             this.searchByTextInput(ev);

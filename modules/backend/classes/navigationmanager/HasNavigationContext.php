@@ -125,7 +125,7 @@ trait HasNavigationContext
 
 
     /**
-     * isSideMenuItemActive determines if a side menu item is active.
+     * isSideMenuItemVisible determines if a side menu item is visible.
      * @param SideMenuItem $item
      */
     public function isSideMenuItemVisible($item): bool

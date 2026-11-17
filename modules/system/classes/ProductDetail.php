@@ -315,7 +315,7 @@ class ProductDetail
     }
 
     /**
-     * getProductMarkdownFile checks a path for supplied filesnames
+     * getProductMarkdownFile checks a path for supplied filenames
      * to parse as Markdown
      */
     protected function getProductMarkdownFile(string $path, array $filenames): string

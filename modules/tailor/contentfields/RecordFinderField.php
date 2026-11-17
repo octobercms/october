@@ -308,7 +308,7 @@ class RecordFinderField extends FallbackField
         // }
 
         // Transfer custom configuration
-        $toTransfer = ['label', 'list', 'form', 'view', 'manage'];
+        $toTransfer = ['label', 'list', 'form', 'view', 'manage', 'readOnly'];
         foreach ($toTransfer as $transfer) {
             if (isset($this->controller[$transfer])) {
                 $fieldConfig[$transfer] = is_array($this->controller[$transfer])

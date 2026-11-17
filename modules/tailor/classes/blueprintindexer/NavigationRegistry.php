@@ -125,7 +125,7 @@ trait NavigationRegistry
     }
 
     /**
-     * findAllFieldsetBlueprints will spin over all fieldset sources
+     * findAllNavigationBlueprints will spin over all navigation sources
      */
     protected function findAllNavigationBlueprints(): array
     {

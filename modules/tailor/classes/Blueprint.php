@@ -621,7 +621,7 @@ class Blueprint extends Extendable
             ));
         }
 
-        if (strlen($this->originalFileName) && $this->originalFileName !== $fileName) {
+        if (strlen((string) $this->originalFileName) && $this->originalFileName !== $fileName) {
             $fullPath = $this->getFilePath($this->originalFileName);
 
             if (File::isFile($fullPath)) {
@@ -664,7 +664,7 @@ class Blueprint extends Extendable
 
         $row = SourceFile::upsertAt($source, $fileName, (string) $this->content);
 
-        if (strlen($this->originalFileName) && $this->originalFileName !== $fileName) {
+        if (strlen((string) $this->originalFileName) && $this->originalFileName !== $fileName) {
             SourceFile::tombstoneAt($source, $this->originalFileName);
         }
 

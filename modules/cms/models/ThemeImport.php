@@ -66,7 +66,7 @@ class ThemeImport extends Model
      */
     public function save(?array $options = null, $sessionKey = null)
     {
-        throw new ApplicationException(sprintf("The % model is not intended to be saved, please use %s instead", get_class($this), 'ThemeData'));
+        throw new ApplicationException(sprintf("The %s model is not intended to be saved, please use %s instead", get_class($this), 'ThemeData'));
     }
 
     /**

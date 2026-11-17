@@ -10,7 +10,7 @@
  * JavaScript API:
  * $('textarea').codeEditor({ vendorPath: '/', language: 'php '})
  *
- * Dependancies:
+ * Dependencies:
  * - Ace Editor (ace.js)
  */
 

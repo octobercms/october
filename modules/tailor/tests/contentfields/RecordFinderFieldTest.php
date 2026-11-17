@@ -73,6 +73,29 @@ class RecordFinderFieldTest extends TestCase
     }
 
     /**
+     * testControllerReadOnlyIsPassedToRelationController checks a readOnly in the controller block locks the relation, as it does on a regular form field.
+     */
+    public function testControllerReadOnlyIsPassedToRelationController()
+    {
+        $field = $this->defineFormField(['displayMode' => 'controller', 'controller' => ['readOnly' => true]]);
+        $this->assertTrue($field->controller['readOnly']);
+
+        $field = $this->defineFormField(['displayMode' => 'controller', 'controller' => ['readOnly' => false]]);
+        $this->assertFalse($field->controller['readOnly']);
+    }
+
+    /**
+     * testFieldReadOnlyIsNotPassedToRelationController checks a field readOnly stays a display setting, as it does on a regular form field.
+     */
+    public function testFieldReadOnlyIsNotPassedToRelationController()
+    {
+        $field = $this->defineFormField(['displayMode' => 'controller', 'readOnly' => true]);
+
+        $this->assertArrayNotHasKey('readOnly', $field->controller);
+        $this->assertTrue($field->readOnly);
+    }
+
+    /**
      * makeContentField returns a recordfinder content field for a model without a title column.
      */
     protected function makeContentField(array $config): RecordFinderField
@@ -119,6 +142,17 @@ class RecordFinderFieldTest extends TestCase
      */
     protected function makeFormWidget(array $config): FormWidgetBase
     {
+        $formField = $this->defineFormField($config);
+        $widgetClass = $formField->type === 'recordfinder' ? RecordFinder::class : Relation::class;
+
+        return new $widgetClass(new Controller, $formField, $formField->config);
+    }
+
+    /**
+     * defineFormField defines the content field on a form and returns its form field.
+     */
+    protected function defineFormField(array $config): FormField
+    {
         $form = new class implements FormElement {
             public $fields = [];
 
@@ -143,9 +177,6 @@ class RecordFinderFieldTest extends TestCase
 
         $this->makeContentField($config)->defineFormField($form);
 
-        $formField = $form->fields['author'];
-        $widgetClass = $formField->type === 'recordfinder' ? RecordFinder::class : Relation::class;
-
-        return new $widgetClass(new Controller, $formField, $formField->config);
+        return $form->fields['author'];
     }
 }

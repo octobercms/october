@@ -203,7 +203,7 @@ return [
     |
     */
 
-    'force_bytecode_invalidation' => true,
+    'force_bytecode_invalidation' => env('CMS_FORCE_BYTECODE_INVALIDATION', true),
 
     /*
     |--------------------------------------------------------------------------

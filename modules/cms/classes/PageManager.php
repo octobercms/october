@@ -63,7 +63,7 @@ class PageManager
     }
 
     /**
-     * processMarkup will replace links in content with resolved versions
+     * processLinks will replace links in content with resolved versions
      * For example: ="october://xxx" → ="https://..."
      */
     public static function processLinks($markup): string

@@ -44,7 +44,7 @@
                 ref="contextmenuTrigger"
                 class="node-menu-trigger backend-icon-background-pseudo"
                 @click.stop="onMenuTriggerClick"
-                v-bind:aria-labeledby="menuLabelId"
+                v-bind:aria-labelledby="menuLabelId"
                 v-bind:aria-controls="menuId"
                 v-bind:id="menuButtonId"
                 v-bind:aria-haspopup="true"

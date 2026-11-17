@@ -63,7 +63,7 @@ class RoleManager
     }
 
     /**
-     * loadItems from modules and plugins
+     * loadPermissions from modules and plugins
      */
     protected function loadPermissions()
     {

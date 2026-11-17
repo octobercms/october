@@ -80,13 +80,8 @@ class Files extends Controller
         $disk = $file->getDisk();
         $adapter = $disk->getAdapter();
 
-        if (class_exists('\League\Flysystem\Cached\CachedAdapter') && $adapter instanceof \League\Flysystem\Cached\CachedAdapter) {
-            $adapter = $adapter->getAdapter();
-        }
-
         if (
             (class_exists('\League\Flysystem\AwsS3v3\AwsS3V3Adapter') && $adapter instanceof \League\Flysystem\AwsS3v3\AwsS3V3Adapter) ||
-            (class_exists('\League\Flysystem\Rackspace\RackspaceAdapter') && $adapter instanceof \League\Flysystem\Rackspace\RackspaceAdapter) ||
             method_exists($adapter, 'getTemporaryUrl')
         ) {
             if (empty($path)) {

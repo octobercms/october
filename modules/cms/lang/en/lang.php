@@ -10,7 +10,7 @@
     'error_deleting' => 'Error deleting the template file \':name\'. Please check write permissions.',
     'delete_success' => 'Templates deleted: :count.',
     'file_name_required' => 'The File Name field is required.',
-    'safe_mode_enabled' => 'Safe mode is currently enabled that prevents PHP code changes.',
+    'safe_mode_enabled' => 'Safe mode is currently enabled, which prevents PHP code changes.',
   ],
   'dashboard' => [
     'active_theme' => [
@@ -333,7 +333,7 @@
       'escape_filter' => 'The `escape` filter escapes a string using strategies that depend on the context.',
       'filter_filter' => 'The `filter` filter filters elements of a sequence or a mapping using an arrow function. The arrow function receives the value of the sequence or mapping.',
       'first_filter' => 'The `first` filter returns the first "element" of a sequence, a mapping, or a string.',
-      'format_filter' => 'The `format` filter formats a given string by replacing the placeholders (placeholders follows the [sprintf](https://www.php.net/sprintf) notation).',
+      'format_filter' => 'The `format` filter formats a given string by replacing the placeholders (placeholders follow the [sprintf](https://www.php.net/sprintf) notation).',
       'format_currency_filter' => 'The `format_currency` filter formats a number as a currency.',
       'join_filter' => 'The `join` filter returns a string which is the concatenation of the items of a sequence',
       'json_encode_filter' => 'The `json_encode` filter returns the JSON representation of a value.',
@@ -359,7 +359,7 @@
       'upper_filter' => 'The `upper` filter converts a value to uppercase.',
       'url_encode_filter' => 'The `url_encode` filter percent encodes a given string as URL segment or an array as query string.',
       'page_filter' => 'The `page` filter creates a link to a page using a page file name, without an extension, as a parameter.',
-      'theme_filter' => 'The `theme` filter returns an address relative to the active theme path of the website. ',
+      'theme_filter' => 'The `theme` filter returns an address relative to the active theme path of the website.',
       'app_filter' => 'The `app` filter returns an address relative to the public path of the website.',
       'media_filter' => 'The `media` filter returns an address relative to the public path of the [media manager library](https://docs.octobercms.com/4.x/cms/media/introduction.html).',
       'md_filter' => 'The `md` filter converts the value from Markdown to HTML format.',

@@ -378,10 +378,6 @@ class Relation extends FormWidgetBase
         if ($this->useControllerConfig) {
             $controllerConfig = $this->useControllerConfig;
 
-            if (!isset($controllerConfig['readOnly']) && $this->readOnly === true) {
-                $controllerConfig['readOnly'] = $this->readOnly;
-            }
-
             if (!isset($controllerConfig['externalToolbarBus']) && isset($this->config->externalToolbarBus)) {
                 $controllerConfig['externalToolbarBus'] = $this->config->externalToolbarBus;
             }

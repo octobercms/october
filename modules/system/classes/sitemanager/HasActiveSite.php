@@ -87,7 +87,7 @@ trait HasActiveSite
     }
 
     /**
-     * setActiveSite
+     * setActiveSiteId
      */
     public function setActiveSiteId($id)
     {

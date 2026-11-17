@@ -165,7 +165,7 @@ class WizardComponent extends FormComponent
     protected function formSaveStep(Model $model, string $tag): void
     {
         $config = $this->formGetFieldConfigByTag($tag);
-        $allowedFields = array_keys($config);
+        $allowedFields = array_values(array_intersect(array_keys($config), $this->formGetFieldNames()));
         $fileFields = array_intersect($this->formGetFileFieldNames(), $allowedFields);
 
         // File fields accept uploaded files only, never postback values

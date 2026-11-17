@@ -56,7 +56,7 @@ class MailManager
     /**
      * registerCallback registers a callback function that defines mail templates.
      * The callback function should register templates by calling the manager's
-     * registerMailTemplates() function. Thi instance is passed to the
+     * registerMailTemplates() function. This instance is passed to the
      * callback function as an argument. Usage:
      *
      *     MailManager::registerCallback(function ($manager) {

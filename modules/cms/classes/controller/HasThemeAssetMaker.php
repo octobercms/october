@@ -100,7 +100,7 @@ trait HasThemeAssetMaker
     }
 
     /**
-     * getThemeAssetPath
+     * getThemeAssetRelativePath
      */
     protected function getThemeAssetRelativePath(?string $relativePath = null): string
     {

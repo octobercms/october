@@ -455,7 +455,7 @@ class NavigationManager
 
     /**
      * listMainMenuItemsWithSubitems prepares data for displaying the top menu and side
-     * (collapsable) menu. Uses caching to avoid running counter functions twice.
+     * (collapsible) menu. Uses caching to avoid running counter functions twice.
      */
     public function listMainMenuItemsWithSubitems()
     {

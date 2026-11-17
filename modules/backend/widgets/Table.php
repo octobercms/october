@@ -76,7 +76,7 @@ class Table extends WidgetBase
         }
 
         if (!class_exists($dataSourceClass)) {
-            throw new SystemException(sprintf('The Table widget data source class "%s" is could not be found.', $dataSourceClass));
+            throw new SystemException(sprintf('The Table widget data source class "%s" could not be found.', $dataSourceClass));
         }
 
         $this->dataSource = new $dataSourceClass($this->recordsKeyFrom);

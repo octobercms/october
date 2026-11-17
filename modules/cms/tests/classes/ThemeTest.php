@@ -167,4 +167,13 @@ class ThemeTest extends TestCase
 
         return $path;
     }
+
+    public function testParentThemeIsLoadedOnce()
+    {
+        $theme = Theme::load('childtest');
+
+        $this->assertSame('parenttest', $theme->getParentTheme()->getDirName());
+        $this->assertSame($theme->getParentTheme(), $theme->getParentTheme());
+        $this->assertNull(Theme::load('parenttest')->getParentTheme());
+    }
 }

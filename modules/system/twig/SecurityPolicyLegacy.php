@@ -92,7 +92,7 @@ final class SecurityPolicyLegacy implements SecurityPolicyInterface
      * checkSecurity
      * @throws SecurityError
      */
-    public function checkSecurity($tags, $filters, $functions): void
+    public function checkSecurity($tags, $filters, $functions, array $tests = []): void
     {
     }
 

@@ -555,6 +555,27 @@ class SubmissionComponentTest extends PluginTestCase
     }
 
     /**
+     * testStepIgnoresRejectedFieldTypes confirms a step drops the same field types as a full submit
+     */
+    public function testStepIgnoresRejectedFieldTypes()
+    {
+        $component = $this->makeComponent(true, 'UnitTest\Survey');
+
+        $this->setPostData([
+            '_form_step' => 'step1',
+            'name' => 'Jeff',
+            'banner' => '/private/secret.jpg',
+        ]);
+
+        $component->onFormStep();
+
+        $record = SubmissionRecord::inSection('UnitTest\Survey')->newQuery()->orderBy('id', 'desc')->first();
+        $this->assertNotNull($record);
+        $this->assertEquals('Jeff', $record->name);
+        $this->assertEmpty($record->banner);
+    }
+
+    /**
      * makeComponent builds a submission component wired to a CMS controller
      */
     protected function makeComponent(bool $wizard = true, string $handle = 'UnitTest\Contact'): SubmissionComponent

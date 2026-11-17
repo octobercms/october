@@ -65,7 +65,7 @@ class AjaxApiResponse extends Response implements ArrayAccess
     }
 
     /**
-     * setContent captures the variables from a handler and merges any resulting data
+     * setHandlerResponse captures the variables from a handler and merges any resulting data
      */
     public function setHandlerResponse($content): static
     {
@@ -101,7 +101,7 @@ class AjaxApiResponse extends Response implements ArrayAccess
     }
 
     /**
-     * setException
+     * setHandlerException
      */
     public function setHandlerException($exception): static
     {
@@ -143,7 +143,7 @@ class AjaxApiResponse extends Response implements ArrayAccess
     }
 
     /**
-     * getRedirectUrl
+     * getAjaxRedirectUrl
      */
     public function getAjaxRedirectUrl(): string
     {

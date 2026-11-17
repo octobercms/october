@@ -179,7 +179,7 @@ class ThemeData extends Model
     }
 
     /**
-     * afterFetch the model, intiialize model relationships based on form field definitions.
+     * afterFetch the model, initialize model relationships based on form field definitions.
      */
     public function afterFetch()
     {

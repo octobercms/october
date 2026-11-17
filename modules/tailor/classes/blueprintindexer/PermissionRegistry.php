@@ -73,7 +73,7 @@ trait PermissionRegistry
     }
 
     /**
-     * findAllFieldsetBlueprints will spin over all fieldset sources
+     * findAllPermissionBlueprints will spin over all permission sources
      */
     protected function findAllPermissionBlueprints(): array
     {

@@ -16,7 +16,7 @@ use Exception;
 trait PageManagerRegistry
 {
     /**
-     * listPrimaryNavigation
+     * listPageManagerTypes
      */
     public function listPageManagerTypes(): array
     {

@@ -333,7 +333,7 @@ export default {
                     return;
                 }
 
-                // Focus after visbility animations are ready
+                // Focus after visibility animations are ready
                 var defaultFocus = $(this.$refs.content).find('[data-default-focus]').first();
                 setTimeout(function () {
                     defaultFocus.focus();
@@ -352,7 +352,7 @@ export default {
                 this.$el !== ev.target &&
                 !this.$refs.content.contains(ev.target)
             ) {
-                // Focus after visbility animations are ready
+                // Focus after visibility animations are ready
                 var defaultFocus = $(this.$refs.content).find('[data-default-focus]').first();
                 setTimeout(function () {
                     defaultFocus.focus();

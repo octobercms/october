@@ -60,7 +60,7 @@ class PartialStack
     }
 
     /**
-     * findHandlerFromStack
+     * findPartialByHandler
      */
     public function findPartialByHandler($handler)
     {

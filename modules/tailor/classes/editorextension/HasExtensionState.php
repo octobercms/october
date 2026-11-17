@@ -73,7 +73,7 @@ trait HasExtensionState
     }
 
     /**
-     * addBlueprintsNavigatorNodes
+     * addThemeBlueprintsNavigatorNodes
      */
     protected function addThemeBlueprintsNavigatorNodes($rootNode)
     {

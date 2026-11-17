@@ -2,6 +2,7 @@
 
 use Lang;
 use Config;
+use League\Csv\Bom as CsvBom;
 use League\Csv\Writer as CsvWriter;
 use League\Csv\CharsetConverter;
 use SplTempFileObject;
@@ -29,7 +30,7 @@ trait EncodesCsv
             'iso-8859-6' => Lang::get('backend::lang.import_export.encodings.iso_8859_6'),
             'iso-8859-7' => Lang::get('backend::lang.import_export.encodings.iso_8859_7'),
             'iso-8859-8' => Lang::get('backend::lang.import_export.encodings.iso_8859_8'),
-            'iso-8859-0' => Lang::get('backend::lang.import_export.encodings.iso_8859_0'),
+            'iso-8859-9' => Lang::get('backend::lang.import_export.encodings.iso_8859_0'),
             'iso-8859-10' => Lang::get('backend::lang.import_export.encodings.iso_8859_10'),
             'iso-8859-11' => Lang::get('backend::lang.import_export.encodings.iso_8859_11'),
             'iso-8859-13' => Lang::get('backend::lang.import_export.encodings.iso_8859_13'),
@@ -91,8 +92,8 @@ trait EncodesCsv
         ], $options);
 
         // Prepare CSV
-        $csv = CsvWriter::createFromString();
-        $csv->setOutputBOM(CsvWriter::BOM_UTF8);
+        $csv = CsvWriter::fromString();
+        $csv->setOutputBOM(CsvBom::Utf8);
 
         if ($options['delimiter'] !== null) {
             $csv->setDelimiter($options['delimiter']);

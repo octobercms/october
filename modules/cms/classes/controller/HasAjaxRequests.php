@@ -7,6 +7,7 @@ use Cms\Classes\Partial;
 use Cms\Classes\CmsException;
 use Cms\Classes\PartialWatcher;
 use Cms\Classes\AjaxApiResponse;
+use Larajax\Classes\AjaxRequest;
 use October\Rain\Exception\ApplicationException;
 use Illuminate\Validation\ValidationException;
 use Exception;
@@ -127,7 +128,7 @@ trait HasAjaxRequests
 
         try {
             // Validate the handler name
-            if (!preg_match('/^(?:\w+\:{2})?on[A-Z]{1}[\w+]*$/', $handler)) {
+            if (!AjaxRequest::isValidHandlerName($handler)) {
                 throw new CmsException(Lang::get('cms::lang.ajax_handler.invalid_name', ['name'=>e($handler)]));
             }
 
@@ -191,13 +192,18 @@ trait HasAjaxRequests
     }
 
     /**
-     * runAjaxHandlerResponse is used by the ajaxHandler Twig function.
+     * runAjaxHandlerAsResponse is used by the ajaxHandler Twig function.
      */
     public function runAjaxHandlerAsResponse($handler)
     {
         $response = new AjaxApiResponse;
 
         try {
+            // Validate the handler name
+            if (!AjaxRequest::isValidHandlerName((string) $handler)) {
+                throw new CmsException(Lang::get('cms::lang.ajax_handler.invalid_name', ['name'=>e($handler)]));
+            }
+
             $result = $this->runAjaxHandler($handler);
             $response->addPageVars($this->pageObj->vars);
 
@@ -235,7 +241,7 @@ trait HasAjaxRequests
         }
 
         // Validate the handler name
-        if (!preg_match('/^(?:\w+\:{2})?on[A-Z]{1}[\w+]*$/', $handler)) {
+        if (!is_string($handler) || !AjaxRequest::isValidHandlerName($handler)) {
             return null;
         }
 

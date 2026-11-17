@@ -273,6 +273,20 @@ class ControllerTest extends TestCase
         $this->assertInstanceOf('Symfony\Component\HttpFoundation\Response', $response);
     }
 
+    public function testAjaxHandlerFunctionRejectsNonHandlerMethods()
+    {
+        $theme = Theme::load('test');
+        $controller = new Controller($theme);
+        $controller->run('/with-component');
+
+        $response = $controller->runAjaxHandlerAsResponse('testArchive::posts');
+        $this->assertSame(400, $response->getStatusCode());
+        $this->assertArrayHasKey('error', $response->getOriginalContent());
+
+        $response = $controller->runAjaxHandlerAsResponse('testArchive::onTestAjax');
+        $this->assertSame(200, $response->getStatusCode());
+    }
+
     public function testAjaxInvalidPartial()
     {
         Request::swap($this->configAjaxRequestMock('onTest', 'p:artial'));
