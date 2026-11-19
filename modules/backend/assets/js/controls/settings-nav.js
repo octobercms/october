@@ -41,6 +41,13 @@ oc.registerControl('settings-nav', class extends oc.ControlBase {
     // Scrollbars
     //
 
+    refreshScrollbar() {
+        const scrollbarEl = this.element.querySelector('[data-control=scrollbar]');
+        if (scrollbarEl) {
+            oc.fetchControl(scrollbarEl, 'scrollbar')?.update();
+        }
+    }
+
     initScrollbar(event) {
         var activeItem = this.element.querySelector('li.active'),
             active = activeItem ? activeItem.closest('[data-group-code]') : null;
@@ -181,6 +188,8 @@ oc.registerControl('settings-nav', class extends oc.ControlBase {
         });
 
         Cookies.remove(this.searchCookieName);
+
+        this.refreshScrollbar();
     }
 
     applySearch() {
@@ -237,7 +246,7 @@ oc.registerControl('settings-nav', class extends oc.ControlBase {
             })
         });
 
-        $(window).trigger('resize');
+        this.refreshScrollbar();
 
         return false;
     }
